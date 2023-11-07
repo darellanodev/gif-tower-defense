@@ -7,6 +7,11 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - Use a web server like XAMPP and open index.html through localhost.
 - Alternatively, you can use the "Live Server" extension in VSCode to open index.html.
 
+### Tasks
+
+- [x] Start with a basic canvas test
+- [ ] More tasks coming soon...
+
 ## Resources
 
 <https://p5js.org/es/reference/>
