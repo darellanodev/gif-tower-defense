@@ -10,6 +10,8 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 ### Tasks
 
 - [x] Start with a basic canvas test
+- [x] Include p5.min.js locally, set background dark and put some images
+- [x] Create a basic Tower Class, and display it
 - [ ] More tasks coming soon...
 
 ## Resources
