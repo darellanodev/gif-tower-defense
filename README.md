@@ -1,6 +1,6 @@
 # Gif Tower Defense Game
 
-This is an attempt to rewrite my old game Gif Tower Defense (2012) originally made with processingjs now using p5.js and JavaScript. *(THIS APPLICATION IS IN AN EARLY STAGE OF DEVELOPMENT)*
+This is an attempt to rewrite my old game Gif Tower Defense (2012) originally made with processingjs now using p5.js and JavaScript, for learning purposes. *(THIS APPLICATION IS IN AN EARLY STAGE OF DEVELOPMENT)*
 
 ## Execute the game
 
