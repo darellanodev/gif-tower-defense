@@ -2,32 +2,28 @@ let myGrid
 let myEnemy
 let myTower
 
+const TOTAL_TOWER_UPGRADES = 5
+const TOTAL_ENEMIES = 5
+
 function preload() {
 
-    imagesTower1 = [
-        loadImage('img/tower1/upgrade0.png'),
-        loadImage('img/tower1/upgrade1.png'),
-        loadImage('img/tower1/upgrade2.png'),
-        loadImage('img/tower1/upgrade3.png'),
-        loadImage('img/tower1/upgrade4.png'),
-        loadImage('img/tower1/upgrade5.png'),
-    ]
+    tower1Images = [];
+    for (let i = 0; i <= TOTAL_TOWER_UPGRADES; i++) {
+        tower1Images.push(loadImage('img/tower1/upgrade' + i + '.png'));
+    }
 
-    imagesEnemies = [
-        loadImage('img/enemy/1.gif'),
-        loadImage('img/enemy/2.gif'),
-        loadImage('img/enemy/3.gif'),
-        loadImage('img/enemy/4.gif'),
-        loadImage('img/enemy/5.gif'),
-    ]
+    enemiesImages = [];
+    for (let i = 1; i <= TOTAL_ENEMIES; i++) {
+        enemiesImages.push(loadImage('img/enemy/' + i + '.gif'));
+    }
     
 }
 
 function setup() {
     createCanvas(400, 400)
     myGrid = new Grid(color(173, 216, 230))
-    myEnemy = new Enemy(imagesEnemies[0])
-    myTower = new Tower(imagesTower1)
+    myEnemy = new Enemy(enemiesImages[0])
+    myTower = new Tower(tower1Images)
 }
 
 function draw() {
