@@ -1,26 +1,28 @@
 class Grid {
 
-    STROKE_COLOR = 0
-    STROKE_WIDTH = 3
-    RECT_SIZE = 50
-    RECT_MARGIN = 10
-    TOTAL_ROWS = 20
-    TOTAL_COLUMNS = 20
+    FLOOR_SIZE = 50
 
-    constructor(fillColor) {
-        this.fillColor = fillColor
+    constructor(levelMap, mapImages) {
+        this.levelMap = levelMap
+        this.orangeImage = mapImages[0]
+        this.blackImage = mapImages[1]
     }
 
     draw() {
-        stroke(this.STROKE_COLOR)
-        strokeWeight(this.STROKE_WIDTH)
-        fill(this.fillColor)
-        for (let i = 0; i < this.TOTAL_ROWS; i++) {
-            for (let j = 0; j < this.TOTAL_COLUMNS; j++) {
-                let x = i * (this.RECT_SIZE + this.STROKE_WIDTH) + this.RECT_MARGIN
-                let y = j * (this.RECT_SIZE + this.STROKE_WIDTH) + this.RECT_MARGIN
-                rect(x, y, this.RECT_SIZE, this.RECT_SIZE)
+
+        const mapArray = this.levelMap.split(',');
+        let row = 0
+        mapArray.forEach((element) => {
+            row++
+            for (let column = 0; column < element.length; column++) {
+                const character = element[column];
+                if (character == '0') {
+                    image(this.orangeImage, column + (this.FLOOR_SIZE * column), row + (this.FLOOR_SIZE * row));
+                } else if (character == '1') {
+                    image(this.blackImage, column + (this.FLOOR_SIZE * column), row + (this.FLOOR_SIZE * row));
+                }
             }
-        }
+        });
+
     }
 }
