@@ -9,11 +9,15 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ### Tasks
 
+- [ ] Put a tower when the player clics on an orange tile
+- [x] Place the player HUD
+- [x] Center the canvas on the screen
 - [x] Start with a basic canvas test
 - [x] Include p5.min.js locally, set background dark and put some images
 - [x] Create a basic Tower Class, and display it
 - [x] Create a basic map
-- [ ] More tasks coming soon...
+- [x] Set a background image for all the map
+- [x] Make the path of the map transparent
 
 ## Resources
 
