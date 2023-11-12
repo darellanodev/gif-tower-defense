@@ -10,6 +10,15 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 ### Tasks
 
 - [ ] Put a tower when the player clics on an orange tile
+- [ ] When the player clic over a tower
+  - [ ] If right button right is pressed sell the tower
+  - [ ] If left mouse button is pressed upgrade the tower
+- [ ] When the player moves the mouse over a tower:
+  - [ ] The HUD changes
+  - [ ] Draw a circle representing the influence area
+- [ ] Put the enter and the exit of the laberinth
+- [ ] The enemy follows the path
+- [x] Create an array of towers
 - [x] Place the player HUD
 - [x] Center the canvas on the screen
 - [x] Start with a basic canvas test
