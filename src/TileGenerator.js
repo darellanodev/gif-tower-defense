@@ -4,6 +4,11 @@ class TileGenerator {
     MARGIN_TOP = 30
 
     constructor(levelMap, mapImages) {
+
+        if (levelMap === '') {
+            throw new Error('Level map string cannot be empty')
+        }
+
         this.levelMap = levelMap
         this.orangeImage = mapImages[0]
         this.blackImage = mapImages[1]
@@ -32,3 +37,5 @@ class TileGenerator {
     }
 
 }
+
+module.exports = TileGenerator;
