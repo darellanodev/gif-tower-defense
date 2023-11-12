@@ -1,6 +1,3 @@
-let myGrid
-let myEnemy
-let myTower
 
 const TOTAL_TOWER_UPGRADES = 5
 const TOTAL_ENEMIES = 5
@@ -41,7 +38,13 @@ function setup() {
 
     grid = new Grid(levelMap, floorImages)
     enemy = new Enemy(enemiesImages[0])
-    tower = new Tower(tower1Images)
+
+    towers = [
+        new Tower(tower1Images, 100, 100),
+        new Tower(tower1Images, 200, 200),
+        new Tower(tower1Images, 300, 300),
+    ]
+
     hud = new Hud(hudImages)
 }
 
@@ -53,7 +56,10 @@ function draw() {
     
     grid.draw()
     enemy.draw()
-    tower.draw()
+
+    for (const tower of towers) {
+        tower.draw()
+    }
 
     hud.draw()
     
