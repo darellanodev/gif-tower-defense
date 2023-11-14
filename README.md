@@ -14,6 +14,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 ### Tasks
 
 - [x] Test the TileGenerator class to throw an error if passed an empty string
+- [x] Smaller enemies with basic animations: center, left, right, closed
 - [ ] Put a tower when the player clics on an orange tile
 - [ ] If right button is pressed sell the tower
 - [ ] If left mouse button is pressed upgrade the tower
@@ -21,6 +22,8 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Draw a circle representing the influence area when the player moves the mouse over a tower
 - [ ] Put the enter and the exit of the laberinth
 - [ ] The enemy follows the path
+- [ ] Refactor with some functional programming
+- [ ] Use prettier or other formatter
 - [x] Create an array of towers
 - [x] Place the player HUD
 - [x] Center the canvas on the screen
