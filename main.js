@@ -64,8 +64,14 @@ function setup() {
 
 function mouseClicked() {
     
-    const tower = new Tower(tower1Images, mouseX, mouseY)
-    towers.push(tower)
+    for (const orangeTile of orangeTiles){
+        if (orangeTile.isClicked(mouseX, mouseY)) {
+            const x = orangeTile.getX()
+            const y = orangeTile.getY()
+            const tower = new Tower(tower1Images, x, y)
+            orangeTile.insertTower(tower)
+        }
+    }
 
 }
 
@@ -80,11 +86,6 @@ function draw() {
     }
     
     enemy.draw()
-
-    for (const tower of towers) {
-        tower.draw()
-    }
-
     hud.draw()
     
 
