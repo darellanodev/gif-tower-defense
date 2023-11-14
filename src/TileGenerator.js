@@ -38,4 +38,5 @@ class TileGenerator {
 
 }
 
+var module = module || {};
 module.exports = TileGenerator;
