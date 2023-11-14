@@ -1,3 +1,10 @@
+// This is for Jest testing
+if (typeof window === 'undefined') {
+    OrangeTile = require('../src/OrangeTile.js');
+    PathTile = require('../src/PathTile.js');
+}
+
+
 class TileGenerator {
 
     FLOOR_SIZE = 50
@@ -14,9 +21,9 @@ class TileGenerator {
         this.blackImage = mapImages[1]
     }
 
-    orangeTiles() {
+    _extractTiles(symbol, img, tileClass) {
 
-        const orangeTiles = []
+        const resultTiles = []
 
         const mapArray = this.levelMap.split(',');
         let row = 0
@@ -26,17 +33,26 @@ class TileGenerator {
                 const character = element[column]
                 const posX = column + (this.FLOOR_SIZE * column)
                 const posY = row + (this.FLOOR_SIZE * row) + this.MARGIN_TOP
-                if (character == '0') {
-                    orangeTiles.push(new OrangeTile(this.orangeImage, posX, posY))
+                if (character == symbol) {
+                    resultTiles.push(new tileClass(img, posX, posY))
                 }
             }
         })
 
-        return orangeTiles
-
+        return resultTiles
+    }
+   
+    orangeTiles() {
+        return this._extractTiles('0', this.orangeImage, OrangeTile)
+    }
+    
+    pathTiles() {
+        const img = null
+        return this._extractTiles('1', img, PathTile)
     }
 
 }
 
+// This is for Jest testing
 var module = module || {};
 module.exports = TileGenerator;

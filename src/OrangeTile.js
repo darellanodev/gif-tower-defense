@@ -47,5 +47,6 @@ class OrangeTile {
 
 }
 
+// This is for Jest testing
 var module = module || {};
 module.exports = OrangeTile;
