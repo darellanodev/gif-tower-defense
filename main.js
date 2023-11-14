@@ -5,7 +5,11 @@ const CANVAS_HEIGHT = 650
 const HUD_HEIGHT = 84
 
 
-let enemy
+let enemy1
+let enemy2
+let enemy3
+let enemy4
+let enemy5
 let towers
 let hud
 let orangeTiles
@@ -17,9 +21,12 @@ function preload() {
         tower1Images.push(loadImage('img/tower1/upgrade' + i + '.png'))
     }
 
-    enemiesImages = []
+    enemy1Images = []
     for (let i = 1; i <= TOTAL_ENEMIES; i++) {
-        enemiesImages.push(loadImage('img/enemy/' + i + '.gif'))
+        enemy1Images.push(loadImage('img/enemies/' + i + '_center.png'));
+        enemy1Images.push(loadImage('img/enemies/' + i + '_left.png'));
+        enemy1Images.push(loadImage('img/enemies/' + i + '_right.png'));
+        enemy1Images.push(loadImage('img/enemies/' + i + '_closed.png'));
     }
 
     tileImages = [
@@ -44,7 +51,7 @@ function setup() {
     const tileGenerator = new TileGenerator(levelMap, tileImages)
     orangeTiles = tileGenerator.orangeTiles()
 
-    enemy = new Enemy(enemiesImages[0])
+    enemy = new Enemy(enemy1Images[0])
 
     towers = [
         new Tower(tower1Images, 72, 154),
