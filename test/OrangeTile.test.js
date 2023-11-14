@@ -8,7 +8,7 @@ describe('When clic over an orange tile', () => {
 
         const result = orangeTile.isClicked(120, 220)
 
-        expect(result).toEqual(true)
+        expect(result).toBeTruthy()
     })
 
     test('If mouse is outside should return false', () => {
@@ -18,7 +18,7 @@ describe('When clic over an orange tile', () => {
 
         const result = orangeTile.isClicked(90, 220)
 
-        expect(result).toEqual(false)
+        expect(result).toBeFalsy()
     })
 
 })
