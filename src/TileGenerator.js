@@ -21,7 +21,7 @@ class TileGenerator {
         this.blackImage = mapImages[1]
     }
 
-    _extractTiles(symbol, img, tileClass) {
+    _extractTiles(symbol, tileClass, img = null) {
 
         const resultTiles = []
 
@@ -33,8 +33,12 @@ class TileGenerator {
                 const character = element[column]
                 const posX = column + (this.FLOOR_SIZE * column)
                 const posY = row + (this.FLOOR_SIZE * row) + this.MARGIN_TOP
-                if (character == symbol) {
-                    resultTiles.push(new tileClass(img, posX, posY))
+                if (character === symbol) {
+                    if (img === null) {
+                        resultTiles.push(new tileClass(posX, posY))
+                    } else {
+                        resultTiles.push(new tileClass(img, posX, posY))
+                    }
                 }
             }
         })
@@ -43,12 +47,11 @@ class TileGenerator {
     }
    
     orangeTiles() {
-        return this._extractTiles('0', this.orangeImage, OrangeTile)
+        return this._extractTiles('0', OrangeTile, this.orangeImage)
     }
     
     pathTiles() {
-        const img = null
-        return this._extractTiles('1', img, PathTile)
+        return this._extractTiles('1', PathTile)
     }
 
 }

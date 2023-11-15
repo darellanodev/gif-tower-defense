@@ -2,10 +2,9 @@ class PathTile {
 
     TILE_SIZE = 50
 
-    constructor(img, x, y) {
+    constructor(x, y) {
         this.x = x
         this.y = y
-        this.img = img
     }
 
     getX() {
