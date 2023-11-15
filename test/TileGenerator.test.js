@@ -46,3 +46,13 @@ test('TileGenerator generate start tile', () => {
 
     expect(result).toBeInstanceOf(Object)
 })
+
+test('TileGenerator generate end tile', () => {
+
+    const mapimages = [null, null, null]
+    const tileGenerator = new TileGenerator(levelMap, mapimages)
+
+    const result = tileGenerator.endTile()
+
+    expect(result).toBeInstanceOf(Object)
+})

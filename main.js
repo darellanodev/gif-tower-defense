@@ -61,6 +61,7 @@ function setup() {
     const tileGenerator = new TileGenerator(levelMap, tileImages)
     orangeTiles = tileGenerator.orangeTiles()
     startTile = tileGenerator.startTile()
+    endTile = tileGenerator.endTile()
 
     enemy = new Enemy(enemy1Images[0])
 
@@ -96,6 +97,7 @@ function draw() {
         orangeTile.draw(tileImages[0])
     }
     startTile.draw()
+    endTile.draw()
     
     enemy.draw()
     hud.draw()

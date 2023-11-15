@@ -3,6 +3,7 @@ if (typeof window === 'undefined') {
     OrangeTile = require('../src/OrangeTile.js');
     PathTile = require('../src/PathTile.js');
     StartTile = require('../src/StartTile.js');
+    EndTile = require('../src/EndTile.js');
 }
 
 
@@ -66,6 +67,10 @@ class TileGenerator {
 
     startTile() {
         return (this._extractTiles('x', StartTile, this.startDownImage))[0]
+    }
+
+    endTile() {
+        return (this._extractTiles('y', EndTile, this.endDownImage))[0]
     }
 
 }
