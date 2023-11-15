@@ -18,18 +18,67 @@ class TileGenerator {
             throw new Error('Level map string cannot be empty')
         }
 
-        this.levelMap = levelMap
+        const levelMapParts = levelMap.split('@')
+
+        const levelMapData = levelMapParts[1]
+        
+        this._setStartImage(levelMapData, mapImages)
+        this._setEndImage(levelMapData, mapImages)
+
+        this.levelMap = levelMapParts[0]
         this.orangeImage = mapImages[0]
         this.blackImage = mapImages[1]
-        this.endDownImage = mapImages[2]
-        this.endLeftImage = mapImages[3]
-        this.endRightImage = mapImages[4]
-        this.endUpImage = mapImages[5]
-        this.startDownImage = mapImages[6]
-        this.startLeftImage = mapImages[7]
-        this.startRightImage = mapImages[8]
-        this.startUpImage = mapImages[9]
 
+
+    }
+
+    _setStartImage(levelMapData, mapImages) {
+
+        const levelMapDataParts = levelMapData.split(',')
+        const startOrientation = levelMapDataParts[0]
+
+        switch (startOrientation) {
+                case '1':
+                this.startImage = mapImages[6]
+                break;
+
+                case '2':
+                this.startImage = mapImages[7]
+                break;
+
+                case '3':
+                this.startImage = mapImages[8]
+                break;
+
+                case '4':
+                this.startImage = mapImages[9]
+                break;
+        }
+
+    }
+
+    _setEndImage(levelMapData, mapImages) {
+
+        const levelMapDataParts = levelMapData.split(',')
+        const endOrientation = levelMapDataParts[1]
+
+        switch (endOrientation) {
+            case '1':
+            this.endImage = mapImages[2]
+            break;
+
+            case '2':
+            this.endImage = mapImages[3]
+            break;
+
+            case '3':
+            this.endImage = mapImages[4]
+            break;
+
+            case '4':
+            this.endImage = mapImages[5]
+            break;
+        }
     }
 
     _extractTiles(symbol, tileClass, img = null) {
@@ -37,13 +86,14 @@ class TileGenerator {
         const resultTiles = []
 
         const mapArray = this.levelMap.split(',');
-        let row = 0
-        mapArray.forEach((element) => {
-            row++
-            for (let column = 0; column < element.length; column++) {
-                const character = element[column]
+        let rowCount = 0
+        mapArray.forEach((row) => {
+            const trimmedRow = trim(row)
+            rowCount++
+            for (let column = 0; column < trimmedRow.length; column++) {
+                const character = trimmedRow[column]
                 const posX = column + (this.FLOOR_SIZE * column)
-                const posY = row + (this.FLOOR_SIZE * row) + this.MARGIN_TOP
+                const posY = rowCount + (this.FLOOR_SIZE * rowCount) + this.MARGIN_TOP
                 if (character === symbol) {
                     if (img === null) {
                         resultTiles.push(new tileClass(posX, posY))
@@ -66,11 +116,11 @@ class TileGenerator {
     }
 
     startTile() {
-        return (this._extractTiles('x', StartTile, this.startDownImage))[0]
+        return (this._extractTiles('x', StartTile, this.startImage))[0]
     }
 
     endTile() {
-        return (this._extractTiles('y', EndTile, this.endDownImage))[0]
+        return (this._extractTiles('y', EndTile, this.endImage))[0]
     }
 
 }

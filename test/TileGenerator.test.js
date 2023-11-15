@@ -9,7 +9,7 @@ const levelMap = `111111111111111x,
                   1000000000000101,
                   1111111111111101,
                   0000000000000001,
-                  y111111111111111`
+                  y111111111111111@3,2,-50,450,150`
 
 test('TileGenerator throws an exception when an empty string is passed to it', () => {
     expect(() => new TileGenerator('')).toThrowError('Level map string cannot be empty');
