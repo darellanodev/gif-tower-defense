@@ -45,3 +45,23 @@ test('TileGenerator generate path tiles', () => {
     expect(result).toHaveLength(87)
 
 }) 
+
+test('TileGenerator generate start tile', () => {
+    const levelMap = `111111111111111x,
+                      1000000000000000,
+                      1011111111111111,
+                      1010000000000001,
+                      1010000111111101,
+                      1011111100000101,
+                      1000000000000101,
+                      1111111111111101,
+                      0000000000000001,
+                      y111111111111111`
+
+    const mapimages = [null, null, null]
+    const tileGenerator = new TileGenerator(levelMap, mapimages)
+
+    const result = tileGenerator.startTile()
+
+    expect(result).toBeInstanceOf(Object)
+})

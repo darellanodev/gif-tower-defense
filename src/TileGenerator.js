@@ -2,6 +2,7 @@
 if (typeof window === 'undefined') {
     OrangeTile = require('../src/OrangeTile.js');
     PathTile = require('../src/PathTile.js');
+    StartTile = require('../src/StartTile.js');
 }
 
 
@@ -19,6 +20,15 @@ class TileGenerator {
         this.levelMap = levelMap
         this.orangeImage = mapImages[0]
         this.blackImage = mapImages[1]
+        this.endDownImage = mapImages[2]
+        this.endLeftImage = mapImages[3]
+        this.endRightImage = mapImages[4]
+        this.endUpImage = mapImages[5]
+        this.startDownImage = mapImages[6]
+        this.startLeftImage = mapImages[7]
+        this.startRightImage = mapImages[8]
+        this.startUpImage = mapImages[9]
+
     }
 
     _extractTiles(symbol, tileClass, img = null) {
@@ -52,6 +62,10 @@ class TileGenerator {
     
     pathTiles() {
         return this._extractTiles('1', PathTile)
+    }
+
+    startTile() {
+        return (this._extractTiles('x', StartTile, this.startDownImage))[0]
     }
 
 }

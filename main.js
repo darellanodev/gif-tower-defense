@@ -32,6 +32,16 @@ function preload() {
     tileImages = [
         loadImage('img/floor/orange.png'),
         loadImage('img/floor/gray.png'),
+        loadImage('img/floor/end_down.png'),
+        loadImage('img/floor/end_left.png'),
+        loadImage('img/floor/end_right.png'),
+        loadImage('img/floor/end_up.png'),
+        loadImage('img/floor/start_down.png'),
+        loadImage('img/floor/start_left.png'),
+        loadImage('img/floor/start_right.png'),
+        loadImage('img/floor/start_up.png'),
+        loadImage('img/floor/crystal.png'),
+
     ]
 
     backgroundImage = loadImage('img/backgrounds/ground.jpg')
@@ -50,6 +60,7 @@ function setup() {
 
     const tileGenerator = new TileGenerator(levelMap, tileImages)
     orangeTiles = tileGenerator.orangeTiles()
+    startTile = tileGenerator.startTile()
 
     enemy = new Enemy(enemy1Images[0])
 
@@ -84,6 +95,7 @@ function draw() {
     for (const orangeTile of orangeTiles){
         orangeTile.draw(tileImages[0])
     }
+    startTile.draw()
     
     enemy.draw()
     hud.draw()
