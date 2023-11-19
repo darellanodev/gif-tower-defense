@@ -26,26 +26,39 @@ class Path {
         return null
     }
 
+    _searchLeftTile(currentTile) {
+        const searchPx = currentTile.getX() - this.TILE_SIZE
+        const searchPy = currentTile.getY()
+        return this.getTileInPosition(searchPx, searchPy)
+    }
+
     
     makeOrders() {
 
         const orders = []
-        let actualTile = this.startTile
-        let actualDirection = this.startTile.getStartDirection()
+        let currentTile = this.startTile
+        let currentDirection = this.startTile.getStartDirection()
 
         let searchCount = 0
         while(searchCount < this.MAX_SEARCHES) {
             searchCount++
-            if (actualDirection === this.LEFT_DIRECTION) {
-                const searchPx = actualTile.getX() - this.TILE_SIZE
-                const searchPy = actualTile.getY()
-                const searchTile = this.getTileInPosition(searchPx, searchPy)
+            if (currentDirection === this.LEFT_DIRECTION) {
+                const searchTile = this._searchLeftTile(currentTile)
                 
                 if (searchTile) {
                     orders.push(this.LEFT_DIRECTION)
-                    actualTile = searchTile
+                    currentTile = searchTile
+                } else {
+                    currentDirection = this.DOWN_DIRECTION
                 }
-            }   
+            }
+
+            if (currentDirection === this.DOWN_DIRECTION) {
+
+            }
+
+
+
         }
 
         return orders
