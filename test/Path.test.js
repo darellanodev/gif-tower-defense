@@ -17,6 +17,14 @@ const levelMap = `111111111111111x,
                   0000000000000001,
                   y111111111111111@3,2,-50,450,150`
 
+const mapimages = [null, null, null]
+const tileGenerator = new TileGenerator(levelMap, mapimages)
+const pathTiles = tileGenerator.pathTiles()
+const startTile = tileGenerator.startTile()
+const endTile = tileGenerator.endTile()
+
+const path = new Path(startTile, endTile, pathTiles)
+
 describe ('finds a pathtile', () => {
     test('if exists return the pathtile', () => {
 
@@ -42,38 +50,29 @@ describe ('finds a pathtile', () => {
     })
 })
 
-describe('When start direction is left and if there are 15 tiles consecutively to the left, the enemy moves first 15 times to left', () => {
-    test('if there are ', () => {
+describe('When start direction is left', () => {
+    test('if there are 15 tiles consecutively to the left, the enemy moves first 15 times to left', () => {
 
-        const expectedOrders = [
-            LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION]
-
-        const mapimages = ['testing', 'testing', 'testing']
-        const tileGenerator = new TileGenerator(levelMap, mapimages)
-        const pathTiles = tileGenerator.pathTiles()
-        const startTile = tileGenerator.startTile()
-        const endTile = tileGenerator.endTile()
-
-        const path = new Path(startTile, endTile, pathTiles)
+        const expectedOrders = [LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION]
+        
         const orders = path.makeOrders()
 
         let result = true
 
-        if (orders.length === 0){
+        if ((orders.length === 0) || (expectedOrders.length > orders.length)){
             result = false
         }
-        if (expectedOrders.length > orders.length) {
-            result = false
-        }
+
         let i = 0
         for (const order of orders){
 
             if (order !== expectedOrders[i]){
                 result = false
-                // break
+                break
             }
             i++
         }
+        
         expect(result).toBeTruthy()
     })
 
