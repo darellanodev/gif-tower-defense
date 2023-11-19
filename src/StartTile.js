@@ -2,10 +2,11 @@ class StartTile {
 
     TILE_SIZE = 50
 
-    constructor(img, x, y) {
+    constructor(img, x, y, startDirection) {
         this.x = x
         this.y = y
         this.img = img
+        this.startDirection = startDirection
     }
 
     draw() {
@@ -20,6 +21,9 @@ class StartTile {
         return this.y
     }
 
+    getStartDirection() {
+        return this.startDirection
+    }
 
 }
 

@@ -11,6 +11,10 @@ class TileGenerator {
 
     FLOOR_SIZE = 50
     MARGIN_TOP = 30
+    LEFT_DIRECTION = 1
+    RIGHT_DIRECTION = 2
+    UP_DIRECTION = 3
+    DOWN_DIRECTION = 4
 
     constructor(levelMap, mapImages) {
 
@@ -29,7 +33,6 @@ class TileGenerator {
         this.orangeImage = mapImages[0]
         this.blackImage = mapImages[1]
 
-
     }
 
     _setStartImage(levelMapData, mapImages) {
@@ -40,18 +43,22 @@ class TileGenerator {
         switch (startOrientation) {
                 case '1':
                 this.startImage = mapImages[6]
+                this.startDirection = this.DOWN_DIRECTION
                 break;
 
                 case '2':
                 this.startImage = mapImages[7]
+                this.startDirection = this.RIGHT_DIRECTION
                 break;
 
                 case '3':
                 this.startImage = mapImages[8]
+                this.startDirection = this.LEFT_DIRECTION
                 break;
 
                 case '4':
                 this.startImage = mapImages[9]
+                this.startDirection = this.UP_DIRECTION
                 break;
         }
 
@@ -81,25 +88,36 @@ class TileGenerator {
         }
     }
 
-    _extractTiles(symbol, tileClass, img = null) {
+    _extractTiles(symbol, startDirection = null) {
 
         const resultTiles = []
 
         const mapArray = this.levelMap.split(',');
         let rowCount = 0
         mapArray.forEach((row) => {
-            const trimmedRow = trim(row)
+            const trimmedRow = row.trim()
             rowCount++
             for (let column = 0; column < trimmedRow.length; column++) {
                 const character = trimmedRow[column]
-                const posX = column + (this.FLOOR_SIZE * column)
-                const posY = rowCount + (this.FLOOR_SIZE * rowCount) + this.MARGIN_TOP
+                const posX = this.FLOOR_SIZE * column
+                const posY = (this.FLOOR_SIZE * rowCount) + this.MARGIN_TOP
                 if (character === symbol) {
-                    if (img === null) {
-                        resultTiles.push(new tileClass(posX, posY))
-                    } else {
-                        resultTiles.push(new tileClass(img, posX, posY))
+
+                    switch (symbol) {
+                        case '0':
+                            resultTiles.push(new OrangeTile(this.orangeImage, posX, posY))
+                            break;
+                        case '1':
+                            resultTiles.push(new PathTile(posX, posY))
+                            break;
+                        case 'x':
+                            resultTiles.push(new StartTile(this.startImage, posX, posY, this.startDirection))
+                            break;
+                        case 'y':
+                            resultTiles.push(new EndTile(this.endImage, posX, posY))
+                            break;
                     }
+
                 }
             }
         })
@@ -108,19 +126,19 @@ class TileGenerator {
     }
    
     orangeTiles() {
-        return this._extractTiles('0', OrangeTile, this.orangeImage)
+        return this._extractTiles('0')
     }
     
     pathTiles() {
-        return this._extractTiles('1', PathTile)
+        return this._extractTiles('1')
     }
 
     startTile() {
-        return (this._extractTiles('x', StartTile, this.startImage))[0]
+        return (this._extractTiles('x'))[0]
     }
 
     endTile() {
-        return (this._extractTiles('y', EndTile, this.endImage))[0]
+        return (this._extractTiles('y'))[0]
     }
 
 }

@@ -3,6 +3,11 @@ const TOTAL_ENEMIES = 5
 const CANVAS_WIDTH = 815
 const CANVAS_HEIGHT = 650
 const HUD_HEIGHT = 84
+const TILE_SIZE = 50
+const LEFT_DIRECTION = 1
+const RIGHT_DIRECTION = 2
+const UP_DIRECTION = 3
+const DOWN_DIRECTION = 4
 
 
 let enemy1
@@ -70,8 +75,6 @@ function setup() {
     orangeTiles = tileGenerator.orangeTiles()
     startTile = tileGenerator.startTile()
     endTile = tileGenerator.endTile()
-
-    // console.log(orangeTiles)
 
     enemy = new Enemy(enemy1Images[0])
 
