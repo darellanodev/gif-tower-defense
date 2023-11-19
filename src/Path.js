@@ -41,7 +41,7 @@ class Path {
                 const searchPy = actualTile.getY()
                 const searchTile = this.getTileInPosition(searchPx, searchPy)
                 
-                if (searchTile !== null) {
+                if (searchTile) {
                     orders.push(this.LEFT_DIRECTION)
                     actualTile = searchTile
                 }

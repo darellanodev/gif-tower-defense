@@ -5,6 +5,9 @@ const EndTile = require('../src/EndTile.js')
 const TileGenerator = require('../src/TileGenerator.js')
 
 const LEFT_DIRECTION = 1
+const RIGHT_DIRECTION = 2
+const UP_DIRECTION = 3
+const DOWN_DIRECTION = 4
 
 const levelMap = `111111111111111x,
                   1000000000000000,
@@ -24,6 +27,27 @@ const startTile = tileGenerator.startTile()
 const endTile = tileGenerator.endTile()
 
 const path = new Path(startTile, endTile, pathTiles)
+
+const isIncluded = (bigGroupElements, smallGroupElements) => {
+
+    let result = true
+
+    if ((bigGroupElements.length === 0) || (smallGroupElements.length > bigGroupElements.length)){
+        result = false
+    }
+
+    let i = 0
+    for (const smallGroupElement of smallGroupElements){
+
+        if (bigGroupElements[i] !== smallGroupElement){
+            result = false
+            break
+        }
+        i++
+    }
+
+    return result
+}
 
 describe ('finds a pathtile', () => {
     test('if exists return the pathtile', () => {
@@ -57,23 +81,10 @@ describe('When start direction is left', () => {
         
         const orders = path.makeOrders()
 
-        let result = true
+        const result = isIncluded(orders, expectedOrders)
 
-        if ((orders.length === 0) || (expectedOrders.length > orders.length)){
-            result = false
-        }
-
-        let i = 0
-        for (const order of orders){
-
-            if (order !== expectedOrders[i]){
-                result = false
-                break
-            }
-            i++
-        }
-        
         expect(result).toBeTruthy()
     })
+
 
 })
