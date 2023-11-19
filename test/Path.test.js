@@ -87,9 +87,20 @@ describe('When start direction is left', () => {
     })
 
     
-    test('after the 15 first path tiles, there is no other left path tile and then the direction is down 7 times', () => {
+    test('after the 15 first left path tiles, there is no other left path tile and then the direction is down 7 times', () => {
 
         const expectedOrders = [LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION]
+        
+        const orders = path.makeOrders()
+
+        const result = isIncluded(orders, expectedOrders)
+        
+        expect(result).toBeTruthy()
+    })
+    
+    test('after the 15 first left path tiles, and the 7 down path tiles, there is no other down path tile, then the direction is right 13 path tiles', () => {
+
+        const expectedOrders = [LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION]
         
         const orders = path.makeOrders()
 
