@@ -65,7 +65,13 @@ class Path {
                     orders.push(this.LEFT_DIRECTION)
                     currentTile = searchTile
                 } else {
-                    currentDirection = this.DOWN_DIRECTION
+                    // It is preferred to go first down and if it is not possible to go up
+                    const searchNextTile = this._searchDownTile(currentTile)
+                    if (searchNextTile) {
+                        currentDirection = this.DOWN_DIRECTION
+                    } else {
+                        currentDirection = this.UP_DIRECTION
+                    }
                 }
             }
 
@@ -76,7 +82,13 @@ class Path {
                     orders.push(this.DOWN_DIRECTION)
                     currentTile = searchTile
                 } else {
-                    currentDirection = this.RIGHT_DIRECTION
+                    // It is preferred to go first to the right and if it is not possible to the left
+                    const searchNextTile = this._searchRightTile(currentTile)
+                    if (searchNextTile) {
+                        currentDirection = this.RIGHT_DIRECTION
+                    } else {
+                        currentDirection = this.LEFT_DIRECTION
+                    }
                 }
             }
 
