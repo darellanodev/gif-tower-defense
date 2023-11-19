@@ -97,6 +97,8 @@ class Path {
                 if (searchTile) {
                     orders.push(this.UP_DIRECTION)
                     currentTile = searchTile
+                } else {
+                    currentDirection = this.LEFT_DIRECTION
                 }
             }
         }

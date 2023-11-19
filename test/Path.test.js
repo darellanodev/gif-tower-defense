@@ -120,5 +120,16 @@ describe('When start direction is left', () => {
         
         expect(result).toBeTruthy()
     })
+        
+    test('after the 15 first left path tiles, and the 7 down path tiles, and the 13 right path tiles, ant the 3 up path tiles, there is no other up path tile, then the direction is left 6 path tiles', () => {
+
+        const expectedOrders = [LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, DOWN_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, RIGHT_DIRECTION, UP_DIRECTION, UP_DIRECTION, UP_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION, LEFT_DIRECTION]
+        
+        const orders = path.makeOrders()
+
+        const result = isIncluded(orders, expectedOrders)
+        
+        expect(result).toBeTruthy()
+    })
 
 })
