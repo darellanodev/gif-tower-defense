@@ -1,5 +1,3 @@
-const PathTile = require("./PathTile");
-
 class Path {
 
     LEFT_DIRECTION = 1

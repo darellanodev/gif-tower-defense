@@ -75,6 +75,10 @@ function setup() {
     orangeTiles = tileGenerator.orangeTiles()
     startTile = tileGenerator.startTile()
     endTile = tileGenerator.endTile()
+    const pathTiles = tileGenerator.pathTiles()
+
+    const path = new Path(startTile, endTile, pathTiles)
+    const orders = path.makeOrders()
 
     enemy = new Enemy(enemy1Images[0])
 
