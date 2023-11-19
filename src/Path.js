@@ -110,7 +110,13 @@ class Path {
                     orders.push(this.UP_DIRECTION)
                     currentTile = searchTile
                 } else {
-                    currentDirection = this.LEFT_DIRECTION
+                    // It is preferred to go first left and if it is not possible to go right
+                    const searchNextTile = this._searchLeftTile(currentTile)
+                    if (searchNextTile) {
+                        currentDirection = this.LEFT_DIRECTION
+                    } else {
+                        currentDirection = this.RIGHT_DIRECTION
+                    }
                 }
             }
         }
