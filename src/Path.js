@@ -32,6 +32,12 @@ class Path {
         return this.getTileInPosition(searchPx, searchPy)
     }
 
+    _searchDownTile(currentTile) {
+        const searchPx = currentTile.getX()
+        const searchPy = currentTile.getY() + this.TILE_SIZE
+        return this.getTileInPosition(searchPx, searchPy)
+    }
+
     
     makeOrders() {
 
@@ -54,6 +60,12 @@ class Path {
             }
 
             if (currentDirection === this.DOWN_DIRECTION) {
+                const searchTile = this._searchDownTile(currentTile)
+
+                if (searchTile) {
+                    orders.push(this.DOWN_DIRECTION)
+                    currentTile = searchTile
+                }
 
             }
 
