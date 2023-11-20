@@ -80,7 +80,7 @@ function setup() {
     const path = new Path(startTile, endTile, pathTiles)
     const orders = path.makeOrders()
 
-    enemy = new Enemy(enemy1Images[0])
+    enemy = new Enemy(enemy1Images[0], orders, startTile, endTile)
 
     towers = [
         new Tower(tower1Images, 72, 154),
@@ -104,7 +104,13 @@ function mouseClicked() {
 
 }
 
+
 function draw() {
+
+    // all updates first
+    enemy.update()
+
+    // draw
     background('skyblue')
     rectMode(CORNER)
 
@@ -113,14 +119,14 @@ function draw() {
     for (const orangeTile of orangeTiles){
         orangeTile.draw()
     }
-    startTile.draw()
-    endTile.draw()
     
     enemy.draw()
+
+    startTile.draw()
+    endTile.draw()
+
     hud.draw()
     
-
-
     // HUD
     textSize(20)
     fill('yellow')
