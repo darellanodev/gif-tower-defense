@@ -48,6 +48,18 @@ class Path {
         return this.getTileInPosition(searchPx, searchPy)
     }
 
+    _isLeftEndTile(currentTile) {
+        const searchPx = currentTile.getX() - this.TILE_SIZE
+        const searchPy = currentTile.getY()
+
+        const endPx = this.endTile.getX()
+        const endPy = this.endTile.getY()
+        
+        if ((searchPx === endPx) && (searchPy === endPy)) {
+            return true
+        }
+        return false
+    }
     
     makeOrders() {
 
@@ -55,24 +67,36 @@ class Path {
         let currentTile = this.startTile
         let currentDirection = this.startTile.getStartDirection()
 
+        let endReached = false
         let searchCount = 0
-        while(searchCount < this.MAX_SEARCHES) {
+        while((searchCount < this.MAX_SEARCHES) && (!endReached)) {
             searchCount++
             if (currentDirection === this.LEFT_DIRECTION) {
-                const searchTile = this._searchLeftTile(currentTile)
+                const isLeftEndTile = this._isLeftEndTile(currentTile)
                 
-                if (searchTile) {
+                if (isLeftEndTile) {
+                    endReached = true
                     orders.push(this.LEFT_DIRECTION)
-                    currentTile = searchTile
                 } else {
-                    // It is preferred to go first down and if it is not possible to go up
-                    const searchNextTile = this._searchDownTile(currentTile)
-                    if (searchNextTile) {
-                        currentDirection = this.DOWN_DIRECTION
+
+                    const searchTile = this._searchLeftTile(currentTile)
+                
+                    if (searchTile) {
+                        orders.push(this.LEFT_DIRECTION)
+                        currentTile = searchTile
                     } else {
-                        currentDirection = this.UP_DIRECTION
+                        // It is preferred to go first down and if it is not possible to go up
+                        const searchNextTile = this._searchDownTile(currentTile)
+                        if (searchNextTile) {
+                            currentDirection = this.DOWN_DIRECTION
+                        } else {
+                            currentDirection = this.UP_DIRECTION
+                        }
                     }
+
                 }
+
+
             }
 
             if (currentDirection === this.DOWN_DIRECTION) {
@@ -126,6 +150,11 @@ class Path {
                     }
                 }
             }
+        }
+
+        // cant reach the end because we spent all searchCount
+        if (searchCount === this.MAX_SEARCHES) {
+            return []
         }
 
         return orders
