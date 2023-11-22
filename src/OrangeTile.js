@@ -1,6 +1,7 @@
 class OrangeTile {
 
     TILE_SIZE = 50
+    TOWER_OFFSET = 5
 
     constructor(img, x, y) {
         this.x = x
@@ -9,7 +10,12 @@ class OrangeTile {
         this.tower = null
     }
 
-    insertTower(tower) {
+    sellTower() {
+        this.tower = null
+    }
+
+    buyTower() {
+        const tower = new Tower(tower1Images, this.x - this.TOWER_OFFSET, this.y - this.TOWER_OFFSET)
         if (this.tower === null) {
             this.tower = tower
         }

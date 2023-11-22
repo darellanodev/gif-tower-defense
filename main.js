@@ -8,7 +8,6 @@ const LEFT_DIRECTION = 1
 const RIGHT_DIRECTION = 2
 const UP_DIRECTION = 3
 const DOWN_DIRECTION = 4
-const TOWER_OFFSET = 5
 
 
 let enemy1
@@ -59,6 +58,11 @@ function preload() {
 }
 
 function setup() {
+
+    for (let element of document.getElementsByClassName("p5Canvas")) {
+        element.addEventListener("contextmenu", (e) => {e.preventDefault(); mouseClicked();});
+    }
+      
     createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
 
     const levelMap = `111111111111111x,
@@ -93,15 +97,27 @@ function setup() {
 }
 
 function mouseClicked() {
-    
-    for (const orangeTile of orangeTiles){
-        if (orangeTile.isClicked(mouseX, mouseY)) {
-            const x = orangeTile.getX()
-            const y = orangeTile.getY()
-            const tower = new Tower(tower1Images, x - TOWER_OFFSET, y - TOWER_OFFSET)
-            orangeTile.insertTower(tower)
+
+    if(mouseButton === RIGHT) {
+        // sell the tower
+        for (const orangeTile of orangeTiles){
+            if (orangeTile.isClicked(mouseX, mouseY)) {
+                orangeTile.sellTower()
+            }
         }
     }
+    
+    if(mouseButton === LEFT) {
+        // buy a tower
+        for (const orangeTile of orangeTiles){
+            if (orangeTile.isClicked(mouseX, mouseY)) {
+                orangeTile.buyTower()
+            }
+        }
+    }
+    
+    
+
 
 }
 
