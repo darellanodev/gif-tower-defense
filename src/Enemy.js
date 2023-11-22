@@ -87,7 +87,6 @@ class Enemy {
             this.moveCount = 0
 
             if (this.isEndReached()){
-                console.log('end reached');
                 this.endReached = true
             }
 

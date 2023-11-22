@@ -15,14 +15,14 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - [ ] Test other maps with different end tiles positions to implmentent (with tests) the remaining endings
 - [ ] Enemy moves eyes depending the movement direction
-- [ ] If right button is pressed sell the tower
-- [ ] If left mouse button is pressed upgrade the tower
-- [ ] The HUD changes when the player moves the mouse over a tower
 - [ ] Draw a circle representing the influence area when the player moves the mouse over a tower
-- [ ] Put the enter and the exit of the laberinth
-- [ ] The enemy follows the path
-- [ ] Refactor with some functional programming
+- [ ] If left mouse button is pressed and exist a tower upgrade the tower
+- [ ] The HUD changes when the player moves the mouse over a tower
 - [ ] Use prettier or other formatter
+- [ ] Refactor with some functional programming
+- [x] The enemy follows the path
+- [x] Put the enter and the exit of the laberinth
+- [x] If right button is pressed sell the tower
 - [x] Test the TileGenerator class to throw an error if passed an empty string
 - [x] Smaller enemies with basic animations: center, left, right, closed
 - [x] Generate movement direction orders
