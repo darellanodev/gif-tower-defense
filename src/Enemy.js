@@ -18,7 +18,6 @@ class Enemy {
     }
 
     reinitEnemy() {
-        console.log('reinit');
         this.currentDirection = startTile.getStartDirection()
         this.moveCount = 0
         this.indexOrder = 0
