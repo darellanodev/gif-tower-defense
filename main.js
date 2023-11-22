@@ -8,6 +8,7 @@ const LEFT_DIRECTION = 1
 const RIGHT_DIRECTION = 2
 const UP_DIRECTION = 3
 const DOWN_DIRECTION = 4
+const TOWER_OFFSET = 5
 
 
 let enemy1
@@ -97,7 +98,7 @@ function mouseClicked() {
         if (orangeTile.isClicked(mouseX, mouseY)) {
             const x = orangeTile.getX()
             const y = orangeTile.getY()
-            const tower = new Tower(tower1Images, x, y)
+            const tower = new Tower(tower1Images, x - TOWER_OFFSET, y - TOWER_OFFSET)
             orangeTile.insertTower(tower)
         }
     }

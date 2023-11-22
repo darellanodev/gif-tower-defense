@@ -10,9 +10,11 @@ class OrangeTile {
     }
 
     insertTower(tower) {
-        this.tower = tower
+        if (this.tower === null) {
+            this.tower = tower
+        }
     }
-
+    
     draw() {
         image(this.img, this.x, this.y)
         if (this.tower) {
