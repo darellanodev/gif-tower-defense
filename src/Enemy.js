@@ -13,12 +13,49 @@ class Enemy {
         this.orders = orders
         this.startTile = startTile
         this.endTile = endTile
+
+        this.reinitEnemy()
+    }
+
+    reinitEnemy() {
+        console.log('reinit');
         this.currentDirection = startTile.getStartDirection()
-        
         this.moveCount = 0
         this.indexOrder = 0
-        this.x = startTile.getX()
-        this.y = startTile.getY()
+        this.setInitialPosition()
+        this.insidePath = false
+        this.endReached = false
+    }
+
+    isEndReached() {
+        return (this.x === this.endTile.getX() && this.y === this.endTile.getY())
+    }
+
+    setInitialPosition() {
+
+        switch (this.currentDirection) {
+            case this.LEFT_DIRECTION:
+                this.x = startTile.getX() + this.TILE_SIZE
+                this.y = startTile.getY()
+                break;
+        
+            case this.RIGHT_DIRECTION:
+                this.x = startTile.getX() - this.TILE_SIZE
+                this.y = startTile.getY()
+                break;
+        
+            case this.UP_DIRECTION:
+                this.x = startTile.getX()
+                this.y = startTile.getY() + this.TILE_SIZE
+                break;
+        
+            case this.DOWN_DIRECTION:
+                this.x = startTile.getX()
+                this.y = startTile.getY() - this.TILE_SIZE
+                break;
+
+        }
+
     }
 
     update() {
@@ -39,13 +76,31 @@ class Enemy {
                 this.y = this.y + this.VELOCITY
                 break;
 
-        }       
+        }
         
         this.moveCount = this.moveCount + this.VELOCITY
+
+        if (this.moveCount === this.TILE_SIZE && this.endReached ) {
+            this.reinitEnemy()
+        }
+
         if (this.moveCount === this.TILE_SIZE) {
             this.moveCount = 0
-            this.indexOrder++
-            this.currentDirection = this.orders[this.indexOrder]
+
+            if (this.isEndReached()){
+                console.log('end reached');
+                this.endReached = true
+            }
+
+            if (!this.endReached) {
+                if (this.insidePath) {
+                    this.indexOrder++
+                    this.currentDirection = this.orders[this.indexOrder]    
+                } else {
+                    this.insidePath = true
+                }
+            }
+
         }
     }
 
