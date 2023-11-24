@@ -8,11 +8,26 @@ class Enemy {
     UP_DIRECTION = 3
     DOWN_DIRECTION = 4
 
-    constructor(img, orders, startTile, endTile) {
-        this.img = img
+    CHANGE_EYES_MAX_TIME = 50
+    
+    EXTEND_CLOSED_EYES_MAX_TIME = 20
+    MIN_TIME_TO_CLOSE = 50
+    MAX_TIME_TO_CLOSE = 200
+
+    EYES_LEFT = 1
+    EYES_RIGHT = 2
+    EYES_CENTER = 0
+    EYES_CLOSED = 3
+
+    constructor(images, orders, startTile, endTile) {
+        this.images = images
         this.orders = orders
         this.startTile = startTile
         this.endTile = endTile
+
+        this.imgIndex = this.EYES_CENTER
+        this.imgIndexBeforeEyesClosed = this.EYES_CENTER
+        this.eyesSequence = [this.EYES_LEFT, this.EYES_CENTER, this.EYES_RIGHT, this.EYES_CENTER]
 
         this.reinitEnemy()
     }
@@ -24,6 +39,12 @@ class Enemy {
         this.setInitialPosition()
         this.insidePath = false
         this.endReached = false
+        this.changeEyesTime = 0
+        this.indexEyesSecuence = 0
+        this.closeEyesTime = 0
+        this.extendClosedEyesTime = 0
+
+        this._setRandomTimeMaxForClosingEyes()
     }
 
     isEndReached() {
@@ -102,7 +123,58 @@ class Enemy {
         }
     }
 
+    _hasOpenEyes() {
+        return this.imgIndex != this.EYES_CLOSED
+    }
+
+    _moveEyesInSequence() {
+        this.changeEyesTime++
+
+        if (this.changeEyesTime > this.CHANGE_EYES_MAX_TIME) {
+            this.changeEyesTime = 0
+            this.indexEyesSecuence++
+            if (this.indexEyesSecuence == this.eyesSequence.length ) {
+                this.indexEyesSecuence = 0
+            }
+
+            this.imgIndex = this.eyesSequence[this.indexEyesSecuence]
+        }
+    }
+
+    _setRandomTimeMaxForClosingEyes() {
+        this.randomCloseEyes = Random.integerBetween(this.MIN_TIME_TO_CLOSE, this.MAX_TIME_TO_CLOSE)
+    }
+
+    _changeEyes() {
+
+        if (this._hasOpenEyes()) {
+
+            this.closeEyesTime++
+
+            if (this.closeEyesTime > this.randomCloseEyes) {
+                this.closeEyesTime = 0
+                this._setRandomTimeMaxForClosingEyes()
+                this.imgIndexBeforeEyesClosed = this.imgIndex
+                this.imgIndex = this.EYES_CLOSED
+            }
+
+            this._moveEyesInSequence()
+        } else {
+
+            this.extendClosedEyesTime++
+
+            if (this.extendClosedEyesTime > this.EXTEND_CLOSED_EYES_MAX_TIME) {
+                this.extendClosedEyesTime = 0
+                this.imgIndex = this.imgIndexBeforeEyesClosed
+            }
+        }
+        
+    }
+
     draw() {
-        image(this.img, this.x, this.y)
+
+        this._changeEyes()
+
+        image(this.images[this.imgIndex], this.x, this.y)
     }
 }

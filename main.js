@@ -85,7 +85,7 @@ function setup() {
     const path = new Path(startTile, endTile, pathTiles)
     const orders = path.makeOrders()
 
-    enemy = new Enemy(enemy1Images[0], orders, startTile, endTile)
+    enemy = new Enemy(enemy1Images, orders, startTile, endTile)
 
     towers = [
         new Tower(tower1Images, 72, 154),
