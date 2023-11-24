@@ -36,7 +36,7 @@ class OrangeTile {
         return this.y
     }
 
-    isClicked(mouse_x, mouse_y) {
+    isInside(mouse_x, mouse_y) {
         let insideX = false
         let insideY = false
         
@@ -51,6 +51,18 @@ class OrangeTile {
             return true
         }
         return false
+    }
+
+    
+    drawInfluenceArea() {
+        
+        let influenceArea = 120
+        fill(255, 204, 0, 50)
+        
+        if (this.tower) {
+            influenceArea = this.tower.getInfluenceArea()
+        }
+        circle(this.x + this.TILE_SIZE/2, this.y + this.TILE_SIZE/2, influenceArea)
     }
 
 }

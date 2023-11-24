@@ -6,7 +6,7 @@ describe('When clic over an orange tile', () => {
         const img = null    
         const orangeTile = new OrangeTile(img, 100, 200)
 
-        const result = orangeTile.isClicked(120, 220)
+        const result = orangeTile.isInside(120, 220)
 
         expect(result).toBeTruthy()
     })
@@ -16,7 +16,7 @@ describe('When clic over an orange tile', () => {
         const img = null    
         const orangeTile = new OrangeTile(img, 100, 200)
 
-        const result = orangeTile.isClicked(90, 220)
+        const result = orangeTile.isInside(90, 220)
 
         expect(result).toBeFalsy()
     })

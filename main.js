@@ -18,6 +18,7 @@ let enemy5
 let towers
 let hud
 let orangeTiles
+let mouseOrangeTileOver
 
 function preload() {
 
@@ -54,7 +55,7 @@ function preload() {
         loadImage('img/hud/upgrading.png'),
         loadImage('img/hud/upgrading_max.png'),
     ]
-    
+
 }
 
 function setup() {
@@ -96,37 +97,42 @@ function setup() {
     hud = new Hud(hudImages)
 }
 
+
+function getMouseOrangeTileOver() {
+    for (const orangeTile of orangeTiles){
+        if (orangeTile.isInside(mouseX, mouseY)) {
+            return orangeTile
+        }
+    }
+    return null
+}
+
 function mouseClicked() {
 
+    if (mouseOrangeTileOver === null) {
+        return
+    }
+
     if(mouseButton === RIGHT) {
-        // sell the tower
-        for (const orangeTile of orangeTiles){
-            if (orangeTile.isClicked(mouseX, mouseY)) {
-                orangeTile.sellTower()
-            }
-        }
+        mouseOrangeTileOver.sellTower()
     }
     
     if(mouseButton === LEFT) {
-        // buy a tower
-        for (const orangeTile of orangeTiles){
-            if (orangeTile.isClicked(mouseX, mouseY)) {
-                orangeTile.buyTower()
-            }
-        }
+        mouseOrangeTileOver.buyTower()
     }
-    
-    
 
+}
 
+function update() {
+    mouseOrangeTileOver = getMouseOrangeTileOver()
+    enemy.update()
 }
 
 
 function draw() {
 
-    // all updates first
-    enemy.update()
-
+    update()
+    
     // draw
     background('skyblue')
     rectMode(CORNER)
@@ -148,4 +154,12 @@ function draw() {
     textSize(20)
     fill('yellow')
     text('This is a sample text', 120, 20)
+
+    if (mouseOrangeTileOver !== null) {
+        mouseOrangeTileOver.drawInfluenceArea()
+    }
+
+
+
+
 }
