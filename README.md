@@ -14,12 +14,14 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 ### Tasks
 
 - [ ] Test other maps with different end tiles positions to implmentent (with tests) the remaining endings
-- [ ] Enemy moves eyes depending the movement direction
-- [ ] Draw a circle representing the influence area when the player moves the mouse over a tower
 - [ ] If left mouse button is pressed and exist a tower upgrade the tower
 - [ ] The HUD changes when the player moves the mouse over a tower
 - [ ] Use prettier or other formatter
+- [ ] Allow the user to select the type of tower in the HUD using the keyboard.
+- [ ] When the mouse is over an orange tile, the influence area varies its radius depending on the selected tower in the HUD.
 - [ ] Refactor with some functional programming
+- [x] Draw a circle representing the influence area when the player moves the mouse over a tower
+- [x] Make the enemy move and close their eyes
 - [x] The enemy follows the path
 - [x] Put the enter and the exit of the laberinth
 - [x] If right button is pressed sell the tower
