@@ -44,22 +44,22 @@ class TileGenerator {
                 case '1':
                 this.startImage = mapImages[6]
                 this.startDirection = this.DOWN_DIRECTION
-                break;
+                break
 
                 case '2':
                 this.startImage = mapImages[7]
                 this.startDirection = this.RIGHT_DIRECTION
-                break;
+                break
 
                 case '3':
                 this.startImage = mapImages[8]
                 this.startDirection = this.LEFT_DIRECTION
-                break;
+                break
 
                 case '4':
                 this.startImage = mapImages[9]
                 this.startDirection = this.UP_DIRECTION
-                break;
+                break
         }
 
     }
@@ -72,19 +72,19 @@ class TileGenerator {
         switch (endOrientation) {
             case '1':
             this.endImage = mapImages[2]
-            break;
+            break
 
             case '2':
             this.endImage = mapImages[3]
-            break;
+            break
 
             case '3':
             this.endImage = mapImages[4]
-            break;
+            break
 
             case '4':
             this.endImage = mapImages[5]
-            break;
+            break
         }
     }
 
@@ -106,16 +106,16 @@ class TileGenerator {
                     switch (symbol) {
                         case '0':
                             resultTiles.push(new OrangeTile(this.orangeImage, posX, posY))
-                            break;
+                            break
                         case '1':
                             resultTiles.push(new PathTile(posX, posY))
-                            break;
+                            break
                         case 'x':
                             resultTiles.push(new StartTile(this.startImage, posX, posY, this.startDirection))
-                            break;
+                            break
                         case 'y':
                             resultTiles.push(new EndTile(this.endImage, posX, posY))
-                            break;
+                            break
                     }
 
                 }

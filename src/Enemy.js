@@ -57,22 +57,22 @@ class Enemy {
             case this.LEFT_DIRECTION:
                 this.x = startTile.getX() + this.TILE_SIZE
                 this.y = startTile.getY()
-                break;
+                break
         
             case this.RIGHT_DIRECTION:
                 this.x = startTile.getX() - this.TILE_SIZE
                 this.y = startTile.getY()
-                break;
+                break
         
             case this.UP_DIRECTION:
                 this.x = startTile.getX()
                 this.y = startTile.getY() + this.TILE_SIZE
-                break;
+                break
         
             case this.DOWN_DIRECTION:
                 this.x = startTile.getX()
                 this.y = startTile.getY() - this.TILE_SIZE
-                break;
+                break
 
         }
 
@@ -82,19 +82,19 @@ class Enemy {
         switch (this.currentDirection) {
             case this.LEFT_DIRECTION:
                 this.x = this.x - this.VELOCITY
-                break;
+                break
         
             case this.RIGHT_DIRECTION:
                 this.x = this.x + this.VELOCITY
-                break;
+                break
         
             case this.UP_DIRECTION:
                 this.y = this.y - this.VELOCITY
-                break;
+                break
         
             case this.DOWN_DIRECTION:
                 this.y = this.y + this.VELOCITY
-                break;
+                break
 
         }
         
