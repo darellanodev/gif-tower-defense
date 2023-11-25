@@ -41,17 +41,17 @@ function preload() {
     }
 
     tileImages = [
-        loadImage('img/floor/orange.png'),
-        loadImage('img/floor/gray.png'),
-        loadImage('img/floor/end_down.png'),
-        loadImage('img/floor/end_right.png'),
-        loadImage('img/floor/end_left.png'),
-        loadImage('img/floor/end_up.png'),
-        loadImage('img/floor/start_down.png'),
-        loadImage('img/floor/start_right.png'),
-        loadImage('img/floor/start_left.png'),
-        loadImage('img/floor/start_up.png'),
-        loadImage('img/floor/crystal.png'),
+        loadImage('img/tiles/orange.png'),
+        loadImage('img/tiles/black.png'),
+        loadImage('img/tiles/end_down.png'),
+        loadImage('img/tiles/end_right.png'),
+        loadImage('img/tiles/end_left.png'),
+        loadImage('img/tiles/end_up.png'),
+        loadImage('img/tiles/start_down.png'),
+        loadImage('img/tiles/start_right.png'),
+        loadImage('img/tiles/start_left.png'),
+        loadImage('img/tiles/start_up.png'),
+        loadImage('img/tiles/crystal.png'),
     ]
 
     backgroundImage = loadImage('img/backgrounds/ground.jpg')
