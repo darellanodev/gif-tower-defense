@@ -219,7 +219,7 @@ function draw() {
     hud.draw()
 
     if (mouseOrangeTileOver !== null) {
-        mouseOrangeTileOver.drawInfluenceArea()
+        mouseOrangeTileOver.drawInfluenceArea(hud.getSelectedTower())
     }
 
 

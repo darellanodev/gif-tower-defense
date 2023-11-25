@@ -44,6 +44,10 @@ class Hud {
         this.selectedItem = towerType
     }
 
+    getSelectedTower() {
+        return this.selectedItem
+    }
+
     draw() {
 
         image(this.hudNormal, 0, 0)

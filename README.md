@@ -18,8 +18,9 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Test other maps with different end tiles positions to implmentent (with tests) the remaining endings
 - [ ] If left mouse button is pressed and exist a tower upgrade the tower
 - [ ] The HUD changes when the player moves the mouse over a tower showing sell and upgrade options
-- [ ] The influence area varies its radius and color depending on the selected tower in the HUD.
 - [ ] The user can select the tower in the HUD using the mouse.
+- [x] If exists a tower the influence area corresponds to the upgrade level of the tower and also its color.
+- [x] The influence area varies its radius and color depending on the selected tower in the HUD.
 - [x] Allow the user to select the type of tower in the HUD using the keyboard.
 - [x] Box over the item selected in the HUD
 - [x] Make the five enemies start consecutively after a time
