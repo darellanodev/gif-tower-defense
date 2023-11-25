@@ -8,6 +8,12 @@ const LEFT_DIRECTION = 1
 const RIGHT_DIRECTION = 2
 const UP_DIRECTION = 3
 const DOWN_DIRECTION = 4
+const KEY_1 = 49
+const KEY_2 = 50
+const KEY_3 = 51
+const GREEN_TOWER = 1
+const RED_TOWER = 2
+const YELLOW_TOWER = 3
 
 const CREATE_ENEMY_MAX_TIME = 100
 
@@ -99,6 +105,24 @@ function setup() {
 
     hud = new Hud(hudImages)
 }
+
+
+function keyPressed() {
+    
+    switch (keyCode) {
+        case KEY_1:
+            hud.selectTower(GREEN_TOWER)
+            break;
+
+        case KEY_2:
+            hud.selectTower(RED_TOWER)
+            break;
+
+        case KEY_3:
+            hud.selectTower(YELLOW_TOWER)
+            break;
+    }
+  }
 
 
 function getMouseOrangeTileOver() {
