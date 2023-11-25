@@ -10,8 +10,6 @@ class Hud {
         this.hudUpgradingMax = hudImages[2]
 
         this.selectedItem = this.GREEN_TOWER
-        // this.selectedItem = this.RED_TOWER
-        // this.selectedItem = this.YELLOW_TOWER
     }
 
     _drawLevelTitle() {
@@ -22,25 +20,21 @@ class Hud {
     }
 
     _drawSelectedItem() {
+
+        strokeWeight(3)
+        stroke(255, 204, 0);
+        noFill()
+
         switch (this.selectedItem) {
             case this.GREEN_TOWER:
-                noFill()
-                strokeWeight(3)
-                stroke(255, 204, 0);
                 square(57, 36, 37);
                 break;
 
             case this.RED_TOWER:
-                noFill()
-                strokeWeight(3)
-                stroke(255, 204, 0);
                 square(139, 36, 37);
                 break;
 
             case this.YELLOW_TOWER:
-                noFill()
-                strokeWeight(3)
-                stroke(255, 204, 0);
                 square(224, 36, 37);
                 break;
         }
