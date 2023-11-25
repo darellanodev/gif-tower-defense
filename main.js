@@ -9,12 +9,11 @@ const RIGHT_DIRECTION = 2
 const UP_DIRECTION = 3
 const DOWN_DIRECTION = 4
 
+const CREATE_ENEMY_MAX_TIME = 100
 
-let enemy1
-let enemy2
-let enemy3
-let enemy4
-let enemy5
+let orders
+let createEnemyTime
+let enemies
 let towers
 let hud
 let orangeTiles
@@ -27,12 +26,12 @@ function preload() {
         tower1Images.push(loadImage('img/tower1/upgrade' + i + '.png'))
     }
 
-    enemy1Images = []
+    enemiesImages = []
     for (let i = 1; i <= TOTAL_ENEMIES; i++) {
-        enemy1Images.push(loadImage('img/enemies/' + i + '_center.png'));
-        enemy1Images.push(loadImage('img/enemies/' + i + '_left.png'));
-        enemy1Images.push(loadImage('img/enemies/' + i + '_right.png'));
-        enemy1Images.push(loadImage('img/enemies/' + i + '_closed.png'));
+        enemiesImages.push(loadImage('img/enemies/' + i + '_center.png'));
+        enemiesImages.push(loadImage('img/enemies/' + i + '_left.png'));
+        enemiesImages.push(loadImage('img/enemies/' + i + '_right.png'));
+        enemiesImages.push(loadImage('img/enemies/' + i + '_closed.png'));
     }
 
     tileImages = [
@@ -77,6 +76,8 @@ function setup() {
                       0000000000000001,
                       y111111111111111@3,2,-50,450,150`
 
+    createEnemyTime = 0
+
     const tileGenerator = new TileGenerator(levelMap, tileImages)
     orangeTiles = tileGenerator.orangeTiles()
     startTile = tileGenerator.startTile()
@@ -84,9 +85,11 @@ function setup() {
     const pathTiles = tileGenerator.pathTiles()
 
     const path = new Path(startTile, endTile, pathTiles)
-    const orders = path.makeOrders()
+    orders = path.makeOrders()
 
-    enemy = new Enemy(enemy1Images, orders, startTile, endTile)
+    enemies = [
+        new Enemy(enemiesImages.slice(0, 4), orders, startTile, endTile),
+    ]
 
     towers = [
         new Tower(tower1Images, 72, 154),
@@ -123,15 +126,56 @@ function mouseClicked() {
 
 }
 
-function update() {
+function createNewEnemy() {
+
+    switch (enemies.length) {
+        case 1:
+            enemies.push(new Enemy(enemiesImages.slice(4, 8), orders, startTile, endTile))
+            break;
+        case 2:
+            enemies.push(new Enemy(enemiesImages.slice(8, 12), orders, startTile, endTile))
+            break;
+        case 3:
+            enemies.push(new Enemy(enemiesImages.slice(12, 16), orders, startTile, endTile))
+            break;
+        case 4:
+            enemies.push(new Enemy(enemiesImages.slice(16, 20), orders, startTile, endTile))
+            break;
+    }
+
+}
+
+function updateEnemies() {
+
+    if (enemies.length < TOTAL_ENEMIES) {
+        createEnemyTime++
+        if (createEnemyTime === CREATE_ENEMY_MAX_TIME) {
+            createEnemyTime = 0
+            createNewEnemy()
+        }
+    }
+
+    for (const enemy of enemies){
+        enemy.update()
+    }
+
+}
+
+function updateMouseOrangeTileOver() {
     mouseOrangeTileOver = getMouseOrangeTileOver()
-    enemy.update()
+}
+
+function drawEnemies() {
+    for (const enemy of enemies){
+        enemy.draw()
+    }
 }
 
 
 function draw() {
 
-    update()
+    updateEnemies()
+    updateMouseOrangeTileOver()
     
     // draw
     background('skyblue')
@@ -143,7 +187,7 @@ function draw() {
         orangeTile.draw()
     }
     
-    enemy.draw()
+    drawEnemies()
 
     startTile.draw()
     endTile.draw()
