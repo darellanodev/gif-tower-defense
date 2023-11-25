@@ -14,6 +14,13 @@ class Hud {
         // this.selectedItem = this.YELLOW_TOWER
     }
 
+    _drawLevelTitle() {
+        fill(255)
+        stroke(0)
+        strokeWeight(4)
+        text('Serpent by Ocliboy', 130, 18)
+    }
+
     _drawSelectedItem() {
         switch (this.selectedItem) {
             case this.GREEN_TOWER:
@@ -48,6 +55,7 @@ class Hud {
         image(this.hudNormal, 0, 0)
 
         this._drawSelectedItem()
+        this._drawLevelTitle()
 
     }
 }

@@ -217,11 +217,6 @@ function draw() {
     endTile.draw()
 
     hud.draw()
-    
-    // HUD
-    textSize(20)
-    fill('yellow')
-    text('This is a sample text', 120, 20)
 
     if (mouseOrangeTileOver !== null) {
         mouseOrangeTileOver.drawInfluenceArea()
