@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="crystal_and_jumper.svg">
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient3807">
+      <stop
+         id="stop3809"
+         offset="0"
+         style="stop-color:#ffffff;stop-opacity:1;" />
+      <stop
+         style="stop-color:#356fff;stop-opacity:1;"
+         offset="0.76288658"
+         id="stop3817" />
+      <stop
+         id="stop3811"
+         offset="1"
+         style="stop-color:#ffffff;stop-opacity:1;" />
+    </linearGradient>
+    <inkscape:perspective
+       id="perspective10"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       id="perspective2824" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       id="perspective2858" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       id="perspective2924" />
+    <radialGradient
+       spreadMethod="pad"
+       gradientUnits="userSpaceOnUse"
+       r="35.637497"
+       fy="462.52219"
+       fx="243.59871"
+       cy="462.52219"
+       cx="243.59871"
+       id="radialGradient3813"
+       xlink:href="#linearGradient3807"
+       inkscape:collect="always" />
+    <radialGradient
+       r="35.637497"
+       fy="462.52219"
+       fx="243.59871"
+       cy="462.52219"
+       cx="243.59871"
+       spreadMethod="pad"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient3825"
+       xlink:href="#linearGradient3807"
+       inkscape:collect="always" />
+    <radialGradient
+       r="35.637497"
+       fy="462.52219"
+       fx="243.59871"
+       cy="462.52219"
+       cx="243.59871"
+       spreadMethod="pad"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient3833"
+       xlink:href="#linearGradient3807"
+       inkscape:collect="always" />
+    <radialGradient
+       r="35.637497"
+       fy="462.52219"
+       fx="243.59871"
+       cy="462.52219"
+       cx="243.59871"
+       spreadMethod="pad"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient3837"
+       xlink:href="#linearGradient3807"
+       inkscape:collect="always" />
+    <radialGradient
+       r="35.637497"
+       fy="462.52219"
+       fx="243.59871"
+       cy="462.52219"
+       cx="243.59871"
+       spreadMethod="pad"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient3847"
+       xlink:href="#linearGradient3807"
+       inkscape:collect="always" />
+    <radialGradient
+       r="35.637497"
+       fy="462.52219"
+       fx="243.59871"
+       cy="462.52219"
+       cx="243.59871"
+       spreadMethod="pad"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient3849"
+       xlink:href="#linearGradient3807"
+       inkscape:collect="always" />
+    <radialGradient
+       r="35.637497"
+       fy="462.52219"
+       fx="243.59871"
+       cy="462.52219"
+       cx="243.59871"
+       spreadMethod="pad"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient3853"
+       xlink:href="#linearGradient3807"
+       inkscape:collect="always" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-127.14286"
+     inkscape:cy="560"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1026"
+       transform="matrix(0.26458333,0,0,0.26458333,26.491969,-26.617999)">
+      <g
+         style="display:inline"
+         inkscape:label="Capa#1"
+         id="layer3">
+        <g
+           inkscape:export-ydpi="45.638824"
+           inkscape:export-xdpi="45.638824"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\crystal.png"
+           id="g2989">
+          <rect
+             style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none"
+             id="rect2820"
+             width="93.644867"
+             height="93.644867"
+             x="16.737684"
+             y="419.16592"
+             inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+             inkscape:export-xdpi="33.257523"
+             inkscape:export-ydpi="33.257523" />
+          <rect
+             inkscape:export-ydpi="33.257523"
+             inkscape:export-xdpi="33.257523"
+             inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+             y="419.16592"
+             x="16.737684"
+             height="93.644867"
+             width="93.644867"
+             id="rect2961"
+             style="display:inline;fill:#008080;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+          <path
+             style="display:inline;fill:#008080;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+             d="m 16.75,419.15625 v 37.40625 l 60.71875,8.96875 32.90625,-26.5 v -19.875 z"
+             id="rect2969"
+             inkscape:connector-curvature="0" />
+          <path
+             style="display:inline;fill:#008080;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+             d="m 88.03125,443.0625 -52.15625,16.34375 -19.125,50.75 v 2.65625 h 40.03125 l 25.8125,-19.15625 z"
+             id="rect2964"
+             inkscape:connector-curvature="0" />
+          <path
+             style="display:inline;fill:#008080;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+             d="m 94.65625,425.71875 -22.21875,63.34375 15.21875,23.75 H 110.375 v -72.5 z"
+             id="rect2974"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:#00ffff;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="M 96.544925,432.94524 77.905063,486.4751 88.255852,503.55109 Z"
+             id="path2977"
+             sodipodi:nodetypes="cccc"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:#00ffff;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="M 22.743397,507.05076 41.103285,464.48962 80.772734,451.5851 Z"
+             id="path2979"
+             sodipodi:nodetypes="cccc"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:#00ffff;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 21.029588,452.06305 11.948629,1.91178 53.529859,-16.25014 -65.402312,-1.96976 -0.07618,16.30812 z"
+             id="path2983"
+             sodipodi:nodetypes="ccccc"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:#00ffff;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 67.39027,509.41647 9.558903,-5.2574 4.301506,5.2574 z"
+             id="path2985"
+             sodipodi:nodetypes="cccc"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:#00ffff;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 20.073697,461.62195 10.036849,1.43384 -10.036849,25.33109 z"
+             id="path2987"
+             sodipodi:nodetypes="cccc"
+             inkscape:connector-curvature="0" />
+        </g>
+        <rect
+           style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none"
+           id="rect3003"
+           width="93.644867"
+           height="93.644867"
+           x="205.37686"
+           y="419.16592"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-ydpi="33.257523" />
+        <rect
+           inkscape:export-ydpi="33.257523"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           y="419.16592"
+           x="205.37686"
+           height="93.644867"
+           width="93.644867"
+           id="rect3005"
+           style="display:inline;fill:#008080;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+        <circle
+           transform="translate(8.6005859,3.4661713)"
+           id="path3033"
+           style="fill:none;fill-opacity:1;stroke:url(#radialGradient3813);stroke-width:6;stroke-opacity:1"
+           cx="243.59871"
+           cy="462.52219"
+           r="32.637497" />
+        <rect
+           inkscape:export-ydpi="33.257523"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           y="530.32263"
+           x="205.37686"
+           height="93.644867"
+           width="93.644867"
+           id="rect3819"
+           style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none" />
+        <rect
+           style="display:inline;fill:#008080;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+           id="rect3821"
+           width="93.644867"
+           height="93.644867"
+           x="205.37686"
+           y="530.32263"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-ydpi="33.257523" />
+        <circle
+           style="fill:none;stroke:url(#radialGradient3825);stroke-width:6;stroke-opacity:1"
+           id="path3823"
+           transform="translate(8.6005859,114.62286)"
+           cx="243.59871"
+           cy="462.52219"
+           r="32.637497" />
+        <circle
+           transform="matrix(0.6698542,0,0,0.6698542,89.023678,267.32262)"
+           id="path3835"
+           style="fill:none;stroke:url(#radialGradient3837);stroke-width:8.95717335;stroke-opacity:1"
+           cx="243.59871"
+           cy="462.52219"
+           r="32.637497" />
+        <rect
+           style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none"
+           id="rect3839"
+           width="93.644867"
+           height="93.644867"
+           x="205.37686"
+           y="639.58728"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-ydpi="33.257523" />
+        <rect
+           inkscape:export-ydpi="33.257523"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           y="639.58728"
+           x="205.37686"
+           height="93.644867"
+           width="93.644867"
+           id="rect3841"
+           style="display:inline;fill:#008080;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+        <circle
+           transform="translate(8.6005859,223.88752)"
+           id="path3843"
+           style="fill:none;stroke:url(#radialGradient3847);stroke-width:6;stroke-opacity:1"
+           cx="243.59871"
+           cy="462.52219"
+           r="32.637497" />
+        <circle
+           style="fill:none;stroke:url(#radialGradient3849);stroke-width:8.95717335;stroke-opacity:1"
+           id="path3845"
+           transform="matrix(0.6698542,0,0,0.6698542,89.023678,376.58728)"
+           cx="243.59871"
+           cy="462.52219"
+           r="32.637497" />
+        <circle
+           transform="matrix(0.32928583,0,0,0.32928583,171.9857,534.10771)"
+           id="path3851"
+           style="fill:none;stroke:url(#radialGradient3853);stroke-width:18.22125244;stroke-opacity:1"
+           cx="243.59871"
+           cy="462.52219"
+           r="32.637497" />
+        <rect
+           inkscape:export-ydpi="33.257523"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           y="419.16592"
+           x="330.25076"
+           height="93.644867"
+           width="93.644867"
+           id="rect3855"
+           style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none" />
+        <rect
+           style="display:inline;fill:#666666;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+           id="rect3857"
+           width="93.644867"
+           height="93.644867"
+           x="330.25076"
+           y="419.16592"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-ydpi="33.257523" />
+        <g
+           id="g3900">
+          <circle
+             transform="translate(133.47449,3.4661713)"
+             id="path3859"
+             style="fill:#37c8ab;stroke:#1a1a1a;stroke-width:6;stroke-opacity:1"
+             cx="243.59871"
+             cy="462.52219"
+             r="32.637497" />
+        </g>
+        <rect
+           style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none"
+           id="rect3861"
+           width="93.644867"
+           height="93.644867"
+           x="330.25076"
+           y="530.32263"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-ydpi="33.257523" />
+        <rect
+           inkscape:export-ydpi="33.257523"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           y="530.32263"
+           x="330.25076"
+           height="93.644867"
+           width="93.644867"
+           id="rect3863"
+           style="display:inline;fill:#666666;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+        <g
+           id="g3896">
+          <circle
+             style="fill:#c87137;stroke:#000000;stroke-width:6;stroke-opacity:1"
+             id="path3865"
+             transform="translate(133.47449,114.62286)"
+             cx="243.59871"
+             cy="462.52219"
+             r="32.637497" />
+          <circle
+             transform="matrix(0.6698542,0,0,0.6698542,213.89758,267.32262)"
+             id="path3867"
+             style="fill:#37c8ab;fill-opacity:1;stroke:#000000;stroke-width:8.95717335;stroke-opacity:1"
+             cx="243.59871"
+             cy="462.52219"
+             r="32.637497" />
+        </g>
+        <rect
+           inkscape:export-ydpi="33.257523"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           y="639.58728"
+           x="330.25076"
+           height="93.644867"
+           width="93.644867"
+           id="rect3869"
+           style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none" />
+        <rect
+           style="display:inline;fill:#666666;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+           id="rect3871"
+           width="93.644867"
+           height="93.644867"
+           x="330.25076"
+           y="639.58728"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-ydpi="33.257523" />
+        <g
+           id="g3891">
+          <circle
+             transform="translate(133.47449,223.88752)"
+             id="path3873"
+             style="fill:#c83737;stroke:#000000;stroke-width:6;stroke-opacity:1"
+             cx="243.59871"
+             cy="462.52219"
+             r="32.637497" />
+          <circle
+             style="fill:#c87137;fill-opacity:1;stroke:#000000;stroke-width:8.95717335;stroke-opacity:1"
+             id="path3875"
+             transform="matrix(0.6698542,0,0,0.6698542,213.89758,376.58728)"
+             cx="243.59871"
+             cy="462.52219"
+             r="32.637497" />
+          <circle
+             transform="matrix(0.32928583,0,0,0.32928583,296.8596,534.10771)"
+             id="path3877"
+             style="fill:#37c8ab;fill-opacity:1;stroke:#000000;stroke-width:18.22125244;stroke-opacity:1"
+             cx="243.59871"
+             cy="462.52219"
+             r="32.637497" />
+        </g>
+        <rect
+           inkscape:export-ydpi="46.131718"
+           inkscape:export-xdpi="46.131718"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\jumper3.png"
+           y="639.58728"
+           x="463.63879"
+           height="93.644867"
+           width="93.644867"
+           id="rect2878"
+           style="display:inline;fill:#666666;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+        <g
+           transform="translate(133.38803)"
+           id="g2880">
+          <circle
+             style="fill:#c83737;stroke:#000000;stroke-width:6;stroke-opacity:1"
+             id="path2882"
+             transform="translate(133.47449,223.88752)"
+             cx="243.59871"
+             cy="462.52219"
+             r="32.637497" />
+          <circle
+             transform="matrix(0.6698542,0,0,0.6698542,213.89758,376.58728)"
+             id="path2884"
+             style="fill:#c87137;fill-opacity:1;stroke:#000000;stroke-width:8.95717335;stroke-opacity:1"
+             cx="243.59871"
+             cy="462.52219"
+             r="32.637497" />
+          <circle
+             style="fill:#37c8ab;fill-opacity:1;stroke:#000000;stroke-width:18.22125244;stroke-opacity:1"
+             id="path2886"
+             transform="matrix(0.32928583,0,0,0.32928583,296.8596,534.10771)"
+             cx="243.59871"
+             cy="462.52219"
+             r="32.637497" />
+        </g>
+        <rect
+           style="display:inline;fill:#666666;fill-opacity:1;stroke:none;stroke-opacity:1"
+           id="rect2890"
+           width="93.644867"
+           height="93.644867"
+           x="463.63879"
+           y="527.0116"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\jumper2.png"
+           inkscape:export-xdpi="46.131718"
+           inkscape:export-ydpi="46.131718" />
+        <circle
+           style="fill:#c83737;stroke:#000000;stroke-width:6;stroke-opacity:1"
+           id="path2894"
+           transform="translate(266.86252,111.31181)"
+           cx="243.59871"
+           cy="462.52219"
+           r="32.637497" />
+        <circle
+           transform="matrix(0.6698542,0,0,0.6698542,347.28561,264.01157)"
+           id="path2896"
+           style="fill:#37c8ab;fill-opacity:1;stroke:#000000;stroke-width:8.95717335;stroke-opacity:1"
+           cx="243.59871"
+           cy="462.52219"
+           r="32.637497" />
+        <circle
+           style="fill:#37c8ab;fill-opacity:1;stroke:#000000;stroke-width:18.22125244;stroke-opacity:1"
+           id="path2898"
+           transform="matrix(0.32928583,0,0,0.32928583,430.24763,421.532)"
+           cx="243.59871"
+           cy="462.52219"
+           r="32.637497" />
+        <rect
+           inkscape:export-ydpi="33.257523"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           y="410.65182"
+           x="463.63879"
+           height="93.644867"
+           width="93.644867"
+           id="rect2902"
+           style="display:inline;fill:#666666;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+        <g
+           style="fill:#37c8ab;fill-opacity:1"
+           transform="translate(133.38803,-228.93548)"
+           id="g2904">
+          <circle
+             style="fill:#37c8ab;fill-opacity:1;stroke:#000000;stroke-width:6;stroke-opacity:1"
+             id="path2906"
+             transform="translate(133.47449,223.88752)"
+             cx="243.59871"
+             cy="462.52219"
+             r="32.637497" />
+          <circle
+             transform="matrix(0.6698542,0,0,0.6698542,213.89758,376.58728)"
+             id="path2908"
+             style="fill:#37c8ab;fill-opacity:1;stroke:#000000;stroke-width:8.95717335;stroke-opacity:1"
+             cx="243.59871"
+             cy="462.52219"
+             r="32.637497" />
+          <circle
+             style="fill:#37c8ab;fill-opacity:1;stroke:#000000;stroke-width:18.22125244;stroke-opacity:1"
+             id="path2910"
+             transform="matrix(0.32928583,0,0,0.32928583,296.8596,534.10771)"
+             cx="243.59871"
+             cy="462.52219"
+             r="32.637497" />
+        </g>
+        <path
+           inkscape:export-ydpi="84.705879"
+           inkscape:export-xdpi="84.705879"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\particlecrystal.png"
+           transform="matrix(0.18344792,0,0,0.18344792,11.511561,548.07862)"
+           d="m 57.706876,671.21085 -43.609109,-43.6091 43.609107,-43.60911 43.609106,43.6091 z"
+           inkscape:randomized="0"
+           inkscape:rounded="0"
+           inkscape:flatsided="true"
+           sodipodi:arg2="2.3561945"
+           sodipodi:arg1="1.5707963"
+           sodipodi:r2="30.836296"
+           sodipodi:r1="43.609108"
+           sodipodi:cy="627.60175"
+           sodipodi:cx="57.706875"
+           sodipodi:sides="4"
+           id="path2890"
+           style="fill:#008080;fill-opacity:1;stroke:#000000;stroke-width:5.4511385;stroke-opacity:1"
+           sodipodi:type="star" />
+        <rect
+           style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none"
+           id="rect2893"
+           width="93.644867"
+           height="93.644867"
+           x="255.1333"
+           y="236.58516"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-ydpi="33.257523" />
+        <rect
+           inkscape:export-ydpi="33.257523"
+           inkscape:export-xdpi="33.257523"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+           y="236.58516"
+           x="255.1333"
+           height="93.644867"
+           width="93.644867"
+           id="rect2895"
+           style="display:inline;fill:#008080;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+        <path
+           style="display:inline;fill:#000055;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+           d="m 255.14562,236.57548 v 37.40625 l 60.71875,8.96875 32.90625,-26.5 v -19.875 z"
+           id="path2897"
+           inkscape:connector-curvature="0" />
+        <path
+           style="display:inline;fill:#000055;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+           d="m 326.42687,260.48173 -52.15625,16.34375 -19.125,50.75 v 2.65625 h 40.03125 l 25.8125,-19.15625 z"
+           id="path2899"
+           inkscape:connector-curvature="0" />
+        <path
+           style="display:inline;fill:#121258;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+           d="m 333.05187,243.13798 -22.21875,63.34375 15.21875,23.75 h 22.71875 v -72.5 z"
+           id="path2901"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#00ffff;stroke:none"
+           d="m 334.94055,250.36447 -18.63987,53.52986 10.35079,17.07599 z"
+           id="path2903"
+           sodipodi:nodetypes="cccc"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#00ffff;stroke:none"
+           d="m 261.13902,324.46999 18.35989,-42.56114 39.66944,-12.90452 z"
+           id="path2905"
+           sodipodi:nodetypes="cccc"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#00ffff;stroke:none"
+           d="m 259.42521,269.48228 11.94863,1.91178 53.52986,-16.25014 -65.40232,-1.96976 -0.0762,16.30812 z"
+           id="path2907"
+           sodipodi:nodetypes="ccccc"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#000055;stroke:none"
+           d="m 305.78589,326.8357 9.5589,-5.2574 4.30151,5.2574 z"
+           id="path2909"
+           sodipodi:nodetypes="cccc"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#000055;stroke:none"
+           d="m 258.46932,279.04118 10.03685,1.43384 -10.03685,25.33109 z"
+           id="path2911"
+           sodipodi:nodetypes="cccc"
+           inkscape:connector-curvature="0" />
+        <g
+           inkscape:export-ydpi="26.441349"
+           inkscape:export-xdpi="26.441349"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\preview_crystal.png"
+           transform="matrix(0.35959198,0,0,0.35959198,325.89059,126.19564)"
+           id="g2943">
+          <rect
+             style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none"
+             id="rect2923"
+             width="93.644867"
+             height="93.644867"
+             x="528.53143"
+             y="216.71886"
+             inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+             inkscape:export-xdpi="33.257523"
+             inkscape:export-ydpi="33.257523" />
+          <rect
+             inkscape:export-ydpi="33.257523"
+             inkscape:export-xdpi="33.257523"
+             inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+             y="216.71886"
+             x="528.53143"
+             height="93.644867"
+             width="93.644867"
+             id="rect2925"
+             style="display:inline;fill:#008080;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+          <path
+             style="display:inline;fill:#000055;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+             d="m 528.54377,216.70918 v 37.40625 l 60.71875,8.96875 32.90625,-26.5 v -19.875 z"
+             id="path2927"
+             inkscape:connector-curvature="0" />
+          <path
+             style="display:inline;fill:#000055;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+             d="m 599.82502,240.61543 -52.15625,16.34375 -19.125,50.75 v 2.65625 h 40.03125 l 25.8125,-19.15625 z"
+             id="path2929"
+             inkscape:connector-curvature="0" />
+          <path
+             style="display:inline;fill:#000055;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+             d="m 606.45002,223.27168 -22.21875,63.34375 15.21875,23.75 h 22.71875 v -72.5 z"
+             id="path2931"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:#00ffff;stroke:none"
+             d="m 608.3387,230.49817 -18.63987,53.52986 10.35079,17.07599 z"
+             id="path2933"
+             sodipodi:nodetypes="cccc"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:#00ffff;stroke:none"
+             d="m 534.53717,304.60369 18.35989,-42.56114 39.66944,-12.90452 z"
+             id="path2935"
+             sodipodi:nodetypes="cccc"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:#00ffff;stroke:none"
+             d="m 532.82336,249.61598 11.94863,1.91178 53.52986,-16.25014 -65.40232,-1.96976 -0.0762,16.30812 z"
+             id="path2937"
+             sodipodi:nodetypes="ccccc"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:#000055;stroke:none"
+             d="m 579.18404,306.9694 9.5589,-5.2574 4.30151,5.2574 z"
+             id="path2939"
+             sodipodi:nodetypes="cccc"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:#000055;stroke:none"
+             d="m 531.86747,259.17488 10.03685,1.43384 -10.03685,25.33109 z"
+             id="path2941"
+             sodipodi:nodetypes="cccc"
+             inkscape:connector-curvature="0" />
+        </g>
+        <g
+           transform="matrix(0.18037628,0,0,0.18037628,357.13144,264.85336)"
+           id="g2967" />
+        <g
+           inkscape:export-ydpi="9.5092316"
+           inkscape:export-xdpi="9.5092316"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\preview_jumper.png"
+           id="g3778">
+          <rect
+             inkscape:export-ydpi="33.257523"
+             inkscape:export-xdpi="33.257523"
+             inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+             y="268.68655"
+             x="407.70337"
+             height="93.644867"
+             width="93.644867"
+             id="rect2977"
+             style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none" />
+          <rect
+             style="display:inline;fill:#666666;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+             id="rect2979"
+             width="93.644867"
+             height="93.644867"
+             x="407.70337"
+             y="268.68655"
+             inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
+             inkscape:export-xdpi="33.257523"
+             inkscape:export-ydpi="33.257523" />
+          <g
+             id="g2981"
+             transform="matrix(0.88493983,0,0,0.88493983,121.21874,-96.86267)">
+            <circle
+               transform="matrix(0.85167147,0,0,0.85167147,169.17769,72.071409)"
+               id="path2984"
+               style="fill:#b3b3b3;stroke:#000000;stroke-width:15.92191887;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               cx="243.59871"
+               cy="462.52219"
+               r="32.637497" />
+          </g>
+        </g>
+      </g>
+      <g
+         style="display:inline"
+         inkscape:label="Capa"
+         id="layer2">
+        <g
+           transform="translate(-12,6)"
+           id="g3056" />
+        <path
+           style="fill:#008080;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 41.194503,380.76465 -21.98548,-15.29424 27.72082,-73.60356 64.044647,-20.0737 -6.69122,62.13287 z"
+           id="path2955"
+           sodipodi:nodetypes="cccccc"
+           inkscape:connector-curvature="0" />
+      </g>
+    </g>
+  </g>
+</svg>
