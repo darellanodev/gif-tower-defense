@@ -29,7 +29,7 @@ function preload() {
 
     tower1Images = []
     for (let i = 0; i <= TOTAL_TOWER_UPGRADES; i++) {
-        tower1Images.push(loadImage('img/tower1/upgrade' + i + '.png'))
+        tower1Images.push(loadImage('img/towers/green_tower_upgrade_' + i + '.png'))
     }
 
     enemiesImages = []
