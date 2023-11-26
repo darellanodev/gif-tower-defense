@@ -30,9 +30,27 @@ class OrangeTile {
         this.tower = null
     }
 
-    buyTower() {
-        const tower = new Tower(greenTowerImages, this.x - this.TOWER_OFFSET, this.y - this.TOWER_OFFSET)
+    buyTower(towerType) {
+
         if (this.tower === null) {
+
+            let tower = null
+
+            switch (towerType) {
+                case this.GREEN_TOWER:
+                    tower = new GreenTower(greenTowerImages, this.x - this.TOWER_OFFSET, this.y - this.TOWER_OFFSET)
+                    break;
+                case this.RED_TOWER:
+                    tower = new RedTower(redTowerImages, this.x - this.TOWER_OFFSET, this.y - this.TOWER_OFFSET)
+                    break;
+                case this.YELLOW_TOWER:
+                    tower = new YellowTower(yellowTowerImages, this.x, this.y)
+                    break;
+            
+                default:
+                    break;
+            }
+
             this.tower = tower
         }
     }

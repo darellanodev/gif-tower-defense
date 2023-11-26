@@ -20,7 +20,6 @@ const CREATE_ENEMY_MAX_TIME = 100
 let orders
 let createEnemyTime
 let enemies
-let towers
 let hud
 let orangeTiles
 let mouseOrangeTileOver
@@ -28,8 +27,12 @@ let mouseOrangeTileOver
 function preload() {
 
     greenTowerImages = []
+    redTowerImages = []
+    yellowTowerImages = []
     for (let i = 0; i <= TOTAL_TOWER_UPGRADES; i++) {
         greenTowerImages.push(loadImage('img/towers/green_tower_upgrade_' + i + '.png'))
+        redTowerImages.push(loadImage('img/towers/red_tower_upgrade_' + i + '.png'))
+        yellowTowerImages.push(loadImage('img/towers/yellow_tower_upgrade_' + i + '.png'))
     }
 
     enemiesImages = []
@@ -97,12 +100,6 @@ function setup() {
         new Enemy(enemiesImages.slice(0, 4), orders, startTile, endTile),
     ]
 
-    towers = [
-        new Tower(greenTowerImages, 72, 154),
-        new Tower(greenTowerImages, 200, 200),
-        new Tower(greenTowerImages, 300, 300),
-    ]
-
     hud = new Hud(hudImages)
 }
 
@@ -156,7 +153,7 @@ function mouseClicked() {
         }
     
         if(mouseButton === LEFT) {
-            mouseOrangeTileOver.buyTower()
+            mouseOrangeTileOver.buyTower(hud.getSelectedTower())
         }
     }
 
