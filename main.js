@@ -136,16 +136,28 @@ function getMouseOrangeTileOver() {
 
 function mouseClicked() {
 
-    if (mouseOrangeTileOver === null) {
+    if (hud.isInsideButtonsBar(mouseX, mouseY)) {
+        
+        if (hud.isInsideGreenTowerButton(mouseX, mouseY)){
+            hud.selectTower(GREEN_TOWER)
+        }
+        if (hud.isInsideRedTowerButton(mouseX, mouseY)){
+            hud.selectTower(RED_TOWER)
+        }
+        if (hud.isInsideYellowTowerButton(mouseX, mouseY)){
+            hud.selectTower(YELLOW_TOWER)
+        }
         return
     }
-
-    if(mouseButton === RIGHT) {
-        mouseOrangeTileOver.sellTower()
-    }
     
-    if(mouseButton === LEFT) {
-        mouseOrangeTileOver.buyTower()
+    if (mouseOrangeTileOver !== null) {
+        if(mouseButton === RIGHT) {
+            mouseOrangeTileOver.sellTower()
+        }
+    
+        if(mouseButton === LEFT) {
+            mouseOrangeTileOver.buyTower()
+        }
     }
 
 }
@@ -222,7 +234,9 @@ function draw() {
         mouseOrangeTileOver.drawInfluenceArea(hud.getSelectedTower())
     }
 
+    Debug.showMouseCoordinates(mouseX,mouseY)
 
+    //x4-y29,x98-y78
 
 
 }

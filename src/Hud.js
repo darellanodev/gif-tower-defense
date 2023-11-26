@@ -40,6 +40,34 @@ class Hud {
         }
     }
 
+    isInsideButtonsBar(px, py) {
+        if ((px > 0 && px < 800) && (py > 28 && py < 78)) {
+            return true
+        }
+        return false
+    }
+
+    isInsideGreenTowerButton(px, py) {
+        if ((px > 0 && px < 98) && (py > 28 && py < 78)) {
+            return true
+        }
+        return false
+    }
+
+    isInsideRedTowerButton(px, py) {
+        if ((px > 98 && px < 180) && (py > 28 && py < 78)) {
+            return true
+        }
+        return false
+    }
+
+    isInsideYellowTowerButton(px, py) {
+        if ((px > 180 && px < 263) && (py > 28 && py < 78)) {
+            return true
+        }
+        return false
+    }
+
     selectTower(towerType) {
         this.selectedItem = towerType
     }

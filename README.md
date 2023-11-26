@@ -18,8 +18,8 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Test other maps with different end tiles positions to implmentent (with tests) the remaining endings
 - [ ] If left mouse button is pressed and exist a tower upgrade the tower
 - [ ] The HUD changes when the player moves the mouse over a tower showing sell and upgrade options
-- [ ] The user can select the tower in the HUD using the mouse.
 - [ ] Include the towers designs
+- [x] The user can select the tower in the HUD using the mouse.
 - [x] Include the tile design
 - [x] Include the inkscape HUD design
 - [x] If exists a tower the influence area corresponds to the upgrade level of the tower and also its color.
