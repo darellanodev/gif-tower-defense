@@ -31,7 +31,7 @@ class OrangeTile {
     }
 
     buyTower() {
-        const tower = new Tower(tower1Images, this.x - this.TOWER_OFFSET, this.y - this.TOWER_OFFSET)
+        const tower = new Tower(greenTowerImages, this.x - this.TOWER_OFFSET, this.y - this.TOWER_OFFSET)
         if (this.tower === null) {
             this.tower = tower
         }

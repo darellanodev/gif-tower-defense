@@ -27,9 +27,9 @@ let mouseOrangeTileOver
 
 function preload() {
 
-    tower1Images = []
+    greenTowerImages = []
     for (let i = 0; i <= TOTAL_TOWER_UPGRADES; i++) {
-        tower1Images.push(loadImage('img/towers/green_tower_upgrade_' + i + '.png'))
+        greenTowerImages.push(loadImage('img/towers/green_tower_upgrade_' + i + '.png'))
     }
 
     enemiesImages = []
@@ -98,9 +98,9 @@ function setup() {
     ]
 
     towers = [
-        new Tower(tower1Images, 72, 154),
-        new Tower(tower1Images, 200, 200),
-        new Tower(tower1Images, 300, 300),
+        new Tower(greenTowerImages, 72, 154),
+        new Tower(greenTowerImages, 200, 200),
+        new Tower(greenTowerImages, 300, 300),
     ]
 
     hud = new Hud(hudImages)
