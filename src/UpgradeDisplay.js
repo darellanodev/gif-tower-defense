@@ -1,15 +1,14 @@
-class UpgradeGreenDisplay {
-
-    GREEN_COLOR = [75, 185, 35]
+class UpgradeDisplay {
 
     SIZE_UPGRADE_TILE = 48
     TIME_UPGRADE_0_MAX = 2
 
     MAX_CAPACITY = 23
 
-    constructor(x, y) {
+    constructor(x, y, color) {
         this.x = x
         this.y = y
+        this.color = color
         this.timeUpgrade = 0
         this.capacity = 0
         this.finished = false
@@ -32,19 +31,30 @@ class UpgradeGreenDisplay {
         return this.finished
     }
 
+    _drawBackgroundTile() {
+        noStroke()
+        fill(this.color)
+        rect(this.x, this.y, this.SIZE_UPGRADE_TILE)
+    }
+
+    _drawBackgroundBar(){
+        fill('white')
+        rect(this.x + 10, this.y + 20, 27, 10)
+    }
+
+    _drawBar() {
+        fill(this.color)
+        rect(this.x + 12, this.y + 22, this.capacity, 6)
+    }
+
     draw() {
         
         this._update()        
         
-        noStroke()
-        fill(this.GREEN_COLOR)
-        rect(this.x, this.y, this.SIZE_UPGRADE_TILE)
-        
-        fill('white')
-        rect(this.x + 10, this.y + 20, 27, 10)
+        this._drawBackgroundTile()
+        this._drawBackgroundBar()
+        this._drawBar()
 
-        fill(this.GREEN_COLOR)
-        rect(this.x + 12, this.y + 22, this.capacity, 6)
     }
 
 }

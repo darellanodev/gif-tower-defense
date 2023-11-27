@@ -26,16 +26,29 @@ class OrangeTile {
         this.y = y
         this.img = img
         this.tower = null
-        this.upgradeGreenDisplay = null
+        this.upgradeDisplay = null
     }
 
     sellTower() {
         this.tower = null
     }
 
-    _showUpgradeDisplay() {
-        if (this.upgradeGreenDisplay === null) {
-            this.upgradeGreenDisplay = new UpgradeGreenDisplay(this.x, this.y)
+    _showUpgradeDisplay(towerType) {
+        if (this.upgradeDisplay === null) {
+            let color = null
+            switch (towerType) {
+                case this.GREEN_TOWER:
+                    color = this.GREEN_COLOR
+                    break;
+                case this.RED_TOWER:
+                    color = this.RED_COLOR
+                    break;
+                case this.YELLOW_TOWER:
+                    color = this.YELLOW_COLOR
+                    break;
+            }
+
+            this.upgradeDisplay = new UpgradeDisplay(this.x, this.y, color)
         }
     }
 
@@ -66,7 +79,7 @@ class OrangeTile {
             this._buyTower(towerType)
         } else {
             if (this.tower.getUpgradeLevel() < this.UPGRADE_MAX_LEVEL){
-                this._showUpgradeDisplay()
+                this._showUpgradeDisplay(towerType)
             }
         }
     }
@@ -77,9 +90,9 @@ class OrangeTile {
 
     _update() {
 
-        if (this.upgradeGreenDisplay) {
-            if (this.upgradeGreenDisplay.isFinished()) {
-                this.upgradeGreenDisplay = null
+        if (this.upgradeDisplay) {
+            if (this.upgradeDisplay.isFinished()) {
+                this.upgradeDisplay = null
                 this._upgradeTower()
             }
         }
@@ -97,8 +110,8 @@ class OrangeTile {
         
         this._drawTile()
 
-        if (this.upgradeGreenDisplay) {
-            this.upgradeGreenDisplay.draw()    
+        if (this.upgradeDisplay) {
+            this.upgradeDisplay.draw()    
         } else {
             if (this.tower) {
                 this.tower.draw()
