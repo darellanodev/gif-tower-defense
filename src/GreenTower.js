@@ -1,6 +1,6 @@
 class GreenTower {
 
-    UPGRADE_0_INFLUENCE_AREA = 120
+    UPGRADE_0_INFLUENCE_AREA = 150
     GREEN_TOWER = 1
 
     constructor(images, x, y) {

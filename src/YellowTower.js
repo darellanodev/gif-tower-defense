@@ -1,6 +1,6 @@
 class YellowTower {
 
-    UPGRADE_0_INFLUENCE_AREA = 120
+    UPGRADE_0_INFLUENCE_AREA = 290
     YELLOW_TOWER = 3
 
     constructor(images, x, y) {

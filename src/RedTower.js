@@ -1,6 +1,6 @@
 class RedTower {
 
-    UPGRADE_0_INFLUENCE_AREA = 120
+    UPGRADE_0_INFLUENCE_AREA = 240
     RED_TOWER = 2
 
     constructor(images, x, y) {
