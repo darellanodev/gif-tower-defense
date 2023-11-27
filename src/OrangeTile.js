@@ -3,6 +3,8 @@ class OrangeTile {
     TILE_SIZE = 50
     TOWER_OFFSET = 5
 
+    UPGRADE_MAX_LEVEL = 5
+
     GREEN_TOWER = 1
     RED_TOWER = 2
     YELLOW_TOWER = 3
@@ -24,41 +26,83 @@ class OrangeTile {
         this.y = y
         this.img = img
         this.tower = null
+        this.upgradeGreenDisplay = null
     }
 
     sellTower() {
         this.tower = null
     }
 
-    buyTower(towerType) {
+    _showUpgradeDisplay() {
+        if (this.upgradeGreenDisplay === null) {
+            this.upgradeGreenDisplay = new UpgradeGreenDisplay(this.x, this.y)
+        }
+    }
+
+    _buyTower(towerType){
+        let tower = null
+
+        switch (towerType) {
+            case this.GREEN_TOWER:
+                tower = new GreenTower(greenTowerImages, this.x - this.TOWER_OFFSET, this.y - this.TOWER_OFFSET)
+                break;
+            case this.RED_TOWER:
+                tower = new RedTower(redTowerImages, this.x - this.TOWER_OFFSET, this.y - this.TOWER_OFFSET)
+                break;
+            case this.YELLOW_TOWER:
+                tower = new YellowTower(yellowTowerImages, this.x, this.y)
+                break;
+        
+            default:
+                break;
+        }
+
+        this.tower = tower
+    }
+
+    putTower(towerType) {
 
         if (this.tower === null) {
-
-            let tower = null
-
-            switch (towerType) {
-                case this.GREEN_TOWER:
-                    tower = new GreenTower(greenTowerImages, this.x - this.TOWER_OFFSET, this.y - this.TOWER_OFFSET)
-                    break;
-                case this.RED_TOWER:
-                    tower = new RedTower(redTowerImages, this.x - this.TOWER_OFFSET, this.y - this.TOWER_OFFSET)
-                    break;
-                case this.YELLOW_TOWER:
-                    tower = new YellowTower(yellowTowerImages, this.x, this.y)
-                    break;
-            
-                default:
-                    break;
+            this._buyTower(towerType)
+        } else {
+            if (this.tower.getUpgradeLevel() < this.UPGRADE_MAX_LEVEL){
+                this._showUpgradeDisplay()
             }
+        }
+    }
+    
+    _drawTile() {
+        image(this.img, this.x, this.y)
+    }
 
-            this.tower = tower
+    _update() {
+
+        if (this.upgradeGreenDisplay) {
+            if (this.upgradeGreenDisplay.isFinished()) {
+                this.upgradeGreenDisplay = null
+                this._upgradeTower()
+            }
+        }
+    }
+
+    _upgradeTower() {
+        if (this.tower) {
+            this.tower.upgrade()
         }
     }
     
     draw() {
-        image(this.img, this.x, this.y)
-        if (this.tower) {
-            this.tower.draw()
+
+        this._update()
+        
+        this._drawTile()
+
+        if (this.upgradeGreenDisplay) {
+            this.upgradeGreenDisplay.draw()    
+        } else {
+            if (this.tower) {
+                this.tower.draw()
+            }
         }
     }
 
