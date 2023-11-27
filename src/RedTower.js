@@ -2,12 +2,13 @@ class RedTower {
 
     UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
     RED_TOWER = 2
+    RED_COLOR = [185, 35, 35]
 
     constructor(images, x, y) {
         this.images = images
         this.x = x
         this.y = y
-this.upgradeLevel = 0
+        this.upgradeLevel = 0
     }
 
     upgrade() {
@@ -27,7 +28,11 @@ this.upgradeLevel = 0
     }
     
     getType() {
-        return this.RED_TOWER;
+        return this.RED_TOWER
+    }
+
+    getColor() {
+        return this.RED_COLOR
     }
 
 }

@@ -20,7 +20,6 @@ class OrangeTile {
     ALPHA_INFLUENCE_AREA_FILL = 50
     ALPHA_INFLUENCE_AREA_STROKE = 120
 
-
     constructor(img, x, y) {
         this.x = x
         this.y = y
@@ -35,20 +34,7 @@ class OrangeTile {
 
     _showUpgradeDisplay(towerType) {
         if (this.upgradeDisplay === null) {
-            let color = null
-            switch (towerType) {
-                case this.GREEN_TOWER:
-                    color = this.GREEN_COLOR
-                    break;
-                case this.RED_TOWER:
-                    color = this.RED_COLOR
-                    break;
-                case this.YELLOW_TOWER:
-                    color = this.YELLOW_COLOR
-                    break;
-            }
-
-            this.upgradeDisplay = new UpgradeDisplay(this.x, this.y, color)
+            this.upgradeDisplay = new UpgradeDisplay(this.x, this.y, this.tower.getColor())
         }
     }
 

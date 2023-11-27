@@ -2,6 +2,7 @@ class GreenTower {
 
     UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
     GREEN_TOWER = 1
+    GREEN_COLOR = [75, 185, 35]
 
     constructor(images, x, y) {
         this.images = images
@@ -27,7 +28,11 @@ class GreenTower {
     }
 
     getType() {
-        return this.GREEN_TOWER;
+        return this.GREEN_TOWER
+    }
+
+    getColor() {
+        return this.GREEN_COLOR
     }
 
 }
