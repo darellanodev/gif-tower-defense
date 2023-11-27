@@ -16,9 +16,9 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Refactor with some functional programming
 - [ ] Use prettier or other formatter
 - [ ] Test other maps with different end tiles positions to implmentent (with tests) the remaining endings
-- [ ] If left mouse button is pressed and exist a tower upgrade the tower
 - [ ] The HUD changes when the player moves the mouse over a tower showing sell and upgrade options
-- [ ] Include the towers designs
+- [x] If left mouse button is pressed and exist a tower upgrade the tower
+- [x] Include the towers designs
 - [x] The user can select the tower in the HUD using the mouse.
 - [x] Include the tile design
 - [x] Include the inkscape HUD design
