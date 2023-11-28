@@ -209,7 +209,6 @@ function draw() {
     updateEnemies()
     updateMouseOrangeTileOver()
     
-    // draw
     background('skyblue')
     rectMode(CORNER)
 
@@ -233,8 +232,5 @@ function draw() {
     }
 
     Debug.showMouseCoordinates(mouseX,mouseY)
-
-    //x4-y29,x98-y78
-
 
 }
