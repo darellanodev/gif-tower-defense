@@ -171,6 +171,14 @@ class Enemy {
         
     }
 
+    getX() {
+        return this.x
+    }
+
+    getY() {
+        return this.y
+    }
+
     draw() {
 
         this._changeEyes()

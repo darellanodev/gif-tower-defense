@@ -74,7 +74,7 @@ class OrangeTile {
         image(this.img, this.x, this.y)
     }
 
-    _update() {
+    updateUpgradeDisplay() {
 
         if (this.upgradeDisplay) {
             if (this.upgradeDisplay.isFinished()) {
@@ -92,8 +92,6 @@ class OrangeTile {
     
     draw() {
 
-        this._update()
-        
         this._drawTile()
 
         if (this.upgradeDisplay) {
@@ -111,6 +109,12 @@ class OrangeTile {
 
     getY() {
         return this.y
+    }
+
+    selectTarget(enemies) {
+        if (this.tower) {
+            this.tower.selectTarget(enemies)
+        }
     }
 
     isInside(mouse_x, mouse_y) {

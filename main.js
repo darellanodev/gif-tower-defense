@@ -121,16 +121,6 @@ function keyPressed() {
     }
   }
 
-
-function getMouseOrangeTileOver() {
-    for (const orangeTile of orangeTiles){
-        if (orangeTile.isInside(mouseX, mouseY)) {
-            return orangeTile
-        }
-    }
-    return null
-}
-
 function mouseClicked() {
 
     if (hud.isInsideButtonsBar(mouseX, mouseY)) {
@@ -198,6 +188,15 @@ function updateMouseOrangeTileOver() {
     mouseOrangeTileOver = getMouseOrangeTileOver()
 }
 
+function getMouseOrangeTileOver() {
+    for (const orangeTile of orangeTiles){
+        if (orangeTile.isInside(mouseX, mouseY)) {
+            return orangeTile
+        }
+    }
+    return null
+}
+
 function drawEnemies() {
     for (const enemy of enemies){
         enemy.draw()
@@ -216,14 +215,16 @@ function draw() {
 
     image(backgroundImage, 0, HUD_HEIGHT)
 
-    for (const orangeTile of orangeTiles){
-        orangeTile.draw()
-    }
-    
     drawEnemies()
 
     startTile.draw()
     endTile.draw()
+
+    for (const orangeTile of orangeTiles){
+        orangeTile.selectTarget(enemies)
+        orangeTile.updateUpgradeDisplay()
+        orangeTile.draw()
+    }
 
     hud.draw()
 

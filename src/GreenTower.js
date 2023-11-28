@@ -9,6 +9,7 @@ class GreenTower {
         this.x = x
         this.y = y
         this.upgradeLevel = 0
+        this.enemyTarget = null
     }
 
     upgrade() {
@@ -19,8 +20,16 @@ class GreenTower {
         return this.upgradeLevel
     }
 
+    _drawShotToEnemy() {
+        if (this.enemyTarget) {
+            stroke(this.GREEN_COLOR)
+            line(this.x + 25, this.y + 25, this.enemyTarget.getX() + 25, this.enemyTarget.getY() + 25);
+        }
+    }
+
     draw() {
         image(this.images[this.upgradeLevel], this.x, this.y)
+        this._drawShotToEnemy()
     }
 
     getInfluenceArea() {               
@@ -33,6 +42,29 @@ class GreenTower {
 
     getColor() {
         return this.GREEN_COLOR
+    }
+
+    _isDistanceIntoInfluenceArea(distance) {
+        return distance <= this.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65
+    }
+
+    selectTarget(enemies) {
+        let minDistance = 99999
+        let enemyTarget = null
+        for (const enemy of enemies) {
+            const distance = Distance.twoPoints(this.x, this.y, enemy.getX(), enemy.getY())
+            if (distance < minDistance) {
+                minDistance = distance
+                enemyTarget = enemy
+            }
+        }
+
+        if (this._isDistanceIntoInfluenceArea(minDistance)) {
+            this.enemyTarget = enemyTarget
+        } else {
+            this.enemyTarget = null
+        }
+
     }
 
 }
