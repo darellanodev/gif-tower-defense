@@ -21,15 +21,33 @@ class GreenTower {
     }
 
     _drawShotToEnemy() {
-        if (this.enemyTarget) {
-            stroke(this.GREEN_COLOR)
-            line(this.x + 25, this.y + 25, this.enemyTarget.getX() + 25, this.enemyTarget.getY() + 25);
-        }
+        stroke(this.GREEN_COLOR)
+        line(this.x + 25, this.y + 25, this.enemyTarget.getX() + 25, this.enemyTarget.getY() + 25);
     }
 
     draw() {
-        image(this.images[this.upgradeLevel], this.x, this.y)
-        this._drawShotToEnemy()
+
+        if (this.enemyTarget) {
+
+            this._drawShotToEnemy()
+
+            let r_dx = this.enemyTarget.getX() - this.x
+            let r_dy = this.enemyTarget.getY() - this.y
+            let angle = Math.atan2(r_dy, r_dx) + 1.55; 
+            
+            let cos_a = cos(angle);
+            let sin_a = sin(angle);
+    
+            imageMode(CENTER)
+            applyMatrix(cos_a, sin_a, -sin_a, cos_a, this.x + 30, this.y + 30);
+            image(this.images[this.upgradeLevel], 0, 0)
+            resetMatrix();
+            imageMode(CORNER)
+        } else {
+            image(this.images[this.upgradeLevel], this.x, this.y)
+
+        }
+        
     }
 
     getInfluenceArea() {               
