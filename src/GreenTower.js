@@ -10,6 +10,7 @@ class GreenTower {
         this.y = y
         this.upgradeLevel = 0
         this.enemyTarget = null
+        this.distanceToEnemyTarget = 0
     }
 
     upgrade() {
@@ -22,25 +23,27 @@ class GreenTower {
 
     _drawShotToEnemy() {
         stroke(this.GREEN_COLOR)
-        line(this.x + 25, this.y + 25, this.enemyTarget.getX() + 25, this.enemyTarget.getY() + 25);
+        line(-1, -18, 7 - (this.distanceToEnemyTarget/7), -this.distanceToEnemyTarget)
     }
 
     draw() {
 
         if (this.enemyTarget) {
 
-            this._drawShotToEnemy()
-
+            
             let r_dx = this.enemyTarget.getX() - this.x
             let r_dy = this.enemyTarget.getY() - this.y
             let angle = Math.atan2(r_dy, r_dx) + 1.55; 
             
             let cos_a = cos(angle);
             let sin_a = sin(angle);
-    
+            
             imageMode(CENTER)
             applyMatrix(cos_a, sin_a, -sin_a, cos_a, this.x + 30, this.y + 30);
+
+            this._drawShotToEnemy()
             image(this.images[this.upgradeLevel], 0, 0)
+
             resetMatrix();
             imageMode(CORNER)
         } else {
@@ -79,8 +82,10 @@ class GreenTower {
 
         if (this._isDistanceIntoInfluenceArea(minDistance)) {
             this.enemyTarget = enemyTarget
+            this.distanceToEnemyTarget = minDistance
         } else {
             this.enemyTarget = null
+            this.distanceToEnemyTarget = 0
         }
 
     }
