@@ -1,4 +1,4 @@
-const TOTAL_TOWER_UPGRADES = 5
+const TOTAL_TOWER_UPGRADES = 6
 const TOTAL_ENEMIES = 5
 const CANVAS_WIDTH = 800
 const CANVAS_HEIGHT = 580
@@ -29,19 +29,20 @@ function preload() {
     greenTowerImages = []
     redTowerImages = []
     yellowTowerImages = []
-    for (let i = 0; i <= TOTAL_TOWER_UPGRADES; i++) {
-        greenTowerImages.push(loadImage('img/towers/green_tower_upgrade_' + i + '.png'))
-        redTowerImages.push(loadImage('img/towers/red_tower_upgrade_' + i + '.png'))
-        yellowTowerImages.push(loadImage('img/towers/yellow_tower_upgrade_' + i + '.png'))
-    }
-
     enemiesImages = []
-    for (let i = 1; i <= TOTAL_ENEMIES; i++) {
-        enemiesImages.push(loadImage('img/enemies/' + i + '_center.png'));
-        enemiesImages.push(loadImage('img/enemies/' + i + '_left.png'));
-        enemiesImages.push(loadImage('img/enemies/' + i + '_right.png'));
-        enemiesImages.push(loadImage('img/enemies/' + i + '_closed.png'));
-    }
+
+    Range.make(0, TOTAL_TOWER_UPGRADES - 1).forEach((v) => {
+        greenTowerImages.push(loadImage('img/towers/green_tower_upgrade_' + v + '.png'))
+        redTowerImages.push(loadImage('img/towers/red_tower_upgrade_' + v + '.png'))
+        yellowTowerImages.push(loadImage('img/towers/yellow_tower_upgrade_' + v + '.png'))
+    })
+
+    Range.make(1, TOTAL_ENEMIES).forEach((v) => {
+        enemiesImages.push(loadImage('img/enemies/' + v + '_center.png'));
+        enemiesImages.push(loadImage('img/enemies/' + v + '_left.png'));
+        enemiesImages.push(loadImage('img/enemies/' + v + '_right.png'));
+        enemiesImages.push(loadImage('img/enemies/' + v + '_closed.png'));
+    })
 
     tileImages = [
         loadImage('img/tiles/orange.png'),
@@ -57,20 +58,26 @@ function preload() {
         loadImage('img/tiles/crystal.png'),
     ]
 
-    backgroundImage = loadImage('img/backgrounds/ground.jpg')
     hudImages = [
         loadImage('img/hud/normal.png'),
         loadImage('img/hud/upgrading.png'),
         loadImage('img/hud/upgrading_max.png'),
     ]
+    
+    backgroundImage = loadImage('img/backgrounds/ground.jpg')
+}
 
+function disableContextualMenu() {
+    const p5CanvasElements = document.getElementsByClassName("p5Canvas")
+
+    p5CanvasElements.forEach( element => {
+        element.addEventListener("contextmenu", (e) => {e.preventDefault(); mouseClicked();});
+    })
 }
 
 function setup() {
 
-    for (let element of document.getElementsByClassName("p5Canvas")) {
-        element.addEventListener("contextmenu", (e) => {e.preventDefault(); mouseClicked();});
-    }
+    disableContextualMenu()
       
     createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
 
@@ -178,9 +185,9 @@ function updateEnemies() {
         }
     }
 
-    for (const enemy of enemies){
+    enemies.forEach( enemy => {
         enemy.update()
-    }
+    })
 
 }
 
@@ -189,20 +196,12 @@ function updateMouseOrangeTileOver() {
 }
 
 function getMouseOrangeTileOver() {
-    for (const orangeTile of orangeTiles){
-        if (orangeTile.isInside(mouseX, mouseY)) {
-            return orangeTile
-        }
-    }
-    return null
-}
 
-function drawEnemies() {
-    for (const enemy of enemies){
-        enemy.draw()
-    }
-}
+    const result = orangeTiles.find(orangeTile => orangeTile.isInside(mouseX, mouseY))
 
+    return result ? result : null
+
+}
 
 function draw() {
 
@@ -214,16 +213,23 @@ function draw() {
 
     image(backgroundImage, 0, HUD_HEIGHT)
 
-    drawEnemies()
+    enemies.forEach(enemy => {
+        enemy.draw()
+    })
 
     startTile.draw()
     endTile.draw()
 
-    for (const orangeTile of orangeTiles){
+    orangeTiles.forEach(orangeTile => {
         orangeTile.selectTarget(enemies)
         orangeTile.updateUpgradeDisplay()
-        orangeTile.draw()
-    }
+        orangeTile.drawTile()
+        orangeTile.drawUpgradeDisplay()
+    })
+
+    orangeTiles.forEach(orangeTile => {
+        orangeTile.drawTower()
+    })
 
     hud.draw()
 

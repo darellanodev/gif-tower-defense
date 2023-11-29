@@ -69,10 +69,6 @@ class OrangeTile {
             }
         }
     }
-    
-    _drawTile() {
-        image(this.img, this.x, this.y)
-    }
 
     updateUpgradeDisplay() {
 
@@ -89,17 +85,20 @@ class OrangeTile {
             this.tower.upgrade()
         }
     }
-    
-    draw() {
+        
+    drawTile() {
+        image(this.img, this.x, this.y)
+    }
 
-        this._drawTile()
-
+    drawUpgradeDisplay() {
         if (this.upgradeDisplay) {
             this.upgradeDisplay.draw()    
-        } else {
-            if (this.tower) {
-                this.tower.draw()
-            }
+        }
+    }
+
+    drawTower() {
+        if (this.tower && this.upgradeDisplay === null) {
+            this.tower.draw()
         }
     }
 
