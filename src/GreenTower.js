@@ -72,13 +72,14 @@ class GreenTower {
     selectTarget(enemies) {
         let minDistance = 99999
         let enemyTarget = null
-        for (const enemy of enemies) {
+
+        enemies.forEach(enemy => {
             const distance = Distance.twoPoints(this.x, this.y, enemy.getX(), enemy.getY())
             if (distance < minDistance) {
                 minDistance = distance
                 enemyTarget = enemy
             }
-        }
+        })
 
         if (this._isDistanceIntoInfluenceArea(minDistance)) {
             this.enemyTarget = enemyTarget

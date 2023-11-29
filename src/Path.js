@@ -15,13 +15,10 @@ class Path {
 
     getTileInPosition(tx, ty) {
 
-        for (const pathTile of this.pathTiles){
-            if (tx === pathTile.getX() && ty === pathTile.getY()){
-                return pathTile
-            }
-        }
+        const pathTile = this.pathTiles.find(pathTile => (tx === pathTile.getX() && ty === pathTile.getY()))
 
-        return null
+        return pathTile ? pathTile : null
+
     }
 
     _searchLeftTile(currentTile) {

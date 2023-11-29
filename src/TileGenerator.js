@@ -88,13 +88,13 @@ class TileGenerator {
         }
     }
 
-    _extractTiles(symbol, startDirection = null) {
+    _extractTiles(symbol) {
 
         const resultTiles = []
 
         const mapArray = this.levelMap.split(',');
         let rowCount = 0
-        mapArray.forEach((row) => {
+        mapArray.forEach(row => {
             const trimmedRow = row.trim()
             rowCount++
             for (let column = 0; column < trimmedRow.length; column++) {
