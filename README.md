@@ -13,10 +13,30 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ### Tasks
 
-- [ ] Refactor with some functional programming
 - [ ] Use prettier or other formatter
-- [ ] Test other maps with different end tiles positions to implmentent (with tests) the remaining endings
+- [ ] Speed button
+- [ ] Pause button
+- [ ] Menu to allow the user to select a desired level to play
+- [ ] Test other maps with different end tiles positions to implement (with tests) the remaining endings
+- [ ] When the player lost all the lives show game over screen
+- [ ] The captured faces show a diferent icon with the mouth opened
+- [ ] When is full get lives depending on the upgrade level
+- [ ] Yellow tower absorbs the yellow faces and fill its indicator
+- [ ] When the enemy dies create an explosion of little happy yellow faces
+- [ ] The boss is slower than the rest of the enemies
+- [ ] Draw the boss different to the rest of enemies
+- [ ] Make the progress bar to the next wave and the boss progress bar at the bottom
+- [ ] When the player buys a tower decrease the money
+- [ ] When the player sells a tower increase the money
+- [ ] Put the money indicator
+- [ ] When an enemy reaches the end tile the player loses a live
+- [ ] Put the lives indicator
+- [ ] Put a bar in top of enemies to show their health
 - [ ] The HUD changes when the player moves the mouse over a tower showing sell and upgrade options
+- [x] Refactor with some functional programming (replace `for` loops with `forEach` function, use `find` function, ...)
+- [x] Fix the laser that goes under the other tiles
+- [x] Rotate the tower to follow the target enemy
+- [x] Laser tower selects the near enemy and fires a laser line
 - [x] If left mouse button is pressed and exist a tower upgrade the tower
 - [x] Include the towers designs
 - [x] The user can select the tower in the HUD using the mouse.
