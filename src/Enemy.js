@@ -3,11 +3,6 @@ class Enemy {
     TILE_SIZE = 50
     VELOCITY = 1 // must be multiple of TILE_SIZE. Set 1 for normal game or 25 for speed test
 
-    LEFT_DIRECTION = 1
-    RIGHT_DIRECTION = 2
-    UP_DIRECTION = 3
-    DOWN_DIRECTION = 4
-
     CHANGE_EYES_MAX_TIME = 50
     
     EXTEND_CLOSED_EYES_MAX_TIME = 20
@@ -54,22 +49,22 @@ class Enemy {
     setInitialPosition() {
 
         switch (this.currentDirection) {
-            case this.LEFT_DIRECTION:
+            case Const.LEFT_DIRECTION:
                 this.x = startTile.getX() + this.TILE_SIZE
                 this.y = startTile.getY()
                 break
         
-            case this.RIGHT_DIRECTION:
+            case Const.RIGHT_DIRECTION:
                 this.x = startTile.getX() - this.TILE_SIZE
                 this.y = startTile.getY()
                 break
         
-            case this.UP_DIRECTION:
+            case Const.UP_DIRECTION:
                 this.x = startTile.getX()
                 this.y = startTile.getY() + this.TILE_SIZE
                 break
         
-            case this.DOWN_DIRECTION:
+            case Const.DOWN_DIRECTION:
                 this.x = startTile.getX()
                 this.y = startTile.getY() - this.TILE_SIZE
                 break
@@ -80,20 +75,20 @@ class Enemy {
 
     update() {
         switch (this.currentDirection) {
-            case this.LEFT_DIRECTION:
+            case Const.LEFT_DIRECTION:
                 this.x = this.x - this.VELOCITY
                 break
         
-            case this.RIGHT_DIRECTION:
+            case Const.RIGHT_DIRECTION:
                 this.x = this.x + this.VELOCITY
                 break
         
-            case this.UP_DIRECTION:
+            case Const.UP_DIRECTION:
                 this.y = this.y - this.VELOCITY
                 break
         
             case this.DOWN_DIRECTION:
-                this.y = this.y + this.VELOCITY
+                this.Const.his.y + this.VELOCITY
                 break
 
         }

@@ -8,6 +8,11 @@ class Const {
     static RED_TOWER = 2
     static YELLOW_TOWER = 3
 
+    static LEFT_DIRECTION = 1
+    static RIGHT_DIRECTION = 2
+    static UP_DIRECTION = 3
+    static DOWN_DIRECTION = 4
+
 }
 
 // This is for Jest testing

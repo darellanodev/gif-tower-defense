@@ -11,10 +11,6 @@ class TileGenerator {
 
     FLOOR_SIZE = 50
     MARGIN_TOP = 30
-    LEFT_DIRECTION = 1
-    RIGHT_DIRECTION = 2
-    UP_DIRECTION = 3
-    DOWN_DIRECTION = 4
 
     constructor(levelMap, mapImages) {
 
@@ -43,22 +39,22 @@ class TileGenerator {
         switch (startOrientation) {
                 case '1':
                 this.startImage = mapImages[6]
-                this.startDirection = this.DOWN_DIRECTION
+                this.startDirection = Const.DOWN_DIRECTION
                 break
 
                 case '2':
                 this.startImage = mapImages[7]
-                this.startDirection = this.RIGHT_DIRECTION
+                this.startDirection = Const.RIGHT_DIRECTION
                 break
 
                 case '3':
                 this.startImage = mapImages[8]
-                this.startDirection = this.LEFT_DIRECTION
+                this.startDirection = Const.LEFT_DIRECTION
                 break
 
                 case '4':
                 this.startImage = mapImages[9]
-                this.startDirection = this.UP_DIRECTION
+                this.startDirection = Const.UP_DIRECTION
                 break
         }
 
