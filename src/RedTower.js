@@ -35,4 +35,8 @@ class RedTower {
         return this.RED_COLOR
     }
 
+    selectTarget(enemies) {
+        //TODO
+    }
+
 }
