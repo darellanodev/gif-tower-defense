@@ -15,6 +15,10 @@ const GREEN_TOWER = 1
 const RED_TOWER = 2
 const YELLOW_TOWER = 3
 
+const HUD_NORMAL = 1
+const HUD_UPGRADING = 2
+const HUD_UPGRADING_MAX = 3
+
 const CREATE_ENEMY_MAX_TIME = 100
 
 let orders
@@ -235,6 +239,11 @@ function draw() {
 
     if (mouseOrangeTileOver !== null) {
         mouseOrangeTileOver.drawInfluenceArea(hud.getSelectedTower())
+        if (mouseOrangeTileOver.hasTower()) {
+            hud.setType(HUD_UPGRADING)
+        } else {
+            hud.setType(HUD_NORMAL)
+        }
     }
 
     Debug.showMouseCoordinates(mouseX,mouseY)

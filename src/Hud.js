@@ -4,10 +4,16 @@ class Hud {
     RED_TOWER = 2
     YELLOW_TOWER = 3
 
+    HUD_NORMAL = 1
+    HUD_UPGRADING = 2
+    HUD_UPGRADING_MAX = 3
+
     constructor(hudImages) {
         this.hudNormal = hudImages[0]
         this.hudUpgrading = hudImages[1]
         this.hudUpgradingMax = hudImages[2]
+
+        this.hudType = this.HUD_NORMAL
 
         this.selectedItem = this.GREEN_TOWER
     }
@@ -76,12 +82,30 @@ class Hud {
         return this.selectedItem
     }
 
+    setType(hudType) {
+        this.hudType = hudType
+    }
+
     draw() {
 
-        image(this.hudNormal, 0, 0)
+        switch (this.hudType) {
+            case this.HUD_NORMAL:
+                image(this.hudNormal, 0, 0)
 
-        this._drawSelectedItem()
-        this._drawLevelTitle()
+                this._drawSelectedItem()
+                this._drawLevelTitle()
+                break;
+
+            case this.HUD_UPGRADING:
+                image(this.hudUpgrading, 0, 0)
+                break;
+
+            case this.HUD_UPGRADING_MAX:
+                image(this.hudUpgradingMax, 0, 0)
+                break;
+        }
+
+
 
     }
 }
