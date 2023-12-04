@@ -161,10 +161,6 @@ class OrangeTile {
         return this.tower !== null
     }
 
-    getTower() {
-        return this.tower
-    }
-
     _getInfluenceAreaFor(towerSelected) {
         switch (towerSelected) {
             case Const.GREEN_TOWER:
@@ -193,6 +189,21 @@ class OrangeTile {
 
         }
         circle(this.x + Const.TILE_SIZE/2, this.y + Const.TILE_SIZE/2, influenceArea)
+    }
+
+    
+    selectHudType() {
+        if (this.hasTower()) {
+            
+            if (this.tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL){
+                hud.setType(Const.HUD_UPGRADING)
+            } else {
+                hud.setType(Const.HUD_UPGRADING_MAX)
+            }
+
+        } else {
+            hud.setType(Const.HUD_NORMAL)
+        }
     }
 
 }

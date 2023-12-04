@@ -216,19 +216,9 @@ function draw() {
 
     if (mouseOrangeTileOver !== null) {
         mouseOrangeTileOver.drawInfluenceArea(hud.getSelectedTower())
-        if (mouseOrangeTileOver.hasTower()) {
-            
-            const tower = mouseOrangeTileOver.getTower()
-            
-            if (tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL){
-                hud.setType(Const.HUD_UPGRADING)
-            } else {
-                hud.setType(Const.HUD_UPGRADING_MAX)
-            }
-
-        } else {
-            hud.setType(Const.HUD_NORMAL)
-        }
+        mouseOrangeTileOver.selectHudType()
+    } else {
+        hud.setType(Const.HUD_NORMAL)
     }
 
     Debug.showMouseCoordinates(mouseX,mouseY)
