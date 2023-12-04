@@ -70,7 +70,7 @@ class OrangeTile {
         if (this.tower === null) {
             this._buyTower(towerType)
         } else {
-            if (this.tower.getUpgradeLevel() < this.UPGRADE_MAX_LEVEL){
+            if (this.tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL){
                 this._showUpgradeDisplay(towerType)
             }
         }

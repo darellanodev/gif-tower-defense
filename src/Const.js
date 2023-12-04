@@ -13,6 +13,8 @@ class Const {
     static UP_DIRECTION = 3
     static DOWN_DIRECTION = 4
 
+    static UPGRADE_MAX_LEVEL = 5
+
 }
 
 // This is for Jest testing

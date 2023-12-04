@@ -8,8 +8,6 @@ const KEY_1 = 49
 const KEY_2 = 50
 const KEY_3 = 51
 
-const UPGRADE_MAX_LEVEL = 5
-
 const CREATE_ENEMY_MAX_TIME = 100
 
 let orders
@@ -234,7 +232,7 @@ function draw() {
             
             const tower = mouseOrangeTileOver.getTower()
             
-            if (tower.getUpgradeLevel() < UPGRADE_MAX_LEVEL){
+            if (tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL){
                 hud.setType(Const.HUD_UPGRADING)
             } else {
                 hud.setType(Const.HUD_UPGRADING_MAX)
