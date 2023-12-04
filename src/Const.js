@@ -17,6 +17,17 @@ class Const {
 
     static UPGRADE_MAX_LEVEL = 5
 
+    static TOTAL_TOWER_UPGRADES = 5
+    static TOTAL_ENEMIES = 5
+    static CANVAS_WIDTH = 800
+    static CANVAS_HEIGHT = 580
+    static HUD_HEIGHT = 84
+    static KEY_1 = 49
+    static KEY_2 = 50
+    static KEY_3 = 51
+
+    static CREATE_ENEMY_MAX_TIME = 100
+
 }
 
 // This is for Jest testing

@@ -1,14 +1,3 @@
-const TOTAL_TOWER_UPGRADES = 6
-const TOTAL_ENEMIES = 5
-const CANVAS_WIDTH = 800
-const CANVAS_HEIGHT = 580
-const HUD_HEIGHT = 84
-const KEY_1 = 49
-const KEY_2 = 50
-const KEY_3 = 51
-
-const CREATE_ENEMY_MAX_TIME = 100
-
 let orders
 let createEnemyTime
 let enemies
@@ -23,13 +12,13 @@ function preload() {
     yellowTowerImages = []
     enemiesImages = []
 
-    Range.make(0, TOTAL_TOWER_UPGRADES - 1).forEach((v) => {
+    Range.make(0, Const.TOTAL_TOWER_UPGRADES).forEach((v) => {
         greenTowerImages.push(loadImage('img/towers/green_tower_upgrade_' + v + '.png'))
         redTowerImages.push(loadImage('img/towers/red_tower_upgrade_' + v + '.png'))
         yellowTowerImages.push(loadImage('img/towers/yellow_tower_upgrade_' + v + '.png'))
     })
 
-    Range.make(1, TOTAL_ENEMIES).forEach((v) => {
+    Range.make(1, Const.TOTAL_ENEMIES).forEach((v) => {
         enemiesImages.push(loadImage('img/enemies/' + v + '_center.png'));
         enemiesImages.push(loadImage('img/enemies/' + v + '_left.png'));
         enemiesImages.push(loadImage('img/enemies/' + v + '_right.png'));
@@ -71,7 +60,7 @@ function setup() {
 
     disableContextualMenu()
       
-    createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT)
+    createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT)
 
     const levelMap = `111111111111111x,
                       1000000000000000,
@@ -106,15 +95,15 @@ function setup() {
 function keyPressed() {
     
     switch (keyCode) {
-        case KEY_1:
+        case Const.KEY_1:
             hud.selectTower(Const.GREEN_TOWER)
             break;
 
-        case KEY_2:
+        case Const.KEY_2:
             hud.selectTower(Const.RED_TOWER)
             break;
 
-        case KEY_3:
+        case Const.KEY_3:
             hud.selectTower(Const.YELLOW_TOWER)
             break;
     }
@@ -169,9 +158,9 @@ function createNewEnemy() {
 
 function updateEnemies() {
 
-    if (enemies.length < TOTAL_ENEMIES) {
+    if (enemies.length < Const.TOTAL_ENEMIES) {
         createEnemyTime++
-        if (createEnemyTime === CREATE_ENEMY_MAX_TIME) {
+        if (createEnemyTime === Const.CREATE_ENEMY_MAX_TIME) {
             createEnemyTime = 0
             createNewEnemy()
         }
@@ -203,7 +192,7 @@ function draw() {
     background('skyblue')
     rectMode(CORNER)
 
-    image(backgroundImage, 0, HUD_HEIGHT)
+    image(backgroundImage, 0, Const.HUD_HEIGHT)
 
     enemies.forEach(enemy => {
         enemy.draw()
