@@ -11,9 +11,7 @@ const DOWN_DIRECTION = 4
 const KEY_1 = 49
 const KEY_2 = 50
 const KEY_3 = 51
-const GREEN_TOWER = 1
-const RED_TOWER = 2
-const YELLOW_TOWER = 3
+
 const UPGRADE_MAX_LEVEL = 5
 
 const CREATE_ENEMY_MAX_TIME = 100
@@ -116,15 +114,15 @@ function keyPressed() {
     
     switch (keyCode) {
         case KEY_1:
-            hud.selectTower(GREEN_TOWER)
+            hud.selectTower(Const.GREEN_TOWER)
             break;
 
         case KEY_2:
-            hud.selectTower(RED_TOWER)
+            hud.selectTower(Const.RED_TOWER)
             break;
 
         case KEY_3:
-            hud.selectTower(YELLOW_TOWER)
+            hud.selectTower(Const.YELLOW_TOWER)
             break;
     }
   }
@@ -134,13 +132,13 @@ function mouseClicked() {
     if (hud.isInsideButtonsBar(mouseX, mouseY)) {
         
         if (hud.isInsideGreenTowerButton(mouseX, mouseY)){
-            hud.selectTower(GREEN_TOWER)
+            hud.selectTower(Const.GREEN_TOWER)
         }
         if (hud.isInsideRedTowerButton(mouseX, mouseY)){
-            hud.selectTower(RED_TOWER)
+            hud.selectTower(Const.RED_TOWER)
         }
         if (hud.isInsideYellowTowerButton(mouseX, mouseY)){
-            hud.selectTower(YELLOW_TOWER)
+            hud.selectTower(Const.YELLOW_TOWER)
         }
         return
     }

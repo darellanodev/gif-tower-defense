@@ -24,5 +24,5 @@ class EndTile {
 }
 
 // This is for Jest testing
-var module = module || {};
-module.exports = EndTile;
+var module = module || {}
+module.exports = EndTile

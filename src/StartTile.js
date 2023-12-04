@@ -28,5 +28,5 @@ class StartTile {
 }
 
 // This is for Jest testing
-var module = module || {};
-module.exports = StartTile;
+var module = module || {}
+module.exports = StartTile

@@ -144,5 +144,5 @@ class TileGenerator {
 }
 
 // This is for Jest testing
-var module = module || {};
-module.exports = TileGenerator;
+var module = module || {}
+module.exports = TileGenerator

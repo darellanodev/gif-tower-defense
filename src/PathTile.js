@@ -18,5 +18,5 @@ class PathTile {
 }
 
 // This is for Jest testing
-var module = module || {};
-module.exports = PathTile;
+var module = module || {}
+module.exports = PathTile

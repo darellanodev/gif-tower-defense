@@ -1,7 +1,7 @@
 class RedTower {
 
     UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
-    RED_TOWER = 2
+    TYPE = 2
     RED_COLOR = [185, 35, 35]
 
     constructor(images, x, y) {
@@ -28,7 +28,7 @@ class RedTower {
     }
     
     getType() {
-        return this.RED_TOWER
+        return this.TYPE
     }
 
     getColor() {

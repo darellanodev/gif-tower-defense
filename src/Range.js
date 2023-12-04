@@ -7,5 +7,5 @@ class Range {
 }
 
 // This is for Jest testing
-var module = module || {};
-module.exports = Range;
+var module = module || {}
+module.exports = Range

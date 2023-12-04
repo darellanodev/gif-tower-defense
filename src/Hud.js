@@ -1,9 +1,5 @@
 class Hud {
 
-    GREEN_TOWER = 1
-    RED_TOWER = 2
-    YELLOW_TOWER = 3
-
     constructor(hudImages) {
         this.hudNormal = hudImages[0]
         this.hudUpgrading = hudImages[1]
@@ -11,7 +7,7 @@ class Hud {
 
         this.hudType = Const.HUD_NORMAL
 
-        this.selectedItem = this.GREEN_TOWER
+        this.selectedItem = Const.GREEN_TOWER
     }
 
     _drawLevelTitle() {
@@ -28,15 +24,15 @@ class Hud {
         noFill()
 
         switch (this.selectedItem) {
-            case this.GREEN_TOWER:
+            case Const.GREEN_TOWER:
                 square(57, 36, 37);
                 break;
 
-            case this.RED_TOWER:
+            case Const.RED_TOWER:
                 square(139, 36, 37);
                 break;
 
-            case this.YELLOW_TOWER:
+            case Const.YELLOW_TOWER:
                 square(224, 36, 37);
                 break;
         }

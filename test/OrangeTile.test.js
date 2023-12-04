@@ -1,6 +1,5 @@
+const Const = require('../src/Const.js')
 const OrangeTile = require('../src/OrangeTile.js')
-
-const GREEN_TOWER = 1
 
 describe('When clic over an orange tile', () => {
     test('If mouse is inside should return true', () => {
@@ -30,8 +29,10 @@ describe('Other methods of the orange tile', () => {
 
         const img = null
         const orangeTile = new OrangeTile(img, 100, 100)
+
+        console.log(Const.GREEN_TOWER);
         
-        orangeTile.putTower(1)
+        orangeTile.putTower(Const.GREEN_TOWER)
         result = orangeTile.hasTower()
 
         expect(result).toBeTruthy()

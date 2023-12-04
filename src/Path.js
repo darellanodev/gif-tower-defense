@@ -161,5 +161,5 @@ class Path {
 }
 
 // This is for Jest testing
-var module = module || {};
-module.exports = Path;
+var module = module || {}
+module.exports = Path

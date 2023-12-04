@@ -1,7 +1,7 @@
 class GreenTower {
 
     UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
-    GREEN_TOWER = 1
+    TYPE = 1
     GREEN_COLOR = [75, 185, 35]
 
     constructor(images, x, y) {
@@ -58,7 +58,7 @@ class GreenTower {
     }
 
     getType() {
-        return this.GREEN_TOWER
+        return this.TYPE
     }
 
     getColor() {
@@ -94,5 +94,5 @@ class GreenTower {
 }
 
 // This is for Jest testing
-var module = module || {};
-module.exports = GreenTower;
+var module = module || {}
+module.exports = GreenTower

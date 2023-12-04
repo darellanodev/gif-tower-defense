@@ -1,5 +1,7 @@
 // This is for Jest testing
 if (typeof window === 'undefined') {
+
+    Const = require('../src/Const.js');
     GreenTower = require('../src/GreenTower.js');
     greenTowerImages = []
     redTowerImages = []
@@ -12,10 +14,6 @@ class OrangeTile {
     TOWER_OFFSET = 5
 
     UPGRADE_MAX_LEVEL = 5
-
-    GREEN_TOWER = 1
-    RED_TOWER = 2
-    YELLOW_TOWER = 3
 
     GREEN_TOWER_INFLUENCE_AREA = 150
     RED_TOWER_INFLUENCE_AREA = 240
@@ -50,13 +48,13 @@ class OrangeTile {
         let tower = null
 
         switch (towerType) {
-            case this.GREEN_TOWER:
+            case Const.GREEN_TOWER:
                 tower = new GreenTower(greenTowerImages, this.x - this.TOWER_OFFSET, this.y - this.TOWER_OFFSET)
                 break;
-            case this.RED_TOWER:
+            case Const.RED_TOWER:
                 tower = new RedTower(redTowerImages, this.x - this.TOWER_OFFSET, this.y - this.TOWER_OFFSET)
                 break;
-            case this.YELLOW_TOWER:
+            case Const.YELLOW_TOWER:
                 tower = new YellowTower(yellowTowerImages, this.x, this.y)
                 break;
         
@@ -143,17 +141,17 @@ class OrangeTile {
 
     _setInfluenceAreaColor(towerType) {
         switch (towerType) {
-            case this.GREEN_TOWER:
+            case Const.GREEN_TOWER:
                 stroke(...this.GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
                 fill(...this.GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
                 break;
 
-            case this.RED_TOWER:
+            case Const.RED_TOWER:
                 stroke(...this.RED_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
                 fill(...this.RED_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
                 break;
 
-            case this.YELLOW_TOWER:
+            case Const.YELLOW_TOWER:
                 stroke(...this.YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
                 fill(...this.YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
                 break;
@@ -170,13 +168,13 @@ class OrangeTile {
 
     _getInfluenceAreaFor(towerSelected) {
         switch (towerSelected) {
-            case this.GREEN_TOWER:
+            case Const.GREEN_TOWER:
                 return this.GREEN_TOWER_INFLUENCE_AREA
 
-            case this.RED_TOWER:
+            case Const.RED_TOWER:
                 return this.RED_TOWER_INFLUENCE_AREA
 
-            case this.YELLOW_TOWER:
+            case Const.YELLOW_TOWER:
                 return this.YELLOW_TOWER_INFLUENCE_AREA
         }
     }
@@ -201,5 +199,5 @@ class OrangeTile {
 }
 
 // This is for Jest testing
-var module = module || {};
-module.exports = OrangeTile;
+var module = module || {}
+module.exports = OrangeTile
