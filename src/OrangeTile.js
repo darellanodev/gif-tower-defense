@@ -1,3 +1,11 @@
+// This is for Jest testing
+if (typeof window === 'undefined') {
+    GreenTower = require('../src/GreenTower.js');
+    greenTowerImages = []
+    redTowerImages = []
+    yellowTowerImages = []
+}
+
 class OrangeTile {
 
     TILE_SIZE = 50
@@ -150,6 +158,10 @@ class OrangeTile {
                 fill(...this.YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
                 break;
         }
+    }
+
+    hasTower() {
+        return this.tower !== null
     }
 
     _getInfluenceAreaFor(towerSelected) {

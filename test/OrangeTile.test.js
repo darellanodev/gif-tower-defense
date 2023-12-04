@@ -1,5 +1,7 @@
 const OrangeTile = require('../src/OrangeTile.js')
 
+const GREEN_TOWER = 1
+
 describe('When clic over an orange tile', () => {
     test('If mouse is inside should return true', () => {
 
@@ -21,4 +23,17 @@ describe('When clic over an orange tile', () => {
         expect(result).toBeFalsy()
     })
 
+})
+
+describe('Other methods of the orange tile', () => {
+    test('should return true when has a tower', () => {
+
+        const img = null
+        const orangeTile = new OrangeTile(img, 100, 100)
+        
+        orangeTile.putTower(1)
+        result = orangeTile.hasTower()
+
+        expect(result).toBeTruthy()
+    })
 })
