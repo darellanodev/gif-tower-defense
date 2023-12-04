@@ -1,4 +1,3 @@
-const Const = require('../src/Const.js')
 const OrangeTile = require('../src/OrangeTile.js')
 
 describe('When clic over an orange tile', () => {

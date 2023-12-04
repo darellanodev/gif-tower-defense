@@ -1,7 +1,5 @@
 class EndTile {
 
-    TILE_SIZE = 50
-
     constructor(img, x, y) {
         this.x = x
         this.y = y
@@ -19,7 +17,6 @@ class EndTile {
     getY() {
         return this.y
     }
-
 
 }
 

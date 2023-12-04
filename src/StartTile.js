@@ -1,7 +1,5 @@
 class StartTile {
 
-    TILE_SIZE = 50
-
     constructor(img, x, y, startDirection) {
         this.x = x
         this.y = y

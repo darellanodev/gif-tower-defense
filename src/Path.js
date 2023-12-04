@@ -1,6 +1,10 @@
+// This is for Jest testing
+if (typeof window === 'undefined') {
+    Const = require('../src/Const.js');
+}
+
 class Path {
 
-    TILE_SIZE = 50
     MAX_SEARCHES = 5000 // For testing purposes put a low value. For production put this value at 5000
 
     constructor(startTile, endTile, pathTiles) {
@@ -18,31 +22,31 @@ class Path {
     }
 
     _searchLeftTile(currentTile) {
-        const searchPx = currentTile.getX() - this.TILE_SIZE
+        const searchPx = currentTile.getX() - Const.TILE_SIZE
         const searchPy = currentTile.getY()
         return this.getTileInPosition(searchPx, searchPy)
     }
 
     _searchDownTile(currentTile) {
         const searchPx = currentTile.getX()
-        const searchPy = currentTile.getY() + this.TILE_SIZE
+        const searchPy = currentTile.getY() + Const.TILE_SIZE
         return this.getTileInPosition(searchPx, searchPy)
     }
 
     _searchRightTile(currentTile) {
-        const searchPx = currentTile.getX() + this.TILE_SIZE
+        const searchPx = currentTile.getX() + Const.TILE_SIZE
         const searchPy = currentTile.getY()
         return this.getTileInPosition(searchPx, searchPy)
     }
 
     _searchUpTile(currentTile) {
         const searchPx = currentTile.getX()
-        const searchPy = currentTile.getY() - this.TILE_SIZE
+        const searchPy = currentTile.getY() - Const.TILE_SIZE
         return this.getTileInPosition(searchPx, searchPy)
     }
 
     _isLeftEndTile(currentTile) {
-        const searchPx = currentTile.getX() - this.TILE_SIZE
+        const searchPx = currentTile.getX() - Const.TILE_SIZE
         const searchPy = currentTile.getY()
 
         const endPx = this.endTile.getX()

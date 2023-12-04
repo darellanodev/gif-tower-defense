@@ -1,7 +1,11 @@
+// This is for Jest testing
+if (typeof window === 'undefined') {
+    Const = require('../src/Const.js');
+}
+
 class Enemy {
 
-    TILE_SIZE = 50
-    VELOCITY = 1 // must be multiple of TILE_SIZE. Set 1 for normal game or 25 for speed test
+    VELOCITY = 1 // must be multiple of "Const.TILE_SIZE". Set 1 for normal game or 25 for speed test
 
     CHANGE_EYES_MAX_TIME = 50
     
@@ -50,23 +54,23 @@ class Enemy {
 
         switch (this.currentDirection) {
             case Const.LEFT_DIRECTION:
-                this.x = startTile.getX() + this.TILE_SIZE
+                this.x = startTile.getX() + Const.TILE_SIZE
                 this.y = startTile.getY()
                 break
         
             case Const.RIGHT_DIRECTION:
-                this.x = startTile.getX() - this.TILE_SIZE
+                this.x = startTile.getX() - Const.TILE_SIZE
                 this.y = startTile.getY()
                 break
         
             case Const.UP_DIRECTION:
                 this.x = startTile.getX()
-                this.y = startTile.getY() + this.TILE_SIZE
+                this.y = startTile.getY() + Const.TILE_SIZE
                 break
         
             case Const.DOWN_DIRECTION:
                 this.x = startTile.getX()
-                this.y = startTile.getY() - this.TILE_SIZE
+                this.y = startTile.getY() - Const.TILE_SIZE
                 break
 
         }
@@ -95,11 +99,11 @@ class Enemy {
         
         this.moveCount = this.moveCount + this.VELOCITY
 
-        if (this.moveCount === this.TILE_SIZE && this.endReached ) {
+        if (this.moveCount === Const.TILE_SIZE && this.endReached ) {
             this.reinitEnemy()
         }
 
-        if (this.moveCount === this.TILE_SIZE) {
+        if (this.moveCount === Const.TILE_SIZE) {
             this.moveCount = 0
 
             if (this.isEndReached()){

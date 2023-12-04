@@ -3,7 +3,6 @@ const TOTAL_ENEMIES = 5
 const CANVAS_WIDTH = 800
 const CANVAS_HEIGHT = 580
 const HUD_HEIGHT = 84
-const TILE_SIZE = 50
 const KEY_1 = 49
 const KEY_2 = 50
 const KEY_3 = 51

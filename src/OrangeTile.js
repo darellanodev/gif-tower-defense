@@ -10,7 +10,6 @@ if (typeof window === 'undefined') {
 
 class OrangeTile {
 
-    TILE_SIZE = 50
     TOWER_OFFSET = 5
 
     UPGRADE_MAX_LEVEL = 5
@@ -126,10 +125,10 @@ class OrangeTile {
         let insideX = false
         let insideY = false
         
-        if ((this.x < mouse_x) && ((this.x + this.TILE_SIZE) > mouse_x)) {
+        if ((this.x < mouse_x) && ((this.x + Const.TILE_SIZE) > mouse_x)) {
             insideX = true
         }
-        if ((this.y < mouse_y) && ((this.y + this.TILE_SIZE) > mouse_y)) {
+        if ((this.y < mouse_y) && ((this.y + Const.TILE_SIZE) > mouse_y)) {
             insideY = true
         }
 
@@ -193,7 +192,7 @@ class OrangeTile {
             influenceArea = this._getInfluenceAreaFor(towerSelected)
 
         }
-        circle(this.x + this.TILE_SIZE/2, this.y + this.TILE_SIZE/2, influenceArea)
+        circle(this.x + Const.TILE_SIZE/2, this.y + Const.TILE_SIZE/2, influenceArea)
     }
 
 }
