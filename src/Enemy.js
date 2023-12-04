@@ -91,8 +91,8 @@ class Enemy {
                 this.y = this.y - this.VELOCITY
                 break
         
-            case this.DOWN_DIRECTION:
-                this.Const.his.y + this.VELOCITY
+            case Const.DOWN_DIRECTION:
+                this.y = this.y + this.VELOCITY
                 break
 
         }
