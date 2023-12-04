@@ -13,6 +13,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ### Tasks
 
+- [ ] Level editor
 - [ ] Use prettier or other formatter
 - [ ] Speed button
 - [ ] Pause button
@@ -32,7 +33,8 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] When an enemy reaches the end tile the player loses a live
 - [ ] Put the lives indicator
 - [ ] Put a bar in top of enemies to show their health
-- [ ] The HUD changes when the player moves the mouse over a tower showing sell and upgrade options
+- [x] Put all constants into static class to not repeat them
+- [x] The HUD changes when the player moves the mouse over a tower showing sell and upgrade options
 - [x] Refactor with some functional programming (replace `for` loops with `forEach` function, use `find` function, ...)
 - [x] Fix the laser that goes under the other tiles
 - [x] Rotate the tower to follow the target enemy
