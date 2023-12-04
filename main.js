@@ -14,6 +14,7 @@ const KEY_3 = 51
 const GREEN_TOWER = 1
 const RED_TOWER = 2
 const YELLOW_TOWER = 3
+const UPGRADE_MAX_LEVEL = 5
 
 const HUD_NORMAL = 1
 const HUD_UPGRADING = 2
@@ -240,7 +241,15 @@ function draw() {
     if (mouseOrangeTileOver !== null) {
         mouseOrangeTileOver.drawInfluenceArea(hud.getSelectedTower())
         if (mouseOrangeTileOver.hasTower()) {
-            hud.setType(HUD_UPGRADING)
+            
+            const tower = mouseOrangeTileOver.getTower()
+            
+            if (tower.getUpgradeLevel() < UPGRADE_MAX_LEVEL){
+                hud.setType(HUD_UPGRADING)
+            } else {
+                hud.setType(HUD_UPGRADING_MAX)
+            }
+
         } else {
             hud.setType(HUD_NORMAL)
         }

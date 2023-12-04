@@ -164,6 +164,10 @@ class OrangeTile {
         return this.tower !== null
     }
 
+    getTower() {
+        return this.tower
+    }
+
     _getInfluenceAreaFor(towerSelected) {
         switch (towerSelected) {
             case this.GREEN_TOWER:
