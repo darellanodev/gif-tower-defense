@@ -17,22 +17,25 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Use prettier or other formatter
 - [ ] Speed button
 - [ ] Pause button
-- [ ] Menu to allow the user to select a desired level to play
+- [ ] Magics buttons
+- [ ] Menu to allow the user to select a desired level to play. Replace old player names for other names.
 - [ ] Test other maps with different end tiles positions to implement (with tests) the remaining endings
 - [ ] When the player lost all the lives show game over screen
 - [ ] The captured faces show a diferent icon with the mouth opened
-- [ ] When is full get lives depending on the upgrade level
+- [ ] When Yellow tower is full the player get lives depending on the upgrade level of the yellow tower
 - [ ] Yellow tower absorbs the yellow faces and fill its indicator
 - [ ] When the enemy dies create an explosion of little happy yellow faces
 - [ ] The boss is slower than the rest of the enemies
 - [ ] Draw the boss different to the rest of enemies
-- [ ] Make the progress bar to the next wave and the boss progress bar at the bottom
-- [ ] When the player buys a tower decrease the money
-- [ ] When the player sells a tower increase the money
-- [ ] Put the money indicator
+- [ ] Make the boss progress bar at the bottom of the next wave progress bar
+- [ ] Make the progress bar to the next wave
+- [ ] Change Enemy constructor with initialX, initialY, orders and transfer the actual enemy logic to the orders generator.
+- [ ] Change the strenght of the enemies to increase every time a new enemy is created.
 - [ ] When an enemy reaches the end tile the player loses a live
 - [ ] Put the lives indicator
-- [ ] Change Enemy constructor with initialX, initialY, orders. Transfer the actual enemy logic to the orders generator.
+- [ ] When the player sells a tower increase the money
+- [ ] When the player buys a tower decrease the money
+- [ ] Put the money indicator
 - [x] Put a bar in top of enemies to show their health and remove enemies when dies
 - [x] Put all constants into static class to not repeat them
 - [x] The HUD changes when the player moves the mouse over a tower showing sell and upgrade options
