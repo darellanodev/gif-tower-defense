@@ -28,8 +28,6 @@ describe('Other methods of the orange tile', () => {
 
         const img = null
         const orangeTile = new OrangeTile(img, 100, 100)
-
-        console.log(Const.GREEN_TOWER);
         
         orangeTile.putTower(Const.GREEN_TOWER)
         result = orangeTile.hasTower()
