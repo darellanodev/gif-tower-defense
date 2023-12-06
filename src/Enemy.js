@@ -18,6 +18,9 @@ class Enemy {
     EYES_CENTER = 0
     EYES_CLOSED = 3
 
+    STATUS_ALIVE = 0
+    STATUS_DEAD = 1
+
     constructor(images, orders, startTile, endTile) {
         this.images = images
         this.orders = orders
@@ -28,7 +31,30 @@ class Enemy {
         this.imgIndexBeforeEyesClosed = this.EYES_CENTER
         this.eyesSequence = [this.EYES_LEFT, this.EYES_CENTER, this.EYES_RIGHT, this.EYES_CENTER]
 
+        this.healthBar = new HealthBar(200, 200)
+        this.status = this.STATUS_ALIVE
+        this.damage = 0
+
         this.reinitEnemy()
+    }
+
+    addDamage(shotDamage) {
+        
+        if (!this.healthBar.isFullOfDamage()) {
+            this.damage += shotDamage
+            this.healthBar.setDamage(this.damage)
+        } else {
+            this.status = this.STATUS_DEAD
+        }
+        
+    }
+
+    isDead() {
+        return this.status == this.STATUS_DEAD
+    }
+
+    isAlive() {
+        return this.status == this.STATUS_ALIVE
     }
 
     reinitEnemy() {
@@ -181,7 +207,10 @@ class Enemy {
     draw() {
 
         this._changeEyes()
-
         image(this.images[this.imgIndex], this.x, this.y)
+
+        this.healthBar.setPosition(this.x, this.y - 20)
+
+        this.healthBar.draw()
     }
 }

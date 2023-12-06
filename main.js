@@ -4,6 +4,8 @@ let enemies
 let hud
 let orangeTiles
 let mouseOrangeTileOver
+let wave
+let waveEnemies
 
 function preload() {
 
@@ -84,11 +86,11 @@ function setup() {
     const path = new Path(startTile, endTile, pathTiles)
     orders = path.makeOrders()
 
-    enemies = [
-        new Enemy(enemiesImages.slice(0, 4), orders, startTile, endTile),
-    ]
-
     hud = new Hud(hudImages)
+    
+    wave = 1
+    waveEnemies = 0
+    enemies = []
 }
 
 
@@ -137,36 +139,29 @@ function mouseClicked() {
 
 }
 
-function createNewEnemy() {
 
-    switch (enemies.length) {
-        case 1:
-            enemies.push(new Enemy(enemiesImages.slice(4, 8), orders, startTile, endTile))
-            break;
-        case 2:
-            enemies.push(new Enemy(enemiesImages.slice(8, 12), orders, startTile, endTile))
-            break;
-        case 3:
-            enemies.push(new Enemy(enemiesImages.slice(12, 16), orders, startTile, endTile))
-            break;
-        case 4:
-            enemies.push(new Enemy(enemiesImages.slice(16, 20), orders, startTile, endTile))
-            break;
-    }
+function createNewEnemy(waveEnemy) {
+
+    enemies.push(new Enemy(enemiesImages.slice(...ImageUtils.getRangeImagesOfEnemy(waveEnemy)), orders, startTile, endTile))
 
 }
 
 function updateEnemies() {
 
-    if (enemies.length < Const.TOTAL_ENEMIES) {
+    if (waveEnemies < Const.TOTAL_ENEMIES) {
         createEnemyTime++
         if (createEnemyTime === Const.CREATE_ENEMY_MAX_TIME) {
             createEnemyTime = 0
-            createNewEnemy()
+            createNewEnemy(waveEnemies)
+            waveEnemies++
         }
     }
 
-    enemies.forEach( enemy => {
+    enemies = enemies.filter(enemy => enemy.isAlive())
+
+
+
+    enemies.forEach(enemy => {
         enemy.update()
     })
 
