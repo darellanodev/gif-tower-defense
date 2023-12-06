@@ -32,7 +32,8 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Put the money indicator
 - [ ] When an enemy reaches the end tile the player loses a live
 - [ ] Put the lives indicator
-- [ ] Put a bar in top of enemies to show their health
+- [ ] Change Enemy constructor with initialX, initialY, orders. Transfer the actual enemy logic to the orders generator.
+- [x] Put a bar in top of enemies to show their health and remove enemies when dies
 - [x] Put all constants into static class to not repeat them
 - [x] The HUD changes when the player moves the mouse over a tower showing sell and upgrade options
 - [x] Refactor with some functional programming (replace `for` loops with `forEach` function, use `find` function, ...)
