@@ -1,8 +1,6 @@
 class YellowTower {
 
     UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
-    TYPE = 3
-    YELLOW_COLOR = [202, 191, 24]
 
     constructor(images, x, y) {
         this.images = images
@@ -28,11 +26,11 @@ class YellowTower {
     }
     
     getType() {
-        return this.TYPE
+        return Const.YELLOW_TOWER
     }
 
     getColor() {
-        return this.YELLOW_COLOR
+        return Const.YELLOW_COLOR
     }
 
     selectTarget(enemies) {

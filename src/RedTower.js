@@ -1,8 +1,6 @@
 class RedTower {
 
     UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
-    TYPE = 2
-    RED_COLOR = [185, 35, 35]
 
     constructor(images, x, y) {
         this.images = images
@@ -28,11 +26,11 @@ class RedTower {
     }
     
     getType() {
-        return this.TYPE
+        return Const.RED_TOWER
     }
 
     getColor() {
-        return this.RED_COLOR
+        return Const.RED_COLOR
     }
 
     selectTarget(enemies) {

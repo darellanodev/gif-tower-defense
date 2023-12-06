@@ -1,8 +1,6 @@
 class GreenTower {
 
     UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
-    TYPE = 1
-    GREEN_COLOR = [75, 185, 35]
 
     constructor(images, x, y) {
         this.images = images
@@ -22,7 +20,8 @@ class GreenTower {
     }
 
     _drawShotToEnemy() {
-        stroke(this.GREEN_COLOR)
+        strokeWeight(3)
+        stroke(Const.RED_COLOR)
         line(-1, -18, 7 - (this.distanceToEnemyTarget/7), -this.distanceToEnemyTarget)
     }
 
@@ -59,11 +58,11 @@ class GreenTower {
     }
 
     getType() {
-        return this.TYPE
+        return Const.GREEN_TOWER
     }
 
     getColor() {
-        return this.GREEN_COLOR
+        return Const.GREEN_COLOR
     }
 
     _isDistanceIntoInfluenceArea(distance) {

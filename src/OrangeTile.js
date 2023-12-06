@@ -18,10 +18,6 @@ class OrangeTile {
     RED_TOWER_INFLUENCE_AREA = 240
     YELLOW_TOWER_INFLUENCE_AREA = 290
 
-    GREEN_COLOR = [75, 185, 35]
-    RED_COLOR = [185, 35, 35]
-    YELLOW_COLOR = [202, 191, 24]
-
     ALPHA_INFLUENCE_AREA_FILL = 50
     ALPHA_INFLUENCE_AREA_STROKE = 120
 
@@ -141,18 +137,18 @@ class OrangeTile {
     _setInfluenceAreaColor(towerType) {
         switch (towerType) {
             case Const.GREEN_TOWER:
-                stroke(...this.GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
-                fill(...this.GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
+                stroke(...Const.GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
+                fill(...Const.GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
                 break;
 
             case Const.RED_TOWER:
-                stroke(...this.RED_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
-                fill(...this.RED_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
+                stroke(...Const.RED_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
+                fill(...Const.RED_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
                 break;
 
             case Const.YELLOW_TOWER:
-                stroke(...this.YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
-                fill(...this.YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
+                stroke(...Const.YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
+                fill(...Const.YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
                 break;
         }
     }

@@ -8,6 +8,10 @@ class Const {
     static RED_TOWER = 2
     static YELLOW_TOWER = 3
 
+    static GREEN_COLOR = [75, 185, 35]
+    static RED_COLOR = [185, 35, 35]
+    static YELLOW_COLOR = [202, 191, 24]
+
     static LEFT_DIRECTION = 1
     static RIGHT_DIRECTION = 2
     static UP_DIRECTION = 3
