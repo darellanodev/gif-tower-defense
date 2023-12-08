@@ -7,7 +7,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - Use a web server like XAMPP and open index.html through localhost.
 - Alternatively, you can use the "Live Server" extension in VSCode to open index.html.
 
-## Execute the tests
+## Execute the unit tests
 
 - `npm test`
 
@@ -29,13 +29,14 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Draw the boss different to the rest of enemies
 - [ ] Make the boss progress bar at the bottom of the next wave progress bar
 - [ ] Make the progress bar to the next wave
+- [ ] Make the red tower target and shot to an enemy
 - [ ] Change Enemy constructor with initialX, initialY, orders and transfer the actual enemy logic to the orders generator.
 - [ ] Change the strenght of the enemies to increase every time a new enemy is created.
 - [ ] When an enemy reaches the end tile the player loses a live
 - [ ] Put the lives indicator
-- [ ] When the player sells a tower increase the money
-- [ ] When the player buys a tower decrease the money
-- [ ] Put the money indicator
+- [x] When the player sells a tower increase the money
+- [x] When the player buys a tower decrease the money
+- [x] Put the money indicator
 - [x] Put a bar in top of enemies to show their health and remove enemies when dies
 - [x] Put all constants into static class to not repeat them
 - [x] The HUD changes when the player moves the mouse over a tower showing sell and upgrade options
