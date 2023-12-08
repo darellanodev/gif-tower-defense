@@ -29,7 +29,7 @@ describe('Other methods of the orange tile', () => {
         const img = null
         const orangeTile = new OrangeTile(img, 100, 100)
         
-        orangeTile.putTower(Const.GREEN_TOWER)
+        orangeTile.buyTower(Const.GREEN_TOWER)
         result = orangeTile.hasTower()
 
         expect(result).toBeTruthy()

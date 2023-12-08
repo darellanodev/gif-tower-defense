@@ -136,7 +136,7 @@ function mouseClicked() {
         }
     
         if(mouseButton === LEFT) {
-            mouseOrangeTileOver.putTower(hud.getSelectedTower())
+            mouseOrangeTileOver.buyTower(hud.getSelectedTower())
         }
     }
 

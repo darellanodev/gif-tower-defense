@@ -39,7 +39,7 @@ class OrangeTile {
         }
     }
 
-    _buyTower(towerType){
+    _newTower(towerType){
         let tower = null
 
         switch (towerType) {
@@ -60,10 +60,10 @@ class OrangeTile {
         this.tower = tower
     }
 
-    putTower(towerType) {
+    buyTower(towerType) {
 
         if (this.tower === null) {
-            this._buyTower(towerType)
+            this._newTower(towerType)
         } else {
             if (this.tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL){
                 this._showUpgradeDisplay(towerType)
