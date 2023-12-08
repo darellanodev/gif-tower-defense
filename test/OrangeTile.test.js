@@ -54,4 +54,17 @@ describe('Other methods of the orange tile', () => {
         expect(result).toBeFalsy()
 
     })
+    test('get profit when sell a tower', () => {
+        
+        const expected = 50
+        
+        const img = null
+        const orangeTile = new OrangeTile(img, 100, 100)
+        
+        const cost = orangeTile.buyTower(Const.GREEN_TOWER)
+        const result = orangeTile.sellTower()
+
+        expect(result).toBe(expected)
+
+    })
 })

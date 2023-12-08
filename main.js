@@ -132,13 +132,14 @@ function mouseClicked() {
     
     if (mouseOrangeTileOver !== null) {
         if(mouseButton === RIGHT) {
-            mouseOrangeTileOver.sellTower()
+            const profit = mouseOrangeTileOver.sellTower()
+            money += profit
+            hud.setMoney(money)
         }
     
         if(mouseButton === LEFT) {
             if (mouseOrangeTileOver.haveMoneyToBuy(hud.getSelectedTower(), money)) {
                 const cost = mouseOrangeTileOver.buyTower(hud.getSelectedTower())
-                console.log(cost);
                 money -= cost
                 hud.setMoney(money)
             }

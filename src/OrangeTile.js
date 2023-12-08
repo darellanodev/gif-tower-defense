@@ -30,7 +30,11 @@ class OrangeTile {
     }
 
     sellTower() {
+
+        const profit = this.tower.getCost()
         this.tower = null
+
+        return profit
     }
 
     _showUpgradeDisplay(towerType) {
