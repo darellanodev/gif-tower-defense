@@ -31,9 +31,12 @@ class OrangeTile {
 
     sellTower() {
 
-        const profit = this.tower.getCost()
-        this.tower = null
+        let profit = 0
 
+        if (this.tower) {
+            profit = this.tower.getCost()
+            this.tower = null
+        }
         return profit
     }
 
