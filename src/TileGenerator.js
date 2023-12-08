@@ -20,10 +20,10 @@ class TileGenerator {
 
         const levelMapParts = levelMap.split('@')
 
-        const levelMapData = levelMapParts[1]
+        this.levelMapData = levelMapParts[1]
         
-        this._setStartImage(levelMapData, mapImages)
-        this._setEndImage(levelMapData, mapImages)
+        this._setStartImage(mapImages)
+        this._setEndImage(mapImages)
 
         this.levelMap = levelMapParts[0]
         this.orangeImage = mapImages[0]
@@ -31,9 +31,9 @@ class TileGenerator {
 
     }
 
-    _setStartImage(levelMapData, mapImages) {
+    _setStartImage(mapImages) {
 
-        const levelMapDataParts = levelMapData.split(',')
+        const levelMapDataParts = this.levelMapData.split(',')
         const startOrientation = levelMapDataParts[0]
 
         switch (startOrientation) {
@@ -60,9 +60,9 @@ class TileGenerator {
 
     }
 
-    _setEndImage(levelMapData, mapImages) {
+    _setEndImage(mapImages) {
 
-        const levelMapDataParts = levelMapData.split(',')
+        const levelMapDataParts = this.levelMapData.split(',')
         const endOrientation = levelMapDataParts[1]
 
         switch (endOrientation) {
@@ -135,6 +135,14 @@ class TileGenerator {
 
     endTile() {
         return (this._extractTiles('y'))[0]
+    }
+
+    getInitialMoney() {
+        
+        const levelMapDataParts = this.levelMapData.split(',')
+        const initialMoney = levelMapDataParts[4]
+
+        return Number(initialMoney)
     }
 
 }

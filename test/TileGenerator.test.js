@@ -56,3 +56,15 @@ test('TileGenerator generate end tile', () => {
 
     expect(result).toBeInstanceOf(Object)
 })
+
+test('TileGenerator generate the initial money', () => {
+
+    const expected = 150
+    
+    const mapimages = [null, null, null]
+    const tileGenerator = new TileGenerator(levelMap, mapimages)
+
+    const result = tileGenerator.getInitialMoney()
+
+    expect(result).toBe(expected)
+})

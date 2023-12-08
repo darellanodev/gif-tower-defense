@@ -6,6 +6,7 @@ let orangeTiles
 let mouseOrangeTileOver
 let wave
 let waveEnemies
+let money
 
 function preload() {
 
@@ -86,11 +87,13 @@ function setup() {
     const path = new Path(startTile, endTile, pathTiles)
     orders = path.makeOrders()
 
-    hud = new Hud(hudImages)
+    money = tileGenerator.getInitialMoney()
+    hud = new Hud(hudImages, money)
     
     wave = 1
     waveEnemies = 0
     enemies = []
+
 }
 
 

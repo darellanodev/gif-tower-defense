@@ -1,6 +1,6 @@
 class Hud {
 
-    constructor(hudImages) {
+    constructor(hudImages, money) {
         this.hudNormal = hudImages[0]
         this.hudUpgrading = hudImages[1]
         this.hudUpgradingMax = hudImages[2]
@@ -8,34 +8,8 @@ class Hud {
         this.hudType = Const.HUD_NORMAL
 
         this.selectedItem = Const.GREEN_TOWER
-    }
 
-    _drawLevelTitle() {
-        fill(255)
-        stroke(0)
-        strokeWeight(4)
-        text('Serpent by Ocliboy', 130, 18)
-    }
-
-    _drawSelectedItem() {
-
-        strokeWeight(3)
-        stroke(255, 204, 0);
-        noFill()
-
-        switch (this.selectedItem) {
-            case Const.GREEN_TOWER:
-                square(57, 36, 37);
-                break;
-
-            case Const.RED_TOWER:
-                square(139, 36, 37);
-                break;
-
-            case Const.YELLOW_TOWER:
-                square(224, 36, 37);
-                break;
-        }
+        this.money = money
     }
 
     isInsideButtonsBar(px, py) {
@@ -97,7 +71,46 @@ class Hud {
                 break;
         }
 
-
-
+        this._drawMoney()
     }
+
+    setMoney(money) {
+        this.money = money
+    }
+
+    _drawMoney() {
+        fill(255)
+        stroke(0)
+        strokeWeight(4)
+        text(this.money, 445, 48)
+    }
+
+    _drawLevelTitle() {
+        fill(255)
+        stroke(0)
+        strokeWeight(4)
+        text('Serpent by Ocliboy', 130, 18)
+    }
+
+    _drawSelectedItem() {
+
+        strokeWeight(3)
+        stroke(255, 204, 0);
+        noFill()
+
+        switch (this.selectedItem) {
+            case Const.GREEN_TOWER:
+                square(57, 36, 37);
+                break;
+
+            case Const.RED_TOWER:
+                square(139, 36, 37);
+                break;
+
+            case Const.YELLOW_TOWER:
+                square(224, 36, 37);
+                break;
+        }
+    }
+
 }
