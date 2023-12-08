@@ -57,6 +57,17 @@ class GreenTower {
         return this.UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
     }
 
+    getCostWhenUpgradeLevelIs(selectedUpgradeLevel) {
+        if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
+            return Const.COST_UPGRADE_GREEN_TOWER[Const.UPGRADE_MAX_LEVEL]
+        }
+        return Const.COST_UPGRADE_GREEN_TOWER[selectedUpgradeLevel]
+    }
+
+    getCost() {
+        return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel())
+    }
+
     getType() {
         return Const.GREEN_TOWER
     }

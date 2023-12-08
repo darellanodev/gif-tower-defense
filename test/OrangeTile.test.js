@@ -29,9 +29,29 @@ describe('Other methods of the orange tile', () => {
         const img = null
         const orangeTile = new OrangeTile(img, 100, 100)
         
-        orangeTile.buyTower(Const.GREEN_TOWER)
-        result = orangeTile.hasTower()
+        const cost = orangeTile.buyTower(Const.GREEN_TOWER)
+        const result = orangeTile.hasTower()
+        
+        expect(result).toBeTruthy()
+    })
+    test('have money to buy a green tower', () => {
+        
+        const img = null
+        const orangeTile = new OrangeTile(img, 100, 100)
+        
+        const result = orangeTile.haveMoneyToBuy(Const.GREEN_TOWER, 60)
 
         expect(result).toBeTruthy()
+
+    })
+    test('have no money to buy a green tower', () => {
+        
+        const img = null
+        const orangeTile = new OrangeTile(img, 100, 100)
+        
+        const result = orangeTile.haveMoneyToBuy(Const.GREEN_TOWER, 30)
+
+        expect(result).toBeFalsy()
+
     })
 })

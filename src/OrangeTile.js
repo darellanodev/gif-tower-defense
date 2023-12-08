@@ -60,15 +60,53 @@ class OrangeTile {
         this.tower = tower
     }
 
+    haveMoneyToBuy(towerType, money) {
+        
+        let canBuy = false
+
+        if (this.tower) {
+
+            const currentUpgradeLevel = this.tower.getUpgradeLevel()
+            const costToUpgrade = this.tower.getCostWhenUpgradeLevelIs(currentUpgradeLevel + 1)
+            canBuy = costToUpgrade <= money
+
+        } else {
+            switch (towerType) {
+                case Const.GREEN_TOWER:
+                    canBuy = Const.COST_UPGRADE_GREEN_TOWER[0] <= money
+                    break;
+                case Const.RED_TOWER:
+                    canBuy = Const.COST_UPGRADE_RED_TOWER[0] <= money
+                    break;
+                case Const.YELLOW_TOWER:
+                    canBuy = Const.COST_UPGRADE_YELLOW_TOWER[0] <= money
+                    break;
+            
+                default:
+                    break;
+            }            
+        }
+
+        return canBuy
+        
+    }
+
     buyTower(towerType) {
+
+        let cost = 0
 
         if (this.tower === null) {
             this._newTower(towerType)
+            cost = this.tower.getCost()
         } else {
-            if (this.tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL){
+            const currentUpgradeLevel = this.tower.getUpgradeLevel()
+            if (currentUpgradeLevel < Const.UPGRADE_MAX_LEVEL){
                 this._showUpgradeDisplay(towerType)
+                cost = this.tower.getCostWhenUpgradeLevelIs(currentUpgradeLevel + 1)
             }
         }
+
+        return cost
     }
 
     updateUpgradeDisplay() {

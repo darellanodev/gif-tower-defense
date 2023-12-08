@@ -24,6 +24,17 @@ class RedTower {
     getInfluenceArea() {               
         return this.UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
     }
+
+    getCostWhenUpgradeLevelIs(selectedUpgradeLevel) {
+        if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
+            return Const.COST_UPGRADE_RED_TOWER[Const.UPGRADE_MAX_LEVEL]
+        }
+        return Const.COST_UPGRADE_RED_TOWER[selectedUpgradeLevel]
+    }
+
+    getCost() {
+        return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel())
+    }
     
     getType() {
         return Const.RED_TOWER

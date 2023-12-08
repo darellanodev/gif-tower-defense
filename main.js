@@ -136,7 +136,12 @@ function mouseClicked() {
         }
     
         if(mouseButton === LEFT) {
-            mouseOrangeTileOver.buyTower(hud.getSelectedTower())
+            if (mouseOrangeTileOver.haveMoneyToBuy(hud.getSelectedTower(), money)) {
+                const cost = mouseOrangeTileOver.buyTower(hud.getSelectedTower())
+                console.log(cost);
+                money -= cost
+                hud.setMoney(money)
+            }
         }
     }
 
