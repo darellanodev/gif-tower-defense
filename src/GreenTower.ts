@@ -1,3 +1,6 @@
+import { Const } from '../src/Const'
+import { Distance } from '../src/Distance'
+
 export class GreenTower {
   UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
 

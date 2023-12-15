@@ -1,7 +1,6 @@
-// This is for Jest testing
-if (typeof window === 'undefined') {
-  Const = require('../src/Const.js')
-}
+import { Const } from '../src/Const'
+import { Random } from '../src/Random'
+import { HealthBar } from '../src/HealthBar'
 
 export class Enemy {
   VELOCITY = 1 // must be multiple of "Const.TILE_SIZE". Set 1 for normal game or 25 for speed test

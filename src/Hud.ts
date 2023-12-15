@@ -1,3 +1,5 @@
+import { Const } from '../src/Const'
+
 export class Hud {
   hudNormal: any
   hudUpgrading: any

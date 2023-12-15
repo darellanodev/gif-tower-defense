@@ -1,11 +1,8 @@
-// This is for Jest testing
-if (typeof window === 'undefined') {
-  Const = require('../src/Const.js')
-  GreenTower = require('../src/GreenTower.js')
-  greenTowerImages = []
-  redTowerImages = []
-  yellowTowerImages = []
-}
+import { Const } from '../src/Const'
+import { GreenTower } from '../src/GreenTower'
+import { RedTower } from '../src/RedTower'
+import { YellowTower } from '../src/YellowTower'
+import { UpgradeDisplay } from '../src/UpgradeDisplay'
 
 export class OrangeTile {
   TOWER_OFFSET = 5
@@ -244,7 +241,7 @@ export class OrangeTile {
     )
   }
 
-  selectHudType() {
+  selectHudType(hud: any) {
     if (this.hasTower()) {
       if (this.tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL) {
         hud.setType(Const.HUD_UPGRADING)

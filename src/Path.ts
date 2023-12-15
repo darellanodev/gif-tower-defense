@@ -1,7 +1,4 @@
-// This is for Jest testing
-if (typeof window === 'undefined') {
-  Const = require('../src/Const.js')
-}
+import { Const } from '../src/Const'
 
 export class Path {
   MAX_SEARCHES = 5000 // For testing purposes put a low value. For production put this value at 5000

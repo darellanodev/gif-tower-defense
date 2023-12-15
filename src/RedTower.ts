@@ -1,3 +1,5 @@
+import { Const } from '../src/Const'
+
 export class RedTower {
   UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
 

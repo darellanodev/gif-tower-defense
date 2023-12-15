@@ -1,10 +1,8 @@
-// This is for Jest testing
-if (typeof window === 'undefined') {
-  OrangeTile = require('../src/OrangeTile.js')
-  PathTile = require('../src/PathTile.js')
-  StartTile = require('../src/StartTile.js')
-  EndTile = require('../src/EndTile.js')
-}
+import { Const } from '../src/Const'
+import { OrangeTile } from '../src/OrangeTile'
+import { PathTile } from '../src/PathTile'
+import { StartTile } from '../src/StartTile'
+import { EndTile } from '../src/EndTile'
 
 export class TileGenerator {
   FLOOR_SIZE = 50
