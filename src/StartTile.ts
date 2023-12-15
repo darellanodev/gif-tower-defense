@@ -1,4 +1,4 @@
-class StartTile {
+export class StartTile {
   x: number
   y: number
   img: any
@@ -27,7 +27,3 @@ class StartTile {
     return this.startDirection
   }
 }
-
-// This is for Jest testing
-var module = module || {}
-module.exports = StartTile

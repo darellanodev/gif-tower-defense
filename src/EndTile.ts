@@ -1,4 +1,4 @@
-class EndTile {
+export class EndTile {
   x: number
   y: number
   img: any
@@ -21,7 +21,3 @@ class EndTile {
     return this.y
   }
 }
-
-// This is for Jest testing
-var module = module || {}
-module.exports = EndTile

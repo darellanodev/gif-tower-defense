@@ -3,7 +3,7 @@ if (typeof window === 'undefined') {
   Const = require('../src/Const.js')
 }
 
-class Path {
+export class Path {
   MAX_SEARCHES = 5000 // For testing purposes put a low value. For production put this value at 5000
 
   startTile: any
@@ -154,7 +154,3 @@ class Path {
     return orders
   }
 }
-
-// This is for Jest testing
-var module = module || {}
-module.exports = Path

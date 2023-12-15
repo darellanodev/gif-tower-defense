@@ -7,7 +7,7 @@ if (typeof window === 'undefined') {
   yellowTowerImages = []
 }
 
-class OrangeTile {
+export class OrangeTile {
   TOWER_OFFSET = 5
 
   UPGRADE_MAX_LEVEL = 5
@@ -256,7 +256,3 @@ class OrangeTile {
     }
   }
 }
-
-// This is for Jest testing
-var module = module || {}
-module.exports = OrangeTile

@@ -6,7 +6,7 @@ if (typeof window === 'undefined') {
   EndTile = require('../src/EndTile.js')
 }
 
-class TileGenerator {
+export class TileGenerator {
   FLOOR_SIZE = 50
   MARGIN_TOP = 30
 
@@ -144,7 +144,3 @@ class TileGenerator {
     return Number(initialMoney)
   }
 }
-
-// This is for Jest testing
-var module = module || {}
-module.exports = TileGenerator

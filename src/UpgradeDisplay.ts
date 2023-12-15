@@ -1,4 +1,4 @@
-class UpgradeDisplay {
+export class UpgradeDisplay {
   SIZE_UPGRADE_TILE = 48
   TIME_UPGRADE_0_MAX = 2
 

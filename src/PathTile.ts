@@ -1,4 +1,4 @@
-class PathTile {
+export class PathTile {
   x: number
   y: number
 
@@ -15,7 +15,3 @@ class PathTile {
     return this.y
   }
 }
-
-// This is for Jest testing
-var module = module || {}
-module.exports = PathTile

@@ -3,7 +3,7 @@ if (typeof window === 'undefined') {
   Const = require('../src/Const.js')
 }
 
-class Enemy {
+export class Enemy {
   VELOCITY = 1 // must be multiple of "Const.TILE_SIZE". Set 1 for normal game or 25 for speed test
 
   CHANGE_EYES_MAX_TIME = 50

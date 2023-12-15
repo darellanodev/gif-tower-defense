@@ -1,4 +1,4 @@
-class RedTower {
+export class RedTower {
   UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
 
   images: any
