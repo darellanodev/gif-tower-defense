@@ -15,8 +15,17 @@ export class TileGenerator {
   startImage: any
   endImage: any
   startDirection: number
+  greenTowerImages: any[]
+  redTowerImages: any[]
+  yellowTowerImages: any[]
 
-  constructor(levelMap: string, mapImages: any[]) {
+  constructor(
+    levelMap: string,
+    mapImages: any[],
+    greenTowerImages: any[],
+    redTowerImages: any[],
+    yellowTowerImages: any[],
+  ) {
     if (levelMap === '') {
       throw new Error('Level map string cannot be empty')
     }
@@ -31,6 +40,11 @@ export class TileGenerator {
     this.levelMap = levelMapParts[0]
     this.orangeImage = mapImages[0]
     this.blackImage = mapImages[1]
+    this.startDirection = Const.LEFT_DIRECTION
+
+    this.greenTowerImages = greenTowerImages
+    this.redTowerImages = redTowerImages
+    this.yellowTowerImages = yellowTowerImages
   }
 
   _setStartImage(mapImages: any[]) {
@@ -98,7 +112,16 @@ export class TileGenerator {
         if (character === symbol) {
           switch (symbol) {
             case '0':
-              resultTiles.push(new OrangeTile(this.orangeImage, posX, posY))
+              resultTiles.push(
+                new OrangeTile(
+                  this.orangeImage,
+                  posX,
+                  posY,
+                  this.greenTowerImages,
+                  this.redTowerImages,
+                  this.yellowTowerImages,
+                ),
+              )
               break
             case '1':
               resultTiles.push(new PathTile(posX, posY))

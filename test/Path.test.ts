@@ -17,7 +17,17 @@ const levelMap = `111111111111111x,
                   y111111111111111@3,2,-50,450,150`
 
 const mapimages = [null, null, null]
-const tileGenerator = new TileGenerator(levelMap, mapimages)
+const greenTowerImages = [null, null, null]
+const redTowerImages = [null, null, null]
+const yellowTowerImages = [null, null, null]
+
+const tileGenerator = new TileGenerator(
+  levelMap,
+  mapimages,
+  greenTowerImages,
+  redTowerImages,
+  yellowTowerImages,
+)
 const pathTiles = tileGenerator.pathTiles()
 const startTile = tileGenerator.startTile()
 const endTile = tileGenerator.endTile()
@@ -297,7 +307,14 @@ describe('invalid map', () => {
         y011111111111111@3,2,-50,450,150`
 
     const mapimages = [null, null, null]
-    const tileGenerator = new TileGenerator(levelMap, mapimages)
+
+    const tileGenerator = new TileGenerator(
+      levelMap,
+      mapimages,
+      greenTowerImages,
+      redTowerImages,
+      yellowTowerImages,
+    )
     const pathTiles = tileGenerator.pathTiles()
     const startTile = tileGenerator.startTile()
     const endTile = tileGenerator.endTile()

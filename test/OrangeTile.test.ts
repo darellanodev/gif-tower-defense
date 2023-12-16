@@ -1,10 +1,21 @@
 import { OrangeTile } from '../src/OrangeTile'
 import { Const } from '../src/Const'
 
+const greenTowerImages = [null, null, null]
+const redTowerImages = [null, null, null]
+const yellowTowerImages = [null, null, null]
+
 describe('When clic over an orange tile', () => {
   test('If mouse is inside should return true', () => {
     const img = null
-    const orangeTile = new OrangeTile(img, 100, 200)
+    const orangeTile = new OrangeTile(
+      img,
+      100,
+      200,
+      greenTowerImages,
+      redTowerImages,
+      yellowTowerImages,
+    )
 
     const result = orangeTile.isInside(120, 220)
 
@@ -13,7 +24,14 @@ describe('When clic over an orange tile', () => {
 
   test('If mouse is outside should return false', () => {
     const img = null
-    const orangeTile = new OrangeTile(img, 100, 200)
+    const orangeTile = new OrangeTile(
+      img,
+      100,
+      200,
+      greenTowerImages,
+      redTowerImages,
+      yellowTowerImages,
+    )
 
     const result = orangeTile.isInside(90, 220)
 
@@ -24,7 +42,14 @@ describe('When clic over an orange tile', () => {
 describe('Other methods of the orange tile', () => {
   test('should return true when has a tower', () => {
     const img = null
-    const orangeTile = new OrangeTile(img, 100, 100)
+    const orangeTile = new OrangeTile(
+      img,
+      100,
+      100,
+      greenTowerImages,
+      redTowerImages,
+      yellowTowerImages,
+    )
 
     const cost = orangeTile.buyTower(Const.GREEN_TOWER)
     const result = orangeTile.hasTower()
@@ -33,7 +58,14 @@ describe('Other methods of the orange tile', () => {
   })
   test('have money to buy a green tower', () => {
     const img = null
-    const orangeTile = new OrangeTile(img, 100, 100)
+    const orangeTile = new OrangeTile(
+      img,
+      100,
+      100,
+      greenTowerImages,
+      redTowerImages,
+      yellowTowerImages,
+    )
 
     const result = orangeTile.haveMoneyToBuy(Const.GREEN_TOWER, 60)
 
@@ -41,7 +73,14 @@ describe('Other methods of the orange tile', () => {
   })
   test('have no money to buy a green tower', () => {
     const img = null
-    const orangeTile = new OrangeTile(img, 100, 100)
+    const orangeTile = new OrangeTile(
+      img,
+      100,
+      100,
+      greenTowerImages,
+      redTowerImages,
+      yellowTowerImages,
+    )
 
     const result = orangeTile.haveMoneyToBuy(Const.GREEN_TOWER, 30)
 
@@ -51,7 +90,14 @@ describe('Other methods of the orange tile', () => {
     const expected = 50
 
     const img = null
-    const orangeTile = new OrangeTile(img, 100, 100)
+    const orangeTile = new OrangeTile(
+      img,
+      100,
+      100,
+      greenTowerImages,
+      redTowerImages,
+      yellowTowerImages,
+    )
 
     const cost = orangeTile.buyTower(Const.GREEN_TOWER)
     const result = orangeTile.sellTower()

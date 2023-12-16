@@ -64,7 +64,19 @@ export class Enemy {
     this.status = this.STATUS_ALIVE
     this.damage = 0
 
-    this.reinitEnemy()
+    this.x = 0
+    this.y = 0
+    this.currentDirection = this.startTile.getStartDirection()
+    this.moveCount = 0
+    this.indexOrder = 0
+    this.setInitialPosition()
+    this.insidePath = false
+    this.endReached = false
+    this.changeEyesTime = 0
+    this.indexEyesSecuence = 0
+    this.closeEyesTime = 0
+    this.extendClosedEyesTime = 0
+    this.randomCloseEyes = 0
   }
 
   addDamage(shotDamage: number) {

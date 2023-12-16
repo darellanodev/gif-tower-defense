@@ -21,13 +21,26 @@ export class OrangeTile {
   img: any
   tower: any
   upgradeDisplay: any
+  greenTowerImages: any[]
+  redTowerImages: any[]
+  yellowTowerImages: any[]
 
-  constructor(img: any, x: number, y: number) {
+  constructor(
+    img: any,
+    x: number,
+    y: number,
+    greenTowerImages: any[],
+    redTowerImages: any[],
+    yellowTowerImages: any[],
+  ) {
     this.x = x
     this.y = y
     this.img = img
     this.tower = null
     this.upgradeDisplay = null
+    this.greenTowerImages = greenTowerImages
+    this.redTowerImages = redTowerImages
+    this.yellowTowerImages = yellowTowerImages
   }
 
   sellTower() {
@@ -56,20 +69,20 @@ export class OrangeTile {
     switch (towerType) {
       case Const.GREEN_TOWER:
         tower = new GreenTower(
-          greenTowerImages,
+          this.greenTowerImages,
           this.x - this.TOWER_OFFSET,
           this.y - this.TOWER_OFFSET,
         )
         break
       case Const.RED_TOWER:
         tower = new RedTower(
-          redTowerImages,
+          this.redTowerImages,
           this.x - this.TOWER_OFFSET,
           this.y - this.TOWER_OFFSET,
         )
         break
       case Const.YELLOW_TOWER:
-        tower = new YellowTower(yellowTowerImages, this.x, this.y)
+        tower = new YellowTower(this.yellowTowerImages, this.x, this.y)
         break
 
       default:
@@ -211,20 +224,22 @@ export class OrangeTile {
   }
 
   _getInfluenceAreaFor(towerSelected: any) {
+    let influenceArea: number = this.GREEN_TOWER_INFLUENCE_AREA
     switch (towerSelected) {
       case Const.GREEN_TOWER:
-        return this.GREEN_TOWER_INFLUENCE_AREA
+        influenceArea = this.GREEN_TOWER_INFLUENCE_AREA
 
       case Const.RED_TOWER:
-        return this.RED_TOWER_INFLUENCE_AREA
+        influenceArea = this.RED_TOWER_INFLUENCE_AREA
 
       case Const.YELLOW_TOWER:
-        return this.YELLOW_TOWER_INFLUENCE_AREA
+        influenceArea = this.YELLOW_TOWER_INFLUENCE_AREA
     }
+    return influenceArea
   }
 
   drawInfluenceArea(towerSelected: any) {
-    let influenceArea = 120
+    let influenceArea: number = 120
     strokeWeight(2)
 
     if (this.tower) {
