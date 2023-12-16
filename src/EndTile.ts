@@ -4,9 +4,9 @@ class EndTile {
   img: any
 
   constructor(img: any, x: number, y: number) {
+    this.img = img
     this.x = x
     this.y = y
-    this.img = img
   }
 
   draw() {

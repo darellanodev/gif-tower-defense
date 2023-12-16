@@ -4,20 +4,22 @@ class Hud {
   hudUpgradingMax: any
   hudType: any
   selectedItem: number
+  hudImages: any[]
   money: number
   Const: any
 
   constructor(hudImages: any[], money: number, Const: any) {
-    this.hudNormal = hudImages[0]
-    this.hudUpgrading = hudImages[1]
-    this.hudUpgradingMax = hudImages[2]
+    this.hudImages = hudImages
+    this.money = money
+    this.Const = Const
+
+    this.hudNormal = this.hudImages[0]
+    this.hudUpgrading = this.hudImages[1]
+    this.hudUpgradingMax = this.hudImages[2]
 
     this.hudType = this.Const.HUD_NORMAL
 
     this.selectedItem = this.Const.GREEN_TOWER
-
-    this.money = money
-    this.Const = Const
   }
 
   isInsideButtonsBar(px: number, py: number) {

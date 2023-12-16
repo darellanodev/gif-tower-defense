@@ -5,9 +5,9 @@ class StartTile {
   startDirection: number
 
   constructor(img: any, x: number, y: number, startDirection: number) {
+    this.img = img
     this.x = x
     this.y = y
-    this.img = img
     this.startDirection = startDirection
   }
 

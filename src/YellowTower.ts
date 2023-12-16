@@ -10,8 +10,8 @@ class YellowTower {
     this.images = images
     this.x = x
     this.y = y
-    this.upgradeLevel = 0
     this.Const = Const
+    this.upgradeLevel = 0
   }
 
   upgrade() {

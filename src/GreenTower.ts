@@ -14,11 +14,11 @@ class GreenTower {
     this.images = images
     this.x = x
     this.y = y
+    this.Const = Const
+    this.Distance = Distance
     this.upgradeLevel = 0
     this.enemyTarget = null
     this.distanceToEnemyTarget = 0
-    this.Const = Const
-    this.Distance = Distance
   }
 
   upgrade() {

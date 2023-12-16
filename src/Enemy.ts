@@ -54,14 +54,13 @@ class Enemy {
     Random: any,
     HealthBar: any,
   ) {
-    this.Const = Const
-    this.Random = Random
-    this.HealthBar = HealthBar
-
     this.images = images
     this.orders = orders
     this.startTile = startTile
     this.endTile = endTile
+    this.Const = Const
+    this.Random = Random
+    this.HealthBar = HealthBar
 
     this.imgIndex = this.EYES_CENTER
     this.imgIndexBeforeEyesClosed = this.EYES_CENTER

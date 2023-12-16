@@ -12,6 +12,7 @@ class TileGenerator {
   greenTowerImages: any[]
   redTowerImages: any[]
   yellowTowerImages: any[]
+  mapImages: any[]
   Const: any
   OrangeTile: any
   PathTile: any
@@ -30,11 +31,22 @@ class TileGenerator {
     StartTile: any,
     EndTile: any,
   ) {
-    if (levelMap === '') {
+    this.levelMap = levelMap
+    this.mapImages = mapImages
+    this.greenTowerImages = greenTowerImages
+    this.redTowerImages = redTowerImages
+    this.yellowTowerImages = yellowTowerImages
+    this.Const = Const
+    this.OrangeTile = OrangeTile
+    this.PathTile = PathTile
+    this.StartTile = StartTile
+    this.EndTile = EndTile
+
+    if (this.levelMap === '') {
       throw new Error('Level map string cannot be empty')
     }
 
-    const levelMapParts = levelMap.split('@')
+    const levelMapParts = this.levelMap.split('@')
 
     this.levelMapData = levelMapParts[1]
 
@@ -45,16 +57,6 @@ class TileGenerator {
     this.orangeImage = mapImages[0]
     this.blackImage = mapImages[1]
     this.startDirection = Const.LEFT_DIRECTION
-
-    this.greenTowerImages = greenTowerImages
-    this.redTowerImages = redTowerImages
-    this.yellowTowerImages = yellowTowerImages
-
-    this.Const = Const
-    this.OrangeTile = OrangeTile
-    this.PathTile = PathTile
-    this.StartTile = StartTile
-    this.EndTile = EndTile
   }
 
   _setStartImage(mapImages: any[]) {

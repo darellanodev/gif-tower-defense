@@ -38,11 +38,9 @@ class OrangeTile {
     YellowTower: any,
     UpgradeDisplay: any,
   ) {
+    this.img = img
     this.x = x
     this.y = y
-    this.img = img
-    this.tower = null
-    this.upgradeDisplay = null
     this.greenTowerImages = greenTowerImages
     this.redTowerImages = redTowerImages
     this.yellowTowerImages = yellowTowerImages
@@ -51,6 +49,8 @@ class OrangeTile {
     this.RedTower = RedTower
     this.YellowTower = YellowTower
     this.UpgradeDisplay = UpgradeDisplay
+    this.tower = null
+    this.upgradeDisplay = null
   }
 
   sellTower() {
