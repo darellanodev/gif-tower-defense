@@ -1,18 +1,36 @@
-let orders
-let createEnemyTime
-let enemies
-let hud
-let orangeTiles
-let mouseOrangeTileOver
-let wave
-let waveEnemies
-let money
+import { Const } from './src/Const'
+import { Range } from './src/Range'
+import { TileGenerator } from './src/TileGenerator'
+import { Path } from './src/Path'
+import { Hud } from './src/Hud'
+import { Debug } from './src/Debug'
+import { Enemy } from './src/Enemy'
+import { ImageUtils } from './src/ImageUtils'
+
+let orders: number[]
+let createEnemyTime: number
+let enemies: any[]
+let hud: any
+let orangeTiles: any[]
+let mouseOrangeTileOver: any
+let wave: number
+let waveEnemies: number
+let money: number
+let tileImages: any[]
+let greenTowerImages: any[]
+let redTowerImages: any[]
+let yellowTowerImages: any[]
+let startTile: any
+let endTile: any
+let hudImages: any[]
+let backgroundImage: any
+let enemiesImages: any[]
 
 function preload() {
   greenTowerImages = []
   redTowerImages = []
   yellowTowerImages = []
-  enemiesImages = []
+  const enemiesImages = []
 
   Range.make(0, Const.TOTAL_TOWER_UPGRADES).forEach((v) => {
     greenTowerImages.push(
@@ -45,20 +63,20 @@ function preload() {
     loadImage('img/tiles/crystal.png'),
   ]
 
-  hudImages = [
+  const hudImages = [
     loadImage('img/hud/normal.png'),
     loadImage('img/hud/upgrading.png'),
     loadImage('img/hud/upgrading_max.png'),
   ]
 
-  backgroundImage = loadImage('img/backgrounds/ground.jpg')
+  const backgroundImage = loadImage('img/backgrounds/ground.jpg')
 }
 
 function disableContextualMenu() {
-  const p5CanvasElements = document.getElementsByClassName('p5Canvas')
+  const p5CanvasElements = document.querySelectorAll('p5Canvas')
 
-  p5CanvasElements.forEach((element) => {
-    element.addEventListener('contextmenu', (e) => {
+  p5CanvasElements.forEach((element: any) => {
+    element.addEventListener('contextmenu', (e: any) => {
       e.preventDefault()
       mouseClicked()
     })
@@ -153,7 +171,7 @@ function mouseClicked() {
   }
 }
 
-function createNewEnemy(waveEnemy) {
+function createNewEnemy(waveEnemy: number) {
   enemies.push(
     new Enemy(
       enemiesImages.slice(...ImageUtils.getRangeImagesOfEnemy(waveEnemy)),
