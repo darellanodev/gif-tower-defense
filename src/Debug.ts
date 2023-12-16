@@ -1,4 +1,4 @@
-export class Debug {
+class Debug {
   static showMouseCoordinates(px: number, py: number) {
     fill(255)
     stroke(0)

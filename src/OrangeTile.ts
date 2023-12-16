@@ -1,10 +1,4 @@
-import { Const } from '../src/Const'
-import { GreenTower } from '../src/GreenTower'
-import { RedTower } from '../src/RedTower'
-import { YellowTower } from '../src/YellowTower'
-import { UpgradeDisplay } from '../src/UpgradeDisplay'
-
-export class OrangeTile {
+class OrangeTile {
   TOWER_OFFSET = 5
 
   UPGRADE_MAX_LEVEL = 5
@@ -25,6 +19,12 @@ export class OrangeTile {
   redTowerImages: any[]
   yellowTowerImages: any[]
 
+  Const: any
+  GreenTower: any
+  RedTower: any
+  YellowTower: any
+  UpgradeDisplay: any
+
   constructor(
     img: any,
     x: number,
@@ -32,6 +32,11 @@ export class OrangeTile {
     greenTowerImages: any[],
     redTowerImages: any[],
     yellowTowerImages: any[],
+    Const: any,
+    GreenTower: any,
+    RedTower: any,
+    YellowTower: any,
+    UpgradeDisplay: any,
   ) {
     this.x = x
     this.y = y
@@ -41,6 +46,11 @@ export class OrangeTile {
     this.greenTowerImages = greenTowerImages
     this.redTowerImages = redTowerImages
     this.yellowTowerImages = yellowTowerImages
+    this.Const = Const
+    this.GreenTower = GreenTower
+    this.RedTower = RedTower
+    this.YellowTower = YellowTower
+    this.UpgradeDisplay = UpgradeDisplay
   }
 
   sellTower() {
@@ -55,7 +65,7 @@ export class OrangeTile {
 
   _showUpgradeDisplay(towerType: number) {
     if (this.upgradeDisplay === null) {
-      this.upgradeDisplay = new UpgradeDisplay(
+      this.upgradeDisplay = new this.UpgradeDisplay(
         this.x,
         this.y,
         this.tower.getColor(),
@@ -67,22 +77,22 @@ export class OrangeTile {
     let tower = null
 
     switch (towerType) {
-      case Const.GREEN_TOWER:
-        tower = new GreenTower(
+      case this.Const.GREEN_TOWER:
+        tower = new this.GreenTower(
           this.greenTowerImages,
           this.x - this.TOWER_OFFSET,
           this.y - this.TOWER_OFFSET,
         )
         break
-      case Const.RED_TOWER:
-        tower = new RedTower(
+      case this.Const.RED_TOWER:
+        tower = new this.RedTower(
           this.redTowerImages,
           this.x - this.TOWER_OFFSET,
           this.y - this.TOWER_OFFSET,
         )
         break
-      case Const.YELLOW_TOWER:
-        tower = new YellowTower(this.yellowTowerImages, this.x, this.y)
+      case this.Const.YELLOW_TOWER:
+        tower = new this.YellowTower(this.yellowTowerImages, this.x, this.y)
         break
 
       default:
@@ -103,14 +113,14 @@ export class OrangeTile {
       canBuy = costToUpgrade <= money
     } else {
       switch (towerType) {
-        case Const.GREEN_TOWER:
-          canBuy = Const.COST_UPGRADE_GREEN_TOWER[0] <= money
+        case this.Const.GREEN_TOWER:
+          canBuy = this.Const.COST_UPGRADE_GREEN_TOWER[0] <= money
           break
-        case Const.RED_TOWER:
-          canBuy = Const.COST_UPGRADE_RED_TOWER[0] <= money
+        case this.Const.RED_TOWER:
+          canBuy = this.Const.COST_UPGRADE_RED_TOWER[0] <= money
           break
-        case Const.YELLOW_TOWER:
-          canBuy = Const.COST_UPGRADE_YELLOW_TOWER[0] <= money
+        case this.Const.YELLOW_TOWER:
+          canBuy = this.Const.COST_UPGRADE_YELLOW_TOWER[0] <= money
           break
 
         default:
@@ -129,7 +139,7 @@ export class OrangeTile {
       cost = this.tower.getCost()
     } else {
       const currentUpgradeLevel = this.tower.getUpgradeLevel()
-      if (currentUpgradeLevel < Const.UPGRADE_MAX_LEVEL) {
+      if (currentUpgradeLevel < this.Const.UPGRADE_MAX_LEVEL) {
         this._showUpgradeDisplay(towerType)
         cost = this.tower.getCostWhenUpgradeLevelIs(currentUpgradeLevel + 1)
       }
@@ -187,10 +197,10 @@ export class OrangeTile {
     let insideX = false
     let insideY = false
 
-    if (this.x < mouse_x && this.x + Const.TILE_SIZE > mouse_x) {
+    if (this.x < mouse_x && this.x + this.Const.TILE_SIZE > mouse_x) {
       insideX = true
     }
-    if (this.y < mouse_y && this.y + Const.TILE_SIZE > mouse_y) {
+    if (this.y < mouse_y && this.y + this.Const.TILE_SIZE > mouse_y) {
       insideY = true
     }
 
@@ -201,22 +211,43 @@ export class OrangeTile {
   }
 
   _setInfluenceAreaColor(towerType: number) {
+    const GREEN_COLOR: [number, number, number] = [75, 185, 35]
+    const RED_COLOR: [number, number, number] = [185, 35, 35]
+    const YELLOW_COLOR: [number, number, number] = [202, 191, 24]
+
     switch (towerType) {
-      case Const.GREEN_TOWER:
-        stroke(...Const.GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
-        fill(...Const.GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
+      case this.Const.GREEN_TOWER:
+        stroke(...GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
+        fill(...GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
         break
 
-      case Const.RED_TOWER:
-        stroke(...Const.RED_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
-        fill(...Const.RED_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
+      case this.Const.RED_TOWER:
+        stroke(...RED_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
+        fill(...RED_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
         break
 
-      case Const.YELLOW_TOWER:
-        stroke(...Const.YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
-        fill(...Const.YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
+      case this.Const.YELLOW_TOWER:
+        stroke(...YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
+        fill(...YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
         break
     }
+
+    // switch (towerType) {
+    //   case this.Const.GREEN_TOWER:
+    //     stroke(...this.Const.GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
+    //     fill(...this.Const.GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
+    //     break
+
+    //   case this.Const.RED_TOWER:
+    //     stroke(...this.Const.RED_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
+    //     fill(...this.Const.RED_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
+    //     break
+
+    //   case this.Const.YELLOW_TOWER:
+    //     stroke(...this.Const.YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
+    //     fill(...this.Const.YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
+    //     break
+    // }
   }
 
   hasTower() {
@@ -226,13 +257,13 @@ export class OrangeTile {
   _getInfluenceAreaFor(towerSelected: any) {
     let influenceArea: number = this.GREEN_TOWER_INFLUENCE_AREA
     switch (towerSelected) {
-      case Const.GREEN_TOWER:
+      case this.Const.GREEN_TOWER:
         influenceArea = this.GREEN_TOWER_INFLUENCE_AREA
 
-      case Const.RED_TOWER:
+      case this.Const.RED_TOWER:
         influenceArea = this.RED_TOWER_INFLUENCE_AREA
 
-      case Const.YELLOW_TOWER:
+      case this.Const.YELLOW_TOWER:
         influenceArea = this.YELLOW_TOWER_INFLUENCE_AREA
     }
     return influenceArea
@@ -250,21 +281,21 @@ export class OrangeTile {
       influenceArea = this._getInfluenceAreaFor(towerSelected)
     }
     circle(
-      this.x + Const.TILE_SIZE / 2,
-      this.y + Const.TILE_SIZE / 2,
+      this.x + this.Const.TILE_SIZE / 2,
+      this.y + this.Const.TILE_SIZE / 2,
       influenceArea,
     )
   }
 
   selectHudType(hud: any) {
     if (this.hasTower()) {
-      if (this.tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL) {
-        hud.setType(Const.HUD_UPGRADING)
+      if (this.tower.getUpgradeLevel() < this.Const.UPGRADE_MAX_LEVEL) {
+        hud.setType(this.Const.HUD_UPGRADING)
       } else {
-        hud.setType(Const.HUD_UPGRADING_MAX)
+        hud.setType(this.Const.HUD_UPGRADING_MAX)
       }
     } else {
-      hud.setType(Const.HUD_NORMAL)
+      hud.setType(this.Const.HUD_NORMAL)
     }
   }
 }

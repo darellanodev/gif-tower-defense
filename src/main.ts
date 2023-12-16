@@ -1,12 +1,3 @@
-import { Const } from './src/Const'
-import { Range } from './src/Range'
-import { TileGenerator } from './src/TileGenerator'
-import { Path } from './src/Path'
-import { Hud } from './src/Hud'
-import { Debug } from './src/Debug'
-import { Enemy } from './src/Enemy'
-import { ImageUtils } from './src/ImageUtils'
-
 let orders: number[]
 let createEnemyTime: number
 let enemies: any[]
@@ -32,7 +23,7 @@ function preload() {
   yellowTowerImages = []
   const enemiesImages = []
 
-  Range.make(0, Const.TOTAL_TOWER_UPGRADES).forEach((v) => {
+  CustomRange.make(0, Const.TOTAL_TOWER_UPGRADES).forEach((v) => {
     greenTowerImages.push(
       loadImage('img/towers/green_tower_upgrade_' + v + '.png'),
     )
@@ -42,7 +33,7 @@ function preload() {
     )
   })
 
-  Range.make(1, Const.TOTAL_ENEMIES).forEach((v) => {
+  CustomRange.make(1, Const.TOTAL_ENEMIES).forEach((v) => {
     enemiesImages.push(loadImage('img/enemies/' + v + '_center.png'))
     enemiesImages.push(loadImage('img/enemies/' + v + '_left.png'))
     enemiesImages.push(loadImage('img/enemies/' + v + '_right.png'))
@@ -107,17 +98,22 @@ function setup() {
     greenTowerImages,
     redTowerImages,
     yellowTowerImages,
+    Const,
+    OrangeTile,
+    PathTile,
+    StartTile,
+    EndTile,
   )
   orangeTiles = tileGenerator.orangeTiles()
   startTile = tileGenerator.startTile()
   endTile = tileGenerator.endTile()
   const pathTiles = tileGenerator.pathTiles()
 
-  const path = new Path(startTile, endTile, pathTiles)
+  const path = new Path(startTile, endTile, pathTiles, Const)
   orders = path.makeOrders()
 
   money = tileGenerator.getInitialMoney()
-  hud = new Hud(hudImages, money)
+  hud = new Hud(hudImages, money, Const)
 
   wave = 1
   waveEnemies = 0
@@ -178,6 +174,9 @@ function createNewEnemy(waveEnemy: number) {
       orders,
       startTile,
       endTile,
+      Const,
+      Random,
+      HealthBar,
     ),
   )
 }

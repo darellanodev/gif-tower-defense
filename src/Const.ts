@@ -1,4 +1,4 @@
-export class Const {
+class Const {
   static HUD_NORMAL: number = 1
   static HUD_UPGRADING: number = 2
   static HUD_UPGRADING_MAX: number = 3

@@ -1,9 +1,5 @@
-import { Const } from '../src/Const'
-import { Random } from '../src/Random'
-import { HealthBar } from '../src/HealthBar'
-
-export class Enemy {
-  VELOCITY = 1 // must be multiple of "Const.TILE_SIZE". Set 1 for normal game or 25 for speed test
+class Enemy {
+  VELOCITY = 1 // must be multiple of "this.Const.TILE_SIZE". Set 1 for normal game or 25 for speed test
 
   CHANGE_EYES_MAX_TIME = 50
 
@@ -45,7 +41,23 @@ export class Enemy {
 
   randomCloseEyes: number
 
-  constructor(images: any[], orders: number[], startTile: any, endTile: any) {
+  Const: any
+  Random: any
+  HealthBar: any
+
+  constructor(
+    images: any[],
+    orders: number[],
+    startTile: any,
+    endTile: any,
+    Const: any,
+    Random: any,
+    HealthBar: any,
+  ) {
+    this.Const = Const
+    this.Random = Random
+    this.HealthBar = HealthBar
+
     this.images = images
     this.orders = orders
     this.startTile = startTile
@@ -60,7 +72,7 @@ export class Enemy {
       this.EYES_CENTER,
     ]
 
-    this.healthBar = new HealthBar(200, 200)
+    this.healthBar = new this.HealthBar(200, 200)
     this.status = this.STATUS_ALIVE
     this.damage = 0
 
@@ -117,54 +129,54 @@ export class Enemy {
 
   setInitialPosition() {
     switch (this.currentDirection) {
-      case Const.LEFT_DIRECTION:
-        this.x = this.startTile.getX() + Const.TILE_SIZE
+      case this.Const.LEFT_DIRECTION:
+        this.x = this.startTile.getX() + this.Const.TILE_SIZE
         this.y = this.startTile.getY()
         break
 
-      case Const.RIGHT_DIRECTION:
-        this.x = this.startTile.getX() - Const.TILE_SIZE
+      case this.Const.RIGHT_DIRECTION:
+        this.x = this.startTile.getX() - this.Const.TILE_SIZE
         this.y = this.startTile.getY()
         break
 
-      case Const.UP_DIRECTION:
+      case this.Const.UP_DIRECTION:
         this.x = this.startTile.getX()
-        this.y = this.startTile.getY() + Const.TILE_SIZE
+        this.y = this.startTile.getY() + this.Const.TILE_SIZE
         break
 
-      case Const.DOWN_DIRECTION:
+      case this.Const.DOWN_DIRECTION:
         this.x = this.startTile.getX()
-        this.y = this.startTile.getY() - Const.TILE_SIZE
+        this.y = this.startTile.getY() - this.Const.TILE_SIZE
         break
     }
   }
 
   update() {
     switch (this.currentDirection) {
-      case Const.LEFT_DIRECTION:
+      case this.Const.LEFT_DIRECTION:
         this.x = this.x - this.VELOCITY
         break
 
-      case Const.RIGHT_DIRECTION:
+      case this.Const.RIGHT_DIRECTION:
         this.x = this.x + this.VELOCITY
         break
 
-      case Const.UP_DIRECTION:
+      case this.Const.UP_DIRECTION:
         this.y = this.y - this.VELOCITY
         break
 
-      case Const.DOWN_DIRECTION:
+      case this.Const.DOWN_DIRECTION:
         this.y = this.y + this.VELOCITY
         break
     }
 
     this.moveCount = this.moveCount + this.VELOCITY
 
-    if (this.moveCount === Const.TILE_SIZE && this.endReached) {
+    if (this.moveCount === this.Const.TILE_SIZE && this.endReached) {
       this.reinitEnemy()
     }
 
-    if (this.moveCount === Const.TILE_SIZE) {
+    if (this.moveCount === this.Const.TILE_SIZE) {
       this.moveCount = 0
 
       if (this.isEndReached()) {
@@ -201,7 +213,7 @@ export class Enemy {
   }
 
   _setRandomTimeMaxForClosingEyes() {
-    this.randomCloseEyes = Random.integerBetween(
+    this.randomCloseEyes = this.Random.integerBetween(
       this.MIN_TIME_TO_CLOSE,
       this.MAX_TIME_TO_CLOSE,
     )

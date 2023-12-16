@@ -1,18 +1,18 @@
-import { Const } from '../src/Const'
-
-export class RedTower {
+class RedTower {
   UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
 
   images: any
   x: number
   y: number
   upgradeLevel: number
+  Const: any
 
-  constructor(images: any, x: number, y: number) {
+  constructor(images: any, x: number, y: number, Const: any) {
     this.images = images
     this.x = x
     this.y = y
     this.upgradeLevel = 0
+    this.Const = Const
   }
 
   upgrade() {
@@ -32,10 +32,10 @@ export class RedTower {
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
-    if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
-      return Const.COST_UPGRADE_RED_TOWER[Const.UPGRADE_MAX_LEVEL]
+    if (selectedUpgradeLevel > this.Const.UPGRADE_MAX_LEVEL) {
+      return this.Const.COST_UPGRADE_RED_TOWER[this.Const.UPGRADE_MAX_LEVEL]
     }
-    return Const.COST_UPGRADE_RED_TOWER[selectedUpgradeLevel]
+    return this.Const.COST_UPGRADE_RED_TOWER[selectedUpgradeLevel]
   }
 
   getCost() {
@@ -43,11 +43,11 @@ export class RedTower {
   }
 
   getType() {
-    return Const.RED_TOWER
+    return this.Const.RED_TOWER
   }
 
   getColor() {
-    return Const.RED_COLOR
+    return this.Const.RED_COLOR
   }
 
   selectTarget(enemies: any[]) {

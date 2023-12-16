@@ -1,4 +1,4 @@
-export class PathTile {
+class PathTile {
   x: number
   y: number
 

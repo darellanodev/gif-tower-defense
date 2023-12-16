@@ -1,7 +1,4 @@
-import { Const } from '../src/Const'
-import { Distance } from '../src/Distance'
-
-export class GreenTower {
+class GreenTower {
   UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
 
   images: any[]
@@ -10,14 +7,18 @@ export class GreenTower {
   upgradeLevel: number
   enemyTarget: any
   distanceToEnemyTarget: number
+  Const: any
+  Distance: any
 
-  constructor(images: any[], x: number, y: number) {
+  constructor(images: any[], x: number, y: number, Const: any, Distance: any) {
     this.images = images
     this.x = x
     this.y = y
     this.upgradeLevel = 0
     this.enemyTarget = null
     this.distanceToEnemyTarget = 0
+    this.Const = Const
+    this.Distance = Distance
   }
 
   upgrade() {
@@ -30,7 +31,7 @@ export class GreenTower {
 
   _drawShotToEnemy() {
     strokeWeight(3)
-    stroke(Const.RED_COLOR)
+    stroke(this.Const.RED_COLOR)
     line(
       -1,
       -18,
@@ -67,10 +68,10 @@ export class GreenTower {
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
-    if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
-      return Const.COST_UPGRADE_GREEN_TOWER[Const.UPGRADE_MAX_LEVEL]
+    if (selectedUpgradeLevel > this.Const.UPGRADE_MAX_LEVEL) {
+      return this.Const.COST_UPGRADE_GREEN_TOWER[this.Const.UPGRADE_MAX_LEVEL]
     }
-    return Const.COST_UPGRADE_GREEN_TOWER[selectedUpgradeLevel]
+    return this.Const.COST_UPGRADE_GREEN_TOWER[selectedUpgradeLevel]
   }
 
   getCost() {
@@ -78,11 +79,11 @@ export class GreenTower {
   }
 
   getType() {
-    return Const.GREEN_TOWER
+    return this.Const.GREEN_TOWER
   }
 
   getColor() {
-    return Const.GREEN_COLOR
+    return this.Const.GREEN_COLOR
   }
 
   _isDistanceIntoInfluenceArea(distance: number) {
@@ -94,7 +95,7 @@ export class GreenTower {
     let enemyTarget = null
 
     enemies.forEach((enemy) => {
-      const distance = Distance.twoPoints(
+      const distance = this.Distance.twoPoints(
         this.x,
         this.y,
         enemy.getX(),

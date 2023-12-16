@@ -1,4 +1,4 @@
-export class StartTile {
+class StartTile {
   x: number
   y: number
   img: any

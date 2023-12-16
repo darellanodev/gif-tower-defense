@@ -1,4 +1,4 @@
-export class HealthBar {
+class HealthBar {
   MAX_DAMAGE = 26
 
   x: number

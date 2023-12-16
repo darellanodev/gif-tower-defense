@@ -1,10 +1,4 @@
-import { Const } from '../src/Const'
-import { OrangeTile } from '../src/OrangeTile'
-import { PathTile } from '../src/PathTile'
-import { StartTile } from '../src/StartTile'
-import { EndTile } from '../src/EndTile'
-
-export class TileGenerator {
+class TileGenerator {
   FLOOR_SIZE = 50
   MARGIN_TOP = 30
 
@@ -18,6 +12,11 @@ export class TileGenerator {
   greenTowerImages: any[]
   redTowerImages: any[]
   yellowTowerImages: any[]
+  Const: any
+  OrangeTile: any
+  PathTile: any
+  StartTile: any
+  EndTile: any
 
   constructor(
     levelMap: string,
@@ -25,6 +24,11 @@ export class TileGenerator {
     greenTowerImages: any[],
     redTowerImages: any[],
     yellowTowerImages: any[],
+    Const: any,
+    OrangeTile: any,
+    PathTile: any,
+    StartTile: any,
+    EndTile: any,
   ) {
     if (levelMap === '') {
       throw new Error('Level map string cannot be empty')
@@ -45,6 +49,12 @@ export class TileGenerator {
     this.greenTowerImages = greenTowerImages
     this.redTowerImages = redTowerImages
     this.yellowTowerImages = yellowTowerImages
+
+    this.Const = Const
+    this.OrangeTile = OrangeTile
+    this.PathTile = PathTile
+    this.StartTile = StartTile
+    this.EndTile = EndTile
   }
 
   _setStartImage(mapImages: any[]) {
@@ -54,22 +64,22 @@ export class TileGenerator {
     switch (startOrientation) {
       case '1':
         this.startImage = mapImages[6]
-        this.startDirection = Const.DOWN_DIRECTION
+        this.startDirection = this.Const.DOWN_DIRECTION
         break
 
       case '2':
         this.startImage = mapImages[7]
-        this.startDirection = Const.RIGHT_DIRECTION
+        this.startDirection = this.Const.RIGHT_DIRECTION
         break
 
       case '3':
         this.startImage = mapImages[8]
-        this.startDirection = Const.LEFT_DIRECTION
+        this.startDirection = this.Const.LEFT_DIRECTION
         break
 
       case '4':
         this.startImage = mapImages[9]
-        this.startDirection = Const.UP_DIRECTION
+        this.startDirection = this.Const.UP_DIRECTION
         break
     }
   }
@@ -113,7 +123,7 @@ export class TileGenerator {
           switch (symbol) {
             case '0':
               resultTiles.push(
-                new OrangeTile(
+                new this.OrangeTile(
                   this.orangeImage,
                   posX,
                   posY,
@@ -124,15 +134,20 @@ export class TileGenerator {
               )
               break
             case '1':
-              resultTiles.push(new PathTile(posX, posY))
+              resultTiles.push(new this.PathTile(posX, posY))
               break
             case 'x':
               resultTiles.push(
-                new StartTile(this.startImage, posX, posY, this.startDirection),
+                new this.StartTile(
+                  this.startImage,
+                  posX,
+                  posY,
+                  this.startDirection,
+                ),
               )
               break
             case 'y':
-              resultTiles.push(new EndTile(this.endImage, posX, posY))
+              resultTiles.push(new this.EndTile(this.endImage, posX, posY))
               break
           }
         }

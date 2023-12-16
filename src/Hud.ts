@@ -1,23 +1,23 @@
-import { Const } from '../src/Const'
-
-export class Hud {
+class Hud {
   hudNormal: any
   hudUpgrading: any
   hudUpgradingMax: any
   hudType: any
   selectedItem: number
   money: number
+  Const: any
 
-  constructor(hudImages: any[], money: number) {
+  constructor(hudImages: any[], money: number, Const: any) {
     this.hudNormal = hudImages[0]
     this.hudUpgrading = hudImages[1]
     this.hudUpgradingMax = hudImages[2]
 
-    this.hudType = Const.HUD_NORMAL
+    this.hudType = this.Const.HUD_NORMAL
 
-    this.selectedItem = Const.GREEN_TOWER
+    this.selectedItem = this.Const.GREEN_TOWER
 
     this.money = money
+    this.Const = Const
   }
 
   isInsideButtonsBar(px: number, py: number) {
@@ -62,18 +62,18 @@ export class Hud {
 
   draw() {
     switch (this.hudType) {
-      case Const.HUD_NORMAL:
+      case this.Const.HUD_NORMAL:
         image(this.hudNormal, 0, 0)
 
         this._drawSelectedItem()
         this._drawLevelTitle()
         break
 
-      case Const.HUD_UPGRADING:
+      case this.Const.HUD_UPGRADING:
         image(this.hudUpgrading, 0, 0)
         break
 
-      case Const.HUD_UPGRADING_MAX:
+      case this.Const.HUD_UPGRADING_MAX:
         image(this.hudUpgradingMax, 0, 0)
         break
     }
@@ -105,15 +105,15 @@ export class Hud {
     noFill()
 
     switch (this.selectedItem) {
-      case Const.GREEN_TOWER:
+      case this.Const.GREEN_TOWER:
         square(57, 36, 37)
         break
 
-      case Const.RED_TOWER:
+      case this.Const.RED_TOWER:
         square(139, 36, 37)
         break
 
-      case Const.YELLOW_TOWER:
+      case this.Const.YELLOW_TOWER:
         square(224, 36, 37)
         break
     }
