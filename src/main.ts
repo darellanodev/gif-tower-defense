@@ -54,13 +54,13 @@ function preload() {
     loadImage('img/tiles/crystal.png'),
   ]
 
-  const hudImages = [
+  hudImages = [
     loadImage('img/hud/normal.png'),
     loadImage('img/hud/upgrading.png'),
     loadImage('img/hud/upgrading_max.png'),
   ]
 
-  const backgroundImage = loadImage('img/backgrounds/ground.jpg')
+  backgroundImage = loadImage('img/backgrounds/ground.jpg')
 }
 
 function disableContextualMenu() {
