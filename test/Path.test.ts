@@ -4,6 +4,12 @@ import { PathTile } from '../src/PathTile'
 import { StartTile } from '../src/StartTile'
 import { EndTile } from '../src/EndTile'
 import { TileGenerator } from '../src/TileGenerator'
+import { OrangeTile } from '../src/OrangeTile'
+import { GreenTower } from '../src/GreenTower'
+import { RedTower } from '../src/RedTower'
+import { YellowTower } from '../src/YellowTower'
+import { UpgradeDisplay } from '../src/UpgradeDisplay'
+import { Distance } from '../src/Distance'
 
 const levelMap = `111111111111111x,
                   1000000000000000,
@@ -16,10 +22,10 @@ const levelMap = `111111111111111x,
                   0000000000000001,
                   y111111111111111@3,2,-50,450,150`
 
-const mapimages = [null, null, null]
-const greenTowerImages = [null, null, null]
-const redTowerImages = [null, null, null]
-const yellowTowerImages = [null, null, null]
+const mapimages: any[] = [null, null, null]
+const greenTowerImages: any[] = [null, null, null]
+const redTowerImages: any[] = [null, null, null]
+const yellowTowerImages: any[] = [null, null, null]
 
 const tileGenerator = new TileGenerator(
   levelMap,
@@ -27,12 +33,22 @@ const tileGenerator = new TileGenerator(
   greenTowerImages,
   redTowerImages,
   yellowTowerImages,
+  Const,
+  OrangeTile,
+  PathTile,
+  StartTile,
+  EndTile,
+  GreenTower,
+  RedTower,
+  YellowTower,
+  UpgradeDisplay,
+  Distance,
 )
 const pathTiles = tileGenerator.pathTiles()
 const startTile = tileGenerator.startTile()
 const endTile = tileGenerator.endTile()
 
-const path = new Path(startTile, endTile, pathTiles)
+const path = new Path(startTile, endTile, pathTiles, Const)
 
 const isIncluded = (
   bigGroupElements: number[],
@@ -72,7 +88,7 @@ describe('finds a pathtile', () => {
       new PathTile(200, 300),
     ]
 
-    const path = new Path(startTile, endTile, pathTiles)
+    const path = new Path(startTile, endTile, pathTiles, Const)
 
     const result = path.getTileInPosition(150, 300)
 
@@ -306,7 +322,7 @@ describe('invalid map', () => {
         0000000000000001,
         y011111111111111@3,2,-50,450,150`
 
-    const mapimages = [null, null, null]
+    const mapimages: any[] = [null, null, null]
 
     const tileGenerator = new TileGenerator(
       levelMap,
@@ -314,12 +330,22 @@ describe('invalid map', () => {
       greenTowerImages,
       redTowerImages,
       yellowTowerImages,
+      Const,
+      OrangeTile,
+      PathTile,
+      StartTile,
+      EndTile,
+      GreenTower,
+      RedTower,
+      YellowTower,
+      UpgradeDisplay,
+      Distance,
     )
     const pathTiles = tileGenerator.pathTiles()
     const startTile = tileGenerator.startTile()
     const endTile = tileGenerator.endTile()
 
-    const path = new Path(startTile, endTile, pathTiles)
+    const path = new Path(startTile, endTile, pathTiles, Const)
 
     const orders = path.makeOrders()
 

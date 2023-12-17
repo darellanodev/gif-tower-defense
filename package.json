@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc --project tsconfig.production.json"
   },
   "devDependencies": {
     "@types/jest": "^29.5.11",

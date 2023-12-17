@@ -1,4 +1,4 @@
-class OrangeTile {
+export class OrangeTile {
   TOWER_OFFSET = 5
 
   UPGRADE_MAX_LEVEL = 5

@@ -1,4 +1,4 @@
-class EndTile {
+export class EndTile {
   x: number
   y: number
   img: any

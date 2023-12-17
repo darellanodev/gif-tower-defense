@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "module": "UMD",
+    "module": "none",
     "noImplicitAny": true,
+    "outFile": "./dist/dist.js",
     "preserveConstEnums": true,
     "removeComments": true,
-    "outDir": "./dist/",
     "rootDir": "./src/",
     "sourceMap": true,
     "target": "es5",

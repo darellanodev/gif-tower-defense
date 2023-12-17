@@ -1,4 +1,4 @@
-class TileGenerator {
+export class TileGenerator {
   FLOOR_SIZE = 50
   MARGIN_TOP = 30
 
