@@ -1,4 +1,4 @@
-class Hud {
+export class Hud {
   hudNormal: any
   hudUpgrading: any
   hudUpgradingMax: any
