@@ -64,14 +64,9 @@ function preload() {
 }
 
 function disableContextualMenu() {
-  const p5CanvasElements = document.querySelectorAll('p5Canvas')
-
-  p5CanvasElements.forEach((element: any) => {
-    element.addEventListener('contextmenu', (e: any) => {
-      e.preventDefault()
-      mouseClicked()
-    })
-  })
+  for (let element of <any>document.getElementsByClassName('p5Canvas')) {
+    element.addEventListener('contextmenu', (e: any) => e.preventDefault())
+  }
 }
 
 function setup() {
