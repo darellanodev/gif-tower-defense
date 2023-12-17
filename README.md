@@ -1,6 +1,6 @@
 # Gif Tower Defense Game
 
-This is an attempt to rewrite my old game Gif Tower Defense (2012) originally made with processingjs now using p5.js and JavaScript, for learning purposes. *(THIS APPLICATION IS IN AN EARLY STAGE OF DEVELOPMENT)*
+This is an attempt to rewrite my old game Gif Tower Defense (2012) originally made with processingjs now using p5.js and JavaScript, for learning purposes. _(THIS APPLICATION IS IN AN EARLY STAGE OF DEVELOPMENT)_
 
 ## Execute the game
 
@@ -10,6 +10,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 ## Execute the unit tests
 
 - `npm test`
+- `npm run build`
 
 ### Tasks
 
@@ -34,6 +35,11 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Change the strenght of the enemies to increase every time a new enemy is created.
 - [ ] When an enemy reaches the end tile the player loses a live
 - [ ] Put the lives indicator
+- [ ] Fix Typescript things like:
+  - [ ] Classes are now passed throw parameters with any type. Improve it.
+  - [ ] OrangeTile.ts in method: \_setInfluenceAreaColor. Use Const colors instead. Now it shows an error. See commented code
+  - [ ] Simplify assignment params (this.zzz = zzz, <--- use the signature simplification using private in params)
+- [ ] Typescript
 - [x] When the player sells a tower increase the money
 - [x] When the player buys a tower decrease the money
 - [x] Put the money indicator
