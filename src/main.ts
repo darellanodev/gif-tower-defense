@@ -65,7 +65,10 @@ function preload() {
 
 function disableContextualMenu() {
   for (let element of <any>document.getElementsByClassName('p5Canvas')) {
-    element.addEventListener('contextmenu', (e: any) => e.preventDefault())
+    element.addEventListener('contextmenu', (e: any) => {
+      e.preventDefault()
+      mouseClicked()
+    })
   }
 }
 
