@@ -18,6 +18,11 @@ class TileGenerator {
   PathTile: any
   StartTile: any
   EndTile: any
+  GreenTower: any
+  RedTower: any
+  YellowTower: any
+  UpgradeDisplay: any
+  Distance: any
 
   constructor(
     levelMap: string,
@@ -30,6 +35,11 @@ class TileGenerator {
     PathTile: any,
     StartTile: any,
     EndTile: any,
+    GreenTower: any,
+    RedTower: any,
+    YellowTower: any,
+    UpgradeDisplay: any,
+    Distance: any,
   ) {
     this.levelMap = levelMap
     this.mapImages = mapImages
@@ -41,6 +51,11 @@ class TileGenerator {
     this.PathTile = PathTile
     this.StartTile = StartTile
     this.EndTile = EndTile
+    this.GreenTower = GreenTower
+    this.RedTower = RedTower
+    this.YellowTower = YellowTower
+    this.UpgradeDisplay = UpgradeDisplay
+    this.Distance = Distance
 
     if (this.levelMap === '') {
       throw new Error('Level map string cannot be empty')
@@ -132,6 +147,12 @@ class TileGenerator {
                   this.greenTowerImages,
                   this.redTowerImages,
                   this.yellowTowerImages,
+                  this.Const,
+                  this.GreenTower,
+                  this.RedTower,
+                  this.YellowTower,
+                  this.UpgradeDisplay,
+                  this.Distance,
                 ),
               )
               break

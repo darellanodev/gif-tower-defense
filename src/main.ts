@@ -21,7 +21,7 @@ function preload() {
   greenTowerImages = []
   redTowerImages = []
   yellowTowerImages = []
-  const enemiesImages = []
+  enemiesImages = []
 
   CustomRange.make(0, Const.TOTAL_TOWER_UPGRADES).forEach((v) => {
     greenTowerImages.push(
@@ -80,15 +80,15 @@ function setup() {
   createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT)
 
   const levelMap = `111111111111111x,
-                      1000000000000000,
-                      1011111111111111,
-                      1010000000000001,
-                      1010000111111101,
-                      1011111100000101,
-                      1000000000000101,
-                      1111111111111101,
-                      0000000000000001,
-                      y111111111111111@3,2,-50,450,150`
+                    1000000000000000,
+                    1011111111111111,
+                    1010000000000001,
+                    1010000111111101,
+                    1011111100000101,
+                    1000000000000101,
+                    1111111111111101,
+                    0000000000000001,
+                    y111111111111111@3,2,-50,450,150`
 
   createEnemyTime = 0
 
@@ -103,6 +103,11 @@ function setup() {
     PathTile,
     StartTile,
     EndTile,
+    GreenTower,
+    RedTower,
+    YellowTower,
+    UpgradeDisplay,
+    Distance,
   )
   orangeTiles = tileGenerator.orangeTiles()
   startTile = tileGenerator.startTile()
@@ -241,7 +246,7 @@ function draw() {
 
   if (mouseOrangeTileOver !== null) {
     mouseOrangeTileOver.drawInfluenceArea(hud.getSelectedTower())
-    mouseOrangeTileOver.selectHudType()
+    mouseOrangeTileOver.selectHudType(hud)
   } else {
     hud.setType(Const.HUD_NORMAL)
   }

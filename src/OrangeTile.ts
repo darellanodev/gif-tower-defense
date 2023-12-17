@@ -24,6 +24,7 @@ class OrangeTile {
   RedTower: any
   YellowTower: any
   UpgradeDisplay: any
+  Distance: any
 
   constructor(
     img: any,
@@ -37,6 +38,7 @@ class OrangeTile {
     RedTower: any,
     YellowTower: any,
     UpgradeDisplay: any,
+    Distance: any,
   ) {
     this.img = img
     this.x = x
@@ -49,6 +51,8 @@ class OrangeTile {
     this.RedTower = RedTower
     this.YellowTower = YellowTower
     this.UpgradeDisplay = UpgradeDisplay
+    this.Distance = Distance
+
     this.tower = null
     this.upgradeDisplay = null
   }
@@ -82,6 +86,8 @@ class OrangeTile {
           this.greenTowerImages,
           this.x - this.TOWER_OFFSET,
           this.y - this.TOWER_OFFSET,
+          this.Const,
+          this.Distance,
         )
         break
       case this.Const.RED_TOWER:
@@ -89,10 +95,18 @@ class OrangeTile {
           this.redTowerImages,
           this.x - this.TOWER_OFFSET,
           this.y - this.TOWER_OFFSET,
+          this.Const,
+          this.Distance,
         )
         break
       case this.Const.YELLOW_TOWER:
-        tower = new this.YellowTower(this.yellowTowerImages, this.x, this.y)
+        tower = new this.YellowTower(
+          this.yellowTowerImages,
+          this.x,
+          this.y,
+          this.Const,
+          this.Distance,
+        )
         break
 
       default:
