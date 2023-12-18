@@ -4,7 +4,21 @@ const child_process = require('child_process')
 const files = fs.readdirSync('src')
 files.forEach((file) => {
   let contents = fs.readFileSync(`src/${file}`, 'utf8')
-  contents = contents.replace(/export class/g, 'class')
+
+  if (file === 'main.ts') {
+    contents = contents.replace(
+      /\/\* This line is used by the build script. Dont modify this line \*\//g,
+      '/* This line is used by the build script. Dont modify this line ---',
+    )
+
+    contents = contents.replace(
+      /\/\/ \*\/ \/\/ End of imports. This line is used by the build script. Dont modify this line/g,
+      '*/ // End of imports. This line is used by the build script. Dont modify this line',
+    )
+  } else {
+    contents = contents.replace(/export class/g, 'class')
+  }
+
   fs.writeFileSync(`src/${file}`, contents, 'utf8')
 })
 
@@ -16,7 +30,21 @@ child_process.exec(
     const files = fs.readdirSync('src')
     files.forEach((file) => {
       let contents = fs.readFileSync(`src/${file}`, 'utf8')
-      contents = contents.replace(/class/g, 'export class')
+
+      if (file === 'main.ts') {
+        contents = contents.replace(
+          /\/\* This line is used by the build script. Dont modify this line ---/g,
+          '/* This line is used by the build script. Dont modify this line */',
+        )
+
+        contents = contents.replace(
+          /\*\/ \/\/ End of imports. This line is used by the build script. Dont modify this line/g,
+          '// */ // End of imports. This line is used by the build script. Dont modify this line',
+        )
+      } else {
+        contents = contents.replace(/class/g, 'export class')
+      }
+
       fs.writeFileSync(`src/${file}`, contents, 'utf8')
     })
   },
