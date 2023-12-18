@@ -1,12 +1,35 @@
+/* This line is used by the build script. Dont modify this line */
+import { Const } from './Const'
+import { Path } from './Path'
+import { PathTile } from './PathTile'
+import { StartTile } from './StartTile'
+import { EndTile } from './EndTile'
+import { TileGenerator } from './TileGenerator'
+import { OrangeTile } from './OrangeTile'
+import { GreenTower } from './GreenTower'
+import { RedTower } from './RedTower'
+import { YellowTower } from './YellowTower'
+import { UpgradeDisplay } from './UpgradeDisplay'
+import { Distance } from './Distance'
+import { CustomRange } from './CustomRange'
+import { Hud } from './Hud'
+import { Enemy } from './Enemy'
+import { Debug } from './Debug'
+import { Random } from './Random'
+import { HealthBar } from './HealthBar'
+import { Wallet } from './Wallet'
+import { ImageUtils } from './ImageUtils'
+// */ // End of imports. This line is used by the build script. Dont modify this line
+
 let orders: number[]
 let createEnemyTime: number
 let enemies: any[]
 let hud: any
+let wallet: any
 let orangeTiles: any[]
 let mouseOrangeTileOver: any
 let wave: number
 let waveEnemies: number
-let money: number
 let tileImages: any[]
 let greenTowerImages: any[]
 let redTowerImages: any[]
@@ -115,8 +138,8 @@ function setup() {
   const path = new Path(startTile, endTile, pathTiles, Const)
   orders = path.makeOrders()
 
-  money = tileGenerator.getInitialMoney()
-  hud = new Hud(hudImages, money, Const)
+  wallet = new Wallet(tileGenerator.getInitialMoney(), Const)
+  hud = new Hud(hudImages, wallet.getMoney(), Const)
 
   wave = 1
   waveEnemies = 0
@@ -156,15 +179,20 @@ function mouseClicked() {
   if (mouseOrangeTileOver !== null) {
     if (mouseButton === RIGHT) {
       const profit = mouseOrangeTileOver.sellTower()
-      money += profit
-      hud.setMoney(money)
+      wallet.increase(profit)
+      hud.setMoney(wallet.getMoney())
     }
 
     if (mouseButton === LEFT) {
-      if (mouseOrangeTileOver.haveMoneyToBuy(hud.getSelectedTower(), money)) {
+      if (
+        mouseOrangeTileOver.haveMoneyToBuy(
+          hud.getSelectedTower(),
+          wallet.getMoney(),
+        )
+      ) {
         const cost = mouseOrangeTileOver.buyTower(hud.getSelectedTower())
-        money -= cost
-        hud.setMoney(money)
+        wallet.increase(cost)
+        hud.setMoney(wallet.getMoney())
       }
     }
   }

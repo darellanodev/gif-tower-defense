@@ -79,48 +79,7 @@ describe('Other methods of the orange tile', () => {
 
     expect(result).toBeTruthy()
   })
-  test('have money to buy a green tower', () => {
-    const img: any = null
-    const orangeTile = new OrangeTile(
-      img,
-      100,
-      100,
-      greenTowerImages,
-      redTowerImages,
-      yellowTowerImages,
-      Const,
-      GreenTower,
-      RedTower,
-      YellowTower,
-      UpgradeDisplay,
-      Distance,
-    )
 
-    const result = orangeTile.haveMoneyToBuy(Const.GREEN_TOWER, 60)
-
-    expect(result).toBeTruthy()
-  })
-  test('have no money to buy a green tower', () => {
-    const img: any = null
-    const orangeTile = new OrangeTile(
-      img,
-      100,
-      100,
-      greenTowerImages,
-      redTowerImages,
-      yellowTowerImages,
-      Const,
-      GreenTower,
-      RedTower,
-      YellowTower,
-      UpgradeDisplay,
-      Distance,
-    )
-
-    const result = orangeTile.haveMoneyToBuy(Const.GREEN_TOWER, 30)
-
-    expect(result).toBeFalsy()
-  })
   test('get profit when sell a tower', () => {
     const expected = 50
 
