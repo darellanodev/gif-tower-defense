@@ -542,30 +542,6 @@ var OrangeTile = (function () {
         }
         this.tower = tower;
     };
-    OrangeTile.prototype.haveMoneyToBuy = function (towerType, money) {
-        var canBuy = false;
-        if (this.tower) {
-            var currentUpgradeLevel = this.tower.getUpgradeLevel();
-            var costToUpgrade = this.tower.getCostWhenUpgradeLevelIs(currentUpgradeLevel + 1);
-            canBuy = costToUpgrade <= money;
-        }
-        else {
-            switch (towerType) {
-                case this.Const.GREEN_TOWER:
-                    canBuy = this.Const.COST_UPGRADE_GREEN_TOWER[0] <= money;
-                    break;
-                case this.Const.RED_TOWER:
-                    canBuy = this.Const.COST_UPGRADE_RED_TOWER[0] <= money;
-                    break;
-                case this.Const.YELLOW_TOWER:
-                    canBuy = this.Const.COST_UPGRADE_YELLOW_TOWER[0] <= money;
-                    break;
-                default:
-                    break;
-            }
-        }
-        return canBuy;
-    };
     OrangeTile.prototype.buyTower = function (towerType) {
         var cost = 0;
         if (this.tower === null) {
@@ -653,6 +629,12 @@ var OrangeTile = (function () {
     };
     OrangeTile.prototype.hasTower = function () {
         return this.tower !== null;
+    };
+    OrangeTile.prototype.getTower = function () {
+        if (this.hasTower()) {
+            return this.tower;
+        }
+        return null;
     };
     OrangeTile.prototype._getInfluenceAreaFor = function (towerSelected) {
         var influenceArea = this.GREEN_TOWER_INFLUENCE_AREA;
@@ -1075,6 +1057,40 @@ var UpgradeDisplay = (function () {
     };
     return UpgradeDisplay;
 }());
+var Wallet = (function () {
+    function Wallet(money, Const) {
+        this.money = money;
+        this.Const = Const;
+    }
+    Wallet.prototype.getMoney = function () {
+        return this.money;
+    };
+    Wallet.prototype.increase = function (quantity) {
+        this.money += quantity;
+    };
+    Wallet.prototype.decrease = function (quantity) {
+        this.money -= quantity;
+    };
+    Wallet.prototype.haveMoneyToBuy = function (towerType, upgradeLevel) {
+        var canBuy = false;
+        switch (towerType) {
+            case this.Const.GREEN_TOWER:
+                canBuy = this.Const.COST_UPGRADE_GREEN_TOWER[upgradeLevel] <= this.money;
+                break;
+            case this.Const.RED_TOWER:
+                canBuy = this.Const.COST_UPGRADE_RED_TOWER[upgradeLevel] <= this.money;
+                break;
+            case this.Const.YELLOW_TOWER:
+                canBuy =
+                    this.Const.COST_UPGRADE_YELLOW_TOWER[upgradeLevel] <= this.money;
+                break;
+            default:
+                break;
+        }
+        return canBuy;
+    };
+    return Wallet;
+}());
 var YellowTower = (function () {
     function YellowTower(images, x, y, Const) {
         this.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
@@ -1119,11 +1135,11 @@ var orders;
 var createEnemyTime;
 var enemies;
 var hud;
+var wallet;
 var orangeTiles;
 var mouseOrangeTileOver;
 var wave;
 var waveEnemies;
-var money;
 var tileImages;
 var greenTowerImages;
 var redTowerImages;
@@ -1190,8 +1206,8 @@ function setup() {
     var pathTiles = tileGenerator.pathTiles();
     var path = new Path(startTile, endTile, pathTiles, Const);
     orders = path.makeOrders();
-    money = tileGenerator.getInitialMoney();
-    hud = new Hud(hudImages, money, Const);
+    wallet = new Wallet(tileGenerator.getInitialMoney(), Const);
+    hud = new Hud(hudImages, wallet.getMoney(), Const);
     wave = 1;
     waveEnemies = 0;
     enemies = [];
@@ -1209,31 +1225,67 @@ function keyPressed() {
             break;
     }
 }
+function canUpgradeTower(tower) {
+    var canUpgrade = false;
+    if (tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL) {
+        if (wallet.haveMoneyToBuy(tower.getType(), tower.getUpgradeLevel() + 1)) {
+            canUpgrade = true;
+        }
+    }
+    return canUpgrade;
+}
+function canBuyNewTower(tower) {
+    var canBuy = false;
+    var zeroUpgradeLevel = 0;
+    if (wallet.haveMoneyToBuy(hud.getSelectedTower(), zeroUpgradeLevel)) {
+        canBuy = true;
+    }
+    return canBuy;
+}
+function canBuyTower(tower) {
+    var result = false;
+    if (tower) {
+        result = canUpgradeTower(tower);
+    }
+    else {
+        result = canBuyNewTower(tower);
+    }
+    return result;
+}
+function handleHudButtons() {
+    if (hud.isInsideGreenTowerButton(mouseX, mouseY)) {
+        hud.selectTower(Const.GREEN_TOWER);
+    }
+    if (hud.isInsideRedTowerButton(mouseX, mouseY)) {
+        hud.selectTower(Const.RED_TOWER);
+    }
+    if (hud.isInsideYellowTowerButton(mouseX, mouseY)) {
+        hud.selectTower(Const.YELLOW_TOWER);
+    }
+}
+function handleSellTower() {
+    var profit = mouseOrangeTileOver.sellTower();
+    wallet.increase(profit);
+    hud.setMoney(wallet.getMoney());
+}
+function handleBuyTower() {
+    if (canBuyTower(mouseOrangeTileOver.getTower())) {
+        var cost = mouseOrangeTileOver.buyTower(hud.getSelectedTower());
+        wallet.decrease(cost);
+        hud.setMoney(wallet.getMoney());
+    }
+}
 function mouseClicked() {
     if (hud.isInsideButtonsBar(mouseX, mouseY)) {
-        if (hud.isInsideGreenTowerButton(mouseX, mouseY)) {
-            hud.selectTower(Const.GREEN_TOWER);
-        }
-        if (hud.isInsideRedTowerButton(mouseX, mouseY)) {
-            hud.selectTower(Const.RED_TOWER);
-        }
-        if (hud.isInsideYellowTowerButton(mouseX, mouseY)) {
-            hud.selectTower(Const.YELLOW_TOWER);
-        }
+        handleHudButtons();
         return;
     }
     if (mouseOrangeTileOver !== null) {
-        if (mouseButton === RIGHT) {
-            var profit = mouseOrangeTileOver.sellTower();
-            money += profit;
-            hud.setMoney(money);
+        if (mouseButton === RIGHT && mouseOrangeTileOver.hasTower()) {
+            handleSellTower();
         }
         if (mouseButton === LEFT) {
-            if (mouseOrangeTileOver.haveMoneyToBuy(hud.getSelectedTower(), money)) {
-                var cost = mouseOrangeTileOver.buyTower(hud.getSelectedTower());
-                money -= cost;
-                hud.setMoney(money);
-            }
+            handleBuyTower();
         }
     }
 }
