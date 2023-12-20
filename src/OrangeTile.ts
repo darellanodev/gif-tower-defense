@@ -239,6 +239,13 @@ export class OrangeTile {
     return this.tower !== null
   }
 
+  getTower() {
+    if (this.hasTower()) {
+      return this.tower
+    }
+    return null
+  }
+
   _getInfluenceAreaFor(towerSelected: any) {
     let influenceArea: number = this.GREEN_TOWER_INFLUENCE_AREA
     switch (towerSelected) {

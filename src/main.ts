@@ -162,38 +162,74 @@ function keyPressed() {
   }
 }
 
+function canUpgradeTower(tower: any) {
+  let canUpgrade = false
+  if (tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL) {
+    if (wallet.haveMoneyToBuy(tower.getType(), tower.getUpgradeLevel() + 1)) {
+      canUpgrade = true
+    }
+  }
+  return canUpgrade
+}
+
+function canBuyNewTower(tower: any) {
+  let canBuy = false
+  const zeroUpgradeLevel = 0
+  if (wallet.haveMoneyToBuy(hud.getSelectedTower(), zeroUpgradeLevel)) {
+    canBuy = true
+  }
+  return canBuy
+}
+
+function canBuyTower(tower: any) {
+  let result = false
+  if (tower) {
+    result = canUpgradeTower(tower)
+  } else {
+    result = canBuyNewTower(tower)
+  }
+  return result
+}
+
+function handleHudButtons() {
+  if (hud.isInsideGreenTowerButton(mouseX, mouseY)) {
+    hud.selectTower(Const.GREEN_TOWER)
+  }
+  if (hud.isInsideRedTowerButton(mouseX, mouseY)) {
+    hud.selectTower(Const.RED_TOWER)
+  }
+  if (hud.isInsideYellowTowerButton(mouseX, mouseY)) {
+    hud.selectTower(Const.YELLOW_TOWER)
+  }
+}
+
+function handleSellTower() {
+  const profit = mouseOrangeTileOver.sellTower()
+  wallet.increase(profit)
+  hud.setMoney(wallet.getMoney())
+}
+
+function handleBuyTower() {
+  if (canBuyTower(mouseOrangeTileOver.getTower())) {
+    const cost = mouseOrangeTileOver.buyTower(hud.getSelectedTower())
+    wallet.decrease(cost)
+    hud.setMoney(wallet.getMoney())
+  }
+}
+
 function mouseClicked() {
   if (hud.isInsideButtonsBar(mouseX, mouseY)) {
-    if (hud.isInsideGreenTowerButton(mouseX, mouseY)) {
-      hud.selectTower(Const.GREEN_TOWER)
-    }
-    if (hud.isInsideRedTowerButton(mouseX, mouseY)) {
-      hud.selectTower(Const.RED_TOWER)
-    }
-    if (hud.isInsideYellowTowerButton(mouseX, mouseY)) {
-      hud.selectTower(Const.YELLOW_TOWER)
-    }
+    handleHudButtons()
     return
   }
 
   if (mouseOrangeTileOver !== null) {
-    if (mouseButton === RIGHT) {
-      const profit = mouseOrangeTileOver.sellTower()
-      wallet.increase(profit)
-      hud.setMoney(wallet.getMoney())
+    if (mouseButton === RIGHT && mouseOrangeTileOver.hasTower()) {
+      handleSellTower()
     }
 
     if (mouseButton === LEFT) {
-      if (
-        mouseOrangeTileOver.haveMoneyToBuy(
-          hud.getSelectedTower(),
-          wallet.getMoney(),
-        )
-      ) {
-        const cost = mouseOrangeTileOver.buyTower(hud.getSelectedTower())
-        wallet.increase(cost)
-        hud.setMoney(wallet.getMoney())
-      }
+      handleBuyTower()
     }
   }
 }
