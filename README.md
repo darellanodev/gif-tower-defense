@@ -39,7 +39,9 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
   - [ ] Classes are now passed throw parameters with any type. Improve it.
   - [ ] OrangeTile.ts in method: \_setInfluenceAreaColor. Use Const colors instead. Now it shows an error. See commented code
   - [ ] Simplify assignment params (this.zzz = zzz, <--- use the signature simplification using private in params)
-- [ ] Typescript
+- [ ] Extract classes from big classes like OrangeTile
+- [x] Create Wallet class and extract corresponding methods from OrangeTile
+- [x] Typescript
 - [x] When the player sells a tower increase the money
 - [x] When the player buys a tower decrease the money
 - [x] Put the money indicator
@@ -47,7 +49,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [x] Put all constants into static class to not repeat them
 - [x] The HUD changes when the player moves the mouse over a tower showing sell and upgrade options
 - [x] Refactor with some functional programming (replace `for` loops with `forEach` function, use `find` function, ...)
-- [x] Fix the laser that goes under the other tiles
+- [x] Fix the laser that goes under the other tilesF
 - [x] Rotate the tower to follow the target enemy
 - [x] Laser tower selects the near enemy and fires a laser line
 - [x] If left mouse button is pressed and exist a tower upgrade the tower
