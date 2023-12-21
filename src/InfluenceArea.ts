@@ -26,6 +26,24 @@ export class InfluenceArea {
         fill(...YELLOW_COLOR, this.Const.ALPHA_INFLUENCE_AREA_FILL)
         break
     }
+
+    // TODO: it shows an error when the following code is uncommented (A spread argument must either have a tuple type or be passed to a rest parameter.)
+    // switch (towerType) {
+    //   case this.Const.GREEN_TOWER:
+    //     stroke(...this.Const.GREEN_COLOR, this.Const.ALPHA_INFLUENCE_AREA_STROKE)
+    //     fill(...this.Const.GREEN_COLOR, this.Const.ALPHA_INFLUENCE_AREA_FILL)
+    //     break
+
+    //   case this.Const.RED_TOWER:
+    //     stroke(...this.Const.RED_COLOR, this.Const.ALPHA_INFLUENCE_AREA_STROKE)
+    //     fill(...this.Const.RED_COLOR, this.Const.ALPHA_INFLUENCE_AREA_FILL)
+    //     break
+
+    //   case this.Const.YELLOW_TOWER:
+    //     stroke(...this.Const.YELLOW_COLOR, this.Const.ALPHA_INFLUENCE_AREA_STROKE)
+    //     fill(...this.Const.YELLOW_COLOR, this.Const.ALPHA_INFLUENCE_AREA_FILL)
+    //     break
+    // }
   }
 
   _getInfluenceAreaFor(towerSelected: any) {
