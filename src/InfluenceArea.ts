@@ -56,8 +56,19 @@ export class InfluenceArea {
   drawTowerInfluenceArea(tower: any) {
     strokeWeight(2)
 
+    let x = tower.getX()
+    let y = tower.getY()
+
+    if (
+      tower.getType() === this.Const.GREEN_TOWER ||
+      tower.getType() === this.Const.RED_TOWER
+    ) {
+      x += this.Const.TOWER_OFFSET
+      y += this.Const.TOWER_OFFSET
+    }
+
     this._setInfluenceAreaColor(tower.getType())
-    this._drawCircle(tower.getX(), tower.getY(), tower.getInfluenceArea())
+    this._drawCircle(x, y, tower.getInfluenceArea())
   }
 
   _drawCircle(x: number, y: number, diameter: number) {
