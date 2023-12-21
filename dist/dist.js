@@ -481,6 +481,14 @@ var Hud = (function () {
                 break;
         }
     };
+    Hud.prototype.selectTowerHudType = function (tower) {
+        if (tower.getUpgradeLevel() < this.Const.UPGRADE_MAX_LEVEL) {
+            this.setType(this.Const.HUD_UPGRADING);
+        }
+        else {
+            this.setType(this.Const.HUD_UPGRADING_MAX);
+        }
+    };
     return Hud;
 }());
 var ImageUtils = (function () {
@@ -658,19 +666,6 @@ var OrangeTile = (function () {
             return this.tower;
         }
         return null;
-    };
-    OrangeTile.prototype.selectHudType = function (hud) {
-        if (this.hasTower()) {
-            if (this.tower.getUpgradeLevel() < this.Const.UPGRADE_MAX_LEVEL) {
-                hud.setType(this.Const.HUD_UPGRADING);
-            }
-            else {
-                hud.setType(this.Const.HUD_UPGRADING_MAX);
-            }
-        }
-        else {
-            hud.setType(this.Const.HUD_NORMAL);
-        }
     };
     return OrangeTile;
 }());
@@ -1243,7 +1238,7 @@ function setup() {
     var pathTiles = tileGenerator.pathTiles();
     var path = new Path(startTile, endTile, pathTiles, Const);
     orders = path.makeOrders();
-    wallet = new Wallet(tileGenerator.getInitialMoney(), Const);
+    wallet = new Wallet(10000, Const);
     hud = new Hud(hudImages, wallet.getMoney(), Const);
     wave = 1;
     waveEnemies = 0;
@@ -1377,11 +1372,12 @@ function draw() {
     if (mouseOrangeTileOver !== null) {
         if (mouseOrangeTileOver.hasTower()) {
             influenceArea.drawTowerInfluenceArea(mouseOrangeTileOver.getTower());
+            hud.selectTowerHudType(mouseOrangeTileOver.getTower());
         }
         else {
             influenceArea.drawHudTowerInfluenceArea(hud.getSelectedTower(), mouseOrangeTileOver.getX(), mouseOrangeTileOver.getY());
+            hud.setType(Const.HUD_NORMAL);
         }
-        mouseOrangeTileOver.selectHudType(hud);
     }
     else {
         hud.setType(Const.HUD_NORMAL);
