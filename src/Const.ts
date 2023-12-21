@@ -38,4 +38,11 @@ export class Const {
   static CREATE_ENEMY_MAX_TIME: number = 100
 
   static TOWER_OFFSET: number = 5
+
+  static GREEN_TOWER_INFLUENCE_AREA: number = 150
+  static RED_TOWER_INFLUENCE_AREA: number = 240
+  static YELLOW_TOWER_INFLUENCE_AREA: number = 290
+
+  static ALPHA_INFLUENCE_AREA_FILL: number = 50
+  static ALPHA_INFLUENCE_AREA_STROKE: number = 120
 }

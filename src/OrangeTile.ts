@@ -1,23 +1,11 @@
 export class OrangeTile {
-  UPGRADE_MAX_LEVEL = 5
-
-  GREEN_TOWER_INFLUENCE_AREA = 150
-  RED_TOWER_INFLUENCE_AREA = 240
-  YELLOW_TOWER_INFLUENCE_AREA = 290
-
-  ALPHA_INFLUENCE_AREA_FILL = 50
-  ALPHA_INFLUENCE_AREA_STROKE = 120
-
   x: number
   y: number
   img: any
   tower: any
   upgradeDisplay: any
-
   Const: any
   UpgradeDisplay: any
-  Distance: any
-
   towerGenerator: any
 
   constructor(
@@ -26,7 +14,6 @@ export class OrangeTile {
     y: number,
     Const: any,
     UpgradeDisplay: any,
-    Distance: any,
     towerGenerator: any,
   ) {
     this.img = img
@@ -34,12 +21,10 @@ export class OrangeTile {
     this.y = y
     this.Const = Const
     this.UpgradeDisplay = UpgradeDisplay
-    this.Distance = Distance
+    this.towerGenerator = towerGenerator
 
     this.tower = null
     this.upgradeDisplay = null
-
-    this.towerGenerator = towerGenerator
   }
 
   sellTower() {
@@ -141,46 +126,6 @@ export class OrangeTile {
     return false
   }
 
-  _setInfluenceAreaColor(towerType: number) {
-    const GREEN_COLOR: [number, number, number] = [75, 185, 35]
-    const RED_COLOR: [number, number, number] = [185, 35, 35]
-    const YELLOW_COLOR: [number, number, number] = [202, 191, 24]
-
-    switch (towerType) {
-      case this.Const.GREEN_TOWER:
-        stroke(...GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
-        fill(...GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
-        break
-
-      case this.Const.RED_TOWER:
-        stroke(...RED_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
-        fill(...RED_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
-        break
-
-      case this.Const.YELLOW_TOWER:
-        stroke(...YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
-        fill(...YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
-        break
-    }
-
-    // switch (towerType) {
-    //   case this.Const.GREEN_TOWER:
-    //     stroke(...this.Const.GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
-    //     fill(...this.Const.GREEN_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
-    //     break
-
-    //   case this.Const.RED_TOWER:
-    //     stroke(...this.Const.RED_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
-    //     fill(...this.Const.RED_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
-    //     break
-
-    //   case this.Const.YELLOW_TOWER:
-    //     stroke(...this.Const.YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_STROKE)
-    //     fill(...this.Const.YELLOW_COLOR, this.ALPHA_INFLUENCE_AREA_FILL)
-    //     break
-    // }
-  }
-
   hasTower() {
     return this.tower !== null
   }
@@ -190,39 +135,6 @@ export class OrangeTile {
       return this.tower
     }
     return null
-  }
-
-  _getInfluenceAreaFor(towerSelected: any) {
-    let influenceArea: number = this.GREEN_TOWER_INFLUENCE_AREA
-    switch (towerSelected) {
-      case this.Const.GREEN_TOWER:
-        influenceArea = this.GREEN_TOWER_INFLUENCE_AREA
-
-      case this.Const.RED_TOWER:
-        influenceArea = this.RED_TOWER_INFLUENCE_AREA
-
-      case this.Const.YELLOW_TOWER:
-        influenceArea = this.YELLOW_TOWER_INFLUENCE_AREA
-    }
-    return influenceArea
-  }
-
-  drawInfluenceArea(towerSelected: any) {
-    let influenceArea: number = 120
-    strokeWeight(2)
-
-    if (this.tower) {
-      influenceArea = this.tower.getInfluenceArea()
-      this._setInfluenceAreaColor(this.tower.getType())
-    } else {
-      this._setInfluenceAreaColor(towerSelected)
-      influenceArea = this._getInfluenceAreaFor(towerSelected)
-    }
-    circle(
-      this.x + this.Const.TILE_SIZE / 2,
-      this.y + this.Const.TILE_SIZE / 2,
-      influenceArea,
-    )
   }
 
   selectHudType(hud: any) {

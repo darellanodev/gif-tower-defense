@@ -9,56 +9,35 @@ export class TileGenerator {
   startImage: any
   endImage: any
   startDirection: number
-  greenTowerImages: any[]
-  redTowerImages: any[]
-  yellowTowerImages: any[]
   mapImages: any[]
   Const: any
   OrangeTile: any
   PathTile: any
   StartTile: any
   EndTile: any
-  GreenTower: any
-  RedTower: any
-  YellowTower: any
   UpgradeDisplay: any
-  Distance: any
 
   towerGenerator: any
 
   constructor(
     levelMap: string,
     mapImages: any[],
-    greenTowerImages: any[],
-    redTowerImages: any[],
-    yellowTowerImages: any[],
     Const: any,
     OrangeTile: any,
     PathTile: any,
     StartTile: any,
     EndTile: any,
-    GreenTower: any,
-    RedTower: any,
-    YellowTower: any,
     UpgradeDisplay: any,
-    Distance: any,
     towerGenerator: any,
   ) {
     this.levelMap = levelMap
     this.mapImages = mapImages
-    this.greenTowerImages = greenTowerImages
-    this.redTowerImages = redTowerImages
-    this.yellowTowerImages = yellowTowerImages
     this.Const = Const
     this.OrangeTile = OrangeTile
     this.PathTile = PathTile
     this.StartTile = StartTile
     this.EndTile = EndTile
-    this.GreenTower = GreenTower
-    this.RedTower = RedTower
-    this.YellowTower = YellowTower
     this.UpgradeDisplay = UpgradeDisplay
-    this.Distance = Distance
     this.towerGenerator = towerGenerator
 
     if (this.levelMap === '') {
@@ -150,7 +129,6 @@ export class TileGenerator {
                   posY,
                   this.Const,
                   this.UpgradeDisplay,
-                  this.Distance,
                   this.towerGenerator,
                 ),
               )

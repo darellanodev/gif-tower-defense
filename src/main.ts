@@ -20,6 +20,7 @@ import { Random } from './Random'
 import { HealthBar } from './HealthBar'
 import { Wallet } from './Wallet'
 import { ImageUtils } from './ImageUtils'
+import { InfluenceArea } from './InfluenceArea'
 // */ // End of imports. This line is used by the build script. Dont modify this line
 
 let orders: number[]
@@ -41,6 +42,7 @@ let hudImages: any[]
 let backgroundImage: any
 let enemiesImages: any[]
 let towerGenerator: any
+let influenceArea: any
 
 function preload() {
   greenTowerImages = []
@@ -129,19 +131,12 @@ function setup() {
   const tileGenerator = new TileGenerator(
     levelMap,
     tileImages,
-    greenTowerImages,
-    redTowerImages,
-    yellowTowerImages,
     Const,
     OrangeTile,
     PathTile,
     StartTile,
     EndTile,
-    GreenTower,
-    RedTower,
-    YellowTower,
     UpgradeDisplay,
-    Distance,
     towerGenerator,
   )
   orangeTiles = tileGenerator.orangeTiles()
@@ -158,6 +153,8 @@ function setup() {
   wave = 1
   waveEnemies = 0
   enemies = []
+
+  influenceArea = new InfluenceArea(Const)
 }
 
 function keyPressed() {
@@ -321,7 +318,15 @@ function draw() {
   hud.draw()
 
   if (mouseOrangeTileOver !== null) {
-    mouseOrangeTileOver.drawInfluenceArea(hud.getSelectedTower())
+    if (mouseOrangeTileOver.hasTower()) {
+      influenceArea.drawTowerInfluenceArea(mouseOrangeTileOver.getTower())
+    } else {
+      influenceArea.drawHudTowerInfluenceArea(
+        hud.getSelectedTower(),
+        mouseOrangeTileOver.getX(),
+        mouseOrangeTileOver.getY(),
+      )
+    }
     mouseOrangeTileOver.selectHudType(hud)
   } else {
     hud.setType(Const.HUD_NORMAL)

@@ -25,6 +25,14 @@ export class GreenTower {
     this.upgradeLevel++
   }
 
+  getX() {
+    return this.x
+  }
+
+  getY() {
+    return this.y
+  }
+
   getUpgradeLevel() {
     return this.upgradeLevel
   }
