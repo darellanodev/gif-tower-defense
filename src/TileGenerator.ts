@@ -24,6 +24,8 @@ export class TileGenerator {
   UpgradeDisplay: any
   Distance: any
 
+  towerGenerator: any
+
   constructor(
     levelMap: string,
     mapImages: any[],
@@ -40,6 +42,7 @@ export class TileGenerator {
     YellowTower: any,
     UpgradeDisplay: any,
     Distance: any,
+    towerGenerator: any,
   ) {
     this.levelMap = levelMap
     this.mapImages = mapImages
@@ -56,6 +59,7 @@ export class TileGenerator {
     this.YellowTower = YellowTower
     this.UpgradeDisplay = UpgradeDisplay
     this.Distance = Distance
+    this.towerGenerator = towerGenerator
 
     if (this.levelMap === '') {
       throw new Error('Level map string cannot be empty')
@@ -144,15 +148,10 @@ export class TileGenerator {
                   this.orangeImage,
                   posX,
                   posY,
-                  this.greenTowerImages,
-                  this.redTowerImages,
-                  this.yellowTowerImages,
                   this.Const,
-                  this.GreenTower,
-                  this.RedTower,
-                  this.YellowTower,
                   this.UpgradeDisplay,
                   this.Distance,
+                  this.towerGenerator,
                 ),
               )
               break

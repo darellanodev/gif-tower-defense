@@ -35,5 +35,7 @@ export class Const {
   static KEY_2: number = 50
   static KEY_3: number = 51
 
-  static CREATE_ENEMY_MAX_TIME = 100
+  static CREATE_ENEMY_MAX_TIME: number = 100
+
+  static TOWER_OFFSET: number = 5
 }

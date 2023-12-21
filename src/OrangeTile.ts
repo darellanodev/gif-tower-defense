@@ -1,6 +1,4 @@
 export class OrangeTile {
-  TOWER_OFFSET = 5
-
   UPGRADE_MAX_LEVEL = 5
 
   GREEN_TOWER_INFLUENCE_AREA = 150
@@ -15,46 +13,33 @@ export class OrangeTile {
   img: any
   tower: any
   upgradeDisplay: any
-  greenTowerImages: any[]
-  redTowerImages: any[]
-  yellowTowerImages: any[]
 
   Const: any
-  GreenTower: any
-  RedTower: any
-  YellowTower: any
   UpgradeDisplay: any
   Distance: any
+
+  towerGenerator: any
 
   constructor(
     img: any,
     x: number,
     y: number,
-    greenTowerImages: any[],
-    redTowerImages: any[],
-    yellowTowerImages: any[],
     Const: any,
-    GreenTower: any,
-    RedTower: any,
-    YellowTower: any,
     UpgradeDisplay: any,
     Distance: any,
+    towerGenerator: any,
   ) {
     this.img = img
     this.x = x
     this.y = y
-    this.greenTowerImages = greenTowerImages
-    this.redTowerImages = redTowerImages
-    this.yellowTowerImages = yellowTowerImages
     this.Const = Const
-    this.GreenTower = GreenTower
-    this.RedTower = RedTower
-    this.YellowTower = YellowTower
     this.UpgradeDisplay = UpgradeDisplay
     this.Distance = Distance
 
     this.tower = null
     this.upgradeDisplay = null
+
+    this.towerGenerator = towerGenerator
   }
 
   sellTower() {
@@ -77,50 +62,11 @@ export class OrangeTile {
     }
   }
 
-  _newTower(towerType: number) {
-    let tower = null
-
-    switch (towerType) {
-      case this.Const.GREEN_TOWER:
-        tower = new this.GreenTower(
-          this.greenTowerImages,
-          this.x - this.TOWER_OFFSET,
-          this.y - this.TOWER_OFFSET,
-          this.Const,
-          this.Distance,
-        )
-        break
-      case this.Const.RED_TOWER:
-        tower = new this.RedTower(
-          this.redTowerImages,
-          this.x - this.TOWER_OFFSET,
-          this.y - this.TOWER_OFFSET,
-          this.Const,
-          this.Distance,
-        )
-        break
-      case this.Const.YELLOW_TOWER:
-        tower = new this.YellowTower(
-          this.yellowTowerImages,
-          this.x,
-          this.y,
-          this.Const,
-          this.Distance,
-        )
-        break
-
-      default:
-        break
-    }
-
-    this.tower = tower
-  }
-
   buyTower(towerType: number) {
     let cost = 0
 
     if (this.tower === null) {
-      this._newTower(towerType)
+      this.tower = this.towerGenerator.newTower(towerType, this.x, this.y)
       cost = this.tower.getCost()
     } else {
       const currentUpgradeLevel = this.tower.getUpgradeLevel()

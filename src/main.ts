@@ -5,6 +5,7 @@ import { PathTile } from './PathTile'
 import { StartTile } from './StartTile'
 import { EndTile } from './EndTile'
 import { TileGenerator } from './TileGenerator'
+import { TowerGenerator } from './TowerGenerator'
 import { OrangeTile } from './OrangeTile'
 import { GreenTower } from './GreenTower'
 import { RedTower } from './RedTower'
@@ -39,6 +40,7 @@ let endTile: any
 let hudImages: any[]
 let backgroundImage: any
 let enemiesImages: any[]
+let towerGenerator: any
 
 function preload() {
   greenTowerImages = []
@@ -113,6 +115,17 @@ function setup() {
 
   createEnemyTime = 0
 
+  towerGenerator = new TowerGenerator(
+    greenTowerImages,
+    redTowerImages,
+    yellowTowerImages,
+    Const,
+    GreenTower,
+    RedTower,
+    YellowTower,
+    Distance,
+  )
+
   const tileGenerator = new TileGenerator(
     levelMap,
     tileImages,
@@ -129,6 +142,7 @@ function setup() {
     YellowTower,
     UpgradeDisplay,
     Distance,
+    towerGenerator,
   )
   orangeTiles = tileGenerator.orangeTiles()
   startTile = tileGenerator.startTile()
