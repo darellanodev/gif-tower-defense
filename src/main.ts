@@ -320,14 +320,15 @@ function draw() {
   if (mouseOrangeTileOver !== null) {
     if (mouseOrangeTileOver.hasTower()) {
       influenceArea.drawTowerInfluenceArea(mouseOrangeTileOver.getTower())
+      hud.selectTowerHudType(mouseOrangeTileOver.getTower())
     } else {
       influenceArea.drawHudTowerInfluenceArea(
         hud.getSelectedTower(),
         mouseOrangeTileOver.getX(),
         mouseOrangeTileOver.getY(),
       )
+      hud.setType(Const.HUD_NORMAL)
     }
-    mouseOrangeTileOver.selectHudType(hud)
   } else {
     hud.setType(Const.HUD_NORMAL)
   }

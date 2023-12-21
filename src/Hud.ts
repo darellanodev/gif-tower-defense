@@ -120,4 +120,12 @@ export class Hud {
         break
     }
   }
+
+  selectTowerHudType(tower: any) {
+    if (tower.getUpgradeLevel() < this.Const.UPGRADE_MAX_LEVEL) {
+      this.setType(this.Const.HUD_UPGRADING)
+    } else {
+      this.setType(this.Const.HUD_UPGRADING_MAX)
+    }
+  }
 }

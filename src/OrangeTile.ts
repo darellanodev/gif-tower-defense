@@ -136,16 +136,4 @@ export class OrangeTile {
     }
     return null
   }
-
-  selectHudType(hud: any) {
-    if (this.hasTower()) {
-      if (this.tower.getUpgradeLevel() < this.Const.UPGRADE_MAX_LEVEL) {
-        hud.setType(this.Const.HUD_UPGRADING)
-      } else {
-        hud.setType(this.Const.HUD_UPGRADING_MAX)
-      }
-    } else {
-      hud.setType(this.Const.HUD_NORMAL)
-    }
-  }
 }
