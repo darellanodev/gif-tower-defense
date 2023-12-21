@@ -30,6 +30,12 @@ var Const = (function () {
     Const.KEY_2 = 50;
     Const.KEY_3 = 51;
     Const.CREATE_ENEMY_MAX_TIME = 100;
+    Const.TOWER_OFFSET = 5;
+    Const.GREEN_TOWER_INFLUENCE_AREA = 150;
+    Const.RED_TOWER_INFLUENCE_AREA = 240;
+    Const.YELLOW_TOWER_INFLUENCE_AREA = 290;
+    Const.ALPHA_INFLUENCE_AREA_FILL = 50;
+    Const.ALPHA_INFLUENCE_AREA_STROKE = 120;
     return Const;
 }());
 var CustomRange = (function () {
@@ -272,6 +278,12 @@ var GreenTower = (function () {
     GreenTower.prototype.upgrade = function () {
         this.upgradeLevel++;
     };
+    GreenTower.prototype.getX = function () {
+        return this.x;
+    };
+    GreenTower.prototype.getY = function () {
+        return this.y;
+    };
     GreenTower.prototype.getUpgradeLevel = function () {
         return this.upgradeLevel;
     };
@@ -488,27 +500,74 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
+var InfluenceArea = (function () {
+    function InfluenceArea(Const) {
+        this.Const = Const;
+    }
+    InfluenceArea.prototype._setInfluenceAreaColor = function (towerType) {
+        var GREEN_COLOR = [75, 185, 35];
+        var RED_COLOR = [185, 35, 35];
+        var YELLOW_COLOR = [202, 191, 24];
+        switch (towerType) {
+            case this.Const.GREEN_TOWER:
+                stroke.apply(void 0, __spreadArray(__spreadArray([], GREEN_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
+                fill.apply(void 0, __spreadArray(__spreadArray([], GREEN_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
+                break;
+            case this.Const.RED_TOWER:
+                stroke.apply(void 0, __spreadArray(__spreadArray([], RED_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
+                fill.apply(void 0, __spreadArray(__spreadArray([], RED_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
+                break;
+            case this.Const.YELLOW_TOWER:
+                stroke.apply(void 0, __spreadArray(__spreadArray([], YELLOW_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
+                fill.apply(void 0, __spreadArray(__spreadArray([], YELLOW_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
+                break;
+        }
+    };
+    InfluenceArea.prototype._getInfluenceAreaFor = function (towerSelected) {
+        var influenceArea = this.Const.GREEN_TOWER_INFLUENCE_AREA;
+        switch (towerSelected) {
+            case this.Const.GREEN_TOWER:
+                influenceArea = this.Const.GREEN_TOWER_INFLUENCE_AREA;
+                break;
+            case this.Const.RED_TOWER:
+                influenceArea = this.Const.RED_TOWER_INFLUENCE_AREA;
+                break;
+            case this.Const.YELLOW_TOWER:
+                influenceArea = this.Const.YELLOW_TOWER_INFLUENCE_AREA;
+                break;
+        }
+        return influenceArea;
+    };
+    InfluenceArea.prototype.drawHudTowerInfluenceArea = function (hudTowerSelected, x, y) {
+        strokeWeight(2);
+        this._setInfluenceAreaColor(hudTowerSelected);
+        this._drawCircle(x, y, this._getInfluenceAreaFor(hudTowerSelected));
+    };
+    InfluenceArea.prototype.drawTowerInfluenceArea = function (tower) {
+        strokeWeight(2);
+        var x = tower.getX();
+        var y = tower.getY();
+        if (tower.getType() === this.Const.GREEN_TOWER ||
+            tower.getType() === this.Const.RED_TOWER) {
+            x += this.Const.TOWER_OFFSET;
+            y += this.Const.TOWER_OFFSET;
+        }
+        this._setInfluenceAreaColor(tower.getType());
+        this._drawCircle(x, y, tower.getInfluenceArea());
+    };
+    InfluenceArea.prototype._drawCircle = function (x, y, diameter) {
+        circle(x + this.Const.TILE_SIZE / 2, y + this.Const.TILE_SIZE / 2, diameter);
+    };
+    return InfluenceArea;
+}());
 var OrangeTile = (function () {
-    function OrangeTile(img, x, y, greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTower, RedTower, YellowTower, UpgradeDisplay, Distance) {
-        this.TOWER_OFFSET = 5;
-        this.UPGRADE_MAX_LEVEL = 5;
-        this.GREEN_TOWER_INFLUENCE_AREA = 150;
-        this.RED_TOWER_INFLUENCE_AREA = 240;
-        this.YELLOW_TOWER_INFLUENCE_AREA = 290;
-        this.ALPHA_INFLUENCE_AREA_FILL = 50;
-        this.ALPHA_INFLUENCE_AREA_STROKE = 120;
+    function OrangeTile(img, x, y, Const, UpgradeDisplay, towerGenerator) {
         this.img = img;
         this.x = x;
         this.y = y;
-        this.greenTowerImages = greenTowerImages;
-        this.redTowerImages = redTowerImages;
-        this.yellowTowerImages = yellowTowerImages;
         this.Const = Const;
-        this.GreenTower = GreenTower;
-        this.RedTower = RedTower;
-        this.YellowTower = YellowTower;
         this.UpgradeDisplay = UpgradeDisplay;
-        this.Distance = Distance;
+        this.towerGenerator = towerGenerator;
         this.tower = null;
         this.upgradeDisplay = null;
     }
@@ -525,27 +584,10 @@ var OrangeTile = (function () {
             this.upgradeDisplay = new this.UpgradeDisplay(this.x, this.y, this.tower.getColor());
         }
     };
-    OrangeTile.prototype._newTower = function (towerType) {
-        var tower = null;
-        switch (towerType) {
-            case this.Const.GREEN_TOWER:
-                tower = new this.GreenTower(this.greenTowerImages, this.x - this.TOWER_OFFSET, this.y - this.TOWER_OFFSET, this.Const, this.Distance);
-                break;
-            case this.Const.RED_TOWER:
-                tower = new this.RedTower(this.redTowerImages, this.x - this.TOWER_OFFSET, this.y - this.TOWER_OFFSET, this.Const, this.Distance);
-                break;
-            case this.Const.YELLOW_TOWER:
-                tower = new this.YellowTower(this.yellowTowerImages, this.x, this.y, this.Const, this.Distance);
-                break;
-            default:
-                break;
-        }
-        this.tower = tower;
-    };
     OrangeTile.prototype.buyTower = function (towerType) {
         var cost = 0;
         if (this.tower === null) {
-            this._newTower(towerType);
+            this.tower = this.towerGenerator.newTower(towerType, this.x, this.y);
             cost = this.tower.getCost();
         }
         else {
@@ -608,25 +650,6 @@ var OrangeTile = (function () {
         }
         return false;
     };
-    OrangeTile.prototype._setInfluenceAreaColor = function (towerType) {
-        var GREEN_COLOR = [75, 185, 35];
-        var RED_COLOR = [185, 35, 35];
-        var YELLOW_COLOR = [202, 191, 24];
-        switch (towerType) {
-            case this.Const.GREEN_TOWER:
-                stroke.apply(void 0, __spreadArray(__spreadArray([], GREEN_COLOR, false), [this.ALPHA_INFLUENCE_AREA_STROKE], false));
-                fill.apply(void 0, __spreadArray(__spreadArray([], GREEN_COLOR, false), [this.ALPHA_INFLUENCE_AREA_FILL], false));
-                break;
-            case this.Const.RED_TOWER:
-                stroke.apply(void 0, __spreadArray(__spreadArray([], RED_COLOR, false), [this.ALPHA_INFLUENCE_AREA_STROKE], false));
-                fill.apply(void 0, __spreadArray(__spreadArray([], RED_COLOR, false), [this.ALPHA_INFLUENCE_AREA_FILL], false));
-                break;
-            case this.Const.YELLOW_TOWER:
-                stroke.apply(void 0, __spreadArray(__spreadArray([], YELLOW_COLOR, false), [this.ALPHA_INFLUENCE_AREA_STROKE], false));
-                fill.apply(void 0, __spreadArray(__spreadArray([], YELLOW_COLOR, false), [this.ALPHA_INFLUENCE_AREA_FILL], false));
-                break;
-        }
-    };
     OrangeTile.prototype.hasTower = function () {
         return this.tower !== null;
     };
@@ -635,31 +658,6 @@ var OrangeTile = (function () {
             return this.tower;
         }
         return null;
-    };
-    OrangeTile.prototype._getInfluenceAreaFor = function (towerSelected) {
-        var influenceArea = this.GREEN_TOWER_INFLUENCE_AREA;
-        switch (towerSelected) {
-            case this.Const.GREEN_TOWER:
-                influenceArea = this.GREEN_TOWER_INFLUENCE_AREA;
-            case this.Const.RED_TOWER:
-                influenceArea = this.RED_TOWER_INFLUENCE_AREA;
-            case this.Const.YELLOW_TOWER:
-                influenceArea = this.YELLOW_TOWER_INFLUENCE_AREA;
-        }
-        return influenceArea;
-    };
-    OrangeTile.prototype.drawInfluenceArea = function (towerSelected) {
-        var influenceArea = 120;
-        strokeWeight(2);
-        if (this.tower) {
-            influenceArea = this.tower.getInfluenceArea();
-            this._setInfluenceAreaColor(this.tower.getType());
-        }
-        else {
-            this._setInfluenceAreaColor(towerSelected);
-            influenceArea = this._getInfluenceAreaFor(towerSelected);
-        }
-        circle(this.x + this.Const.TILE_SIZE / 2, this.y + this.Const.TILE_SIZE / 2, influenceArea);
     };
     OrangeTile.prototype.selectHudType = function (hud) {
         if (this.hasTower()) {
@@ -838,6 +836,12 @@ var RedTower = (function () {
     RedTower.prototype.upgrade = function () {
         this.upgradeLevel++;
     };
+    RedTower.prototype.getX = function () {
+        return this.x;
+    };
+    RedTower.prototype.getY = function () {
+        return this.y;
+    };
     RedTower.prototype.getUpgradeLevel = function () {
         return this.upgradeLevel;
     };
@@ -888,24 +892,18 @@ var StartTile = (function () {
     return StartTile;
 }());
 var TileGenerator = (function () {
-    function TileGenerator(levelMap, mapImages, greenTowerImages, redTowerImages, yellowTowerImages, Const, OrangeTile, PathTile, StartTile, EndTile, GreenTower, RedTower, YellowTower, UpgradeDisplay, Distance) {
+    function TileGenerator(levelMap, mapImages, Const, OrangeTile, PathTile, StartTile, EndTile, UpgradeDisplay, towerGenerator) {
         this.FLOOR_SIZE = 50;
         this.MARGIN_TOP = 30;
         this.levelMap = levelMap;
         this.mapImages = mapImages;
-        this.greenTowerImages = greenTowerImages;
-        this.redTowerImages = redTowerImages;
-        this.yellowTowerImages = yellowTowerImages;
         this.Const = Const;
         this.OrangeTile = OrangeTile;
         this.PathTile = PathTile;
         this.StartTile = StartTile;
         this.EndTile = EndTile;
-        this.GreenTower = GreenTower;
-        this.RedTower = RedTower;
-        this.YellowTower = YellowTower;
         this.UpgradeDisplay = UpgradeDisplay;
-        this.Distance = Distance;
+        this.towerGenerator = towerGenerator;
         if (this.levelMap === '') {
             throw new Error('Level map string cannot be empty');
         }
@@ -973,7 +971,7 @@ var TileGenerator = (function () {
                 if (character === symbol) {
                     switch (symbol) {
                         case '0':
-                            resultTiles.push(new _this.OrangeTile(_this.orangeImage, posX, posY, _this.greenTowerImages, _this.redTowerImages, _this.yellowTowerImages, _this.Const, _this.GreenTower, _this.RedTower, _this.YellowTower, _this.UpgradeDisplay, _this.Distance));
+                            resultTiles.push(new _this.OrangeTile(_this.orangeImage, posX, posY, _this.Const, _this.UpgradeDisplay, _this.towerGenerator));
                             break;
                         case '1':
                             resultTiles.push(new _this.PathTile(posX, posY));
@@ -1008,6 +1006,36 @@ var TileGenerator = (function () {
         return Number(initialMoney);
     };
     return TileGenerator;
+}());
+var TowerGenerator = (function () {
+    function TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTower, RedTower, YellowTower, Distance) {
+        this.greenTowerImages = greenTowerImages;
+        this.redTowerImages = redTowerImages;
+        this.yellowTowerImages = yellowTowerImages;
+        this.Const = Const;
+        this.GreenTower = GreenTower;
+        this.RedTower = RedTower;
+        this.YellowTower = YellowTower;
+        this.Distance = Distance;
+    }
+    TowerGenerator.prototype.newTower = function (towerType, x, y) {
+        var tower = null;
+        switch (towerType) {
+            case this.Const.GREEN_TOWER:
+                tower = new this.GreenTower(this.greenTowerImages, x - this.Const.TOWER_OFFSET, y - this.Const.TOWER_OFFSET, this.Const, this.Distance);
+                break;
+            case this.Const.RED_TOWER:
+                tower = new this.RedTower(this.redTowerImages, x - this.Const.TOWER_OFFSET, y - this.Const.TOWER_OFFSET, this.Const, this.Distance);
+                break;
+            case this.Const.YELLOW_TOWER:
+                tower = new this.YellowTower(this.yellowTowerImages, x, y, this.Const, this.Distance);
+                break;
+            default:
+                break;
+        }
+        return tower;
+    };
+    return TowerGenerator;
 }());
 var UpgradeDisplay = (function () {
     function UpgradeDisplay(x, y, color) {
@@ -1103,6 +1131,12 @@ var YellowTower = (function () {
     YellowTower.prototype.upgrade = function () {
         this.upgradeLevel++;
     };
+    YellowTower.prototype.getX = function () {
+        return this.x;
+    };
+    YellowTower.prototype.getY = function () {
+        return this.y;
+    };
     YellowTower.prototype.getUpgradeLevel = function () {
         return this.upgradeLevel;
     };
@@ -1149,6 +1183,8 @@ var endTile;
 var hudImages;
 var backgroundImage;
 var enemiesImages;
+var towerGenerator;
+var influenceArea;
 function preload() {
     greenTowerImages = [];
     redTowerImages = [];
@@ -1199,7 +1235,8 @@ function setup() {
     createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT);
     var levelMap = "111111111111111x,\n                    1000000000000000,\n                    1011111111111111,\n                    1010000000000001,\n                    1010000111111101,\n                    1011111100000101,\n                    1000000000000101,\n                    1111111111111101,\n                    0000000000000001,\n                    y111111111111111@3,2,-50,450,150";
     createEnemyTime = 0;
-    var tileGenerator = new TileGenerator(levelMap, tileImages, greenTowerImages, redTowerImages, yellowTowerImages, Const, OrangeTile, PathTile, StartTile, EndTile, GreenTower, RedTower, YellowTower, UpgradeDisplay, Distance);
+    towerGenerator = new TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTower, RedTower, YellowTower, Distance);
+    var tileGenerator = new TileGenerator(levelMap, tileImages, Const, OrangeTile, PathTile, StartTile, EndTile, UpgradeDisplay, towerGenerator);
     orangeTiles = tileGenerator.orangeTiles();
     startTile = tileGenerator.startTile();
     endTile = tileGenerator.endTile();
@@ -1211,6 +1248,7 @@ function setup() {
     wave = 1;
     waveEnemies = 0;
     enemies = [];
+    influenceArea = new InfluenceArea(Const);
 }
 function keyPressed() {
     switch (keyCode) {
@@ -1337,7 +1375,12 @@ function draw() {
     });
     hud.draw();
     if (mouseOrangeTileOver !== null) {
-        mouseOrangeTileOver.drawInfluenceArea(hud.getSelectedTower());
+        if (mouseOrangeTileOver.hasTower()) {
+            influenceArea.drawTowerInfluenceArea(mouseOrangeTileOver.getTower());
+        }
+        else {
+            influenceArea.drawHudTowerInfluenceArea(hud.getSelectedTower(), mouseOrangeTileOver.getX(), mouseOrangeTileOver.getY());
+        }
         mouseOrangeTileOver.selectHudType(hud);
     }
     else {
