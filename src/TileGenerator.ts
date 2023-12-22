@@ -1,3 +1,6 @@
+import { StartTile } from './StartTile'
+import { EndTile } from './EndTile'
+
 export class TileGenerator {
   FLOOR_SIZE = 50
   MARGIN_TOP = 30
@@ -13,8 +16,8 @@ export class TileGenerator {
   Const: any
   OrangeTile: any
   PathTile: any
-  StartTile: any
-  EndTile: any
+  StartTileClass: typeof StartTile
+  EndTileClass: typeof EndTile
   UpgradeDisplay: any
 
   towerGenerator: any
@@ -25,8 +28,8 @@ export class TileGenerator {
     Const: any,
     OrangeTile: any,
     PathTile: any,
-    StartTile: any,
-    EndTile: any,
+    StartTileClass: typeof StartTile,
+    EndTileClass: typeof EndTile,
     UpgradeDisplay: any,
     towerGenerator: any,
   ) {
@@ -35,8 +38,8 @@ export class TileGenerator {
     this.Const = Const
     this.OrangeTile = OrangeTile
     this.PathTile = PathTile
-    this.StartTile = StartTile
-    this.EndTile = EndTile
+    this.StartTileClass = StartTileClass
+    this.EndTileClass = EndTileClass
     this.UpgradeDisplay = UpgradeDisplay
     this.towerGenerator = towerGenerator
 
@@ -138,7 +141,7 @@ export class TileGenerator {
               break
             case 'x':
               resultTiles.push(
-                new this.StartTile(
+                new this.StartTileClass(
                   this.startImage,
                   posX,
                   posY,
@@ -147,7 +150,7 @@ export class TileGenerator {
               )
               break
             case 'y':
-              resultTiles.push(new this.EndTile(this.endImage, posX, posY))
+              resultTiles.push(new this.EndTileClass(this.endImage, posX, posY))
               break
           }
         }

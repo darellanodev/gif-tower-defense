@@ -1,8 +1,8 @@
 export class StartTile {
-  x
-  y
-  img
-  startDirection
+  img: any
+  x: number
+  y: number
+  startDirection: number
 
   constructor(img: any, x: number, y: number, startDirection: number) {
     this.img = img

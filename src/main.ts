@@ -1,5 +1,4 @@
 /* This line is used by the build script. Dont modify this line */
-import { StartTileType, ConstType } from './types'
 import { Const } from './Const'
 import { Path } from './Path'
 import { PathTile } from './PathTile'
@@ -37,8 +36,8 @@ let tileImages: any[]
 let greenTowerImages: any[]
 let redTowerImages: any[]
 let yellowTowerImages: any[]
-let startTile: StartTileType
-let endTile: any
+let startTile: StartTile
+let endTile: EndTile
 let hudImages: any[]
 let backgroundImage: any
 let enemiesImages: any[]

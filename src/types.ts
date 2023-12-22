@@ -1,15 +1,3 @@
-export type StartTileType = {
-  x: number
-  y: number
-  img: any
-  startDirection: number
-
-  draw: () => void
-  getX: () => number
-  getY: () => number
-  getStartDirection: () => number
-}
-
 export type RGBType = [number, number, number]
 
 export type ConstType = {
