@@ -10,6 +10,7 @@ import { RedTower } from '../src/RedTower'
 import { YellowTower } from '../src/YellowTower'
 import { UpgradeDisplay } from '../src/UpgradeDisplay'
 import { Distance } from '../src/Distance'
+import { TowerGenerator } from '../src/TowerGenerator'
 
 const levelMap = `111111111111111x,
                   1000000000000000,
@@ -27,22 +28,27 @@ const greenTowerImages: any[] = [null, null, null]
 const redTowerImages: any[] = [null, null, null]
 const yellowTowerImages: any[] = [null, null, null]
 
-const tileGenerator = new TileGenerator(
-  levelMap,
-  mapimages,
+const towerGenerator = new TowerGenerator(
   greenTowerImages,
   redTowerImages,
   yellowTowerImages,
+  Const,
+  GreenTower,
+  RedTower,
+  YellowTower,
+  Distance,
+)
+
+const tileGenerator = new TileGenerator(
+  levelMap,
+  mapimages,
   Const,
   OrangeTile,
   PathTile,
   StartTile,
   EndTile,
-  GreenTower,
-  RedTower,
-  YellowTower,
   UpgradeDisplay,
-  Distance,
+  towerGenerator,
 )
 const pathTiles = tileGenerator.pathTiles()
 const startTile = tileGenerator.startTile()
@@ -327,19 +333,13 @@ describe('invalid map', () => {
     const tileGenerator = new TileGenerator(
       levelMap,
       mapimages,
-      greenTowerImages,
-      redTowerImages,
-      yellowTowerImages,
       Const,
       OrangeTile,
       PathTile,
       StartTile,
       EndTile,
-      GreenTower,
-      RedTower,
-      YellowTower,
       UpgradeDisplay,
-      Distance,
+      towerGenerator,
     )
     const pathTiles = tileGenerator.pathTiles()
     const startTile = tileGenerator.startTile()
