@@ -1,17 +1,20 @@
 import { ConstType } from './types'
+import { StartTile } from './StartTile'
+import { EndTile } from './EndTile'
+import { PathTile } from './PathTile'
 
 export class Path {
   MAX_SEARCHES = 5000 // For testing purposes put a low value. For production put this value at 5000
 
-  startTile: any
-  endTile: any
-  pathTiles: any[]
+  startTile: StartTile
+  endTile: EndTile
+  pathTiles: PathTile[]
   Const: ConstType
 
   constructor(
-    startTile: any,
-    endTile: any,
-    pathTiles: any[],
+    startTile: StartTile,
+    endTile: EndTile,
+    pathTiles: PathTile[],
     Const: ConstType,
   ) {
     this.startTile = startTile
@@ -67,7 +70,10 @@ export class Path {
 
   makeOrders() {
     const orders = []
-    let currentTile = this.startTile
+    let currentTile: PathTile = new PathTile(
+      this.startTile.getX(),
+      this.startTile.getY(),
+    )
     let currentDirection = this.startTile.getStartDirection()
 
     let endReached = false
