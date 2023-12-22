@@ -37,9 +37,9 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Put the lives indicator
 - [ ] Fix Typescript things like:
   - [ ] Classes are now passed throw parameters with any type. Improve it.
-  - [ ] InfluenceArea.ts in method: \_setInfluenceAreaColor. Use Const colors instead. Now it shows an error. See commented code
   - [ ] Simplify assignment params (this.zzz = zzz, <--- use the signature simplification using private in params)
-- [ ] Extract classes from big classes like OrangeTile
+  - [x] InfluenceArea.ts in method: setInfluenceAreaColor. Use Const colors instead. Now it shows an error. See commented code
+- [x] Extract classes from big classes like OrangeTile
 - [x] Create Wallet class and extract corresponding methods from OrangeTile
 - [x] Typescript
 - [x] When the player sells a tower increase the money

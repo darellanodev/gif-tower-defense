@@ -1,0 +1,60 @@
+export type StartTileType = {
+  x: number
+  y: number
+  img: any
+  startDirection: number
+
+  draw: () => void
+  getX: () => number
+  getY: () => number
+  getStartDirection: () => number
+}
+
+export type RGBType = [number, number, number]
+
+export type ConstType = {
+  HUD_NORMAL: number
+  HUD_UPGRADING: number
+  HUD_UPGRADING_MAX: number
+
+  GREEN_TOWER: number
+  RED_TOWER: number
+  YELLOW_TOWER: number
+
+  GREEN_COLOR: number[]
+  RED_COLOR: number[]
+  YELLOW_COLOR: number[]
+
+  COST_UPGRADE_GREEN_TOWER: number[]
+  COST_UPGRADE_RED_TOWER: number[]
+  COST_UPGRADE_YELLOW_TOWER: number[]
+
+  LEFT_DIRECTION: number
+  RIGHT_DIRECTION: number
+  UP_DIRECTION: number
+  DOWN_DIRECTION: number
+
+  TILE_SIZE: number
+
+  UPGRADE_MAX_LEVEL: number
+
+  TOTAL_TOWER_UPGRADES: number
+  TOTAL_ENEMIES: number
+  CANVAS_WIDTH: number
+  CANVAS_HEIGHT: number
+  HUD_HEIGHT: number
+  KEY_1: number
+  KEY_2: number
+  KEY_3: number
+
+  CREATE_ENEMY_MAX_TIME: number
+
+  TOWER_OFFSET: number
+
+  GREEN_TOWER_INFLUENCE_AREA: number
+  RED_TOWER_INFLUENCE_AREA: number
+  YELLOW_TOWER_INFLUENCE_AREA: number
+
+  ALPHA_INFLUENCE_AREA_FILL: number
+  ALPHA_INFLUENCE_AREA_STROKE: number
+}
