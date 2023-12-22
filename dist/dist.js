@@ -13,6 +13,9 @@ var Const = (function () {
     Const.COST_UPGRADE_GREEN_TOWER = [50, 75, 125, 300, 1000, 2000];
     Const.COST_UPGRADE_RED_TOWER = [100, 150, 250, 500, 1300, 3000];
     Const.COST_UPGRADE_YELLOW_TOWER = [700, 2500, 7500, 22000, 67000, 200000];
+    Const.GREEN_TOWER_UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
+    Const.RED_TOWER_UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
+    Const.YELLOW_TOWER_UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
     Const.LEFT_DIRECTION = 1;
     Const.RIGHT_DIRECTION = 2;
     Const.UP_DIRECTION = 3;
@@ -262,13 +265,12 @@ var Enemy = (function () {
     return Enemy;
 }());
 var GreenTower = (function () {
-    function GreenTower(images, x, y, Const, Distance) {
-        this.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
+    function GreenTower(images, x, y, Const, DistanceClass) {
         this.images = images;
         this.x = x;
         this.y = y;
         this.Const = Const;
-        this.Distance = Distance;
+        this.DistanceClass = DistanceClass;
         this.upgradeLevel = 0;
         this.enemyTarget = null;
         this.distanceToEnemyTarget = 0;
@@ -310,7 +312,7 @@ var GreenTower = (function () {
         }
     };
     GreenTower.prototype.getInfluenceArea = function () {
-        return this.UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
+        return this.Const.GREEN_TOWER_UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
     };
     GreenTower.prototype.getCostWhenUpgradeLevelIs = function (selectedUpgradeLevel) {
         if (selectedUpgradeLevel > this.Const.UPGRADE_MAX_LEVEL) {
@@ -328,14 +330,15 @@ var GreenTower = (function () {
         return this.Const.GREEN_COLOR;
     };
     GreenTower.prototype._isDistanceIntoInfluenceArea = function (distance) {
-        return distance <= this.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65;
+        return (distance <=
+            this.Const.GREEN_TOWER_UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65);
     };
     GreenTower.prototype.selectTarget = function (enemies) {
         var _this = this;
         var minDistance = 99999;
         var enemyTarget = null;
         enemies.forEach(function (enemy) {
-            var distance = _this.Distance.twoPoints(_this.x, _this.y, enemy.getX(), enemy.getY());
+            var distance = _this.DistanceClass.twoPoints(_this.x, _this.y, enemy.getX(), enemy.getY());
             if (distance < minDistance) {
                 minDistance = distance;
                 enemyTarget = enemy;
@@ -393,9 +396,9 @@ var Hud = (function () {
         this.hudImages = hudImages;
         this.money = money;
         this.Const = Const;
-        this.hudNormal = this.hudImages[0];
-        this.hudUpgrading = this.hudImages[1];
-        this.hudUpgradingMax = this.hudImages[2];
+        this.hudImgNormal = this.hudImages[0];
+        this.hudImgUpgrading = this.hudImages[1];
+        this.hudImgUpgradingMax = this.hudImages[2];
         this.hudType = this.Const.HUD_NORMAL;
         this.selectedItem = this.Const.GREEN_TOWER;
     }
@@ -435,15 +438,15 @@ var Hud = (function () {
     Hud.prototype.draw = function () {
         switch (this.hudType) {
             case this.Const.HUD_NORMAL:
-                image(this.hudNormal, 0, 0);
+                image(this.hudImgNormal, 0, 0);
                 this._drawSelectedItem();
                 this._drawLevelTitle();
                 break;
             case this.Const.HUD_UPGRADING:
-                image(this.hudUpgrading, 0, 0);
+                image(this.hudImgUpgrading, 0, 0);
                 break;
             case this.Const.HUD_UPGRADING_MAX:
-                image(this.hudUpgradingMax, 0, 0);
+                image(this.hudImgUpgradingMax, 0, 0);
                 break;
         }
         this._drawMoney();
@@ -564,12 +567,12 @@ var InfluenceArea = (function () {
     return InfluenceArea;
 }());
 var OrangeTile = (function () {
-    function OrangeTile(img, x, y, Const, UpgradeDisplay, towerGenerator) {
+    function OrangeTile(img, x, y, Const, UpgradeDisplayClass, towerGenerator) {
         this.img = img;
         this.x = x;
         this.y = y;
         this.Const = Const;
-        this.UpgradeDisplay = UpgradeDisplay;
+        this.UpgradeDisplayClass = UpgradeDisplayClass;
         this.towerGenerator = towerGenerator;
         this.tower = null;
         this.upgradeDisplay = null;
@@ -584,7 +587,7 @@ var OrangeTile = (function () {
     };
     OrangeTile.prototype._showUpgradeDisplay = function (towerType) {
         if (this.upgradeDisplay === null) {
-            this.upgradeDisplay = new this.UpgradeDisplay(this.x, this.y, this.tower.getColor());
+            this.upgradeDisplay = new this.UpgradeDisplayClass(this.x, this.y, this.tower.getColor());
         }
     };
     OrangeTile.prototype.buyTower = function (towerType) {
@@ -708,7 +711,7 @@ var Path = (function () {
     };
     Path.prototype.makeOrders = function () {
         var orders = [];
-        var currentTile = this.startTile;
+        var currentTile = new PathTile(this.startTile.getX(), this.startTile.getY());
         var currentDirection = this.startTile.getStartDirection();
         var endReached = false;
         var searchCount = 0;
@@ -815,12 +818,12 @@ var Random = (function () {
     return Random;
 }());
 var RedTower = (function () {
-    function RedTower(images, x, y, Const) {
-        this.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
+    function RedTower(images, x, y, Const, DistanceClass) {
         this.images = images;
         this.x = x;
         this.y = y;
         this.Const = Const;
+        this.DistanceClass = DistanceClass;
         this.upgradeLevel = 0;
     }
     RedTower.prototype.upgrade = function () {
@@ -839,7 +842,7 @@ var RedTower = (function () {
         image(this.images[this.upgradeLevel], this.x, this.y);
     };
     RedTower.prototype.getInfluenceArea = function () {
-        return this.UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
+        return this.Const.RED_TOWER_UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
     };
     RedTower.prototype.getCostWhenUpgradeLevelIs = function (selectedUpgradeLevel) {
         if (selectedUpgradeLevel > this.Const.UPGRADE_MAX_LEVEL) {
@@ -882,17 +885,17 @@ var StartTile = (function () {
     return StartTile;
 }());
 var TileGenerator = (function () {
-    function TileGenerator(levelMap, mapImages, Const, OrangeTile, PathTile, StartTile, EndTile, UpgradeDisplay, towerGenerator) {
+    function TileGenerator(levelMap, mapImages, Const, OrangeTileClass, PathTileClass, StartTileClass, EndTileClass, UpgradeDisplayClass, towerGenerator) {
         this.FLOOR_SIZE = 50;
         this.MARGIN_TOP = 30;
         this.levelMap = levelMap;
         this.mapImages = mapImages;
         this.Const = Const;
-        this.OrangeTile = OrangeTile;
-        this.PathTile = PathTile;
-        this.StartTile = StartTile;
-        this.EndTile = EndTile;
-        this.UpgradeDisplay = UpgradeDisplay;
+        this.OrangeTileClass = OrangeTileClass;
+        this.PathTileClass = PathTileClass;
+        this.StartTileClass = StartTileClass;
+        this.EndTileClass = EndTileClass;
+        this.UpgradeDisplayClass = UpgradeDisplayClass;
         this.towerGenerator = towerGenerator;
         if (this.levelMap === '') {
             throw new Error('Level map string cannot be empty');
@@ -961,16 +964,16 @@ var TileGenerator = (function () {
                 if (character === symbol) {
                     switch (symbol) {
                         case '0':
-                            resultTiles.push(new _this.OrangeTile(_this.orangeImage, posX, posY, _this.Const, _this.UpgradeDisplay, _this.towerGenerator));
+                            resultTiles.push(new _this.OrangeTileClass(_this.orangeImage, posX, posY, _this.Const, _this.UpgradeDisplayClass, _this.towerGenerator));
                             break;
                         case '1':
-                            resultTiles.push(new _this.PathTile(posX, posY));
+                            resultTiles.push(new _this.PathTileClass(posX, posY));
                             break;
                         case 'x':
-                            resultTiles.push(new _this.StartTile(_this.startImage, posX, posY, _this.startDirection));
+                            resultTiles.push(new _this.StartTileClass(_this.startImage, posX, posY, _this.startDirection));
                             break;
                         case 'y':
-                            resultTiles.push(new _this.EndTile(_this.endImage, posX, posY));
+                            resultTiles.push(new _this.EndTileClass(_this.endImage, posX, posY));
                             break;
                     }
                 }
@@ -998,27 +1001,27 @@ var TileGenerator = (function () {
     return TileGenerator;
 }());
 var TowerGenerator = (function () {
-    function TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTower, RedTower, YellowTower, Distance) {
+    function TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTowerClass, RedTowerClass, YellowTowerClass, DistanceClass) {
         this.greenTowerImages = greenTowerImages;
         this.redTowerImages = redTowerImages;
         this.yellowTowerImages = yellowTowerImages;
         this.Const = Const;
-        this.GreenTower = GreenTower;
-        this.RedTower = RedTower;
-        this.YellowTower = YellowTower;
-        this.Distance = Distance;
+        this.GreenTowerClass = GreenTowerClass;
+        this.RedTowerClass = RedTowerClass;
+        this.YellowTowerClass = YellowTowerClass;
+        this.DistanceClass = DistanceClass;
     }
     TowerGenerator.prototype.newTower = function (towerType, x, y) {
         var tower = null;
         switch (towerType) {
             case this.Const.GREEN_TOWER:
-                tower = new this.GreenTower(this.greenTowerImages, x - this.Const.TOWER_OFFSET, y - this.Const.TOWER_OFFSET, this.Const, this.Distance);
+                tower = new this.GreenTowerClass(this.greenTowerImages, x - this.Const.TOWER_OFFSET, y - this.Const.TOWER_OFFSET, this.Const, this.DistanceClass);
                 break;
             case this.Const.RED_TOWER:
-                tower = new this.RedTower(this.redTowerImages, x - this.Const.TOWER_OFFSET, y - this.Const.TOWER_OFFSET, this.Const, this.Distance);
+                tower = new this.RedTowerClass(this.redTowerImages, x - this.Const.TOWER_OFFSET, y - this.Const.TOWER_OFFSET, this.Const, this.DistanceClass);
                 break;
             case this.Const.YELLOW_TOWER:
-                tower = new this.YellowTower(this.yellowTowerImages, x, y, this.Const, this.Distance);
+                tower = new this.YellowTowerClass(this.yellowTowerImages, x, y, this.Const, this.DistanceClass);
                 break;
             default:
                 break;
@@ -1110,12 +1113,12 @@ var Wallet = (function () {
     return Wallet;
 }());
 var YellowTower = (function () {
-    function YellowTower(images, x, y, Const) {
-        this.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
+    function YellowTower(images, x, y, Const, DistanceClass) {
         this.images = images;
         this.x = x;
         this.y = y;
         this.Const = Const;
+        this.DistanceClass = DistanceClass;
         this.upgradeLevel = 0;
     }
     YellowTower.prototype.upgrade = function () {
@@ -1134,7 +1137,7 @@ var YellowTower = (function () {
         image(this.images[this.upgradeLevel], this.x, this.y);
     };
     YellowTower.prototype.getInfluenceArea = function () {
-        return this.UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
+        return this.Const.YELLOW_TOWER_UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
     };
     YellowTower.prototype.getCostWhenUpgradeLevelIs = function (selectedUpgradeLevel) {
         if (selectedUpgradeLevel > this.Const.UPGRADE_MAX_LEVEL) {
