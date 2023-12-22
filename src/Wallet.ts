@@ -1,8 +1,10 @@
+import { ConstType } from './types'
+
 export class Wallet {
   money: number
-  Const: any
+  Const: ConstType
 
-  constructor(money: number, Const: any) {
+  constructor(money: number, Const: ConstType) {
     this.money = money
     this.Const = Const
   }

@@ -1,31 +1,36 @@
+import { ConstType } from './types'
+import { GreenTower } from './GreenTower'
+import { RedTower } from './RedTower'
+import { YellowTower } from './YellowTower'
+
 export class TowerGenerator {
   greenTowerImages: any[]
   redTowerImages: any[]
   yellowTowerImages: any[]
 
-  Const: any
-  GreenTower: any
-  RedTower: any
-  YellowTower: any
+  Const: ConstType
+  GreenTowerClass: typeof GreenTower
+  RedTowerClass: typeof RedTower
+  YellowTowerClass: typeof YellowTower
   Distance: any
 
   constructor(
     greenTowerImages: any[],
     redTowerImages: any[],
     yellowTowerImages: any[],
-    Const: any,
-    GreenTower: any,
-    RedTower: any,
-    YellowTower: any,
+    Const: ConstType,
+    GreenTowerClass: typeof GreenTower,
+    RedTowerClass: typeof RedTower,
+    YellowTowerClass: typeof YellowTower,
     Distance: any,
   ) {
     this.greenTowerImages = greenTowerImages
     this.redTowerImages = redTowerImages
     this.yellowTowerImages = yellowTowerImages
     this.Const = Const
-    this.GreenTower = GreenTower
-    this.RedTower = RedTower
-    this.YellowTower = YellowTower
+    this.GreenTowerClass = GreenTowerClass
+    this.RedTowerClass = RedTowerClass
+    this.YellowTowerClass = YellowTowerClass
     this.Distance = Distance
   }
 
@@ -34,7 +39,7 @@ export class TowerGenerator {
 
     switch (towerType) {
       case this.Const.GREEN_TOWER:
-        tower = new this.GreenTower(
+        tower = new this.GreenTowerClass(
           this.greenTowerImages,
           x - this.Const.TOWER_OFFSET,
           y - this.Const.TOWER_OFFSET,
@@ -43,7 +48,7 @@ export class TowerGenerator {
         )
         break
       case this.Const.RED_TOWER:
-        tower = new this.RedTower(
+        tower = new this.RedTowerClass(
           this.redTowerImages,
           x - this.Const.TOWER_OFFSET,
           y - this.Const.TOWER_OFFSET,
@@ -52,7 +57,7 @@ export class TowerGenerator {
         )
         break
       case this.Const.YELLOW_TOWER:
-        tower = new this.YellowTower(
+        tower = new this.YellowTowerClass(
           this.yellowTowerImages,
           x,
           y,

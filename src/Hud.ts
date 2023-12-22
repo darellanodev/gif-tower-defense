@@ -1,3 +1,5 @@
+import { ConstType } from './types'
+
 export class Hud {
   hudNormal: any
   hudUpgrading: any
@@ -6,9 +8,9 @@ export class Hud {
   selectedItem: number
   hudImages: any[]
   money: number
-  Const: any
+  Const: ConstType
 
-  constructor(hudImages: any[], money: number, Const: any) {
+  constructor(hudImages: any[], money: number, Const: ConstType) {
     this.hudImages = hudImages
     this.money = money
     this.Const = Const

@@ -1,3 +1,5 @@
+import { ConstType } from './types'
+
 export class RedTower {
   UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
 
@@ -5,13 +7,21 @@ export class RedTower {
   x: number
   y: number
   upgradeLevel: number
-  Const: any
+  Const: ConstType
+  Distance: any
 
-  constructor(images: any, x: number, y: number, Const: any) {
+  constructor(
+    images: any,
+    x: number,
+    y: number,
+    Const: ConstType,
+    Distance: any,
+  ) {
     this.images = images
     this.x = x
     this.y = y
     this.Const = Const
+    this.Distance = Distance
     this.upgradeLevel = 0
   }
 

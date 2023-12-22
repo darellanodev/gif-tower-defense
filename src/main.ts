@@ -41,8 +41,8 @@ let endTile: EndTile
 let hudImages: any[]
 let backgroundImage: any
 let enemiesImages: any[]
-let towerGenerator: any
-let influenceArea: any
+let towerGenerator: TowerGenerator
+let influenceArea: InfluenceArea
 
 function preload() {
   greenTowerImages = []

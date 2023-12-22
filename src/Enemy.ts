@@ -1,3 +1,5 @@
+import { ConstType } from './types'
+
 export class Enemy {
   VELOCITY = 1 // must be multiple of "this.Const.TILE_SIZE". Set 1 for normal game or 25 for speed test
 
@@ -41,7 +43,7 @@ export class Enemy {
 
   randomCloseEyes: number
 
-  Const: any
+  Const: ConstType
   Random: any
   HealthBar: any
 
@@ -50,7 +52,7 @@ export class Enemy {
     orders: number[],
     startTile: any,
     endTile: any,
-    Const: any,
+    Const: ConstType,
     Random: any,
     HealthBar: any,
   ) {

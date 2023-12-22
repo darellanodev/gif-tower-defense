@@ -1,20 +1,23 @@
+import { ConstType } from './types'
+import { TowerGenerator } from './TowerGenerator'
+
 export class OrangeTile {
   x: number
   y: number
   img: any
   tower: any
   upgradeDisplay: any
-  Const: any
+  Const: ConstType
   UpgradeDisplay: any
-  towerGenerator: any
+  towerGenerator: TowerGenerator
 
   constructor(
     img: any,
     x: number,
     y: number,
-    Const: any,
+    Const: ConstType,
     UpgradeDisplay: any,
-    towerGenerator: any,
+    towerGenerator: TowerGenerator,
   ) {
     this.img = img
     this.x = x

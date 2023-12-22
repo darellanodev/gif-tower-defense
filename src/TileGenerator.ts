@@ -1,3 +1,4 @@
+import { ConstType } from './types'
 import { StartTile } from './StartTile'
 import { EndTile } from './EndTile'
 
@@ -13,7 +14,7 @@ export class TileGenerator {
   endImage: any
   startDirection: number
   mapImages: any[]
-  Const: any
+  Const: ConstType
   OrangeTile: any
   PathTile: any
   StartTileClass: typeof StartTile
@@ -25,7 +26,7 @@ export class TileGenerator {
   constructor(
     levelMap: string,
     mapImages: any[],
-    Const: any,
+    Const: ConstType,
     OrangeTile: any,
     PathTile: any,
     StartTileClass: typeof StartTile,

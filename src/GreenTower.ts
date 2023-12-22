@@ -1,3 +1,5 @@
+import { ConstType } from './types'
+
 export class GreenTower {
   UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
 
@@ -7,10 +9,16 @@ export class GreenTower {
   upgradeLevel: number
   enemyTarget: any
   distanceToEnemyTarget: number
-  Const: any
+  Const: ConstType
   Distance: any
 
-  constructor(images: any[], x: number, y: number, Const: any, Distance: any) {
+  constructor(
+    images: any[],
+    x: number,
+    y: number,
+    Const: ConstType,
+    Distance: any,
+  ) {
     this.images = images
     this.x = x
     this.y = y

@@ -1,12 +1,19 @@
+import { ConstType } from './types'
+
 export class Path {
   MAX_SEARCHES = 5000 // For testing purposes put a low value. For production put this value at 5000
 
   startTile: any
   endTile: any
   pathTiles: any[]
-  Const: any
+  Const: ConstType
 
-  constructor(startTile: any, endTile: any, pathTiles: any[], Const: any) {
+  constructor(
+    startTile: any,
+    endTile: any,
+    pathTiles: any[],
+    Const: ConstType,
+  ) {
     this.startTile = startTile
     this.endTile = endTile
     this.pathTiles = pathTiles
