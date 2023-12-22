@@ -1,4 +1,10 @@
+import { GreenTower } from './GreenTower'
+import { RedTower } from './RedTower'
+import { YellowTower } from './YellowTower'
+
 export type RGBType = [number, number, number]
+
+export type TowerType = GreenTower | RedTower | YellowTower | null
 
 export type ConstType = {
   HUD_NORMAL: number

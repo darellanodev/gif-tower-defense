@@ -1,7 +1,7 @@
 import { ConstType, RGBType } from './types'
 
 export class InfluenceArea {
-  Const: any
+  Const: ConstType
 
   constructor(Const: ConstType) {
     this.Const = Const

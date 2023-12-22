@@ -1,29 +1,31 @@
-import { ConstType } from './types'
+import { ConstType, TowerType } from './types'
 import { TowerGenerator } from './TowerGenerator'
+import { UpgradeDisplay } from './UpgradeDisplay'
 
 export class OrangeTile {
+  img: any
   x: number
   y: number
-  img: any
-  tower: any
-  upgradeDisplay: any
   Const: ConstType
-  UpgradeDisplay: any
+  UpgradeDisplayClass: typeof UpgradeDisplay
   towerGenerator: TowerGenerator
+
+  tower: TowerType
+  upgradeDisplay: any
 
   constructor(
     img: any,
     x: number,
     y: number,
     Const: ConstType,
-    UpgradeDisplay: any,
+    UpgradeDisplayClass: typeof UpgradeDisplay,
     towerGenerator: TowerGenerator,
   ) {
     this.img = img
     this.x = x
     this.y = y
     this.Const = Const
-    this.UpgradeDisplay = UpgradeDisplay
+    this.UpgradeDisplayClass = UpgradeDisplayClass
     this.towerGenerator = towerGenerator
 
     this.tower = null
@@ -42,7 +44,7 @@ export class OrangeTile {
 
   _showUpgradeDisplay(towerType: number) {
     if (this.upgradeDisplay === null) {
-      this.upgradeDisplay = new this.UpgradeDisplay(
+      this.upgradeDisplay = new this.UpgradeDisplayClass(
         this.x,
         this.y,
         this.tower.getColor(),

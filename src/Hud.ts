@@ -1,23 +1,24 @@
 import { ConstType } from './types'
 
 export class Hud {
-  hudNormal: any
-  hudUpgrading: any
-  hudUpgradingMax: any
-  hudType: any
-  selectedItem: number
   hudImages: any[]
   money: number
   Const: ConstType
+
+  hudImgNormal: any
+  hudImgUpgrading: any
+  hudImgUpgradingMax: any
+  hudType: number
+  selectedItem: number
 
   constructor(hudImages: any[], money: number, Const: ConstType) {
     this.hudImages = hudImages
     this.money = money
     this.Const = Const
 
-    this.hudNormal = this.hudImages[0]
-    this.hudUpgrading = this.hudImages[1]
-    this.hudUpgradingMax = this.hudImages[2]
+    this.hudImgNormal = this.hudImages[0]
+    this.hudImgUpgrading = this.hudImages[1]
+    this.hudImgUpgradingMax = this.hudImages[2]
 
     this.hudType = this.Const.HUD_NORMAL
 
@@ -67,18 +68,18 @@ export class Hud {
   draw() {
     switch (this.hudType) {
       case this.Const.HUD_NORMAL:
-        image(this.hudNormal, 0, 0)
+        image(this.hudImgNormal, 0, 0)
 
         this._drawSelectedItem()
         this._drawLevelTitle()
         break
 
       case this.Const.HUD_UPGRADING:
-        image(this.hudUpgrading, 0, 0)
+        image(this.hudImgUpgrading, 0, 0)
         break
 
       case this.Const.HUD_UPGRADING_MAX:
-        image(this.hudUpgradingMax, 0, 0)
+        image(this.hudImgUpgradingMax, 0, 0)
         break
     }
 
