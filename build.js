@@ -17,6 +17,7 @@ files.forEach((file) => {
     )
   } else {
     contents = contents.replace(/export class/g, 'class')
+    contents = contents.replace(/import /g, '//import ')
   }
 
   fs.writeFileSync(`src/${file}`, contents, 'utf8')
@@ -43,6 +44,7 @@ child_process.exec(
         )
       } else {
         contents = contents.replace(/class/g, 'export class')
+        contents = contents.replace(/\/\/import /g, 'import ')
       }
 
       fs.writeFileSync(`src/${file}`, contents, 'utf8')
