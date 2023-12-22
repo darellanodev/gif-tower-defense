@@ -12,9 +12,7 @@ var Const = (function () {
     Const.YELLOW_COLOR = [202, 191, 24];
     Const.COST_UPGRADE_GREEN_TOWER = [50, 75, 125, 300, 1000, 2000];
     Const.COST_UPGRADE_RED_TOWER = [100, 150, 250, 500, 1300, 3000];
-    Const.COST_UPGRADE_YELLOW_TOWER = [
-        700, 2500, 7500, 22000, 67000, 200000,
-    ];
+    Const.COST_UPGRADE_YELLOW_TOWER = [700, 2500, 7500, 22000, 67000, 200000];
     Const.LEFT_DIRECTION = 1;
     Const.RIGHT_DIRECTION = 2;
     Const.UP_DIRECTION = 3;
@@ -513,21 +511,18 @@ var InfluenceArea = (function () {
         this.Const = Const;
     }
     InfluenceArea.prototype._setInfluenceAreaColor = function (towerType) {
-        var GREEN_COLOR = [75, 185, 35];
-        var RED_COLOR = [185, 35, 35];
-        var YELLOW_COLOR = [202, 191, 24];
         switch (towerType) {
             case this.Const.GREEN_TOWER:
-                stroke.apply(void 0, __spreadArray(__spreadArray([], GREEN_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
-                fill.apply(void 0, __spreadArray(__spreadArray([], GREEN_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
+                stroke.apply(void 0, __spreadArray(__spreadArray([], this.Const.GREEN_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
+                fill.apply(void 0, __spreadArray(__spreadArray([], this.Const.GREEN_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
                 break;
             case this.Const.RED_TOWER:
-                stroke.apply(void 0, __spreadArray(__spreadArray([], RED_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
-                fill.apply(void 0, __spreadArray(__spreadArray([], RED_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
+                stroke.apply(void 0, __spreadArray(__spreadArray([], this.Const.RED_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
+                fill.apply(void 0, __spreadArray(__spreadArray([], this.Const.RED_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
                 break;
             case this.Const.YELLOW_TOWER:
-                stroke.apply(void 0, __spreadArray(__spreadArray([], YELLOW_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
-                fill.apply(void 0, __spreadArray(__spreadArray([], YELLOW_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
+                stroke.apply(void 0, __spreadArray(__spreadArray([], this.Const.YELLOW_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
+                fill.apply(void 0, __spreadArray(__spreadArray([], this.Const.YELLOW_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
                 break;
         }
     };
@@ -1238,7 +1233,7 @@ function setup() {
     var pathTiles = tileGenerator.pathTiles();
     var path = new Path(startTile, endTile, pathTiles, Const);
     orders = path.makeOrders();
-    wallet = new Wallet(10000, Const);
+    wallet = new Wallet(tileGenerator.getInitialMoney(), Const);
     hud = new Hud(hudImages, wallet.getMoney(), Const);
     wave = 1;
     waveEnemies = 0;
