@@ -1,6 +1,10 @@
 import { ConstType } from './types'
 import { StartTile } from './StartTile'
 import { EndTile } from './EndTile'
+import { OrangeTile } from './OrangeTile'
+import { PathTile } from './PathTile'
+import { UpgradeDisplay } from './UpgradeDisplay'
+import { TowerGenerator } from './TowerGenerator'
 
 export class TileGenerator {
   FLOOR_SIZE = 50
@@ -15,33 +19,32 @@ export class TileGenerator {
   startDirection: number
   mapImages: any[]
   Const: ConstType
-  OrangeTile: any
-  PathTile: any
+  OrangeTileClass: typeof OrangeTile
+  PathTileClass: typeof PathTile
   StartTileClass: typeof StartTile
   EndTileClass: typeof EndTile
-  UpgradeDisplay: any
-
-  towerGenerator: any
+  UpgradeDisplayClass: typeof UpgradeDisplay
+  towerGenerator: TowerGenerator
 
   constructor(
     levelMap: string,
     mapImages: any[],
     Const: ConstType,
-    OrangeTile: any,
-    PathTile: any,
+    OrangeTileClass: typeof OrangeTile,
+    PathTileClass: typeof PathTile,
     StartTileClass: typeof StartTile,
     EndTileClass: typeof EndTile,
-    UpgradeDisplay: any,
-    towerGenerator: any,
+    UpgradeDisplayClass: typeof UpgradeDisplay,
+    towerGenerator: TowerGenerator,
   ) {
     this.levelMap = levelMap
     this.mapImages = mapImages
     this.Const = Const
-    this.OrangeTile = OrangeTile
-    this.PathTile = PathTile
+    this.OrangeTileClass = OrangeTileClass
+    this.PathTileClass = PathTileClass
     this.StartTileClass = StartTileClass
     this.EndTileClass = EndTileClass
-    this.UpgradeDisplay = UpgradeDisplay
+    this.UpgradeDisplayClass = UpgradeDisplayClass
     this.towerGenerator = towerGenerator
 
     if (this.levelMap === '') {
@@ -127,18 +130,18 @@ export class TileGenerator {
           switch (symbol) {
             case '0':
               resultTiles.push(
-                new this.OrangeTile(
+                new this.OrangeTileClass(
                   this.orangeImage,
                   posX,
                   posY,
                   this.Const,
-                  this.UpgradeDisplay,
+                  this.UpgradeDisplayClass,
                   this.towerGenerator,
                 ),
               )
               break
             case '1':
-              resultTiles.push(new this.PathTile(posX, posY))
+              resultTiles.push(new this.PathTileClass(posX, posY))
               break
             case 'x':
               resultTiles.push(

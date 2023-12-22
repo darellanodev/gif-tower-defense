@@ -2,6 +2,7 @@ import { ConstType } from './types'
 import { GreenTower } from './GreenTower'
 import { RedTower } from './RedTower'
 import { YellowTower } from './YellowTower'
+import { Distance } from './Distance'
 
 export class TowerGenerator {
   greenTowerImages: any[]
@@ -12,7 +13,7 @@ export class TowerGenerator {
   GreenTowerClass: typeof GreenTower
   RedTowerClass: typeof RedTower
   YellowTowerClass: typeof YellowTower
-  Distance: any
+  DistanceClass: typeof Distance
 
   constructor(
     greenTowerImages: any[],
@@ -22,7 +23,7 @@ export class TowerGenerator {
     GreenTowerClass: typeof GreenTower,
     RedTowerClass: typeof RedTower,
     YellowTowerClass: typeof YellowTower,
-    Distance: any,
+    DistanceClass: typeof Distance,
   ) {
     this.greenTowerImages = greenTowerImages
     this.redTowerImages = redTowerImages
@@ -31,7 +32,7 @@ export class TowerGenerator {
     this.GreenTowerClass = GreenTowerClass
     this.RedTowerClass = RedTowerClass
     this.YellowTowerClass = YellowTowerClass
-    this.Distance = Distance
+    this.DistanceClass = DistanceClass
   }
 
   newTower(towerType: number, x: number, y: number) {
@@ -44,7 +45,7 @@ export class TowerGenerator {
           x - this.Const.TOWER_OFFSET,
           y - this.Const.TOWER_OFFSET,
           this.Const,
-          this.Distance,
+          this.DistanceClass,
         )
         break
       case this.Const.RED_TOWER:
@@ -53,7 +54,7 @@ export class TowerGenerator {
           x - this.Const.TOWER_OFFSET,
           y - this.Const.TOWER_OFFSET,
           this.Const,
-          this.Distance,
+          this.DistanceClass,
         )
         break
       case this.Const.YELLOW_TOWER:
@@ -62,7 +63,7 @@ export class TowerGenerator {
           x,
           y,
           this.Const,
-          this.Distance,
+          this.DistanceClass,
         )
         break
 
