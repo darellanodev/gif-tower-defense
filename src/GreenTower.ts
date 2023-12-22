@@ -1,8 +1,7 @@
 import { ConstType } from './types'
+import { Distance } from './Distance'
 
 export class GreenTower {
-  UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
-
   images: any[]
   x: number
   y: number
@@ -10,20 +9,20 @@ export class GreenTower {
   enemyTarget: any
   distanceToEnemyTarget: number
   Const: ConstType
-  Distance: any
+  DistanceClass: typeof Distance
 
   constructor(
     images: any[],
     x: number,
     y: number,
     Const: ConstType,
-    Distance: any,
+    DistanceClass: typeof Distance,
   ) {
     this.images = images
     this.x = x
     this.y = y
     this.Const = Const
-    this.Distance = Distance
+    this.DistanceClass = DistanceClass
     this.upgradeLevel = 0
     this.enemyTarget = null
     this.distanceToEnemyTarget = 0
@@ -80,7 +79,7 @@ export class GreenTower {
   }
 
   getInfluenceArea() {
-    return this.UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
+    return this.Const.GREEN_TOWER_UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
@@ -103,7 +102,10 @@ export class GreenTower {
   }
 
   _isDistanceIntoInfluenceArea(distance: number) {
-    return distance <= this.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65
+    return (
+      distance <=
+      this.Const.GREEN_TOWER_UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65
+    )
   }
 
   selectTarget(enemies: any[]) {
@@ -111,7 +113,7 @@ export class GreenTower {
     let enemyTarget = null
 
     enemies.forEach((enemy) => {
-      const distance = this.Distance.twoPoints(
+      const distance = this.DistanceClass.twoPoints(
         this.x,
         this.y,
         enemy.getX(),

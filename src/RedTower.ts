@@ -1,27 +1,26 @@
 import { ConstType } from './types'
+import { Distance } from './Distance'
 
 export class RedTower {
-  UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
-
   images: any
   x: number
   y: number
   upgradeLevel: number
   Const: ConstType
-  Distance: any
+  DistanceClass: typeof Distance
 
   constructor(
     images: any,
     x: number,
     y: number,
     Const: ConstType,
-    Distance: any,
+    DistanceClass: typeof Distance,
   ) {
     this.images = images
     this.x = x
     this.y = y
     this.Const = Const
-    this.Distance = Distance
+    this.DistanceClass = DistanceClass
     this.upgradeLevel = 0
   }
 
@@ -46,7 +45,7 @@ export class RedTower {
   }
 
   getInfluenceArea() {
-    return this.UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
+    return this.Const.RED_TOWER_UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
