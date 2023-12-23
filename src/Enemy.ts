@@ -1,5 +1,5 @@
 import { EndTile } from './EndTile'
-import { HealthBar } from './HealthBar'
+import { ProgressBar } from './ProgressBar'
 import { StartTile } from './StartTile'
 import { ConstType } from './types'
 import { Random } from './Random'
@@ -13,7 +13,7 @@ export class Enemy {
   imgIndex: number
   imgIndexBeforeEyesClosed: number
   eyesSequence: number[]
-  healthBar: HealthBar
+  healthBar: ProgressBar
   status: number
   damage: number
 
@@ -34,7 +34,7 @@ export class Enemy {
 
   Const: ConstType
   RandomClass: typeof Random
-  HealthBarClass: typeof HealthBar
+  ProgressBarClass: typeof ProgressBar
 
   constructor(
     images: Image[],
@@ -43,7 +43,7 @@ export class Enemy {
     endTile: EndTile,
     Const: ConstType,
     RandomClass: typeof Random,
-    HealthBarClass: typeof HealthBar,
+    ProgressBarClass: typeof ProgressBar,
   ) {
     this.images = images
     this.orders = orders
@@ -51,7 +51,7 @@ export class Enemy {
     this.endTile = endTile
     this.Const = Const
     this.RandomClass = RandomClass
-    this.HealthBarClass = HealthBarClass
+    this.ProgressBarClass = ProgressBarClass
 
     this.imgIndex = this.Const.ENEMY_EYES_CENTER
     this.imgIndexBeforeEyesClosed = this.Const.ENEMY_EYES_CENTER
@@ -62,7 +62,12 @@ export class Enemy {
       this.Const.ENEMY_EYES_CENTER,
     ]
 
-    this.healthBar = new this.HealthBarClass(200, 200)
+    this.healthBar = new this.ProgressBarClass(
+      200,
+      200,
+      this.Const.HEALTHBAR_WIDTH,
+      this.Const.HEALTHBAR_HEIGHT,
+    )
     this.status = this.Const.ENEMY_STATUS_ALIVE
     this.damage = 0
 
@@ -84,7 +89,7 @@ export class Enemy {
   addDamage(shotDamage: number) {
     if (!this.healthBar.isFullOfDamage()) {
       this.damage += shotDamage
-      this.healthBar.setDamage(this.damage)
+      this.healthBar.setProgress(this.damage)
     } else {
       this.status = this.Const.ENEMY_STATUS_DEAD
     }

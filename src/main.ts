@@ -18,7 +18,7 @@ import { Hud } from './Hud'
 import { Enemy } from './Enemy'
 import { Debug } from './Debug'
 import { Random } from './Random'
-import { HealthBar } from './HealthBar'
+import { ProgressBar } from './ProgressBar'
 import { Wallet } from './Wallet'
 import { ImageUtils } from './ImageUtils'
 import { InfluenceArea } from './InfluenceArea'
@@ -256,7 +256,7 @@ function createNewEnemy(waveEnemy: number) {
       endTile,
       Const,
       Random,
-      HealthBar,
+      ProgressBar,
     ),
   )
 }

@@ -71,4 +71,7 @@ export type ConstType = {
 
   ENEMY_STATUS_ALIVE: number
   ENEMY_STATUS_DEAD: number
+
+  HEALTHBAR_WIDTH: number
+  HEALTHBAR_HEIGHT: number
 }
