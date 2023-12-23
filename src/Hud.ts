@@ -4,10 +4,6 @@ export class Hud {
   hudImages: any[]
   money: number
   Const: ConstType
-
-  hudImgNormal: any
-  hudImgUpgrading: any
-  hudImgUpgradingMax: any
   hudType: number
   selectedItem: number
 
@@ -15,10 +11,6 @@ export class Hud {
     this.hudImages = hudImages
     this.money = money
     this.Const = Const
-
-    this.hudImgNormal = this.hudImages[0]
-    this.hudImgUpgrading = this.hudImages[1]
-    this.hudImgUpgradingMax = this.hudImages[2]
 
     this.hudType = this.Const.HUD_NORMAL
 
@@ -68,18 +60,18 @@ export class Hud {
   draw() {
     switch (this.hudType) {
       case this.Const.HUD_NORMAL:
-        image(this.hudImgNormal, 0, 0)
+        image(this.hudImages[this.Const.HUD_NORMAL], 0, 0)
 
         this._drawSelectedItem()
         this._drawLevelTitle()
         break
 
       case this.Const.HUD_UPGRADING:
-        image(this.hudImgUpgrading, 0, 0)
+        image(this.hudImages[this.Const.HUD_UPGRADING], 0, 0)
         break
 
       case this.Const.HUD_UPGRADING_MAX:
-        image(this.hudImgUpgradingMax, 0, 0)
+        image(this.hudImages[this.Const.HUD_UPGRADING_MAX], 0, 0)
         break
     }
 

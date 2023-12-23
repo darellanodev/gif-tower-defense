@@ -47,4 +47,20 @@ export class Const {
 
   static ALPHA_INFLUENCE_AREA_FILL = 50
   static ALPHA_INFLUENCE_AREA_STROKE = 120
+
+  static ENEMY_VELOCITY = 1 // must be multiple of "this.Const.TILE_SIZE". Set 1 for normal game or 25 for speed test
+
+  static ENEMY_CHANGE_EYES_MAX_TIME = 50
+
+  static ENEMY_EXTEND_CLOSED_EYES_MAX_TIME = 20
+  static ENEMY_MIN_TIME_TO_CLOSE = 50
+  static ENEMY_MAX_TIME_TO_CLOSE = 200
+
+  static ENEMY_EYES_CENTER = 0
+  static ENEMY_EYES_LEFT = 1
+  static ENEMY_EYES_RIGHT = 2
+  static ENEMY_EYES_CLOSED = 3
+
+  static ENEMY_STATUS_ALIVE = 0
+  static ENEMY_STATUS_DEAD = 1
 }

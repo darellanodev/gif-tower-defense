@@ -1,32 +1,20 @@
+import { EndTile } from './EndTile'
+import { HealthBar } from './HealthBar'
+import { StartTile } from './StartTile'
 import { ConstType } from './types'
+import { Random } from './Random'
 
 export class Enemy {
-  VELOCITY = 1 // must be multiple of "this.Const.TILE_SIZE". Set 1 for normal game or 25 for speed test
-
-  CHANGE_EYES_MAX_TIME = 50
-
-  EXTEND_CLOSED_EYES_MAX_TIME = 20
-  MIN_TIME_TO_CLOSE = 50
-  MAX_TIME_TO_CLOSE = 200
-
-  EYES_LEFT = 1
-  EYES_RIGHT = 2
-  EYES_CENTER = 0
-  EYES_CLOSED = 3
-
-  STATUS_ALIVE = 0
-  STATUS_DEAD = 1
-
   images: any[]
   orders: number[]
-  startTile: any
-  endTile: any
+  startTile: StartTile
+  endTile: EndTile
   imgIndex: number
   imgIndexBeforeEyesClosed: number
-  eyesSequence: any[]
-  healthBar: any
-  status: any
-  damage: any
+  eyesSequence: number[]
+  healthBar: HealthBar
+  status: number
+  damage: number
 
   x: number
   y: number
@@ -44,37 +32,37 @@ export class Enemy {
   randomCloseEyes: number
 
   Const: ConstType
-  Random: any
-  HealthBar: any
+  RandomClass: typeof Random
+  HealthBarClass: typeof HealthBar
 
   constructor(
     images: any[],
     orders: number[],
-    startTile: any,
-    endTile: any,
+    startTile: StartTile,
+    endTile: EndTile,
     Const: ConstType,
-    Random: any,
-    HealthBar: any,
+    RandomClass: typeof Random,
+    HealthBarClass: typeof HealthBar,
   ) {
     this.images = images
     this.orders = orders
     this.startTile = startTile
     this.endTile = endTile
     this.Const = Const
-    this.Random = Random
-    this.HealthBar = HealthBar
+    this.RandomClass = RandomClass
+    this.HealthBarClass = HealthBarClass
 
-    this.imgIndex = this.EYES_CENTER
-    this.imgIndexBeforeEyesClosed = this.EYES_CENTER
+    this.imgIndex = this.Const.ENEMY_EYES_CENTER
+    this.imgIndexBeforeEyesClosed = this.Const.ENEMY_EYES_CENTER
     this.eyesSequence = [
-      this.EYES_LEFT,
-      this.EYES_CENTER,
-      this.EYES_RIGHT,
-      this.EYES_CENTER,
+      this.Const.ENEMY_EYES_LEFT,
+      this.Const.ENEMY_EYES_CENTER,
+      this.Const.ENEMY_EYES_RIGHT,
+      this.Const.ENEMY_EYES_CENTER,
     ]
 
-    this.healthBar = new this.HealthBar(200, 200)
-    this.status = this.STATUS_ALIVE
+    this.healthBar = new this.HealthBarClass(200, 200)
+    this.status = this.Const.ENEMY_STATUS_ALIVE
     this.damage = 0
 
     this.x = 0
@@ -97,16 +85,16 @@ export class Enemy {
       this.damage += shotDamage
       this.healthBar.setDamage(this.damage)
     } else {
-      this.status = this.STATUS_DEAD
+      this.status = this.Const.ENEMY_STATUS_DEAD
     }
   }
 
   isDead() {
-    return this.status == this.STATUS_DEAD
+    return this.status == this.Const.ENEMY_STATUS_DEAD
   }
 
   isAlive() {
-    return this.status == this.STATUS_ALIVE
+    return this.status == this.Const.ENEMY_STATUS_ALIVE
   }
 
   reinitEnemy() {
@@ -155,23 +143,23 @@ export class Enemy {
   update() {
     switch (this.currentDirection) {
       case this.Const.LEFT_DIRECTION:
-        this.x = this.x - this.VELOCITY
+        this.x = this.x - this.Const.ENEMY_VELOCITY
         break
 
       case this.Const.RIGHT_DIRECTION:
-        this.x = this.x + this.VELOCITY
+        this.x = this.x + this.Const.ENEMY_VELOCITY
         break
 
       case this.Const.UP_DIRECTION:
-        this.y = this.y - this.VELOCITY
+        this.y = this.y - this.Const.ENEMY_VELOCITY
         break
 
       case this.Const.DOWN_DIRECTION:
-        this.y = this.y + this.VELOCITY
+        this.y = this.y + this.Const.ENEMY_VELOCITY
         break
     }
 
-    this.moveCount = this.moveCount + this.VELOCITY
+    this.moveCount = this.moveCount + this.Const.ENEMY_VELOCITY
 
     if (this.moveCount === this.Const.TILE_SIZE && this.endReached) {
       this.reinitEnemy()
@@ -196,13 +184,13 @@ export class Enemy {
   }
 
   _hasOpenEyes() {
-    return this.imgIndex != this.EYES_CLOSED
+    return this.imgIndex != this.Const.ENEMY_EYES_CLOSED
   }
 
   _moveEyesInSequence() {
     this.changeEyesTime++
 
-    if (this.changeEyesTime > this.CHANGE_EYES_MAX_TIME) {
+    if (this.changeEyesTime > this.Const.ENEMY_CHANGE_EYES_MAX_TIME) {
       this.changeEyesTime = 0
       this.indexEyesSecuence++
       if (this.indexEyesSecuence == this.eyesSequence.length) {
@@ -214,9 +202,9 @@ export class Enemy {
   }
 
   _setRandomTimeMaxForClosingEyes() {
-    this.randomCloseEyes = this.Random.integerBetween(
-      this.MIN_TIME_TO_CLOSE,
-      this.MAX_TIME_TO_CLOSE,
+    this.randomCloseEyes = this.RandomClass.integerBetween(
+      this.Const.ENEMY_MIN_TIME_TO_CLOSE,
+      this.Const.ENEMY_MAX_TIME_TO_CLOSE,
     )
   }
 
@@ -228,14 +216,16 @@ export class Enemy {
         this.closeEyesTime = 0
         this._setRandomTimeMaxForClosingEyes()
         this.imgIndexBeforeEyesClosed = this.imgIndex
-        this.imgIndex = this.EYES_CLOSED
+        this.imgIndex = this.Const.ENEMY_EYES_CLOSED
       }
 
       this._moveEyesInSequence()
     } else {
       this.extendClosedEyesTime++
 
-      if (this.extendClosedEyesTime > this.EXTEND_CLOSED_EYES_MAX_TIME) {
+      if (
+        this.extendClosedEyesTime > this.Const.ENEMY_EXTEND_CLOSED_EYES_MAX_TIME
+      ) {
         this.extendClosedEyesTime = 0
         this.imgIndex = this.imgIndexBeforeEyesClosed
       }

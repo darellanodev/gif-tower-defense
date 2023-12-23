@@ -1,12 +1,13 @@
 import { ConstType } from './types'
 import { Distance } from './Distance'
+import { Enemy } from './Enemy'
 
 export class GreenTower {
   images: any[]
   x: number
   y: number
   upgradeLevel: number
-  enemyTarget: any
+  enemyTarget: Enemy
   distanceToEnemyTarget: number
   Const: ConstType
   DistanceClass: typeof Distance

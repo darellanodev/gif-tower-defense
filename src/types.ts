@@ -4,7 +4,7 @@ import { YellowTower } from './YellowTower'
 
 export type RGBType = [number, number, number]
 
-export type TowerType = GreenTower | RedTower | YellowTower | null
+export type TowerType = GreenTower | RedTower | YellowTower
 
 export type ConstType = {
   HUD_NORMAL: number
@@ -55,4 +55,20 @@ export type ConstType = {
 
   ALPHA_INFLUENCE_AREA_FILL: number
   ALPHA_INFLUENCE_AREA_STROKE: number
+
+  ENEMY_VELOCITY: number
+
+  ENEMY_CHANGE_EYES_MAX_TIME: number
+
+  ENEMY_EXTEND_CLOSED_EYES_MAX_TIME: number
+  ENEMY_MIN_TIME_TO_CLOSE: number
+  ENEMY_MAX_TIME_TO_CLOSE: number
+
+  ENEMY_EYES_CENTER: number
+  ENEMY_EYES_LEFT: number
+  ENEMY_EYES_RIGHT: number
+  ENEMY_EYES_CLOSED: number
+
+  ENEMY_STATUS_ALIVE: number
+  ENEMY_STATUS_DEAD: number
 }
