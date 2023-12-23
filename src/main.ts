@@ -21,6 +21,8 @@ import { ProgressBar } from './ProgressBar'
 import { Wallet } from './Wallet'
 import { ImageUtils } from './ImageUtils'
 import { InfluenceArea } from './InfluenceArea'
+import { Particle } from './Particle'
+import { ParticleSystem } from './ParticleSystem'
 import { Image } from 'p5'
 // */ // End of imports. This line is used by the build script. Dont modify this line
 
@@ -44,6 +46,7 @@ let backgroundImage: Image
 let enemiesImages: Image[]
 let towerGenerator: TowerGenerator
 let influenceArea: InfluenceArea
+let system: any
 
 function preload() {
   greenTowerImages = []
@@ -156,6 +159,8 @@ function setup() {
   enemies = []
 
   influenceArea = new InfluenceArea(Const)
+
+  system = new ParticleSystem(createVector(width / 2, 50))
 }
 
 function keyPressed() {
@@ -333,4 +338,7 @@ function draw() {
   })
 
   Debug.showMouseCoordinates(mouseX, mouseY)
+
+  system.addParticle()
+  system.run()
 }
