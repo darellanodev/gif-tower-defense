@@ -1,9 +1,9 @@
 var Const = (function () {
     function Const() {
     }
-    Const.HUD_NORMAL = 1;
-    Const.HUD_UPGRADING = 2;
-    Const.HUD_UPGRADING_MAX = 3;
+    Const.HUD_NORMAL = 0;
+    Const.HUD_UPGRADING = 1;
+    Const.HUD_UPGRADING_MAX = 2;
     Const.GREEN_TOWER = 1;
     Const.RED_TOWER = 2;
     Const.YELLOW_TOWER = 3;
@@ -48,6 +48,8 @@ var Const = (function () {
     Const.ENEMY_EYES_CLOSED = 3;
     Const.ENEMY_STATUS_ALIVE = 0;
     Const.ENEMY_STATUS_DEAD = 1;
+    Const.PROGRESSBAR_WIDTH = 27;
+    Const.PROGRESSBAR_HEIGHT = 7;
     return Const;
 }());
 var CustomRange = (function () {
@@ -95,14 +97,14 @@ var EndTile = (function () {
     return EndTile;
 }());
 var Enemy = (function () {
-    function Enemy(images, orders, startTile, endTile, Const, RandomClass, HealthBarClass) {
+    function Enemy(images, orders, startTile, endTile, Const, RandomClass, ProgressBarClass) {
         this.images = images;
         this.orders = orders;
         this.startTile = startTile;
         this.endTile = endTile;
         this.Const = Const;
         this.RandomClass = RandomClass;
-        this.HealthBarClass = HealthBarClass;
+        this.ProgressBarClass = ProgressBarClass;
         this.imgIndex = this.Const.ENEMY_EYES_CENTER;
         this.imgIndexBeforeEyesClosed = this.Const.ENEMY_EYES_CENTER;
         this.eyesSequence = [
@@ -111,7 +113,7 @@ var Enemy = (function () {
             this.Const.ENEMY_EYES_RIGHT,
             this.Const.ENEMY_EYES_CENTER,
         ];
-        this.healthBar = new this.HealthBarClass(200, 200);
+        this.healthBar = new this.ProgressBarClass(200, 200, this.Const.PROGRESSBAR_WIDTH, this.Const.PROGRESSBAR_HEIGHT);
         this.status = this.Const.ENEMY_STATUS_ALIVE;
         this.damage = 0;
         this.x = 0;
@@ -129,9 +131,9 @@ var Enemy = (function () {
         this.randomCloseEyes = 0;
     }
     Enemy.prototype.addDamage = function (shotDamage) {
-        if (!this.healthBar.isFullOfDamage()) {
+        if (!this.healthBar.isFullOfProgress()) {
             this.damage += shotDamage;
-            this.healthBar.setDamage(this.damage);
+            this.healthBar.setProgress(this.damage);
         }
         else {
             this.status = this.Const.ENEMY_STATUS_DEAD;
@@ -265,18 +267,25 @@ var Enemy = (function () {
     return Enemy;
 }());
 var GreenTower = (function () {
-    function GreenTower(images, x, y, Const, DistanceClass) {
+    function GreenTower(images, x, y, Const, DistanceClass, ProgressBarClass) {
         this.images = images;
         this.x = x;
         this.y = y;
         this.Const = Const;
         this.DistanceClass = DistanceClass;
+        this.ProgressBarClass = ProgressBarClass;
         this.upgradeLevel = 0;
         this.enemyTarget = null;
         this.distanceToEnemyTarget = 0;
+        this.isUpgrading = false;
+        this.progressBar = new this.ProgressBarClass(this.x + this.Const.TOWER_OFFSET, this.y + this.Const.TOWER_OFFSET, this.Const.PROGRESSBAR_WIDTH, this.Const.PROGRESSBAR_HEIGHT);
+        this.upgradeProgress = 0;
     }
     GreenTower.prototype.upgrade = function () {
-        this.upgradeLevel++;
+        if (!this.isUpgrading) {
+            this.isUpgrading = true;
+            this.upgradeLevel++;
+        }
     };
     GreenTower.prototype.getX = function () {
         return this.x;
@@ -292,23 +301,44 @@ var GreenTower = (function () {
         stroke(this.Const.RED_COLOR);
         line(-1, -18, 7 - this.distanceToEnemyTarget / 7, -this.distanceToEnemyTarget);
     };
+    GreenTower.prototype._drawUpgradeBackground = function () {
+        strokeWeight(1);
+        stroke('black');
+        fill(this.Const.GREEN_COLOR);
+        rect(this.x + 4, this.y + 4, this.Const.TILE_SIZE, this.Const.TILE_SIZE);
+    };
     GreenTower.prototype.draw = function () {
-        if (this.enemyTarget) {
-            var r_dx = this.enemyTarget.getX() - this.x;
-            var r_dy = this.enemyTarget.getY() - this.y;
-            var angle = Math.atan2(r_dy, r_dx) + 1.55;
-            var cos_a = cos(angle);
-            var sin_a = sin(angle);
-            imageMode(CENTER);
-            applyMatrix(cos_a, sin_a, -sin_a, cos_a, this.x + 30, this.y + 30);
-            this._drawShotToEnemy();
-            this.enemyTarget.addDamage(1);
-            image(this.images[this.upgradeLevel], 0, 0);
-            resetMatrix();
-            imageMode(CORNER);
+        if (this.isUpgrading) {
+            this._drawUpgradeBackground();
+            if (!this.progressBar.isFullOfProgress()) {
+                this.upgradeProgress++;
+                this.progressBar.setProgress(this.upgradeProgress);
+                this.progressBar.draw();
+            }
+            else {
+                this.isUpgrading = false;
+                this.upgradeProgress = 0;
+                this.progressBar.setProgress(0);
+            }
         }
         else {
-            image(this.images[this.upgradeLevel], this.x, this.y);
+            if (this.enemyTarget) {
+                var r_dx = this.enemyTarget.getX() - this.x;
+                var r_dy = this.enemyTarget.getY() - this.y;
+                var angle = Math.atan2(r_dy, r_dx) + 1.55;
+                var cos_a = cos(angle);
+                var sin_a = sin(angle);
+                imageMode(CENTER);
+                applyMatrix(cos_a, sin_a, -sin_a, cos_a, this.x + 30, this.y + 30);
+                this._drawShotToEnemy();
+                this.enemyTarget.addDamage(1);
+                image(this.images[this.upgradeLevel], 0, 0);
+                resetMatrix();
+                imageMode(CORNER);
+            }
+            else {
+                image(this.images[this.upgradeLevel], this.x, this.y);
+            }
         }
     };
     GreenTower.prototype.getInfluenceArea = function () {
@@ -354,42 +384,6 @@ var GreenTower = (function () {
         }
     };
     return GreenTower;
-}());
-var HealthBar = (function () {
-    function HealthBar(x, y) {
-        this.MAX_DAMAGE = 26;
-        this.x = x;
-        this.y = y;
-        this.damage = 0;
-        this.fullOfDamage = false;
-    }
-    HealthBar.prototype.setPosition = function (x, y) {
-        this.x = x;
-        this.y = y;
-    };
-    HealthBar.prototype.setDamage = function (damage) {
-        this.damage = damage;
-    };
-    HealthBar.prototype.isFullOfDamage = function () {
-        return this.damage >= this.MAX_DAMAGE;
-    };
-    HealthBar.prototype._drawBackgroundBar = function () {
-        strokeWeight(1);
-        fill('green');
-        rect(this.x + 10, this.y + 20, 27, 7);
-    };
-    HealthBar.prototype._drawDamageBar = function () {
-        strokeWeight(0);
-        fill('red');
-        rect(this.x + 11, this.y + 21, this.damage, 5);
-    };
-    HealthBar.prototype.draw = function () {
-        this._drawBackgroundBar();
-        if (this.damage > 0) {
-            this._drawDamageBar();
-        }
-    };
-    return HealthBar;
 }());
 var Hud = (function () {
     function Hud(hudImages, money, Const) {
@@ -564,15 +558,13 @@ var InfluenceArea = (function () {
     return InfluenceArea;
 }());
 var OrangeTile = (function () {
-    function OrangeTile(img, x, y, Const, UpgradeDisplayClass, towerGenerator) {
+    function OrangeTile(img, x, y, Const, towerGenerator) {
         this.img = img;
         this.x = x;
         this.y = y;
         this.Const = Const;
-        this.UpgradeDisplayClass = UpgradeDisplayClass;
         this.towerGenerator = towerGenerator;
         this.tower = null;
-        this.upgradeDisplay = null;
     }
     OrangeTile.prototype.sellTower = function () {
         var profit = 0;
@@ -582,33 +574,14 @@ var OrangeTile = (function () {
         }
         return profit;
     };
-    OrangeTile.prototype._showUpgradeDisplay = function (towerType) {
-        if (this.upgradeDisplay === null) {
-            this.upgradeDisplay = new this.UpgradeDisplayClass(this.x, this.y, this.tower.getColor());
-        }
-    };
     OrangeTile.prototype.buyTower = function (towerType) {
-        var cost = 0;
         if (this.tower === null) {
             this.tower = this.towerGenerator.newTower(towerType, this.x, this.y);
-            cost = this.tower.getCost();
         }
         else {
-            var currentUpgradeLevel = this.tower.getUpgradeLevel();
-            if (currentUpgradeLevel < this.Const.UPGRADE_MAX_LEVEL) {
-                this._showUpgradeDisplay(towerType);
-                cost = this.tower.getCostWhenUpgradeLevelIs(currentUpgradeLevel + 1);
-            }
+            this.tower.upgrade();
         }
-        return cost;
-    };
-    OrangeTile.prototype.updateUpgradeDisplay = function () {
-        if (this.upgradeDisplay) {
-            if (this.upgradeDisplay.isFinished()) {
-                this.upgradeDisplay = null;
-                this._upgradeTower();
-            }
-        }
+        return this.tower.getCost();
     };
     OrangeTile.prototype._upgradeTower = function () {
         if (this.tower) {
@@ -618,13 +591,8 @@ var OrangeTile = (function () {
     OrangeTile.prototype.drawTile = function () {
         image(this.img, this.x, this.y);
     };
-    OrangeTile.prototype.drawUpgradeDisplay = function () {
-        if (this.upgradeDisplay) {
-            this.upgradeDisplay.draw();
-        }
-    };
     OrangeTile.prototype.drawTower = function () {
-        if (this.tower && this.upgradeDisplay === null) {
+        if (this.tower) {
             this.tower.draw();
         }
     };
@@ -806,6 +774,44 @@ var PathTile = (function () {
     };
     return PathTile;
 }());
+var ProgressBar = (function () {
+    function ProgressBar(x, y, width, height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.progress = 0;
+        this.maxProgress = this.width - 1;
+    }
+    ProgressBar.prototype.setPosition = function (x, y) {
+        this.x = x;
+        this.y = y;
+    };
+    ProgressBar.prototype.setProgress = function (progress) {
+        this.progress = progress;
+    };
+    ProgressBar.prototype.isFullOfProgress = function () {
+        return this.progress >= 100;
+    };
+    ProgressBar.prototype._drawBackgroundBar = function () {
+        strokeWeight(1);
+        fill('green');
+        rect(this.x + 10, this.y + 20, this.width, this.height);
+    };
+    ProgressBar.prototype._drawProgressBar = function () {
+        strokeWeight(0);
+        fill('red');
+        var progressLevel = (this.progress * this.maxProgress) / 100;
+        rect(this.x + 11, this.y + 21, progressLevel, this.height - 2);
+    };
+    ProgressBar.prototype.draw = function () {
+        this._drawBackgroundBar();
+        if (this.progress > 0) {
+            this._drawProgressBar();
+        }
+    };
+    return ProgressBar;
+}());
 var Random = (function () {
     function Random() {
     }
@@ -815,16 +821,23 @@ var Random = (function () {
     return Random;
 }());
 var RedTower = (function () {
-    function RedTower(images, x, y, Const, DistanceClass) {
+    function RedTower(images, x, y, Const, DistanceClass, ProgressBarClass) {
         this.images = images;
         this.x = x;
         this.y = y;
         this.Const = Const;
         this.DistanceClass = DistanceClass;
+        this.ProgressBarClass = ProgressBarClass;
         this.upgradeLevel = 0;
+        this.isUpgrading = false;
+        this.progressBar = new this.ProgressBarClass(this.x + this.Const.TOWER_OFFSET, this.y + this.Const.TOWER_OFFSET, this.Const.PROGRESSBAR_WIDTH, this.Const.PROGRESSBAR_HEIGHT);
+        this.upgradeProgress = 0;
     }
     RedTower.prototype.upgrade = function () {
-        this.upgradeLevel++;
+        if (!this.isUpgrading) {
+            this.isUpgrading = true;
+            this.upgradeLevel++;
+        }
     };
     RedTower.prototype.getX = function () {
         return this.x;
@@ -835,8 +848,29 @@ var RedTower = (function () {
     RedTower.prototype.getUpgradeLevel = function () {
         return this.upgradeLevel;
     };
+    RedTower.prototype._drawUpgradeBackground = function () {
+        strokeWeight(1);
+        stroke('black');
+        fill(this.Const.RED_COLOR);
+        rect(this.x + 4, this.y + 4, this.Const.TILE_SIZE, this.Const.TILE_SIZE);
+    };
     RedTower.prototype.draw = function () {
-        image(this.images[this.upgradeLevel], this.x, this.y);
+        if (this.isUpgrading) {
+            this._drawUpgradeBackground();
+            if (!this.progressBar.isFullOfProgress()) {
+                this.upgradeProgress++;
+                this.progressBar.setProgress(this.upgradeProgress);
+                this.progressBar.draw();
+            }
+            else {
+                this.isUpgrading = false;
+                this.upgradeProgress = 0;
+                this.progressBar.setProgress(0);
+            }
+        }
+        else {
+            image(this.images[this.upgradeLevel], this.x, this.y);
+        }
     };
     RedTower.prototype.getInfluenceArea = function () {
         return this.Const.RED_TOWER_UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
@@ -882,7 +916,7 @@ var StartTile = (function () {
     return StartTile;
 }());
 var TileGenerator = (function () {
-    function TileGenerator(levelMap, mapImages, Const, OrangeTileClass, PathTileClass, StartTileClass, EndTileClass, UpgradeDisplayClass, towerGenerator) {
+    function TileGenerator(levelMap, mapImages, Const, OrangeTileClass, PathTileClass, StartTileClass, EndTileClass, towerGenerator) {
         this.FLOOR_SIZE = 50;
         this.MARGIN_TOP = 30;
         this.levelMap = levelMap;
@@ -892,7 +926,6 @@ var TileGenerator = (function () {
         this.PathTileClass = PathTileClass;
         this.StartTileClass = StartTileClass;
         this.EndTileClass = EndTileClass;
-        this.UpgradeDisplayClass = UpgradeDisplayClass;
         this.towerGenerator = towerGenerator;
         if (this.levelMap === '') {
             throw new Error('Level map string cannot be empty');
@@ -961,7 +994,7 @@ var TileGenerator = (function () {
                 if (character === symbol) {
                     switch (symbol) {
                         case '0':
-                            resultTiles.push(new _this.OrangeTileClass(_this.orangeImage, posX, posY, _this.Const, _this.UpgradeDisplayClass, _this.towerGenerator));
+                            resultTiles.push(new _this.OrangeTileClass(_this.orangeImage, posX, posY, _this.Const, _this.towerGenerator));
                             break;
                         case '1':
                             resultTiles.push(new _this.PathTileClass(posX, posY));
@@ -998,7 +1031,7 @@ var TileGenerator = (function () {
     return TileGenerator;
 }());
 var TowerGenerator = (function () {
-    function TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTowerClass, RedTowerClass, YellowTowerClass, DistanceClass) {
+    function TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTowerClass, RedTowerClass, YellowTowerClass, DistanceClass, ProgressBarClass) {
         this.greenTowerImages = greenTowerImages;
         this.redTowerImages = redTowerImages;
         this.yellowTowerImages = yellowTowerImages;
@@ -1007,18 +1040,19 @@ var TowerGenerator = (function () {
         this.RedTowerClass = RedTowerClass;
         this.YellowTowerClass = YellowTowerClass;
         this.DistanceClass = DistanceClass;
+        this.ProgressBarClass = ProgressBarClass;
     }
     TowerGenerator.prototype.newTower = function (towerType, x, y) {
         var tower = null;
         switch (towerType) {
             case this.Const.GREEN_TOWER:
-                tower = new this.GreenTowerClass(this.greenTowerImages, x - this.Const.TOWER_OFFSET, y - this.Const.TOWER_OFFSET, this.Const, this.DistanceClass);
+                tower = new this.GreenTowerClass(this.greenTowerImages, x - this.Const.TOWER_OFFSET, y - this.Const.TOWER_OFFSET, this.Const, this.DistanceClass, this.ProgressBarClass);
                 break;
             case this.Const.RED_TOWER:
-                tower = new this.RedTowerClass(this.redTowerImages, x - this.Const.TOWER_OFFSET, y - this.Const.TOWER_OFFSET, this.Const, this.DistanceClass);
+                tower = new this.RedTowerClass(this.redTowerImages, x - this.Const.TOWER_OFFSET, y - this.Const.TOWER_OFFSET, this.Const, this.DistanceClass, this.ProgressBarClass);
                 break;
             case this.Const.YELLOW_TOWER:
-                tower = new this.YellowTowerClass(this.yellowTowerImages, x, y, this.Const, this.DistanceClass);
+                tower = new this.YellowTowerClass(this.yellowTowerImages, x, y, this.Const, this.DistanceClass, this.ProgressBarClass);
                 break;
             default:
                 break;
@@ -1026,54 +1060,6 @@ var TowerGenerator = (function () {
         return tower;
     };
     return TowerGenerator;
-}());
-var UpgradeDisplay = (function () {
-    function UpgradeDisplay(x, y, color) {
-        this.SIZE_UPGRADE_TILE = 48;
-        this.TIME_UPGRADE_0_MAX = 2;
-        this.MAX_CAPACITY = 23;
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.timeUpgrade = 0;
-        this.capacity = 0;
-        this.finished = false;
-    }
-    UpgradeDisplay.prototype._update = function () {
-        if (this.capacity < this.MAX_CAPACITY) {
-            this.timeUpgrade++;
-            if (this.timeUpgrade > this.TIME_UPGRADE_0_MAX) {
-                this.timeUpgrade = 0;
-                this.capacity++;
-            }
-        }
-        else {
-            this.finished = true;
-        }
-    };
-    UpgradeDisplay.prototype.isFinished = function () {
-        return this.finished;
-    };
-    UpgradeDisplay.prototype._drawBackgroundTile = function () {
-        noStroke();
-        fill(this.color);
-        rect(this.x, this.y, this.SIZE_UPGRADE_TILE);
-    };
-    UpgradeDisplay.prototype._drawBackgroundBar = function () {
-        fill('white');
-        rect(this.x + 10, this.y + 20, 27, 10);
-    };
-    UpgradeDisplay.prototype._drawBar = function () {
-        fill(this.color);
-        rect(this.x + 12, this.y + 22, this.capacity, 6);
-    };
-    UpgradeDisplay.prototype.draw = function () {
-        this._update();
-        this._drawBackgroundTile();
-        this._drawBackgroundBar();
-        this._drawBar();
-    };
-    return UpgradeDisplay;
 }());
 var Wallet = (function () {
     function Wallet(money, Const) {
@@ -1110,16 +1096,23 @@ var Wallet = (function () {
     return Wallet;
 }());
 var YellowTower = (function () {
-    function YellowTower(images, x, y, Const, DistanceClass) {
+    function YellowTower(images, x, y, Const, DistanceClass, ProgressBarClass) {
         this.images = images;
         this.x = x;
         this.y = y;
         this.Const = Const;
         this.DistanceClass = DistanceClass;
+        this.ProgressBarClass = ProgressBarClass;
         this.upgradeLevel = 0;
+        this.isUpgrading = false;
+        this.progressBar = new this.ProgressBarClass(this.x, this.y, 27, 7);
+        this.upgradeProgress = 0;
     }
     YellowTower.prototype.upgrade = function () {
-        this.upgradeLevel++;
+        if (!this.isUpgrading) {
+            this.isUpgrading = true;
+            this.upgradeLevel++;
+        }
     };
     YellowTower.prototype.getX = function () {
         return this.x;
@@ -1130,8 +1123,29 @@ var YellowTower = (function () {
     YellowTower.prototype.getUpgradeLevel = function () {
         return this.upgradeLevel;
     };
+    YellowTower.prototype._drawUpgradeBackground = function () {
+        strokeWeight(1);
+        stroke('black');
+        fill(this.Const.YELLOW_COLOR);
+        rect(this.x, this.y, this.Const.TILE_SIZE, this.Const.TILE_SIZE);
+    };
     YellowTower.prototype.draw = function () {
-        image(this.images[this.upgradeLevel], this.x, this.y);
+        if (this.isUpgrading) {
+            this._drawUpgradeBackground();
+            if (!this.progressBar.isFullOfProgress()) {
+                this.upgradeProgress++;
+                this.progressBar.setProgress(this.upgradeProgress);
+                this.progressBar.draw();
+            }
+            else {
+                this.isUpgrading = false;
+                this.upgradeProgress = 0;
+                this.progressBar.setProgress(0);
+            }
+        }
+        else {
+            image(this.images[this.upgradeLevel], this.x, this.y);
+        }
     };
     YellowTower.prototype.getInfluenceArea = function () {
         return this.Const.YELLOW_TOWER_UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
@@ -1225,8 +1239,8 @@ function setup() {
     createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT);
     var levelMap = "111111111111111x,\n                    1000000000000000,\n                    1011111111111111,\n                    1010000000000001,\n                    1010000111111101,\n                    1011111100000101,\n                    1000000000000101,\n                    1111111111111101,\n                    0000000000000001,\n                    y111111111111111@3,2,-50,450,150";
     createEnemyTime = 0;
-    towerGenerator = new TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTower, RedTower, YellowTower, Distance);
-    var tileGenerator = new TileGenerator(levelMap, tileImages, Const, OrangeTile, PathTile, StartTile, EndTile, UpgradeDisplay, towerGenerator);
+    towerGenerator = new TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTower, RedTower, YellowTower, Distance, ProgressBar);
+    var tileGenerator = new TileGenerator(levelMap, tileImages, Const, OrangeTile, PathTile, StartTile, EndTile, towerGenerator);
     orangeTiles = tileGenerator.orangeTiles();
     startTile = tileGenerator.startTile();
     endTile = tileGenerator.endTile();
@@ -1318,7 +1332,7 @@ function mouseClicked() {
     }
 }
 function createNewEnemy(waveEnemy) {
-    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), orders, startTile, endTile, Const, Random, HealthBar));
+    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), orders, startTile, endTile, Const, Random, ProgressBar));
 }
 function updateEnemies() {
     if (waveEnemies < Const.TOTAL_ENEMIES) {
@@ -1349,16 +1363,11 @@ function draw() {
     background('skyblue');
     rectMode(CORNER);
     image(backgroundImage, 0, Const.HUD_HEIGHT);
-    enemies.forEach(function (enemy) {
-        enemy.draw();
-    });
     startTile.draw();
     endTile.draw();
     orangeTiles.forEach(function (orangeTile) {
         orangeTile.selectTarget(enemies);
-        orangeTile.updateUpgradeDisplay();
         orangeTile.drawTile();
-        orangeTile.drawUpgradeDisplay();
     });
     orangeTiles.forEach(function (orangeTile) {
         orangeTile.drawTower();
@@ -1377,6 +1386,9 @@ function draw() {
     else {
         hud.setType(Const.HUD_NORMAL);
     }
+    enemies.forEach(function (enemy) {
+        enemy.draw();
+    });
     Debug.showMouseCoordinates(mouseX, mouseY);
 }
 //# sourceMappingURL=dist.js.map
