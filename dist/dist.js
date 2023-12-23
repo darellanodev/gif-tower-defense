@@ -37,6 +37,17 @@ var Const = (function () {
     Const.YELLOW_TOWER_INFLUENCE_AREA = 290;
     Const.ALPHA_INFLUENCE_AREA_FILL = 50;
     Const.ALPHA_INFLUENCE_AREA_STROKE = 120;
+    Const.ENEMY_VELOCITY = 1;
+    Const.ENEMY_CHANGE_EYES_MAX_TIME = 50;
+    Const.ENEMY_EXTEND_CLOSED_EYES_MAX_TIME = 20;
+    Const.ENEMY_MIN_TIME_TO_CLOSE = 50;
+    Const.ENEMY_MAX_TIME_TO_CLOSE = 200;
+    Const.ENEMY_EYES_CENTER = 0;
+    Const.ENEMY_EYES_LEFT = 1;
+    Const.ENEMY_EYES_RIGHT = 2;
+    Const.ENEMY_EYES_CLOSED = 3;
+    Const.ENEMY_STATUS_ALIVE = 0;
+    Const.ENEMY_STATUS_DEAD = 1;
     return Const;
 }());
 var CustomRange = (function () {
@@ -84,35 +95,24 @@ var EndTile = (function () {
     return EndTile;
 }());
 var Enemy = (function () {
-    function Enemy(images, orders, startTile, endTile, Const, Random, HealthBar) {
-        this.VELOCITY = 1;
-        this.CHANGE_EYES_MAX_TIME = 50;
-        this.EXTEND_CLOSED_EYES_MAX_TIME = 20;
-        this.MIN_TIME_TO_CLOSE = 50;
-        this.MAX_TIME_TO_CLOSE = 200;
-        this.EYES_LEFT = 1;
-        this.EYES_RIGHT = 2;
-        this.EYES_CENTER = 0;
-        this.EYES_CLOSED = 3;
-        this.STATUS_ALIVE = 0;
-        this.STATUS_DEAD = 1;
+    function Enemy(images, orders, startTile, endTile, Const, RandomClass, HealthBarClass) {
         this.images = images;
         this.orders = orders;
         this.startTile = startTile;
         this.endTile = endTile;
         this.Const = Const;
-        this.Random = Random;
-        this.HealthBar = HealthBar;
-        this.imgIndex = this.EYES_CENTER;
-        this.imgIndexBeforeEyesClosed = this.EYES_CENTER;
+        this.RandomClass = RandomClass;
+        this.HealthBarClass = HealthBarClass;
+        this.imgIndex = this.Const.ENEMY_EYES_CENTER;
+        this.imgIndexBeforeEyesClosed = this.Const.ENEMY_EYES_CENTER;
         this.eyesSequence = [
-            this.EYES_LEFT,
-            this.EYES_CENTER,
-            this.EYES_RIGHT,
-            this.EYES_CENTER,
+            this.Const.ENEMY_EYES_LEFT,
+            this.Const.ENEMY_EYES_CENTER,
+            this.Const.ENEMY_EYES_RIGHT,
+            this.Const.ENEMY_EYES_CENTER,
         ];
-        this.healthBar = new this.HealthBar(200, 200);
-        this.status = this.STATUS_ALIVE;
+        this.healthBar = new this.HealthBarClass(200, 200);
+        this.status = this.Const.ENEMY_STATUS_ALIVE;
         this.damage = 0;
         this.x = 0;
         this.y = 0;
@@ -134,14 +134,14 @@ var Enemy = (function () {
             this.healthBar.setDamage(this.damage);
         }
         else {
-            this.status = this.STATUS_DEAD;
+            this.status = this.Const.ENEMY_STATUS_DEAD;
         }
     };
     Enemy.prototype.isDead = function () {
-        return this.status == this.STATUS_DEAD;
+        return this.status == this.Const.ENEMY_STATUS_DEAD;
     };
     Enemy.prototype.isAlive = function () {
-        return this.status == this.STATUS_ALIVE;
+        return this.status == this.Const.ENEMY_STATUS_ALIVE;
     };
     Enemy.prototype.reinitEnemy = function () {
         this.currentDirection = this.startTile.getStartDirection();
@@ -182,19 +182,19 @@ var Enemy = (function () {
     Enemy.prototype.update = function () {
         switch (this.currentDirection) {
             case this.Const.LEFT_DIRECTION:
-                this.x = this.x - this.VELOCITY;
+                this.x = this.x - this.Const.ENEMY_VELOCITY;
                 break;
             case this.Const.RIGHT_DIRECTION:
-                this.x = this.x + this.VELOCITY;
+                this.x = this.x + this.Const.ENEMY_VELOCITY;
                 break;
             case this.Const.UP_DIRECTION:
-                this.y = this.y - this.VELOCITY;
+                this.y = this.y - this.Const.ENEMY_VELOCITY;
                 break;
             case this.Const.DOWN_DIRECTION:
-                this.y = this.y + this.VELOCITY;
+                this.y = this.y + this.Const.ENEMY_VELOCITY;
                 break;
         }
-        this.moveCount = this.moveCount + this.VELOCITY;
+        this.moveCount = this.moveCount + this.Const.ENEMY_VELOCITY;
         if (this.moveCount === this.Const.TILE_SIZE && this.endReached) {
             this.reinitEnemy();
         }
@@ -215,11 +215,11 @@ var Enemy = (function () {
         }
     };
     Enemy.prototype._hasOpenEyes = function () {
-        return this.imgIndex != this.EYES_CLOSED;
+        return this.imgIndex != this.Const.ENEMY_EYES_CLOSED;
     };
     Enemy.prototype._moveEyesInSequence = function () {
         this.changeEyesTime++;
-        if (this.changeEyesTime > this.CHANGE_EYES_MAX_TIME) {
+        if (this.changeEyesTime > this.Const.ENEMY_CHANGE_EYES_MAX_TIME) {
             this.changeEyesTime = 0;
             this.indexEyesSecuence++;
             if (this.indexEyesSecuence == this.eyesSequence.length) {
@@ -229,7 +229,7 @@ var Enemy = (function () {
         }
     };
     Enemy.prototype._setRandomTimeMaxForClosingEyes = function () {
-        this.randomCloseEyes = this.Random.integerBetween(this.MIN_TIME_TO_CLOSE, this.MAX_TIME_TO_CLOSE);
+        this.randomCloseEyes = this.RandomClass.integerBetween(this.Const.ENEMY_MIN_TIME_TO_CLOSE, this.Const.ENEMY_MAX_TIME_TO_CLOSE);
     };
     Enemy.prototype._changeEyes = function () {
         if (this._hasOpenEyes()) {
@@ -238,13 +238,13 @@ var Enemy = (function () {
                 this.closeEyesTime = 0;
                 this._setRandomTimeMaxForClosingEyes();
                 this.imgIndexBeforeEyesClosed = this.imgIndex;
-                this.imgIndex = this.EYES_CLOSED;
+                this.imgIndex = this.Const.ENEMY_EYES_CLOSED;
             }
             this._moveEyesInSequence();
         }
         else {
             this.extendClosedEyesTime++;
-            if (this.extendClosedEyesTime > this.EXTEND_CLOSED_EYES_MAX_TIME) {
+            if (this.extendClosedEyesTime > this.Const.ENEMY_EXTEND_CLOSED_EYES_MAX_TIME) {
                 this.extendClosedEyesTime = 0;
                 this.imgIndex = this.imgIndexBeforeEyesClosed;
             }
@@ -396,9 +396,6 @@ var Hud = (function () {
         this.hudImages = hudImages;
         this.money = money;
         this.Const = Const;
-        this.hudImgNormal = this.hudImages[0];
-        this.hudImgUpgrading = this.hudImages[1];
-        this.hudImgUpgradingMax = this.hudImages[2];
         this.hudType = this.Const.HUD_NORMAL;
         this.selectedItem = this.Const.GREEN_TOWER;
     }
@@ -438,15 +435,15 @@ var Hud = (function () {
     Hud.prototype.draw = function () {
         switch (this.hudType) {
             case this.Const.HUD_NORMAL:
-                image(this.hudImgNormal, 0, 0);
+                image(this.hudImages[this.Const.HUD_NORMAL], 0, 0);
                 this._drawSelectedItem();
                 this._drawLevelTitle();
                 break;
             case this.Const.HUD_UPGRADING:
-                image(this.hudImgUpgrading, 0, 0);
+                image(this.hudImages[this.Const.HUD_UPGRADING], 0, 0);
                 break;
             case this.Const.HUD_UPGRADING_MAX:
-                image(this.hudImgUpgradingMax, 0, 0);
+                image(this.hudImages[this.Const.HUD_UPGRADING_MAX], 0, 0);
                 break;
         }
         this._drawMoney();
@@ -1265,7 +1262,7 @@ function canUpgradeTower(tower) {
     }
     return canUpgrade;
 }
-function canBuyNewTower(tower) {
+function canBuyNewTower() {
     var canBuy = false;
     var zeroUpgradeLevel = 0;
     if (wallet.haveMoneyToBuy(hud.getSelectedTower(), zeroUpgradeLevel)) {
@@ -1279,7 +1276,7 @@ function canBuyTower(tower) {
         result = canUpgradeTower(tower);
     }
     else {
-        result = canBuyNewTower(tower);
+        result = canBuyNewTower();
     }
     return result;
 }
