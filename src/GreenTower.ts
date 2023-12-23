@@ -77,12 +77,16 @@ export class GreenTower {
     )
   }
 
+  _drawUpgradeBackground() {
+    strokeWeight(1)
+    stroke('black')
+    fill(this.Const.GREEN_COLOR)
+    rect(this.x + 4, this.y + 4, this.Const.TILE_SIZE, this.Const.TILE_SIZE)
+  }
+
   draw() {
     if (this.isUpgrading) {
-      strokeWeight(1)
-      stroke('black')
-      fill(this.Const.GREEN_COLOR)
-      rect(this.x + 4, this.y + 4, this.Const.TILE_SIZE, this.Const.TILE_SIZE)
+      this._drawUpgradeBackground()
       if (!this.progressBar.isFullOfProgress()) {
         this.upgradeProgress++
         this.progressBar.setProgress(this.upgradeProgress)

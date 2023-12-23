@@ -56,13 +56,16 @@ export class YellowTower {
     return this.upgradeLevel
   }
 
+  _drawUpgradeBackground() {
+    strokeWeight(1)
+    stroke('black')
+    fill(this.Const.YELLOW_COLOR)
+    rect(this.x, this.y, this.Const.TILE_SIZE, this.Const.TILE_SIZE)
+  }
+
   draw() {
     if (this.isUpgrading) {
-      strokeWeight(1)
-      stroke('black')
-      fill(this.Const.YELLOW_COLOR)
-      rect(this.x, this.y, this.Const.TILE_SIZE, this.Const.TILE_SIZE)
-
+      this._drawUpgradeBackground()
       if (!this.progressBar.isFullOfProgress()) {
         this.upgradeProgress++
         this.progressBar.setProgress(this.upgradeProgress)
