@@ -148,7 +148,8 @@ function setup() {
   const path = new Path(startTile, endTile, pathTiles, Const)
   orders = path.makeOrders()
 
-  wallet = new Wallet(tileGenerator.getInitialMoney(), Const)
+  // wallet = new Wallet(tileGenerator.getInitialMoney(), Const)
+  wallet = new Wallet(100000, Const)
   hud = new Hud(hudImages, wallet.getMoney(), Const)
 
   wave = 1

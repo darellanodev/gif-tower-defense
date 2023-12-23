@@ -38,7 +38,12 @@ export class GreenTower {
     this.enemyTarget = null
     this.distanceToEnemyTarget = 0
     this.isUpgrading = false
-    this.progressBar = new this.ProgressBarClass(this.x, this.y, 27, 7)
+    this.progressBar = new this.ProgressBarClass(
+      this.x + this.Const.TOWER_OFFSET,
+      this.y + this.Const.TOWER_OFFSET,
+      this.Const.PROGRESSBAR_WIDTH,
+      this.Const.PROGRESSBAR_HEIGHT,
+    )
     this.upgradeProgress = 0
   }
 
@@ -73,28 +78,11 @@ export class GreenTower {
   }
 
   draw() {
-    if (this.enemyTarget) {
-      let r_dx = this.enemyTarget.getX() - this.x
-      let r_dy = this.enemyTarget.getY() - this.y
-      let angle = Math.atan2(r_dy, r_dx) + 1.55
-
-      let cos_a = cos(angle)
-      let sin_a = sin(angle)
-
-      imageMode(CENTER)
-      applyMatrix(cos_a, sin_a, -sin_a, cos_a, this.x + 30, this.y + 30)
-
-      this._drawShotToEnemy()
-      this.enemyTarget.addDamage(1)
-      image(this.images[this.upgradeLevel], 0, 0)
-
-      resetMatrix()
-      imageMode(CORNER)
-    } else {
-      image(this.images[this.upgradeLevel], this.x, this.y)
-    }
-
     if (this.isUpgrading) {
+      strokeWeight(1)
+      stroke('black')
+      fill(this.Const.GREEN_COLOR)
+      rect(this.x + 4, this.y + 4, this.Const.TILE_SIZE, this.Const.TILE_SIZE)
       if (!this.progressBar.isFullOfProgress()) {
         this.upgradeProgress++
         this.progressBar.setProgress(this.upgradeProgress)
@@ -102,6 +90,28 @@ export class GreenTower {
       } else {
         this.isUpgrading = false
         this.upgradeProgress = 0
+        this.progressBar.setProgress(0)
+      }
+    } else {
+      if (this.enemyTarget) {
+        let r_dx = this.enemyTarget.getX() - this.x
+        let r_dy = this.enemyTarget.getY() - this.y
+        let angle = Math.atan2(r_dy, r_dx) + 1.55
+
+        let cos_a = cos(angle)
+        let sin_a = sin(angle)
+
+        imageMode(CENTER)
+        applyMatrix(cos_a, sin_a, -sin_a, cos_a, this.x + 30, this.y + 30)
+
+        this._drawShotToEnemy()
+        this.enemyTarget.addDamage(1)
+        image(this.images[this.upgradeLevel], 0, 0)
+
+        resetMatrix()
+        imageMode(CORNER)
+      } else {
+        image(this.images[this.upgradeLevel], this.x, this.y)
       }
     }
   }

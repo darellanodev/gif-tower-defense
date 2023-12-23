@@ -65,8 +65,8 @@ export class Enemy {
     this.healthBar = new this.ProgressBarClass(
       200,
       200,
-      this.Const.HEALTHBAR_WIDTH,
-      this.Const.HEALTHBAR_HEIGHT,
+      this.Const.PROGRESSBAR_WIDTH,
+      this.Const.PROGRESSBAR_HEIGHT,
     )
     this.status = this.Const.ENEMY_STATUS_ALIVE
     this.damage = 0

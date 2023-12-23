@@ -64,6 +64,6 @@ export class Const {
   static ENEMY_STATUS_ALIVE = 0
   static ENEMY_STATUS_DEAD = 1
 
-  static HEALTHBAR_WIDTH = 27
-  static HEALTHBAR_HEIGHT = 7
+  static PROGRESSBAR_WIDTH = 27
+  static PROGRESSBAR_HEIGHT = 7
 }

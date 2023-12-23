@@ -33,7 +33,12 @@ export class RedTower {
 
     this.upgradeLevel = 0
     this.isUpgrading = false
-    this.progressBar = new this.ProgressBarClass(this.x, this.y, 27, 7)
+    this.progressBar = new this.ProgressBarClass(
+      this.x + this.Const.TOWER_OFFSET,
+      this.y + this.Const.TOWER_OFFSET,
+      this.Const.PROGRESSBAR_WIDTH,
+      this.Const.PROGRESSBAR_HEIGHT,
+    )
     this.upgradeProgress = 0
   }
 
@@ -57,8 +62,12 @@ export class RedTower {
   }
 
   draw() {
-    image(this.images[this.upgradeLevel], this.x, this.y)
     if (this.isUpgrading) {
+      strokeWeight(1)
+      stroke('black')
+      fill(this.Const.RED_COLOR)
+      rect(this.x + 4, this.y + 4, this.Const.TILE_SIZE, this.Const.TILE_SIZE)
+
       if (!this.progressBar.isFullOfProgress()) {
         this.upgradeProgress++
         this.progressBar.setProgress(this.upgradeProgress)
@@ -66,7 +75,10 @@ export class RedTower {
       } else {
         this.isUpgrading = false
         this.upgradeProgress = 0
+        this.progressBar.setProgress(0)
       }
+    } else {
+      image(this.images[this.upgradeLevel], this.x, this.y)
     }
   }
 
