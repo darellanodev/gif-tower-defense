@@ -1,7 +1,7 @@
 export class Const {
-  static HUD_NORMAL = 1
-  static HUD_UPGRADING = 2
-  static HUD_UPGRADING_MAX = 3
+  static HUD_NORMAL = 0
+  static HUD_UPGRADING = 1
+  static HUD_UPGRADING_MAX = 2
 
   static GREEN_TOWER = 1
   static RED_TOWER = 2
