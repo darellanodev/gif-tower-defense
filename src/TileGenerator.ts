@@ -5,6 +5,7 @@ import { OrangeTile } from './OrangeTile'
 import { PathTile } from './PathTile'
 import { UpgradeDisplay } from './UpgradeDisplay'
 import { TowerGenerator } from './TowerGenerator'
+import { Image } from 'p5'
 
 export class TileGenerator {
   FLOOR_SIZE = 50
@@ -12,12 +13,12 @@ export class TileGenerator {
 
   levelMap: string
   levelMapData: string
-  orangeImage: any
-  blackImage: any
-  startImage: any
-  endImage: any
+  orangeImage: Image
+  blackImage: Image
+  startImage: Image
+  endImage: Image
   startDirection: number
-  mapImages: any[]
+  mapImages: Image[]
   Const: ConstType
   OrangeTileClass: typeof OrangeTile
   PathTileClass: typeof PathTile
@@ -28,7 +29,7 @@ export class TileGenerator {
 
   constructor(
     levelMap: string,
-    mapImages: any[],
+    mapImages: Image[],
     Const: ConstType,
     OrangeTileClass: typeof OrangeTile,
     PathTileClass: typeof PathTile,

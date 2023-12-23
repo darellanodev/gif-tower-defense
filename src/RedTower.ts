@@ -1,8 +1,9 @@
 import { ConstType } from './types'
 import { Distance } from './Distance'
+import { Image } from 'p5'
 
 export class RedTower {
-  images: any
+  images: Image[]
   x: number
   y: number
   upgradeLevel: number
@@ -10,7 +11,7 @@ export class RedTower {
   DistanceClass: typeof Distance
 
   constructor(
-    images: any,
+    images: Image[],
     x: number,
     y: number,
     Const: ConstType,

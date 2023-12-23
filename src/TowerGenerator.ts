@@ -3,11 +3,12 @@ import { GreenTower } from './GreenTower'
 import { RedTower } from './RedTower'
 import { YellowTower } from './YellowTower'
 import { Distance } from './Distance'
+import { Image } from 'p5'
 
 export class TowerGenerator {
-  greenTowerImages: any[]
-  redTowerImages: any[]
-  yellowTowerImages: any[]
+  greenTowerImages: Image[]
+  redTowerImages: Image[]
+  yellowTowerImages: Image[]
 
   Const: ConstType
   GreenTowerClass: typeof GreenTower
@@ -16,9 +17,9 @@ export class TowerGenerator {
   DistanceClass: typeof Distance
 
   constructor(
-    greenTowerImages: any[],
-    redTowerImages: any[],
-    yellowTowerImages: any[],
+    greenTowerImages: Image[],
+    redTowerImages: Image[],
+    yellowTowerImages: Image[],
     Const: ConstType,
     GreenTowerClass: typeof GreenTower,
     RedTowerClass: typeof RedTower,

@@ -1,9 +1,10 @@
 import { ConstType, TowerType } from './types'
 import { TowerGenerator } from './TowerGenerator'
 import { UpgradeDisplay } from './UpgradeDisplay'
+import { Image } from 'p5'
 
 export class OrangeTile {
-  img: any
+  img: Image
   x: number
   y: number
   Const: ConstType
@@ -11,10 +12,10 @@ export class OrangeTile {
   towerGenerator: TowerGenerator
 
   tower: TowerType
-  upgradeDisplay: any
+  upgradeDisplay: UpgradeDisplay
 
   constructor(
-    img: any,
+    img: Image,
     x: number,
     y: number,
     Const: ConstType,

@@ -1,9 +1,11 @@
+import { Image } from 'p5'
+
 export class EndTile {
   x: number
   y: number
-  img: any
+  img: Image
 
-  constructor(img: any, x: number, y: number) {
+  constructor(img: Image, x: number, y: number) {
     this.img = img
     this.x = x
     this.y = y

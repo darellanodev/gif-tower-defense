@@ -1,10 +1,12 @@
+import { Image } from 'p5'
+
 export class StartTile {
-  img: any
+  img: Image
   x: number
   y: number
   startDirection: number
 
-  constructor(img: any, x: number, y: number, startDirection: number) {
+  constructor(img: Image, x: number, y: number, startDirection: number) {
     this.img = img
     this.x = x
     this.y = y

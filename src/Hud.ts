@@ -1,13 +1,14 @@
 import { ConstType } from './types'
+import { Image } from 'p5'
 
 export class Hud {
-  hudImages: any[]
+  hudImages: Image[]
   money: number
   Const: ConstType
   hudType: number
   selectedItem: number
 
-  constructor(hudImages: any[], money: number, Const: ConstType) {
+  constructor(hudImages: Image[], money: number, Const: ConstType) {
     this.hudImages = hudImages
     this.money = money
     this.Const = Const

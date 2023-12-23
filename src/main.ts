@@ -1,4 +1,5 @@
 /* This line is used by the build script. Dont modify this line */
+import { TowerType } from './types'
 import { Const } from './Const'
 import { Path } from './Path'
 import { PathTile } from './PathTile'
@@ -21,26 +22,27 @@ import { HealthBar } from './HealthBar'
 import { Wallet } from './Wallet'
 import { ImageUtils } from './ImageUtils'
 import { InfluenceArea } from './InfluenceArea'
+import { Image } from 'p5'
 // */ // End of imports. This line is used by the build script. Dont modify this line
 
 let orders: number[]
 let createEnemyTime: number
-let enemies: any[]
-let hud: any
-let wallet: any
-let orangeTiles: any[]
-let mouseOrangeTileOver: any
+let enemies: Enemy[]
+let hud: Hud
+let wallet: Wallet
+let orangeTiles: OrangeTile[]
+let mouseOrangeTileOver: OrangeTile
 let wave: number
 let waveEnemies: number
-let tileImages: any[]
-let greenTowerImages: any[]
-let redTowerImages: any[]
-let yellowTowerImages: any[]
+let tileImages: Image[]
+let greenTowerImages: Image[]
+let redTowerImages: Image[]
+let yellowTowerImages: Image[]
 let startTile: StartTile
 let endTile: EndTile
-let hudImages: any[]
-let backgroundImage: any
-let enemiesImages: any[]
+let hudImages: Image[]
+let backgroundImage: Image
+let enemiesImages: Image[]
 let towerGenerator: TowerGenerator
 let influenceArea: InfluenceArea
 
@@ -173,7 +175,7 @@ function keyPressed() {
   }
 }
 
-function canUpgradeTower(tower: any) {
+function canUpgradeTower(tower: TowerType) {
   let canUpgrade = false
   if (tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL) {
     if (wallet.haveMoneyToBuy(tower.getType(), tower.getUpgradeLevel() + 1)) {
@@ -183,7 +185,7 @@ function canUpgradeTower(tower: any) {
   return canUpgrade
 }
 
-function canBuyNewTower(tower: any) {
+function canBuyNewTower() {
   let canBuy = false
   const zeroUpgradeLevel = 0
   if (wallet.haveMoneyToBuy(hud.getSelectedTower(), zeroUpgradeLevel)) {
@@ -192,12 +194,12 @@ function canBuyNewTower(tower: any) {
   return canBuy
 }
 
-function canBuyTower(tower: any) {
+function canBuyTower(tower: TowerType) {
   let result = false
   if (tower) {
     result = canUpgradeTower(tower)
   } else {
-    result = canBuyNewTower(tower)
+    result = canBuyNewTower()
   }
   return result
 }

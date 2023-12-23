@@ -3,9 +3,10 @@ import { HealthBar } from './HealthBar'
 import { StartTile } from './StartTile'
 import { ConstType } from './types'
 import { Random } from './Random'
+import { Image } from 'p5'
 
 export class Enemy {
-  images: any[]
+  images: Image[]
   orders: number[]
   startTile: StartTile
   endTile: EndTile
@@ -36,7 +37,7 @@ export class Enemy {
   HealthBarClass: typeof HealthBar
 
   constructor(
-    images: any[],
+    images: Image[],
     orders: number[],
     startTile: StartTile,
     endTile: EndTile,
