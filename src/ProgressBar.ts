@@ -25,7 +25,7 @@ export class ProgressBar {
     this.progress = progress
   }
 
-  isFullOfDamage() {
+  isFullOfProgress() {
     return this.progress >= 100
   }
 
@@ -35,7 +35,7 @@ export class ProgressBar {
     rect(this.x + 10, this.y + 20, this.width, this.height)
   }
 
-  _drawDamageBar() {
+  _drawProgressBar() {
     strokeWeight(0)
     fill('red')
     const progressLevel = (this.progress * this.maxProgress) / 100
@@ -45,7 +45,7 @@ export class ProgressBar {
   draw() {
     this._drawBackgroundBar()
     if (this.progress > 0) {
-      this._drawDamageBar()
+      this._drawProgressBar()
     }
   }
 }

@@ -87,7 +87,7 @@ export class Enemy {
   }
 
   addDamage(shotDamage: number) {
-    if (!this.healthBar.isFullOfDamage()) {
+    if (!this.healthBar.isFullOfProgress()) {
       this.damage += shotDamage
       this.healthBar.setProgress(this.damage)
     } else {
