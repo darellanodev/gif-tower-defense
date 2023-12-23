@@ -31,6 +31,7 @@ export class ProgressBar {
 
   _drawBackgroundBar() {
     strokeWeight(1)
+    stroke('black')
     fill('green')
     rect(this.x + 10, this.y + 20, this.width, this.height)
   }
