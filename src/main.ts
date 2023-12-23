@@ -11,7 +11,6 @@ import { OrangeTile } from './OrangeTile'
 import { GreenTower } from './GreenTower'
 import { RedTower } from './RedTower'
 import { YellowTower } from './YellowTower'
-import { UpgradeDisplay } from './UpgradeDisplay'
 import { Distance } from './Distance'
 import { CustomRange } from './CustomRange'
 import { Hud } from './Hud'
@@ -128,6 +127,7 @@ function setup() {
     RedTower,
     YellowTower,
     Distance,
+    ProgressBar,
   )
 
   const tileGenerator = new TileGenerator(
@@ -138,7 +138,6 @@ function setup() {
     PathTile,
     StartTile,
     EndTile,
-    UpgradeDisplay,
     towerGenerator,
   )
   orangeTiles = tileGenerator.orangeTiles()
@@ -299,18 +298,12 @@ function draw() {
 
   image(backgroundImage, 0, Const.HUD_HEIGHT)
 
-  enemies.forEach((enemy) => {
-    enemy.draw()
-  })
-
   startTile.draw()
   endTile.draw()
 
   orangeTiles.forEach((orangeTile) => {
     orangeTile.selectTarget(enemies)
-    orangeTile.updateUpgradeDisplay()
     orangeTile.drawTile()
-    orangeTile.drawUpgradeDisplay()
   })
 
   orangeTiles.forEach((orangeTile) => {
@@ -334,6 +327,10 @@ function draw() {
   } else {
     hud.setType(Const.HUD_NORMAL)
   }
+
+  enemies.forEach((enemy) => {
+    enemy.draw()
+  })
 
   Debug.showMouseCoordinates(mouseX, mouseY)
 }

@@ -1,6 +1,5 @@
 import { ConstType, TowerType } from './types'
 import { TowerGenerator } from './TowerGenerator'
-import { UpgradeDisplay } from './UpgradeDisplay'
 import { Image } from 'p5'
 
 export class OrangeTile {
@@ -8,29 +7,24 @@ export class OrangeTile {
   x: number
   y: number
   Const: ConstType
-  UpgradeDisplayClass: typeof UpgradeDisplay
   towerGenerator: TowerGenerator
 
   tower: TowerType
-  upgradeDisplay: UpgradeDisplay
 
   constructor(
     img: Image,
     x: number,
     y: number,
     Const: ConstType,
-    UpgradeDisplayClass: typeof UpgradeDisplay,
     towerGenerator: TowerGenerator,
   ) {
     this.img = img
     this.x = x
     this.y = y
     this.Const = Const
-    this.UpgradeDisplayClass = UpgradeDisplayClass
     this.towerGenerator = towerGenerator
 
     this.tower = null
-    this.upgradeDisplay = null
   }
 
   sellTower() {
@@ -43,40 +37,13 @@ export class OrangeTile {
     return profit
   }
 
-  _showUpgradeDisplay(towerType: number) {
-    if (this.upgradeDisplay === null) {
-      this.upgradeDisplay = new this.UpgradeDisplayClass(
-        this.x,
-        this.y,
-        this.tower.getColor(),
-      )
-    }
-  }
-
   buyTower(towerType: number) {
-    let cost = 0
-
     if (this.tower === null) {
       this.tower = this.towerGenerator.newTower(towerType, this.x, this.y)
-      cost = this.tower.getCost()
     } else {
-      const currentUpgradeLevel = this.tower.getUpgradeLevel()
-      if (currentUpgradeLevel < this.Const.UPGRADE_MAX_LEVEL) {
-        this._showUpgradeDisplay(towerType)
-        cost = this.tower.getCostWhenUpgradeLevelIs(currentUpgradeLevel + 1)
-      }
+      this.tower.upgrade()
     }
-
-    return cost
-  }
-
-  updateUpgradeDisplay() {
-    if (this.upgradeDisplay) {
-      if (this.upgradeDisplay.isFinished()) {
-        this.upgradeDisplay = null
-        this._upgradeTower()
-      }
-    }
+    return this.tower.getCost()
   }
 
   _upgradeTower() {
@@ -89,14 +56,8 @@ export class OrangeTile {
     image(this.img, this.x, this.y)
   }
 
-  drawUpgradeDisplay() {
-    if (this.upgradeDisplay) {
-      this.upgradeDisplay.draw()
-    }
-  }
-
   drawTower() {
-    if (this.tower && this.upgradeDisplay === null) {
+    if (this.tower) {
       this.tower.draw()
     }
   }

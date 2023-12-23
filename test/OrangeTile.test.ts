@@ -3,9 +3,9 @@ import { Const } from '../src/Const'
 import { GreenTower } from '../src/GreenTower'
 import { RedTower } from '../src/RedTower'
 import { YellowTower } from '../src/YellowTower'
-import { UpgradeDisplay } from '../src/UpgradeDisplay'
 import { Distance } from '../src/Distance'
 import { TowerGenerator } from '../src/TowerGenerator'
+import { ProgressBar } from '../src/ProgressBar'
 
 const greenTowerImages: any[] = [null, null, null]
 const redTowerImages: any[] = [null, null, null]
@@ -20,19 +20,13 @@ const towerGenerator = new TowerGenerator(
   RedTower,
   YellowTower,
   Distance,
+  ProgressBar,
 )
 
 describe('When clic over an orange tile', () => {
   test('If mouse is inside should return true', () => {
     const img: any = null
-    const orangeTile = new OrangeTile(
-      img,
-      100,
-      200,
-      Const,
-      UpgradeDisplay,
-      towerGenerator,
-    )
+    const orangeTile = new OrangeTile(img, 100, 200, Const, towerGenerator)
 
     const result = orangeTile.isInside(120, 220)
 
@@ -41,14 +35,7 @@ describe('When clic over an orange tile', () => {
 
   test('If mouse is outside should return false', () => {
     const img: any = null
-    const orangeTile = new OrangeTile(
-      img,
-      100,
-      200,
-      Const,
-      UpgradeDisplay,
-      towerGenerator,
-    )
+    const orangeTile = new OrangeTile(img, 100, 200, Const, towerGenerator)
 
     const result = orangeTile.isInside(90, 220)
 
@@ -59,14 +46,7 @@ describe('When clic over an orange tile', () => {
 describe('Other methods of the orange tile', () => {
   test('should return true when has a tower', () => {
     const img: any = null
-    const orangeTile = new OrangeTile(
-      img,
-      100,
-      100,
-      Const,
-      UpgradeDisplay,
-      towerGenerator,
-    )
+    const orangeTile = new OrangeTile(img, 100, 100, Const, towerGenerator)
 
     const cost = orangeTile.buyTower(Const.GREEN_TOWER)
     const result = orangeTile.hasTower()
@@ -78,14 +58,7 @@ describe('Other methods of the orange tile', () => {
     const expected = 50
 
     const img: any = null
-    const orangeTile = new OrangeTile(
-      img,
-      100,
-      100,
-      Const,
-      UpgradeDisplay,
-      towerGenerator,
-    )
+    const orangeTile = new OrangeTile(img, 100, 100, Const, towerGenerator)
 
     const cost = orangeTile.buyTower(Const.GREEN_TOWER)
     const result = orangeTile.sellTower()

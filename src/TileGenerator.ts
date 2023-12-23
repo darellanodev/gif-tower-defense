@@ -3,7 +3,6 @@ import { StartTile } from './StartTile'
 import { EndTile } from './EndTile'
 import { OrangeTile } from './OrangeTile'
 import { PathTile } from './PathTile'
-import { UpgradeDisplay } from './UpgradeDisplay'
 import { TowerGenerator } from './TowerGenerator'
 import { Image } from 'p5'
 
@@ -24,7 +23,6 @@ export class TileGenerator {
   PathTileClass: typeof PathTile
   StartTileClass: typeof StartTile
   EndTileClass: typeof EndTile
-  UpgradeDisplayClass: typeof UpgradeDisplay
   towerGenerator: TowerGenerator
 
   constructor(
@@ -35,7 +33,6 @@ export class TileGenerator {
     PathTileClass: typeof PathTile,
     StartTileClass: typeof StartTile,
     EndTileClass: typeof EndTile,
-    UpgradeDisplayClass: typeof UpgradeDisplay,
     towerGenerator: TowerGenerator,
   ) {
     this.levelMap = levelMap
@@ -45,7 +42,6 @@ export class TileGenerator {
     this.PathTileClass = PathTileClass
     this.StartTileClass = StartTileClass
     this.EndTileClass = EndTileClass
-    this.UpgradeDisplayClass = UpgradeDisplayClass
     this.towerGenerator = towerGenerator
 
     if (this.levelMap === '') {
@@ -136,7 +132,6 @@ export class TileGenerator {
                   posX,
                   posY,
                   this.Const,
-                  this.UpgradeDisplayClass,
                   this.towerGenerator,
                 ),
               )

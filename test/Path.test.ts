@@ -8,9 +8,9 @@ import { OrangeTile } from '../src/OrangeTile'
 import { GreenTower } from '../src/GreenTower'
 import { RedTower } from '../src/RedTower'
 import { YellowTower } from '../src/YellowTower'
-import { UpgradeDisplay } from '../src/UpgradeDisplay'
 import { Distance } from '../src/Distance'
 import { TowerGenerator } from '../src/TowerGenerator'
+import { ProgressBar } from '../src/ProgressBar'
 
 const levelMap = `111111111111111x,
                   1000000000000000,
@@ -37,6 +37,7 @@ const towerGenerator = new TowerGenerator(
   RedTower,
   YellowTower,
   Distance,
+  ProgressBar,
 )
 
 const tileGenerator = new TileGenerator(
@@ -47,7 +48,6 @@ const tileGenerator = new TileGenerator(
   PathTile,
   StartTile,
   EndTile,
-  UpgradeDisplay,
   towerGenerator,
 )
 const pathTiles = tileGenerator.pathTiles()
@@ -339,7 +339,6 @@ describe('invalid map', () => {
       PathTile,
       StartTile,
       EndTile,
-      UpgradeDisplay,
       towerGenerator,
     )
     const pathTiles = tileGenerator.pathTiles()

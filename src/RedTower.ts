@@ -1,14 +1,20 @@
 import { ConstType } from './types'
 import { Distance } from './Distance'
 import { Image } from 'p5'
+import { ProgressBar } from './ProgressBar'
 
 export class RedTower {
   images: Image[]
   x: number
   y: number
-  upgradeLevel: number
   Const: ConstType
   DistanceClass: typeof Distance
+  ProgressBarClass: typeof ProgressBar
+
+  upgradeLevel: number
+  isUpgrading: boolean
+  progressBar: ProgressBar
+  upgradeProgress: number
 
   constructor(
     images: Image[],
@@ -16,17 +22,26 @@ export class RedTower {
     y: number,
     Const: ConstType,
     DistanceClass: typeof Distance,
+    ProgressBarClass: typeof ProgressBar,
   ) {
     this.images = images
     this.x = x
     this.y = y
     this.Const = Const
     this.DistanceClass = DistanceClass
+    this.ProgressBarClass = ProgressBarClass
+
     this.upgradeLevel = 0
+    this.isUpgrading = false
+    this.progressBar = new this.ProgressBarClass(this.x, this.y, 27, 7)
+    this.upgradeProgress = 0
   }
 
   upgrade() {
-    this.upgradeLevel++
+    if (!this.isUpgrading) {
+      this.isUpgrading = true
+      this.upgradeLevel++
+    }
   }
 
   getX() {
@@ -43,6 +58,16 @@ export class RedTower {
 
   draw() {
     image(this.images[this.upgradeLevel], this.x, this.y)
+    if (this.isUpgrading) {
+      if (!this.progressBar.isFullOfProgress()) {
+        this.upgradeProgress++
+        this.progressBar.setProgress(this.upgradeProgress)
+        this.progressBar.draw()
+      } else {
+        this.isUpgrading = false
+        this.upgradeProgress = 0
+      }
+    }
   }
 
   getInfluenceArea() {

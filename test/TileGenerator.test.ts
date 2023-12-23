@@ -7,9 +7,9 @@ import { OrangeTile } from '../src/OrangeTile'
 import { GreenTower } from '../src/GreenTower'
 import { RedTower } from '../src/RedTower'
 import { YellowTower } from '../src/YellowTower'
-import { UpgradeDisplay } from '../src/UpgradeDisplay'
 import { Distance } from '../src/Distance'
 import { TowerGenerator } from '../src/TowerGenerator'
+import { ProgressBar } from '../src/ProgressBar'
 
 const levelMap = `111111111111111x,
                   1000000000000000,
@@ -36,6 +36,7 @@ const towerGenerator = new TowerGenerator(
   RedTower,
   YellowTower,
   Distance,
+  ProgressBar,
 )
 
 test('TileGenerator throws an exception when an empty string is passed to it', () => {
@@ -49,7 +50,6 @@ test('TileGenerator throws an exception when an empty string is passed to it', (
         PathTile,
         StartTile,
         EndTile,
-        UpgradeDisplay,
         towerGenerator,
       ),
   ).toThrowError('Level map string cannot be empty')
@@ -64,7 +64,6 @@ test('TileGenerator generate orange tiles', () => {
     PathTile,
     StartTile,
     EndTile,
-    UpgradeDisplay,
     towerGenerator,
   )
 
@@ -83,7 +82,6 @@ test('TileGenerator generate path tiles', () => {
     PathTile,
     StartTile,
     EndTile,
-    UpgradeDisplay,
     towerGenerator,
   )
 
@@ -102,7 +100,6 @@ test('TileGenerator generate start tile', () => {
     PathTile,
     StartTile,
     EndTile,
-    UpgradeDisplay,
     towerGenerator,
   )
 
@@ -121,7 +118,6 @@ test('TileGenerator generate end tile', () => {
     PathTile,
     StartTile,
     EndTile,
-    UpgradeDisplay,
     towerGenerator,
   )
 
@@ -142,7 +138,6 @@ test('TileGenerator generate the initial money', () => {
     PathTile,
     StartTile,
     EndTile,
-    UpgradeDisplay,
     towerGenerator,
   )
 
