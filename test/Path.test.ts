@@ -83,8 +83,9 @@ const isIncluded = (
 
 describe('finds a pathtile', () => {
   test('if exists return the pathtile', () => {
-    const startTile = new StartTile(null, 300, 300, Const.LEFT_DIRECTION)
-    const endTile = new EndTile(null, 0, 300)
+    const img: any = null
+    const startTile = new StartTile(img, 300, 300, Const.LEFT_DIRECTION)
+    const endTile = new EndTile(img, 0, 300)
 
     const searchTile = new PathTile(150, 300)
 
