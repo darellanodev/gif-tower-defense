@@ -10,16 +10,18 @@ export class Enemy {
   orders: number[]
   startTile: StartTile
   endTile: EndTile
+  Const: ConstType
+  RandomClass: typeof Random
+  ProgressBarClass: typeof ProgressBar
+
   imgIndex: number
   imgIndexBeforeEyesClosed: number
   eyesSequence: number[]
   healthBar: ProgressBar
   status: number
   damage: number
-
   x: number
   y: number
-
   currentDirection: number
   moveCount: number
   indexOrder: number
@@ -29,12 +31,8 @@ export class Enemy {
   indexEyesSecuence: number
   closeEyesTime: number
   extendClosedEyesTime: number
-
   randomCloseEyes: number
-
-  Const: ConstType
-  RandomClass: typeof Random
-  ProgressBarClass: typeof ProgressBar
+  winned: boolean
 
   constructor(
     images: Image[],
@@ -84,6 +82,7 @@ export class Enemy {
     this.closeEyesTime = 0
     this.extendClosedEyesTime = 0
     this.randomCloseEyes = 0
+    this.winned = false
   }
 
   addDamage(shotDamage: number) {
@@ -103,7 +102,16 @@ export class Enemy {
     return this.status == this.Const.ENEMY_STATUS_ALIVE
   }
 
+  isWinner() {
+    return this.winned
+  }
+
+  resetWinner() {
+    this.winned = false
+  }
+
   reinitEnemy() {
+    this.winned = true
     this.currentDirection = this.startTile.getStartDirection()
     this.moveCount = 0
     this.indexOrder = 0

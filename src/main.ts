@@ -276,22 +276,30 @@ function updateEnemies() {
       waveEnemies++
     }
   }
-
+  // explosions
   const deadEnemies: Enemy[] = enemies.filter((enemy) => enemy.isDead())
   deadEnemies.forEach((enemy) => {
     enemyExplosions.push(
       new EnemyExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem),
     )
   })
-
   enemyExplosions = enemyExplosions.filter((enemyExplosion) =>
     enemyExplosion.isActive(),
   )
 
+  // remove dead enemies
   enemies = enemies.filter((enemy) => enemy.isAlive())
 
   enemies.forEach((enemy) => {
     enemy.update()
+  })
+
+  // winner enemies decrease player lives
+  const winnerEnemies = enemies.filter((enemy) => enemy.isWinner())
+  winnerEnemies.forEach((enemy) => {
+    lives--
+    hud.setLives(lives)
+    enemy.resetWinner()
   })
 }
 

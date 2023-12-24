@@ -97,6 +97,10 @@ export class Hud {
     this.money = money
   }
 
+  setLives(lives: number) {
+    this.lives = lives
+  }
+
   _setColorsForTexts() {
     fill(255)
     stroke(0)
