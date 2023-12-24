@@ -12,7 +12,7 @@ export class RedTower {
   ProgressBarClass: typeof ProgressBar
 
   upgradeLevel: number
-  isUpgrading: boolean
+  upgrading: boolean
   progressBar: ProgressBar
   upgradeProgress: number
 
@@ -32,7 +32,7 @@ export class RedTower {
     this.ProgressBarClass = ProgressBarClass
 
     this.upgradeLevel = 0
-    this.isUpgrading = false
+    this.upgrading = false
     this.progressBar = new this.ProgressBarClass(
       this.x + this.Const.TOWER_OFFSET,
       this.y + this.Const.TOWER_OFFSET,
@@ -43,10 +43,14 @@ export class RedTower {
   }
 
   upgrade() {
-    if (!this.isUpgrading) {
-      this.isUpgrading = true
+    if (!this.upgrading) {
+      this.upgrading = true
       this.upgradeLevel++
     }
+  }
+
+  isNotUpgrading() {
+    return !this.upgrading
   }
 
   getX() {
@@ -69,14 +73,14 @@ export class RedTower {
   }
 
   draw() {
-    if (this.isUpgrading) {
+    if (this.upgrading) {
       this._drawUpgradeBackground()
       if (!this.progressBar.isFullOfProgress()) {
         this.upgradeProgress++
         this.progressBar.setProgress(this.upgradeProgress)
         this.progressBar.draw()
       } else {
-        this.isUpgrading = false
+        this.upgrading = false
         this.upgradeProgress = 0
         this.progressBar.setProgress(0)
       }

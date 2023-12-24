@@ -15,7 +15,7 @@ export class GreenTower {
   upgradeLevel: number
   enemyTarget: Enemy
   distanceToEnemyTarget: number
-  isUpgrading: boolean
+  upgrading: boolean
   progressBar: ProgressBar
   upgradeProgress: number
 
@@ -37,7 +37,7 @@ export class GreenTower {
     this.upgradeLevel = 0
     this.enemyTarget = null
     this.distanceToEnemyTarget = 0
-    this.isUpgrading = false
+    this.upgrading = false
     this.progressBar = new this.ProgressBarClass(
       this.x + this.Const.TOWER_OFFSET,
       this.y + this.Const.TOWER_OFFSET,
@@ -48,10 +48,14 @@ export class GreenTower {
   }
 
   upgrade() {
-    if (!this.isUpgrading) {
-      this.isUpgrading = true
+    if (!this.upgrading) {
+      this.upgrading = true
       this.upgradeLevel++
     }
+  }
+
+  isNotUpgrading() {
+    return !this.upgrading
   }
 
   getX() {
@@ -85,14 +89,14 @@ export class GreenTower {
   }
 
   draw() {
-    if (this.isUpgrading) {
+    if (this.upgrading) {
       this._drawUpgradeBackground()
       if (!this.progressBar.isFullOfProgress()) {
         this.upgradeProgress++
         this.progressBar.setProgress(this.upgradeProgress)
         this.progressBar.draw()
       } else {
-        this.isUpgrading = false
+        this.upgrading = false
         this.upgradeProgress = 0
         this.progressBar.setProgress(0)
       }

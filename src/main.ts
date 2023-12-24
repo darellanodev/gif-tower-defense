@@ -244,7 +244,9 @@ function mouseClicked() {
 
   if (mouseOrangeTileOver !== null) {
     if (mouseButton === RIGHT && mouseOrangeTileOver.hasTower()) {
-      handleSellTower()
+      if (mouseOrangeTileOver.getTower().isNotUpgrading()) {
+        handleSellTower()
+      }
     }
 
     if (mouseButton === LEFT) {
