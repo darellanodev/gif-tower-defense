@@ -1,4 +1,3 @@
-/* This line is used by the build script. Dont modify this line */
 import { TowerType } from './types'
 import { Const } from './Const'
 import { Path } from './Path'
@@ -21,10 +20,9 @@ import { ProgressBar } from './ProgressBar'
 import { Wallet } from './Wallet'
 import { ImageUtils } from './ImageUtils'
 import { InfluenceArea } from './InfluenceArea'
-import { Particle } from './Particle'
-import { ParticleSystem } from './ParticleSystem'
+import { EnemyExplosion } from './EnemyExplosion'
 import { Image } from 'p5'
-// */ // End of imports. This line is used by the build script. Dont modify this line
+import { ParticleSystem } from './ParticleSystem'
 
 let orders: number[]
 let createEnemyTime: number
@@ -46,7 +44,7 @@ let backgroundImage: Image
 let enemiesImages: Image[]
 let towerGenerator: TowerGenerator
 let influenceArea: InfluenceArea
-let system: any
+let enemyExplosions: EnemyExplosion[]
 
 function preload() {
   greenTowerImages = []
@@ -158,9 +156,9 @@ function setup() {
   waveEnemies = 0
   enemies = []
 
-  influenceArea = new InfluenceArea(Const)
+  enemyExplosions = []
 
-  system = new ParticleSystem(createVector(width / 2, 50))
+  influenceArea = new InfluenceArea(Const)
 }
 
 function keyPressed() {
@@ -275,6 +273,17 @@ function updateEnemies() {
     }
   }
 
+  const deadEnemies: Enemy[] = enemies.filter((enemy) => enemy.isDead())
+  deadEnemies.forEach((enemy) => {
+    enemyExplosions.push(
+      new EnemyExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem),
+    )
+  })
+
+  enemyExplosions = enemyExplosions.filter((enemyExplosion) =>
+    enemyExplosion.isActive(),
+  )
+
   enemies = enemies.filter((enemy) => enemy.isAlive())
 
   enemies.forEach((enemy) => {
@@ -337,8 +346,9 @@ function draw() {
     enemy.draw()
   })
 
-  Debug.showMouseCoordinates(mouseX, mouseY)
+  enemyExplosions.forEach((enemyExplosion) => {
+    enemyExplosion.update()
+  })
 
-  system.addParticle()
-  system.run()
+  Debug.showMouseCoordinates(mouseX, mouseY)
 }

@@ -74,4 +74,7 @@ export type ConstType = {
 
   PROGRESSBAR_WIDTH: number
   PROGRESSBAR_HEIGHT: number
+
+  ENEMY_EXPLOSION_MAX_EMIT_TIME: number
+  EXPLOSION_OFFSET: number
 }
