@@ -7,11 +7,21 @@ export class Hud {
   Const: ConstType
   hudType: number
   selectedItem: number
+  lives: number
+  score: number
 
-  constructor(hudImages: Image[], money: number, Const: ConstType) {
+  constructor(
+    hudImages: Image[],
+    money: number,
+    Const: ConstType,
+    lives: number,
+    score: number,
+  ) {
     this.hudImages = hudImages
     this.money = money
     this.Const = Const
+    this.lives = lives
+    this.score = score
 
     this.hudType = this.Const.HUD_NORMAL
 
@@ -64,6 +74,7 @@ export class Hud {
         image(this.hudImages[this.Const.HUD_NORMAL], 0, 0)
 
         this._drawSelectedItem()
+        this._setColorsForTexts()
         this._drawLevelTitle()
         break
 
@@ -76,24 +87,35 @@ export class Hud {
         break
     }
 
+    this._setColorsForTexts()
     this._drawMoney()
+    this._drawLives()
+    this._drawScore()
   }
 
   setMoney(money: number) {
     this.money = money
   }
 
-  _drawMoney() {
+  _setColorsForTexts() {
     fill(255)
     stroke(0)
     strokeWeight(4)
+  }
+
+  _drawMoney() {
     text(this.money, 445, 48)
   }
 
+  _drawLives() {
+    text(this.lives, 390, 48)
+  }
+
+  _drawScore() {
+    text(this.score, 397, 73)
+  }
+
   _drawLevelTitle() {
-    fill(255)
-    stroke(0)
-    strokeWeight(4)
     text('Serpent by Ocliboy', 130, 18)
   }
 

@@ -45,6 +45,8 @@ let enemiesImages: Image[]
 let towerGenerator: TowerGenerator
 let influenceArea: InfluenceArea
 let enemyExplosions: EnemyExplosion[]
+let lives: number
+let score: number
 
 function preload() {
   greenTowerImages = []
@@ -150,7 +152,9 @@ function setup() {
   orders = path.makeOrders()
 
   wallet = new Wallet(tileGenerator.getInitialMoney(), Const)
-  hud = new Hud(hudImages, wallet.getMoney(), Const)
+  lives = 7
+  score = 0
+  hud = new Hud(hudImages, wallet.getMoney(), Const, lives, score)
 
   wave = 1
   waveEnemies = 0
