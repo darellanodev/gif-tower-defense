@@ -74,8 +74,6 @@ export class Hud {
         image(this.hudImages[this.Const.HUD_NORMAL], 0, 0)
 
         this._drawSelectedItem()
-        this._setColorsForTexts()
-        this._drawLevelTitle()
         break
 
       case this.Const.HUD_UPGRADING:
@@ -91,6 +89,7 @@ export class Hud {
     this._drawMoney()
     this._drawLives()
     this._drawScore()
+    this._drawLevelTitle()
   }
 
   setMoney(money: number) {
