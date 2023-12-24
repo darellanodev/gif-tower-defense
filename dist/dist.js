@@ -50,6 +50,8 @@ var Const = (function () {
     Const.ENEMY_STATUS_DEAD = 1;
     Const.PROGRESSBAR_WIDTH = 27;
     Const.PROGRESSBAR_HEIGHT = 7;
+    Const.ENEMY_EXPLOSION_MAX_EMIT_TIME = 20;
+    Const.EXPLOSION_OFFSET = 25;
     return Const;
 }());
 var CustomRange = (function () {
@@ -265,6 +267,27 @@ var Enemy = (function () {
         this.healthBar.draw();
     };
     return Enemy;
+}());
+var EnemyExplosion = (function () {
+    function EnemyExplosion(x, y, Const, ParticleSystemClass) {
+        this.x = x;
+        this.y = y;
+        this.Const = Const;
+        this.particleSystem = new ParticleSystemClass(createVector(this.x + this.Const.EXPLOSION_OFFSET, this.y + this.Const.EXPLOSION_OFFSET));
+        this.emisionTime = 0;
+        this.finished = false;
+    }
+    EnemyExplosion.prototype.isActive = function () {
+        return !this.finished;
+    };
+    EnemyExplosion.prototype.update = function () {
+        if (this.emisionTime < this.Const.ENEMY_EXPLOSION_MAX_EMIT_TIME) {
+            this.emisionTime++;
+            this.particleSystem.addParticle();
+        }
+        this.particleSystem.run();
+    };
+    return EnemyExplosion;
 }());
 var GreenTower = (function () {
     function GreenTower(images, x, y, Const, DistanceClass, ProgressBarClass) {
@@ -631,6 +654,52 @@ var OrangeTile = (function () {
         return null;
     };
     return OrangeTile;
+}());
+var Particle = (function () {
+    function Particle(position) {
+        this.acceleration = createVector(0, 0.05);
+        this.velocity = createVector(random(-1, 1), random(-1, 0));
+        this.position = position.copy();
+        this.lifespan = 255;
+    }
+    Particle.prototype.run = function () {
+        this.update();
+        this.display();
+    };
+    Particle.prototype.update = function () {
+        this.velocity.add(this.acceleration);
+        this.position.add(this.velocity);
+        this.lifespan -= 2;
+    };
+    Particle.prototype.display = function () {
+        stroke(200, this.lifespan);
+        strokeWeight(2);
+        fill(127, this.lifespan);
+        ellipse(this.position.x, this.position.y, 12, 12);
+    };
+    Particle.prototype.isDead = function () {
+        return this.lifespan < 0;
+    };
+    return Particle;
+}());
+var ParticleSystem = (function () {
+    function ParticleSystem(position) {
+        this.origin = position.copy();
+        this.particles = [];
+    }
+    ParticleSystem.prototype.addParticle = function () {
+        this.particles.push(new Particle(this.origin));
+    };
+    ParticleSystem.prototype.run = function () {
+        for (var i = this.particles.length - 1; i >= 0; i--) {
+            var p = this.particles[i];
+            p.run();
+            if (p.isDead()) {
+                this.particles.splice(i, 1);
+            }
+        }
+    };
+    return ParticleSystem;
 }());
 var Path = (function () {
     function Path(startTile, endTile, pathTiles, Const) {
@@ -1190,6 +1259,7 @@ var backgroundImage;
 var enemiesImages;
 var towerGenerator;
 var influenceArea;
+var enemyExplosions;
 function preload() {
     greenTowerImages = [];
     redTowerImages = [];
@@ -1253,6 +1323,7 @@ function setup() {
     wave = 1;
     waveEnemies = 0;
     enemies = [];
+    enemyExplosions = [];
     influenceArea = new InfluenceArea(Const);
 }
 function keyPressed() {
@@ -1344,6 +1415,13 @@ function updateEnemies() {
             waveEnemies++;
         }
     }
+    var deadEnemies = enemies.filter(function (enemy) { return enemy.isDead(); });
+    deadEnemies.forEach(function (enemy) {
+        enemyExplosions.push(new EnemyExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem));
+    });
+    enemyExplosions = enemyExplosions.filter(function (enemyExplosion) {
+        return enemyExplosion.isActive();
+    });
     enemies = enemies.filter(function (enemy) { return enemy.isAlive(); });
     enemies.forEach(function (enemy) {
         enemy.update();
@@ -1389,6 +1467,9 @@ function draw() {
     }
     enemies.forEach(function (enemy) {
         enemy.draw();
+    });
+    enemyExplosions.forEach(function (enemyExplosion) {
+        enemyExplosion.update();
     });
     Debug.showMouseCoordinates(mouseX, mouseY);
 }
