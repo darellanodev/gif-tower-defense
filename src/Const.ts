@@ -67,6 +67,6 @@ export class Const {
   static PROGRESSBAR_WIDTH = 27
   static PROGRESSBAR_HEIGHT = 7
 
-  static ENEMY_EXPLOSION_MAX_EMIT_TIME = 20
+  static ENEMY_EXPLOSION_MAX_EMIT_TIME = 5
   static EXPLOSION_OFFSET = 25
 }
