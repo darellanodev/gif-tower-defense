@@ -52,6 +52,8 @@ var Const = (function () {
     Const.PROGRESSBAR_HEIGHT = 7;
     Const.ENEMY_EXPLOSION_MAX_EMIT_TIME = 5;
     Const.EXPLOSION_OFFSET = 25;
+    Const.GAME_STATUS_PLAYING = 0;
+    Const.GAME_STATUS_GAME_OVER = 1;
     return Const;
 }());
 var CustomRange = (function () {
@@ -66,9 +68,7 @@ var Debug = (function () {
     function Debug() {
     }
     Debug.showMouseCoordinates = function (px, py) {
-        fill(255);
-        stroke(0);
-        strokeWeight(4);
+        TextProperties.setForHudData();
         text("".concat(px, " - ").concat(py), 260, 18);
     };
     return Debug;
@@ -420,12 +420,13 @@ var GreenTower = (function () {
     return GreenTower;
 }());
 var Hud = (function () {
-    function Hud(hudImages, money, Const, lives, score) {
+    function Hud(hudImages, money, Const, lives, score, TextPropertiesClass) {
         this.hudImages = hudImages;
         this.money = money;
         this.Const = Const;
         this.lives = lives;
         this.score = score;
+        this.TextPropertiesClass = TextPropertiesClass;
         this.hudType = this.Const.HUD_NORMAL;
         this.selectedItem = this.Const.GREEN_TOWER;
     }
@@ -475,7 +476,7 @@ var Hud = (function () {
                 image(this.hudImages[this.Const.HUD_UPGRADING_MAX], 0, 0);
                 break;
         }
-        this._setColorsForTexts();
+        this.TextPropertiesClass.setForHudData();
         this._drawMoney();
         this._drawLives();
         this._drawScore();
@@ -486,11 +487,6 @@ var Hud = (function () {
     };
     Hud.prototype.setLives = function (lives) {
         this.lives = lives;
-    };
-    Hud.prototype._setColorsForTexts = function () {
-        fill(255);
-        stroke(0);
-        strokeWeight(4);
     };
     Hud.prototype._drawMoney = function () {
         text(this.money, 445, 48);
@@ -1010,6 +1006,25 @@ var StartTile = (function () {
     };
     return StartTile;
 }());
+var TextProperties = (function () {
+    function TextProperties() {
+    }
+    TextProperties.setForBigCenteredTitle = function () {
+        fill('white');
+        stroke('black');
+        strokeWeight(2);
+        textSize(30);
+        textAlign(CENTER);
+    };
+    TextProperties.setForHudData = function () {
+        textSize(12);
+        fill('white');
+        stroke('black');
+        strokeWeight(4);
+        textAlign(LEFT);
+    };
+    return TextProperties;
+}());
 var TileGenerator = (function () {
     function TileGenerator(levelMap, mapImages, Const, OrangeTileClass, PathTileClass, StartTileClass, EndTileClass, towerGenerator) {
         this.FLOOR_SIZE = 50;
@@ -1290,6 +1305,7 @@ var influenceArea;
 var enemyExplosions;
 var lives;
 var score;
+var gameStatus;
 function preload() {
     greenTowerImages = [];
     redTowerImages = [];
@@ -1351,12 +1367,13 @@ function setup() {
     wallet = new Wallet(tileGenerator.getInitialMoney(), Const);
     lives = 7;
     score = 0;
-    hud = new Hud(hudImages, wallet.getMoney(), Const, lives, score);
+    hud = new Hud(hudImages, wallet.getMoney(), Const, lives, score, TextProperties);
     wave = 1;
     waveEnemies = 0;
     enemies = [];
     enemyExplosions = [];
     influenceArea = new InfluenceArea(Const);
+    gameStatus = Const.GAME_STATUS_PLAYING;
 }
 function keyPressed() {
     switch (keyCode) {
@@ -1463,6 +1480,9 @@ function updateEnemies() {
     var winnerEnemies = enemies.filter(function (enemy) { return enemy.isWinner(); });
     winnerEnemies.forEach(function (enemy) {
         lives--;
+        if (lives <= 0) {
+            gameStatus = Const.GAME_STATUS_GAME_OVER;
+        }
         hud.setLives(lives);
         enemy.resetWinner();
     });
@@ -1477,8 +1497,10 @@ function getMouseOrangeTileOver() {
     return result ? result : null;
 }
 function draw() {
-    updateEnemies();
-    updateMouseOrangeTileOver();
+    if (gameStatus === Const.GAME_STATUS_PLAYING) {
+        updateEnemies();
+        updateMouseOrangeTileOver();
+    }
     background('skyblue');
     rectMode(CORNER);
     image(backgroundImage, 0, Const.HUD_HEIGHT);
@@ -1511,6 +1533,10 @@ function draw() {
     enemyExplosions.forEach(function (enemyExplosion) {
         enemyExplosion.update();
     });
+    if (gameStatus === Const.GAME_STATUS_GAME_OVER) {
+        TextProperties.setForBigCenteredTitle();
+        text('Game over', width / 2, height / 2);
+    }
     Debug.showMouseCoordinates(mouseX, mouseY);
 }
 //# sourceMappingURL=dist.js.map
