@@ -49,6 +49,10 @@ let enemyExplosions: EnemyExplosion[]
 let lives: number
 let score: number
 let gameStatus: number
+let waveProgress: number
+let waveProgressDelay: number
+let bossProgress: number
+let bossProgressDelay: number
 
 function preload() {
   greenTowerImages = []
@@ -156,6 +160,11 @@ function setup() {
   wallet = new Wallet(tileGenerator.getInitialMoney(), Const)
   lives = 7
   score = 0
+
+  wave = 1
+  waveEnemies = 0
+  enemies = []
+
   hud = new Hud(
     hudImages,
     wallet.getMoney(),
@@ -163,11 +172,14 @@ function setup() {
     lives,
     score,
     TextProperties,
+    ProgressBar,
+    wave,
   )
 
-  wave = 1
-  waveEnemies = 0
-  enemies = []
+  waveProgress = 0
+  bossProgress = 0
+  waveProgressDelay = Const.WAVE_PROGRESS_DELAY
+  bossProgressDelay = Const.BOSS_PROGRESS_DELAY
 
   enemyExplosions = []
 
@@ -331,10 +343,42 @@ function getMouseOrangeTileOver() {
   return result ? result : null
 }
 
+function updateWaveProgressBar() {
+  if (waveProgressDelay > 0) {
+    waveProgressDelay--
+  } else {
+    waveProgressDelay = Const.WAVE_PROGRESS_DELAY
+    waveProgress++
+    hud.setWaveProgress(waveProgress)
+    if (hud.getWaveProgressBar().isFullOfProgress()) {
+      // next wave
+      waveProgress = 0
+      wave++
+      hud.setWave(wave)
+    }
+  }
+}
+
+function updateBossProgressBar() {
+  if (bossProgressDelay > 0) {
+    bossProgressDelay--
+  } else {
+    bossProgressDelay = Const.BOSS_PROGRESS_DELAY
+    bossProgress++
+    hud.setBossProgress(bossProgress)
+    if (hud.getBossProgressBar().isFullOfProgress()) {
+      // next boss
+      bossProgress = 0
+    }
+  }
+}
+
 function draw() {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
     updateEnemies()
     updateMouseOrangeTileOver()
+    updateWaveProgressBar()
+    updateBossProgressBar()
   }
 
   background('skyblue')

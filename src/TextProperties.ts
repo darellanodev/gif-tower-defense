@@ -10,7 +10,7 @@ export class TextProperties {
     textSize(12)
     fill('white')
     stroke('black')
-    strokeWeight(4)
+    strokeWeight(2)
     textAlign(LEFT)
   }
 }

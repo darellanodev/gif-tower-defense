@@ -80,4 +80,7 @@ export type ConstType = {
 
   GAME_STATUS_PLAYING: number
   GAME_STATUS_GAME_OVER: number
+
+  WAVE_PROGRESS_DELAY: number
+  BOSS_PROGRESS_DELAY: number
 }

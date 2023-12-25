@@ -72,4 +72,7 @@ export class Const {
 
   static GAME_STATUS_PLAYING = 0
   static GAME_STATUS_GAME_OVER = 1
+
+  static WAVE_PROGRESS_DELAY = 10
+  static BOSS_PROGRESS_DELAY = 50
 }

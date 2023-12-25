@@ -1,5 +1,6 @@
 import { ConstType } from './types'
 import { TextProperties } from './TextProperties'
+import { ProgressBar } from './ProgressBar'
 import { Image } from 'p5'
 
 export class Hud {
@@ -11,6 +12,10 @@ export class Hud {
   lives: number
   score: number
   TextPropertiesClass: typeof TextProperties
+  ProgressBarClass: typeof ProgressBar
+  waveProgressBar: ProgressBar
+  bossProgressBar: ProgressBar
+  wave: number
 
   constructor(
     hudImages: Image[],
@@ -19,6 +24,8 @@ export class Hud {
     lives: number,
     score: number,
     TextPropertiesClass: typeof TextProperties,
+    ProgressBarClass: typeof ProgressBar,
+    wave: number,
   ) {
     this.hudImages = hudImages
     this.money = money
@@ -26,6 +33,11 @@ export class Hud {
     this.lives = lives
     this.score = score
     this.TextPropertiesClass = TextPropertiesClass
+    this.ProgressBarClass = ProgressBarClass
+    this.wave = wave
+
+    this.waveProgressBar = new ProgressBar(335, -19, 150, 16)
+    this.bossProgressBar = new ProgressBar(335, -2, 150, 10)
 
     this.hudType = this.Const.HUD_NORMAL
 
@@ -89,11 +101,19 @@ export class Hud {
         break
     }
 
+    this.waveProgressBar.draw()
+    this.bossProgressBar.draw()
+
     this.TextPropertiesClass.setForHudData()
     this._drawMoney()
     this._drawLives()
     this._drawScore()
     this._drawLevelTitle()
+    this._drawWave()
+  }
+
+  setWave(wave: number) {
+    this.wave = wave
   }
 
   setMoney(money: number) {
@@ -102,6 +122,22 @@ export class Hud {
 
   setLives(lives: number) {
     this.lives = lives
+  }
+
+  setWaveProgress(waveProgress: number) {
+    this.waveProgressBar.setProgress(waveProgress)
+  }
+
+  setBossProgress(bossProgress: number) {
+    this.bossProgressBar.setProgress(bossProgress)
+  }
+
+  getWaveProgressBar() {
+    return this.waveProgressBar
+  }
+
+  getBossProgressBar() {
+    return this.bossProgressBar
   }
 
   _drawMoney() {
@@ -118,6 +154,10 @@ export class Hud {
 
   _drawLevelTitle() {
     text('Serpent by Ocliboy', 130, 18)
+  }
+
+  _drawWave() {
+    text(`wave ${this.wave}`, 403, 13)
   }
 
   _drawSelectedItem() {
