@@ -54,6 +54,8 @@ var Const = (function () {
     Const.EXPLOSION_OFFSET = 25;
     Const.GAME_STATUS_PLAYING = 0;
     Const.GAME_STATUS_GAME_OVER = 1;
+    Const.WAVE_PROGRESS_DELAY = 10;
+    Const.BOSS_PROGRESS_DELAY = 50;
     return Const;
 }());
 var CustomRange = (function () {
@@ -420,13 +422,17 @@ var GreenTower = (function () {
     return GreenTower;
 }());
 var Hud = (function () {
-    function Hud(hudImages, money, Const, lives, score, TextPropertiesClass) {
+    function Hud(hudImages, money, Const, lives, score, TextPropertiesClass, ProgressBarClass, wave) {
         this.hudImages = hudImages;
         this.money = money;
         this.Const = Const;
         this.lives = lives;
         this.score = score;
         this.TextPropertiesClass = TextPropertiesClass;
+        this.ProgressBarClass = ProgressBarClass;
+        this.wave = wave;
+        this.waveProgressBar = new ProgressBar(335, -19, 150, 16);
+        this.bossProgressBar = new ProgressBar(335, -2, 150, 10);
         this.hudType = this.Const.HUD_NORMAL;
         this.selectedItem = this.Const.GREEN_TOWER;
     }
@@ -476,17 +482,35 @@ var Hud = (function () {
                 image(this.hudImages[this.Const.HUD_UPGRADING_MAX], 0, 0);
                 break;
         }
+        this.waveProgressBar.draw();
+        this.bossProgressBar.draw();
         this.TextPropertiesClass.setForHudData();
         this._drawMoney();
         this._drawLives();
         this._drawScore();
         this._drawLevelTitle();
+        this._drawWave();
+    };
+    Hud.prototype.setWave = function (wave) {
+        this.wave = wave;
     };
     Hud.prototype.setMoney = function (money) {
         this.money = money;
     };
     Hud.prototype.setLives = function (lives) {
         this.lives = lives;
+    };
+    Hud.prototype.setWaveProgress = function (waveProgress) {
+        this.waveProgressBar.setProgress(waveProgress);
+    };
+    Hud.prototype.setBossProgress = function (bossProgress) {
+        this.bossProgressBar.setProgress(bossProgress);
+    };
+    Hud.prototype.getWaveProgressBar = function () {
+        return this.waveProgressBar;
+    };
+    Hud.prototype.getBossProgressBar = function () {
+        return this.bossProgressBar;
     };
     Hud.prototype._drawMoney = function () {
         text(this.money, 445, 48);
@@ -499,6 +523,9 @@ var Hud = (function () {
     };
     Hud.prototype._drawLevelTitle = function () {
         text('Serpent by Ocliboy', 130, 18);
+    };
+    Hud.prototype._drawWave = function () {
+        text("wave ".concat(this.wave), 403, 13);
     };
     Hud.prototype._drawSelectedItem = function () {
         strokeWeight(3);
@@ -1020,7 +1047,7 @@ var TextProperties = (function () {
         textSize(12);
         fill('white');
         stroke('black');
-        strokeWeight(4);
+        strokeWeight(2);
         textAlign(LEFT);
     };
     return TextProperties;
@@ -1306,6 +1333,10 @@ var enemyExplosions;
 var lives;
 var score;
 var gameStatus;
+var waveProgress;
+var waveProgressDelay;
+var bossProgress;
+var bossProgressDelay;
 function preload() {
     greenTowerImages = [];
     redTowerImages = [];
@@ -1367,10 +1398,14 @@ function setup() {
     wallet = new Wallet(tileGenerator.getInitialMoney(), Const);
     lives = 7;
     score = 0;
-    hud = new Hud(hudImages, wallet.getMoney(), Const, lives, score, TextProperties);
     wave = 1;
     waveEnemies = 0;
     enemies = [];
+    hud = new Hud(hudImages, wallet.getMoney(), Const, lives, score, TextProperties, ProgressBar, wave);
+    waveProgress = 0;
+    bossProgress = 0;
+    waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
+    bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
     enemyExplosions = [];
     influenceArea = new InfluenceArea(Const);
     gameStatus = Const.GAME_STATUS_PLAYING;
@@ -1496,10 +1531,40 @@ function getMouseOrangeTileOver() {
     });
     return result ? result : null;
 }
+function updateWaveProgressBar() {
+    if (waveProgressDelay > 0) {
+        waveProgressDelay--;
+    }
+    else {
+        waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
+        waveProgress++;
+        hud.setWaveProgress(waveProgress);
+        if (hud.getWaveProgressBar().isFullOfProgress()) {
+            waveProgress = 0;
+            wave++;
+            hud.setWave(wave);
+        }
+    }
+}
+function updateBossProgressBar() {
+    if (bossProgressDelay > 0) {
+        bossProgressDelay--;
+    }
+    else {
+        bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
+        bossProgress++;
+        hud.setBossProgress(bossProgress);
+        if (hud.getBossProgressBar().isFullOfProgress()) {
+            bossProgress = 0;
+        }
+    }
+}
 function draw() {
     if (gameStatus === Const.GAME_STATUS_PLAYING) {
         updateEnemies();
         updateMouseOrangeTileOver();
+        updateWaveProgressBar();
+        updateBossProgressBar();
     }
     background('skyblue');
     rectMode(CORNER);
