@@ -1,6 +1,6 @@
 # Gif Tower Defense Game
 
-This is an attempt to rewrite my old game Gif Tower Defense (2012) originally made with processingjs now using p5.js and JavaScript, for learning purposes. _(THIS APPLICATION IS IN AN EARLY STAGE OF DEVELOPMENT)_
+This is an attempt to rewrite my old game Gif Tower Defense (2012) originally made with processingjs now using p5.js and Typescript, for learning purposes. _(THIS APPLICATION IS IN AN EARLY STAGE OF DEVELOPMENT)_
 
 ## Execute the game
 
@@ -35,7 +35,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Make the boss progress bar at the bottom of the next wave progress bar
 - [ ] Make the progress bar to the next wave
 - [ ] When an enemy dies increase the score and the money
-- [ ] When the player lost all the lives show game over screen
+- [x] When the player lost all the lives show game over screen
 - [x] Classes are now passed throw parameters with any type. Improve it.
 - [x] InfluenceArea.ts in method: setInfluenceAreaColor. Use Const colors instead. Now it shows an error. See commented code
 - [x] When an enemy reaches the end tile the player loses a live
