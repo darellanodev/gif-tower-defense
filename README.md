@@ -32,9 +32,9 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Change the strenght of the enemies to increase every time a new enemy is created.
 - [ ] Make tower shot stronger depending on its upgrading level
 - [ ] Simplify Typescript assignment params (this.zzz = zzz, <--- use the signature simplification using private in params)
-- [ ] Make the boss progress bar at the bottom of the next wave progress bar
-- [ ] Make the progress bar to the next wave
 - [ ] When an enemy dies increase the score and the money
+- [x] Make the boss progress bar at the bottom of the next wave progress bar
+- [x] Make the progress bar to the next wave
 - [x] When the player lost all the lives show game over screen
 - [x] Classes are now passed throw parameters with any type. Improve it.
 - [x] InfluenceArea.ts in method: setInfluenceAreaColor. Use Const colors instead. Now it shows an error. See commented code
