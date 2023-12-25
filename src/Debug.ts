@@ -1,8 +1,8 @@
+import { TextProperties } from './TextProperties'
+
 export class Debug {
   static showMouseCoordinates(px: number, py: number) {
-    fill(255)
-    stroke(0)
-    strokeWeight(4)
+    TextProperties.setForHudData()
     text(`${px} - ${py}`, 260, 18)
   }
 }

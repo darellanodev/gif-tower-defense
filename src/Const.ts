@@ -37,7 +37,7 @@ export class Const {
   static KEY_2 = 50
   static KEY_3 = 51
 
-  static CREATE_ENEMY_MAX_TIME = 100
+  static CREATE_ENEMY_MAX_TIME = 100 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
 
   static TOWER_OFFSET = 5
 
@@ -48,7 +48,7 @@ export class Const {
   static ALPHA_INFLUENCE_AREA_FILL = 50
   static ALPHA_INFLUENCE_AREA_STROKE = 120
 
-  static ENEMY_VELOCITY = 1 // must be multiple of "this.Const.TILE_SIZE". Set 1 for normal game or 25 for speed test
+  static ENEMY_VELOCITY = 1 // must be multiple of "this.Const.TILE_SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
 
   static ENEMY_CHANGE_EYES_MAX_TIME = 50
 
@@ -69,4 +69,7 @@ export class Const {
 
   static ENEMY_EXPLOSION_MAX_EMIT_TIME = 5
   static EXPLOSION_OFFSET = 25
+
+  static GAME_STATUS_PLAYING = 0
+  static GAME_STATUS_GAME_OVER = 1
 }

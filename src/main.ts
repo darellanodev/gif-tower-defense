@@ -21,6 +21,7 @@ import { Wallet } from './Wallet'
 import { ImageUtils } from './ImageUtils'
 import { InfluenceArea } from './InfluenceArea'
 import { EnemyExplosion } from './EnemyExplosion'
+import { TextProperties } from './TextProperties'
 import { Image } from 'p5'
 import { ParticleSystem } from './ParticleSystem'
 
@@ -47,6 +48,7 @@ let influenceArea: InfluenceArea
 let enemyExplosions: EnemyExplosion[]
 let lives: number
 let score: number
+let gameStatus: number
 
 function preload() {
   greenTowerImages = []
@@ -154,7 +156,14 @@ function setup() {
   wallet = new Wallet(tileGenerator.getInitialMoney(), Const)
   lives = 7
   score = 0
-  hud = new Hud(hudImages, wallet.getMoney(), Const, lives, score)
+  hud = new Hud(
+    hudImages,
+    wallet.getMoney(),
+    Const,
+    lives,
+    score,
+    TextProperties,
+  )
 
   wave = 1
   waveEnemies = 0
@@ -163,6 +172,8 @@ function setup() {
   enemyExplosions = []
 
   influenceArea = new InfluenceArea(Const)
+
+  gameStatus = Const.GAME_STATUS_PLAYING
 }
 
 function keyPressed() {
@@ -300,6 +311,9 @@ function updateEnemies() {
   const winnerEnemies = enemies.filter((enemy) => enemy.isWinner())
   winnerEnemies.forEach((enemy) => {
     lives--
+    if (lives <= 0) {
+      gameStatus = Const.GAME_STATUS_GAME_OVER
+    }
     hud.setLives(lives)
     enemy.resetWinner()
   })
@@ -318,8 +332,10 @@ function getMouseOrangeTileOver() {
 }
 
 function draw() {
-  updateEnemies()
-  updateMouseOrangeTileOver()
+  if (gameStatus === Const.GAME_STATUS_PLAYING) {
+    updateEnemies()
+    updateMouseOrangeTileOver()
+  }
 
   background('skyblue')
   rectMode(CORNER)
@@ -363,6 +379,11 @@ function draw() {
   enemyExplosions.forEach((enemyExplosion) => {
     enemyExplosion.update()
   })
+
+  if (gameStatus === Const.GAME_STATUS_GAME_OVER) {
+    TextProperties.setForBigCenteredTitle()
+    text('Game over', width / 2, height / 2)
+  }
 
   Debug.showMouseCoordinates(mouseX, mouseY)
 }

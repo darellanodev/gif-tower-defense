@@ -1,4 +1,5 @@
 import { ConstType } from './types'
+import { TextProperties } from './TextProperties'
 import { Image } from 'p5'
 
 export class Hud {
@@ -9,6 +10,7 @@ export class Hud {
   selectedItem: number
   lives: number
   score: number
+  TextPropertiesClass: typeof TextProperties
 
   constructor(
     hudImages: Image[],
@@ -16,12 +18,14 @@ export class Hud {
     Const: ConstType,
     lives: number,
     score: number,
+    TextPropertiesClass: typeof TextProperties,
   ) {
     this.hudImages = hudImages
     this.money = money
     this.Const = Const
     this.lives = lives
     this.score = score
+    this.TextPropertiesClass = TextPropertiesClass
 
     this.hudType = this.Const.HUD_NORMAL
 
@@ -85,7 +89,7 @@ export class Hud {
         break
     }
 
-    this._setColorsForTexts()
+    this.TextPropertiesClass.setForHudData()
     this._drawMoney()
     this._drawLives()
     this._drawScore()
@@ -98,12 +102,6 @@ export class Hud {
 
   setLives(lives: number) {
     this.lives = lives
-  }
-
-  _setColorsForTexts() {
-    fill(255)
-    stroke(0)
-    strokeWeight(4)
   }
 
   _drawMoney() {

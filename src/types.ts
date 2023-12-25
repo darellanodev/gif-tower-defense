@@ -77,4 +77,7 @@ export type ConstType = {
 
   ENEMY_EXPLOSION_MAX_EMIT_TIME: number
   EXPLOSION_OFFSET: number
+
+  GAME_STATUS_PLAYING: number
+  GAME_STATUS_GAME_OVER: number
 }
