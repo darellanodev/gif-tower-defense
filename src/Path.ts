@@ -23,6 +23,18 @@ export class Path {
     this.Const = Const
   }
 
+  getEnemiesInitialPosition() {
+    let finalX = 0
+    let finalY = 0
+
+    if (this.startTile.getStartDirection() === this.Const.LEFT_DIRECTION) {
+      finalX = this.startTile.getX() + this.Const.TILE_SIZE
+      finalY = this.startTile.getY()
+    }
+
+    return { x: finalX, y: finalY }
+  }
+
   getTileInPosition(tx: number, ty: number) {
     const pathTile = this.pathTiles.find(
       (pathTile) => tx === pathTile.getX() && ty === pathTile.getY(),

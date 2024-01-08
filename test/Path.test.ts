@@ -81,6 +81,20 @@ const isIncluded = (
   return result
 }
 
+describe('enemies initial position', () => {
+  test('when start direction is LEFT and start tile is at x:750, y:80', () => {
+    const expectedX = startTile.getX() + 50
+    const expectedY = startTile.getY()
+    const expected = { x: expectedX, y: expectedY }
+
+    const path = new Path(startTile, endTile, pathTiles, Const)
+
+    const result = path.getEnemiesInitialPosition()
+
+    expect(result).toMatchObject(expected)
+  })
+})
+
 describe('finds a pathtile', () => {
   test('if exists return the pathtile', () => {
     const img: any = null
