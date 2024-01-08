@@ -53,6 +53,7 @@ let waveProgress: number
 let waveProgressDelay: number
 let bossProgress: number
 let bossProgressDelay: number
+let initialEnemiesPosition: { x: number; y: number }
 
 function preload() {
   greenTowerImages = []
@@ -156,6 +157,7 @@ function setup() {
 
   const path = new Path(startTile, endTile, pathTiles, Const)
   orders = path.makeOrders()
+  initialEnemiesPosition = path.getEnemiesInitialPosition()
 
   wallet = new Wallet(tileGenerator.getInitialMoney(), Const)
   lives = 7
@@ -282,9 +284,9 @@ function createNewEnemy(waveEnemy: number) {
   enemies.push(
     new Enemy(
       enemiesImages.slice(...ImageUtils.getRangeImagesOfEnemy(waveEnemy)),
+      initialEnemiesPosition.x,
+      initialEnemiesPosition.y,
       orders,
-      startTile,
-      endTile,
       Const,
       Random,
       ProgressBar,

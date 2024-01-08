@@ -1,15 +1,13 @@
-import { EndTile } from './EndTile'
 import { ProgressBar } from './ProgressBar'
-import { StartTile } from './StartTile'
 import { ConstType } from './types'
 import { Random } from './Random'
 import { Image } from 'p5'
 
 export class Enemy {
   images: Image[]
+  startX: number
+  startY: number
   orders: number[]
-  startTile: StartTile
-  endTile: EndTile
   Const: ConstType
   RandomClass: typeof Random
   ProgressBarClass: typeof ProgressBar
@@ -25,8 +23,6 @@ export class Enemy {
   currentDirection: number
   moveCount: number
   indexOrder: number
-  insidePath: boolean
-  endReached: boolean
   changeEyesTime: number
   indexEyesSecuence: number
   closeEyesTime: number
@@ -36,17 +32,17 @@ export class Enemy {
 
   constructor(
     images: Image[],
+    startX: number,
+    startY: number,
     orders: number[],
-    startTile: StartTile,
-    endTile: EndTile,
     Const: ConstType,
     RandomClass: typeof Random,
     ProgressBarClass: typeof ProgressBar,
   ) {
     this.images = images
+    this.startX = startX
+    this.startY = startY
     this.orders = orders
-    this.startTile = startTile
-    this.endTile = endTile
     this.Const = Const
     this.RandomClass = RandomClass
     this.ProgressBarClass = ProgressBarClass
@@ -69,19 +65,18 @@ export class Enemy {
     this.status = this.Const.ENEMY_STATUS_ALIVE
     this.damage = 0
 
-    this.x = 0
-    this.y = 0
-    this.currentDirection = this.startTile.getStartDirection()
+    this.x = this.startX
+    this.y = this.startY
     this.moveCount = 0
     this.indexOrder = 0
-    this.setInitialPosition()
-    this.insidePath = false
-    this.endReached = false
+    this.currentDirection = this.orders[this.indexOrder]
+
     this.changeEyesTime = 0
     this.indexEyesSecuence = 0
     this.closeEyesTime = 0
     this.extendClosedEyesTime = 0
     this.randomCloseEyes = 0
+
     this.winned = false
   }
 
@@ -112,46 +107,17 @@ export class Enemy {
 
   reinitEnemy() {
     this.winned = true
-    this.currentDirection = this.startTile.getStartDirection()
     this.moveCount = 0
     this.indexOrder = 0
-    this.setInitialPosition()
-    this.insidePath = false
-    this.endReached = false
     this.changeEyesTime = 0
     this.indexEyesSecuence = 0
     this.closeEyesTime = 0
     this.extendClosedEyesTime = 0
+    this.currentDirection = this.orders[this.indexOrder]
+    this.x = this.startX
+    this.y = this.startY
 
     this._setRandomTimeMaxForClosingEyes()
-  }
-
-  isEndReached() {
-    return this.x === this.endTile.getX() && this.y === this.endTile.getY()
-  }
-
-  setInitialPosition() {
-    switch (this.currentDirection) {
-      case this.Const.LEFT_DIRECTION:
-        this.x = this.startTile.getX() + this.Const.TILE_SIZE
-        this.y = this.startTile.getY()
-        break
-
-      case this.Const.RIGHT_DIRECTION:
-        this.x = this.startTile.getX() - this.Const.TILE_SIZE
-        this.y = this.startTile.getY()
-        break
-
-      case this.Const.UP_DIRECTION:
-        this.x = this.startTile.getX()
-        this.y = this.startTile.getY() + this.Const.TILE_SIZE
-        break
-
-      case this.Const.DOWN_DIRECTION:
-        this.x = this.startTile.getX()
-        this.y = this.startTile.getY() - this.Const.TILE_SIZE
-        break
-    }
   }
 
   update() {
@@ -175,24 +141,13 @@ export class Enemy {
 
     this.moveCount = this.moveCount + this.Const.ENEMY_VELOCITY
 
-    if (this.moveCount === this.Const.TILE_SIZE && this.endReached) {
-      this.reinitEnemy()
-    }
-
     if (this.moveCount === this.Const.TILE_SIZE) {
       this.moveCount = 0
-
-      if (this.isEndReached()) {
-        this.endReached = true
-      }
-
-      if (!this.endReached) {
-        if (this.insidePath) {
-          this.indexOrder++
-          this.currentDirection = this.orders[this.indexOrder]
-        } else {
-          this.insidePath = true
-        }
+      this.indexOrder++
+      if (this.indexOrder == this.orders.length) {
+        this.reinitEnemy()
+      } else {
+        this.currentDirection = this.orders[this.indexOrder]
       }
     }
   }
