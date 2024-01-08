@@ -101,11 +101,11 @@ var EndTile = (function () {
     return EndTile;
 }());
 var Enemy = (function () {
-    function Enemy(images, orders, startTile, endTile, Const, RandomClass, ProgressBarClass) {
+    function Enemy(images, startX, startY, orders, Const, RandomClass, ProgressBarClass) {
         this.images = images;
+        this.startX = startX;
+        this.startY = startY;
         this.orders = orders;
-        this.startTile = startTile;
-        this.endTile = endTile;
         this.Const = Const;
         this.RandomClass = RandomClass;
         this.ProgressBarClass = ProgressBarClass;
@@ -120,14 +120,11 @@ var Enemy = (function () {
         this.healthBar = new this.ProgressBarClass(200, 200, this.Const.PROGRESSBAR_WIDTH, this.Const.PROGRESSBAR_HEIGHT);
         this.status = this.Const.ENEMY_STATUS_ALIVE;
         this.damage = 0;
-        this.x = 0;
-        this.y = 0;
-        this.currentDirection = this.startTile.getStartDirection();
+        this.x = this.startX;
+        this.y = this.startY;
         this.moveCount = 0;
         this.indexOrder = 0;
-        this.setInitialPosition();
-        this.insidePath = false;
-        this.endReached = false;
+        this.currentDirection = this.orders[this.indexOrder];
         this.changeEyesTime = 0;
         this.indexEyesSecuence = 0;
         this.closeEyesTime = 0;
@@ -158,40 +155,16 @@ var Enemy = (function () {
     };
     Enemy.prototype.reinitEnemy = function () {
         this.winned = true;
-        this.currentDirection = this.startTile.getStartDirection();
         this.moveCount = 0;
         this.indexOrder = 0;
-        this.setInitialPosition();
-        this.insidePath = false;
-        this.endReached = false;
         this.changeEyesTime = 0;
         this.indexEyesSecuence = 0;
         this.closeEyesTime = 0;
         this.extendClosedEyesTime = 0;
+        this.currentDirection = this.orders[this.indexOrder];
+        this.x = this.startX;
+        this.y = this.startY;
         this._setRandomTimeMaxForClosingEyes();
-    };
-    Enemy.prototype.isEndReached = function () {
-        return this.x === this.endTile.getX() && this.y === this.endTile.getY();
-    };
-    Enemy.prototype.setInitialPosition = function () {
-        switch (this.currentDirection) {
-            case this.Const.LEFT_DIRECTION:
-                this.x = this.startTile.getX() + this.Const.TILE_SIZE;
-                this.y = this.startTile.getY();
-                break;
-            case this.Const.RIGHT_DIRECTION:
-                this.x = this.startTile.getX() - this.Const.TILE_SIZE;
-                this.y = this.startTile.getY();
-                break;
-            case this.Const.UP_DIRECTION:
-                this.x = this.startTile.getX();
-                this.y = this.startTile.getY() + this.Const.TILE_SIZE;
-                break;
-            case this.Const.DOWN_DIRECTION:
-                this.x = this.startTile.getX();
-                this.y = this.startTile.getY() - this.Const.TILE_SIZE;
-                break;
-        }
     };
     Enemy.prototype.update = function () {
         switch (this.currentDirection) {
@@ -209,22 +182,14 @@ var Enemy = (function () {
                 break;
         }
         this.moveCount = this.moveCount + this.Const.ENEMY_VELOCITY;
-        if (this.moveCount === this.Const.TILE_SIZE && this.endReached) {
-            this.reinitEnemy();
-        }
         if (this.moveCount === this.Const.TILE_SIZE) {
             this.moveCount = 0;
-            if (this.isEndReached()) {
-                this.endReached = true;
+            this.indexOrder++;
+            if (this.indexOrder == this.orders.length) {
+                this.reinitEnemy();
             }
-            if (!this.endReached) {
-                if (this.insidePath) {
-                    this.indexOrder++;
-                    this.currentDirection = this.orders[this.indexOrder];
-                }
-                else {
-                    this.insidePath = true;
-                }
+            else {
+                this.currentDirection = this.orders[this.indexOrder];
             }
         }
     };
@@ -754,6 +719,15 @@ var Path = (function () {
         this.pathTiles = pathTiles;
         this.Const = Const;
     }
+    Path.prototype.getEnemiesInitialPosition = function () {
+        var finalX = 0;
+        var finalY = 0;
+        if (this.startTile.getStartDirection() === this.Const.LEFT_DIRECTION) {
+            finalX = this.startTile.getX() + this.Const.TILE_SIZE;
+            finalY = this.startTile.getY();
+        }
+        return { x: finalX, y: finalY };
+    };
     Path.prototype.getTileInPosition = function (tx, ty) {
         var pathTile = this.pathTiles.find(function (pathTile) { return tx === pathTile.getX() && ty === pathTile.getY(); });
         return pathTile ? pathTile : null;
@@ -792,6 +766,7 @@ var Path = (function () {
         var orders = [];
         var currentTile = new PathTile(this.startTile.getX(), this.startTile.getY());
         var currentDirection = this.startTile.getStartDirection();
+        orders.push(currentDirection);
         var endReached = false;
         var searchCount = 0;
         while (searchCount < this.MAX_SEARCHES && !endReached) {
@@ -867,6 +842,9 @@ var Path = (function () {
                     }
                 }
             }
+        }
+        if (endReached) {
+            orders.push(currentDirection);
         }
         if (searchCount === this.MAX_SEARCHES) {
             return [];
@@ -1337,6 +1315,7 @@ var waveProgress;
 var waveProgressDelay;
 var bossProgress;
 var bossProgressDelay;
+var initialEnemiesPosition;
 function preload() {
     greenTowerImages = [];
     redTowerImages = [];
@@ -1395,6 +1374,7 @@ function setup() {
     var pathTiles = tileGenerator.pathTiles();
     var path = new Path(startTile, endTile, pathTiles, Const);
     orders = path.makeOrders();
+    initialEnemiesPosition = path.getEnemiesInitialPosition();
     wallet = new Wallet(tileGenerator.getInitialMoney(), Const);
     lives = 7;
     score = 0;
@@ -1490,7 +1470,7 @@ function mouseClicked() {
     }
 }
 function createNewEnemy(waveEnemy) {
-    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), orders, startTile, endTile, Const, Random, ProgressBar));
+    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, Const, Random, ProgressBar));
 }
 function updateEnemies() {
     if (waveEnemies < Const.TOTAL_ENEMIES) {
