@@ -28,11 +28,11 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] The boss is slower than the rest of the enemies
 - [ ] Draw the boss different to the rest of enemies
 - [ ] Make the red tower target and shot to an enemy
-- [ ] Change Enemy constructor with initialX, initialY, orders and transfer the actual enemy logic to the orders generator.
 - [ ] Change the strenght of the enemies to increase every time a new enemy is created.
 - [ ] Make tower shot stronger depending on its upgrading level
 - [ ] Simplify Typescript assignment params (this.zzz = zzz, <--- use the signature simplification using private in params)
 - [ ] When an enemy dies increase the score and the money
+- [x] Change Enemy constructor with initialX, initialY, orders and transfer the actual enemy logic to the orders generator.
 - [x] Make the boss progress bar at the bottom of the next wave progress bar
 - [x] Make the progress bar to the next wave
 - [x] When the player lost all the lives show game over screen
