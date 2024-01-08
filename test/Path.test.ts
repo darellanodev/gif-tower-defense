@@ -118,10 +118,10 @@ describe('finds a pathtile', () => {
 })
 
 describe('When start direction is left', () => {
-  test('if there are 15 tiles consecutively to the left, the enemy moves first 15 times to left', () => {
+  test('if there are 15 tiles consecutively to the left, the enemy moves first 16 times to left (15 tiles to the left + 1 tile to left when the enemy starts before the startTile', () => {
     const expectedOrders: number[] = []
 
-    expectedOrders.push(...Array(15).fill(Const.LEFT_DIRECTION))
+    expectedOrders.push(...Array(16).fill(Const.LEFT_DIRECTION))
 
     const orders = path.makeOrders()
 
@@ -130,10 +130,10 @@ describe('When start direction is left', () => {
     expect(result).toBeTruthy()
   })
 
-  test('after the 15 first left path tiles, if there is no other left path tile then the direction is down 7 times', () => {
+  test('after the 16 first left path tiles, if there is no other left path tile then the direction is down 7 times', () => {
     const expectedOrders: number[] = []
 
-    expectedOrders.push(...Array(15).fill(Const.LEFT_DIRECTION))
+    expectedOrders.push(...Array(16).fill(Const.LEFT_DIRECTION))
     expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
 
     const orders = path.makeOrders()
@@ -143,27 +143,12 @@ describe('When start direction is left', () => {
     expect(result).toBeTruthy()
   })
 
-  test('after the 15 first left path tiles, and 7 down path tiles, if there is no other down path tile, then the direction is right 13 path tiles', () => {
+  test('after the 16 first left path tiles, and 7 down path tiles, if there is no other down path tile, then the direction is right 13 path tiles', () => {
     const expectedOrders: number[] = []
 
-    expectedOrders.push(...Array(15).fill(Const.LEFT_DIRECTION))
-    expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
-    expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
-
-    const orders = path.makeOrders()
-
-    const result = isIncluded(orders, expectedOrders)
-
-    expect(result).toBeTruthy()
-  })
-
-  test('after the 15 first left path tiles, 7 down, 13 right, go up 3 path tiles', () => {
-    const expectedOrders: number[] = []
-
-    expectedOrders.push(...Array(15).fill(Const.LEFT_DIRECTION))
+    expectedOrders.push(...Array(16).fill(Const.LEFT_DIRECTION))
     expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
     expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
-    expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
 
     const orders = path.makeOrders()
 
@@ -172,14 +157,13 @@ describe('When start direction is left', () => {
     expect(result).toBeTruthy()
   })
 
-  test('after the 15 first left path tiles, 7 down, 13 right, 3 up, go left 6 path tiles', () => {
+  test('after the 16 first left path tiles, 7 down, 13 right, go up 3 path tiles', () => {
     const expectedOrders: number[] = []
 
-    expectedOrders.push(...Array(15).fill(Const.LEFT_DIRECTION))
+    expectedOrders.push(...Array(16).fill(Const.LEFT_DIRECTION))
     expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
     expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
     expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
-    expectedOrders.push(...Array(6).fill(Const.LEFT_DIRECTION))
 
     const orders = path.makeOrders()
 
@@ -188,15 +172,14 @@ describe('When start direction is left', () => {
     expect(result).toBeTruthy()
   })
 
-  test('after the 15 first left path tiles, 7 down, 13 right, 3 up, 6 left, go down 1 path tile', () => {
+  test('after the 16 first left path tiles, 7 down, 13 right, 3 up, go left 6 path tiles', () => {
     const expectedOrders: number[] = []
 
-    expectedOrders.push(...Array(15).fill(Const.LEFT_DIRECTION))
+    expectedOrders.push(...Array(16).fill(Const.LEFT_DIRECTION))
     expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
     expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
     expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
     expectedOrders.push(...Array(6).fill(Const.LEFT_DIRECTION))
-    expectedOrders.push(...Array(1).fill(Const.DOWN_DIRECTION))
 
     const orders = path.makeOrders()
 
@@ -205,16 +188,15 @@ describe('When start direction is left', () => {
     expect(result).toBeTruthy()
   })
 
-  test('after the 15 first left path tiles, 7 down, 13 right, 3 up, 6 left, 1 down, go 5 left path tiles', () => {
+  test('after the 16 first left path tiles, 7 down, 13 right, 3 up, 6 left, go down 1 path tile', () => {
     const expectedOrders: number[] = []
 
-    expectedOrders.push(...Array(15).fill(Const.LEFT_DIRECTION))
+    expectedOrders.push(...Array(16).fill(Const.LEFT_DIRECTION))
     expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
     expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
     expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
     expectedOrders.push(...Array(6).fill(Const.LEFT_DIRECTION))
     expectedOrders.push(...Array(1).fill(Const.DOWN_DIRECTION))
-    expectedOrders.push(...Array(5).fill(Const.LEFT_DIRECTION))
 
     const orders = path.makeOrders()
 
@@ -223,17 +205,16 @@ describe('When start direction is left', () => {
     expect(result).toBeTruthy()
   })
 
-  test('after the 15 first left path tiles, 7 down, 13 right, 3 up, 6 left, 1 down, 5 left, go up 3 path tiles', () => {
+  test('after the 16 first left path tiles, 7 down, 13 right, 3 up, 6 left, 1 down, go 5 left path tiles', () => {
     const expectedOrders: number[] = []
 
-    expectedOrders.push(...Array(15).fill(Const.LEFT_DIRECTION))
+    expectedOrders.push(...Array(16).fill(Const.LEFT_DIRECTION))
     expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
     expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
     expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
     expectedOrders.push(...Array(6).fill(Const.LEFT_DIRECTION))
     expectedOrders.push(...Array(1).fill(Const.DOWN_DIRECTION))
     expectedOrders.push(...Array(5).fill(Const.LEFT_DIRECTION))
-    expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
 
     const orders = path.makeOrders()
 
@@ -242,10 +223,10 @@ describe('When start direction is left', () => {
     expect(result).toBeTruthy()
   })
 
-  test('after the 15 first left path tiles, and the 7 down, 13 right, 3 up, 6 left, 1 down, 5 left, 3 up, go right 13 path tiles', () => {
+  test('after the 16 first left path tiles, 7 down, 13 right, 3 up, 6 left, 1 down, 5 left, go up 3 path tiles', () => {
     const expectedOrders: number[] = []
 
-    expectedOrders.push(...Array(15).fill(Const.LEFT_DIRECTION))
+    expectedOrders.push(...Array(16).fill(Const.LEFT_DIRECTION))
     expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
     expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
     expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
@@ -253,7 +234,6 @@ describe('When start direction is left', () => {
     expectedOrders.push(...Array(1).fill(Const.DOWN_DIRECTION))
     expectedOrders.push(...Array(5).fill(Const.LEFT_DIRECTION))
     expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
-    expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
 
     const orders = path.makeOrders()
 
@@ -262,10 +242,10 @@ describe('When start direction is left', () => {
     expect(result).toBeTruthy()
   })
 
-  test('after the 15 first left path tiles, and the 7 down, 13 right, 3 up, 6 left, 1 down, 5 left, 3 up, 13 right, go down 7 path tiles', () => {
+  test('after the 16 first left path tiles, and the 7 down, 13 right, 3 up, 6 left, 1 down, 5 left, 3 up, go right 13 path tiles', () => {
     const expectedOrders: number[] = []
 
-    expectedOrders.push(...Array(15).fill(Const.LEFT_DIRECTION))
+    expectedOrders.push(...Array(16).fill(Const.LEFT_DIRECTION))
     expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
     expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
     expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
@@ -274,6 +254,26 @@ describe('When start direction is left', () => {
     expectedOrders.push(...Array(5).fill(Const.LEFT_DIRECTION))
     expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
     expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
+
+    const orders = path.makeOrders()
+
+    const result = isIncluded(orders, expectedOrders)
+
+    expect(result).toBeTruthy()
+  })
+
+  test('after the 16 first left path tiles, and the 7 down, 13 right, 3 up, 6 left, 1 down, 5 left, 3 up, 13 right, go down 7 path tiles', () => {
+    const expectedOrders: number[] = []
+
+    expectedOrders.push(...Array(16).fill(Const.LEFT_DIRECTION))
+    expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
+    expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
+    expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
+    expectedOrders.push(...Array(6).fill(Const.LEFT_DIRECTION))
+    expectedOrders.push(...Array(1).fill(Const.DOWN_DIRECTION))
+    expectedOrders.push(...Array(5).fill(Const.LEFT_DIRECTION))
+    expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
+    expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
     expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
 
     const orders = path.makeOrders()
@@ -283,10 +283,10 @@ describe('When start direction is left', () => {
     expect(result).toBeTruthy()
   })
 
-  test('after the 15 first left path tiles, and the 7 down, 13 right, 3 up, 6 left, 1 down, 5 left, 3 up, 13 right, 7 down, go left 14 path tiles', () => {
+  test('after the 16 first left path tiles, and the 7 down, 13 right, 3 up, 6 left, 1 down, 5 left, 3 up, 13 right, 7 down, go left 14 path tiles', () => {
     const expectedOrders: number[] = []
 
-    expectedOrders.push(...Array(15).fill(Const.LEFT_DIRECTION))
+    expectedOrders.push(...Array(16).fill(Const.LEFT_DIRECTION))
     expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
     expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
     expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
@@ -305,10 +305,10 @@ describe('When start direction is left', () => {
     expect(result).toBeTruthy()
   })
 
-  test('after the 15 first left path tiles, and the 7 down, 13 right, 3 up, 6 left, 1 down, 5 left, 3 up, 13 right, 7 down, 14 left path tiles, go left to end tile', () => {
+  test('after the 16 first left path tiles, and the 7 down, 13 right, 3 up, 6 left, 1 down, 5 left, 3 up, 13 right, 7 down, 14 left path tiles, go left to end tile', () => {
     const expectedOrders: number[] = []
 
-    expectedOrders.push(...Array(15).fill(Const.LEFT_DIRECTION))
+    expectedOrders.push(...Array(16).fill(Const.LEFT_DIRECTION))
     expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
     expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
     expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
