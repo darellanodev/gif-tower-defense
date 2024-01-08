@@ -283,7 +283,7 @@ describe('When start direction is left', () => {
     expect(result).toBeTruthy()
   })
 
-  test('after the 16 first left path tiles, and the 7 down, 13 right, 3 up, 6 left, 1 down, 5 left, 3 up, 13 right, 7 down, go left 14 path tiles', () => {
+  test('after the 16 first left path tiles, and the 7 down, 13 right, 3 up, 6 left, 1 down, 5 left, 3 up, 13 right, 7 down, go left 16 path tiles (15 path tiles + 1 path tile from endTile to outside)', () => {
     const expectedOrders: number[] = []
 
     expectedOrders.push(...Array(16).fill(Const.LEFT_DIRECTION))
@@ -296,30 +296,7 @@ describe('When start direction is left', () => {
     expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
     expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
     expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
-    expectedOrders.push(...Array(14).fill(Const.LEFT_DIRECTION))
-
-    const orders = path.makeOrders()
-
-    const result = isIncluded(orders, expectedOrders)
-
-    expect(result).toBeTruthy()
-  })
-
-  test('after the 16 first left path tiles, and the 7 down, 13 right, 3 up, 6 left, 1 down, 5 left, 3 up, 13 right, 7 down, 14 left path tiles, go left to end tile', () => {
-    const expectedOrders: number[] = []
-
     expectedOrders.push(...Array(16).fill(Const.LEFT_DIRECTION))
-    expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
-    expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
-    expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
-    expectedOrders.push(...Array(6).fill(Const.LEFT_DIRECTION))
-    expectedOrders.push(...Array(1).fill(Const.DOWN_DIRECTION))
-    expectedOrders.push(...Array(5).fill(Const.LEFT_DIRECTION))
-    expectedOrders.push(...Array(3).fill(Const.UP_DIRECTION))
-    expectedOrders.push(...Array(13).fill(Const.RIGHT_DIRECTION))
-    expectedOrders.push(...Array(7).fill(Const.DOWN_DIRECTION))
-    expectedOrders.push(...Array(14).fill(Const.LEFT_DIRECTION))
-    expectedOrders.push(...Array(1).fill(Const.LEFT_DIRECTION))
 
     const orders = path.makeOrders()
 

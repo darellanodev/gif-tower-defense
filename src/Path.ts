@@ -89,20 +89,7 @@ export class Path {
     let currentDirection = this.startTile.getStartDirection()
 
     // the first time it goes in the same direction than currentDirection one tile only, from out of the startTile to the startTile.
-    switch (currentDirection) {
-      case this.Const.LEFT_DIRECTION:
-        orders.push(this.Const.LEFT_DIRECTION)
-        break
-      case this.Const.RIGHT_DIRECTION:
-        orders.push(this.Const.RIGHT_DIRECTION)
-        break
-      case this.Const.UP_DIRECTION:
-        orders.push(this.Const.UP_DIRECTION)
-        break
-      case this.Const.DOWN_DIRECTION:
-        orders.push(this.Const.DOWN_DIRECTION)
-        break
-    }
+    orders.push(currentDirection)
 
     let endReached = false
     let searchCount = 0
@@ -182,6 +169,11 @@ export class Path {
           }
         }
       }
+    }
+
+    // finally we add the same direction one mor time, from reached endtile to outside
+    if (endReached) {
+      orders.push(currentDirection)
     }
 
     // cant reach the end because we spent all searchCount
