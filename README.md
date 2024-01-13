@@ -2,17 +2,22 @@
 
 This is an attempt to rewrite my old game Gif Tower Defense (2012) originally made with processingjs now using p5.js and Typescript, for learning purposes. _(THIS APPLICATION IS IN AN EARLY STAGE OF DEVELOPMENT)_
 
-## Execute the game
+## Run the game on web browser
 
 - Use a web server like XAMPP and open index.html through localhost.
 - Alternatively, you can use the "Live Server" extension in VSCode to open index.html.
 
 ## Execute the unit tests
 
-- `npm test`
-- `npm run build`
+- Execute `run_tests.sh` or `npm test` command
 
-### Tasks
+## Build to web
+
+- Execute `run.sh` or `npm run build` command
+- Wait until the process finish
+- Open index.html in VSCode and use Open with live server option (from Live Server VSCode extension)
+
+### Next tasks
 
 - [ ] Level editor
 - [ ] Use prettier or other formatter
@@ -36,3 +41,24 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 ## Resources
 
 <https://p5js.org/es/reference/>
+
+## Customize keybindings.json in VSCode
+
+You can use this settings into VSCode `keybindings.json`:
+
+```json
+  {
+    "key": "ctrl+t",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "./run_tests.sh\u000D"
+    },
+  },
+  {
+    "key": "ctrl+r",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "./run.sh\u000D"
+    },
+  },
+```
