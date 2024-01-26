@@ -8,6 +8,7 @@ export class Enemy {
   startX: number
   startY: number
   orders: number[]
+  endurance: number
   Const: ConstType
   RandomClass: typeof Random
   ProgressBarClass: typeof ProgressBar
@@ -29,12 +30,14 @@ export class Enemy {
   extendClosedEyesTime: number
   randomCloseEyes: number
   winned: boolean
+  initialEndurance: number
 
   constructor(
     images: Image[],
     startX: number,
     startY: number,
     orders: number[],
+    endurance: number,
     Const: ConstType,
     RandomClass: typeof Random,
     ProgressBarClass: typeof ProgressBar,
@@ -43,6 +46,8 @@ export class Enemy {
     this.startX = startX
     this.startY = startY
     this.orders = orders
+    this.endurance = endurance
+    this.initialEndurance = endurance
     this.Const = Const
     this.RandomClass = RandomClass
     this.ProgressBarClass = ProgressBarClass
@@ -81,6 +86,13 @@ export class Enemy {
   }
 
   addDamage(shotDamage: number) {
+    if (this.endurance > 0) {
+      this.endurance--
+      return
+    }
+
+    this.endurance = this.initialEndurance
+
     if (!this.healthBar.isFullOfProgress()) {
       this.damage += shotDamage
       this.healthBar.setProgress(this.damage)

@@ -280,13 +280,16 @@ function mouseClicked() {
   }
 }
 
-function createNewEnemy(waveEnemy: number) {
+function createNewEnemy(waveEnemy: number, wave: number) {
+  const endurance = wave * 2 + waveEnemy * 2
+
   enemies.push(
     new Enemy(
       enemiesImages.slice(...ImageUtils.getRangeImagesOfEnemy(waveEnemy)),
       initialEnemiesPosition.x,
       initialEnemiesPosition.y,
       orders,
+      endurance,
       Const,
       Random,
       ProgressBar,
@@ -294,12 +297,12 @@ function createNewEnemy(waveEnemy: number) {
   )
 }
 
-function updateEnemies() {
+function updateEnemies(wave: number) {
   if (waveEnemies < Const.TOTAL_ENEMIES) {
     createEnemyTime++
     if (createEnemyTime === Const.CREATE_ENEMY_MAX_TIME) {
       createEnemyTime = 0
-      createNewEnemy(waveEnemies)
+      createNewEnemy(waveEnemies, wave)
       waveEnemies++
     }
   }
@@ -377,7 +380,7 @@ function updateBossProgressBar() {
 
 function draw() {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
-    updateEnemies()
+    updateEnemies(wave)
     updateMouseOrangeTileOver()
     updateWaveProgressBar()
     updateBossProgressBar()
