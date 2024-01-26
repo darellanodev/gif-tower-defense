@@ -85,6 +85,10 @@ export class Enemy {
     this.winned = false
   }
 
+  getInitialEndurance() {
+    return this.initialEndurance
+  }
+
   addDamage(shotDamage: number) {
     if (this.endurance > 0) {
       this.endurance--

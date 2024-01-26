@@ -312,6 +312,12 @@ function updateEnemies(wave: number) {
     enemyExplosions.push(
       new EnemyExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem),
     )
+    //increase money and score
+    const money = enemy.getInitialEndurance() * Const.MONEY_MULTIPLICATOR
+    const score = money * 2
+    wallet.increase(money)
+    hud.setMoney(wallet.getMoney())
+    hud.setScore(score)
   })
   enemyExplosions = enemyExplosions.filter((enemyExplosion) =>
     enemyExplosion.isActive(),

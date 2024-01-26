@@ -120,6 +120,10 @@ export class Hud {
     this.money = money
   }
 
+  setScore(score: number) {
+    this.score = score
+  }
+
   setLives(lives: number) {
     this.lives = lives
   }

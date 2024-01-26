@@ -75,4 +75,6 @@ export class Const {
 
   static WAVE_PROGRESS_DELAY = 10
   static BOSS_PROGRESS_DELAY = 50
+
+  static MONEY_MULTIPLICATOR = 20
 }
