@@ -40,7 +40,9 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Change the strenght of the enemies to increase every time a new enemy is created.
 - [ ] Make tower shot stronger depending on its upgrading level
 - [ ] Simplify Typescript assignment params (this.zzz = zzz, <--- use the signature simplification using private in params)
-- [ ] When an enemy dies increase the score and the money
+- [x] When an enemy dies increase the score and the money
+- [x] Endurance of the enemy depending to receive damage based on wave number and order of the enemy
+- [x] Banner and screenshots in readme
 
 ## Resources
 
