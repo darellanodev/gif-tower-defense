@@ -24,22 +24,25 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 ### Next tasks
 
 - [ ] Level editor
-- [ ] Use prettier or other formatter
 - [ ] Speed button
 - [ ] Pause button
 - [ ] Magics buttons
-- [ ] Menu to allow the user to select a desired level to play. Replace old player names for other names.
+- [ ] Simplify Typescript assignment params (this.zzz = zzz, <--- use the signature simplification using private in params)
+- [ ] Menu to allow the user to select a desired level to play. Replace old player names for other names
 - [ ] Test other maps with different end tiles positions to implement (with tests) the remaining endings
-- [ ] The captured faces show a diferent icon with the mouth opened
+- [ ] Make the explosion balls with a face. The captured faces show a diferent icon with the mouth opened
 - [ ] When Yellow tower is full the player get lives depending on the upgrade level of the yellow tower
 - [ ] Yellow tower absorbs the yellow faces and fill its indicator
-- [ ] When the enemy dies create an explosion of little happy yellow faces
-- [ ] The boss is slower than the rest of the enemies
-- [ ] Draw the boss different to the rest of enemies
 - [ ] Make the red tower target and shot to an enemy
-- [ ] Change the strenght of the enemies to increase every time a new enemy is created.
+- [ ] The boss is slower than the rest of the enemies
+- [ ] The boss starts when the boss bar is filled
+- [ ] Draw the boss different to the rest of enemies
 - [ ] Make tower shot stronger depending on its upgrading level
-- [ ] Simplify Typescript assignment params (this.zzz = zzz, <--- use the signature simplification using private in params)
+- [ ] Make the upgrade progress slowest depending on the upgrading level
+- [ ] Print the upgrade costs and sell money return
+- [ ] Show the upgrade gray panel when the player cant buy
+- [x] Create new enemies on the next wave
+- [x] Create score class
 - [x] When an enemy dies increase the score and the money
 - [x] Endurance of the enemy depending to receive damage based on wave number and order of the enemy
 - [x] Banner and screenshots in readme
