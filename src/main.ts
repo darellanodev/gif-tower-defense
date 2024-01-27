@@ -25,6 +25,7 @@ import { EnemyExplosion } from './EnemyExplosion'
 import { TextProperties } from './TextProperties'
 import { Image } from 'p5'
 import { ParticleSystem } from './ParticleSystem'
+import { Resources } from './Resources'
 
 let orders: number[]
 let createEnemyTime: number
@@ -57,49 +58,13 @@ let bossProgressDelay: number
 let initialEnemiesPosition: { x: number; y: number }
 
 function preload() {
-  greenTowerImages = []
-  redTowerImages = []
-  yellowTowerImages = []
-  enemiesImages = []
-
-  CustomRange.make(0, Const.TOTAL_TOWER_UPGRADES).forEach((v) => {
-    greenTowerImages.push(
-      loadImage('img/towers/green_tower_upgrade_' + v + '.png'),
-    )
-    redTowerImages.push(loadImage('img/towers/red_tower_upgrade_' + v + '.png'))
-    yellowTowerImages.push(
-      loadImage('img/towers/yellow_tower_upgrade_' + v + '.png'),
-    )
-  })
-
-  CustomRange.make(1, Const.TOTAL_ENEMIES).forEach((v) => {
-    enemiesImages.push(loadImage('img/enemies/' + v + '_center.png'))
-    enemiesImages.push(loadImage('img/enemies/' + v + '_left.png'))
-    enemiesImages.push(loadImage('img/enemies/' + v + '_right.png'))
-    enemiesImages.push(loadImage('img/enemies/' + v + '_closed.png'))
-  })
-
-  tileImages = [
-    loadImage('img/tiles/orange.png'),
-    loadImage('img/tiles/black.png'),
-    loadImage('img/tiles/end_down.png'),
-    loadImage('img/tiles/end_right.png'),
-    loadImage('img/tiles/end_left.png'),
-    loadImage('img/tiles/end_up.png'),
-    loadImage('img/tiles/start_down.png'),
-    loadImage('img/tiles/start_right.png'),
-    loadImage('img/tiles/start_left.png'),
-    loadImage('img/tiles/start_up.png'),
-    loadImage('img/tiles/crystal.png'),
-  ]
-
-  hudImages = [
-    loadImage('img/hud/normal.png'),
-    loadImage('img/hud/upgrading.png'),
-    loadImage('img/hud/upgrading_max.png'),
-  ]
-
-  backgroundImage = loadImage('img/backgrounds/ground.jpg')
+  greenTowerImages = Resources.greenTower()
+  redTowerImages = Resources.redTower()
+  yellowTowerImages = Resources.yellowTower()
+  enemiesImages = Resources.enemies()
+  tileImages = Resources.tileImages()
+  hudImages = Resources.hudImages()
+  backgroundImage = Resources.backgroundImage()
 }
 
 function disableContextualMenu() {
