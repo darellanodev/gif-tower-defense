@@ -55,6 +55,7 @@ let waveProgressDelay: number
 let bossProgressBar: ProgressBar
 let bossProgressDelay: number
 let initialEnemiesPosition: { x: number; y: number }
+let allowCreateEnemies: boolean
 
 function preload() {
   greenTowerImages = Resources.greenTower()
@@ -129,6 +130,7 @@ function setup() {
   lives = 7
 
   wave = 1
+  allowCreateEnemies = true
   waveEnemies = 0
   enemies = []
 
@@ -263,12 +265,17 @@ function createNewEnemy(waveEnemy: number, wave: number) {
 }
 
 function updateEnemies(wave: number) {
-  if (waveEnemies < Const.TOTAL_ENEMIES) {
-    createEnemyTime++
-    if (createEnemyTime === Const.CREATE_ENEMY_MAX_TIME) {
-      createEnemyTime = 0
-      createNewEnemy(waveEnemies, wave)
-      waveEnemies++
+  if (allowCreateEnemies) {
+    if (waveEnemies < Const.TOTAL_ENEMIES) {
+      createEnemyTime++
+      if (createEnemyTime === Const.CREATE_ENEMY_MAX_TIME) {
+        createEnemyTime = 0
+        createNewEnemy(waveEnemies, wave)
+        waveEnemies++
+      }
+    } else {
+      allowCreateEnemies = false
+      waveEnemies = 0
     }
   }
   // explosions
@@ -331,6 +338,7 @@ function updateWaveProgressBar() {
       waveProgressBar.setProgress(0)
       wave++
       hud.setWave(wave)
+      allowCreateEnemies = true
     }
     hud.setWaveProgressBar(waveProgressBar)
   }
