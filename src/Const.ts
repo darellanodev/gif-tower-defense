@@ -11,6 +11,8 @@ export class Const {
   static RED_COLOR = [185, 35, 35]
   static YELLOW_COLOR = [202, 191, 24]
 
+  static DAMAGE_UPGRADE_GREEN_TOWER = [1, 2, 4, 8, 16, 32]
+
   static COST_UPGRADE_GREEN_TOWER = [50, 75, 125, 300, 1000, 2000]
   static COST_UPGRADE_RED_TOWER = [100, 150, 250, 500, 1300, 3000]
   static COST_UPGRADE_YELLOW_TOWER = [700, 2500, 7500, 22000, 67000, 200000]
@@ -76,5 +78,5 @@ export class Const {
   static WAVE_PROGRESS_DELAY = 10
   static BOSS_PROGRESS_DELAY = 50
 
-  static MONEY_MULTIPLICATOR = 20
+  static MONEY_MULTIPLICATOR = 10
 }

@@ -113,7 +113,9 @@ export class GreenTower {
         applyMatrix(cos_a, sin_a, -sin_a, cos_a, this.x + 30, this.y + 30)
 
         this._drawShotToEnemy()
-        this.enemyTarget.addDamage(1)
+        this.enemyTarget.addDamage(
+          this.Const.DAMAGE_UPGRADE_GREEN_TOWER[this.upgradeLevel],
+        )
         image(this.images[this.upgradeLevel], 0, 0)
 
         resetMatrix()
