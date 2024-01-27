@@ -10,6 +10,7 @@ var Const = (function () {
     Const.GREEN_COLOR = [75, 185, 35];
     Const.RED_COLOR = [185, 35, 35];
     Const.YELLOW_COLOR = [202, 191, 24];
+    Const.DAMAGE_UPGRADE_GREEN_TOWER = [1, 2, 4, 8, 16, 32];
     Const.COST_UPGRADE_GREEN_TOWER = [50, 75, 125, 300, 1000, 2000];
     Const.COST_UPGRADE_RED_TOWER = [100, 150, 250, 500, 1300, 3000];
     Const.COST_UPGRADE_YELLOW_TOWER = [700, 2500, 7500, 22000, 67000, 200000];
@@ -56,6 +57,7 @@ var Const = (function () {
     Const.GAME_STATUS_GAME_OVER = 1;
     Const.WAVE_PROGRESS_DELAY = 10;
     Const.BOSS_PROGRESS_DELAY = 50;
+    Const.MONEY_MULTIPLICATOR = 10;
     return Const;
 }());
 var CustomRange = (function () {
@@ -101,11 +103,13 @@ var EndTile = (function () {
     return EndTile;
 }());
 var Enemy = (function () {
-    function Enemy(images, startX, startY, orders, Const, RandomClass, ProgressBarClass) {
+    function Enemy(images, startX, startY, orders, endurance, Const, RandomClass, ProgressBarClass) {
         this.images = images;
         this.startX = startX;
         this.startY = startY;
         this.orders = orders;
+        this.endurance = endurance;
+        this.initialEndurance = endurance;
         this.Const = Const;
         this.RandomClass = RandomClass;
         this.ProgressBarClass = ProgressBarClass;
@@ -132,7 +136,15 @@ var Enemy = (function () {
         this.randomCloseEyes = 0;
         this.winned = false;
     }
+    Enemy.prototype.getInitialEndurance = function () {
+        return this.initialEndurance;
+    };
     Enemy.prototype.addDamage = function (shotDamage) {
+        if (this.endurance > 0) {
+            this.endurance--;
+            return;
+        }
+        this.endurance = this.initialEndurance;
         if (!this.healthBar.isFullOfProgress()) {
             this.damage += shotDamage;
             this.healthBar.setProgress(this.damage);
@@ -332,7 +344,7 @@ var GreenTower = (function () {
                 imageMode(CENTER);
                 applyMatrix(cos_a, sin_a, -sin_a, cos_a, this.x + 30, this.y + 30);
                 this._drawShotToEnemy();
-                this.enemyTarget.addDamage(1);
+                this.enemyTarget.addDamage(this.Const.DAMAGE_UPGRADE_GREEN_TOWER[this.upgradeLevel]);
                 image(this.images[this.upgradeLevel], 0, 0);
                 resetMatrix();
                 imageMode(CORNER);
@@ -387,14 +399,15 @@ var GreenTower = (function () {
     return GreenTower;
 }());
 var Hud = (function () {
-    function Hud(hudImages, money, Const, lives, score, TextPropertiesClass, ProgressBarClass, wave) {
+    function Hud(hudImages, wallet, Const, lives, score, TextPropertiesClass, waveProgressBar, bossProgressBar, wave) {
         this.hudImages = hudImages;
-        this.money = money;
+        this.wallet = wallet;
         this.Const = Const;
         this.lives = lives;
         this.score = score;
         this.TextPropertiesClass = TextPropertiesClass;
-        this.ProgressBarClass = ProgressBarClass;
+        this.waveProgressBar = waveProgressBar;
+        this.bossProgressBar = bossProgressBar;
         this.wave = wave;
         this.waveProgressBar = new ProgressBar(335, -19, 150, 16);
         this.bossProgressBar = new ProgressBar(335, -2, 150, 10);
@@ -424,6 +437,12 @@ var Hud = (function () {
             return true;
         }
         return false;
+    };
+    Hud.prototype.setWaveProgressBar = function (waveProgressBar) {
+        this.waveProgressBar = waveProgressBar;
+    };
+    Hud.prototype.setBossProgressBar = function (bossProgressBar) {
+        this.bossProgressBar = bossProgressBar;
     };
     Hud.prototype.selectTower = function (towerType) {
         this.selectedItem = towerType;
@@ -459,32 +478,17 @@ var Hud = (function () {
     Hud.prototype.setWave = function (wave) {
         this.wave = wave;
     };
-    Hud.prototype.setMoney = function (money) {
-        this.money = money;
-    };
     Hud.prototype.setLives = function (lives) {
         this.lives = lives;
     };
-    Hud.prototype.setWaveProgress = function (waveProgress) {
-        this.waveProgressBar.setProgress(waveProgress);
-    };
-    Hud.prototype.setBossProgress = function (bossProgress) {
-        this.bossProgressBar.setProgress(bossProgress);
-    };
-    Hud.prototype.getWaveProgressBar = function () {
-        return this.waveProgressBar;
-    };
-    Hud.prototype.getBossProgressBar = function () {
-        return this.bossProgressBar;
-    };
     Hud.prototype._drawMoney = function () {
-        text(this.money, 445, 48);
+        text(this.wallet.getMoney(), 445, 48);
     };
     Hud.prototype._drawLives = function () {
         text(this.lives, 390, 48);
     };
     Hud.prototype._drawScore = function () {
-        text(this.score, 397, 73);
+        text(this.score.getPrintScore(), 397, 73);
     };
     Hud.prototype._drawLevelTitle = function () {
         text('Serpent by Ocliboy', 130, 18);
@@ -882,6 +886,12 @@ var ProgressBar = (function () {
     ProgressBar.prototype.setProgress = function (progress) {
         this.progress = progress;
     };
+    ProgressBar.prototype.getProgress = function () {
+        return this.progress;
+    };
+    ProgressBar.prototype.increaseProgress = function () {
+        this.progress++;
+    };
     ProgressBar.prototype.isFullOfProgress = function () {
         return this.progress >= 100;
     };
@@ -989,6 +999,79 @@ var RedTower = (function () {
     RedTower.prototype.selectTarget = function (enemies) {
     };
     return RedTower;
+}());
+var Resources = (function () {
+    function Resources() {
+    }
+    Resources.enemies = function () {
+        var enemiesImages = [];
+        CustomRange.make(1, Const.TOTAL_ENEMIES).forEach(function (v) {
+            enemiesImages.push(loadImage('img/enemies/' + v + '_center.png'));
+            enemiesImages.push(loadImage('img/enemies/' + v + '_left.png'));
+            enemiesImages.push(loadImage('img/enemies/' + v + '_right.png'));
+            enemiesImages.push(loadImage('img/enemies/' + v + '_closed.png'));
+        });
+        return enemiesImages;
+    };
+    Resources.greenTower = function () {
+        var greenTowerImages = [];
+        CustomRange.make(0, Const.TOTAL_TOWER_UPGRADES).forEach(function (v) {
+            greenTowerImages.push(loadImage('img/towers/green_tower_upgrade_' + v + '.png'));
+        });
+        return greenTowerImages;
+    };
+    Resources.redTower = function () {
+        var redTowerImages = [];
+        CustomRange.make(0, Const.TOTAL_TOWER_UPGRADES).forEach(function (v) {
+            redTowerImages.push(loadImage('img/towers/red_tower_upgrade_' + v + '.png'));
+        });
+        return redTowerImages;
+    };
+    Resources.yellowTower = function () {
+        var yellowTowerImages = [];
+        CustomRange.make(0, Const.TOTAL_TOWER_UPGRADES).forEach(function (v) {
+            yellowTowerImages.push(loadImage('img/towers/yellow_tower_upgrade_' + v + '.png'));
+        });
+        return yellowTowerImages;
+    };
+    Resources.tileImages = function () {
+        return [
+            loadImage('img/tiles/orange.png'),
+            loadImage('img/tiles/black.png'),
+            loadImage('img/tiles/end_down.png'),
+            loadImage('img/tiles/end_right.png'),
+            loadImage('img/tiles/end_left.png'),
+            loadImage('img/tiles/end_up.png'),
+            loadImage('img/tiles/start_down.png'),
+            loadImage('img/tiles/start_right.png'),
+            loadImage('img/tiles/start_left.png'),
+            loadImage('img/tiles/start_up.png'),
+            loadImage('img/tiles/crystal.png'),
+        ];
+    };
+    Resources.hudImages = function () {
+        return [
+            loadImage('img/hud/normal.png'),
+            loadImage('img/hud/upgrading.png'),
+            loadImage('img/hud/upgrading_max.png'),
+        ];
+    };
+    Resources.backgroundImage = function () {
+        return loadImage('img/backgrounds/ground.jpg');
+    };
+    return Resources;
+}());
+var Score = (function () {
+    function Score() {
+        this.score = 0;
+    }
+    Score.prototype.increase = function (score) {
+        this.score = score;
+    };
+    Score.prototype.getPrintScore = function () {
+        return String(this.score).padStart(6, '0');
+    };
+    return Score;
 }());
 var StartTile = (function () {
     function StartTile(img, x, y, startDirection) {
@@ -1292,6 +1375,7 @@ var createEnemyTime;
 var enemies;
 var hud;
 var wallet;
+var score;
 var orangeTiles;
 var mouseOrangeTileOver;
 var wave;
@@ -1309,48 +1393,21 @@ var towerGenerator;
 var influenceArea;
 var enemyExplosions;
 var lives;
-var score;
 var gameStatus;
-var waveProgress;
+var waveProgressBar;
 var waveProgressDelay;
-var bossProgress;
+var bossProgressBar;
 var bossProgressDelay;
 var initialEnemiesPosition;
+var allowCreateEnemies;
 function preload() {
-    greenTowerImages = [];
-    redTowerImages = [];
-    yellowTowerImages = [];
-    enemiesImages = [];
-    CustomRange.make(0, Const.TOTAL_TOWER_UPGRADES).forEach(function (v) {
-        greenTowerImages.push(loadImage('img/towers/green_tower_upgrade_' + v + '.png'));
-        redTowerImages.push(loadImage('img/towers/red_tower_upgrade_' + v + '.png'));
-        yellowTowerImages.push(loadImage('img/towers/yellow_tower_upgrade_' + v + '.png'));
-    });
-    CustomRange.make(1, Const.TOTAL_ENEMIES).forEach(function (v) {
-        enemiesImages.push(loadImage('img/enemies/' + v + '_center.png'));
-        enemiesImages.push(loadImage('img/enemies/' + v + '_left.png'));
-        enemiesImages.push(loadImage('img/enemies/' + v + '_right.png'));
-        enemiesImages.push(loadImage('img/enemies/' + v + '_closed.png'));
-    });
-    tileImages = [
-        loadImage('img/tiles/orange.png'),
-        loadImage('img/tiles/black.png'),
-        loadImage('img/tiles/end_down.png'),
-        loadImage('img/tiles/end_right.png'),
-        loadImage('img/tiles/end_left.png'),
-        loadImage('img/tiles/end_up.png'),
-        loadImage('img/tiles/start_down.png'),
-        loadImage('img/tiles/start_right.png'),
-        loadImage('img/tiles/start_left.png'),
-        loadImage('img/tiles/start_up.png'),
-        loadImage('img/tiles/crystal.png'),
-    ];
-    hudImages = [
-        loadImage('img/hud/normal.png'),
-        loadImage('img/hud/upgrading.png'),
-        loadImage('img/hud/upgrading_max.png'),
-    ];
-    backgroundImage = loadImage('img/backgrounds/ground.jpg');
+    greenTowerImages = Resources.greenTower();
+    redTowerImages = Resources.redTower();
+    yellowTowerImages = Resources.yellowTower();
+    enemiesImages = Resources.enemies();
+    tileImages = Resources.tileImages();
+    hudImages = Resources.hudImages();
+    backgroundImage = Resources.backgroundImage();
 }
 function disableContextualMenu() {
     for (var _i = 0, _a = document.getElementsByClassName('p5Canvas'); _i < _a.length; _i++) {
@@ -1376,14 +1433,15 @@ function setup() {
     orders = path.makeOrders();
     initialEnemiesPosition = path.getEnemiesInitialPosition();
     wallet = new Wallet(tileGenerator.getInitialMoney(), Const);
+    score = new Score();
     lives = 7;
-    score = 0;
     wave = 1;
+    allowCreateEnemies = true;
     waveEnemies = 0;
     enemies = [];
-    hud = new Hud(hudImages, wallet.getMoney(), Const, lives, score, TextProperties, ProgressBar, wave);
-    waveProgress = 0;
-    bossProgress = 0;
+    waveProgressBar = new ProgressBar(335, -19, 150, 16);
+    bossProgressBar = new ProgressBar(335, -2, 150, 10);
+    hud = new Hud(hudImages, wallet, Const, lives, score, TextProperties, waveProgressBar, bossProgressBar, wave);
     waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
     bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
     enemyExplosions = [];
@@ -1444,13 +1502,11 @@ function handleHudButtons() {
 function handleSellTower() {
     var profit = mouseOrangeTileOver.sellTower();
     wallet.increase(profit);
-    hud.setMoney(wallet.getMoney());
 }
 function handleBuyTower() {
     if (canBuyTower(mouseOrangeTileOver.getTower())) {
         var cost = mouseOrangeTileOver.buyTower(hud.getSelectedTower());
         wallet.decrease(cost);
-        hud.setMoney(wallet.getMoney());
     }
 }
 function mouseClicked() {
@@ -1469,21 +1525,31 @@ function mouseClicked() {
         }
     }
 }
-function createNewEnemy(waveEnemy) {
-    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, Const, Random, ProgressBar));
+function createNewEnemy(waveEnemy, wave) {
+    var endurance = wave * 2 + waveEnemy * 2;
+    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, endurance, Const, Random, ProgressBar));
 }
-function updateEnemies() {
-    if (waveEnemies < Const.TOTAL_ENEMIES) {
-        createEnemyTime++;
-        if (createEnemyTime === Const.CREATE_ENEMY_MAX_TIME) {
-            createEnemyTime = 0;
-            createNewEnemy(waveEnemies);
-            waveEnemies++;
+function updateEnemies(wave) {
+    if (allowCreateEnemies) {
+        if (waveEnemies < Const.TOTAL_ENEMIES) {
+            createEnemyTime++;
+            if (createEnemyTime === Const.CREATE_ENEMY_MAX_TIME) {
+                createEnemyTime = 0;
+                createNewEnemy(waveEnemies, wave);
+                waveEnemies++;
+            }
+        }
+        else {
+            allowCreateEnemies = false;
+            waveEnemies = 0;
         }
     }
     var deadEnemies = enemies.filter(function (enemy) { return enemy.isDead(); });
     deadEnemies.forEach(function (enemy) {
         enemyExplosions.push(new EnemyExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem));
+        var $increasedMoney = enemy.getInitialEndurance() * Const.MONEY_MULTIPLICATOR;
+        wallet.increase($increasedMoney);
+        score.increase($increasedMoney * 2);
     });
     enemyExplosions = enemyExplosions.filter(function (enemyExplosion) {
         return enemyExplosion.isActive();
@@ -1517,13 +1583,14 @@ function updateWaveProgressBar() {
     }
     else {
         waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
-        waveProgress++;
-        hud.setWaveProgress(waveProgress);
-        if (hud.getWaveProgressBar().isFullOfProgress()) {
-            waveProgress = 0;
+        waveProgressBar.increaseProgress();
+        if (waveProgressBar.isFullOfProgress()) {
+            waveProgressBar.setProgress(0);
             wave++;
             hud.setWave(wave);
+            allowCreateEnemies = true;
         }
+        hud.setWaveProgressBar(waveProgressBar);
     }
 }
 function updateBossProgressBar() {
@@ -1532,16 +1599,16 @@ function updateBossProgressBar() {
     }
     else {
         bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
-        bossProgress++;
-        hud.setBossProgress(bossProgress);
-        if (hud.getBossProgressBar().isFullOfProgress()) {
-            bossProgress = 0;
+        bossProgressBar.increaseProgress();
+        if (bossProgressBar.isFullOfProgress()) {
+            bossProgressBar.setProgress(0);
         }
+        hud.setBossProgressBar(bossProgressBar);
     }
 }
 function draw() {
     if (gameStatus === Const.GAME_STATUS_PLAYING) {
-        updateEnemies();
+        updateEnemies(wave);
         updateMouseOrangeTileOver();
         updateWaveProgressBar();
         updateBossProgressBar();
