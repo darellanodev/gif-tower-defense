@@ -11,7 +11,6 @@ import { GreenTower } from './GreenTower'
 import { RedTower } from './RedTower'
 import { YellowTower } from './YellowTower'
 import { Distance } from './Distance'
-import { CustomRange } from './CustomRange'
 import { Hud } from './Hud'
 import { Enemy } from './Enemy'
 import { Debug } from './Debug'
@@ -51,9 +50,9 @@ let influenceArea: InfluenceArea
 let enemyExplosions: EnemyExplosion[]
 let lives: number
 let gameStatus: number
-let waveProgress: number
+let waveProgressBar: ProgressBar
 let waveProgressDelay: number
-let bossProgress: number
+let bossProgressBar: ProgressBar
 let bossProgressDelay: number
 let initialEnemiesPosition: { x: number; y: number }
 
@@ -133,6 +132,9 @@ function setup() {
   waveEnemies = 0
   enemies = []
 
+  waveProgressBar = new ProgressBar(335, -19, 150, 16)
+  bossProgressBar = new ProgressBar(335, -2, 150, 10)
+
   hud = new Hud(
     hudImages,
     wallet,
@@ -140,12 +142,11 @@ function setup() {
     lives,
     score,
     TextProperties,
-    ProgressBar,
+    waveProgressBar,
+    bossProgressBar,
     wave,
   )
 
-  waveProgress = 0
-  bossProgress = 0
   waveProgressDelay = Const.WAVE_PROGRESS_DELAY
   bossProgressDelay = Const.BOSS_PROGRESS_DELAY
 
@@ -323,14 +324,15 @@ function updateWaveProgressBar() {
     waveProgressDelay--
   } else {
     waveProgressDelay = Const.WAVE_PROGRESS_DELAY
-    waveProgress++
-    hud.setWaveProgress(waveProgress)
-    if (hud.getWaveProgressBar().isFullOfProgress()) {
+    waveProgressBar.increaseProgress()
+
+    if (waveProgressBar.isFullOfProgress()) {
       // next wave
-      waveProgress = 0
+      waveProgressBar.setProgress(0)
       wave++
       hud.setWave(wave)
     }
+    hud.setWaveProgressBar(waveProgressBar)
   }
 }
 
@@ -339,12 +341,13 @@ function updateBossProgressBar() {
     bossProgressDelay--
   } else {
     bossProgressDelay = Const.BOSS_PROGRESS_DELAY
-    bossProgress++
-    hud.setBossProgress(bossProgress)
-    if (hud.getBossProgressBar().isFullOfProgress()) {
+    bossProgressBar.increaseProgress()
+
+    if (bossProgressBar.isFullOfProgress()) {
       // next boss
-      bossProgress = 0
+      bossProgressBar.setProgress(0)
     }
+    hud.setBossProgressBar(bossProgressBar)
   }
 }
 

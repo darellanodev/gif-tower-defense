@@ -26,7 +26,8 @@ export class Hud {
     lives: number,
     score: Score,
     TextPropertiesClass: typeof TextProperties,
-    ProgressBarClass: typeof ProgressBar,
+    waveProgressBar: ProgressBar,
+    bossProgressBar: ProgressBar,
     wave: number,
   ) {
     this.hudImages = hudImages
@@ -35,7 +36,8 @@ export class Hud {
     this.lives = lives
     this.score = score
     this.TextPropertiesClass = TextPropertiesClass
-    this.ProgressBarClass = ProgressBarClass
+    this.waveProgressBar = waveProgressBar
+    this.bossProgressBar = bossProgressBar
     this.wave = wave
 
     this.waveProgressBar = new ProgressBar(335, -19, 150, 16)
@@ -72,6 +74,14 @@ export class Hud {
       return true
     }
     return false
+  }
+
+  setWaveProgressBar(waveProgressBar: ProgressBar) {
+    this.waveProgressBar = waveProgressBar
+  }
+
+  setBossProgressBar(bossProgressBar: ProgressBar) {
+    this.bossProgressBar = bossProgressBar
   }
 
   selectTower(towerType: number) {
@@ -120,22 +130,6 @@ export class Hud {
 
   setLives(lives: number) {
     this.lives = lives
-  }
-
-  setWaveProgress(waveProgress: number) {
-    this.waveProgressBar.setProgress(waveProgress)
-  }
-
-  setBossProgress(bossProgress: number) {
-    this.bossProgressBar.setProgress(bossProgress)
-  }
-
-  getWaveProgressBar() {
-    return this.waveProgressBar
-  }
-
-  getBossProgressBar() {
-    return this.bossProgressBar
   }
 
   _drawMoney() {
