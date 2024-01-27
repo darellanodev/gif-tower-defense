@@ -18,6 +18,7 @@ import { Debug } from './Debug'
 import { Random } from './Random'
 import { ProgressBar } from './ProgressBar'
 import { Wallet } from './Wallet'
+import { Score } from './Score'
 import { ImageUtils } from './ImageUtils'
 import { InfluenceArea } from './InfluenceArea'
 import { EnemyExplosion } from './EnemyExplosion'
@@ -30,6 +31,7 @@ let createEnemyTime: number
 let enemies: Enemy[]
 let hud: Hud
 let wallet: Wallet
+let score: Score
 let orangeTiles: OrangeTile[]
 let mouseOrangeTileOver: OrangeTile
 let wave: number
@@ -47,7 +49,6 @@ let towerGenerator: TowerGenerator
 let influenceArea: InfluenceArea
 let enemyExplosions: EnemyExplosion[]
 let lives: number
-let score: number
 let gameStatus: number
 let waveProgress: number
 let waveProgressDelay: number
@@ -160,8 +161,8 @@ function setup() {
   initialEnemiesPosition = path.getEnemiesInitialPosition()
 
   wallet = new Wallet(tileGenerator.getInitialMoney(), Const)
+  score = new Score()
   lives = 7
-  score = 0
 
   wave = 1
   waveEnemies = 0
@@ -169,7 +170,7 @@ function setup() {
 
   hud = new Hud(
     hudImages,
-    wallet.getMoney(),
+    wallet,
     Const,
     lives,
     score,
@@ -250,14 +251,12 @@ function handleHudButtons() {
 function handleSellTower() {
   const profit = mouseOrangeTileOver.sellTower()
   wallet.increase(profit)
-  hud.setMoney(wallet.getMoney())
 }
 
 function handleBuyTower() {
   if (canBuyTower(mouseOrangeTileOver.getTower())) {
     const cost = mouseOrangeTileOver.buyTower(hud.getSelectedTower())
     wallet.decrease(cost)
-    hud.setMoney(wallet.getMoney())
   }
 }
 
@@ -313,11 +312,11 @@ function updateEnemies(wave: number) {
       new EnemyExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem),
     )
     //increase money and score
-    const money = enemy.getInitialEndurance() * Const.MONEY_MULTIPLICATOR
-    const score = money * 2
-    wallet.increase(money)
-    hud.setMoney(wallet.getMoney())
-    hud.setScore(score)
+    const $increasedMoney =
+      enemy.getInitialEndurance() * Const.MONEY_MULTIPLICATOR
+
+    wallet.increase($increasedMoney)
+    score.increase($increasedMoney * 2)
   })
   enemyExplosions = enemyExplosions.filter((enemyExplosion) =>
     enemyExplosion.isActive(),

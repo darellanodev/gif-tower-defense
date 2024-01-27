@@ -1,16 +1,18 @@
 import { ConstType } from './types'
 import { TextProperties } from './TextProperties'
 import { ProgressBar } from './ProgressBar'
+import { Score } from './Score'
+import { Wallet } from './Wallet'
 import { Image } from 'p5'
 
 export class Hud {
   hudImages: Image[]
-  money: number
+  wallet: Wallet
   Const: ConstType
   hudType: number
   selectedItem: number
   lives: number
-  score: number
+  score: Score
   TextPropertiesClass: typeof TextProperties
   ProgressBarClass: typeof ProgressBar
   waveProgressBar: ProgressBar
@@ -19,16 +21,16 @@ export class Hud {
 
   constructor(
     hudImages: Image[],
-    money: number,
+    wallet: Wallet,
     Const: ConstType,
     lives: number,
-    score: number,
+    score: Score,
     TextPropertiesClass: typeof TextProperties,
     ProgressBarClass: typeof ProgressBar,
     wave: number,
   ) {
     this.hudImages = hudImages
-    this.money = money
+    this.wallet = wallet
     this.Const = Const
     this.lives = lives
     this.score = score
@@ -116,14 +118,6 @@ export class Hud {
     this.wave = wave
   }
 
-  setMoney(money: number) {
-    this.money = money
-  }
-
-  setScore(score: number) {
-    this.score = score
-  }
-
   setLives(lives: number) {
     this.lives = lives
   }
@@ -145,7 +139,7 @@ export class Hud {
   }
 
   _drawMoney() {
-    text(this.money, 445, 48)
+    text(this.wallet.getMoney(), 445, 48)
   }
 
   _drawLives() {
@@ -153,7 +147,7 @@ export class Hud {
   }
 
   _drawScore() {
-    text(this.score, 397, 73)
+    text(this.score.getPrintScore(), 397, 73)
   }
 
   _drawLevelTitle() {
