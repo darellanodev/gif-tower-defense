@@ -31,7 +31,7 @@ export class OrangeTile {
     let profit = 0
 
     if (this.tower) {
-      profit = this.tower.getCost()
+      profit = this.tower.getSellProfit()
       this.tower = null
     }
     return profit

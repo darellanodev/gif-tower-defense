@@ -107,6 +107,10 @@ export class YellowTower {
     }
   }
 
+  getSellProfit() {
+    return this.Const.PROFIT_SELL_UPGRADE_YELLOW_TOWER[this.getUpgradeLevel()]
+  }
+
   getType() {
     return this.Const.YELLOW_TOWER
   }

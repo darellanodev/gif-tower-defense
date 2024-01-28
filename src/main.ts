@@ -417,6 +417,7 @@ function draw() {
       influenceArea.drawTowerInfluenceArea(tileTower)
       hud.selectTowerHudType(tileTower)
       hud.viewUpgradeCost(tileTower)
+      hud.viewSellProfit(tileTower)
     } else {
       influenceArea.drawHudTowerInfluenceArea(
         hud.getSelectedTower(),
@@ -425,10 +426,12 @@ function draw() {
       )
       hud.setType(Const.HUD_NORMAL)
       hud.hideUpgradeCost()
+      hud.hideSellProfit()
     }
   } else {
     hud.setType(Const.HUD_NORMAL)
     hud.hideUpgradeCost()
+    hud.hideSellProfit()
   }
 
   enemies.forEach((enemy) => {

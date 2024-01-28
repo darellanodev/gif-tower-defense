@@ -149,6 +149,10 @@ export class GreenTower {
     }
   }
 
+  getSellProfit() {
+    return this.Const.PROFIT_SELL_UPGRADE_GREEN_TOWER[this.getUpgradeLevel()]
+  }
+
   getType() {
     return this.Const.GREEN_TOWER
   }

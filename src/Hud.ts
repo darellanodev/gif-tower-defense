@@ -19,6 +19,7 @@ export class Hud {
   bossProgressBar: ProgressBar
   wave: number
   upgradeCost: number
+  sellProfit: number
 
   constructor(
     hudImages: Image[],
@@ -48,6 +49,7 @@ export class Hud {
 
     this.selectedItem = this.Const.GREEN_TOWER
     this.upgradeCost = null
+    this.sellProfit = null
   }
 
   isInsideButtonsBar(px: number, py: number) {
@@ -125,6 +127,7 @@ export class Hud {
     this._drawLevelTitle()
     this._drawWave()
     this._drawUpgradeCost()
+    this._drawSellProfit()
   }
 
   setWave(wave: number) {
@@ -142,6 +145,12 @@ export class Hud {
   _drawUpgradeCost() {
     if (this.upgradeCost !== null) {
       text(this.upgradeCost, 33, 72)
+    }
+  }
+
+  _drawSellProfit() {
+    if (this.sellProfit !== null) {
+      text(this.sellProfit, 182, 72)
     }
   }
 
@@ -196,7 +205,18 @@ export class Hud {
     }
   }
 
+  viewSellProfit(tower: any) {
+    this.sellProfit = null
+    if (this.hudType === this.Const.HUD_UPGRADING) {
+      this.sellProfit = tower.getSellProfit()
+    }
+  }
+
   hideUpgradeCost() {
     this.upgradeCost = null
+  }
+
+  hideSellProfit() {
+    this.sellProfit = null
   }
 }

@@ -112,6 +112,10 @@ export class RedTower {
     }
   }
 
+  getSellProfit() {
+    return this.Const.PROFIT_SELL_UPGRADE_RED_TOWER[this.getUpgradeLevel()]
+  }
+
   getType() {
     return this.Const.RED_TOWER
   }
