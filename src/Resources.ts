@@ -7,7 +7,8 @@ export class Resources {
 
   static enemies() {
     const enemiesImages: any[] = []
-    CustomRange.make(1, Const.TOTAL_ENEMIES).forEach((v) => {
+    const countEnemiesAndBoss = Const.TOTAL_ENEMIES + 1
+    CustomRange.make(1, countEnemiesAndBoss).forEach((v) => {
       enemiesImages.push(loadImage('img/enemies/' + v + '_center.png'))
       enemiesImages.push(loadImage('img/enemies/' + v + '_left.png'))
       enemiesImages.push(loadImage('img/enemies/' + v + '_right.png'))

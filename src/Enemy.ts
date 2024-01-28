@@ -9,6 +9,7 @@ export class Enemy {
   startY: number
   orders: number[]
   endurance: number
+  isBoss: boolean
   Const: ConstType
   RandomClass: typeof Random
   ProgressBarClass: typeof ProgressBar
@@ -38,6 +39,7 @@ export class Enemy {
     startY: number,
     orders: number[],
     endurance: number,
+    isBoss: boolean,
     Const: ConstType,
     RandomClass: typeof Random,
     ProgressBarClass: typeof ProgressBar,
@@ -47,6 +49,7 @@ export class Enemy {
     this.startY = startY
     this.orders = orders
     this.endurance = endurance
+    this.isBoss = isBoss
     this.initialEndurance = endurance
     this.Const = Const
     this.RandomClass = RandomClass
@@ -137,25 +140,29 @@ export class Enemy {
   }
 
   update() {
+    const velocity = this.isBoss
+      ? this.Const.BOSS_VELOCITY
+      : this.Const.ENEMY_VELOCITY
+
     switch (this.currentDirection) {
       case this.Const.LEFT_DIRECTION:
-        this.x = this.x - this.Const.ENEMY_VELOCITY
+        this.x = this.x - velocity
         break
 
       case this.Const.RIGHT_DIRECTION:
-        this.x = this.x + this.Const.ENEMY_VELOCITY
+        this.x = this.x + velocity
         break
 
       case this.Const.UP_DIRECTION:
-        this.y = this.y - this.Const.ENEMY_VELOCITY
+        this.y = this.y - velocity
         break
 
       case this.Const.DOWN_DIRECTION:
-        this.y = this.y + this.Const.ENEMY_VELOCITY
+        this.y = this.y + velocity
         break
     }
 
-    this.moveCount = this.moveCount + this.Const.ENEMY_VELOCITY
+    this.moveCount = this.moveCount + velocity
 
     if (this.moveCount === this.Const.TILE_SIZE) {
       this.moveCount = 0

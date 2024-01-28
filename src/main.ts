@@ -249,6 +249,7 @@ function mouseClicked() {
 
 function createNewEnemy(waveEnemy: number, wave: number) {
   const endurance = wave * 2 + waveEnemy * 2
+  const isBoss = false
 
   enemies.push(
     new Enemy(
@@ -257,6 +258,28 @@ function createNewEnemy(waveEnemy: number, wave: number) {
       initialEnemiesPosition.y,
       orders,
       endurance,
+      isBoss,
+      Const,
+      Random,
+      ProgressBar,
+    ),
+  )
+}
+
+function createNewBoss(wave: number) {
+  const endurance = wave * 25
+  const indexBossInEnemiesImages = 5
+  const isBoss = true
+  enemies.push(
+    new Enemy(
+      enemiesImages.slice(
+        ...ImageUtils.getRangeImagesOfEnemy(indexBossInEnemiesImages),
+      ),
+      initialEnemiesPosition.x,
+      initialEnemiesPosition.y,
+      orders,
+      endurance,
+      isBoss,
       Const,
       Random,
       ProgressBar,
@@ -326,7 +349,7 @@ function getMouseOrangeTileOver() {
   return result ? result : null
 }
 
-function updateWaveProgressBar() {
+function updateWaveProgressBar(wave: number) {
   if (waveProgressDelay > 0) {
     waveProgressDelay--
   } else {
@@ -344,7 +367,7 @@ function updateWaveProgressBar() {
   }
 }
 
-function updateBossProgressBar() {
+function updateBossProgressBar(wave: number) {
   if (bossProgressDelay > 0) {
     bossProgressDelay--
   } else {
@@ -354,6 +377,7 @@ function updateBossProgressBar() {
     if (bossProgressBar.isFullOfProgress()) {
       // next boss
       bossProgressBar.setProgress(0)
+      createNewBoss(wave)
     }
     hud.setBossProgressBar(bossProgressBar)
   }
@@ -363,8 +387,8 @@ function draw() {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
     updateEnemies(wave)
     updateMouseOrangeTileOver()
-    updateWaveProgressBar()
-    updateBossProgressBar()
+    updateWaveProgressBar(wave)
+    updateBossProgressBar(wave)
   }
 
   background('skyblue')

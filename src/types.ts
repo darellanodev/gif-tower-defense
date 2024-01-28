@@ -59,6 +59,7 @@ export type ConstType = {
   ALPHA_INFLUENCE_AREA_STROKE: number
 
   ENEMY_VELOCITY: number
+  BOSS_VELOCITY: number
 
   ENEMY_CHANGE_EYES_MAX_TIME: number
 

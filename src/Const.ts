@@ -51,6 +51,7 @@ export class Const {
   static ALPHA_INFLUENCE_AREA_STROKE = 120
 
   static ENEMY_VELOCITY = 1 // must be multiple of "this.Const.TILE_SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
+  static BOSS_VELOCITY = 0.5
 
   static ENEMY_CHANGE_EYES_MAX_TIME = 50
 
@@ -76,7 +77,7 @@ export class Const {
   static GAME_STATUS_GAME_OVER = 1
 
   static WAVE_PROGRESS_DELAY = 10
-  static BOSS_PROGRESS_DELAY = 50
+  static BOSS_PROGRESS_DELAY = 30
 
   static MONEY_MULTIPLICATOR = 10
 }
