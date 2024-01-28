@@ -99,6 +99,14 @@ export class YellowTower {
     return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel())
   }
 
+  getNextLevelUpgradeCost() {
+    if (this.getUpgradeLevel() < this.Const.UPGRADE_MAX_LEVEL) {
+      return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1)
+    } else {
+      return this.getCostWhenUpgradeLevelIs(this.Const.UPGRADE_MAX_LEVEL - 1)
+    }
+  }
+
   getType() {
     return this.Const.YELLOW_TOWER
   }

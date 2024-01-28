@@ -18,6 +18,7 @@ export class Hud {
   waveProgressBar: ProgressBar
   bossProgressBar: ProgressBar
   wave: number
+  upgradeCost: number
 
   constructor(
     hudImages: Image[],
@@ -46,6 +47,7 @@ export class Hud {
     this.hudType = this.Const.HUD_NORMAL
 
     this.selectedItem = this.Const.GREEN_TOWER
+    this.upgradeCost = null
   }
 
   isInsideButtonsBar(px: number, py: number) {
@@ -122,6 +124,7 @@ export class Hud {
     this._drawScore()
     this._drawLevelTitle()
     this._drawWave()
+    this._drawUpgradeCost()
   }
 
   setWave(wave: number) {
@@ -134,6 +137,12 @@ export class Hud {
 
   _drawMoney() {
     text(this.wallet.getMoney(), 445, 48)
+  }
+
+  _drawUpgradeCost() {
+    if (this.upgradeCost !== null) {
+      text(this.upgradeCost, 33, 72)
+    }
   }
 
   _drawLives() {
@@ -178,5 +187,16 @@ export class Hud {
     } else {
       this.setType(this.Const.HUD_UPGRADING_MAX)
     }
+  }
+
+  viewUpgradeCost(tower: any) {
+    this.upgradeCost = null
+    if (this.hudType === this.Const.HUD_UPGRADING) {
+      this.upgradeCost = tower.getNextLevelUpgradeCost()
+    }
+  }
+
+  hideUpgradeCost() {
+    this.upgradeCost = null
   }
 }

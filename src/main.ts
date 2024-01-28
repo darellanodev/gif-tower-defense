@@ -412,8 +412,11 @@ function draw() {
 
   if (mouseOrangeTileOver !== null) {
     if (mouseOrangeTileOver.hasTower()) {
-      influenceArea.drawTowerInfluenceArea(mouseOrangeTileOver.getTower())
-      hud.selectTowerHudType(mouseOrangeTileOver.getTower())
+      const tileTower = mouseOrangeTileOver.getTower()
+
+      influenceArea.drawTowerInfluenceArea(tileTower)
+      hud.selectTowerHudType(tileTower)
+      hud.viewUpgradeCost(tileTower)
     } else {
       influenceArea.drawHudTowerInfluenceArea(
         hud.getSelectedTower(),
@@ -421,9 +424,11 @@ function draw() {
         mouseOrangeTileOver.getY(),
       )
       hud.setType(Const.HUD_NORMAL)
+      hud.hideUpgradeCost()
     }
   } else {
     hud.setType(Const.HUD_NORMAL)
+    hud.hideUpgradeCost()
   }
 
   enemies.forEach((enemy) => {
