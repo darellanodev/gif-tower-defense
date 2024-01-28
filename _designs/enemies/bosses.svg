@@ -29,7 +29,7 @@
      inkscape:cx="487.57041"
      inkscape:cy="792.21208"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
@@ -54,8 +54,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="background"
-     style="display:inline;opacity:1"
-     sodipodi:insensitive="true">
+     style="display:inline;opacity:1">
     <rect
        style="display:inline;fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.5"
        id="rect4797"
@@ -90,7 +89,10 @@
        width="28.063299"
        height="28.063299"
        x="5.9611917"
-       y="6.7768903" />
+       y="6.7768903"
+       inkscape:export-filename="D:\xampp\htdocs\proyectos\gif-tower-defense-p5js\img\enemies\6_center.png"
+       inkscape:export-xdpi="45.25"
+       inkscape:export-ydpi="45.25" />
     <rect
        y="38.52689"
        x="132.96118"
@@ -125,7 +127,10 @@
        height="28.063299"
        width="28.063299"
        id="rect874"
-       style="display:inline;fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.5" />
+       style="display:inline;fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.5"
+       inkscape:export-filename="D:\xampp\htdocs\proyectos\gif-tower-defense-p5js\img\enemies\6_left.png"
+       inkscape:export-xdpi="45.25"
+       inkscape:export-ydpi="45.25" />
     <rect
        style="display:inline;fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.5"
        id="rect963"
@@ -160,7 +165,10 @@
        width="28.063299"
        height="28.063299"
        x="5.9611917"
-       y="70.276878" />
+       y="70.276878"
+       inkscape:export-filename="D:\xampp\htdocs\proyectos\gif-tower-defense-p5js\img\enemies\6_right.png"
+       inkscape:export-xdpi="45.25"
+       inkscape:export-ydpi="45.25" />
     <rect
        y="102.02686"
        x="132.96118"
@@ -195,7 +203,10 @@
        height="28.063299"
        width="28.063299"
        id="rect1059"
-       style="display:inline;fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.5" />
+       style="display:inline;fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.5"
+       inkscape:export-filename="D:\xampp\htdocs\proyectos\gif-tower-defense-p5js\img\enemies\6_closed.png"
+       inkscape:export-xdpi="45.25"
+       inkscape:export-ydpi="45.25" />
   </g>
   <g
      inkscape:label="foreground"
