@@ -38,17 +38,6 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Extract variables and functions from main.ts to Game class
 - [ ] When upgrading a tower, make the progress bar slowest depending on the upgrading level
 - [ ] Change the color of the buy/upgrade cost to red and the influence area to gray when the player cant buy/upgrade
-- [x] Print the sell money return
-- [x] Draw the boss different to the rest of enemies
-- [x] Print the upgrade costs
-- [x] Make tower shot stronger depending on its upgrading level
-- [x] The boss is slower and has more endurance than the rest of the enemies
-- [x] The boss starts when the boss bar is filled
-- [x] Create new enemies on the next wave
-- [x] Create score class
-- [x] When an enemy dies increase the score and the money
-- [x] Endurance of the enemy depending to receive damage based on wave number and order of the enemy
-- [x] Banner and screenshots in readme
 
 ## Resources
 
