@@ -10,6 +10,6 @@ export class Score {
   }
 
   getPrintScore(): string {
-    return String(this.score).padStart(6, '0')
+    return String(this.score).padStart(10, '0')
   }
 }

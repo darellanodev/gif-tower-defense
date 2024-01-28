@@ -141,7 +141,7 @@ export class Hud {
   }
 
   _drawScore() {
-    text(this.score.getPrintScore(), 397, 73)
+    text(this.score.getPrintScore(), 404, 73)
   }
 
   _drawLevelTitle() {
