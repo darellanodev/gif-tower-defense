@@ -34,13 +34,16 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] When Yellow tower is full the player get lives depending on the upgrade level of the yellow tower
 - [ ] Yellow tower absorbs the yellow faces and fill its indicator
 - [ ] Make the red tower target and shot to an enemy
-- [ ] The boss is slower than the rest of the enemies
-- [ ] The boss starts when the boss bar is filled
-- [ ] Draw the boss different to the rest of enemies
-- [ ] Make tower shot stronger depending on its upgrading level
-- [ ] Make the upgrade progress slowest depending on the upgrading level
-- [ ] Print the upgrade costs and sell money return
-- [ ] Show the upgrade gray panel when the player cant buy
+- [ ] Create a MapProvider class to load and provide maps, and a Maps file with all the maps
+- [ ] Extract variables and functions from main.ts to Game class
+- [ ] When upgrading a tower, make the progress bar slowest depending on the upgrading level
+- [ ] Change the color of the buy/upgrade cost to red and the influence area to gray when the player cant buy/upgrade
+- [x] Print the sell money return
+- [x] Draw the boss different to the rest of enemies
+- [x] Print the upgrade costs
+- [x] Make tower shot stronger depending on its upgrading level
+- [x] The boss is slower and has more endurance than the rest of the enemies
+- [x] The boss starts when the boss bar is filled
 - [x] Create new enemies on the next wave
 - [x] Create score class
 - [x] When an enemy dies increase the score and the money
