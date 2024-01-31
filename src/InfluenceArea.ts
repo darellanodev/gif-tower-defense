@@ -7,6 +7,17 @@ export class InfluenceArea {
     this.Const = Const
   }
 
+  _setGrayInfluenceAreaColor() {
+    stroke(
+      ...(this.Const.GRAY_COLOR as RGBType),
+      this.Const.ALPHA_INFLUENCE_AREA_STROKE,
+    )
+    fill(
+      ...(this.Const.GRAY_COLOR as RGBType),
+      this.Const.ALPHA_INFLUENCE_AREA_FILL,
+    )
+  }
+
   _setInfluenceAreaColor(towerType: number) {
     switch (towerType) {
       case this.Const.GREEN_TOWER:
@@ -67,7 +78,7 @@ export class InfluenceArea {
     this._drawCircle(x, y, this._getInfluenceAreaFor(hudTowerSelected))
   }
 
-  drawTowerInfluenceArea(tower: any) {
+  drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {
     strokeWeight(2)
 
     let x = tower.getX()
@@ -80,8 +91,11 @@ export class InfluenceArea {
       x += this.Const.TOWER_OFFSET
       y += this.Const.TOWER_OFFSET
     }
-
-    this._setInfluenceAreaColor(tower.getType())
+    if (canUpgrade) {
+      this._setInfluenceAreaColor(tower.getType())
+    } else {
+      this._setGrayInfluenceAreaColor()
+    }
     this._drawCircle(x, y, tower.getInfluenceArea())
   }
 

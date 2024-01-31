@@ -18,6 +18,7 @@ export type ConstType = {
   GREEN_COLOR: number[]
   RED_COLOR: number[]
   YELLOW_COLOR: number[]
+  GRAY_COLOR: number[]
 
   DAMAGE_UPGRADE_GREEN_TOWER: number[]
 

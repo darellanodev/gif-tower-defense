@@ -421,9 +421,9 @@ function draw() {
           tileTower.getUpgradeLevel() + 1,
         )
         hud.viewUpgradeCost(tileTower, canUpgrade)
+        influenceArea.drawTowerInfluenceArea(tileTower, canUpgrade)
       }
 
-      influenceArea.drawTowerInfluenceArea(tileTower)
       hud.viewSellProfit(tileTower)
     } else {
       influenceArea.drawHudTowerInfluenceArea(

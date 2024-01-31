@@ -10,6 +10,7 @@ export class Const {
   static GREEN_COLOR = [75, 185, 35]
   static RED_COLOR = [185, 35, 35]
   static YELLOW_COLOR = [202, 191, 24]
+  static GRAY_COLOR = [50, 50, 50]
 
   static DAMAGE_UPGRADE_GREEN_TOWER = [1, 2, 4, 8, 16, 32]
 
