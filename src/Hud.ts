@@ -19,6 +19,7 @@ export class Hud {
   bossProgressBar: ProgressBar
   wave: number
   upgradeCost: number
+  canUpgrade: boolean
   sellProfit: number
 
   constructor(
@@ -144,7 +145,12 @@ export class Hud {
 
   _drawUpgradeCost() {
     if (this.upgradeCost !== null) {
+      if (!this.canUpgrade) {
+        fill('gray')
+      }
       text(this.upgradeCost, 33, 72)
+      // restore color
+      fill('white')
     }
   }
 
@@ -198,11 +204,12 @@ export class Hud {
     }
   }
 
-  viewUpgradeCost(tower: any) {
+  viewUpgradeCost(tower: any, canUpgrade: boolean) {
     this.upgradeCost = null
     if (this.hudType === this.Const.HUD_UPGRADING) {
       this.upgradeCost = tower.getNextLevelUpgradeCost()
     }
+    this.canUpgrade = canUpgrade
   }
 
   viewSellProfit(tower: any) {

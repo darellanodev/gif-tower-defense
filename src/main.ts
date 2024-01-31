@@ -414,9 +414,16 @@ function draw() {
     if (mouseOrangeTileOver.hasTower()) {
       const tileTower = mouseOrangeTileOver.getTower()
 
-      influenceArea.drawTowerInfluenceArea(tileTower)
       hud.selectTowerHudType(tileTower)
-      hud.viewUpgradeCost(tileTower)
+      if (!tileTower.isMaxUpgraded()) {
+        const canUpgrade = wallet.haveMoneyToBuy(
+          tileTower.getType(),
+          tileTower.getUpgradeLevel() + 1,
+        )
+        hud.viewUpgradeCost(tileTower, canUpgrade)
+      }
+
+      influenceArea.drawTowerInfluenceArea(tileTower)
       hud.viewSellProfit(tileTower)
     } else {
       influenceArea.drawHudTowerInfluenceArea(

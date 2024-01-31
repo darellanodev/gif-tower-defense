@@ -60,6 +60,10 @@ export class YellowTower {
     return this.upgradeLevel
   }
 
+  isMaxUpgraded() {
+    return this.upgradeLevel === this.Const.UPGRADE_MAX_LEVEL - 1
+  }
+
   _drawUpgradeBackground() {
     strokeWeight(1)
     stroke('black')
@@ -100,10 +104,10 @@ export class YellowTower {
   }
 
   getNextLevelUpgradeCost() {
-    if (this.getUpgradeLevel() < this.Const.UPGRADE_MAX_LEVEL) {
-      return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1)
-    } else {
+    if (this.isMaxUpgraded()) {
       return this.getCostWhenUpgradeLevelIs(this.Const.UPGRADE_MAX_LEVEL - 1)
+    } else {
+      return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1)
     }
   }
 
