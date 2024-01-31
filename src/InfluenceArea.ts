@@ -71,10 +71,19 @@ export class InfluenceArea {
     return influenceArea
   }
 
-  drawHudTowerInfluenceArea(hudTowerSelected: any, x: number, y: number) {
+  drawHudTowerInfluenceArea(
+    hudTowerSelected: any,
+    x: number,
+    y: number,
+    canBuy: boolean,
+  ) {
     strokeWeight(2)
 
-    this._setInfluenceAreaColor(hudTowerSelected)
+    if (canBuy) {
+      this._setInfluenceAreaColor(hudTowerSelected)
+    } else {
+      this._setGrayInfluenceAreaColor()
+    }
     this._drawCircle(x, y, this._getInfluenceAreaFor(hudTowerSelected))
   }
 

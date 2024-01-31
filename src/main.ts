@@ -185,10 +185,10 @@ function canUpgradeTower(tower: TowerType) {
   return canUpgrade
 }
 
-function canBuyNewTower() {
+function canBuyNewTower(hudSelectedTower: number) {
   let canBuy = false
   const zeroUpgradeLevel = 0
-  if (wallet.haveMoneyToBuy(hud.getSelectedTower(), zeroUpgradeLevel)) {
+  if (wallet.haveMoneyToBuy(hudSelectedTower, zeroUpgradeLevel)) {
     canBuy = true
   }
   return canBuy
@@ -199,7 +199,7 @@ function canBuyTower(tower: TowerType) {
   if (tower) {
     result = canUpgradeTower(tower)
   } else {
-    result = canBuyNewTower()
+    result = canBuyNewTower(hud.getSelectedTower())
   }
   return result
 }
@@ -426,11 +426,15 @@ function draw() {
 
       hud.viewSellProfit(tileTower)
     } else {
+      const canBuy = canBuyNewTower(hud.getSelectedTower())
+
       influenceArea.drawHudTowerInfluenceArea(
         hud.getSelectedTower(),
         mouseOrangeTileOver.getX(),
         mouseOrangeTileOver.getY(),
+        canBuy,
       )
+
       hud.setType(Const.HUD_NORMAL)
       hud.hideUpgradeCost()
       hud.hideSellProfit()
