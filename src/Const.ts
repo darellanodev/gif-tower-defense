@@ -36,7 +36,6 @@ export class Const {
 
   static UPGRADE_MAX_LEVEL = 5
 
-  static TOTAL_TOWER_UPGRADES = 5
   static TOTAL_ENEMIES = 5
   static CANVAS_WIDTH = 800
   static CANVAS_HEIGHT = 580

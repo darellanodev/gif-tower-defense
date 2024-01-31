@@ -42,7 +42,6 @@ export type ConstType = {
 
   UPGRADE_MAX_LEVEL: number
 
-  TOTAL_TOWER_UPGRADES: number
   TOTAL_ENEMIES: number
   CANVAS_WIDTH: number
   CANVAS_HEIGHT: number

@@ -19,7 +19,7 @@ export class Resources {
 
   static greenTower() {
     const greenTowerImages: any[] = []
-    CustomRange.make(0, Const.TOTAL_TOWER_UPGRADES).forEach((v) => {
+    CustomRange.make(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
       greenTowerImages.push(
         loadImage('img/towers/green_tower_upgrade_' + v + '.png'),
       )
@@ -29,7 +29,7 @@ export class Resources {
 
   static redTower() {
     const redTowerImages: any[] = []
-    CustomRange.make(0, Const.TOTAL_TOWER_UPGRADES).forEach((v) => {
+    CustomRange.make(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
       redTowerImages.push(
         loadImage('img/towers/red_tower_upgrade_' + v + '.png'),
       )
@@ -39,7 +39,7 @@ export class Resources {
 
   static yellowTower() {
     const yellowTowerImages: any[] = []
-    CustomRange.make(0, Const.TOTAL_TOWER_UPGRADES).forEach((v) => {
+    CustomRange.make(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
       yellowTowerImages.push(
         loadImage('img/towers/yellow_tower_upgrade_' + v + '.png'),
       )
