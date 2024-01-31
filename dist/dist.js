@@ -10,7 +10,13 @@ var Const = (function () {
     Const.GREEN_COLOR = [75, 185, 35];
     Const.RED_COLOR = [185, 35, 35];
     Const.YELLOW_COLOR = [202, 191, 24];
+    Const.GRAY_COLOR = [50, 50, 50];
     Const.DAMAGE_UPGRADE_GREEN_TOWER = [1, 2, 4, 8, 16, 32];
+    Const.PROFIT_SELL_UPGRADE_GREEN_TOWER = [30, 35, 65, 220, 900, 1880];
+    Const.PROFIT_SELL_UPGRADE_RED_TOWER = [80, 110, 190, 420, 1200, 2880];
+    Const.PROFIT_SELL_UPGRADE_YELLOW_TOWER = [
+        680, 2460, 7440, 21920, 66900, 199880,
+    ];
     Const.COST_UPGRADE_GREEN_TOWER = [50, 75, 125, 300, 1000, 2000];
     Const.COST_UPGRADE_RED_TOWER = [100, 150, 250, 500, 1300, 3000];
     Const.COST_UPGRADE_YELLOW_TOWER = [700, 2500, 7500, 22000, 67000, 200000];
@@ -23,7 +29,6 @@ var Const = (function () {
     Const.DOWN_DIRECTION = 4;
     Const.TILE_SIZE = 50;
     Const.UPGRADE_MAX_LEVEL = 5;
-    Const.TOTAL_TOWER_UPGRADES = 5;
     Const.TOTAL_ENEMIES = 5;
     Const.CANVAS_WIDTH = 800;
     Const.CANVAS_HEIGHT = 580;
@@ -39,6 +44,7 @@ var Const = (function () {
     Const.ALPHA_INFLUENCE_AREA_FILL = 50;
     Const.ALPHA_INFLUENCE_AREA_STROKE = 120;
     Const.ENEMY_VELOCITY = 1;
+    Const.BOSS_VELOCITY = 0.5;
     Const.ENEMY_CHANGE_EYES_MAX_TIME = 50;
     Const.ENEMY_EXTEND_CLOSED_EYES_MAX_TIME = 20;
     Const.ENEMY_MIN_TIME_TO_CLOSE = 50;
@@ -56,7 +62,7 @@ var Const = (function () {
     Const.GAME_STATUS_PLAYING = 0;
     Const.GAME_STATUS_GAME_OVER = 1;
     Const.WAVE_PROGRESS_DELAY = 10;
-    Const.BOSS_PROGRESS_DELAY = 50;
+    Const.BOSS_PROGRESS_DELAY = 30;
     Const.MONEY_MULTIPLICATOR = 10;
     return Const;
 }());
@@ -103,12 +109,13 @@ var EndTile = (function () {
     return EndTile;
 }());
 var Enemy = (function () {
-    function Enemy(images, startX, startY, orders, endurance, Const, RandomClass, ProgressBarClass) {
+    function Enemy(images, startX, startY, orders, endurance, isBoss, Const, RandomClass, ProgressBarClass) {
         this.images = images;
         this.startX = startX;
         this.startY = startY;
         this.orders = orders;
         this.endurance = endurance;
+        this.isBoss = isBoss;
         this.initialEndurance = endurance;
         this.Const = Const;
         this.RandomClass = RandomClass;
@@ -179,21 +186,24 @@ var Enemy = (function () {
         this._setRandomTimeMaxForClosingEyes();
     };
     Enemy.prototype.update = function () {
+        var velocity = this.isBoss
+            ? this.Const.BOSS_VELOCITY
+            : this.Const.ENEMY_VELOCITY;
         switch (this.currentDirection) {
             case this.Const.LEFT_DIRECTION:
-                this.x = this.x - this.Const.ENEMY_VELOCITY;
+                this.x = this.x - velocity;
                 break;
             case this.Const.RIGHT_DIRECTION:
-                this.x = this.x + this.Const.ENEMY_VELOCITY;
+                this.x = this.x + velocity;
                 break;
             case this.Const.UP_DIRECTION:
-                this.y = this.y - this.Const.ENEMY_VELOCITY;
+                this.y = this.y - velocity;
                 break;
             case this.Const.DOWN_DIRECTION:
-                this.y = this.y + this.Const.ENEMY_VELOCITY;
+                this.y = this.y + velocity;
                 break;
         }
-        this.moveCount = this.moveCount + this.Const.ENEMY_VELOCITY;
+        this.moveCount = this.moveCount + velocity;
         if (this.moveCount === this.Const.TILE_SIZE) {
             this.moveCount = 0;
             this.indexOrder++;
@@ -309,6 +319,9 @@ var GreenTower = (function () {
     GreenTower.prototype.getUpgradeLevel = function () {
         return this.upgradeLevel;
     };
+    GreenTower.prototype.isMaxUpgraded = function () {
+        return this.upgradeLevel === this.Const.UPGRADE_MAX_LEVEL - 1;
+    };
     GreenTower.prototype._drawShotToEnemy = function () {
         strokeWeight(3);
         stroke(this.Const.RED_COLOR);
@@ -366,6 +379,17 @@ var GreenTower = (function () {
     GreenTower.prototype.getCost = function () {
         return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel());
     };
+    GreenTower.prototype.getNextLevelUpgradeCost = function () {
+        if (this.isMaxUpgraded()) {
+            return this.getCostWhenUpgradeLevelIs(this.Const.UPGRADE_MAX_LEVEL - 1);
+        }
+        else {
+            return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1);
+        }
+    };
+    GreenTower.prototype.getSellProfit = function () {
+        return this.Const.PROFIT_SELL_UPGRADE_GREEN_TOWER[this.getUpgradeLevel()];
+    };
     GreenTower.prototype.getType = function () {
         return this.Const.GREEN_TOWER;
     };
@@ -413,6 +437,8 @@ var Hud = (function () {
         this.bossProgressBar = new ProgressBar(335, -2, 150, 10);
         this.hudType = this.Const.HUD_NORMAL;
         this.selectedItem = this.Const.GREEN_TOWER;
+        this.upgradeCost = null;
+        this.sellProfit = null;
     }
     Hud.prototype.isInsideButtonsBar = function (px, py) {
         if (px > 0 && px < 800 && py > 28 && py < 78) {
@@ -474,6 +500,8 @@ var Hud = (function () {
         this._drawScore();
         this._drawLevelTitle();
         this._drawWave();
+        this._drawUpgradeCost();
+        this._drawSellProfit();
     };
     Hud.prototype.setWave = function (wave) {
         this.wave = wave;
@@ -484,11 +512,25 @@ var Hud = (function () {
     Hud.prototype._drawMoney = function () {
         text(this.wallet.getMoney(), 445, 48);
     };
+    Hud.prototype._drawUpgradeCost = function () {
+        if (this.upgradeCost !== null) {
+            if (!this.canUpgrade) {
+                fill('gray');
+            }
+            text(this.upgradeCost, 33, 72);
+            fill('white');
+        }
+    };
+    Hud.prototype._drawSellProfit = function () {
+        if (this.sellProfit !== null) {
+            text(this.sellProfit, 182, 72);
+        }
+    };
     Hud.prototype._drawLives = function () {
         text(this.lives, 390, 48);
     };
     Hud.prototype._drawScore = function () {
-        text(this.score.getPrintScore(), 397, 73);
+        text(this.score.getPrintScore(), 404, 73);
     };
     Hud.prototype._drawLevelTitle = function () {
         text('Serpent by Ocliboy', 130, 18);
@@ -520,6 +562,25 @@ var Hud = (function () {
             this.setType(this.Const.HUD_UPGRADING_MAX);
         }
     };
+    Hud.prototype.viewUpgradeCost = function (tower, canUpgrade) {
+        this.upgradeCost = null;
+        if (this.hudType === this.Const.HUD_UPGRADING) {
+            this.upgradeCost = tower.getNextLevelUpgradeCost();
+        }
+        this.canUpgrade = canUpgrade;
+    };
+    Hud.prototype.viewSellProfit = function (tower) {
+        this.sellProfit = null;
+        if (this.hudType === this.Const.HUD_UPGRADING) {
+            this.sellProfit = tower.getSellProfit();
+        }
+    };
+    Hud.prototype.hideUpgradeCost = function () {
+        this.upgradeCost = null;
+    };
+    Hud.prototype.hideSellProfit = function () {
+        this.sellProfit = null;
+    };
     return Hud;
 }());
 var ImageUtils = (function () {
@@ -543,6 +604,10 @@ var InfluenceArea = (function () {
     function InfluenceArea(Const) {
         this.Const = Const;
     }
+    InfluenceArea.prototype._setGrayInfluenceAreaColor = function () {
+        stroke.apply(void 0, __spreadArray(__spreadArray([], this.Const.GRAY_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
+        fill.apply(void 0, __spreadArray(__spreadArray([], this.Const.GRAY_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
+    };
     InfluenceArea.prototype._setInfluenceAreaColor = function (towerType) {
         switch (towerType) {
             case this.Const.GREEN_TOWER:
@@ -574,12 +639,17 @@ var InfluenceArea = (function () {
         }
         return influenceArea;
     };
-    InfluenceArea.prototype.drawHudTowerInfluenceArea = function (hudTowerSelected, x, y) {
+    InfluenceArea.prototype.drawHudTowerInfluenceArea = function (hudTowerSelected, x, y, canBuy) {
         strokeWeight(2);
-        this._setInfluenceAreaColor(hudTowerSelected);
+        if (canBuy) {
+            this._setInfluenceAreaColor(hudTowerSelected);
+        }
+        else {
+            this._setGrayInfluenceAreaColor();
+        }
         this._drawCircle(x, y, this._getInfluenceAreaFor(hudTowerSelected));
     };
-    InfluenceArea.prototype.drawTowerInfluenceArea = function (tower) {
+    InfluenceArea.prototype.drawTowerInfluenceArea = function (tower, canUpgrade) {
         strokeWeight(2);
         var x = tower.getX();
         var y = tower.getY();
@@ -588,7 +658,12 @@ var InfluenceArea = (function () {
             x += this.Const.TOWER_OFFSET;
             y += this.Const.TOWER_OFFSET;
         }
-        this._setInfluenceAreaColor(tower.getType());
+        if (canUpgrade) {
+            this._setInfluenceAreaColor(tower.getType());
+        }
+        else {
+            this._setGrayInfluenceAreaColor();
+        }
         this._drawCircle(x, y, tower.getInfluenceArea());
     };
     InfluenceArea.prototype._drawCircle = function (x, y, diameter) {
@@ -608,7 +683,7 @@ var OrangeTile = (function () {
     OrangeTile.prototype.sellTower = function () {
         var profit = 0;
         if (this.tower) {
-            profit = this.tower.getCost();
+            profit = this.tower.getSellProfit();
             this.tower = null;
         }
         return profit;
@@ -954,6 +1029,9 @@ var RedTower = (function () {
     RedTower.prototype.getUpgradeLevel = function () {
         return this.upgradeLevel;
     };
+    RedTower.prototype.isMaxUpgraded = function () {
+        return this.upgradeLevel === this.Const.UPGRADE_MAX_LEVEL - 1;
+    };
     RedTower.prototype._drawUpgradeBackground = function () {
         strokeWeight(1);
         stroke('black');
@@ -990,6 +1068,17 @@ var RedTower = (function () {
     RedTower.prototype.getCost = function () {
         return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel());
     };
+    RedTower.prototype.getNextLevelUpgradeCost = function () {
+        if (this.isMaxUpgraded()) {
+            return this.getCostWhenUpgradeLevelIs(this.Const.UPGRADE_MAX_LEVEL - 1);
+        }
+        else {
+            return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1);
+        }
+    };
+    RedTower.prototype.getSellProfit = function () {
+        return this.Const.PROFIT_SELL_UPGRADE_RED_TOWER[this.getUpgradeLevel()];
+    };
     RedTower.prototype.getType = function () {
         return this.Const.RED_TOWER;
     };
@@ -1005,7 +1094,8 @@ var Resources = (function () {
     }
     Resources.enemies = function () {
         var enemiesImages = [];
-        CustomRange.make(1, Const.TOTAL_ENEMIES).forEach(function (v) {
+        var countEnemiesAndBoss = Const.TOTAL_ENEMIES + 1;
+        CustomRange.make(1, countEnemiesAndBoss).forEach(function (v) {
             enemiesImages.push(loadImage('img/enemies/' + v + '_center.png'));
             enemiesImages.push(loadImage('img/enemies/' + v + '_left.png'));
             enemiesImages.push(loadImage('img/enemies/' + v + '_right.png'));
@@ -1015,21 +1105,21 @@ var Resources = (function () {
     };
     Resources.greenTower = function () {
         var greenTowerImages = [];
-        CustomRange.make(0, Const.TOTAL_TOWER_UPGRADES).forEach(function (v) {
+        CustomRange.make(0, Const.UPGRADE_MAX_LEVEL).forEach(function (v) {
             greenTowerImages.push(loadImage('img/towers/green_tower_upgrade_' + v + '.png'));
         });
         return greenTowerImages;
     };
     Resources.redTower = function () {
         var redTowerImages = [];
-        CustomRange.make(0, Const.TOTAL_TOWER_UPGRADES).forEach(function (v) {
+        CustomRange.make(0, Const.UPGRADE_MAX_LEVEL).forEach(function (v) {
             redTowerImages.push(loadImage('img/towers/red_tower_upgrade_' + v + '.png'));
         });
         return redTowerImages;
     };
     Resources.yellowTower = function () {
         var yellowTowerImages = [];
-        CustomRange.make(0, Const.TOTAL_TOWER_UPGRADES).forEach(function (v) {
+        CustomRange.make(0, Const.UPGRADE_MAX_LEVEL).forEach(function (v) {
             yellowTowerImages.push(loadImage('img/towers/yellow_tower_upgrade_' + v + '.png'));
         });
         return yellowTowerImages;
@@ -1069,7 +1159,7 @@ var Score = (function () {
         this.score = score;
     };
     Score.prototype.getPrintScore = function () {
-        return String(this.score).padStart(6, '0');
+        return String(this.score).padStart(10, '0');
     };
     return Score;
 }());
@@ -1324,6 +1414,9 @@ var YellowTower = (function () {
     YellowTower.prototype.getUpgradeLevel = function () {
         return this.upgradeLevel;
     };
+    YellowTower.prototype.isMaxUpgraded = function () {
+        return this.upgradeLevel === this.Const.UPGRADE_MAX_LEVEL - 1;
+    };
     YellowTower.prototype._drawUpgradeBackground = function () {
         strokeWeight(1);
         stroke('black');
@@ -1359,6 +1452,17 @@ var YellowTower = (function () {
     };
     YellowTower.prototype.getCost = function () {
         return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel());
+    };
+    YellowTower.prototype.getNextLevelUpgradeCost = function () {
+        if (this.isMaxUpgraded()) {
+            return this.getCostWhenUpgradeLevelIs(this.Const.UPGRADE_MAX_LEVEL - 1);
+        }
+        else {
+            return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1);
+        }
+    };
+    YellowTower.prototype.getSellProfit = function () {
+        return this.Const.PROFIT_SELL_UPGRADE_YELLOW_TOWER[this.getUpgradeLevel()];
     };
     YellowTower.prototype.getType = function () {
         return this.Const.YELLOW_TOWER;
@@ -1470,10 +1574,10 @@ function canUpgradeTower(tower) {
     }
     return canUpgrade;
 }
-function canBuyNewTower() {
+function canBuyNewTower(hudSelectedTower) {
     var canBuy = false;
     var zeroUpgradeLevel = 0;
-    if (wallet.haveMoneyToBuy(hud.getSelectedTower(), zeroUpgradeLevel)) {
+    if (wallet.haveMoneyToBuy(hudSelectedTower, zeroUpgradeLevel)) {
         canBuy = true;
     }
     return canBuy;
@@ -1484,7 +1588,7 @@ function canBuyTower(tower) {
         result = canUpgradeTower(tower);
     }
     else {
-        result = canBuyNewTower();
+        result = canBuyNewTower(hud.getSelectedTower());
     }
     return result;
 }
@@ -1527,7 +1631,14 @@ function mouseClicked() {
 }
 function createNewEnemy(waveEnemy, wave) {
     var endurance = wave * 2 + waveEnemy * 2;
-    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, endurance, Const, Random, ProgressBar));
+    var isBoss = false;
+    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, endurance, isBoss, Const, Random, ProgressBar));
+}
+function createNewBoss(wave) {
+    var endurance = wave * 25;
+    var indexBossInEnemiesImages = 5;
+    var isBoss = true;
+    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(indexBossInEnemiesImages)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, endurance, isBoss, Const, Random, ProgressBar));
 }
 function updateEnemies(wave) {
     if (allowCreateEnemies) {
@@ -1577,7 +1688,7 @@ function getMouseOrangeTileOver() {
     });
     return result ? result : null;
 }
-function updateWaveProgressBar() {
+function updateWaveProgressBar(wave) {
     if (waveProgressDelay > 0) {
         waveProgressDelay--;
     }
@@ -1593,7 +1704,7 @@ function updateWaveProgressBar() {
         hud.setWaveProgressBar(waveProgressBar);
     }
 }
-function updateBossProgressBar() {
+function updateBossProgressBar(wave) {
     if (bossProgressDelay > 0) {
         bossProgressDelay--;
     }
@@ -1602,6 +1713,7 @@ function updateBossProgressBar() {
         bossProgressBar.increaseProgress();
         if (bossProgressBar.isFullOfProgress()) {
             bossProgressBar.setProgress(0);
+            createNewBoss(wave);
         }
         hud.setBossProgressBar(bossProgressBar);
     }
@@ -1610,8 +1722,8 @@ function draw() {
     if (gameStatus === Const.GAME_STATUS_PLAYING) {
         updateEnemies(wave);
         updateMouseOrangeTileOver();
-        updateWaveProgressBar();
-        updateBossProgressBar();
+        updateWaveProgressBar(wave);
+        updateBossProgressBar(wave);
     }
     background('skyblue');
     rectMode(CORNER);
@@ -1628,16 +1740,27 @@ function draw() {
     hud.draw();
     if (mouseOrangeTileOver !== null) {
         if (mouseOrangeTileOver.hasTower()) {
-            influenceArea.drawTowerInfluenceArea(mouseOrangeTileOver.getTower());
-            hud.selectTowerHudType(mouseOrangeTileOver.getTower());
+            var tileTower = mouseOrangeTileOver.getTower();
+            hud.selectTowerHudType(tileTower);
+            if (!tileTower.isMaxUpgraded()) {
+                var canUpgrade = wallet.haveMoneyToBuy(tileTower.getType(), tileTower.getUpgradeLevel() + 1);
+                hud.viewUpgradeCost(tileTower, canUpgrade);
+                influenceArea.drawTowerInfluenceArea(tileTower, canUpgrade);
+            }
+            hud.viewSellProfit(tileTower);
         }
         else {
-            influenceArea.drawHudTowerInfluenceArea(hud.getSelectedTower(), mouseOrangeTileOver.getX(), mouseOrangeTileOver.getY());
+            var canBuy = canBuyNewTower(hud.getSelectedTower());
+            influenceArea.drawHudTowerInfluenceArea(hud.getSelectedTower(), mouseOrangeTileOver.getX(), mouseOrangeTileOver.getY(), canBuy);
             hud.setType(Const.HUD_NORMAL);
+            hud.hideUpgradeCost();
+            hud.hideSellProfit();
         }
     }
     else {
         hud.setType(Const.HUD_NORMAL);
+        hud.hideUpgradeCost();
+        hud.hideSellProfit();
     }
     enemies.forEach(function (enemy) {
         enemy.draw();
