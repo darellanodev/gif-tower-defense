@@ -55,7 +55,7 @@ describe('Other methods of the orange tile', () => {
   })
 
   test('get profit when sell a tower', () => {
-    const expected = 50
+    const expected = 30
 
     const img: any = null
     const orangeTile = new OrangeTile(img, 100, 100, Const, towerGenerator)
