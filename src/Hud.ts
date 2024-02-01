@@ -105,7 +105,7 @@ export class Hud {
     switch (this.hudType) {
       case this.Const.HUD_NORMAL:
         image(this.hudImages[this.Const.HUD_NORMAL], 0, 0)
-
+        this._drawNewTowerPrices()
         this._drawSelectedItem()
         break
 
@@ -174,6 +174,12 @@ export class Hud {
 
   _drawWave() {
     text(`wave ${this.wave}`, 403, 13)
+  }
+
+  _drawNewTowerPrices() {
+    text(this.Const.COST_UPGRADE_GREEN_TOWER[0], 40, 72)
+    text(this.Const.COST_UPGRADE_RED_TOWER[0], 118, 72)
+    text(this.Const.COST_UPGRADE_YELLOW_TOWER[0], 202, 72)
   }
 
   _drawSelectedItem() {
