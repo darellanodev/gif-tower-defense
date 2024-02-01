@@ -4,6 +4,12 @@ var Const = (function () {
     Const.HUD_NORMAL = 0;
     Const.HUD_UPGRADING = 1;
     Const.HUD_UPGRADING_MAX = 2;
+    Const.HUD_ICON_GREEN_TOWER_ON = 0;
+    Const.HUD_ICON_GREEN_TOWER_OFF = 1;
+    Const.HUD_ICON_RED_TOWER_ON = 2;
+    Const.HUD_ICON_RED_TOWER_OFF = 3;
+    Const.HUD_ICON_YELLOW_TOWER_ON = 4;
+    Const.HUD_ICON_YELLOW_TOWER_OFF = 5;
     Const.GREEN_TOWER = 1;
     Const.RED_TOWER = 2;
     Const.YELLOW_TOWER = 3;
@@ -423,8 +429,9 @@ var GreenTower = (function () {
     return GreenTower;
 }());
 var Hud = (function () {
-    function Hud(hudImages, wallet, Const, lives, score, TextPropertiesClass, waveProgressBar, bossProgressBar, wave) {
+    function Hud(hudImages, hudIconImages, wallet, Const, lives, score, TextPropertiesClass, waveProgressBar, bossProgressBar, wave) {
         this.hudImages = hudImages;
+        this.hudIconImages = hudIconImages;
         this.wallet = wallet;
         this.Const = Const;
         this.lives = lives;
@@ -439,6 +446,9 @@ var Hud = (function () {
         this.selectedItem = this.Const.GREEN_TOWER;
         this.upgradeCost = null;
         this.sellProfit = null;
+        this.canBuyGreenTower = false;
+        this.canBuyRedTower = false;
+        this.canBuyYellowTower = false;
     }
     Hud.prototype.isInsideButtonsBar = function (px, py) {
         if (px > 0 && px < 800 && py > 28 && py < 78) {
@@ -479,10 +489,16 @@ var Hud = (function () {
     Hud.prototype.setType = function (hudType) {
         this.hudType = hudType;
     };
+    Hud.prototype.setCanBuy = function (canBuyGreenTower, canBuyRedTower, canBuyYellowTower) {
+        this.canBuyGreenTower = canBuyGreenTower;
+        this.canBuyRedTower = canBuyRedTower;
+        this.canBuyYellowTower = canBuyYellowTower;
+    };
     Hud.prototype.draw = function () {
         switch (this.hudType) {
             case this.Const.HUD_NORMAL:
                 image(this.hudImages[this.Const.HUD_NORMAL], 0, 0);
+                this._drawTowerIcons();
                 this._drawSelectedItem();
                 break;
             case this.Const.HUD_UPGRADING:
@@ -502,12 +518,32 @@ var Hud = (function () {
         this._drawWave();
         this._drawUpgradeCost();
         this._drawSellProfit();
+        if (this.hudType === this.Const.HUD_NORMAL) {
+            this._drawNewTowerPrices();
+        }
     };
     Hud.prototype.setWave = function (wave) {
         this.wave = wave;
     };
     Hud.prototype.setLives = function (lives) {
         this.lives = lives;
+    };
+    Hud.prototype._drawTowerIcons = function () {
+        var greenIconImgPos = this.Const.HUD_ICON_GREEN_TOWER_OFF;
+        var redIconImgPos = this.Const.HUD_ICON_RED_TOWER_OFF;
+        var yellowIconImgPos = this.Const.HUD_ICON_YELLOW_TOWER_OFF;
+        if (this.canBuyGreenTower) {
+            greenIconImgPos = this.Const.HUD_ICON_GREEN_TOWER_ON;
+        }
+        if (this.canBuyRedTower) {
+            redIconImgPos = this.Const.HUD_ICON_RED_TOWER_ON;
+        }
+        if (this.canBuyYellowTower) {
+            yellowIconImgPos = this.Const.HUD_ICON_YELLOW_TOWER_ON;
+        }
+        image(this.hudIconImages[greenIconImgPos], 60, 38);
+        image(this.hudIconImages[redIconImgPos], 142, 38);
+        image(this.hudIconImages[yellowIconImgPos], 226, 38);
     };
     Hud.prototype._drawMoney = function () {
         text(this.wallet.getMoney(), 445, 48);
@@ -538,6 +574,32 @@ var Hud = (function () {
     Hud.prototype._drawWave = function () {
         text("wave ".concat(this.wave), 403, 13);
     };
+    Hud.prototype._drawGreenTowerPrice = function () {
+        if (!this.canBuyGreenTower) {
+            fill('gray');
+        }
+        text(this.Const.COST_UPGRADE_GREEN_TOWER[0], 40, 72);
+        fill('white');
+    };
+    Hud.prototype._drawRedTowerPrice = function () {
+        if (!this.canBuyRedTower) {
+            fill('gray');
+        }
+        text(this.Const.COST_UPGRADE_RED_TOWER[0], 118, 72);
+        fill('white');
+    };
+    Hud.prototype._drawYellowTowerPrice = function () {
+        if (!this.canBuyYellowTower) {
+            fill('gray');
+        }
+        text(this.Const.COST_UPGRADE_YELLOW_TOWER[0], 202, 72);
+        fill('white');
+    };
+    Hud.prototype._drawNewTowerPrices = function () {
+        this._drawGreenTowerPrice();
+        this._drawRedTowerPrice();
+        this._drawYellowTowerPrice();
+    };
     Hud.prototype._drawSelectedItem = function () {
         strokeWeight(3);
         stroke(255, 204, 0);
@@ -547,10 +609,10 @@ var Hud = (function () {
                 square(57, 36, 37);
                 break;
             case this.Const.RED_TOWER:
-                square(139, 36, 37);
+                square(140, 36, 37);
                 break;
             case this.Const.YELLOW_TOWER:
-                square(224, 36, 37);
+                square(225, 36, 37);
                 break;
         }
     };
@@ -1146,6 +1208,16 @@ var Resources = (function () {
             loadImage('img/hud/upgrading_max.png'),
         ];
     };
+    Resources.hudIconImages = function () {
+        return [
+            loadImage('img/hud/icon_green_tower_on.png'),
+            loadImage('img/hud/icon_green_tower_off.png'),
+            loadImage('img/hud/icon_red_tower_on.png'),
+            loadImage('img/hud/icon_red_tower_off.png'),
+            loadImage('img/hud/icon_yellow_tower_on.png'),
+            loadImage('img/hud/icon_yellow_tower_off.png'),
+        ];
+    };
     Resources.backgroundImage = function () {
         return loadImage('img/backgrounds/ground.jpg');
     };
@@ -1491,6 +1563,7 @@ var yellowTowerImages;
 var startTile;
 var endTile;
 var hudImages;
+var hudIconImages;
 var backgroundImage;
 var enemiesImages;
 var towerGenerator;
@@ -1511,6 +1584,7 @@ function preload() {
     enemiesImages = Resources.enemies();
     tileImages = Resources.tileImages();
     hudImages = Resources.hudImages();
+    hudIconImages = Resources.hudIconImages();
     backgroundImage = Resources.backgroundImage();
 }
 function disableContextualMenu() {
@@ -1545,7 +1619,7 @@ function setup() {
     enemies = [];
     waveProgressBar = new ProgressBar(335, -19, 150, 16);
     bossProgressBar = new ProgressBar(335, -2, 150, 10);
-    hud = new Hud(hudImages, wallet, Const, lives, score, TextProperties, waveProgressBar, bossProgressBar, wave);
+    hud = new Hud(hudImages, hudIconImages, wallet, Const, lives, score, TextProperties, waveProgressBar, bossProgressBar, wave);
     waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
     bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
     enemyExplosions = [];
@@ -1738,6 +1812,10 @@ function draw() {
         orangeTile.drawTower();
     });
     hud.draw();
+    var canBuySelectedTower = canBuyNewTower(hud.getSelectedTower());
+    var canBuyGreenTower = canBuyNewTower(Const.GREEN_TOWER);
+    var canBuyRedTower = canBuyNewTower(Const.RED_TOWER);
+    var canBuyYellowTower = canBuyNewTower(Const.YELLOW_TOWER);
     if (mouseOrangeTileOver !== null) {
         if (mouseOrangeTileOver.hasTower()) {
             var tileTower = mouseOrangeTileOver.getTower();
@@ -1750,15 +1828,16 @@ function draw() {
             hud.viewSellProfit(tileTower);
         }
         else {
-            var canBuy = canBuyNewTower(hud.getSelectedTower());
-            influenceArea.drawHudTowerInfluenceArea(hud.getSelectedTower(), mouseOrangeTileOver.getX(), mouseOrangeTileOver.getY(), canBuy);
+            influenceArea.drawHudTowerInfluenceArea(hud.getSelectedTower(), mouseOrangeTileOver.getX(), mouseOrangeTileOver.getY(), canBuySelectedTower);
             hud.setType(Const.HUD_NORMAL);
+            hud.setCanBuy(canBuyGreenTower, canBuyRedTower, canBuyYellowTower);
             hud.hideUpgradeCost();
             hud.hideSellProfit();
         }
     }
     else {
         hud.setType(Const.HUD_NORMAL);
+        hud.setCanBuy(canBuyGreenTower, canBuyRedTower, canBuyYellowTower);
         hud.hideUpgradeCost();
         hud.hideSellProfit();
     }
