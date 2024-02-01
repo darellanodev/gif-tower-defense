@@ -43,6 +43,7 @@ let yellowTowerImages: Image[]
 let startTile: StartTile
 let endTile: EndTile
 let hudImages: Image[]
+let hudIconImages: Image[]
 let backgroundImage: Image
 let enemiesImages: Image[]
 let towerGenerator: TowerGenerator
@@ -64,6 +65,7 @@ function preload() {
   enemiesImages = Resources.enemies()
   tileImages = Resources.tileImages()
   hudImages = Resources.hudImages()
+  hudIconImages = Resources.hudIconImages()
   backgroundImage = Resources.backgroundImage()
 }
 
@@ -139,6 +141,7 @@ function setup() {
 
   hud = new Hud(
     hudImages,
+    hudIconImages,
     wallet,
     Const,
     lives,
@@ -410,6 +413,11 @@ function draw() {
 
   hud.draw()
 
+  const canBuySelectedTower = canBuyNewTower(hud.getSelectedTower())
+  const canBuyGreenTower = canBuyNewTower(Const.GREEN_TOWER)
+  const canBuyRedTower = canBuyNewTower(Const.RED_TOWER)
+  const canBuyYellowTower = canBuyNewTower(Const.YELLOW_TOWER)
+
   if (mouseOrangeTileOver !== null) {
     if (mouseOrangeTileOver.hasTower()) {
       const tileTower = mouseOrangeTileOver.getTower()
@@ -426,21 +434,21 @@ function draw() {
 
       hud.viewSellProfit(tileTower)
     } else {
-      const canBuy = canBuyNewTower(hud.getSelectedTower())
-
       influenceArea.drawHudTowerInfluenceArea(
         hud.getSelectedTower(),
         mouseOrangeTileOver.getX(),
         mouseOrangeTileOver.getY(),
-        canBuy,
+        canBuySelectedTower,
       )
 
       hud.setType(Const.HUD_NORMAL)
+      hud.setCanBuy(canBuyGreenTower, canBuyRedTower, canBuyYellowTower)
       hud.hideUpgradeCost()
       hud.hideSellProfit()
     }
   } else {
     hud.setType(Const.HUD_NORMAL)
+    hud.setCanBuy(canBuyGreenTower, canBuyRedTower, canBuyYellowTower)
     hud.hideUpgradeCost()
     hud.hideSellProfit()
   }

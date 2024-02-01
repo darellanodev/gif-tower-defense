@@ -3,6 +3,13 @@ export class Const {
   static HUD_UPGRADING = 1
   static HUD_UPGRADING_MAX = 2
 
+  static HUD_ICON_GREEN_TOWER_ON = 0
+  static HUD_ICON_GREEN_TOWER_OFF = 1
+  static HUD_ICON_RED_TOWER_ON = 2
+  static HUD_ICON_RED_TOWER_OFF = 3
+  static HUD_ICON_YELLOW_TOWER_ON = 4
+  static HUD_ICON_YELLOW_TOWER_OFF = 5
+
   static GREEN_TOWER = 1
   static RED_TOWER = 2
   static YELLOW_TOWER = 3

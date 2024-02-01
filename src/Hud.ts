@@ -7,6 +7,7 @@ import { Image } from 'p5'
 
 export class Hud {
   hudImages: Image[]
+  hudIconImages: Image[]
   wallet: Wallet
   Const: ConstType
   hudType: number
@@ -21,9 +22,13 @@ export class Hud {
   upgradeCost: number
   canUpgrade: boolean
   sellProfit: number
+  canBuyGreenTower: boolean
+  canBuyRedTower: boolean
+  canBuyYellowTower: boolean
 
   constructor(
     hudImages: Image[],
+    hudIconImages: Image[],
     wallet: Wallet,
     Const: ConstType,
     lives: number,
@@ -34,6 +39,7 @@ export class Hud {
     wave: number,
   ) {
     this.hudImages = hudImages
+    this.hudIconImages = hudIconImages
     this.wallet = wallet
     this.Const = Const
     this.lives = lives
@@ -51,6 +57,10 @@ export class Hud {
     this.selectedItem = this.Const.GREEN_TOWER
     this.upgradeCost = null
     this.sellProfit = null
+
+    this.canBuyGreenTower = false
+    this.canBuyRedTower = false
+    this.canBuyYellowTower = false
   }
 
   isInsideButtonsBar(px: number, py: number) {
@@ -101,11 +111,22 @@ export class Hud {
     this.hudType = hudType
   }
 
+  setCanBuy(
+    canBuyGreenTower: boolean,
+    canBuyRedTower: boolean,
+    canBuyYellowTower: boolean,
+  ) {
+    this.canBuyGreenTower = canBuyGreenTower
+    this.canBuyRedTower = canBuyRedTower
+    this.canBuyYellowTower = canBuyYellowTower
+  }
+
   draw() {
     switch (this.hudType) {
       case this.Const.HUD_NORMAL:
         image(this.hudImages[this.Const.HUD_NORMAL], 0, 0)
         this._drawNewTowerPrices()
+        this._drawTowerIcons()
         this._drawSelectedItem()
         break
 
@@ -137,6 +158,26 @@ export class Hud {
 
   setLives(lives: number) {
     this.lives = lives
+  }
+
+  _drawTowerIcons() {
+    let greenIconImgPos = this.Const.HUD_ICON_GREEN_TOWER_OFF
+    let redIconImgPos = this.Const.HUD_ICON_RED_TOWER_OFF
+    let yellowIconImgPos = this.Const.HUD_ICON_YELLOW_TOWER_OFF
+
+    if (this.canBuyGreenTower) {
+      greenIconImgPos = this.Const.HUD_ICON_GREEN_TOWER_ON
+    }
+    if (this.canBuyRedTower) {
+      redIconImgPos = this.Const.HUD_ICON_RED_TOWER_ON
+    }
+    if (this.canBuyYellowTower) {
+      yellowIconImgPos = this.Const.HUD_ICON_YELLOW_TOWER_ON
+    }
+
+    image(this.hudIconImages[greenIconImgPos], 60, 38)
+    image(this.hudIconImages[redIconImgPos], 142, 38)
+    image(this.hudIconImages[yellowIconImgPos], 226, 38)
   }
 
   _drawMoney() {
@@ -193,11 +234,11 @@ export class Hud {
         break
 
       case this.Const.RED_TOWER:
-        square(139, 36, 37)
+        square(140, 36, 37)
         break
 
       case this.Const.YELLOW_TOWER:
-        square(224, 36, 37)
+        square(225, 36, 37)
         break
     }
   }

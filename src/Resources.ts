@@ -71,6 +71,17 @@ export class Resources {
     ]
   }
 
+  static hudIconImages() {
+    return [
+      loadImage('img/hud/icon_green_tower_on.png'),
+      loadImage('img/hud/icon_green_tower_off.png'),
+      loadImage('img/hud/icon_red_tower_on.png'),
+      loadImage('img/hud/icon_red_tower_off.png'),
+      loadImage('img/hud/icon_yellow_tower_on.png'),
+      loadImage('img/hud/icon_yellow_tower_off.png'),
+    ]
+  }
+
   static backgroundImage() {
     return loadImage('img/backgrounds/ground.jpg')
   }

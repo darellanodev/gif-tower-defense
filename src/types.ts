@@ -11,6 +11,13 @@ export type ConstType = {
   HUD_UPGRADING: number
   HUD_UPGRADING_MAX: number
 
+  HUD_ICON_GREEN_TOWER_ON: number
+  HUD_ICON_GREEN_TOWER_OFF: number
+  HUD_ICON_RED_TOWER_ON: number
+  HUD_ICON_RED_TOWER_OFF: number
+  HUD_ICON_YELLOW_TOWER_ON: number
+  HUD_ICON_YELLOW_TOWER_OFF: number
+
   GREEN_TOWER: number
   RED_TOWER: number
   YELLOW_TOWER: number
