@@ -125,7 +125,6 @@ export class Hud {
     switch (this.hudType) {
       case this.Const.HUD_NORMAL:
         image(this.hudImages[this.Const.HUD_NORMAL], 0, 0)
-        this._drawNewTowerPrices()
         this._drawTowerIcons()
         this._drawSelectedItem()
         break
@@ -142,7 +141,9 @@ export class Hud {
     this.waveProgressBar.draw()
     this.bossProgressBar.draw()
 
+    // draw texts
     this.TextPropertiesClass.setForHudData()
+
     this._drawMoney()
     this._drawLives()
     this._drawScore()
@@ -150,6 +151,10 @@ export class Hud {
     this._drawWave()
     this._drawUpgradeCost()
     this._drawSellProfit()
+
+    if (this.hudType === this.Const.HUD_NORMAL) {
+      this._drawNewTowerPrices()
+    }
   }
 
   setWave(wave: number) {
@@ -217,10 +222,35 @@ export class Hud {
     text(`wave ${this.wave}`, 403, 13)
   }
 
-  _drawNewTowerPrices() {
+  _drawGreenTowerPrice() {
+    if (!this.canBuyGreenTower) {
+      fill('gray')
+    }
     text(this.Const.COST_UPGRADE_GREEN_TOWER[0], 40, 72)
+    // restore
+    fill('white')
+  }
+  _drawRedTowerPrice() {
+    if (!this.canBuyRedTower) {
+      fill('gray')
+    }
     text(this.Const.COST_UPGRADE_RED_TOWER[0], 118, 72)
+    // restore
+    fill('white')
+  }
+  _drawYellowTowerPrice() {
+    if (!this.canBuyYellowTower) {
+      fill('gray')
+    }
     text(this.Const.COST_UPGRADE_YELLOW_TOWER[0], 202, 72)
+    // restore
+    fill('white')
+  }
+
+  _drawNewTowerPrices() {
+    this._drawGreenTowerPrice()
+    this._drawRedTowerPrice()
+    this._drawYellowTowerPrice()
   }
 
   _drawSelectedItem() {
