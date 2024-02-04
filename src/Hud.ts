@@ -151,6 +151,9 @@ export class Hud {
     this._drawWave()
     this._drawUpgradeCost()
     this._drawSellProfit()
+    this._drawMagicUFO()
+    this._drawMagicFireball()
+    this._drawMagicIceball()
 
     if (this.hudType === this.Const.HUD_NORMAL) {
       this._drawNewTowerPrices()
@@ -198,6 +201,18 @@ export class Hud {
       // restore color
       fill('white')
     }
+  }
+
+  _drawMagicUFO() {
+    text(3, 592, 74)
+  }
+
+  _drawMagicFireball() {
+    text(3, 680, 74)
+  }
+
+  _drawMagicIceball() {
+    text(3, 769, 74)
   }
 
   _drawSellProfit() {
