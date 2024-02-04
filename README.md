@@ -37,7 +37,10 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Create a MapProvider class to load and provide maps, and a Maps file with all the maps
 - [ ] Extract variables and functions from main.ts to Game class
 - [ ] When upgrading a tower, make the progress bar slowest depending on the upgrading level
-- [ ] Increase the strenght of the enemies. Now is too easy
+- [ ] Increase the strength of the enemies. Now is too easy
+- [x] Make the boss progress bar slowest
+- [x] Make more space between enemies
+- [x] Position magic numbers in hud
 - [x] Set cost color to gray when player cant buy a new tower
 - [x] Show black and white tower icons in hud when the player cant buy them
 - [x] Change the color of the buy/upgrade cost to red and the influence area to gray when the player cant buy/upgrade
