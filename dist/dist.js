@@ -42,7 +42,7 @@ var Const = (function () {
     Const.KEY_1 = 49;
     Const.KEY_2 = 50;
     Const.KEY_3 = 51;
-    Const.CREATE_ENEMY_MAX_TIME = 100;
+    Const.CREATE_ENEMY_MAX_TIME = 200;
     Const.TOWER_OFFSET = 5;
     Const.GREEN_TOWER_INFLUENCE_AREA = 150;
     Const.RED_TOWER_INFLUENCE_AREA = 240;
@@ -67,8 +67,8 @@ var Const = (function () {
     Const.EXPLOSION_OFFSET = 25;
     Const.GAME_STATUS_PLAYING = 0;
     Const.GAME_STATUS_GAME_OVER = 1;
-    Const.WAVE_PROGRESS_DELAY = 10;
-    Const.BOSS_PROGRESS_DELAY = 30;
+    Const.WAVE_PROGRESS_DELAY = 35;
+    Const.BOSS_PROGRESS_DELAY = Const.WAVE_PROGRESS_DELAY * 6;
     Const.MONEY_MULTIPLICATOR = 10;
     return Const;
 }());
@@ -518,6 +518,9 @@ var Hud = (function () {
         this._drawWave();
         this._drawUpgradeCost();
         this._drawSellProfit();
+        this._drawMagicUFO();
+        this._drawMagicFireball();
+        this._drawMagicIceball();
         if (this.hudType === this.Const.HUD_NORMAL) {
             this._drawNewTowerPrices();
         }
@@ -556,6 +559,15 @@ var Hud = (function () {
             text(this.upgradeCost, 33, 72);
             fill('white');
         }
+    };
+    Hud.prototype._drawMagicUFO = function () {
+        text(3, 592, 74);
+    };
+    Hud.prototype._drawMagicFireball = function () {
+        text(3, 680, 74);
+    };
+    Hud.prototype._drawMagicIceball = function () {
+        text(3, 769, 74);
     };
     Hud.prototype._drawSellProfit = function () {
         if (this.sellProfit !== null) {
@@ -1762,7 +1774,7 @@ function getMouseOrangeTileOver() {
     });
     return result ? result : null;
 }
-function updateWaveProgressBar(wave) {
+function updateWaveProgressBar() {
     if (waveProgressDelay > 0) {
         waveProgressDelay--;
     }
@@ -1796,7 +1808,7 @@ function draw() {
     if (gameStatus === Const.GAME_STATUS_PLAYING) {
         updateEnemies(wave);
         updateMouseOrangeTileOver();
-        updateWaveProgressBar(wave);
+        updateWaveProgressBar();
         updateBossProgressBar(wave);
     }
     background('skyblue');
