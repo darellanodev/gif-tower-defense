@@ -352,7 +352,7 @@ function getMouseOrangeTileOver() {
   return result ? result : null
 }
 
-function updateWaveProgressBar(wave: number) {
+function updateWaveProgressBar() {
   if (waveProgressDelay > 0) {
     waveProgressDelay--
   } else {
@@ -390,7 +390,7 @@ function draw() {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
     updateEnemies(wave)
     updateMouseOrangeTileOver()
-    updateWaveProgressBar(wave)
+    updateWaveProgressBar()
     updateBossProgressBar(wave)
   }
 
