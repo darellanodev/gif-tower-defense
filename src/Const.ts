@@ -52,7 +52,7 @@ export class Const {
   static KEY_2 = 50
   static KEY_3 = 51
 
-  static CREATE_ENEMY_MAX_TIME = 100 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
+  static CREATE_ENEMY_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
 
   static TOWER_OFFSET = 5
 
@@ -89,8 +89,8 @@ export class Const {
   static GAME_STATUS_PLAYING = 0
   static GAME_STATUS_GAME_OVER = 1
 
-  static WAVE_PROGRESS_DELAY = 10
-  static BOSS_PROGRESS_DELAY = 30
+  static WAVE_PROGRESS_DELAY = 35
+  static BOSS_PROGRESS_DELAY = Const.WAVE_PROGRESS_DELAY * 6
 
   static MONEY_MULTIPLICATOR = 10
 }
