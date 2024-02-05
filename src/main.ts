@@ -251,7 +251,7 @@ function mouseClicked() {
 }
 
 function createNewEnemy(waveEnemy: number, wave: number) {
-  const endurance = wave * 2 + waveEnemy * 2
+  const endurance = wave * 3 + waveEnemy * 2
   const isBoss = false
 
   enemies.push(
