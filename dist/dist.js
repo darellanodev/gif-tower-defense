@@ -70,6 +70,8 @@ var Const = (function () {
     Const.WAVE_PROGRESS_DELAY = 35;
     Const.BOSS_PROGRESS_DELAY = Const.WAVE_PROGRESS_DELAY * 6;
     Const.MONEY_MULTIPLICATOR = 10;
+    Const.ID_LEVEL_VALID_FOR_UNIT_TESTING = 1;
+    Const.ID_LEVEL_INVALID_FOR_UNIT_TESTING = 6666;
     return Const;
 }());
 var CustomRange = (function () {
@@ -480,8 +482,8 @@ var Hud = (function () {
     Hud.prototype.setBossProgressBar = function (bossProgressBar) {
         this.bossProgressBar = bossProgressBar;
     };
-    Hud.prototype.selectTower = function (towerType) {
-        this.selectedItem = towerType;
+    Hud.prototype.selectTower = function (towerId) {
+        this.selectedItem = towerId;
     };
     Hud.prototype.getSelectedTower = function () {
         return this.selectedItem;
@@ -682,8 +684,8 @@ var InfluenceArea = (function () {
         stroke.apply(void 0, __spreadArray(__spreadArray([], this.Const.GRAY_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
         fill.apply(void 0, __spreadArray(__spreadArray([], this.Const.GRAY_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
     };
-    InfluenceArea.prototype._setInfluenceAreaColor = function (towerType) {
-        switch (towerType) {
+    InfluenceArea.prototype._setInfluenceAreaColor = function (towerId) {
+        switch (towerId) {
             case this.Const.GREEN_TOWER:
                 stroke.apply(void 0, __spreadArray(__spreadArray([], this.Const.GREEN_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
                 fill.apply(void 0, __spreadArray(__spreadArray([], this.Const.GREEN_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
@@ -745,6 +747,85 @@ var InfluenceArea = (function () {
     };
     return InfluenceArea;
 }());
+var LevelsData = (function () {
+    function LevelsData() {
+    }
+    LevelsData.data = [
+        {
+            id: 1,
+            title: 'serpent',
+            comments: 'first level and also used in unit testing',
+            row01: '111111111111111x',
+            row02: '1000000000000000',
+            row03: '1011111111111111',
+            row04: '1010000000000001',
+            row05: '1010000111111101',
+            row06: '1011111100000101',
+            row07: '1000000000000101',
+            row08: '1111111111111101',
+            row09: '0000000000000001',
+            row10: 'y111111111111111',
+            money: 150,
+            magicUFO: 3,
+            magicFireball: 2,
+            magicIceball: 2,
+            startTileX: 450,
+            startTileY: 150,
+        },
+        {
+            id: 6666,
+            title: 'no valid map',
+            comments: 'invalid map with unreachable exit, for unit testing purposes',
+            row01: '111111111111111x',
+            row02: '1000000000000000',
+            row03: '1011111111111111',
+            row04: '1010000000000001',
+            row05: '1010000111111101',
+            row06: '1011111100000101',
+            row07: '1000000000000101',
+            row08: '1111111111111101',
+            row09: '0000000000000001',
+            row10: 'y011111111111111',
+            money: 150,
+            magicUFO: 3,
+            magicFireball: 2,
+            magicIceball: 2,
+            startTileX: 450,
+            startTileY: 150,
+        },
+    ];
+    return LevelsData;
+}());
+var LevelsDataProvider = (function () {
+    function LevelsDataProvider(levels) {
+        this.levels = levels;
+    }
+    LevelsDataProvider.prototype.getLevel = function (id) {
+        var levelData = this.levels.find(function (level) { return level.id == id; });
+        var result = levelData.row01 +
+            ',\n' +
+            levelData.row02 +
+            ',\n' +
+            levelData.row03 +
+            ',\n' +
+            levelData.row04 +
+            ',\n' +
+            levelData.row05 +
+            ',\n' +
+            levelData.row06 +
+            ',\n' +
+            levelData.row07 +
+            ',\n' +
+            levelData.row08 +
+            ',\n' +
+            levelData.row09 +
+            ',\n' +
+            levelData.row10 +
+            '@3,2,-50,450,150';
+        return result;
+    };
+    return LevelsDataProvider;
+}());
 var OrangeTile = (function () {
     function OrangeTile(img, x, y, Const, towerGenerator) {
         this.img = img;
@@ -762,9 +843,9 @@ var OrangeTile = (function () {
         }
         return profit;
     };
-    OrangeTile.prototype.buyTower = function (towerType) {
+    OrangeTile.prototype.buyTower = function (towerId) {
         if (this.tower === null) {
-            this.tower = this.towerGenerator.newTower(towerType, this.x, this.y);
+            this.tower = this.towerGenerator.newTower(towerId, this.x, this.y);
         }
         else {
             this.tower.upgrade();
@@ -1414,9 +1495,9 @@ var TowerGenerator = (function () {
         this.DistanceClass = DistanceClass;
         this.ProgressBarClass = ProgressBarClass;
     }
-    TowerGenerator.prototype.newTower = function (towerType, x, y) {
+    TowerGenerator.prototype.newTower = function (towerId, x, y) {
         var tower = null;
-        switch (towerType) {
+        switch (towerId) {
             case this.Const.GREEN_TOWER:
                 tower = new this.GreenTowerClass(this.greenTowerImages, x - this.Const.TOWER_OFFSET, y - this.Const.TOWER_OFFSET, this.Const, this.DistanceClass, this.ProgressBarClass);
                 break;
@@ -1447,9 +1528,9 @@ var Wallet = (function () {
     Wallet.prototype.decrease = function (quantity) {
         this.money -= quantity;
     };
-    Wallet.prototype.haveMoneyToBuy = function (towerType, upgradeLevel) {
+    Wallet.prototype.haveMoneyToBuy = function (towerId, upgradeLevel) {
         var canBuy = false;
-        switch (towerType) {
+        switch (towerId) {
             case this.Const.GREEN_TOWER:
                 canBuy = this.Const.COST_UPGRADE_GREEN_TOWER[upgradeLevel] <= this.money;
                 break;
@@ -1589,6 +1670,7 @@ var bossProgressBar;
 var bossProgressDelay;
 var initialEnemiesPosition;
 var allowCreateEnemies;
+var levelDataProvider;
 function preload() {
     greenTowerImages = Resources.greenTower();
     redTowerImages = Resources.redTower();
@@ -1611,7 +1693,8 @@ function disableContextualMenu() {
 function setup() {
     disableContextualMenu();
     createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT);
-    var levelMap = "111111111111111x,\n                    1000000000000000,\n                    1011111111111111,\n                    1010000000000001,\n                    1010000111111101,\n                    1011111100000101,\n                    1000000000000101,\n                    1111111111111101,\n                    0000000000000001,\n                    y111111111111111@3,2,-50,450,150";
+    levelDataProvider = new LevelsDataProvider(LevelsData.data);
+    var levelMap = levelDataProvider.getLevel(1);
     createEnemyTime = 0;
     towerGenerator = new TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTower, RedTower, YellowTower, Distance, ProgressBar);
     var tileGenerator = new TileGenerator(levelMap, tileImages, Const, OrangeTile, PathTile, StartTile, EndTile, towerGenerator);
@@ -1716,7 +1799,7 @@ function mouseClicked() {
     }
 }
 function createNewEnemy(waveEnemy, wave) {
-    var endurance = wave * 2 + waveEnemy * 2;
+    var endurance = wave * 3 + waveEnemy * 2;
     var isBoss = false;
     enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, endurance, isBoss, Const, Random, ProgressBar));
 }
