@@ -25,6 +25,8 @@ import { TextProperties } from './TextProperties'
 import { Image } from 'p5'
 import { ParticleSystem } from './ParticleSystem'
 import { Resources } from './Resources'
+import { LevelsDataProvider } from './LevelsDataProvider'
+import { LevelsData } from './LevelsData'
 
 let orders: number[]
 let createEnemyTime: number
@@ -57,6 +59,7 @@ let bossProgressBar: ProgressBar
 let bossProgressDelay: number
 let initialEnemiesPosition: { x: number; y: number }
 let allowCreateEnemies: boolean
+let levelDataProvider: LevelsDataProvider
 
 function preload() {
   greenTowerImages = Resources.greenTower()
@@ -83,16 +86,9 @@ function setup() {
 
   createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT)
 
-  const levelMap = `111111111111111x,
-                    1000000000000000,
-                    1011111111111111,
-                    1010000000000001,
-                    1010000111111101,
-                    1011111100000101,
-                    1000000000000101,
-                    1111111111111101,
-                    0000000000000001,
-                    y111111111111111@3,2,-50,450,150`
+  levelDataProvider = new LevelsDataProvider(LevelsData.data)
+
+  const levelMap = levelDataProvider.getLevel(1)
 
   createEnemyTime = 0
 

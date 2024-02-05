@@ -172,7 +172,7 @@ export class GreenTower {
     )
   }
 
-  selectTarget(enemies: any[]) {
+  selectTarget(enemies: Enemy[]) {
     let minDistance = 99999
     let enemyTarget = null
 

@@ -1,4 +1,4 @@
-import { ConstType } from './types'
+import { ConstType, TowerType } from './types'
 import { TextProperties } from './TextProperties'
 import { ProgressBar } from './ProgressBar'
 import { Score } from './Score'
@@ -99,8 +99,8 @@ export class Hud {
     this.bossProgressBar = bossProgressBar
   }
 
-  selectTower(towerType: number) {
-    this.selectedItem = towerType
+  selectTower(towerId: number) {
+    this.selectedItem = towerId
   }
 
   getSelectedTower() {
@@ -288,7 +288,7 @@ export class Hud {
     }
   }
 
-  selectTowerHudType(tower: any) {
+  selectTowerHudType(tower: TowerType) {
     if (tower.getUpgradeLevel() < this.Const.UPGRADE_MAX_LEVEL) {
       this.setType(this.Const.HUD_UPGRADING)
     } else {
@@ -296,7 +296,7 @@ export class Hud {
     }
   }
 
-  viewUpgradeCost(tower: any, canUpgrade: boolean) {
+  viewUpgradeCost(tower: TowerType, canUpgrade: boolean) {
     this.upgradeCost = null
     if (this.hudType === this.Const.HUD_UPGRADING) {
       this.upgradeCost = tower.getNextLevelUpgradeCost()
@@ -304,7 +304,7 @@ export class Hud {
     this.canUpgrade = canUpgrade
   }
 
-  viewSellProfit(tower: any) {
+  viewSellProfit(tower: TowerType) {
     this.sellProfit = null
     if (this.hudType === this.Const.HUD_UPGRADING) {
       this.sellProfit = tower.getSellProfit()

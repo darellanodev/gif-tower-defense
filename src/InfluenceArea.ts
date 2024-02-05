@@ -1,4 +1,4 @@
-import { ConstType, RGBType } from './types'
+import { ConstType, RGBType, TowerType } from './types'
 
 export class InfluenceArea {
   Const: ConstType
@@ -18,8 +18,8 @@ export class InfluenceArea {
     )
   }
 
-  _setInfluenceAreaColor(towerType: number) {
-    switch (towerType) {
+  _setInfluenceAreaColor(towerId: number) {
+    switch (towerId) {
       case this.Const.GREEN_TOWER:
         stroke(
           ...(this.Const.GREEN_COLOR as RGBType),
@@ -53,7 +53,7 @@ export class InfluenceArea {
     }
   }
 
-  _getInfluenceAreaFor(towerSelected: any) {
+  _getInfluenceAreaFor(towerSelected: number) {
     let influenceArea: number = this.Const.GREEN_TOWER_INFLUENCE_AREA
     switch (towerSelected) {
       case this.Const.GREEN_TOWER:

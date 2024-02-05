@@ -1,6 +1,7 @@
 import { ConstType, TowerType } from './types'
 import { TowerGenerator } from './TowerGenerator'
 import { Image } from 'p5'
+import { Enemy } from './Enemy'
 
 export class OrangeTile {
   img: Image
@@ -37,9 +38,9 @@ export class OrangeTile {
     return profit
   }
 
-  buyTower(towerType: number) {
+  buyTower(towerId: number) {
     if (this.tower === null) {
-      this.tower = this.towerGenerator.newTower(towerType, this.x, this.y)
+      this.tower = this.towerGenerator.newTower(towerId, this.x, this.y)
     } else {
       this.tower.upgrade()
     }
@@ -70,7 +71,7 @@ export class OrangeTile {
     return this.y
   }
 
-  selectTarget(enemies: any[]) {
+  selectTarget(enemies: Enemy[]) {
     if (this.tower) {
       this.tower.selectTarget(enemies)
     }

@@ -21,10 +21,10 @@ export class Wallet {
     this.money -= quantity
   }
 
-  haveMoneyToBuy(towerType: number, upgradeLevel: number) {
+  haveMoneyToBuy(towerId: number, upgradeLevel: number) {
     let canBuy = false
 
-    switch (towerType) {
+    switch (towerId) {
       case this.Const.GREEN_TOWER:
         canBuy = this.Const.COST_UPGRADE_GREEN_TOWER[upgradeLevel] <= this.money
         break

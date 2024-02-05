@@ -2,6 +2,7 @@ import { ConstType } from './types'
 import { Distance } from './Distance'
 import { ProgressBar } from './ProgressBar'
 import { Image } from 'p5'
+import { Enemy } from './Enemy'
 
 export class YellowTower {
   images: Image[]
@@ -123,7 +124,7 @@ export class YellowTower {
     return this.Const.YELLOW_COLOR
   }
 
-  selectTarget(enemies: any[]) {
+  selectTarget(enemies: Enemy[]) {
     //TODO
   }
 }

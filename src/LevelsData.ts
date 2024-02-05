@@ -1,0 +1,48 @@
+import { MapDataType } from './types'
+
+export class LevelsData {
+  static data: MapDataType[] = [
+    {
+      id: 1,
+      title: 'serpent',
+      comments: 'first level and also used in unit testing',
+      row01: '111111111111111x',
+      row02: '1000000000000000',
+      row03: '1011111111111111',
+      row04: '1010000000000001',
+      row05: '1010000111111101',
+      row06: '1011111100000101',
+      row07: '1000000000000101',
+      row08: '1111111111111101',
+      row09: '0000000000000001',
+      row10: 'y111111111111111',
+      money: 150,
+      magicUFO: 3,
+      magicFireball: 2,
+      magicIceball: 2,
+      startTileX: 450,
+      startTileY: 150,
+    },
+    {
+      id: 6666,
+      title: 'no valid map',
+      comments: 'invalid map with unreachable exit, for unit testing purposes',
+      row01: '111111111111111x',
+      row02: '1000000000000000',
+      row03: '1011111111111111',
+      row04: '1010000000000001',
+      row05: '1010000111111101',
+      row06: '1011111100000101',
+      row07: '1000000000000101',
+      row08: '1111111111111101',
+      row09: '0000000000000001',
+      row10: 'y011111111111111',
+      money: 150,
+      magicUFO: 3,
+      magicFireball: 2,
+      magicIceball: 2,
+      startTileX: 450,
+      startTileY: 150,
+    },
+  ]
+}

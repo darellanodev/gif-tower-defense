@@ -40,10 +40,10 @@ export class TowerGenerator {
     this.ProgressBarClass = ProgressBarClass
   }
 
-  newTower(towerType: number, x: number, y: number) {
+  newTower(towerId: number, x: number, y: number) {
     let tower = null
 
-    switch (towerType) {
+    switch (towerId) {
       case this.Const.GREEN_TOWER:
         tower = new this.GreenTowerClass(
           this.greenTowerImages,
