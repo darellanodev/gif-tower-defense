@@ -37,7 +37,9 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Create a MapProvider class to load and provide maps, and a Maps file with all the maps
 - [ ] Extract variables and functions from main.ts to Game class
 - [ ] When upgrading a tower, make the progress bar slowest depending on the upgrading level
-- [ ] Increase the strength of the enemies. Now is too easy
+- [ ] Improve map data (for example remove row01, row02 and use an array instead)
+- [ ] Adapt tile generator to accept an improved data from levels data provider (now is using the old format with commas and @ separator)
+- [x] Increase the strength of the enemies. Now is too easy
 - [x] Make the boss progress bar slowest
 - [x] Make more space between enemies
 - [x] Position magic numbers in hud
