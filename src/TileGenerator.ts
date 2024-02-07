@@ -1,4 +1,4 @@
-import { ConstType } from './types'
+import { ConstType, MapDataType } from './types'
 import { StartTile } from './StartTile'
 import { EndTile } from './EndTile'
 import { OrangeTile } from './OrangeTile'
@@ -10,7 +10,7 @@ export class TileGenerator {
   FLOOR_SIZE = 50
   MARGIN_TOP = 30
 
-  levelMap: any
+  levelMap: MapDataType
   levelMapData: string
   orangeImage: Image
   blackImage: Image
@@ -26,7 +26,7 @@ export class TileGenerator {
   towerGenerator: TowerGenerator
 
   constructor(
-    levelMap: any,
+    levelMap: MapDataType,
     mapImages: Image[],
     Const: ConstType,
     OrangeTileClass: typeof OrangeTile,
@@ -104,7 +104,7 @@ export class TileGenerator {
     const resultTiles: any[] = []
 
     let rowCount = 0
-    this.levelMap.rowsMap.forEach((row: any) => {
+    this.levelMap.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
       for (let column = 0; column < trimmedRow.length; column++) {

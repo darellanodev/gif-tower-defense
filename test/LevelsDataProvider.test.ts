@@ -5,6 +5,9 @@ import { LevelsData } from '../src/LevelsData'
 describe('Levels data provider', () => {
   test('get level data', () => {
     const expected = {
+      id: 1,
+      comments: 'first level and also used in unit testing',
+      title: 'serpent',
       rowsMap: [
         '111111111111111x',
         '1000000000000000',

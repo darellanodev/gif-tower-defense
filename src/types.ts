@@ -12,9 +12,6 @@ export type MapDataType = {
   comments: string
   rowsMap: string[]
   money: number
-  magicUFO: number
-  magicFireball: number
-  magicIceball: number
   startDirection: number
   endDirection: number
 }
