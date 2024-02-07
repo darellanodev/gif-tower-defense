@@ -72,6 +72,7 @@ var Const = (function () {
     Const.MONEY_MULTIPLICATOR = 10;
     Const.ID_LEVEL_VALID_FOR_UNIT_TESTING = 1;
     Const.ID_LEVEL_INVALID_FOR_UNIT_TESTING = 6666;
+    Const.ID_LEVEL_INVALID_WITHOUT_ROWSMAP_FOR_UNIT_TESTING = 6667;
     return Const;
 }());
 var CustomRange = (function () {
@@ -755,43 +756,59 @@ var LevelsData = (function () {
             id: 1,
             title: 'serpent',
             comments: 'first level and also used in unit testing',
-            row01: '111111111111111x',
-            row02: '1000000000000000',
-            row03: '1011111111111111',
-            row04: '1010000000000001',
-            row05: '1010000111111101',
-            row06: '1011111100000101',
-            row07: '1000000000000101',
-            row08: '1111111111111101',
-            row09: '0000000000000001',
-            row10: 'y111111111111111',
+            rowsMap: [
+                '111111111111111x',
+                '1000000000000000',
+                '1011111111111111',
+                '1010000000000001',
+                '1010000111111101',
+                '1011111100000101',
+                '1000000000000101',
+                '1111111111111101',
+                '0000000000000001',
+                'y111111111111111',
+            ],
             money: 150,
             magicUFO: 3,
             magicFireball: 2,
             magicIceball: 2,
-            startTileX: 450,
-            startTileY: 150,
+            startDirection: Const.LEFT_DIRECTION,
+            endDirection: Const.LEFT_DIRECTION,
         },
         {
             id: 6666,
-            title: 'no valid map',
-            comments: 'invalid map with unreachable exit, for unit testing purposes',
-            row01: '111111111111111x',
-            row02: '1000000000000000',
-            row03: '1011111111111111',
-            row04: '1010000000000001',
-            row05: '1010000111111101',
-            row06: '1011111100000101',
-            row07: '1000000000000101',
-            row08: '1111111111111101',
-            row09: '0000000000000001',
-            row10: 'y011111111111111',
+            title: 'no valid map 1',
+            comments: 'invalid map with unreachable exit (look at the last row, there is a "0" blocking the exit), for unit testing purposes',
+            rowsMap: [
+                '111111111111111x',
+                '1000000000000000',
+                '1011111111111111',
+                '1010000000000001',
+                '1010000111111101',
+                '1011111100000101',
+                '1000000000000101',
+                '1111111111111101',
+                '0000000000000001',
+                'y011111111111111',
+            ],
             money: 150,
             magicUFO: 3,
             magicFireball: 2,
             magicIceball: 2,
-            startTileX: 450,
-            startTileY: 150,
+            startDirection: Const.LEFT_DIRECTION,
+            endDirection: Const.LEFT_DIRECTION,
+        },
+        {
+            id: 6667,
+            title: 'no valid map 2',
+            comments: 'empty rowsMap, for unit testing purposes',
+            rowsMap: [],
+            money: 150,
+            magicUFO: 3,
+            magicFireball: 2,
+            magicIceball: 2,
+            startDirection: Const.LEFT_DIRECTION,
+            endDirection: Const.LEFT_DIRECTION,
         },
     ];
     return LevelsData;
@@ -802,26 +819,12 @@ var LevelsDataProvider = (function () {
     }
     LevelsDataProvider.prototype.getLevel = function (id) {
         var levelData = this.levels.find(function (level) { return level.id == id; });
-        var result = levelData.row01 +
-            ',\n' +
-            levelData.row02 +
-            ',\n' +
-            levelData.row03 +
-            ',\n' +
-            levelData.row04 +
-            ',\n' +
-            levelData.row05 +
-            ',\n' +
-            levelData.row06 +
-            ',\n' +
-            levelData.row07 +
-            ',\n' +
-            levelData.row08 +
-            ',\n' +
-            levelData.row09 +
-            ',\n' +
-            levelData.row10 +
-            '@3,2,-50,450,150';
+        var result = {
+            rowsMap: levelData.rowsMap,
+            startDirection: levelData.startDirection,
+            endDirection: levelData.endDirection,
+            money: levelData.money,
+        };
         return result;
     };
     return LevelsDataProvider;
@@ -1380,54 +1383,47 @@ var TileGenerator = (function () {
         this.StartTileClass = StartTileClass;
         this.EndTileClass = EndTileClass;
         this.towerGenerator = towerGenerator;
-        if (this.levelMap === '') {
-            throw new Error('Level map string cannot be empty');
+        if (this.levelMap.rowsMap.length === 0) {
+            throw new Error('No rows map found');
         }
-        var levelMapParts = this.levelMap.split('@');
-        this.levelMapData = levelMapParts[1];
         this._setStartImage(mapImages);
         this._setEndImage(mapImages);
-        this.levelMap = levelMapParts[0];
         this.orangeImage = mapImages[0];
         this.blackImage = mapImages[1];
-        this.startDirection = Const.LEFT_DIRECTION;
+        this.startDirection = this.levelMap.startDirection;
     }
     TileGenerator.prototype._setStartImage = function (mapImages) {
-        var levelMapDataParts = this.levelMapData.split(',');
-        var startOrientation = levelMapDataParts[0];
-        switch (startOrientation) {
-            case '1':
+        switch (this.levelMap.startDirection) {
+            case this.Const.DOWN_DIRECTION:
                 this.startImage = mapImages[6];
                 this.startDirection = this.Const.DOWN_DIRECTION;
                 break;
-            case '2':
+            case this.Const.RIGHT_DIRECTION:
                 this.startImage = mapImages[7];
                 this.startDirection = this.Const.RIGHT_DIRECTION;
                 break;
-            case '3':
+            case this.Const.LEFT_DIRECTION:
                 this.startImage = mapImages[8];
                 this.startDirection = this.Const.LEFT_DIRECTION;
                 break;
-            case '4':
+            case this.Const.UP_DIRECTION:
                 this.startImage = mapImages[9];
                 this.startDirection = this.Const.UP_DIRECTION;
                 break;
         }
     };
     TileGenerator.prototype._setEndImage = function (mapImages) {
-        var levelMapDataParts = this.levelMapData.split(',');
-        var endOrientation = levelMapDataParts[1];
-        switch (endOrientation) {
-            case '1':
+        switch (this.levelMap.endDirection) {
+            case this.Const.DOWN_DIRECTION:
                 this.endImage = mapImages[2];
                 break;
-            case '2':
-                this.endImage = mapImages[3];
-                break;
-            case '3':
+            case this.Const.RIGHT_DIRECTION:
                 this.endImage = mapImages[4];
                 break;
-            case '4':
+            case this.Const.LEFT_DIRECTION:
+                this.endImage = mapImages[3];
+                break;
+            case this.Const.UP_DIRECTION:
                 this.endImage = mapImages[5];
                 break;
         }
@@ -1435,9 +1431,8 @@ var TileGenerator = (function () {
     TileGenerator.prototype._extractTiles = function (symbol) {
         var _this = this;
         var resultTiles = [];
-        var mapArray = this.levelMap.split(',');
         var rowCount = 0;
-        mapArray.forEach(function (row) {
+        this.levelMap.rowsMap.forEach(function (row) {
             var trimmedRow = row.trim();
             rowCount++;
             for (var column = 0; column < trimmedRow.length; column++) {
@@ -1477,9 +1472,7 @@ var TileGenerator = (function () {
         return this._extractTiles('y')[0];
     };
     TileGenerator.prototype.getInitialMoney = function () {
-        var levelMapDataParts = this.levelMapData.split(',');
-        var initialMoney = levelMapDataParts[4];
-        return Number(initialMoney);
+        return Number(this.levelMap.money);
     };
     return TileGenerator;
 }());
