@@ -10,7 +10,7 @@ export class TileGenerator {
   FLOOR_SIZE = 50
   MARGIN_TOP = 30
 
-  levelMap: string
+  levelMap: any
   levelMapData: string
   orangeImage: Image
   blackImage: Image
@@ -26,7 +26,7 @@ export class TileGenerator {
   towerGenerator: TowerGenerator
 
   constructor(
-    levelMap: string,
+    levelMap: any,
     mapImages: Image[],
     Const: ConstType,
     OrangeTileClass: typeof OrangeTile,
@@ -44,44 +44,36 @@ export class TileGenerator {
     this.EndTileClass = EndTileClass
     this.towerGenerator = towerGenerator
 
-    if (this.levelMap === '') {
-      throw new Error('Level map string cannot be empty')
+    if (this.levelMap.rowsMap.length === 0) {
+      throw new Error('No rows map found')
     }
-
-    const levelMapParts = this.levelMap.split('@')
-
-    this.levelMapData = levelMapParts[1]
 
     this._setStartImage(mapImages)
     this._setEndImage(mapImages)
 
-    this.levelMap = levelMapParts[0]
     this.orangeImage = mapImages[0]
     this.blackImage = mapImages[1]
-    this.startDirection = Const.LEFT_DIRECTION
+    this.startDirection = this.levelMap.startDirection
   }
 
   _setStartImage(mapImages: any[]) {
-    const levelMapDataParts = this.levelMapData.split(',')
-    const startOrientation = levelMapDataParts[0]
-
-    switch (startOrientation) {
-      case '1':
+    switch (this.levelMap.startDirection) {
+      case this.Const.DOWN_DIRECTION:
         this.startImage = mapImages[6]
         this.startDirection = this.Const.DOWN_DIRECTION
         break
 
-      case '2':
+      case this.Const.RIGHT_DIRECTION:
         this.startImage = mapImages[7]
         this.startDirection = this.Const.RIGHT_DIRECTION
         break
 
-      case '3':
+      case this.Const.LEFT_DIRECTION:
         this.startImage = mapImages[8]
         this.startDirection = this.Const.LEFT_DIRECTION
         break
 
-      case '4':
+      case this.Const.UP_DIRECTION:
         this.startImage = mapImages[9]
         this.startDirection = this.Const.UP_DIRECTION
         break
@@ -89,23 +81,20 @@ export class TileGenerator {
   }
 
   _setEndImage(mapImages: any[]) {
-    const levelMapDataParts = this.levelMapData.split(',')
-    const endOrientation = levelMapDataParts[1]
-
-    switch (endOrientation) {
-      case '1':
+    switch (this.levelMap.endDirection) {
+      case this.Const.DOWN_DIRECTION:
         this.endImage = mapImages[2]
         break
 
-      case '2':
-        this.endImage = mapImages[3]
-        break
-
-      case '3':
+      case this.Const.RIGHT_DIRECTION:
         this.endImage = mapImages[4]
         break
 
-      case '4':
+      case this.Const.LEFT_DIRECTION:
+        this.endImage = mapImages[3]
+        break
+
+      case this.Const.UP_DIRECTION:
         this.endImage = mapImages[5]
         break
     }
@@ -114,9 +103,8 @@ export class TileGenerator {
   _extractTiles(symbol: string) {
     const resultTiles: any[] = []
 
-    const mapArray = this.levelMap.split(',')
     let rowCount = 0
-    mapArray.forEach((row) => {
+    this.levelMap.rowsMap.forEach((row: any) => {
       const trimmedRow = row.trim()
       rowCount++
       for (let column = 0; column < trimmedRow.length; column++) {
@@ -177,9 +165,6 @@ export class TileGenerator {
   }
 
   getInitialMoney() {
-    const levelMapDataParts = this.levelMapData.split(',')
-    const initialMoney = levelMapDataParts[4]
-
-    return Number(initialMoney)
+    return Number(this.levelMap.money)
   }
 }

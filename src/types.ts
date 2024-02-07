@@ -10,22 +10,13 @@ export type MapDataType = {
   id: number
   title: string
   comments: string
-  row01: string
-  row02: string
-  row03: string
-  row04: string
-  row05: string
-  row06: string
-  row07: string
-  row08: string
-  row09: string
-  row10: string
+  rowsMap: string[]
   money: number
   magicUFO: number
   magicFireball: number
   magicIceball: number
-  startTileX: number
-  startTileY: number
+  startDirection: number
+  endDirection: number
 }
 
 export type ConstType = {

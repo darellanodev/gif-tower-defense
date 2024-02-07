@@ -116,6 +116,7 @@ function setup() {
   )
   orangeTiles = tileGenerator.orangeTiles()
   startTile = tileGenerator.startTile()
+
   endTile = tileGenerator.endTile()
   const pathTiles = tileGenerator.pathTiles()
 

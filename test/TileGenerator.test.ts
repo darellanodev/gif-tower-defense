@@ -37,10 +37,14 @@ const towerGenerator = new TowerGenerator(
 )
 
 test('TileGenerator throws an exception when an empty string is passed to it', () => {
+  const invalidLevelMap = levelsDataProvider.getLevel(
+    Const.ID_LEVEL_INVALID_WITHOUT_ROWSMAP_FOR_UNIT_TESTING,
+  )
+
   expect(
     () =>
       new TileGenerator(
-        '',
+        invalidLevelMap,
         mapimages,
         Const,
         OrangeTile,
@@ -49,7 +53,7 @@ test('TileGenerator throws an exception when an empty string is passed to it', (
         EndTile,
         towerGenerator,
       ),
-  ).toThrowError('Level map string cannot be empty')
+  ).toThrowError('No rows map found')
 })
 
 test('TileGenerator generate orange tiles', () => {
