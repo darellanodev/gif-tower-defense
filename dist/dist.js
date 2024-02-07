@@ -769,9 +769,6 @@ var LevelsData = (function () {
                 'y111111111111111',
             ],
             money: 150,
-            magicUFO: 3,
-            magicFireball: 2,
-            magicIceball: 2,
             startDirection: Const.LEFT_DIRECTION,
             endDirection: Const.LEFT_DIRECTION,
         },
@@ -792,9 +789,6 @@ var LevelsData = (function () {
                 'y011111111111111',
             ],
             money: 150,
-            magicUFO: 3,
-            magicFireball: 2,
-            magicIceball: 2,
             startDirection: Const.LEFT_DIRECTION,
             endDirection: Const.LEFT_DIRECTION,
         },
@@ -804,9 +798,6 @@ var LevelsData = (function () {
             comments: 'empty rowsMap, for unit testing purposes',
             rowsMap: [],
             money: 150,
-            magicUFO: 3,
-            magicFireball: 2,
-            magicIceball: 2,
             startDirection: Const.LEFT_DIRECTION,
             endDirection: Const.LEFT_DIRECTION,
         },
@@ -818,14 +809,7 @@ var LevelsDataProvider = (function () {
         this.levels = levels;
     }
     LevelsDataProvider.prototype.getLevel = function (id) {
-        var levelData = this.levels.find(function (level) { return level.id == id; });
-        var result = {
-            rowsMap: levelData.rowsMap,
-            startDirection: levelData.startDirection,
-            endDirection: levelData.endDirection,
-            money: levelData.money,
-        };
-        return result;
+        return this.levels.find(function (level) { return level.id == id; });
     };
     return LevelsDataProvider;
 }());
