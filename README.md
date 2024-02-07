@@ -23,29 +23,20 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ### Next tasks
 
-- [ ] Level editor
-- [ ] Speed button
-- [ ] Pause button
-- [ ] Magics buttons
-- [ ] Simplify Typescript assignment params (this.zzz = zzz, <--- use the signature simplification using private in params)
-- [ ] Menu to allow the user to select a desired level to play. Replace old player names for other names
-- [ ] Test other maps with different end tiles positions to implement (with tests) the remaining endings
-- [ ] Make the explosion balls with a face. The captured faces show a diferent icon with the mouth opened
-- [ ] When Yellow tower is full the player get lives depending on the upgrade level of the yellow tower
-- [ ] Yellow tower absorbs the yellow faces and fill its indicator
-- [ ] Make the red tower target and shot to an enemy
-- [ ] Create a MapProvider class to load and provide maps, and a Maps file with all the maps
-- [ ] Extract variables and functions from main.ts to Game class
 - [ ] When upgrading a tower, make the progress bar slowest depending on the upgrading level
-- [x] Improve map data (for example remove row01, row02 and use an array instead)
-- [x] Modify tile generator to accept an improved data from levels data provider (now is using the old format with commas and @ separator)
-- [x] Increase the strength of the enemies. Now is too easy
-- [x] Make the boss progress bar slowest
-- [x] Make more space between enemies
-- [x] Position magic numbers in hud
-- [x] Set cost color to gray when player cant buy a new tower
-- [x] Show black and white tower icons in hud when the player cant buy them
-- [x] Change the color of the buy/upgrade cost to red and the influence area to gray when the player cant buy/upgrade
+- [ ] Extract variables and functions from main.ts to Game class
+- [ ] Create a MapProvider class to load and provide maps, and a Maps file with all the maps
+- [ ] Make the red tower target and shot to an enemy
+- [ ] Yellow tower absorbs the yellow faces and fill its indicator
+- [ ] When Yellow tower is full the player get lives depending on the upgrade level of the yellow tower
+- [ ] Make the explosion balls with a face. The captured faces show a diferent icon with the mouth opened
+- [ ] Test other maps with different end tiles positions to implement (with tests) the remaining endings
+- [ ] Menu to allow the user to select a desired level to play. Replace old player names for other names
+- [ ] Simplify Typescript assignment params (this.zzz = zzz, <--- use the signature simplification using private in params)
+- [ ] Magics buttons
+- [ ] Pause button
+- [ ] Speed button
+- [ ] Level editor
 
 ## Resources
 
