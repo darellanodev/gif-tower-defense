@@ -118,4 +118,7 @@ export type ConstType = {
 
   MAGIC_ICEBALL_SPEED: number
   MAGIC_ICEBALLS: number
+
+  MAGIC_UFO_SPEED: number
+  MAGIC_UFOS: number
 }

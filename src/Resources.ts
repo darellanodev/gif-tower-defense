@@ -93,4 +93,8 @@ export class Resources {
   static magicIceball() {
     return loadImage('img/magics/iceball.png')
   }
+
+  static magicUFO() {
+    return loadImage('img/magics/ufo.png')
+  }
 }

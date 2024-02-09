@@ -105,4 +105,7 @@ export class Const {
 
   static MAGIC_ICEBALL_SPEED = 10
   static MAGIC_ICEBALLS = 3
+
+  static MAGIC_UFO_SPEED = 10
+  static MAGIC_UFOS = 3
 }
