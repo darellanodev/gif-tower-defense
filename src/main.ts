@@ -27,6 +27,7 @@ import { ParticleSystem } from './ParticleSystem'
 import { Resources } from './Resources'
 import { LevelsDataProvider } from './LevelsDataProvider'
 import { LevelsData } from './LevelsData'
+import { MagicFireball } from './MagicFireball'
 
 let orders: number[]
 let createEnemyTime: number
@@ -60,6 +61,9 @@ let bossProgressDelay: number
 let initialEnemiesPosition: { x: number; y: number }
 let allowCreateEnemies: boolean
 let levelDataProvider: LevelsDataProvider
+let magicFireballImage: Image
+let magicFireballs: MagicFireball[]
+let magicFireballsCount: number
 
 function preload() {
   greenTowerImages = Resources.greenTower()
@@ -70,6 +74,7 @@ function preload() {
   hudImages = Resources.hudImages()
   hudIconImages = Resources.hudIconImages()
   backgroundImage = Resources.backgroundImage()
+  magicFireballImage = Resources.magicFireball()
 }
 
 function disableContextualMenu() {
@@ -154,6 +159,9 @@ function setup() {
 
   enemyExplosions = []
 
+  magicFireballs = []
+  magicFireballsCount = Const.MAGIC_FIREBALLS
+
   influenceArea = new InfluenceArea(Const)
 
   gameStatus = Const.GAME_STATUS_PLAYING
@@ -214,6 +222,9 @@ function handleHudButtons() {
   if (hud.isInsideYellowTowerButton(mouseX, mouseY)) {
     hud.selectTower(Const.YELLOW_TOWER)
   }
+  if (hud.isInsideMagicFireball(mouseX, mouseY)) {
+    createNewMagicFireball()
+  }
 }
 
 function handleSellTower() {
@@ -264,6 +275,22 @@ function createNewEnemy(waveEnemy: number, wave: number) {
       ProgressBar,
     ),
   )
+}
+
+function createNewMagicFireball() {
+  if (magicFireballsCount > 0) {
+    magicFireballs.push(
+      new MagicFireball(
+        magicFireballImage,
+        initialEnemiesPosition.x,
+        initialEnemiesPosition.y,
+        orders,
+        Const,
+      ),
+    )
+    magicFireballsCount--
+    hud.setMagicFireballs(magicFireballsCount)
+  }
 }
 
 function createNewBoss(wave: number) {
@@ -383,12 +410,25 @@ function updateBossProgressBar(wave: number) {
   }
 }
 
+function updateMagicFireballs() {
+  magicFireballs.forEach((fireball) => {
+    fireball.update()
+  })
+}
+
+function drawMagicFireballs() {
+  magicFireballs.forEach((fireball) => {
+    fireball.draw()
+  })
+}
+
 function draw() {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
     updateEnemies(wave)
     updateMouseOrangeTileOver()
     updateWaveProgressBar()
     updateBossProgressBar(wave)
+    updateMagicFireballs()
   }
 
   background('skyblue')
@@ -453,6 +493,8 @@ function draw() {
   enemies.forEach((enemy) => {
     enemy.draw()
   })
+
+  drawMagicFireballs()
 
   enemyExplosions.forEach((enemyExplosion) => {
     enemyExplosion.update()

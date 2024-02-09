@@ -25,6 +25,7 @@ export class Hud {
   canBuyGreenTower: boolean
   canBuyRedTower: boolean
   canBuyYellowTower: boolean
+  magicfireballs: number
 
   constructor(
     hudImages: Image[],
@@ -61,6 +62,7 @@ export class Hud {
     this.canBuyGreenTower = false
     this.canBuyRedTower = false
     this.canBuyYellowTower = false
+    this.magicfireballs = this.Const.MAGIC_FIREBALLS
   }
 
   isInsideButtonsBar(px: number, py: number) {
@@ -89,6 +91,17 @@ export class Hud {
       return true
     }
     return false
+  }
+
+  isInsideMagicFireball(px: number, py: number) {
+    if (px > 616 && px < 692 && py > 28 && py < 78) {
+      return true
+    }
+    return false
+  }
+
+  setMagicFireballs(magicfireballs: number) {
+    this.magicfireballs = magicfireballs
   }
 
   setWaveProgressBar(waveProgressBar: ProgressBar) {
@@ -208,7 +221,7 @@ export class Hud {
   }
 
   _drawMagicFireball() {
-    text(3, 680, 74)
+    text(this.magicfireballs, 680, 74)
   }
 
   _drawMagicIceball() {

@@ -85,4 +85,8 @@ export class Resources {
   static backgroundImage() {
     return loadImage('img/backgrounds/ground.jpg')
   }
+
+  static magicFireball() {
+    return loadImage('img/magics/fireball.png')
+  }
 }
