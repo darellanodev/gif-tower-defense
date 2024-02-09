@@ -110,4 +110,6 @@ export type ConstType = {
 
   ID_LEVEL_VALID_FOR_UNIT_TESTING: number
   ID_LEVEL_INVALID_FOR_UNIT_TESTING: number
+
+  DELAY_UPGRADE_MULTIPLIER: number
 }

@@ -18,6 +18,7 @@ export class GreenTower {
   upgrading: boolean
   progressBar: ProgressBar
   upgradeProgress: number
+  delayUpgradeProgress: number
 
   constructor(
     images: Image[],
@@ -51,6 +52,8 @@ export class GreenTower {
     if (!this.upgrading) {
       this.upgrading = true
       this.upgradeLevel++
+      this.delayUpgradeProgress =
+        this.Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel
     }
   }
 
@@ -96,8 +99,14 @@ export class GreenTower {
     if (this.upgrading) {
       this._drawUpgradeBackground()
       if (!this.progressBar.isFullOfProgress()) {
-        this.upgradeProgress++
-        this.progressBar.setProgress(this.upgradeProgress)
+        if (this.delayUpgradeProgress == 0) {
+          this.upgradeProgress++
+          this.progressBar.setProgress(this.upgradeProgress)
+          this.delayUpgradeProgress =
+            this.Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel
+        } else {
+          this.delayUpgradeProgress--
+        }
         this.progressBar.draw()
       } else {
         this.upgrading = false
