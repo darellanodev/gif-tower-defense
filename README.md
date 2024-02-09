@@ -23,18 +23,25 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ### Next tasks
 
-- [ ] When upgrading a tower, make the progress bar slowest depending on the upgrading level
+- [x] When upgrading a tower, make the progress bar slowest depending on the upgrading level
+- [x] Magic ball of fire movement
+- [x] Magic ball of ice movement
+- [x] Magic UFO movement
+- [ ] Magic ball of fire rest vitality to the enemies
+- [ ] Magic ball of ice freezes the enemies
+- [ ] Magic UFO go to the enemy closest to the end tile
 - [ ] Make the red tower target and shot to an enemy
 - [ ] Yellow tower absorbs the yellow faces and fill its indicator
 - [ ] When Yellow tower is full the player get lives depending on the upgrade level of the yellow tower
 - [ ] Make the explosion balls with a face. The captured faces show a diferent icon with the mouth opened
-- [ ] Magics buttons
-- [ ] Upload the build web version into my portfolio to allow play in web browser.
+- [ ] Upload the build web version into my portfolio to allow play in web browser
+- [ ] Put the start tile and the end tile on top of the enemies
 
 - [ ] Test other maps with different end tiles positions to implement (with tests) the remaining endings
 - [ ] Extract variables and functions from main.ts to Game class
 - [ ] Menu to allow the user to select a desired level to play. Replace old player names for other names
 - [ ] Simplify Typescript assignment params (this.zzz = zzz, <--- use the signature simplification using private in params)
+- [ ] HeatMap
 - [ ] Pause button
 - [ ] Speed button
 - [ ] Level editor
