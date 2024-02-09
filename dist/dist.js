@@ -73,6 +73,13 @@ var Const = (function () {
     Const.ID_LEVEL_VALID_FOR_UNIT_TESTING = 1;
     Const.ID_LEVEL_INVALID_FOR_UNIT_TESTING = 6666;
     Const.ID_LEVEL_INVALID_WITHOUT_ROWSMAP_FOR_UNIT_TESTING = 6667;
+    Const.DELAY_UPGRADE_MULTIPLIER = 5;
+    Const.MAGIC_FIREBALL_SPEED = 10;
+    Const.MAGIC_FIREBALLS = 3;
+    Const.MAGIC_ICEBALL_SPEED = 10;
+    Const.MAGIC_ICEBALLS = 3;
+    Const.MAGIC_UFO_SPEED = 10;
+    Const.MAGIC_UFOS = 3;
     return Const;
 }());
 var CustomRange = (function () {
@@ -314,6 +321,8 @@ var GreenTower = (function () {
         if (!this.upgrading) {
             this.upgrading = true;
             this.upgradeLevel++;
+            this.delayUpgradeProgress =
+                this.Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel;
         }
     };
     GreenTower.prototype.isNotUpgrading = function () {
@@ -346,8 +355,15 @@ var GreenTower = (function () {
         if (this.upgrading) {
             this._drawUpgradeBackground();
             if (!this.progressBar.isFullOfProgress()) {
-                this.upgradeProgress++;
-                this.progressBar.setProgress(this.upgradeProgress);
+                if (this.delayUpgradeProgress == 0) {
+                    this.upgradeProgress++;
+                    this.progressBar.setProgress(this.upgradeProgress);
+                    this.delayUpgradeProgress =
+                        this.Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel;
+                }
+                else {
+                    this.delayUpgradeProgress--;
+                }
                 this.progressBar.draw();
             }
             else {
@@ -452,6 +468,9 @@ var Hud = (function () {
         this.canBuyGreenTower = false;
         this.canBuyRedTower = false;
         this.canBuyYellowTower = false;
+        this.magicfireballs = this.Const.MAGIC_FIREBALLS;
+        this.magiciceballs = this.Const.MAGIC_ICEBALLS;
+        this.magicUFOs = this.Const.MAGIC_UFOS;
     }
     Hud.prototype.isInsideButtonsBar = function (px, py) {
         if (px > 0 && px < 800 && py > 28 && py < 78) {
@@ -476,6 +495,33 @@ var Hud = (function () {
             return true;
         }
         return false;
+    };
+    Hud.prototype.isInsideMagicFireball = function (px, py) {
+        if (px > 616 && px < 692 && py > 28 && py < 78) {
+            return true;
+        }
+        return false;
+    };
+    Hud.prototype.isInsideMagicIceball = function (px, py) {
+        if (px > 692 && px < 795 && py > 28 && py < 78) {
+            return true;
+        }
+        return false;
+    };
+    Hud.prototype.isInsideMagicUFO = function (px, py) {
+        if (px > 498 && px < 616 && py > 28 && py < 78) {
+            return true;
+        }
+        return false;
+    };
+    Hud.prototype.setMagicFireballs = function (magicfireballs) {
+        this.magicfireballs = magicfireballs;
+    };
+    Hud.prototype.setMagicIceballs = function (magiciceballs) {
+        this.magiciceballs = magiciceballs;
+    };
+    Hud.prototype.setMagicUFOs = function (magicUFOs) {
+        this.magicUFOs = magicUFOs;
     };
     Hud.prototype.setWaveProgressBar = function (waveProgressBar) {
         this.waveProgressBar = waveProgressBar;
@@ -564,13 +610,13 @@ var Hud = (function () {
         }
     };
     Hud.prototype._drawMagicUFO = function () {
-        text(3, 592, 74);
+        text(this.magicUFOs, 592, 74);
     };
     Hud.prototype._drawMagicFireball = function () {
-        text(3, 680, 74);
+        text(this.magicfireballs, 680, 74);
     };
     Hud.prototype._drawMagicIceball = function () {
-        text(3, 769, 74);
+        text(this.magiciceballs, 769, 74);
     };
     Hud.prototype._drawSellProfit = function () {
         if (this.sellProfit !== null) {
@@ -812,6 +858,156 @@ var LevelsDataProvider = (function () {
         return this.levels.find(function (level) { return level.id == id; });
     };
     return LevelsDataProvider;
+}());
+var MagicFireball = (function () {
+    function MagicFireball(img, startX, startY, orders, Const) {
+        this.img = img;
+        this.startX = startX;
+        this.startY = startY;
+        this.orders = orders;
+        this.Const = Const;
+        this.x = this.startX;
+        this.y = this.startY;
+        this.moveCount = 0;
+        this.indexOrder = 0;
+        this.currentDirection = this.orders[this.indexOrder];
+    }
+    MagicFireball.prototype.update = function () {
+        switch (this.currentDirection) {
+            case this.Const.LEFT_DIRECTION:
+                this.x = this.x - this.Const.MAGIC_FIREBALL_SPEED;
+                break;
+            case this.Const.RIGHT_DIRECTION:
+                this.x = this.x + this.Const.MAGIC_FIREBALL_SPEED;
+                break;
+            case this.Const.UP_DIRECTION:
+                this.y = this.y - this.Const.MAGIC_FIREBALL_SPEED;
+                break;
+            case this.Const.DOWN_DIRECTION:
+                this.y = this.y + this.Const.MAGIC_FIREBALL_SPEED;
+                break;
+        }
+        this.moveCount = this.moveCount + this.Const.MAGIC_FIREBALL_SPEED;
+        if (this.moveCount === this.Const.TILE_SIZE) {
+            this.moveCount = 0;
+            this.indexOrder++;
+            if (this.indexOrder == this.orders.length) {
+            }
+            else {
+                this.currentDirection = this.orders[this.indexOrder];
+            }
+        }
+    };
+    MagicFireball.prototype.getX = function () {
+        return this.x;
+    };
+    MagicFireball.prototype.getY = function () {
+        return this.y;
+    };
+    MagicFireball.prototype.draw = function () {
+        image(this.img, this.x, this.y);
+    };
+    return MagicFireball;
+}());
+var MagicIceball = (function () {
+    function MagicIceball(img, startX, startY, orders, Const) {
+        this.img = img;
+        this.startX = startX;
+        this.startY = startY;
+        this.orders = orders;
+        this.Const = Const;
+        this.x = this.startX;
+        this.y = this.startY;
+        this.moveCount = 0;
+        this.indexOrder = 0;
+        this.currentDirection = this.orders[this.indexOrder];
+    }
+    MagicIceball.prototype.update = function () {
+        switch (this.currentDirection) {
+            case this.Const.LEFT_DIRECTION:
+                this.x = this.x - this.Const.MAGIC_FIREBALL_SPEED;
+                break;
+            case this.Const.RIGHT_DIRECTION:
+                this.x = this.x + this.Const.MAGIC_FIREBALL_SPEED;
+                break;
+            case this.Const.UP_DIRECTION:
+                this.y = this.y - this.Const.MAGIC_FIREBALL_SPEED;
+                break;
+            case this.Const.DOWN_DIRECTION:
+                this.y = this.y + this.Const.MAGIC_FIREBALL_SPEED;
+                break;
+        }
+        this.moveCount = this.moveCount + this.Const.MAGIC_FIREBALL_SPEED;
+        if (this.moveCount === this.Const.TILE_SIZE) {
+            this.moveCount = 0;
+            this.indexOrder++;
+            if (this.indexOrder == this.orders.length) {
+            }
+            else {
+                this.currentDirection = this.orders[this.indexOrder];
+            }
+        }
+    };
+    MagicIceball.prototype.getX = function () {
+        return this.x;
+    };
+    MagicIceball.prototype.getY = function () {
+        return this.y;
+    };
+    MagicIceball.prototype.draw = function () {
+        image(this.img, this.x, this.y);
+    };
+    return MagicIceball;
+}());
+var MagicUFO = (function () {
+    function MagicUFO(img, startX, startY, orders, Const) {
+        this.img = img;
+        this.startX = startX;
+        this.startY = startY;
+        this.orders = orders;
+        this.Const = Const;
+        this.x = this.startX;
+        this.y = this.startY;
+        this.moveCount = 0;
+        this.indexOrder = 0;
+        this.currentDirection = this.orders[this.indexOrder];
+    }
+    MagicUFO.prototype.update = function () {
+        switch (this.currentDirection) {
+            case this.Const.LEFT_DIRECTION:
+                this.x = this.x - this.Const.MAGIC_FIREBALL_SPEED;
+                break;
+            case this.Const.RIGHT_DIRECTION:
+                this.x = this.x + this.Const.MAGIC_FIREBALL_SPEED;
+                break;
+            case this.Const.UP_DIRECTION:
+                this.y = this.y - this.Const.MAGIC_FIREBALL_SPEED;
+                break;
+            case this.Const.DOWN_DIRECTION:
+                this.y = this.y + this.Const.MAGIC_FIREBALL_SPEED;
+                break;
+        }
+        this.moveCount = this.moveCount + this.Const.MAGIC_FIREBALL_SPEED;
+        if (this.moveCount === this.Const.TILE_SIZE) {
+            this.moveCount = 0;
+            this.indexOrder++;
+            if (this.indexOrder == this.orders.length) {
+            }
+            else {
+                this.currentDirection = this.orders[this.indexOrder];
+            }
+        }
+    };
+    MagicUFO.prototype.getX = function () {
+        return this.x;
+    };
+    MagicUFO.prototype.getY = function () {
+        return this.y;
+    };
+    MagicUFO.prototype.draw = function () {
+        image(this.img, this.x, this.y);
+    };
+    return MagicUFO;
 }());
 var OrangeTile = (function () {
     function OrangeTile(img, x, y, Const, towerGenerator) {
@@ -1301,6 +1497,15 @@ var Resources = (function () {
     Resources.backgroundImage = function () {
         return loadImage('img/backgrounds/ground.jpg');
     };
+    Resources.magicFireball = function () {
+        return loadImage('img/magics/fireball.png');
+    };
+    Resources.magicIceball = function () {
+        return loadImage('img/magics/iceball.png');
+    };
+    Resources.magicUFO = function () {
+        return loadImage('img/magics/ufo.png');
+    };
     return Resources;
 }());
 var Score = (function () {
@@ -1648,6 +1853,15 @@ var bossProgressDelay;
 var initialEnemiesPosition;
 var allowCreateEnemies;
 var levelDataProvider;
+var magicFireballImage;
+var magicFireballs;
+var magicFireballsCount;
+var magicIceballImage;
+var magicIceballs;
+var magicIceballsCount;
+var magicUFOImage;
+var magicUFOs;
+var magicUFOsCount;
 function preload() {
     greenTowerImages = Resources.greenTower();
     redTowerImages = Resources.redTower();
@@ -1657,6 +1871,9 @@ function preload() {
     hudImages = Resources.hudImages();
     hudIconImages = Resources.hudIconImages();
     backgroundImage = Resources.backgroundImage();
+    magicFireballImage = Resources.magicFireball();
+    magicIceballImage = Resources.magicIceball();
+    magicUFOImage = Resources.magicUFO();
 }
 function disableContextualMenu() {
     for (var _i = 0, _a = document.getElementsByClassName('p5Canvas'); _i < _a.length; _i++) {
@@ -1695,6 +1912,12 @@ function setup() {
     waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
     bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
     enemyExplosions = [];
+    magicFireballs = [];
+    magicFireballsCount = Const.MAGIC_FIREBALLS;
+    magicIceballs = [];
+    magicIceballsCount = Const.MAGIC_ICEBALLS;
+    magicUFOs = [];
+    magicUFOsCount = Const.MAGIC_UFOS;
     influenceArea = new InfluenceArea(Const);
     gameStatus = Const.GAME_STATUS_PLAYING;
 }
@@ -1748,6 +1971,15 @@ function handleHudButtons() {
     if (hud.isInsideYellowTowerButton(mouseX, mouseY)) {
         hud.selectTower(Const.YELLOW_TOWER);
     }
+    if (hud.isInsideMagicFireball(mouseX, mouseY)) {
+        createNewMagicFireball();
+    }
+    if (hud.isInsideMagicIceball(mouseX, mouseY)) {
+        createNewMagicIceball();
+    }
+    if (hud.isInsideMagicUFO(mouseX, mouseY)) {
+        createNewMagicUFO();
+    }
 }
 function handleSellTower() {
     var profit = mouseOrangeTileOver.sellTower();
@@ -1779,6 +2011,27 @@ function createNewEnemy(waveEnemy, wave) {
     var endurance = wave * 3 + waveEnemy * 2;
     var isBoss = false;
     enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, endurance, isBoss, Const, Random, ProgressBar));
+}
+function createNewMagicFireball() {
+    if (magicFireballsCount > 0) {
+        magicFireballs.push(new MagicFireball(magicFireballImage, initialEnemiesPosition.x, initialEnemiesPosition.y, orders, Const));
+        magicFireballsCount--;
+        hud.setMagicFireballs(magicFireballsCount);
+    }
+}
+function createNewMagicIceball() {
+    if (magicIceballsCount > 0) {
+        magicIceballs.push(new MagicIceball(magicIceballImage, initialEnemiesPosition.x, initialEnemiesPosition.y, orders, Const));
+        magicIceballsCount--;
+        hud.setMagicIceballs(magicIceballsCount);
+    }
+}
+function createNewMagicUFO() {
+    if (magicUFOsCount > 0) {
+        magicUFOs.push(new MagicUFO(magicUFOImage, initialEnemiesPosition.x, initialEnemiesPosition.y, orders, Const));
+        magicUFOsCount--;
+        hud.setMagicUFOs(magicUFOsCount);
+    }
 }
 function createNewBoss(wave) {
     var endurance = wave * 25;
@@ -1864,12 +2117,45 @@ function updateBossProgressBar(wave) {
         hud.setBossProgressBar(bossProgressBar);
     }
 }
+function updateMagicFireballs() {
+    magicFireballs.forEach(function (fireball) {
+        fireball.update();
+    });
+}
+function drawMagicFireballs() {
+    magicFireballs.forEach(function (fireball) {
+        fireball.draw();
+    });
+}
+function updateMagicIceballs() {
+    magicIceballs.forEach(function (iceball) {
+        iceball.update();
+    });
+}
+function drawMagicIceballs() {
+    magicIceballs.forEach(function (iceball) {
+        iceball.draw();
+    });
+}
+function updateMagicUFOs() {
+    magicUFOs.forEach(function (ufo) {
+        ufo.update();
+    });
+}
+function drawMagicUFOs() {
+    magicUFOs.forEach(function (ufo) {
+        ufo.draw();
+    });
+}
 function draw() {
     if (gameStatus === Const.GAME_STATUS_PLAYING) {
         updateEnemies(wave);
         updateMouseOrangeTileOver();
         updateWaveProgressBar();
         updateBossProgressBar(wave);
+        updateMagicFireballs();
+        updateMagicIceballs();
+        updateMagicUFOs();
     }
     background('skyblue');
     rectMode(CORNER);
@@ -1916,6 +2202,9 @@ function draw() {
     enemies.forEach(function (enemy) {
         enemy.draw();
     });
+    drawMagicFireballs();
+    drawMagicIceballs();
+    drawMagicUFOs();
     enemyExplosions.forEach(function (enemyExplosion) {
         enemyExplosion.update();
     });
