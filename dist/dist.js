@@ -17,7 +17,7 @@ var Const = (function () {
     Const.RED_COLOR = [185, 35, 35];
     Const.YELLOW_COLOR = [202, 191, 24];
     Const.GRAY_COLOR = [50, 50, 50];
-    Const.DAMAGE_UPGRADE_GREEN_TOWER = [1, 2, 4, 8, 16, 32];
+    Const.DAMAGE_UPGRADE_GREEN_TOWER = [1, 2, 4, 6, 12, 24];
     Const.PROFIT_SELL_UPGRADE_GREEN_TOWER = [30, 35, 65, 220, 900, 1880];
     Const.PROFIT_SELL_UPGRADE_RED_TOWER = [80, 110, 190, 420, 1200, 2880];
     Const.PROFIT_SELL_UPGRADE_YELLOW_TOWER = [
@@ -76,10 +76,13 @@ var Const = (function () {
     Const.DELAY_UPGRADE_MULTIPLIER = 5;
     Const.MAGIC_FIREBALL_SPEED = 10;
     Const.MAGIC_FIREBALLS = 3;
+    Const.MAGIC_FIREBALL_DAMAGE = 500;
     Const.MAGIC_ICEBALL_SPEED = 10;
     Const.MAGIC_ICEBALLS = 3;
     Const.MAGIC_UFO_SPEED = 10;
     Const.MAGIC_UFOS = 3;
+    Const.MAGIC_STATUS_ALIVE = 0;
+    Const.MAGIC_STATUS_DEAD = 1;
     return Const;
 }());
 var CustomRange = (function () {
@@ -125,14 +128,14 @@ var EndTile = (function () {
     return EndTile;
 }());
 var Enemy = (function () {
-    function Enemy(images, startX, startY, orders, endurance, isBoss, Const, RandomClass, ProgressBarClass) {
+    function Enemy(id, images, startX, startY, orders, endurance, isBoss, Const, RandomClass, ProgressBarClass) {
+        this.id = id;
         this.images = images;
         this.startX = startX;
         this.startY = startY;
         this.orders = orders;
         this.endurance = endurance;
         this.isBoss = isBoss;
-        this.initialEndurance = endurance;
         this.Const = Const;
         this.RandomClass = RandomClass;
         this.ProgressBarClass = ProgressBarClass;
@@ -159,20 +162,13 @@ var Enemy = (function () {
         this.randomCloseEyes = 0;
         this.winned = false;
     }
-    Enemy.prototype.getInitialEndurance = function () {
-        return this.initialEndurance;
+    Enemy.prototype.getEndurance = function () {
+        return this.endurance;
     };
     Enemy.prototype.addDamage = function (shotDamage) {
-        if (this.endurance > 0) {
-            this.endurance--;
-            return;
-        }
-        this.endurance = this.initialEndurance;
-        if (!this.healthBar.isFullOfProgress()) {
-            this.damage += shotDamage;
-            this.healthBar.setProgress(this.damage);
-        }
-        else {
+        this.damage += shotDamage / this.endurance;
+        this.healthBar.setProgress(this.damage);
+        if (this.healthBar.isFullOfProgress()) {
             this.status = this.Const.ENEMY_STATUS_DEAD;
         }
     };
@@ -200,6 +196,9 @@ var Enemy = (function () {
         this.x = this.startX;
         this.y = this.startY;
         this._setRandomTimeMaxForClosingEyes();
+    };
+    Enemy.prototype.getOrderPosition = function () {
+        return this.indexOrder;
     };
     Enemy.prototype.update = function () {
         var velocity = this.isBoss
@@ -871,6 +870,8 @@ var MagicFireball = (function () {
         this.moveCount = 0;
         this.indexOrder = 0;
         this.currentDirection = this.orders[this.indexOrder];
+        this.touchedEnemiesIds = [];
+        this.status = this.Const.MAGIC_STATUS_ALIVE;
     }
     MagicFireball.prototype.update = function () {
         switch (this.currentDirection) {
@@ -892,11 +893,31 @@ var MagicFireball = (function () {
             this.moveCount = 0;
             this.indexOrder++;
             if (this.indexOrder == this.orders.length) {
+                this.status = this.Const.MAGIC_STATUS_DEAD;
             }
             else {
                 this.currentDirection = this.orders[this.indexOrder];
             }
         }
+    };
+    MagicFireball.prototype.checkCollision = function (enemy) {
+        if (enemy.isDead() || enemy.isWinner()) {
+            return;
+        }
+        var found = this.touchedEnemiesIds.find(function (id) { return id === enemy.id; });
+        if (found !== undefined) {
+            return;
+        }
+        var fireballPos = this.indexOrder;
+        var enemyPos = enemy.getOrderPosition();
+        var distanceBetween = Math.abs(fireballPos - enemyPos);
+        if (fireballPos >= enemyPos && distanceBetween < 1) {
+            this.touchedEnemiesIds.push(enemy.id);
+            enemy.addDamage(this.Const.MAGIC_FIREBALL_DAMAGE);
+        }
+    };
+    MagicFireball.prototype.isAlive = function () {
+        return this.status == this.Const.MAGIC_STATUS_ALIVE;
     };
     MagicFireball.prototype.getX = function () {
         return this.x;
@@ -1862,6 +1883,7 @@ var magicIceballsCount;
 var magicUFOImage;
 var magicUFOs;
 var magicUFOsCount;
+var currentEnemyId;
 function preload() {
     greenTowerImages = Resources.greenTower();
     redTowerImages = Resources.redTower();
@@ -1906,6 +1928,7 @@ function setup() {
     allowCreateEnemies = true;
     waveEnemies = 0;
     enemies = [];
+    currentEnemyId = 1;
     waveProgressBar = new ProgressBar(335, -19, 150, 16);
     bossProgressBar = new ProgressBar(335, -2, 150, 10);
     hud = new Hud(hudImages, hudIconImages, wallet, Const, lives, score, TextProperties, waveProgressBar, bossProgressBar, wave);
@@ -2010,7 +2033,8 @@ function mouseClicked() {
 function createNewEnemy(waveEnemy, wave) {
     var endurance = wave * 3 + waveEnemy * 2;
     var isBoss = false;
-    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, endurance, isBoss, Const, Random, ProgressBar));
+    enemies.push(new Enemy(currentEnemyId, enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, endurance, isBoss, Const, Random, ProgressBar));
+    currentEnemyId++;
 }
 function createNewMagicFireball() {
     if (magicFireballsCount > 0) {
@@ -2037,7 +2061,7 @@ function createNewBoss(wave) {
     var endurance = wave * 25;
     var indexBossInEnemiesImages = 5;
     var isBoss = true;
-    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(indexBossInEnemiesImages)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, endurance, isBoss, Const, Random, ProgressBar));
+    enemies.push(new Enemy(currentEnemyId, enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(indexBossInEnemiesImages)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, endurance, isBoss, Const, Random, ProgressBar));
 }
 function updateEnemies(wave) {
     if (allowCreateEnemies) {
@@ -2057,7 +2081,7 @@ function updateEnemies(wave) {
     var deadEnemies = enemies.filter(function (enemy) { return enemy.isDead(); });
     deadEnemies.forEach(function (enemy) {
         enemyExplosions.push(new EnemyExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem));
-        var $increasedMoney = enemy.getInitialEndurance() * Const.MONEY_MULTIPLICATOR;
+        var $increasedMoney = enemy.getEndurance() * Const.MONEY_MULTIPLICATOR;
         wallet.increase($increasedMoney);
         score.increase($increasedMoney * 2);
     });
@@ -2120,7 +2144,11 @@ function updateBossProgressBar(wave) {
 function updateMagicFireballs() {
     magicFireballs.forEach(function (fireball) {
         fireball.update();
+        enemies.forEach(function (enemy) {
+            fireball.checkCollision(enemy);
+        });
     });
+    magicFireballs = magicFireballs.filter(function (fireball) { return fireball.isAlive(); });
 }
 function drawMagicFireballs() {
     magicFireballs.forEach(function (fireball) {
