@@ -1,5 +1,6 @@
 import { ConstType } from './types'
 import { Image } from 'p5'
+import { Enemy } from './Enemy'
 
 export class MagicFireball {
   img: Image
@@ -12,6 +13,8 @@ export class MagicFireball {
   currentDirection: number
   moveCount: number
   indexOrder: number
+  touchedEnemiesIds: number[]
+  status: number
 
   constructor(
     img: Image,
@@ -31,6 +34,9 @@ export class MagicFireball {
     this.moveCount = 0
     this.indexOrder = 0
     this.currentDirection = this.orders[this.indexOrder]
+
+    this.touchedEnemiesIds = []
+    this.status = this.Const.MAGIC_STATUS_ALIVE
   }
 
   update() {
@@ -59,10 +65,35 @@ export class MagicFireball {
       this.indexOrder++
       if (this.indexOrder == this.orders.length) {
         // reach the end tile
+        this.status = this.Const.MAGIC_STATUS_DEAD
       } else {
         this.currentDirection = this.orders[this.indexOrder]
       }
     }
+  }
+
+  checkCollision(enemy: Enemy) {
+    if (enemy.isDead() || enemy.isWinner()) {
+      return
+    }
+
+    const found = this.touchedEnemiesIds.find((id) => id === enemy.id)
+    if (found !== undefined) {
+      return
+    }
+
+    const fireballPos = this.indexOrder
+    const enemyPos = enemy.getOrderPosition()
+    const distanceBetween = Math.abs(fireballPos - enemyPos)
+
+    if (fireballPos >= enemyPos && distanceBetween < 1) {
+      this.touchedEnemiesIds.push(enemy.id)
+      enemy.addDamage(this.Const.MAGIC_FIREBALL_DAMAGE)
+    }
+  }
+
+  isAlive() {
+    return this.status == this.Const.MAGIC_STATUS_ALIVE
   }
 
   getX() {

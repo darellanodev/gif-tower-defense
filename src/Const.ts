@@ -19,7 +19,7 @@ export class Const {
   static YELLOW_COLOR = [202, 191, 24]
   static GRAY_COLOR = [50, 50, 50]
 
-  static DAMAGE_UPGRADE_GREEN_TOWER = [1, 2, 4, 8, 16, 32]
+  static DAMAGE_UPGRADE_GREEN_TOWER = [1, 2, 4, 6, 12, 24]
 
   static PROFIT_SELL_UPGRADE_GREEN_TOWER = [30, 35, 65, 220, 900, 1880]
   static PROFIT_SELL_UPGRADE_RED_TOWER = [80, 110, 190, 420, 1200, 2880]
@@ -102,10 +102,14 @@ export class Const {
 
   static MAGIC_FIREBALL_SPEED = 10
   static MAGIC_FIREBALLS = 3
+  static MAGIC_FIREBALL_DAMAGE = 500
 
   static MAGIC_ICEBALL_SPEED = 10
   static MAGIC_ICEBALLS = 3
 
   static MAGIC_UFO_SPEED = 10
   static MAGIC_UFOS = 3
+
+  static MAGIC_STATUS_ALIVE = 0
+  static MAGIC_STATUS_DEAD = 1
 }

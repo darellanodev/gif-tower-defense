@@ -4,6 +4,7 @@ import { Random } from './Random'
 import { Image } from 'p5'
 
 export class Enemy {
+  id: number
   images: Image[]
   startX: number
   startY: number
@@ -31,9 +32,9 @@ export class Enemy {
   extendClosedEyesTime: number
   randomCloseEyes: number
   winned: boolean
-  initialEndurance: number
 
   constructor(
+    id: number,
     images: Image[],
     startX: number,
     startY: number,
@@ -44,13 +45,13 @@ export class Enemy {
     RandomClass: typeof Random,
     ProgressBarClass: typeof ProgressBar,
   ) {
+    this.id = id
     this.images = images
     this.startX = startX
     this.startY = startY
     this.orders = orders
     this.endurance = endurance
     this.isBoss = isBoss
-    this.initialEndurance = endurance
     this.Const = Const
     this.RandomClass = RandomClass
     this.ProgressBarClass = ProgressBarClass
@@ -88,22 +89,15 @@ export class Enemy {
     this.winned = false
   }
 
-  getInitialEndurance() {
-    return this.initialEndurance
+  getEndurance() {
+    return this.endurance
   }
 
   addDamage(shotDamage: number) {
-    if (this.endurance > 0) {
-      this.endurance--
-      return
-    }
+    this.damage += shotDamage / this.endurance
+    this.healthBar.setProgress(this.damage)
 
-    this.endurance = this.initialEndurance
-
-    if (!this.healthBar.isFullOfProgress()) {
-      this.damage += shotDamage
-      this.healthBar.setProgress(this.damage)
-    } else {
+    if (this.healthBar.isFullOfProgress()) {
       this.status = this.Const.ENEMY_STATUS_DEAD
     }
   }
@@ -137,6 +131,10 @@ export class Enemy {
     this.y = this.startY
 
     this._setRandomTimeMaxForClosingEyes()
+  }
+
+  getOrderPosition() {
+    return this.indexOrder
   }
 
   update() {

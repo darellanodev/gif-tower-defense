@@ -72,6 +72,7 @@ let magicIceballsCount: number
 let magicUFOImage: Image
 let magicUFOs: MagicUFO[]
 let magicUFOsCount: number
+let currentEnemyId: number
 
 function preload() {
   greenTowerImages = Resources.greenTower()
@@ -147,6 +148,7 @@ function setup() {
   allowCreateEnemies = true
   waveEnemies = 0
   enemies = []
+  currentEnemyId = 1
 
   waveProgressBar = new ProgressBar(335, -19, 150, 16)
   bossProgressBar = new ProgressBar(335, -2, 150, 10)
@@ -286,6 +288,7 @@ function createNewEnemy(waveEnemy: number, wave: number) {
 
   enemies.push(
     new Enemy(
+      currentEnemyId,
       enemiesImages.slice(...ImageUtils.getRangeImagesOfEnemy(waveEnemy)),
       initialEnemiesPosition.x,
       initialEnemiesPosition.y,
@@ -297,6 +300,7 @@ function createNewEnemy(waveEnemy: number, wave: number) {
       ProgressBar,
     ),
   )
+  currentEnemyId++
 }
 
 function createNewMagicFireball() {
@@ -353,6 +357,7 @@ function createNewBoss(wave: number) {
   const isBoss = true
   enemies.push(
     new Enemy(
+      currentEnemyId,
       enemiesImages.slice(
         ...ImageUtils.getRangeImagesOfEnemy(indexBossInEnemiesImages),
       ),
@@ -389,8 +394,7 @@ function updateEnemies(wave: number) {
       new EnemyExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem),
     )
     //increase money and score
-    const $increasedMoney =
-      enemy.getInitialEndurance() * Const.MONEY_MULTIPLICATOR
+    const $increasedMoney = enemy.getEndurance() * Const.MONEY_MULTIPLICATOR
 
     wallet.increase($increasedMoney)
     score.increase($increasedMoney * 2)
@@ -402,6 +406,7 @@ function updateEnemies(wave: number) {
   // remove dead enemies
   enemies = enemies.filter((enemy) => enemy.isAlive())
 
+  // update enemies
   enemies.forEach((enemy) => {
     enemy.update()
   })
@@ -467,7 +472,13 @@ function updateBossProgressBar(wave: number) {
 function updateMagicFireballs() {
   magicFireballs.forEach((fireball) => {
     fireball.update()
+    // check if fireball collides with an enemy
+    enemies.forEach((enemy) => {
+      fireball.checkCollision(enemy)
+    })
   })
+  // remove dead fireballs
+  magicFireballs = magicFireballs.filter((fireball) => fireball.isAlive())
 }
 
 function drawMagicFireballs() {
