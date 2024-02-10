@@ -1,11 +1,15 @@
-export class Particle {
-  velocity: any
-  position: any
-  lifespan: any
+import { Vector } from 'p5'
 
-  constructor(position: any) {
-    this.velocity = createVector(random(-3, 3), random(-3, 0))
+export class Particle {
+  velocity: Vector
+  position: Vector
+  lifespan: number
+  size: number
+
+  constructor(position: Vector, size: number) {
     this.position = position.copy()
+    this.size = size
+    this.velocity = createVector(random(-3, 3), random(-3, 0))
     this.lifespan = 255
   }
 
@@ -23,7 +27,7 @@ export class Particle {
     stroke(255, 165, 0, this.lifespan)
     strokeWeight(2)
     fill(127, this.lifespan)
-    ellipse(this.position.x, this.position.y, 12, 12)
+    ellipse(this.position.x, this.position.y, this.size, this.size)
   }
 
   isDead() {

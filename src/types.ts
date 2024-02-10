@@ -125,4 +125,7 @@ export type ConstType = {
 
   MAGIC_STATUS_ALIVE: number
   MAGIC_STATUS_DEAD: number
+
+  PARTICLE_EXPLOSION_ENEMY_SIZE: number
+  PARTICLE_EXPLOSION_FIREBALL_SIZE: number
 }

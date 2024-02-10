@@ -21,6 +21,7 @@ import { Score } from './Score'
 import { ImageUtils } from './ImageUtils'
 import { InfluenceArea } from './InfluenceArea'
 import { EnemyExplosion } from './EnemyExplosion'
+import { MagicFireBallExplosion } from './MagicFireballExplosion'
 import { TextProperties } from './TextProperties'
 import { Image } from 'p5'
 import { ParticleSystem } from './ParticleSystem'
@@ -54,6 +55,7 @@ let enemiesImages: Image[]
 let towerGenerator: TowerGenerator
 let influenceArea: InfluenceArea
 let enemyExplosions: EnemyExplosion[]
+let magicFireballExplosions: MagicFireBallExplosion[]
 let lives: number
 let gameStatus: number
 let waveProgressBar: ProgressBar
@@ -170,6 +172,7 @@ function setup() {
   bossProgressDelay = Const.BOSS_PROGRESS_DELAY
 
   enemyExplosions = []
+  magicFireballExplosions = []
 
   magicFireballs = []
   magicFireballsCount = Const.MAGIC_FIREBALLS
@@ -373,7 +376,21 @@ function createNewBoss(wave: number) {
   )
 }
 
-function updateEnemies(wave: number) {
+function handleEnemyExplosions() {
+  const deadEnemies: Enemy[] = enemies.filter((enemy) => enemy.isDead())
+  deadEnemies.forEach((enemy) => {
+    enemyExplosions.push(
+      new EnemyExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem),
+    )
+    //increase money and score
+    const $increasedMoney = enemy.getEndurance() * Const.MONEY_MULTIPLICATOR
+
+    wallet.increase($increasedMoney)
+    score.increase($increasedMoney * 2)
+  })
+}
+
+function handleNewEnemyCreation() {
   if (allowCreateEnemies) {
     if (waveEnemies < Const.TOTAL_ENEMIES) {
       createEnemyTime++
@@ -387,31 +404,13 @@ function updateEnemies(wave: number) {
       waveEnemies = 0
     }
   }
-  // explosions
-  const deadEnemies: Enemy[] = enemies.filter((enemy) => enemy.isDead())
-  deadEnemies.forEach((enemy) => {
-    enemyExplosions.push(
-      new EnemyExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem),
-    )
-    //increase money and score
-    const $increasedMoney = enemy.getEndurance() * Const.MONEY_MULTIPLICATOR
+}
 
-    wallet.increase($increasedMoney)
-    score.increase($increasedMoney * 2)
-  })
-  enemyExplosions = enemyExplosions.filter((enemyExplosion) =>
-    enemyExplosion.isActive(),
-  )
-
-  // remove dead enemies
+function removeDeadEnemies() {
   enemies = enemies.filter((enemy) => enemy.isAlive())
+}
 
-  // update enemies
-  enemies.forEach((enemy) => {
-    enemy.update()
-  })
-
-  // winner enemies decrease player lives
+function handleWinnerEnemies() {
   const winnerEnemies = enemies.filter((enemy) => enemy.isWinner())
   winnerEnemies.forEach((enemy) => {
     lives--
@@ -421,6 +420,19 @@ function updateEnemies(wave: number) {
     hud.setLives(lives)
     enemy.resetWinner()
   })
+}
+
+function updateEnemies() {
+  handleNewEnemyCreation()
+  handleEnemyExplosions()
+  removeDeadEnemies()
+
+  // update enemies
+  enemies.forEach((enemy) => {
+    enemy.update()
+  })
+
+  handleWinnerEnemies()
 }
 
 function updateMouseOrangeTileOver() {
@@ -453,7 +465,7 @@ function updateWaveProgressBar() {
   }
 }
 
-function updateBossProgressBar(wave: number) {
+function updateBossProgressBar() {
   if (bossProgressDelay > 0) {
     bossProgressDelay--
   } else {
@@ -474,7 +486,18 @@ function updateMagicFireballs() {
     fireball.update()
     // check if fireball collides with an enemy
     enemies.forEach((enemy) => {
-      fireball.checkCollision(enemy)
+      if (fireball.checkCollision(enemy)) {
+        fireball.addDamage(enemy)
+        fireball.setToIgnoreList(enemy)
+        magicFireballExplosions.push(
+          new MagicFireBallExplosion(
+            enemy.getX(),
+            enemy.getY(),
+            Const,
+            ParticleSystem,
+          ),
+        )
+      }
     })
   })
   // remove dead fireballs
@@ -511,12 +534,27 @@ function drawMagicUFOs() {
   })
 }
 
+function updateExplosions() {
+  enemyExplosions = enemyExplosions.filter((enemyExplosion) =>
+    enemyExplosion.isActive(),
+  )
+  enemyExplosions.forEach((enemyExplosion) => {
+    enemyExplosion.update()
+  })
+  magicFireballExplosions = magicFireballExplosions.filter(
+    (magicFireballExplosion) => magicFireballExplosion.isActive(),
+  )
+  magicFireballExplosions.forEach((magicFireballExplosion) => {
+    magicFireballExplosion.update()
+  })
+}
+
 function draw() {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
-    updateEnemies(wave)
+    updateEnemies()
     updateMouseOrangeTileOver()
     updateWaveProgressBar()
-    updateBossProgressBar(wave)
+    updateBossProgressBar()
     updateMagicFireballs()
     updateMagicIceballs()
     updateMagicUFOs()
@@ -589,9 +627,7 @@ function draw() {
   drawMagicIceballs()
   drawMagicUFOs()
 
-  enemyExplosions.forEach((enemyExplosion) => {
-    enemyExplosion.update()
-  })
+  updateExplosions()
 
   if (gameStatus === Const.GAME_STATUS_GAME_OVER) {
     TextProperties.setForBigCenteredTitle()

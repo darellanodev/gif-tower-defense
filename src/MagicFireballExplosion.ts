@@ -1,7 +1,7 @@
 import { ParticleSystem } from './ParticleSystem'
 import { ConstType } from './types'
 
-export class EnemyExplosion {
+export class MagicFireBallExplosion {
   x: number
   y: number
   Const: ConstType
@@ -24,7 +24,7 @@ export class EnemyExplosion {
         this.x + this.Const.EXPLOSION_OFFSET,
         this.y + this.Const.EXPLOSION_OFFSET,
       ),
-      this.Const.PARTICLE_EXPLOSION_ENEMY_SIZE,
+      this.Const.PARTICLE_EXPLOSION_FIREBALL_SIZE,
     )
     this.emisionTime = 0
     this.finished = false

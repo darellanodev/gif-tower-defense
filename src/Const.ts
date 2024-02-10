@@ -112,4 +112,7 @@ export class Const {
 
   static MAGIC_STATUS_ALIVE = 0
   static MAGIC_STATUS_DEAD = 1
+
+  static PARTICLE_EXPLOSION_ENEMY_SIZE = 12
+  static PARTICLE_EXPLOSION_FIREBALL_SIZE = 6
 }

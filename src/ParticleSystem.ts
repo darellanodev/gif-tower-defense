@@ -1,16 +1,19 @@
 import { Particle } from './Particle'
+import { Vector } from 'p5'
 
 export class ParticleSystem {
-  origin: any
-  particles: any[]
+  origin: Vector
+  particles: Particle[]
+  particlesSize: number
 
-  constructor(position: any) {
+  constructor(position: Vector, particlesSize: number) {
     this.origin = position.copy()
     this.particles = []
+    this.particlesSize = particlesSize
   }
 
   addParticle() {
-    this.particles.push(new Particle(this.origin))
+    this.particles.push(new Particle(this.origin, this.particlesSize))
   }
 
   run() {

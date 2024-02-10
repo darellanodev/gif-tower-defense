@@ -74,12 +74,12 @@ export class MagicFireball {
 
   checkCollision(enemy: Enemy) {
     if (enemy.isDead() || enemy.isWinner()) {
-      return
+      return false
     }
 
     const found = this.touchedEnemiesIds.find((id) => id === enemy.id)
     if (found !== undefined) {
-      return
+      return false
     }
 
     const fireballPos = this.indexOrder
@@ -87,9 +87,18 @@ export class MagicFireball {
     const distanceBetween = Math.abs(fireballPos - enemyPos)
 
     if (fireballPos >= enemyPos && distanceBetween < 1) {
-      this.touchedEnemiesIds.push(enemy.id)
-      enemy.addDamage(this.Const.MAGIC_FIREBALL_DAMAGE)
+      return true
     }
+
+    return false
+  }
+
+  setToIgnoreList(enemy: Enemy) {
+    this.touchedEnemiesIds.push(enemy.id)
+  }
+
+  addDamage(enemy: Enemy) {
+    enemy.addDamage(this.Const.MAGIC_FIREBALL_DAMAGE)
   }
 
   isAlive() {
