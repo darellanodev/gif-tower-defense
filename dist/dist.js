@@ -83,6 +83,8 @@ var Const = (function () {
     Const.MAGIC_UFOS = 3;
     Const.MAGIC_STATUS_ALIVE = 0;
     Const.MAGIC_STATUS_DEAD = 1;
+    Const.PARTICLE_EXPLOSION_ENEMY_SIZE = 12;
+    Const.PARTICLE_EXPLOSION_FIREBALL_SIZE = 6;
     return Const;
 }());
 var CustomRange = (function () {
@@ -285,7 +287,7 @@ var EnemyExplosion = (function () {
         this.x = x;
         this.y = y;
         this.Const = Const;
-        this.particleSystem = new ParticleSystemClass(createVector(this.x + this.Const.EXPLOSION_OFFSET, this.y + this.Const.EXPLOSION_OFFSET));
+        this.particleSystem = new ParticleSystemClass(createVector(this.x + this.Const.EXPLOSION_OFFSET, this.y + this.Const.EXPLOSION_OFFSET), this.Const.PARTICLE_EXPLOSION_ENEMY_SIZE);
         this.emisionTime = 0;
         this.finished = false;
     }
@@ -902,19 +904,25 @@ var MagicFireball = (function () {
     };
     MagicFireball.prototype.checkCollision = function (enemy) {
         if (enemy.isDead() || enemy.isWinner()) {
-            return;
+            return false;
         }
         var found = this.touchedEnemiesIds.find(function (id) { return id === enemy.id; });
         if (found !== undefined) {
-            return;
+            return false;
         }
         var fireballPos = this.indexOrder;
         var enemyPos = enemy.getOrderPosition();
         var distanceBetween = Math.abs(fireballPos - enemyPos);
         if (fireballPos >= enemyPos && distanceBetween < 1) {
-            this.touchedEnemiesIds.push(enemy.id);
-            enemy.addDamage(this.Const.MAGIC_FIREBALL_DAMAGE);
+            return true;
         }
+        return false;
+    };
+    MagicFireball.prototype.setToIgnoreList = function (enemy) {
+        this.touchedEnemiesIds.push(enemy.id);
+    };
+    MagicFireball.prototype.addDamage = function (enemy) {
+        enemy.addDamage(this.Const.MAGIC_FIREBALL_DAMAGE);
     };
     MagicFireball.prototype.isAlive = function () {
         return this.status == this.Const.MAGIC_STATUS_ALIVE;
@@ -929,6 +937,27 @@ var MagicFireball = (function () {
         image(this.img, this.x, this.y);
     };
     return MagicFireball;
+}());
+var MagicFireBallExplosion = (function () {
+    function MagicFireBallExplosion(x, y, Const, ParticleSystemClass) {
+        this.x = x;
+        this.y = y;
+        this.Const = Const;
+        this.particleSystem = new ParticleSystemClass(createVector(this.x + this.Const.EXPLOSION_OFFSET, this.y + this.Const.EXPLOSION_OFFSET), this.Const.PARTICLE_EXPLOSION_FIREBALL_SIZE);
+        this.emisionTime = 0;
+        this.finished = false;
+    }
+    MagicFireBallExplosion.prototype.isActive = function () {
+        return !this.finished;
+    };
+    MagicFireBallExplosion.prototype.update = function () {
+        if (this.emisionTime < this.Const.ENEMY_EXPLOSION_MAX_EMIT_TIME) {
+            this.emisionTime++;
+            this.particleSystem.addParticle();
+        }
+        this.particleSystem.run();
+    };
+    return MagicFireBallExplosion;
 }());
 var MagicIceball = (function () {
     function MagicIceball(img, startX, startY, orders, Const) {
@@ -1106,9 +1135,10 @@ var OrangeTile = (function () {
     return OrangeTile;
 }());
 var Particle = (function () {
-    function Particle(position) {
-        this.velocity = createVector(random(-3, 3), random(-3, 0));
+    function Particle(position, size) {
         this.position = position.copy();
+        this.size = size;
+        this.velocity = createVector(random(-3, 3), random(-3, 0));
         this.lifespan = 255;
     }
     Particle.prototype.run = function () {
@@ -1123,7 +1153,7 @@ var Particle = (function () {
         stroke(255, 165, 0, this.lifespan);
         strokeWeight(2);
         fill(127, this.lifespan);
-        ellipse(this.position.x, this.position.y, 12, 12);
+        ellipse(this.position.x, this.position.y, this.size, this.size);
     };
     Particle.prototype.isDead = function () {
         return this.lifespan < 0;
@@ -1131,12 +1161,13 @@ var Particle = (function () {
     return Particle;
 }());
 var ParticleSystem = (function () {
-    function ParticleSystem(position) {
+    function ParticleSystem(position, particlesSize) {
         this.origin = position.copy();
         this.particles = [];
+        this.particlesSize = particlesSize;
     }
     ParticleSystem.prototype.addParticle = function () {
-        this.particles.push(new Particle(this.origin));
+        this.particles.push(new Particle(this.origin, this.particlesSize));
     };
     ParticleSystem.prototype.run = function () {
         for (var i = this.particles.length - 1; i >= 0; i--) {
@@ -1865,6 +1896,7 @@ var enemiesImages;
 var towerGenerator;
 var influenceArea;
 var enemyExplosions;
+var magicFireballExplosions;
 var lives;
 var gameStatus;
 var waveProgressBar;
@@ -1935,6 +1967,7 @@ function setup() {
     waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
     bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
     enemyExplosions = [];
+    magicFireballExplosions = [];
     magicFireballs = [];
     magicFireballsCount = Const.MAGIC_FIREBALLS;
     magicIceballs = [];
@@ -2063,7 +2096,16 @@ function createNewBoss(wave) {
     var isBoss = true;
     enemies.push(new Enemy(currentEnemyId, enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(indexBossInEnemiesImages)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, endurance, isBoss, Const, Random, ProgressBar));
 }
-function updateEnemies(wave) {
+function handleEnemyExplosions() {
+    var deadEnemies = enemies.filter(function (enemy) { return enemy.isDead(); });
+    deadEnemies.forEach(function (enemy) {
+        enemyExplosions.push(new EnemyExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem));
+        var $increasedMoney = enemy.getEndurance() * Const.MONEY_MULTIPLICATOR;
+        wallet.increase($increasedMoney);
+        score.increase($increasedMoney * 2);
+    });
+}
+function handleNewEnemyCreation() {
     if (allowCreateEnemies) {
         if (waveEnemies < Const.TOTAL_ENEMIES) {
             createEnemyTime++;
@@ -2078,20 +2120,11 @@ function updateEnemies(wave) {
             waveEnemies = 0;
         }
     }
-    var deadEnemies = enemies.filter(function (enemy) { return enemy.isDead(); });
-    deadEnemies.forEach(function (enemy) {
-        enemyExplosions.push(new EnemyExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem));
-        var $increasedMoney = enemy.getEndurance() * Const.MONEY_MULTIPLICATOR;
-        wallet.increase($increasedMoney);
-        score.increase($increasedMoney * 2);
-    });
-    enemyExplosions = enemyExplosions.filter(function (enemyExplosion) {
-        return enemyExplosion.isActive();
-    });
+}
+function removeDeadEnemies() {
     enemies = enemies.filter(function (enemy) { return enemy.isAlive(); });
-    enemies.forEach(function (enemy) {
-        enemy.update();
-    });
+}
+function handleWinnerEnemies() {
     var winnerEnemies = enemies.filter(function (enemy) { return enemy.isWinner(); });
     winnerEnemies.forEach(function (enemy) {
         lives--;
@@ -2101,6 +2134,15 @@ function updateEnemies(wave) {
         hud.setLives(lives);
         enemy.resetWinner();
     });
+}
+function updateEnemies() {
+    handleNewEnemyCreation();
+    handleEnemyExplosions();
+    removeDeadEnemies();
+    enemies.forEach(function (enemy) {
+        enemy.update();
+    });
+    handleWinnerEnemies();
 }
 function updateMouseOrangeTileOver() {
     mouseOrangeTileOver = getMouseOrangeTileOver();
@@ -2127,7 +2169,7 @@ function updateWaveProgressBar() {
         hud.setWaveProgressBar(waveProgressBar);
     }
 }
-function updateBossProgressBar(wave) {
+function updateBossProgressBar() {
     if (bossProgressDelay > 0) {
         bossProgressDelay--;
     }
@@ -2145,7 +2187,11 @@ function updateMagicFireballs() {
     magicFireballs.forEach(function (fireball) {
         fireball.update();
         enemies.forEach(function (enemy) {
-            fireball.checkCollision(enemy);
+            if (fireball.checkCollision(enemy)) {
+                fireball.addDamage(enemy);
+                fireball.setToIgnoreList(enemy);
+                magicFireballExplosions.push(new MagicFireBallExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem));
+            }
         });
     });
     magicFireballs = magicFireballs.filter(function (fireball) { return fireball.isAlive(); });
@@ -2175,12 +2221,24 @@ function drawMagicUFOs() {
         ufo.draw();
     });
 }
+function updateExplosions() {
+    enemyExplosions = enemyExplosions.filter(function (enemyExplosion) {
+        return enemyExplosion.isActive();
+    });
+    enemyExplosions.forEach(function (enemyExplosion) {
+        enemyExplosion.update();
+    });
+    magicFireballExplosions = magicFireballExplosions.filter(function (magicFireballExplosion) { return magicFireballExplosion.isActive(); });
+    magicFireballExplosions.forEach(function (magicFireballExplosion) {
+        magicFireballExplosion.update();
+    });
+}
 function draw() {
     if (gameStatus === Const.GAME_STATUS_PLAYING) {
-        updateEnemies(wave);
+        updateEnemies();
         updateMouseOrangeTileOver();
         updateWaveProgressBar();
-        updateBossProgressBar(wave);
+        updateBossProgressBar();
         updateMagicFireballs();
         updateMagicIceballs();
         updateMagicUFOs();
@@ -2233,9 +2291,7 @@ function draw() {
     drawMagicFireballs();
     drawMagicIceballs();
     drawMagicUFOs();
-    enemyExplosions.forEach(function (enemyExplosion) {
-        enemyExplosion.update();
-    });
+    updateExplosions();
     if (gameStatus === Const.GAME_STATUS_GAME_OVER) {
         TextProperties.setForBigCenteredTitle();
         text('Game over', width / 2, height / 2);
