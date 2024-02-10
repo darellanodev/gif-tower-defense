@@ -27,8 +27,10 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [x] Magic ball of fire movement
 - [x] Magic ball of ice movement
 - [x] Magic UFO movement
-- [ ] Magic ball of fire rest vitality to the enemies
+- [x] Magic ball of fire rest vitality to the enemies
+- [ ] Red particles when an iceball touch an enemy
 - [ ] Magic ball of ice freezes the enemies
+- [ ] Blue particles when an iceball touch an enemy
 - [ ] Magic UFO go to the enemy closest to the end tile
 - [ ] Make the red tower target and shot to an enemy
 - [ ] Yellow tower absorbs the yellow faces and fill its indicator
