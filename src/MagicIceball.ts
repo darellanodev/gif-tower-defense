@@ -1,5 +1,6 @@
 import { ConstType } from './types'
 import { Image } from 'p5'
+import { Enemy } from './Enemy'
 
 export class MagicIceball {
   img: Image
@@ -12,6 +13,8 @@ export class MagicIceball {
   currentDirection: number
   moveCount: number
   indexOrder: number
+  touchedEnemiesIds: number[]
+  status: number
 
   constructor(
     img: Image,
@@ -31,6 +34,9 @@ export class MagicIceball {
     this.moveCount = 0
     this.indexOrder = 0
     this.currentDirection = this.orders[this.indexOrder]
+
+    this.touchedEnemiesIds = []
+    this.status = this.Const.MAGIC_STATUS_ALIVE
   }
 
   update() {
@@ -63,6 +69,39 @@ export class MagicIceball {
         this.currentDirection = this.orders[this.indexOrder]
       }
     }
+  }
+
+  freeze(enemy: Enemy) {
+    enemy.freeze()
+  }
+
+  checkCollision(enemy: Enemy) {
+    if (enemy.isDead() || enemy.isWinner()) {
+      return false
+    }
+
+    const found = this.touchedEnemiesIds.find((id) => id === enemy.id)
+    if (found !== undefined) {
+      return false
+    }
+
+    const fireballPos = this.indexOrder
+    const enemyPos = enemy.getOrderPosition()
+    const distanceBetween = Math.abs(fireballPos - enemyPos)
+
+    if (fireballPos >= enemyPos && distanceBetween < 1) {
+      return true
+    }
+
+    return false
+  }
+
+  setToIgnoreList(enemy: Enemy) {
+    this.touchedEnemiesIds.push(enemy.id)
+  }
+
+  isAlive() {
+    return this.status == this.Const.MAGIC_STATUS_ALIVE
   }
 
   getX() {

@@ -21,7 +21,8 @@ import { Score } from './Score'
 import { ImageUtils } from './ImageUtils'
 import { InfluenceArea } from './InfluenceArea'
 import { EnemyExplosion } from './EnemyExplosion'
-import { MagicFireBallExplosion } from './MagicFireballExplosion'
+import { MagicFireballExplosion } from './MagicFireballExplosion'
+import { MagicIceballExplosion } from './MagicIceballExplosion'
 import { TextProperties } from './TextProperties'
 import { Image } from 'p5'
 import { ParticleSystem } from './ParticleSystem'
@@ -55,7 +56,8 @@ let enemiesImages: Image[]
 let towerGenerator: TowerGenerator
 let influenceArea: InfluenceArea
 let enemyExplosions: EnemyExplosion[]
-let magicFireballExplosions: MagicFireBallExplosion[]
+let magicFireballExplosions: MagicFireballExplosion[]
+let magicIceballExplosions: MagicIceballExplosion[]
 let lives: number
 let gameStatus: number
 let waveProgressBar: ProgressBar
@@ -173,6 +175,7 @@ function setup() {
 
   enemyExplosions = []
   magicFireballExplosions = []
+  magicIceballExplosions = []
 
   magicFireballs = []
   magicFireballsCount = Const.MAGIC_FIREBALLS
@@ -489,10 +492,6 @@ function updateMagicFireballs() {
   removeDeadFireballs()
 }
 
-function removeDeadFireballs() {
-  magicFireballs = magicFireballs.filter((fireball) => fireball.isAlive())
-}
-
 function checkMagicFireballCollides(
   magicFireball: MagicFireball,
   enemies: Enemy[],
@@ -515,8 +514,12 @@ function handleMagicFireballCollision(
 
 function newMagicFireballExplosion(posX: number, posY: number) {
   magicFireballExplosions.push(
-    new MagicFireBallExplosion(posX, posY, Const, ParticleSystem),
+    new MagicFireballExplosion(posX, posY, Const, ParticleSystem),
   )
+}
+
+function removeDeadFireballs() {
+  magicFireballs = magicFireballs.filter((fireball) => fireball.isAlive())
 }
 
 function drawMagicFireballs() {
@@ -528,7 +531,36 @@ function drawMagicFireballs() {
 function updateMagicIceballs() {
   magicIceballs.forEach((iceball) => {
     iceball.update()
+    checkMagicIceballCollides(iceball, enemies)
   })
+  removeDeadIceballs()
+}
+
+function checkMagicIceballCollides(
+  magicIceball: MagicIceball,
+  enemies: Enemy[],
+) {
+  enemies.forEach((enemy) => {
+    if (magicIceball.checkCollision(enemy)) {
+      handleMagicIceballCollision(magicIceball, enemy)
+    }
+  })
+}
+
+function handleMagicIceballCollision(magicIceball: MagicIceball, enemy: Enemy) {
+  magicIceball.freeze(enemy)
+  magicIceball.setToIgnoreList(enemy)
+  newMagicIceballExplosion(enemy.getX(), enemy.getY())
+}
+
+function newMagicIceballExplosion(posX: number, posY: number) {
+  magicIceballExplosions.push(
+    new MagicIceballExplosion(posX, posY, Const, ParticleSystem),
+  )
+}
+
+function removeDeadIceballs() {
+  magicIceballs = magicIceballs.filter((iceball) => iceball.isAlive())
 }
 
 function drawMagicIceballs() {
@@ -549,18 +581,27 @@ function drawMagicUFOs() {
   })
 }
 
-function updateExplosions() {
+function removeDeadExplosions() {
   enemyExplosions = enemyExplosions.filter((enemyExplosion) =>
     enemyExplosion.isActive(),
   )
-  enemyExplosions.forEach((enemyExplosion) => {
-    enemyExplosion.update()
-  })
   magicFireballExplosions = magicFireballExplosions.filter(
     (magicFireballExplosion) => magicFireballExplosion.isActive(),
   )
+  magicIceballExplosions = magicIceballExplosions.filter(
+    (magicIceballExplosion) => magicIceballExplosion.isActive(),
+  )
+}
+
+function updateExplosions() {
+  enemyExplosions.forEach((enemyExplosion) => {
+    enemyExplosion.update()
+  })
   magicFireballExplosions.forEach((magicFireballExplosion) => {
     magicFireballExplosion.update()
+  })
+  magicIceballExplosions.forEach((magicIceballExplosion) => {
+    magicIceballExplosion.update()
   })
 }
 
@@ -642,6 +683,7 @@ function draw() {
   drawMagicIceballs()
   drawMagicUFOs()
 
+  removeDeadExplosions()
   updateExplosions()
 
   if (gameStatus === Const.GAME_STATUS_GAME_OVER) {

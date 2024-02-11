@@ -32,6 +32,8 @@ export class Enemy {
   extendClosedEyesTime: number
   randomCloseEyes: number
   winned: boolean
+  freezed: boolean
+  freezedTime: number
 
   constructor(
     id: number,
@@ -87,6 +89,8 @@ export class Enemy {
     this.randomCloseEyes = 0
 
     this.winned = false
+    this.freezed = false
+    this.freezedTime = 0
   }
 
   getEndurance() {
@@ -100,6 +104,10 @@ export class Enemy {
     if (this.healthBar.isFullOfProgress()) {
       this.status = this.Const.ENEMY_STATUS_DEAD
     }
+  }
+
+  freeze() {
+    this.freezed = true
   }
 
   isDead() {
@@ -138,6 +146,16 @@ export class Enemy {
   }
 
   update() {
+    if (this.freezed) {
+      if (this.freezedTime < this.Const.MAGIC_ICEBALL_FREEZE_ENEMY_MAX_TIME) {
+        this.freezedTime++
+      } else {
+        this.freezed = false
+        this.freezedTime = 0
+      }
+      return
+    }
+
     const velocity = this.isBoss
       ? this.Const.BOSS_VELOCITY
       : this.Const.ENEMY_VELOCITY
