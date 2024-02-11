@@ -32,10 +32,10 @@ export type ConstType = {
   RED_TOWER: number
   YELLOW_TOWER: number
 
-  GREEN_COLOR: number[]
-  RED_COLOR: number[]
-  YELLOW_COLOR: number[]
-  GRAY_COLOR: number[]
+  GREEN_COLOR: RGBType
+  RED_COLOR: RGBType
+  YELLOW_COLOR: RGBType
+  GRAY_COLOR: RGBType
 
   DAMAGE_UPGRADE_GREEN_TOWER: number[]
 

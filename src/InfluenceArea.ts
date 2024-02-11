@@ -8,47 +8,29 @@ export class InfluenceArea {
   }
 
   _setGrayInfluenceAreaColor() {
-    stroke(
-      ...(this.Const.GRAY_COLOR as RGBType),
-      this.Const.ALPHA_INFLUENCE_AREA_STROKE,
-    )
-    fill(
-      ...(this.Const.GRAY_COLOR as RGBType),
-      this.Const.ALPHA_INFLUENCE_AREA_FILL,
-    )
+    stroke(...this.Const.GRAY_COLOR, this.Const.ALPHA_INFLUENCE_AREA_STROKE)
+    fill(...this.Const.GRAY_COLOR, this.Const.ALPHA_INFLUENCE_AREA_FILL)
   }
 
   _setInfluenceAreaColor(towerId: number) {
     switch (towerId) {
       case this.Const.GREEN_TOWER:
         stroke(
-          ...(this.Const.GREEN_COLOR as RGBType),
+          ...this.Const.GREEN_COLOR,
           this.Const.ALPHA_INFLUENCE_AREA_STROKE,
         )
-        fill(
-          ...(this.Const.GREEN_COLOR as RGBType),
-          this.Const.ALPHA_INFLUENCE_AREA_FILL,
-        )
+        fill(...this.Const.GREEN_COLOR, this.Const.ALPHA_INFLUENCE_AREA_FILL)
         break
       case this.Const.RED_TOWER:
-        stroke(
-          ...(this.Const.RED_COLOR as RGBType),
-          this.Const.ALPHA_INFLUENCE_AREA_STROKE,
-        )
-        fill(
-          ...(this.Const.RED_COLOR as RGBType),
-          this.Const.ALPHA_INFLUENCE_AREA_FILL,
-        )
+        stroke(...this.Const.RED_COLOR, this.Const.ALPHA_INFLUENCE_AREA_STROKE)
+        fill(...this.Const.RED_COLOR, this.Const.ALPHA_INFLUENCE_AREA_FILL)
         break
       case this.Const.YELLOW_TOWER:
         stroke(
-          ...(this.Const.YELLOW_COLOR as RGBType),
+          ...this.Const.YELLOW_COLOR,
           this.Const.ALPHA_INFLUENCE_AREA_STROKE,
         )
-        fill(
-          ...(this.Const.YELLOW_COLOR as RGBType),
-          this.Const.ALPHA_INFLUENCE_AREA_FILL,
-        )
+        fill(...this.Const.YELLOW_COLOR, this.Const.ALPHA_INFLUENCE_AREA_FILL)
         break
     }
   }
