@@ -482,26 +482,41 @@ function updateBossProgressBar() {
 }
 
 function updateMagicFireballs() {
-  magicFireballs.forEach((fireball) => {
-    fireball.update()
-    // check if fireball collides with an enemy
-    enemies.forEach((enemy) => {
-      if (fireball.checkCollision(enemy)) {
-        fireball.addDamage(enemy)
-        fireball.setToIgnoreList(enemy)
-        magicFireballExplosions.push(
-          new MagicFireBallExplosion(
-            enemy.getX(),
-            enemy.getY(),
-            Const,
-            ParticleSystem,
-          ),
-        )
-      }
-    })
+  magicFireballs.forEach((magicFireball) => {
+    magicFireball.update()
+    checkMagicFireballCollides(magicFireball, enemies)
   })
-  // remove dead fireballs
+  removeDeadFireballs()
+}
+
+function removeDeadFireballs() {
   magicFireballs = magicFireballs.filter((fireball) => fireball.isAlive())
+}
+
+function checkMagicFireballCollides(
+  magicFireball: MagicFireball,
+  enemies: Enemy[],
+) {
+  enemies.forEach((enemy) => {
+    if (magicFireball.checkCollision(enemy)) {
+      handleMagicFireballCollision(magicFireball, enemy)
+    }
+  })
+}
+
+function handleMagicFireballCollision(
+  magicFireball: MagicFireball,
+  enemy: Enemy,
+) {
+  magicFireball.addDamage(enemy)
+  magicFireball.setToIgnoreList(enemy)
+  newMagicFireballExplosion(enemy.getX(), enemy.getY())
+}
+
+function newMagicFireballExplosion(posX: number, posY: number) {
+  magicFireballExplosions.push(
+    new MagicFireBallExplosion(posX, posY, Const, ParticleSystem),
+  )
 }
 
 function drawMagicFireballs() {
