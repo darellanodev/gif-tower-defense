@@ -30,8 +30,8 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [x] Magic ball of fire rest vitality to the enemies
 - [x] Small particles when an fireball touch an enemy
 - [x] Set particles color to red when an fireball touch an enemy
-- [ ] Magic ball of ice freezes the enemies
-- [ ] Blue small particles when an iceball touch an enemy
+- [x] Magic ball of ice freezes the enemies
+- [x] Blue small particles when an iceball touch an enemy
 - [ ] Magic UFO go to the enemy closest to the end tile
 - [ ] Make the red tower target and shot to an enemy
 - [ ] Yellow tower absorbs the yellow faces and fill its indicator
@@ -40,6 +40,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Upload the build web version into my portfolio to allow play in web browser
 - [ ] Put the start tile and the end tile on top of the enemies
 
+- [ ] Tint freezed enemies with a white color and show ice particles
 - [ ] Test other maps with different end tiles positions to implement (with tests) the remaining endings
 - [ ] Extract variables and functions from main.ts to Game class
 - [ ] Menu to allow the user to select a desired level to play. Replace old player names for other names
