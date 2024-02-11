@@ -1,4 +1,4 @@
-import { ConstType, RGBType, TowerType } from './types'
+import { ConstType, RGBType } from './types'
 
 export class InfluenceArea {
   Const: ConstType
