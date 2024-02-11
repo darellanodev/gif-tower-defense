@@ -1,3 +1,5 @@
+import { RGBType } from './types'
+
 export class Const {
   static HUD_NORMAL = 0
   static HUD_UPGRADING = 1
@@ -115,4 +117,8 @@ export class Const {
 
   static PARTICLE_EXPLOSION_ENEMY_SIZE = 12
   static PARTICLE_EXPLOSION_FIREBALL_SIZE = 6
+
+  static PARTICLE_EXPLOSION_ENEMY_COLOR = [255, 165, 0] as RGBType
+  static PARTICLE_EXPLOSION_MAGIC_FIREBALL_COLOR = [202, 191, 24] as RGBType
+  static PARTICLE_EXPLOSION_MAGIC_ICEBALL_COLOR = [0, 65, 255] as RGBType
 }

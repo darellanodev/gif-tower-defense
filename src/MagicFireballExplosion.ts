@@ -25,6 +25,7 @@ export class MagicFireBallExplosion {
         this.y + this.Const.EXPLOSION_OFFSET,
       ),
       this.Const.PARTICLE_EXPLOSION_FIREBALL_SIZE,
+      this.Const.PARTICLE_EXPLOSION_MAGIC_FIREBALL_COLOR,
     )
     this.emisionTime = 0
     this.finished = false

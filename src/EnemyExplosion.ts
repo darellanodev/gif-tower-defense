@@ -25,6 +25,7 @@ export class EnemyExplosion {
         this.y + this.Const.EXPLOSION_OFFSET,
       ),
       this.Const.PARTICLE_EXPLOSION_ENEMY_SIZE,
+      this.Const.PARTICLE_EXPLOSION_ENEMY_COLOR,
     )
     this.emisionTime = 0
     this.finished = false
