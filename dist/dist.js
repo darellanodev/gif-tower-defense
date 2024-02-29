@@ -134,12 +134,22 @@ var EndTile = (function () {
     };
     return EndTile;
 }());
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var Enemy = (function () {
-    function Enemy(id, images, startX, startY, orders, endurance, isBoss, Const, RandomClass, ProgressBarClass) {
+    function Enemy(id, images, startPosition, orders, endurance, isBoss, Const, RandomClass, ProgressBarClass) {
         this.id = id;
         this.images = images;
-        this.startX = startX;
-        this.startY = startY;
+        this.startPosition = __assign({}, startPosition);
         this.orders = orders;
         this.endurance = endurance;
         this.isBoss = isBoss;
@@ -157,8 +167,7 @@ var Enemy = (function () {
         this.healthBar = new this.ProgressBarClass(200, 200, this.Const.PROGRESSBAR_WIDTH, this.Const.PROGRESSBAR_HEIGHT);
         this.status = this.Const.ENEMY_STATUS_ALIVE;
         this.damage = 0;
-        this.x = this.startX;
-        this.y = this.startY;
+        this.position = __assign({}, this.startPosition);
         this.moveCount = 0;
         this.indexOrder = 0;
         this.currentDirection = this.orders[this.indexOrder];
@@ -205,8 +214,7 @@ var Enemy = (function () {
         this.closeEyesTime = 0;
         this.extendClosedEyesTime = 0;
         this.currentDirection = this.orders[this.indexOrder];
-        this.x = this.startX;
-        this.y = this.startY;
+        this.position = __assign({}, this.startPosition);
         this._setRandomTimeMaxForClosingEyes();
     };
     Enemy.prototype.getOrderPosition = function () {
@@ -228,16 +236,16 @@ var Enemy = (function () {
             : this.Const.ENEMY_VELOCITY;
         switch (this.currentDirection) {
             case this.Const.LEFT_DIRECTION:
-                this.x = this.x - velocity;
+                this.position.x = this.position.x - velocity;
                 break;
             case this.Const.RIGHT_DIRECTION:
-                this.x = this.x + velocity;
+                this.position.x = this.position.x + velocity;
                 break;
             case this.Const.UP_DIRECTION:
-                this.y = this.y - velocity;
+                this.position.y = this.position.y - velocity;
                 break;
             case this.Const.DOWN_DIRECTION:
-                this.y = this.y + velocity;
+                this.position.y = this.position.y + velocity;
                 break;
         }
         this.moveCount = this.moveCount + velocity;
@@ -288,16 +296,13 @@ var Enemy = (function () {
             }
         }
     };
-    Enemy.prototype.getX = function () {
-        return this.x;
-    };
-    Enemy.prototype.getY = function () {
-        return this.y;
+    Enemy.prototype.getPosition = function () {
+        return this.position;
     };
     Enemy.prototype.draw = function () {
         this._changeEyes();
-        image(this.images[this.imgIndex], this.x, this.y);
-        this.healthBar.setPosition(this.x, this.y - 20);
+        image(this.images[this.imgIndex], this.position.x, this.position.y);
+        this.healthBar.setPosition(this.position.x, this.position.y - 20);
         this.healthBar.draw();
     };
     return Enemy;
@@ -395,8 +400,8 @@ var GreenTower = (function () {
         }
         else {
             if (this.enemyTarget) {
-                var r_dx = this.enemyTarget.getX() - this.x;
-                var r_dy = this.enemyTarget.getY() - this.y;
+                var r_dx = this.enemyTarget.getPosition().x - this.x;
+                var r_dy = this.enemyTarget.getPosition().y - this.y;
                 var angle = Math.atan2(r_dy, r_dx) + 1.55;
                 var cos_a = cos(angle);
                 var sin_a = sin(angle);
@@ -451,7 +456,7 @@ var GreenTower = (function () {
         var minDistance = 99999;
         var enemyTarget = null;
         enemies.forEach(function (enemy) {
-            var distance = _this.DistanceClass.twoPoints(_this.x, _this.y, enemy.getX(), enemy.getY());
+            var distance = _this.DistanceClass.twoPoints(_this.x, _this.y, enemy.getPosition().x, enemy.getPosition().y);
             if (distance < minDistance) {
                 minDistance = distance;
                 enemyTarget = enemy;
@@ -2138,7 +2143,7 @@ function mouseClicked() {
 function createNewEnemy(waveEnemy, wave) {
     var endurance = wave * 3 + waveEnemy * 2;
     var isBoss = false;
-    enemies.push(new Enemy(currentEnemyId, enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, endurance, isBoss, Const, Random, ProgressBar));
+    enemies.push(new Enemy(currentEnemyId, enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), initialEnemiesPosition, orders, endurance, isBoss, Const, Random, ProgressBar));
     currentEnemyId++;
 }
 function createNewMagicFireball() {
@@ -2166,12 +2171,12 @@ function createNewBoss(wave) {
     var endurance = wave * 25;
     var indexBossInEnemiesImages = 5;
     var isBoss = true;
-    enemies.push(new Enemy(currentEnemyId, enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(indexBossInEnemiesImages)), initialEnemiesPosition.x, initialEnemiesPosition.y, orders, endurance, isBoss, Const, Random, ProgressBar));
+    enemies.push(new Enemy(currentEnemyId, enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(indexBossInEnemiesImages)), initialEnemiesPosition, orders, endurance, isBoss, Const, Random, ProgressBar));
 }
 function handleEnemyExplosions() {
     var deadEnemies = enemies.filter(function (enemy) { return enemy.isDead(); });
     deadEnemies.forEach(function (enemy) {
-        enemyExplosions.push(new EnemyExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem));
+        enemyExplosions.push(new EnemyExplosion(enemy.getPosition().x, enemy.getPosition().y, Const, ParticleSystem));
         var $increasedMoney = enemy.getEndurance() * Const.MONEY_MULTIPLICATOR;
         wallet.increase($increasedMoney);
         score.increase($increasedMoney * 2);
@@ -2272,7 +2277,7 @@ function checkMagicFireballCollides(magicFireball, enemies) {
 function handleMagicFireballCollision(magicFireball, enemy) {
     magicFireball.addDamage(enemy);
     magicFireball.setToIgnoreList(enemy);
-    newMagicFireballExplosion(enemy.getX(), enemy.getY());
+    newMagicFireballExplosion(enemy.getPosition().x, enemy.getPosition().y);
 }
 function newMagicFireballExplosion(posX, posY) {
     magicFireballExplosions.push(new MagicFireballExplosion(posX, posY, Const, ParticleSystem));
@@ -2302,7 +2307,7 @@ function checkMagicIceballCollides(magicIceball, enemies) {
 function handleMagicIceballCollision(magicIceball, enemy) {
     magicIceball.freeze(enemy);
     magicIceball.setToIgnoreList(enemy);
-    newMagicIceballExplosion(enemy.getX(), enemy.getY());
+    newMagicIceballExplosion(enemy.getPosition().x, enemy.getPosition().y);
 }
 function newMagicIceballExplosion(posX, posY) {
     magicIceballExplosions.push(new MagicIceballExplosion(posX, posY, Const, ParticleSystem));
