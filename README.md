@@ -50,6 +50,11 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Speed button
 - [ ] Level editor
 
+- [ ] Improve code
+  - [x] Interfaces for enemies positions
+  - [x] Interfaces for other positions
+  - [ ] Use name tuples if it is adequate
+
 ## Resources
 
 <https://p5js.org/es/reference/>
