@@ -1,13 +1,12 @@
 import { ProgressBar } from './ProgressBar'
-import { ConstType } from './types'
+import { ConstType, Position } from './types'
 import { Random } from './Random'
 import { Image } from 'p5'
 
 export class Enemy {
   id: number
   images: Image[]
-  startX: number
-  startY: number
+  startPosition: Position
   orders: number[]
   endurance: number
   isBoss: boolean
@@ -21,8 +20,7 @@ export class Enemy {
   healthBar: ProgressBar
   status: number
   damage: number
-  x: number
-  y: number
+  position: Position
   currentDirection: number
   moveCount: number
   indexOrder: number
@@ -38,8 +36,7 @@ export class Enemy {
   constructor(
     id: number,
     images: Image[],
-    startX: number,
-    startY: number,
+    startPosition: Position,
     orders: number[],
     endurance: number,
     isBoss: boolean,
@@ -49,8 +46,7 @@ export class Enemy {
   ) {
     this.id = id
     this.images = images
-    this.startX = startX
-    this.startY = startY
+    this.startPosition = { ...startPosition }
     this.orders = orders
     this.endurance = endurance
     this.isBoss = isBoss
@@ -76,8 +72,7 @@ export class Enemy {
     this.status = this.Const.ENEMY_STATUS_ALIVE
     this.damage = 0
 
-    this.x = this.startX
-    this.y = this.startY
+    this.position = { ...this.startPosition }
     this.moveCount = 0
     this.indexOrder = 0
     this.currentDirection = this.orders[this.indexOrder]
@@ -135,9 +130,7 @@ export class Enemy {
     this.closeEyesTime = 0
     this.extendClosedEyesTime = 0
     this.currentDirection = this.orders[this.indexOrder]
-    this.x = this.startX
-    this.y = this.startY
-
+    this.position = { ...this.startPosition }
     this._setRandomTimeMaxForClosingEyes()
   }
 
@@ -162,19 +155,19 @@ export class Enemy {
 
     switch (this.currentDirection) {
       case this.Const.LEFT_DIRECTION:
-        this.x = this.x - velocity
+        this.position.x = this.position.x - velocity
         break
 
       case this.Const.RIGHT_DIRECTION:
-        this.x = this.x + velocity
+        this.position.x = this.position.x + velocity
         break
 
       case this.Const.UP_DIRECTION:
-        this.y = this.y - velocity
+        this.position.y = this.position.y - velocity
         break
 
       case this.Const.DOWN_DIRECTION:
-        this.y = this.y + velocity
+        this.position.y = this.position.y + velocity
         break
     }
 
@@ -240,19 +233,15 @@ export class Enemy {
     }
   }
 
-  getX() {
-    return this.x
-  }
-
-  getY() {
-    return this.y
+  getPosition() {
+    return this.position
   }
 
   draw() {
     this._changeEyes()
-    image(this.images[this.imgIndex], this.x, this.y)
+    image(this.images[this.imgIndex], this.position.x, this.position.y)
 
-    this.healthBar.setPosition(this.x, this.y - 20)
+    this.healthBar.setPosition(this.position.x, this.position.y - 20)
 
     this.healthBar.draw()
   }

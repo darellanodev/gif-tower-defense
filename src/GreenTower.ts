@@ -115,8 +115,8 @@ export class GreenTower {
       }
     } else {
       if (this.enemyTarget) {
-        let r_dx = this.enemyTarget.getX() - this.x
-        let r_dy = this.enemyTarget.getY() - this.y
+        let r_dx = this.enemyTarget.getPosition().x - this.x
+        let r_dy = this.enemyTarget.getPosition().y - this.y
         let angle = Math.atan2(r_dy, r_dx) + 1.55
 
         let cos_a = cos(angle)
@@ -189,8 +189,8 @@ export class GreenTower {
       const distance = this.DistanceClass.twoPoints(
         this.x,
         this.y,
-        enemy.getX(),
-        enemy.getY(),
+        enemy.getPosition().x,
+        enemy.getPosition().y,
       )
       if (distance < minDistance) {
         minDistance = distance

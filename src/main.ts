@@ -1,4 +1,4 @@
-import { TowerType } from './types'
+import { TowerType, Position } from './types'
 import { Const } from './Const'
 import { Path } from './Path'
 import { PathTile } from './PathTile'
@@ -64,7 +64,7 @@ let waveProgressBar: ProgressBar
 let waveProgressDelay: number
 let bossProgressBar: ProgressBar
 let bossProgressDelay: number
-let initialEnemiesPosition: { x: number; y: number }
+let initialEnemiesPosition: Position
 let allowCreateEnemies: boolean
 let levelDataProvider: LevelsDataProvider
 let magicFireballImage: Image
@@ -296,8 +296,7 @@ function createNewEnemy(waveEnemy: number, wave: number) {
     new Enemy(
       currentEnemyId,
       enemiesImages.slice(...ImageUtils.getRangeImagesOfEnemy(waveEnemy)),
-      initialEnemiesPosition.x,
-      initialEnemiesPosition.y,
+      initialEnemiesPosition,
       orders,
       endurance,
       isBoss,
@@ -367,8 +366,7 @@ function createNewBoss(wave: number) {
       enemiesImages.slice(
         ...ImageUtils.getRangeImagesOfEnemy(indexBossInEnemiesImages),
       ),
-      initialEnemiesPosition.x,
-      initialEnemiesPosition.y,
+      initialEnemiesPosition,
       orders,
       endurance,
       isBoss,
@@ -383,7 +381,12 @@ function handleEnemyExplosions() {
   const deadEnemies: Enemy[] = enemies.filter((enemy) => enemy.isDead())
   deadEnemies.forEach((enemy) => {
     enemyExplosions.push(
-      new EnemyExplosion(enemy.getX(), enemy.getY(), Const, ParticleSystem),
+      new EnemyExplosion(
+        enemy.getPosition().x,
+        enemy.getPosition().y,
+        Const,
+        ParticleSystem,
+      ),
     )
     //increase money and score
     const $increasedMoney = enemy.getEndurance() * Const.MONEY_MULTIPLICATOR
@@ -509,7 +512,7 @@ function handleMagicFireballCollision(
 ) {
   magicFireball.addDamage(enemy)
   magicFireball.setToIgnoreList(enemy)
-  newMagicFireballExplosion(enemy.getX(), enemy.getY())
+  newMagicFireballExplosion(enemy.getPosition().x, enemy.getPosition().y)
 }
 
 function newMagicFireballExplosion(posX: number, posY: number) {
@@ -550,7 +553,7 @@ function checkMagicIceballCollides(
 function handleMagicIceballCollision(magicIceball: MagicIceball, enemy: Enemy) {
   magicIceball.freeze(enemy)
   magicIceball.setToIgnoreList(enemy)
-  newMagicIceballExplosion(enemy.getX(), enemy.getY())
+  newMagicIceballExplosion(enemy.getPosition().x, enemy.getPosition().y)
 }
 
 function newMagicIceballExplosion(posX: number, posY: number) {
