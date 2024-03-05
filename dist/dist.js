@@ -92,14 +92,6 @@ var Const = (function () {
     Const.PARTICLE_EXPLOSION_MAGIC_ICEBALL_COLOR = [0, 65, 255];
     return Const;
 }());
-var CustomRange = (function () {
-    function CustomRange() {
-    }
-    CustomRange.make = function (start, stop) {
-        return new Array(stop - start + 1).fill(0).map(function (v, i) { return start + i; });
-    };
-    return CustomRange;
-}());
 var Debug = (function () {
     function Debug() {
     }
@@ -108,15 +100,6 @@ var Debug = (function () {
         text("".concat(position.x, " - ").concat(position.y), 260, 18);
     };
     return Debug;
-}());
-var Distance = (function () {
-    function Distance() {
-    }
-    Distance.twoPoints = function (posA, posB) {
-        return Math.sqrt((posA.x - posB.x) * (posA.x - posB.x) +
-            (posA.y - posB.y) * (posA.y - posB.y));
-    };
-    return Distance;
 }());
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -326,11 +309,11 @@ var EnemyExplosion = (function () {
     return EnemyExplosion;
 }());
 var GreenTower = (function () {
-    function GreenTower(images, position, Const, DistanceClass, ProgressBarClass) {
+    function GreenTower(images, position, Const, MathUtilsClass, ProgressBarClass) {
         this.images = images;
         this.position = __assign({}, position);
         this.Const = Const;
-        this.DistanceClass = DistanceClass;
+        this.MathUtilsClass = MathUtilsClass;
         this.ProgressBarClass = ProgressBarClass;
         this.upgradeLevel = 0;
         this.enemyTarget = null;
@@ -452,7 +435,7 @@ var GreenTower = (function () {
         var minDistance = 99999;
         var enemyTarget = null;
         enemies.forEach(function (enemy) {
-            var distance = _this.DistanceClass.twoPoints({ x: _this.position.x, y: _this.position.y }, {
+            var distance = _this.MathUtilsClass.distance({ x: _this.position.x, y: _this.position.y }, {
                 x: enemy.getPosition().x,
                 y: enemy.getPosition().y,
             });
@@ -484,8 +467,8 @@ var Hud = (function () {
         this.waveProgressBar = waveProgressBar;
         this.bossProgressBar = bossProgressBar;
         this.wave = wave;
-        this.waveProgressBar = new ProgressBar(335, -19, 150, 16);
-        this.bossProgressBar = new ProgressBar(335, -2, 150, 10);
+        this.waveProgressBar = new ProgressBar({ x: 335, y: -19 }, 150, 16);
+        this.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, 150, 10);
         this.hudType = this.Const.HUD_NORMAL;
         this.selectedItem = this.Const.GREEN_TOWER;
         this.upgradeCost = null;
@@ -730,14 +713,6 @@ var Hud = (function () {
         this.sellProfit = null;
     };
     return Hud;
-}());
-var ImageUtils = (function () {
-    function ImageUtils() {
-    }
-    ImageUtils.getRangeImagesOfEnemy = function (number) {
-        return [number * 4, (number + 1) * 4];
-    };
-    return ImageUtils;
 }());
 var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
@@ -1132,6 +1107,21 @@ var MagicUFO = (function () {
     };
     return MagicUFO;
 }());
+var MathUtils = (function () {
+    function MathUtils() {
+    }
+    MathUtils.distance = function (posA, posB) {
+        return Math.sqrt((posA.x - posB.x) * (posA.x - posB.x) +
+            (posA.y - posB.y) * (posA.y - posB.y));
+    };
+    MathUtils.range = function (start, stop) {
+        return new Array(stop - start + 1).fill(0).map(function (v, i) { return start + i; });
+    };
+    MathUtils.getTwoNumbersFourTimes = function (number) {
+        return [number * 4, (number + 1) * 4];
+    };
+    return MathUtils;
+}());
 var OrangeTile = (function () {
     function OrangeTile(img, position, Const, towerGenerator) {
         this.img = img;
@@ -1463,11 +1453,11 @@ var Random = (function () {
     return Random;
 }());
 var RedTower = (function () {
-    function RedTower(images, position, Const, DistanceClass, ProgressBarClass) {
+    function RedTower(images, position, Const, MathUtilsClass, ProgressBarClass) {
         this.images = images;
         this.position = __assign({}, position);
         this.Const = Const;
-        this.DistanceClass = DistanceClass;
+        this.MathUtilsClass = MathUtilsClass;
         this.ProgressBarClass = ProgressBarClass;
         this.upgradeLevel = 0;
         this.upgrading = false;
@@ -1555,7 +1545,7 @@ var Resources = (function () {
     Resources.enemies = function () {
         var enemiesImages = [];
         var countEnemiesAndBoss = Const.TOTAL_ENEMIES + 1;
-        CustomRange.make(1, countEnemiesAndBoss).forEach(function (v) {
+        MathUtils.range(1, countEnemiesAndBoss).forEach(function (v) {
             enemiesImages.push(loadImage('img/enemies/' + v + '_center.png'));
             enemiesImages.push(loadImage('img/enemies/' + v + '_left.png'));
             enemiesImages.push(loadImage('img/enemies/' + v + '_right.png'));
@@ -1565,21 +1555,21 @@ var Resources = (function () {
     };
     Resources.greenTower = function () {
         var greenTowerImages = [];
-        CustomRange.make(0, Const.UPGRADE_MAX_LEVEL).forEach(function (v) {
+        MathUtils.range(0, Const.UPGRADE_MAX_LEVEL).forEach(function (v) {
             greenTowerImages.push(loadImage('img/towers/green_tower_upgrade_' + v + '.png'));
         });
         return greenTowerImages;
     };
     Resources.redTower = function () {
         var redTowerImages = [];
-        CustomRange.make(0, Const.UPGRADE_MAX_LEVEL).forEach(function (v) {
+        MathUtils.range(0, Const.UPGRADE_MAX_LEVEL).forEach(function (v) {
             redTowerImages.push(loadImage('img/towers/red_tower_upgrade_' + v + '.png'));
         });
         return redTowerImages;
     };
     Resources.yellowTower = function () {
         var yellowTowerImages = [];
-        CustomRange.make(0, Const.UPGRADE_MAX_LEVEL).forEach(function (v) {
+        MathUtils.range(0, Const.UPGRADE_MAX_LEVEL).forEach(function (v) {
             yellowTowerImages.push(loadImage('img/towers/yellow_tower_upgrade_' + v + '.png'));
         });
         return yellowTowerImages;
@@ -1784,7 +1774,7 @@ var TileGenerator = (function () {
     return TileGenerator;
 }());
 var TowerGenerator = (function () {
-    function TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTowerClass, RedTowerClass, YellowTowerClass, DistanceClass, ProgressBarClass) {
+    function TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTowerClass, RedTowerClass, YellowTowerClass, MathUtilsClass, ProgressBarClass) {
         this.greenTowerImages = greenTowerImages;
         this.redTowerImages = redTowerImages;
         this.yellowTowerImages = yellowTowerImages;
@@ -1792,7 +1782,7 @@ var TowerGenerator = (function () {
         this.GreenTowerClass = GreenTowerClass;
         this.RedTowerClass = RedTowerClass;
         this.YellowTowerClass = YellowTowerClass;
-        this.DistanceClass = DistanceClass;
+        this.MathUtilsClass = MathUtilsClass;
         this.ProgressBarClass = ProgressBarClass;
     }
     TowerGenerator.prototype.newTower = function (towerId, position) {
@@ -1802,16 +1792,16 @@ var TowerGenerator = (function () {
                 tower = new this.GreenTowerClass(this.greenTowerImages, {
                     x: position.x - this.Const.TOWER_OFFSET,
                     y: position.y - this.Const.TOWER_OFFSET,
-                }, this.Const, this.DistanceClass, this.ProgressBarClass);
+                }, this.Const, this.MathUtilsClass, this.ProgressBarClass);
                 break;
             case this.Const.RED_TOWER:
                 tower = new this.RedTowerClass(this.redTowerImages, {
                     x: position.x - this.Const.TOWER_OFFSET,
                     y: position.y - this.Const.TOWER_OFFSET,
-                }, this.Const, this.DistanceClass, this.ProgressBarClass);
+                }, this.Const, this.MathUtilsClass, this.ProgressBarClass);
                 break;
             case this.Const.YELLOW_TOWER:
-                tower = new this.YellowTowerClass(this.yellowTowerImages, { x: position.x, y: position.y }, this.Const, this.DistanceClass, this.ProgressBarClass);
+                tower = new this.YellowTowerClass(this.yellowTowerImages, { x: position.x, y: position.y }, this.Const, this.MathUtilsClass, this.ProgressBarClass);
                 break;
             default:
                 break;
@@ -1855,11 +1845,11 @@ var Wallet = (function () {
     return Wallet;
 }());
 var YellowTower = (function () {
-    function YellowTower(images, position, Const, DistanceClass, ProgressBarClass) {
+    function YellowTower(images, position, Const, MathUtilsClass, ProgressBarClass) {
         this.images = images;
         this.position = __assign({}, position);
         this.Const = Const;
-        this.DistanceClass = DistanceClass;
+        this.MathUtilsClass = MathUtilsClass;
         this.ProgressBarClass = ProgressBarClass;
         this.upgradeLevel = 0;
         this.upgrading = false;
@@ -2013,7 +2003,7 @@ function setup() {
     levelDataProvider = new LevelsDataProvider(LevelsData.data);
     var levelMap = levelDataProvider.getLevel(1);
     createEnemyTime = 0;
-    towerGenerator = new TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTower, RedTower, YellowTower, Distance, ProgressBar);
+    towerGenerator = new TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTower, RedTower, YellowTower, MathUtils, ProgressBar);
     var tileGenerator = new TileGenerator(levelMap, tileImages, Const, OrangeTile, PathTile, StartTile, EndTile, towerGenerator);
     orangeTiles = tileGenerator.orangeTiles();
     startTile = tileGenerator.startTile();
@@ -2136,7 +2126,7 @@ function mouseClicked() {
 function createNewEnemy(waveEnemy, wave) {
     var endurance = wave * 3 + waveEnemy * 2;
     var isBoss = false;
-    enemies.push(new Enemy(currentEnemyId, enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(waveEnemy)), initialEnemiesPosition, orders, endurance, isBoss, Const, Random, ProgressBar));
+    enemies.push(new Enemy(currentEnemyId, enemiesImages.slice.apply(enemiesImages, MathUtils.getTwoNumbersFourTimes(waveEnemy)), initialEnemiesPosition, orders, endurance, isBoss, Const, Random, ProgressBar));
     currentEnemyId++;
 }
 function createNewMagicFireball() {
@@ -2164,7 +2154,7 @@ function createNewBoss(wave) {
     var endurance = wave * 25;
     var indexBossInEnemiesImages = 5;
     var isBoss = true;
-    enemies.push(new Enemy(currentEnemyId, enemiesImages.slice.apply(enemiesImages, ImageUtils.getRangeImagesOfEnemy(indexBossInEnemiesImages)), initialEnemiesPosition, orders, endurance, isBoss, Const, Random, ProgressBar));
+    enemies.push(new Enemy(currentEnemyId, enemiesImages.slice.apply(enemiesImages, MathUtils.getTwoNumbersFourTimes(indexBossInEnemiesImages)), initialEnemiesPosition, orders, endurance, isBoss, Const, Random, ProgressBar));
 }
 function handleEnemyExplosions() {
     var deadEnemies = enemies.filter(function (enemy) { return enemy.isDead(); });
