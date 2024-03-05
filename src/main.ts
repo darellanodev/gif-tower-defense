@@ -694,5 +694,5 @@ function draw() {
     text('Game over', width / 2, height / 2)
   }
 
-  Debug.showMouseCoordinates(mouseX, mouseY)
+  Debug.showMouseCoordinates({ x: mouseX, y: mouseY })
 }
