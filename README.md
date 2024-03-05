@@ -52,8 +52,9 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - [ ] Improve code
   - [x] Interfaces for enemies positions
-  - [x] Interfaces for other positions
-  - [ ] Use name tuples if it is adequate
+  - [x] Refactor to use Position interface in other parts of the code
+  - [ ] Use class methods (static methods) to instantiate objects
+  - [ ] Use named tuples?
 
 ## Resources
 
