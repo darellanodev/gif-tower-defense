@@ -187,10 +187,11 @@ export class GreenTower {
 
     enemies.forEach((enemy) => {
       const distance = this.DistanceClass.twoPoints(
-        this.x,
-        this.y,
-        enemy.getPosition().x,
-        enemy.getPosition().y,
+        { x: this.x, y: this.y },
+        {
+          x: enemy.getPosition().x,
+          y: enemy.getPosition().y,
+        },
       )
       if (distance < minDistance) {
         minDistance = distance

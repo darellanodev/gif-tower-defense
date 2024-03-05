@@ -1,5 +1,10 @@
+import { Position } from './types'
+
 export class Distance {
-  static twoPoints(ax: number, ay: number, bx: number, by: number) {
-    return Math.sqrt((ax - bx) * (ax - bx) + (ay - by) * (ay - by))
+  static twoPoints(posA: Position, posB: Position) {
+    return Math.sqrt(
+      (posA.x - posB.x) * (posA.x - posB.x) +
+        (posA.y - posB.y) * (posA.y - posB.y),
+    )
   }
 }
