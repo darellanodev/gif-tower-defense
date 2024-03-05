@@ -10,7 +10,7 @@ import { OrangeTile } from './OrangeTile'
 import { GreenTower } from './GreenTower'
 import { RedTower } from './RedTower'
 import { YellowTower } from './YellowTower'
-import { Distance } from './Distance'
+import { MathUtils } from './MathUtils'
 import { Hud } from './Hud'
 import { Enemy } from './Enemy'
 import { Debug } from './Debug'
@@ -18,7 +18,6 @@ import { Random } from './Random'
 import { ProgressBar } from './ProgressBar'
 import { Wallet } from './Wallet'
 import { Score } from './Score'
-import { ImageUtils } from './ImageUtils'
 import { InfluenceArea } from './InfluenceArea'
 import { EnemyExplosion } from './EnemyExplosion'
 import { MagicFireballExplosion } from './MagicFireballExplosion'
@@ -120,7 +119,7 @@ function setup() {
     GreenTower,
     RedTower,
     YellowTower,
-    Distance,
+    MathUtils,
     ProgressBar,
   )
 
@@ -295,7 +294,7 @@ function createNewEnemy(waveEnemy: number, wave: number) {
   enemies.push(
     new Enemy(
       currentEnemyId,
-      enemiesImages.slice(...ImageUtils.getRangeImagesOfEnemy(waveEnemy)),
+      enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemy)),
       initialEnemiesPosition,
       orders,
       endurance,
@@ -364,7 +363,7 @@ function createNewBoss(wave: number) {
     new Enemy(
       currentEnemyId,
       enemiesImages.slice(
-        ...ImageUtils.getRangeImagesOfEnemy(indexBossInEnemiesImages),
+        ...MathUtils.getTwoNumbersFourTimes(indexBossInEnemiesImages),
       ),
       initialEnemiesPosition,
       orders,

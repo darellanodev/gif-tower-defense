@@ -1,5 +1,5 @@
 import { ConstType } from './types'
-import { CustomRange } from './CustomRange'
+import { MathUtils } from './MathUtils'
 import { Const } from './Const'
 
 export class Resources {
@@ -8,7 +8,7 @@ export class Resources {
   static enemies() {
     const enemiesImages: any[] = []
     const countEnemiesAndBoss = Const.TOTAL_ENEMIES + 1
-    CustomRange.make(1, countEnemiesAndBoss).forEach((v) => {
+    MathUtils.range(1, countEnemiesAndBoss).forEach((v) => {
       enemiesImages.push(loadImage('img/enemies/' + v + '_center.png'))
       enemiesImages.push(loadImage('img/enemies/' + v + '_left.png'))
       enemiesImages.push(loadImage('img/enemies/' + v + '_right.png'))
@@ -19,7 +19,7 @@ export class Resources {
 
   static greenTower() {
     const greenTowerImages: any[] = []
-    CustomRange.make(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
+    MathUtils.range(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
       greenTowerImages.push(
         loadImage('img/towers/green_tower_upgrade_' + v + '.png'),
       )
@@ -29,7 +29,7 @@ export class Resources {
 
   static redTower() {
     const redTowerImages: any[] = []
-    CustomRange.make(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
+    MathUtils.range(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
       redTowerImages.push(
         loadImage('img/towers/red_tower_upgrade_' + v + '.png'),
       )
@@ -39,7 +39,7 @@ export class Resources {
 
   static yellowTower() {
     const yellowTowerImages: any[] = []
-    CustomRange.make(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
+    MathUtils.range(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
       yellowTowerImages.push(
         loadImage('img/towers/yellow_tower_upgrade_' + v + '.png'),
       )

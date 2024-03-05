@@ -2,7 +2,7 @@ import { ConstType, Position } from './types'
 import { GreenTower } from './GreenTower'
 import { RedTower } from './RedTower'
 import { YellowTower } from './YellowTower'
-import { Distance } from './Distance'
+import { MathUtils } from './MathUtils'
 import { ProgressBar } from './ProgressBar'
 import { Image } from 'p5'
 
@@ -15,7 +15,7 @@ export class TowerGenerator {
   GreenTowerClass: typeof GreenTower
   RedTowerClass: typeof RedTower
   YellowTowerClass: typeof YellowTower
-  DistanceClass: typeof Distance
+  MathUtilsClass: typeof MathUtils
   ProgressBarClass: typeof ProgressBar
 
   constructor(
@@ -26,7 +26,7 @@ export class TowerGenerator {
     GreenTowerClass: typeof GreenTower,
     RedTowerClass: typeof RedTower,
     YellowTowerClass: typeof YellowTower,
-    DistanceClass: typeof Distance,
+    MathUtilsClass: typeof MathUtils,
     ProgressBarClass: typeof ProgressBar,
   ) {
     this.greenTowerImages = greenTowerImages
@@ -36,7 +36,7 @@ export class TowerGenerator {
     this.GreenTowerClass = GreenTowerClass
     this.RedTowerClass = RedTowerClass
     this.YellowTowerClass = YellowTowerClass
-    this.DistanceClass = DistanceClass
+    this.MathUtilsClass = MathUtilsClass
     this.ProgressBarClass = ProgressBarClass
   }
 
@@ -52,7 +52,7 @@ export class TowerGenerator {
             y: position.y - this.Const.TOWER_OFFSET,
           },
           this.Const,
-          this.DistanceClass,
+          this.MathUtilsClass,
           this.ProgressBarClass,
         )
         break
@@ -64,7 +64,7 @@ export class TowerGenerator {
             y: position.y - this.Const.TOWER_OFFSET,
           },
           this.Const,
-          this.DistanceClass,
+          this.MathUtilsClass,
           this.ProgressBarClass,
         )
         break
@@ -73,7 +73,7 @@ export class TowerGenerator {
           this.yellowTowerImages,
           { x: position.x, y: position.y },
           this.Const,
-          this.DistanceClass,
+          this.MathUtilsClass,
           this.ProgressBarClass,
         )
         break

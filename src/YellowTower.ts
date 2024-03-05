@@ -1,5 +1,5 @@
 import { ConstType, Position } from './types'
-import { Distance } from './Distance'
+import { MathUtils } from './MathUtils'
 import { ProgressBar } from './ProgressBar'
 import { Image } from 'p5'
 import { Enemy } from './Enemy'
@@ -8,7 +8,7 @@ export class YellowTower {
   images: Image[]
   position: Position
   Const: ConstType
-  DistanceClass: typeof Distance
+  MathUtilsClass: typeof MathUtils
   ProgressBarClass: typeof ProgressBar
 
   upgradeLevel: number
@@ -20,13 +20,13 @@ export class YellowTower {
     images: Image[],
     position: Position,
     Const: ConstType,
-    DistanceClass: typeof Distance,
+    MathUtilsClass: typeof MathUtils,
     ProgressBarClass: typeof ProgressBar,
   ) {
     this.images = images
     this.position = { ...position }
     this.Const = Const
-    this.DistanceClass = DistanceClass
+    this.MathUtilsClass = MathUtilsClass
     this.ProgressBarClass = ProgressBarClass
 
     this.upgradeLevel = 0

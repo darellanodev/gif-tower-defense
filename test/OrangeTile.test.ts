@@ -3,7 +3,7 @@ import { Const } from '../src/Const'
 import { GreenTower } from '../src/GreenTower'
 import { RedTower } from '../src/RedTower'
 import { YellowTower } from '../src/YellowTower'
-import { Distance } from '../src/Distance'
+import { MathUtils } from '../src/MathUtils'
 import { TowerGenerator } from '../src/TowerGenerator'
 import { ProgressBar } from '../src/ProgressBar'
 import { Position } from '../src/types'
@@ -20,7 +20,7 @@ const towerGenerator = new TowerGenerator(
   GreenTower,
   RedTower,
   YellowTower,
-  Distance,
+  MathUtils,
   ProgressBar,
 )
 
