@@ -103,36 +103,20 @@ var CustomRange = (function () {
 var Debug = (function () {
     function Debug() {
     }
-    Debug.showMouseCoordinates = function (px, py) {
+    Debug.showMouseCoordinates = function (position) {
         TextProperties.setForHudData();
-        text("".concat(px, " - ").concat(py), 260, 18);
+        text("".concat(position.x, " - ").concat(position.y), 260, 18);
     };
     return Debug;
 }());
 var Distance = (function () {
     function Distance() {
     }
-    Distance.twoPoints = function (ax, ay, bx, by) {
-        return Math.sqrt((ax - bx) * (ax - bx) + (ay - by) * (ay - by));
+    Distance.twoPoints = function (posA, posB) {
+        return Math.sqrt((posA.x - posB.x) * (posA.x - posB.x) +
+            (posA.y - posB.y) * (posA.y - posB.y));
     };
     return Distance;
-}());
-var EndTile = (function () {
-    function EndTile(img, x, y) {
-        this.img = img;
-        this.x = x;
-        this.y = y;
-    }
-    EndTile.prototype.draw = function () {
-        image(this.img, this.x, this.y);
-    };
-    EndTile.prototype.getX = function () {
-        return this.x;
-    };
-    EndTile.prototype.getY = function () {
-        return this.y;
-    };
-    return EndTile;
 }());
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -145,6 +129,19 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var EndTile = (function () {
+    function EndTile(img, position) {
+        this.img = img;
+        this.position = __assign({}, position);
+    }
+    EndTile.prototype.draw = function () {
+        image(this.img, this.position.x, this.position.y);
+    };
+    EndTile.prototype.getPosition = function () {
+        return this.position;
+    };
+    return EndTile;
+}());
 var Enemy = (function () {
     function Enemy(id, images, startPosition, orders, endurance, isBoss, Const, RandomClass, ProgressBarClass) {
         this.id = id;
@@ -164,7 +161,7 @@ var Enemy = (function () {
             this.Const.ENEMY_EYES_RIGHT,
             this.Const.ENEMY_EYES_CENTER,
         ];
-        this.healthBar = new this.ProgressBarClass(200, 200, this.Const.PROGRESSBAR_WIDTH, this.Const.PROGRESSBAR_HEIGHT);
+        this.healthBar = new this.ProgressBarClass({ x: 200, y: 200 }, this.Const.PROGRESSBAR_WIDTH, this.Const.PROGRESSBAR_HEIGHT);
         this.status = this.Const.ENEMY_STATUS_ALIVE;
         this.damage = 0;
         this.position = __assign({}, this.startPosition);
@@ -302,7 +299,7 @@ var Enemy = (function () {
     Enemy.prototype.draw = function () {
         this._changeEyes();
         image(this.images[this.imgIndex], this.position.x, this.position.y);
-        this.healthBar.setPosition(this.position.x, this.position.y - 20);
+        this.healthBar.setPosition({ x: this.position.x, y: this.position.y - 20 });
         this.healthBar.draw();
     };
     return Enemy;
@@ -329,10 +326,9 @@ var EnemyExplosion = (function () {
     return EnemyExplosion;
 }());
 var GreenTower = (function () {
-    function GreenTower(images, x, y, Const, DistanceClass, ProgressBarClass) {
+    function GreenTower(images, position, Const, DistanceClass, ProgressBarClass) {
         this.images = images;
-        this.x = x;
-        this.y = y;
+        this.position = __assign({}, position);
         this.Const = Const;
         this.DistanceClass = DistanceClass;
         this.ProgressBarClass = ProgressBarClass;
@@ -340,7 +336,10 @@ var GreenTower = (function () {
         this.enemyTarget = null;
         this.distanceToEnemyTarget = 0;
         this.upgrading = false;
-        this.progressBar = new this.ProgressBarClass(this.x + this.Const.TOWER_OFFSET, this.y + this.Const.TOWER_OFFSET, this.Const.PROGRESSBAR_WIDTH, this.Const.PROGRESSBAR_HEIGHT);
+        this.progressBar = new this.ProgressBarClass({
+            x: this.position.x + this.Const.TOWER_OFFSET,
+            y: this.position.y + this.Const.TOWER_OFFSET,
+        }, this.Const.PROGRESSBAR_WIDTH, this.Const.PROGRESSBAR_HEIGHT);
         this.upgradeProgress = 0;
     }
     GreenTower.prototype.upgrade = function () {
@@ -354,11 +353,8 @@ var GreenTower = (function () {
     GreenTower.prototype.isNotUpgrading = function () {
         return !this.upgrading;
     };
-    GreenTower.prototype.getX = function () {
-        return this.x;
-    };
-    GreenTower.prototype.getY = function () {
-        return this.y;
+    GreenTower.prototype.getPosition = function () {
+        return this.position;
     };
     GreenTower.prototype.getUpgradeLevel = function () {
         return this.upgradeLevel;
@@ -375,7 +371,7 @@ var GreenTower = (function () {
         strokeWeight(1);
         stroke('black');
         fill(this.Const.GREEN_COLOR);
-        rect(this.x + 4, this.y + 4, this.Const.TILE_SIZE, this.Const.TILE_SIZE);
+        rect(this.position.x + 4, this.position.y + 4, this.Const.TILE_SIZE, this.Const.TILE_SIZE);
     };
     GreenTower.prototype.draw = function () {
         if (this.upgrading) {
@@ -400,13 +396,13 @@ var GreenTower = (function () {
         }
         else {
             if (this.enemyTarget) {
-                var r_dx = this.enemyTarget.getPosition().x - this.x;
-                var r_dy = this.enemyTarget.getPosition().y - this.y;
+                var r_dx = this.enemyTarget.getPosition().x - this.position.x;
+                var r_dy = this.enemyTarget.getPosition().y - this.position.y;
                 var angle = Math.atan2(r_dy, r_dx) + 1.55;
                 var cos_a = cos(angle);
                 var sin_a = sin(angle);
                 imageMode(CENTER);
-                applyMatrix(cos_a, sin_a, -sin_a, cos_a, this.x + 30, this.y + 30);
+                applyMatrix(cos_a, sin_a, -sin_a, cos_a, this.position.x + 30, this.position.y + 30);
                 this._drawShotToEnemy();
                 this.enemyTarget.addDamage(this.Const.DAMAGE_UPGRADE_GREEN_TOWER[this.upgradeLevel]);
                 image(this.images[this.upgradeLevel], 0, 0);
@@ -414,7 +410,7 @@ var GreenTower = (function () {
                 imageMode(CORNER);
             }
             else {
-                image(this.images[this.upgradeLevel], this.x, this.y);
+                image(this.images[this.upgradeLevel], this.position.x, this.position.y);
             }
         }
     };
@@ -456,7 +452,10 @@ var GreenTower = (function () {
         var minDistance = 99999;
         var enemyTarget = null;
         enemies.forEach(function (enemy) {
-            var distance = _this.DistanceClass.twoPoints(_this.x, _this.y, enemy.getPosition().x, enemy.getPosition().y);
+            var distance = _this.DistanceClass.twoPoints({ x: _this.position.x, y: _this.position.y }, {
+                x: enemy.getPosition().x,
+                y: enemy.getPosition().y,
+            });
             if (distance < minDistance) {
                 minDistance = distance;
                 enemyTarget = enemy;
@@ -788,7 +787,7 @@ var InfluenceArea = (function () {
         }
         return influenceArea;
     };
-    InfluenceArea.prototype.drawHudTowerInfluenceArea = function (hudTowerSelected, x, y, canBuy) {
+    InfluenceArea.prototype.drawHudTowerInfluenceArea = function (hudTowerSelected, position, canBuy) {
         strokeWeight(2);
         if (canBuy) {
             this._setInfluenceAreaColor(hudTowerSelected);
@@ -796,12 +795,13 @@ var InfluenceArea = (function () {
         else {
             this._setGrayInfluenceAreaColor();
         }
-        this._drawCircle(x, y, this._getInfluenceAreaFor(hudTowerSelected));
+        this._drawCircle(position.x, position.y, this._getInfluenceAreaFor(hudTowerSelected));
     };
     InfluenceArea.prototype.drawTowerInfluenceArea = function (tower, canUpgrade) {
         strokeWeight(2);
-        var x = tower.getX();
-        var y = tower.getY();
+        var towerPosition = tower.getPosition();
+        var x = towerPosition.x;
+        var y = towerPosition.y;
         if (tower.getType() === this.Const.GREEN_TOWER ||
             tower.getType() === this.Const.RED_TOWER) {
             x += this.Const.TOWER_OFFSET;
@@ -1133,10 +1133,9 @@ var MagicUFO = (function () {
     return MagicUFO;
 }());
 var OrangeTile = (function () {
-    function OrangeTile(img, x, y, Const, towerGenerator) {
+    function OrangeTile(img, position, Const, towerGenerator) {
         this.img = img;
-        this.x = x;
-        this.y = y;
+        this.position = __assign({}, position);
         this.Const = Const;
         this.towerGenerator = towerGenerator;
         this.tower = null;
@@ -1151,7 +1150,7 @@ var OrangeTile = (function () {
     };
     OrangeTile.prototype.buyTower = function (towerId) {
         if (this.tower === null) {
-            this.tower = this.towerGenerator.newTower(towerId, this.x, this.y);
+            this.tower = this.towerGenerator.newTower(towerId, this.position);
         }
         else {
             this.tower.upgrade();
@@ -1164,18 +1163,15 @@ var OrangeTile = (function () {
         }
     };
     OrangeTile.prototype.drawTile = function () {
-        image(this.img, this.x, this.y);
+        image(this.img, this.position.x, this.position.y);
     };
     OrangeTile.prototype.drawTower = function () {
         if (this.tower) {
             this.tower.draw();
         }
     };
-    OrangeTile.prototype.getX = function () {
-        return this.x;
-    };
-    OrangeTile.prototype.getY = function () {
-        return this.y;
+    OrangeTile.prototype.getPosition = function () {
+        return this.position;
     };
     OrangeTile.prototype.selectTarget = function (enemies) {
         if (this.tower) {
@@ -1185,10 +1181,12 @@ var OrangeTile = (function () {
     OrangeTile.prototype.isInside = function (mouse_x, mouse_y) {
         var insideX = false;
         var insideY = false;
-        if (this.x < mouse_x && this.x + this.Const.TILE_SIZE > mouse_x) {
+        if (this.position.x < mouse_x &&
+            this.position.x + this.Const.TILE_SIZE > mouse_x) {
             insideX = true;
         }
-        if (this.y < mouse_y && this.y + this.Const.TILE_SIZE > mouse_y) {
+        if (this.position.y < mouse_y &&
+            this.position.y + this.Const.TILE_SIZE > mouse_y) {
             insideY = true;
         }
         if (insideX && insideY) {
@@ -1267,8 +1265,9 @@ var Path = (function () {
         var finalX = 0;
         var finalY = 0;
         if (this.startTile.getStartDirection() === this.Const.LEFT_DIRECTION) {
-            finalX = this.startTile.getX() + this.Const.TILE_SIZE;
-            finalY = this.startTile.getY();
+            var finalPosition = this.startTile.getPosition();
+            finalX = finalPosition.x + this.Const.TILE_SIZE;
+            finalY = finalPosition.y;
         }
         return { x: finalX, y: finalY };
     };
@@ -1299,8 +1298,9 @@ var Path = (function () {
     Path.prototype._isLeftEndTile = function (currentTile) {
         var searchPx = currentTile.getX() - this.Const.TILE_SIZE;
         var searchPy = currentTile.getY();
-        var endPx = this.endTile.getX();
-        var endPy = this.endTile.getY();
+        var endPosition = this.endTile.getPosition();
+        var endPx = endPosition.x;
+        var endPy = endPosition.y;
         if (searchPx === endPx && searchPy === endPy) {
             return true;
         }
@@ -1308,7 +1308,8 @@ var Path = (function () {
     };
     Path.prototype.makeOrders = function () {
         var orders = [];
-        var currentTile = new PathTile(this.startTile.getX(), this.startTile.getY());
+        var startTilePosition = this.startTile.getPosition();
+        var currentTile = new PathTile(startTilePosition.x, startTilePosition.y);
         var currentDirection = this.startTile.getStartDirection();
         orders.push(currentDirection);
         var endReached = false;
@@ -1411,17 +1412,15 @@ var PathTile = (function () {
     return PathTile;
 }());
 var ProgressBar = (function () {
-    function ProgressBar(x, y, width, height) {
-        this.x = x;
-        this.y = y;
+    function ProgressBar(position, width, height) {
+        this.position = __assign({}, position);
         this.width = width;
         this.height = height;
         this.progress = 0;
         this.maxProgress = this.width - 1;
     }
-    ProgressBar.prototype.setPosition = function (x, y) {
-        this.x = x;
-        this.y = y;
+    ProgressBar.prototype.setPosition = function (position) {
+        this.position = __assign({}, position);
     };
     ProgressBar.prototype.setProgress = function (progress) {
         this.progress = progress;
@@ -1439,13 +1438,13 @@ var ProgressBar = (function () {
         strokeWeight(1);
         stroke('black');
         fill('green');
-        rect(this.x + 10, this.y + 20, this.width, this.height);
+        rect(this.position.x + 10, this.position.y + 20, this.width, this.height);
     };
     ProgressBar.prototype._drawProgressBar = function () {
         strokeWeight(0);
         fill('red');
         var progressLevel = (this.progress * this.maxProgress) / 100;
-        rect(this.x + 11, this.y + 21, progressLevel, this.height - 2);
+        rect(this.position.x + 11, this.position.y + 21, progressLevel, this.height - 2);
     };
     ProgressBar.prototype.draw = function () {
         this._drawBackgroundBar();
@@ -1464,16 +1463,15 @@ var Random = (function () {
     return Random;
 }());
 var RedTower = (function () {
-    function RedTower(images, x, y, Const, DistanceClass, ProgressBarClass) {
+    function RedTower(images, position, Const, DistanceClass, ProgressBarClass) {
         this.images = images;
-        this.x = x;
-        this.y = y;
+        this.position = __assign({}, position);
         this.Const = Const;
         this.DistanceClass = DistanceClass;
         this.ProgressBarClass = ProgressBarClass;
         this.upgradeLevel = 0;
         this.upgrading = false;
-        this.progressBar = new this.ProgressBarClass(this.x + this.Const.TOWER_OFFSET, this.y + this.Const.TOWER_OFFSET, this.Const.PROGRESSBAR_WIDTH, this.Const.PROGRESSBAR_HEIGHT);
+        this.progressBar = new this.ProgressBarClass(this.position, this.Const.PROGRESSBAR_WIDTH, this.Const.PROGRESSBAR_HEIGHT);
         this.upgradeProgress = 0;
     }
     RedTower.prototype.upgrade = function () {
@@ -1485,11 +1483,8 @@ var RedTower = (function () {
     RedTower.prototype.isNotUpgrading = function () {
         return !this.upgrading;
     };
-    RedTower.prototype.getX = function () {
-        return this.x;
-    };
-    RedTower.prototype.getY = function () {
-        return this.y;
+    RedTower.prototype.getPosition = function () {
+        return this.position;
     };
     RedTower.prototype.getUpgradeLevel = function () {
         return this.upgradeLevel;
@@ -1501,7 +1496,7 @@ var RedTower = (function () {
         strokeWeight(1);
         stroke('black');
         fill(this.Const.RED_COLOR);
-        rect(this.x + 4, this.y + 4, this.Const.TILE_SIZE, this.Const.TILE_SIZE);
+        rect(this.position.x + 4, this.position.y + 4, this.Const.TILE_SIZE, this.Const.TILE_SIZE);
     };
     RedTower.prototype.draw = function () {
         if (this.upgrading) {
@@ -1518,7 +1513,7 @@ var RedTower = (function () {
             }
         }
         else {
-            image(this.images[this.upgradeLevel], this.x, this.y);
+            image(this.images[this.upgradeLevel], this.position.x, this.position.y);
         }
     };
     RedTower.prototype.getInfluenceArea = function () {
@@ -1648,20 +1643,16 @@ var Score = (function () {
     return Score;
 }());
 var StartTile = (function () {
-    function StartTile(img, x, y, startDirection) {
+    function StartTile(img, position, startDirection) {
         this.img = img;
-        this.x = x;
-        this.y = y;
+        this.position = __assign({}, position);
         this.startDirection = startDirection;
     }
     StartTile.prototype.draw = function () {
-        image(this.img, this.x, this.y);
+        image(this.img, this.position.x, this.position.y);
     };
-    StartTile.prototype.getX = function () {
-        return this.x;
-    };
-    StartTile.prototype.getY = function () {
-        return this.y;
+    StartTile.prototype.getPosition = function () {
+        return this.position;
     };
     StartTile.prototype.getStartDirection = function () {
         return this.startDirection;
@@ -1758,16 +1749,16 @@ var TileGenerator = (function () {
                 if (character === symbol) {
                     switch (symbol) {
                         case '0':
-                            resultTiles.push(new _this.OrangeTileClass(_this.orangeImage, posX, posY, _this.Const, _this.towerGenerator));
+                            resultTiles.push(new _this.OrangeTileClass(_this.orangeImage, { x: posX, y: posY }, _this.Const, _this.towerGenerator));
                             break;
                         case '1':
                             resultTiles.push(new _this.PathTileClass(posX, posY));
                             break;
                         case 'x':
-                            resultTiles.push(new _this.StartTileClass(_this.startImage, posX, posY, _this.startDirection));
+                            resultTiles.push(new _this.StartTileClass(_this.startImage, { x: posX, y: posY }, _this.startDirection));
                             break;
                         case 'y':
-                            resultTiles.push(new _this.EndTileClass(_this.endImage, posX, posY));
+                            resultTiles.push(new _this.EndTileClass(_this.endImage, { x: posX, y: posY }));
                             break;
                     }
                 }
@@ -1804,17 +1795,23 @@ var TowerGenerator = (function () {
         this.DistanceClass = DistanceClass;
         this.ProgressBarClass = ProgressBarClass;
     }
-    TowerGenerator.prototype.newTower = function (towerId, x, y) {
+    TowerGenerator.prototype.newTower = function (towerId, position) {
         var tower = null;
         switch (towerId) {
             case this.Const.GREEN_TOWER:
-                tower = new this.GreenTowerClass(this.greenTowerImages, x - this.Const.TOWER_OFFSET, y - this.Const.TOWER_OFFSET, this.Const, this.DistanceClass, this.ProgressBarClass);
+                tower = new this.GreenTowerClass(this.greenTowerImages, {
+                    x: position.x - this.Const.TOWER_OFFSET,
+                    y: position.y - this.Const.TOWER_OFFSET,
+                }, this.Const, this.DistanceClass, this.ProgressBarClass);
                 break;
             case this.Const.RED_TOWER:
-                tower = new this.RedTowerClass(this.redTowerImages, x - this.Const.TOWER_OFFSET, y - this.Const.TOWER_OFFSET, this.Const, this.DistanceClass, this.ProgressBarClass);
+                tower = new this.RedTowerClass(this.redTowerImages, {
+                    x: position.x - this.Const.TOWER_OFFSET,
+                    y: position.y - this.Const.TOWER_OFFSET,
+                }, this.Const, this.DistanceClass, this.ProgressBarClass);
                 break;
             case this.Const.YELLOW_TOWER:
-                tower = new this.YellowTowerClass(this.yellowTowerImages, x, y, this.Const, this.DistanceClass, this.ProgressBarClass);
+                tower = new this.YellowTowerClass(this.yellowTowerImages, { x: position.x, y: position.y }, this.Const, this.DistanceClass, this.ProgressBarClass);
                 break;
             default:
                 break;
@@ -1858,16 +1855,15 @@ var Wallet = (function () {
     return Wallet;
 }());
 var YellowTower = (function () {
-    function YellowTower(images, x, y, Const, DistanceClass, ProgressBarClass) {
+    function YellowTower(images, position, Const, DistanceClass, ProgressBarClass) {
         this.images = images;
-        this.x = x;
-        this.y = y;
+        this.position = __assign({}, position);
         this.Const = Const;
         this.DistanceClass = DistanceClass;
         this.ProgressBarClass = ProgressBarClass;
         this.upgradeLevel = 0;
         this.upgrading = false;
-        this.progressBar = new this.ProgressBarClass(this.x, this.y, 27, 7);
+        this.progressBar = new this.ProgressBarClass(this.position, 27, 7);
         this.upgradeProgress = 0;
     }
     YellowTower.prototype.upgrade = function () {
@@ -1879,11 +1875,8 @@ var YellowTower = (function () {
     YellowTower.prototype.isNotUpgrading = function () {
         return !this.upgrading;
     };
-    YellowTower.prototype.getX = function () {
-        return this.x;
-    };
-    YellowTower.prototype.getY = function () {
-        return this.y;
+    YellowTower.prototype.getPosition = function () {
+        return this.position;
     };
     YellowTower.prototype.getUpgradeLevel = function () {
         return this.upgradeLevel;
@@ -1895,7 +1888,7 @@ var YellowTower = (function () {
         strokeWeight(1);
         stroke('black');
         fill(this.Const.YELLOW_COLOR);
-        rect(this.x, this.y, this.Const.TILE_SIZE, this.Const.TILE_SIZE);
+        rect(this.position.x, this.position.y, this.Const.TILE_SIZE, this.Const.TILE_SIZE);
     };
     YellowTower.prototype.draw = function () {
         if (this.upgrading) {
@@ -1912,7 +1905,7 @@ var YellowTower = (function () {
             }
         }
         else {
-            image(this.images[this.upgradeLevel], this.x, this.y);
+            image(this.images[this.upgradeLevel], this.position.x, this.position.y);
         }
     };
     YellowTower.prototype.getInfluenceArea = function () {
@@ -2037,8 +2030,8 @@ function setup() {
     waveEnemies = 0;
     enemies = [];
     currentEnemyId = 1;
-    waveProgressBar = new ProgressBar(335, -19, 150, 16);
-    bossProgressBar = new ProgressBar(335, -2, 150, 10);
+    waveProgressBar = new ProgressBar({ x: 335, y: -19 }, 150, 16);
+    bossProgressBar = new ProgressBar({ x: 335, y: -2 }, 150, 10);
     hud = new Hud(hudImages, hudIconImages, wallet, Const, lives, score, TextProperties, waveProgressBar, bossProgressBar, wave);
     waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
     bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
@@ -2387,7 +2380,7 @@ function draw() {
             hud.viewSellProfit(tileTower);
         }
         else {
-            influenceArea.drawHudTowerInfluenceArea(hud.getSelectedTower(), mouseOrangeTileOver.getX(), mouseOrangeTileOver.getY(), canBuySelectedTower);
+            influenceArea.drawHudTowerInfluenceArea(hud.getSelectedTower(), mouseOrangeTileOver.getPosition(), canBuySelectedTower);
             hud.setType(Const.HUD_NORMAL);
             hud.setCanBuy(canBuyGreenTower, canBuyRedTower, canBuyYellowTower);
             hud.hideUpgradeCost();
@@ -2412,6 +2405,6 @@ function draw() {
         TextProperties.setForBigCenteredTitle();
         text('Game over', width / 2, height / 2);
     }
-    Debug.showMouseCoordinates(mouseX, mouseY);
+    Debug.showMouseCoordinates({ x: mouseX, y: mouseY });
 }
 //# sourceMappingURL=dist.js.map
