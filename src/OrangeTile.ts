@@ -1,12 +1,11 @@
-import { ConstType, TowerType } from './types'
+import { ConstType, TowerType, Position } from './types'
 import { TowerGenerator } from './TowerGenerator'
 import { Image } from 'p5'
 import { Enemy } from './Enemy'
 
 export class OrangeTile {
   img: Image
-  x: number
-  y: number
+  position: Position
   Const: ConstType
   towerGenerator: TowerGenerator
 
@@ -14,14 +13,12 @@ export class OrangeTile {
 
   constructor(
     img: Image,
-    x: number,
-    y: number,
+    position: Position,
     Const: ConstType,
     towerGenerator: TowerGenerator,
   ) {
     this.img = img
-    this.x = x
-    this.y = y
+    this.position = { ...position }
     this.Const = Const
     this.towerGenerator = towerGenerator
 
@@ -40,7 +37,7 @@ export class OrangeTile {
 
   buyTower(towerId: number) {
     if (this.tower === null) {
-      this.tower = this.towerGenerator.newTower(towerId, this.x, this.y)
+      this.tower = this.towerGenerator.newTower(towerId, this.position)
     } else {
       this.tower.upgrade()
     }
@@ -54,7 +51,7 @@ export class OrangeTile {
   }
 
   drawTile() {
-    image(this.img, this.x, this.y)
+    image(this.img, this.position.x, this.position.y)
   }
 
   drawTower() {
@@ -63,12 +60,8 @@ export class OrangeTile {
     }
   }
 
-  getX() {
-    return this.x
-  }
-
-  getY() {
-    return this.y
+  getPosition() {
+    return this.position
   }
 
   selectTarget(enemies: Enemy[]) {
@@ -81,10 +74,16 @@ export class OrangeTile {
     let insideX = false
     let insideY = false
 
-    if (this.x < mouse_x && this.x + this.Const.TILE_SIZE > mouse_x) {
+    if (
+      this.position.x < mouse_x &&
+      this.position.x + this.Const.TILE_SIZE > mouse_x
+    ) {
       insideX = true
     }
-    if (this.y < mouse_y && this.y + this.Const.TILE_SIZE > mouse_y) {
+    if (
+      this.position.y < mouse_y &&
+      this.position.y + this.Const.TILE_SIZE > mouse_y
+    ) {
       insideY = true
     }
 

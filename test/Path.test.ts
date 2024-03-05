@@ -13,6 +13,7 @@ import { TowerGenerator } from '../src/TowerGenerator'
 import { ProgressBar } from '../src/ProgressBar'
 import { LevelsData } from '../src/LevelsData'
 import { LevelsDataProvider } from '../src/LevelsDataProvider'
+import { Position } from '../src/types'
 
 const levelsDataProvider = new LevelsDataProvider(LevelsData.data)
 
@@ -80,8 +81,9 @@ const isIncluded = (
 
 describe('enemies initial position', () => {
   test('when start direction is LEFT and start tile is at x:750, y:80', () => {
-    const expectedX = startTile.getX() + 50
-    const expectedY = startTile.getY()
+    const startTilePosition = startTile.getPosition()
+    const expectedX = startTilePosition.x + 50
+    const expectedY = startTilePosition.y
     const expected = { x: expectedX, y: expectedY }
 
     const path = new Path(startTile, endTile, pathTiles, Const)
@@ -95,8 +97,14 @@ describe('enemies initial position', () => {
 describe('finds a pathtile', () => {
   test('if exists return the pathtile', () => {
     const img: any = null
-    const startTile = new StartTile(img, 300, 300, Const.LEFT_DIRECTION)
-    const endTile = new EndTile(img, 0, 300)
+    const positionStartTile: Position = { x: 300, y: 300 }
+    const positionEndTile: Position = { x: 0, y: 300 }
+    const startTile = new StartTile(
+      img,
+      positionStartTile,
+      Const.LEFT_DIRECTION,
+    )
+    const endTile = new EndTile(img, positionEndTile)
 
     const searchTile = new PathTile(150, 300)
 

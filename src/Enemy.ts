@@ -64,8 +64,7 @@ export class Enemy {
     ]
 
     this.healthBar = new this.ProgressBarClass(
-      200,
-      200,
+      { x: 200, y: 200 },
       this.Const.PROGRESSBAR_WIDTH,
       this.Const.PROGRESSBAR_HEIGHT,
     )
@@ -241,7 +240,7 @@ export class Enemy {
     this._changeEyes()
     image(this.images[this.imgIndex], this.position.x, this.position.y)
 
-    this.healthBar.setPosition(this.position.x, this.position.y - 20)
+    this.healthBar.setPosition({ x: this.position.x, y: this.position.y - 20 })
 
     this.healthBar.draw()
   }

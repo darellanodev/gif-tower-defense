@@ -28,8 +28,9 @@ export class Path {
     let finalY = 0
 
     if (this.startTile.getStartDirection() === this.Const.LEFT_DIRECTION) {
-      finalX = this.startTile.getX() + this.Const.TILE_SIZE
-      finalY = this.startTile.getY()
+      const finalPosition = this.startTile.getPosition()
+      finalX = finalPosition.x + this.Const.TILE_SIZE
+      finalY = finalPosition.y
     }
 
     return { x: finalX, y: finalY }
@@ -71,8 +72,10 @@ export class Path {
     const searchPx = currentTile.getX() - this.Const.TILE_SIZE
     const searchPy = currentTile.getY()
 
-    const endPx = this.endTile.getX()
-    const endPy = this.endTile.getY()
+    const endPosition = this.endTile.getPosition()
+
+    const endPx = endPosition.x
+    const endPy = endPosition.y
 
     if (searchPx === endPx && searchPy === endPy) {
       return true
@@ -82,9 +85,12 @@ export class Path {
 
   makeOrders() {
     const orders = []
+
+    const startTilePosition = this.startTile.getPosition()
+
     let currentTile: PathTile = new PathTile(
-      this.startTile.getX(),
-      this.startTile.getY(),
+      startTilePosition.x,
+      startTilePosition.y,
     )
     let currentDirection = this.startTile.getStartDirection()
 

@@ -1,4 +1,4 @@
-import { ConstType, RGBType } from './types'
+import { ConstType, Position, RGBType } from './types'
 
 export class InfluenceArea {
   Const: ConstType
@@ -55,8 +55,7 @@ export class InfluenceArea {
 
   drawHudTowerInfluenceArea(
     hudTowerSelected: any,
-    x: number,
-    y: number,
+    position: Position,
     canBuy: boolean,
   ) {
     strokeWeight(2)
@@ -66,14 +65,20 @@ export class InfluenceArea {
     } else {
       this._setGrayInfluenceAreaColor()
     }
-    this._drawCircle(x, y, this._getInfluenceAreaFor(hudTowerSelected))
+    this._drawCircle(
+      position.x,
+      position.y,
+      this._getInfluenceAreaFor(hudTowerSelected),
+    )
   }
 
   drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {
     strokeWeight(2)
 
-    let x = tower.getX()
-    let y = tower.getY()
+    const towerPosition = tower.getPosition()
+
+    let x = towerPosition.x
+    let y = towerPosition.y
 
     if (
       tower.getType() === this.Const.GREEN_TOWER ||

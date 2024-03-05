@@ -1,14 +1,14 @@
+import { Position } from './types'
+
 export class ProgressBar {
-  x: number
-  y: number
+  position: Position
   width: number
   height: number
   progress: number
   maxProgress: number
 
-  constructor(x: number, y: number, width: number, height: number) {
-    this.x = x
-    this.y = y
+  constructor(position: Position, width: number, height: number) {
+    this.position = { ...position }
     this.width = width
     this.height = height
 
@@ -16,9 +16,8 @@ export class ProgressBar {
     this.maxProgress = this.width - 1
   }
 
-  setPosition(x: number, y: number) {
-    this.x = x
-    this.y = y
+  setPosition(position: Position) {
+    this.position = { ...position }
   }
 
   setProgress(progress: number) {
@@ -41,14 +40,19 @@ export class ProgressBar {
     strokeWeight(1)
     stroke('black')
     fill('green')
-    rect(this.x + 10, this.y + 20, this.width, this.height)
+    rect(this.position.x + 10, this.position.y + 20, this.width, this.height)
   }
 
   _drawProgressBar() {
     strokeWeight(0)
     fill('red')
     const progressLevel = (this.progress * this.maxProgress) / 100
-    rect(this.x + 11, this.y + 21, progressLevel, this.height - 2)
+    rect(
+      this.position.x + 11,
+      this.position.y + 21,
+      progressLevel,
+      this.height - 2,
+    )
   }
 
   draw() {

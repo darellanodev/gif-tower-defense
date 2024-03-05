@@ -1,4 +1,4 @@
-import { ConstType } from './types'
+import { ConstType, Position } from './types'
 import { Distance } from './Distance'
 import { Image } from 'p5'
 import { ProgressBar } from './ProgressBar'
@@ -6,8 +6,7 @@ import { Enemy } from './Enemy'
 
 export class RedTower {
   images: Image[]
-  x: number
-  y: number
+  position: Position
   Const: ConstType
   DistanceClass: typeof Distance
   ProgressBarClass: typeof ProgressBar
@@ -19,15 +18,13 @@ export class RedTower {
 
   constructor(
     images: Image[],
-    x: number,
-    y: number,
+    position: Position,
     Const: ConstType,
     DistanceClass: typeof Distance,
     ProgressBarClass: typeof ProgressBar,
   ) {
     this.images = images
-    this.x = x
-    this.y = y
+    this.position = { ...position }
     this.Const = Const
     this.DistanceClass = DistanceClass
     this.ProgressBarClass = ProgressBarClass
@@ -35,8 +32,7 @@ export class RedTower {
     this.upgradeLevel = 0
     this.upgrading = false
     this.progressBar = new this.ProgressBarClass(
-      this.x + this.Const.TOWER_OFFSET,
-      this.y + this.Const.TOWER_OFFSET,
+      this.position,
       this.Const.PROGRESSBAR_WIDTH,
       this.Const.PROGRESSBAR_HEIGHT,
     )
@@ -54,12 +50,8 @@ export class RedTower {
     return !this.upgrading
   }
 
-  getX() {
-    return this.x
-  }
-
-  getY() {
-    return this.y
+  getPosition() {
+    return this.position
   }
 
   getUpgradeLevel() {
@@ -74,7 +66,12 @@ export class RedTower {
     strokeWeight(1)
     stroke('black')
     fill(this.Const.RED_COLOR)
-    rect(this.x + 4, this.y + 4, this.Const.TILE_SIZE, this.Const.TILE_SIZE)
+    rect(
+      this.position.x + 4,
+      this.position.y + 4,
+      this.Const.TILE_SIZE,
+      this.Const.TILE_SIZE,
+    )
   }
 
   draw() {
@@ -90,7 +87,7 @@ export class RedTower {
         this.progressBar.setProgress(0)
       }
     } else {
-      image(this.images[this.upgradeLevel], this.x, this.y)
+      image(this.images[this.upgradeLevel], this.position.x, this.position.y)
     }
   }
 

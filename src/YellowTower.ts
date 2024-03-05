@@ -1,4 +1,4 @@
-import { ConstType } from './types'
+import { ConstType, Position } from './types'
 import { Distance } from './Distance'
 import { ProgressBar } from './ProgressBar'
 import { Image } from 'p5'
@@ -6,8 +6,7 @@ import { Enemy } from './Enemy'
 
 export class YellowTower {
   images: Image[]
-  x: number
-  y: number
+  position: Position
   Const: ConstType
   DistanceClass: typeof Distance
   ProgressBarClass: typeof ProgressBar
@@ -19,22 +18,20 @@ export class YellowTower {
 
   constructor(
     images: Image[],
-    x: number,
-    y: number,
+    position: Position,
     Const: ConstType,
     DistanceClass: typeof Distance,
     ProgressBarClass: typeof ProgressBar,
   ) {
     this.images = images
-    this.x = x
-    this.y = y
+    this.position = { ...position }
     this.Const = Const
     this.DistanceClass = DistanceClass
     this.ProgressBarClass = ProgressBarClass
 
     this.upgradeLevel = 0
     this.upgrading = false
-    this.progressBar = new this.ProgressBarClass(this.x, this.y, 27, 7)
+    this.progressBar = new this.ProgressBarClass(this.position, 27, 7)
     this.upgradeProgress = 0
   }
 
@@ -49,12 +46,8 @@ export class YellowTower {
     return !this.upgrading
   }
 
-  getX() {
-    return this.x
-  }
-
-  getY() {
-    return this.y
+  getPosition() {
+    return this.position
   }
 
   getUpgradeLevel() {
@@ -69,7 +62,12 @@ export class YellowTower {
     strokeWeight(1)
     stroke('black')
     fill(this.Const.YELLOW_COLOR)
-    rect(this.x, this.y, this.Const.TILE_SIZE, this.Const.TILE_SIZE)
+    rect(
+      this.position.x,
+      this.position.y,
+      this.Const.TILE_SIZE,
+      this.Const.TILE_SIZE,
+    )
   }
 
   draw() {
@@ -85,7 +83,7 @@ export class YellowTower {
         this.progressBar.setProgress(0)
       }
     } else {
-      image(this.images[this.upgradeLevel], this.x, this.y)
+      image(this.images[this.upgradeLevel], this.position.x, this.position.y)
     }
   }
 

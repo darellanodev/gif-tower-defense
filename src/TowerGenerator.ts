@@ -1,4 +1,4 @@
-import { ConstType } from './types'
+import { ConstType, Position } from './types'
 import { GreenTower } from './GreenTower'
 import { RedTower } from './RedTower'
 import { YellowTower } from './YellowTower'
@@ -40,15 +40,17 @@ export class TowerGenerator {
     this.ProgressBarClass = ProgressBarClass
   }
 
-  newTower(towerId: number, x: number, y: number) {
+  newTower(towerId: number, position: Position) {
     let tower = null
 
     switch (towerId) {
       case this.Const.GREEN_TOWER:
         tower = new this.GreenTowerClass(
           this.greenTowerImages,
-          x - this.Const.TOWER_OFFSET,
-          y - this.Const.TOWER_OFFSET,
+          {
+            x: position.x - this.Const.TOWER_OFFSET,
+            y: position.y - this.Const.TOWER_OFFSET,
+          },
           this.Const,
           this.DistanceClass,
           this.ProgressBarClass,
@@ -57,8 +59,10 @@ export class TowerGenerator {
       case this.Const.RED_TOWER:
         tower = new this.RedTowerClass(
           this.redTowerImages,
-          x - this.Const.TOWER_OFFSET,
-          y - this.Const.TOWER_OFFSET,
+          {
+            x: position.x - this.Const.TOWER_OFFSET,
+            y: position.y - this.Const.TOWER_OFFSET,
+          },
           this.Const,
           this.DistanceClass,
           this.ProgressBarClass,
@@ -67,8 +71,7 @@ export class TowerGenerator {
       case this.Const.YELLOW_TOWER:
         tower = new this.YellowTowerClass(
           this.yellowTowerImages,
-          x,
-          y,
+          { x: position.x, y: position.y },
           this.Const,
           this.DistanceClass,
           this.ProgressBarClass,

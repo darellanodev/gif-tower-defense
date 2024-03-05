@@ -1,25 +1,20 @@
 import { Image } from 'p5'
+import { Position } from './types'
 
 export class EndTile {
-  x: number
-  y: number
+  position: Position
   img: Image
 
-  constructor(img: Image, x: number, y: number) {
+  constructor(img: Image, position: Position) {
     this.img = img
-    this.x = x
-    this.y = y
+    this.position = { ...position }
   }
 
   draw() {
-    image(this.img, this.x, this.y)
+    image(this.img, this.position.x, this.position.y)
   }
 
-  getX() {
-    return this.x
-  }
-
-  getY() {
-    return this.y
+  getPosition() {
+    return this.position
   }
 }

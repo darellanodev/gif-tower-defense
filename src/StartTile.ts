@@ -1,28 +1,23 @@
 import { Image } from 'p5'
+import { Position } from './types'
 
 export class StartTile {
   img: Image
-  x: number
-  y: number
+  position: Position
   startDirection: number
 
-  constructor(img: Image, x: number, y: number, startDirection: number) {
+  constructor(img: Image, position: Position, startDirection: number) {
     this.img = img
-    this.x = x
-    this.y = y
+    this.position = { ...position }
     this.startDirection = startDirection
   }
 
   draw() {
-    image(this.img, this.x, this.y)
+    image(this.img, this.position.x, this.position.y)
   }
 
-  getX() {
-    return this.x
-  }
-
-  getY() {
-    return this.y
+  getPosition() {
+    return this.position
   }
 
   getStartDirection() {

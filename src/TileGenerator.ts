@@ -117,8 +117,7 @@ export class TileGenerator {
               resultTiles.push(
                 new this.OrangeTileClass(
                   this.orangeImage,
-                  posX,
-                  posY,
+                  { x: posX, y: posY },
                   this.Const,
                   this.towerGenerator,
                 ),
@@ -131,14 +130,15 @@ export class TileGenerator {
               resultTiles.push(
                 new this.StartTileClass(
                   this.startImage,
-                  posX,
-                  posY,
+                  { x: posX, y: posY },
                   this.startDirection,
                 ),
               )
               break
             case 'y':
-              resultTiles.push(new this.EndTileClass(this.endImage, posX, posY))
+              resultTiles.push(
+                new this.EndTileClass(this.endImage, { x: posX, y: posY }),
+              )
               break
           }
         }

@@ -154,8 +154,8 @@ function setup() {
   enemies = []
   currentEnemyId = 1
 
-  waveProgressBar = new ProgressBar(335, -19, 150, 16)
-  bossProgressBar = new ProgressBar(335, -2, 150, 10)
+  waveProgressBar = new ProgressBar({ x: 335, y: -19 }, 150, 16)
+  bossProgressBar = new ProgressBar({ x: 335, y: -2 }, 150, 10)
 
   hud = new Hud(
     hudImages,
@@ -661,8 +661,7 @@ function draw() {
     } else {
       influenceArea.drawHudTowerInfluenceArea(
         hud.getSelectedTower(),
-        mouseOrangeTileOver.getX(),
-        mouseOrangeTileOver.getY(),
+        mouseOrangeTileOver.getPosition(),
         canBuySelectedTower,
       )
 
