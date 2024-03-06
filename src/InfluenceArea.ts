@@ -1,4 +1,7 @@
-import { ConstType, Position, RGBType } from './types'
+import { ConstType, Position } from './types'
+import { GreenTower } from './GreenTower'
+import { RedTower } from './RedTower'
+import { YellowTower } from './YellowTower'
 
 export class InfluenceArea {
   Const: ConstType
@@ -30,18 +33,18 @@ export class InfluenceArea {
   }
 
   _getInfluenceAreaFor(towerSelected: number) {
-    let influenceArea: number = GreenTower.ID_INFLUENCE_AREA
+    let influenceArea: number = GreenTower.INFLUENCE_AREA
     switch (towerSelected) {
       case GreenTower.ID:
-        influenceArea = GreenTower.ID_INFLUENCE_AREA
+        influenceArea = GreenTower.INFLUENCE_AREA
         break
 
       case RedTower.ID:
-        influenceArea = RedTower.ID_INFLUENCE_AREA
+        influenceArea = RedTower.INFLUENCE_AREA
         break
 
       case YellowTower.ID:
-        influenceArea = YellowTower.ID_INFLUENCE_AREA
+        influenceArea = YellowTower.INFLUENCE_AREA
         break
     }
     return influenceArea
