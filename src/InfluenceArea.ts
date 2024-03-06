@@ -14,40 +14,34 @@ export class InfluenceArea {
 
   _setInfluenceAreaColor(towerId: number) {
     switch (towerId) {
-      case this.Const.GREEN_TOWER:
-        stroke(
-          ...this.Const.GREEN_COLOR,
-          this.Const.ALPHA_INFLUENCE_AREA_STROKE,
-        )
-        fill(...this.Const.GREEN_COLOR, this.Const.ALPHA_INFLUENCE_AREA_FILL)
+      case GreenTower.ID:
+        stroke(...GreenTower.COLOR, this.Const.ALPHA_INFLUENCE_AREA_STROKE)
+        fill(...GreenTower.COLOR, this.Const.ALPHA_INFLUENCE_AREA_FILL)
         break
-      case this.Const.RED_TOWER:
-        stroke(...this.Const.RED_COLOR, this.Const.ALPHA_INFLUENCE_AREA_STROKE)
-        fill(...this.Const.RED_COLOR, this.Const.ALPHA_INFLUENCE_AREA_FILL)
+      case RedTower.ID:
+        stroke(...RedTower.COLOR, this.Const.ALPHA_INFLUENCE_AREA_STROKE)
+        fill(...RedTower.COLOR, this.Const.ALPHA_INFLUENCE_AREA_FILL)
         break
-      case this.Const.YELLOW_TOWER:
-        stroke(
-          ...this.Const.YELLOW_COLOR,
-          this.Const.ALPHA_INFLUENCE_AREA_STROKE,
-        )
-        fill(...this.Const.YELLOW_COLOR, this.Const.ALPHA_INFLUENCE_AREA_FILL)
+      case YellowTower.ID:
+        stroke(...YellowTower.COLOR, this.Const.ALPHA_INFLUENCE_AREA_STROKE)
+        fill(...YellowTower.COLOR, this.Const.ALPHA_INFLUENCE_AREA_FILL)
         break
     }
   }
 
   _getInfluenceAreaFor(towerSelected: number) {
-    let influenceArea: number = this.Const.GREEN_TOWER_INFLUENCE_AREA
+    let influenceArea: number = GreenTower.ID_INFLUENCE_AREA
     switch (towerSelected) {
-      case this.Const.GREEN_TOWER:
-        influenceArea = this.Const.GREEN_TOWER_INFLUENCE_AREA
+      case GreenTower.ID:
+        influenceArea = GreenTower.ID_INFLUENCE_AREA
         break
 
-      case this.Const.RED_TOWER:
-        influenceArea = this.Const.RED_TOWER_INFLUENCE_AREA
+      case RedTower.ID:
+        influenceArea = RedTower.ID_INFLUENCE_AREA
         break
 
-      case this.Const.YELLOW_TOWER:
-        influenceArea = this.Const.YELLOW_TOWER_INFLUENCE_AREA
+      case YellowTower.ID:
+        influenceArea = YellowTower.ID_INFLUENCE_AREA
         break
     }
     return influenceArea
@@ -80,10 +74,7 @@ export class InfluenceArea {
     let x = towerPosition.x
     let y = towerPosition.y
 
-    if (
-      tower.getType() === this.Const.GREEN_TOWER ||
-      tower.getType() === this.Const.RED_TOWER
-    ) {
+    if (tower.getType() === GreenTower.ID || tower.getType() === RedTower.ID) {
       x += this.Const.TOWER_OFFSET
       y += this.Const.TOWER_OFFSET
     }

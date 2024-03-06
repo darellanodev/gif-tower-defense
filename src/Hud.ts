@@ -4,8 +4,25 @@ import { ProgressBar } from './ProgressBar'
 import { Score } from './Score'
 import { Wallet } from './Wallet'
 import { Image } from 'p5'
+import { GreenTower } from './GreenTower'
+import { RedTower } from './RedTower'
+import { YellowTower } from './YellowTower'
+import { MagicFireball } from './MagicFireball'
+import { MagicIceball } from './MagicIceball'
+import { MagicUFO } from './MagicUFO'
 
 export class Hud {
+  static NORMAL = 0
+  static UPGRADING = 1
+  static UPGRADING_MAX = 2
+
+  static ICON_GREEN_TOWER_ON = 0
+  static ICON_GREEN_TOWER_OFF = 1
+  static ICON_RED_TOWER_ON = 2
+  static ICON_RED_TOWER_OFF = 3
+  static ICON_YELLOW_TOWER_ON = 4
+  static ICON_YELLOW_TOWER_OFF = 5
+
   hudImages: Image[]
   hudIconImages: Image[]
   wallet: Wallet
@@ -55,18 +72,18 @@ export class Hud {
     this.waveProgressBar = new ProgressBar({ x: 335, y: -19 }, 150, 16)
     this.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, 150, 10)
 
-    this.hudType = this.Const.HUD_NORMAL
+    this.hudType = Hud.NORMAL
 
-    this.selectedItem = this.Const.GREEN_TOWER
+    this.selectedItem = GreenTower.ID
     this.upgradeCost = null
     this.sellProfit = null
 
     this.canBuyGreenTower = false
     this.canBuyRedTower = false
     this.canBuyYellowTower = false
-    this.magicfireballs = this.Const.MAGIC_FIREBALLS
-    this.magiciceballs = this.Const.MAGIC_ICEBALLS
-    this.magicUFOs = this.Const.MAGIC_UFOS
+    this.magicfireballs = MagicFireball.FIREBALLS
+    this.magiciceballs = MagicIceball.ICEBALLS
+    this.magicUFOs = MagicUFO.UFOS
   }
 
   isInsideButtonsBar(px: number, py: number) {
@@ -162,18 +179,18 @@ export class Hud {
 
   draw() {
     switch (this.hudType) {
-      case this.Const.HUD_NORMAL:
-        image(this.hudImages[this.Const.HUD_NORMAL], 0, 0)
+      case Hud.NORMAL:
+        image(this.hudImages[Hud.NORMAL], 0, 0)
         this._drawTowerIcons()
         this._drawSelectedItem()
         break
 
-      case this.Const.HUD_UPGRADING:
-        image(this.hudImages[this.Const.HUD_UPGRADING], 0, 0)
+      case Hud.UPGRADING:
+        image(this.hudImages[Hud.UPGRADING], 0, 0)
         break
 
-      case this.Const.HUD_UPGRADING_MAX:
-        image(this.hudImages[this.Const.HUD_UPGRADING_MAX], 0, 0)
+      case Hud.UPGRADING_MAX:
+        image(this.hudImages[Hud.UPGRADING_MAX], 0, 0)
         break
     }
 
@@ -194,7 +211,7 @@ export class Hud {
     this._drawMagicFireball()
     this._drawMagicIceball()
 
-    if (this.hudType === this.Const.HUD_NORMAL) {
+    if (this.hudType === Hud.NORMAL) {
       this._drawNewTowerPrices()
     }
   }
@@ -208,18 +225,18 @@ export class Hud {
   }
 
   _drawTowerIcons() {
-    let greenIconImgPos = this.Const.HUD_ICON_GREEN_TOWER_OFF
-    let redIconImgPos = this.Const.HUD_ICON_RED_TOWER_OFF
-    let yellowIconImgPos = this.Const.HUD_ICON_YELLOW_TOWER_OFF
+    let greenIconImgPos = Hud.ICON_GREEN_TOWER_OFF
+    let redIconImgPos = Hud.ICON_RED_TOWER_OFF
+    let yellowIconImgPos = Hud.ICON_YELLOW_TOWER_OFF
 
     if (this.canBuyGreenTower) {
-      greenIconImgPos = this.Const.HUD_ICON_GREEN_TOWER_ON
+      greenIconImgPos = Hud.ICON_GREEN_TOWER_ON
     }
     if (this.canBuyRedTower) {
-      redIconImgPos = this.Const.HUD_ICON_RED_TOWER_ON
+      redIconImgPos = Hud.ICON_RED_TOWER_ON
     }
     if (this.canBuyYellowTower) {
-      yellowIconImgPos = this.Const.HUD_ICON_YELLOW_TOWER_ON
+      yellowIconImgPos = Hud.ICON_YELLOW_TOWER_ON
     }
 
     image(this.hudIconImages[greenIconImgPos], 60, 38)
@@ -280,7 +297,7 @@ export class Hud {
     if (!this.canBuyGreenTower) {
       fill('gray')
     }
-    text(this.Const.COST_UPGRADE_GREEN_TOWER[0], 40, 72)
+    text(GreenTower.COST_UPGRADE[0], 40, 72)
     // restore
     fill('white')
   }
@@ -288,7 +305,7 @@ export class Hud {
     if (!this.canBuyRedTower) {
       fill('gray')
     }
-    text(this.Const.COST_UPGRADE_RED_TOWER[0], 118, 72)
+    text(RedTower.COST_UPGRADE[0], 118, 72)
     // restore
     fill('white')
   }
@@ -296,7 +313,7 @@ export class Hud {
     if (!this.canBuyYellowTower) {
       fill('gray')
     }
-    text(this.Const.COST_UPGRADE_YELLOW_TOWER[0], 202, 72)
+    text(YellowTower.COST_UPGRADE[0], 202, 72)
     // restore
     fill('white')
   }
@@ -313,15 +330,15 @@ export class Hud {
     noFill()
 
     switch (this.selectedItem) {
-      case this.Const.GREEN_TOWER:
+      case GreenTower.ID:
         square(57, 36, 37)
         break
 
-      case this.Const.RED_TOWER:
+      case RedTower.ID:
         square(140, 36, 37)
         break
 
-      case this.Const.YELLOW_TOWER:
+      case YellowTower.ID:
         square(225, 36, 37)
         break
     }
@@ -329,15 +346,15 @@ export class Hud {
 
   selectTowerHudType(tower: TowerType) {
     if (tower.getUpgradeLevel() < this.Const.UPGRADE_MAX_LEVEL) {
-      this.setType(this.Const.HUD_UPGRADING)
+      this.setType(Hud.UPGRADING)
     } else {
-      this.setType(this.Const.HUD_UPGRADING_MAX)
+      this.setType(Hud.UPGRADING_MAX)
     }
   }
 
   viewUpgradeCost(tower: TowerType, canUpgrade: boolean) {
     this.upgradeCost = null
-    if (this.hudType === this.Const.HUD_UPGRADING) {
+    if (this.hudType === Hud.UPGRADING) {
       this.upgradeCost = tower.getNextLevelUpgradeCost()
     }
     this.canUpgrade = canUpgrade
@@ -345,7 +362,7 @@ export class Hud {
 
   viewSellProfit(tower: TowerType) {
     this.sellProfit = null
-    if (this.hudType === this.Const.HUD_UPGRADING) {
+    if (this.hudType === Hud.UPGRADING) {
       this.sellProfit = tower.getSellProfit()
     }
   }

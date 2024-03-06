@@ -52,7 +52,7 @@ describe('Other methods of the orange tile', () => {
     const position: Position = { x: 100, y: 100 }
     const orangeTile = new OrangeTile(img, position, Const, towerGenerator)
 
-    const cost = orangeTile.buyTower(Const.GREEN_TOWER)
+    const cost = orangeTile.buyTower(GreenTower.ID)
     const result = orangeTile.hasTower()
 
     expect(result).toBeTruthy()
@@ -65,7 +65,7 @@ describe('Other methods of the orange tile', () => {
     const position: Position = { x: 100, y: 100 }
     const orangeTile = new OrangeTile(img, position, Const, towerGenerator)
 
-    const cost = orangeTile.buyTower(Const.GREEN_TOWER)
+    const cost = orangeTile.buyTower(GreenTower.ID)
     const result = orangeTile.sellTower()
 
     expect(result).toBe(expected)

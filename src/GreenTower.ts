@@ -1,10 +1,19 @@
-import { ConstType, Position } from './types'
+import { ConstType, Position, RGBType } from './types'
 import { MathUtils } from './MathUtils'
 import { Enemy } from './Enemy'
 import { Image } from 'p5'
 import { ProgressBar } from './ProgressBar'
+import { RedTower } from './RedTower'
 
 export class GreenTower {
+  static ID = 1
+  static COLOR = [75, 185, 35] as RGBType
+  static PROFIT_SELL_UPGRADE = [30, 35, 65, 220, 900, 1880]
+  static DAMAGE_UPGRADE = [1, 2, 4, 6, 12, 24]
+  static COST_UPGRADE = [50, 75, 125, 300, 1000, 2000]
+  static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
+  static INFLUENCE_AREA = 150
+
   images: Image[]
   position: Position
   Const: ConstType
@@ -41,8 +50,8 @@ export class GreenTower {
         x: this.position.x + this.Const.TOWER_OFFSET,
         y: this.position.y + this.Const.TOWER_OFFSET,
       },
-      this.Const.PROGRESSBAR_WIDTH,
-      this.Const.PROGRESSBAR_HEIGHT,
+      ProgressBar.WIDTH,
+      ProgressBar.HEIGHT,
     )
     this.upgradeProgress = 0
   }
@@ -74,7 +83,7 @@ export class GreenTower {
 
   _drawShotToEnemy() {
     strokeWeight(3)
-    stroke(this.Const.RED_COLOR)
+    stroke(RedTower.COLOR)
     line(
       -1,
       -18,
@@ -86,7 +95,7 @@ export class GreenTower {
   _drawUpgradeBackground() {
     strokeWeight(1)
     stroke('black')
-    fill(this.Const.GREEN_COLOR)
+    fill(GreenTower.COLOR)
     rect(
       this.position.x + 4,
       this.position.y + 4,
@@ -133,9 +142,7 @@ export class GreenTower {
         )
 
         this._drawShotToEnemy()
-        this.enemyTarget.addDamage(
-          this.Const.DAMAGE_UPGRADE_GREEN_TOWER[this.upgradeLevel],
-        )
+        this.enemyTarget.addDamage(GreenTower.DAMAGE_UPGRADE[this.upgradeLevel])
         image(this.images[this.upgradeLevel], 0, 0)
 
         resetMatrix()
@@ -147,14 +154,14 @@ export class GreenTower {
   }
 
   getInfluenceArea() {
-    return this.Const.GREEN_TOWER_UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
+    return GreenTower.UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
     if (selectedUpgradeLevel > this.Const.UPGRADE_MAX_LEVEL) {
-      return this.Const.COST_UPGRADE_GREEN_TOWER[this.Const.UPGRADE_MAX_LEVEL]
+      return GreenTower.COST_UPGRADE[this.Const.UPGRADE_MAX_LEVEL]
     }
-    return this.Const.COST_UPGRADE_GREEN_TOWER[selectedUpgradeLevel]
+    return GreenTower.COST_UPGRADE[selectedUpgradeLevel]
   }
 
   getCost() {
@@ -170,21 +177,20 @@ export class GreenTower {
   }
 
   getSellProfit() {
-    return this.Const.PROFIT_SELL_UPGRADE_GREEN_TOWER[this.getUpgradeLevel()]
+    return GreenTower.PROFIT_SELL_UPGRADE[this.getUpgradeLevel()]
   }
 
   getType() {
-    return this.Const.GREEN_TOWER
+    return GreenTower.ID
   }
 
   getColor() {
-    return this.Const.GREEN_COLOR
+    return GreenTower.COLOR
   }
 
   _isDistanceIntoInfluenceArea(distance: number) {
     return (
-      distance <=
-      this.Const.GREEN_TOWER_UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65
+      distance <= GreenTower.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65
     )
   }
 

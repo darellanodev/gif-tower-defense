@@ -2,8 +2,29 @@ import { ProgressBar } from './ProgressBar'
 import { ConstType, Position } from './types'
 import { Random } from './Random'
 import { Image } from 'p5'
+import { MagicIceball } from './MagicIceball'
 
 export class Enemy {
+  static VELOCITY = 1 // must be multiple of "this.Const.TILE_SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
+  static BOSS_VELOCITY = 0.5
+
+  static CHANGE_EYES_MAX_TIME = 50
+
+  static EXTEND_CLOSED_EYES_MAX_TIME = 20
+  static MIN_TIME_TO_CLOSE = 50
+  static MAX_TIME_TO_CLOSE = 200
+
+  static EYES_CENTER = 0
+  static EYES_LEFT = 1
+  static EYES_RIGHT = 2
+  static EYES_CLOSED = 3
+
+  static STATUS_ALIVE = 0
+  static STATUS_DEAD = 1
+
+  static TOTAL_ENEMIES = 5
+  static CREATION_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
+
   id: number
   images: Image[]
   startPosition: Position
@@ -54,21 +75,21 @@ export class Enemy {
     this.RandomClass = RandomClass
     this.ProgressBarClass = ProgressBarClass
 
-    this.imgIndex = this.Const.ENEMY_EYES_CENTER
-    this.imgIndexBeforeEyesClosed = this.Const.ENEMY_EYES_CENTER
+    this.imgIndex = Enemy.EYES_CENTER
+    this.imgIndexBeforeEyesClosed = Enemy.EYES_CENTER
     this.eyesSequence = [
-      this.Const.ENEMY_EYES_LEFT,
-      this.Const.ENEMY_EYES_CENTER,
-      this.Const.ENEMY_EYES_RIGHT,
-      this.Const.ENEMY_EYES_CENTER,
+      Enemy.EYES_LEFT,
+      Enemy.EYES_CENTER,
+      Enemy.EYES_RIGHT,
+      Enemy.EYES_CENTER,
     ]
 
     this.healthBar = new this.ProgressBarClass(
       { x: 200, y: 200 },
-      this.Const.PROGRESSBAR_WIDTH,
-      this.Const.PROGRESSBAR_HEIGHT,
+      ProgressBar.WIDTH,
+      ProgressBar.HEIGHT,
     )
-    this.status = this.Const.ENEMY_STATUS_ALIVE
+    this.status = Enemy.STATUS_ALIVE
     this.damage = 0
 
     this.position = { ...this.startPosition }
@@ -96,7 +117,7 @@ export class Enemy {
     this.healthBar.setProgress(this.damage)
 
     if (this.healthBar.isFullOfProgress()) {
-      this.status = this.Const.ENEMY_STATUS_DEAD
+      this.status = Enemy.STATUS_DEAD
     }
   }
 
@@ -105,11 +126,11 @@ export class Enemy {
   }
 
   isDead() {
-    return this.status == this.Const.ENEMY_STATUS_DEAD
+    return this.status == Enemy.STATUS_DEAD
   }
 
   isAlive() {
-    return this.status == this.Const.ENEMY_STATUS_ALIVE
+    return this.status == Enemy.STATUS_ALIVE
   }
 
   isWinner() {
@@ -139,7 +160,7 @@ export class Enemy {
 
   update() {
     if (this.freezed) {
-      if (this.freezedTime < this.Const.MAGIC_ICEBALL_FREEZE_ENEMY_MAX_TIME) {
+      if (this.freezedTime < MagicIceball.FREEZE_ENEMY_MAX_TIME) {
         this.freezedTime++
       } else {
         this.freezed = false
@@ -148,9 +169,7 @@ export class Enemy {
       return
     }
 
-    const velocity = this.isBoss
-      ? this.Const.BOSS_VELOCITY
-      : this.Const.ENEMY_VELOCITY
+    const velocity = this.isBoss ? Enemy.BOSS_VELOCITY : Enemy.VELOCITY
 
     switch (this.currentDirection) {
       case this.Const.LEFT_DIRECTION:
@@ -184,13 +203,13 @@ export class Enemy {
   }
 
   _hasOpenEyes() {
-    return this.imgIndex != this.Const.ENEMY_EYES_CLOSED
+    return this.imgIndex != Enemy.EYES_CLOSED
   }
 
   _moveEyesInSequence() {
     this.changeEyesTime++
 
-    if (this.changeEyesTime > this.Const.ENEMY_CHANGE_EYES_MAX_TIME) {
+    if (this.changeEyesTime > Enemy.CHANGE_EYES_MAX_TIME) {
       this.changeEyesTime = 0
       this.indexEyesSecuence++
       if (this.indexEyesSecuence == this.eyesSequence.length) {
@@ -203,8 +222,8 @@ export class Enemy {
 
   _setRandomTimeMaxForClosingEyes() {
     this.randomCloseEyes = this.RandomClass.integerBetween(
-      this.Const.ENEMY_MIN_TIME_TO_CLOSE,
-      this.Const.ENEMY_MAX_TIME_TO_CLOSE,
+      Enemy.MIN_TIME_TO_CLOSE,
+      Enemy.MAX_TIME_TO_CLOSE,
     )
   }
 
@@ -216,16 +235,14 @@ export class Enemy {
         this.closeEyesTime = 0
         this._setRandomTimeMaxForClosingEyes()
         this.imgIndexBeforeEyesClosed = this.imgIndex
-        this.imgIndex = this.Const.ENEMY_EYES_CLOSED
+        this.imgIndex = Enemy.EYES_CLOSED
       }
 
       this._moveEyesInSequence()
     } else {
       this.extendClosedEyesTime++
 
-      if (
-        this.extendClosedEyesTime > this.Const.ENEMY_EXTEND_CLOSED_EYES_MAX_TIME
-      ) {
+      if (this.extendClosedEyesTime > Enemy.EXTEND_CLOSED_EYES_MAX_TIME) {
         this.extendClosedEyesTime = 0
         this.imgIndex = this.imgIndexBeforeEyesClosed
       }

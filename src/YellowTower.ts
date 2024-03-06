@@ -1,10 +1,17 @@
-import { ConstType, Position } from './types'
+import { ConstType, Position, RGBType } from './types'
 import { MathUtils } from './MathUtils'
 import { ProgressBar } from './ProgressBar'
 import { Image } from 'p5'
 import { Enemy } from './Enemy'
 
 export class YellowTower {
+  static ID = 3
+  static COLOR = [202, 191, 24] as RGBType
+  static PROFIT_SELL_UPGRADE = [680, 2460, 7440, 21920, 66900, 199880]
+  static COST_UPGRADE = [700, 2500, 7500, 22000, 67000, 200000]
+  static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
+  static INFLUENCE_AREA = 290
+
   images: Image[]
   position: Position
   Const: ConstType
@@ -61,7 +68,7 @@ export class YellowTower {
   _drawUpgradeBackground() {
     strokeWeight(1)
     stroke('black')
-    fill(this.Const.YELLOW_COLOR)
+    fill(YellowTower.COLOR)
     rect(
       this.position.x,
       this.position.y,
@@ -88,14 +95,14 @@ export class YellowTower {
   }
 
   getInfluenceArea() {
-    return this.Const.YELLOW_TOWER_UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
+    return YellowTower.UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
     if (selectedUpgradeLevel > this.Const.UPGRADE_MAX_LEVEL) {
-      return this.Const.COST_UPGRADE_YELLOW_TOWER[this.Const.UPGRADE_MAX_LEVEL]
+      return YellowTower.COST_UPGRADE[this.Const.UPGRADE_MAX_LEVEL]
     }
-    return this.Const.COST_UPGRADE_YELLOW_TOWER[selectedUpgradeLevel]
+    return YellowTower.COST_UPGRADE[selectedUpgradeLevel]
   }
 
   getCost() {
@@ -111,15 +118,15 @@ export class YellowTower {
   }
 
   getSellProfit() {
-    return this.Const.PROFIT_SELL_UPGRADE_YELLOW_TOWER[this.getUpgradeLevel()]
+    return YellowTower.PROFIT_SELL_UPGRADE[this.getUpgradeLevel()]
   }
 
   getType() {
-    return this.Const.YELLOW_TOWER
+    return YellowTower.ID
   }
 
   getColor() {
-    return this.Const.YELLOW_COLOR
+    return YellowTower.COLOR
   }
 
   selectTarget(enemies: Enemy[]) {

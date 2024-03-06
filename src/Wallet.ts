@@ -1,4 +1,7 @@
 import { ConstType } from './types'
+import { GreenTower } from './GreenTower'
+import { RedTower } from './RedTower'
+import { YellowTower } from './YellowTower'
 
 export class Wallet {
   money: number
@@ -25,15 +28,14 @@ export class Wallet {
     let canBuy = false
 
     switch (towerId) {
-      case this.Const.GREEN_TOWER:
-        canBuy = this.Const.COST_UPGRADE_GREEN_TOWER[upgradeLevel] <= this.money
+      case GreenTower.ID:
+        canBuy = GreenTower.COST_UPGRADE[upgradeLevel] <= this.money
         break
-      case this.Const.RED_TOWER:
-        canBuy = this.Const.COST_UPGRADE_RED_TOWER[upgradeLevel] <= this.money
+      case RedTower.ID:
+        canBuy = RedTower.COST_UPGRADE[upgradeLevel] <= this.money
         break
-      case this.Const.YELLOW_TOWER:
-        canBuy =
-          this.Const.COST_UPGRADE_YELLOW_TOWER[upgradeLevel] <= this.money
+      case YellowTower.ID:
+        canBuy = YellowTower.COST_UPGRADE[upgradeLevel] <= this.money
         break
 
       default:

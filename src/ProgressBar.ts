@@ -1,6 +1,9 @@
 import { Position } from './types'
 
 export class ProgressBar {
+  static WIDTH = 27
+  static HEIGHT = 7
+
   position: Position
   width: number
   height: number

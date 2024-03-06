@@ -1,13 +1,14 @@
 import { ConstType } from './types'
 import { MathUtils } from './MathUtils'
 import { Const } from './Const'
+import { Enemy } from './Enemy'
 
 export class Resources {
   Const: ConstType
 
   static enemies() {
     const enemiesImages: any[] = []
-    const countEnemiesAndBoss = Const.TOTAL_ENEMIES + 1
+    const countEnemiesAndBoss = Enemy.TOTAL_ENEMIES + 1
     MathUtils.range(1, countEnemiesAndBoss).forEach((v) => {
       enemiesImages.push(loadImage('img/enemies/' + v + '_center.png'))
       enemiesImages.push(loadImage('img/enemies/' + v + '_left.png'))

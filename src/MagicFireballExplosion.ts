@@ -1,7 +1,11 @@
 import { ParticleSystem } from './ParticleSystem'
-import { ConstType } from './types'
+import { ConstType, RGBType } from './types'
 
 export class MagicFireballExplosion {
+  static MAX_EMIT_TIME = 5
+  static SIZE = 6
+  static COLOR = [202, 191, 24] as RGBType
+
   x: number
   y: number
   Const: ConstType
@@ -24,8 +28,8 @@ export class MagicFireballExplosion {
         this.x + this.Const.EXPLOSION_OFFSET,
         this.y + this.Const.EXPLOSION_OFFSET,
       ),
-      this.Const.PARTICLE_EXPLOSION_FIREBALL_SIZE,
-      this.Const.PARTICLE_EXPLOSION_MAGIC_FIREBALL_COLOR,
+      MagicFireballExplosion.SIZE,
+      MagicFireballExplosion.COLOR,
     )
     this.emisionTime = 0
     this.finished = false
@@ -36,7 +40,7 @@ export class MagicFireballExplosion {
   }
 
   update() {
-    if (this.emisionTime < this.Const.ENEMY_EXPLOSION_MAX_EMIT_TIME) {
+    if (this.emisionTime < MagicFireballExplosion.MAX_EMIT_TIME) {
       this.emisionTime++
       this.particleSystem.addParticle()
     }

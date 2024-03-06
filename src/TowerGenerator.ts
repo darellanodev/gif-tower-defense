@@ -44,7 +44,7 @@ export class TowerGenerator {
     let tower = null
 
     switch (towerId) {
-      case this.Const.GREEN_TOWER:
+      case GreenTower.ID:
         tower = new this.GreenTowerClass(
           this.greenTowerImages,
           {
@@ -56,7 +56,7 @@ export class TowerGenerator {
           this.ProgressBarClass,
         )
         break
-      case this.Const.RED_TOWER:
+      case RedTower.ID:
         tower = new this.RedTowerClass(
           this.redTowerImages,
           {
@@ -68,7 +68,7 @@ export class TowerGenerator {
           this.ProgressBarClass,
         )
         break
-      case this.Const.YELLOW_TOWER:
+      case YellowTower.ID:
         tower = new this.YellowTowerClass(
           this.yellowTowerImages,
           { x: position.x, y: position.y },

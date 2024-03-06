@@ -1,7 +1,11 @@
 import { ParticleSystem } from './ParticleSystem'
-import { ConstType } from './types'
+import { ConstType, RGBType } from './types'
 
 export class EnemyExplosion {
+  static MAX_EMIT_TIME = 5
+  static SIZE = 12
+  static COLOR = [255, 165, 0] as RGBType
+
   x: number
   y: number
   Const: ConstType
@@ -24,8 +28,8 @@ export class EnemyExplosion {
         this.x + this.Const.EXPLOSION_OFFSET,
         this.y + this.Const.EXPLOSION_OFFSET,
       ),
-      this.Const.PARTICLE_EXPLOSION_ENEMY_SIZE,
-      this.Const.PARTICLE_EXPLOSION_ENEMY_COLOR,
+      EnemyExplosion.SIZE,
+      EnemyExplosion.COLOR,
     )
     this.emisionTime = 0
     this.finished = false
@@ -36,7 +40,7 @@ export class EnemyExplosion {
   }
 
   update() {
-    if (this.emisionTime < this.Const.ENEMY_EXPLOSION_MAX_EMIT_TIME) {
+    if (this.emisionTime < EnemyExplosion.MAX_EMIT_TIME) {
       this.emisionTime++
       this.particleSystem.addParticle()
     }

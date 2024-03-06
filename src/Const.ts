@@ -1,41 +1,7 @@
 import { RGBType } from './types'
 
 export class Const {
-  static HUD_NORMAL = 0
-  static HUD_UPGRADING = 1
-  static HUD_UPGRADING_MAX = 2
-
-  static HUD_ICON_GREEN_TOWER_ON = 0
-  static HUD_ICON_GREEN_TOWER_OFF = 1
-  static HUD_ICON_RED_TOWER_ON = 2
-  static HUD_ICON_RED_TOWER_OFF = 3
-  static HUD_ICON_YELLOW_TOWER_ON = 4
-  static HUD_ICON_YELLOW_TOWER_OFF = 5
-
-  static GREEN_TOWER = 1
-  static RED_TOWER = 2
-  static YELLOW_TOWER = 3
-
-  static GREEN_COLOR = [75, 185, 35] as RGBType
-  static RED_COLOR = [185, 35, 35] as RGBType
-  static YELLOW_COLOR = [202, 191, 24] as RGBType
   static GRAY_COLOR = [50, 50, 50] as RGBType
-
-  static DAMAGE_UPGRADE_GREEN_TOWER = [1, 2, 4, 6, 12, 24]
-
-  static PROFIT_SELL_UPGRADE_GREEN_TOWER = [30, 35, 65, 220, 900, 1880]
-  static PROFIT_SELL_UPGRADE_RED_TOWER = [80, 110, 190, 420, 1200, 2880]
-  static PROFIT_SELL_UPGRADE_YELLOW_TOWER = [
-    680, 2460, 7440, 21920, 66900, 199880,
-  ]
-
-  static COST_UPGRADE_GREEN_TOWER = [50, 75, 125, 300, 1000, 2000]
-  static COST_UPGRADE_RED_TOWER = [100, 150, 250, 500, 1300, 3000]
-  static COST_UPGRADE_YELLOW_TOWER = [700, 2500, 7500, 22000, 67000, 200000]
-
-  static GREEN_TOWER_UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
-  static RED_TOWER_UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
-  static YELLOW_TOWER_UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
 
   static LEFT_DIRECTION = 1
   static RIGHT_DIRECTION = 2
@@ -46,7 +12,6 @@ export class Const {
 
   static UPGRADE_MAX_LEVEL = 5
 
-  static TOTAL_ENEMIES = 5
   static CANVAS_WIDTH = 800
   static CANVAS_HEIGHT = 580
   static HUD_HEIGHT = 84
@@ -54,38 +19,11 @@ export class Const {
   static KEY_2 = 50
   static KEY_3 = 51
 
-  static CREATE_ENEMY_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
-
   static TOWER_OFFSET = 5
-
-  static GREEN_TOWER_INFLUENCE_AREA = 150
-  static RED_TOWER_INFLUENCE_AREA = 240
-  static YELLOW_TOWER_INFLUENCE_AREA = 290
 
   static ALPHA_INFLUENCE_AREA_FILL = 50
   static ALPHA_INFLUENCE_AREA_STROKE = 120
 
-  static ENEMY_VELOCITY = 1 // must be multiple of "this.Const.TILE_SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
-  static BOSS_VELOCITY = 0.5
-
-  static ENEMY_CHANGE_EYES_MAX_TIME = 50
-
-  static ENEMY_EXTEND_CLOSED_EYES_MAX_TIME = 20
-  static ENEMY_MIN_TIME_TO_CLOSE = 50
-  static ENEMY_MAX_TIME_TO_CLOSE = 200
-
-  static ENEMY_EYES_CENTER = 0
-  static ENEMY_EYES_LEFT = 1
-  static ENEMY_EYES_RIGHT = 2
-  static ENEMY_EYES_CLOSED = 3
-
-  static ENEMY_STATUS_ALIVE = 0
-  static ENEMY_STATUS_DEAD = 1
-
-  static PROGRESSBAR_WIDTH = 27
-  static PROGRESSBAR_HEIGHT = 7
-
-  static ENEMY_EXPLOSION_MAX_EMIT_TIME = 5
   static EXPLOSION_OFFSET = 25
 
   static GAME_STATUS_PLAYING = 0
@@ -102,25 +40,6 @@ export class Const {
 
   static DELAY_UPGRADE_MULTIPLIER = 5
 
-  static MAGIC_FIREBALL_SPEED = 10
-  static MAGIC_FIREBALLS = 3
-  static MAGIC_FIREBALL_DAMAGE = 500
-
-  static MAGIC_ICEBALL_SPEED = 10
-  static MAGIC_ICEBALLS = 3
-  static MAGIC_ICEBALL_FREEZE_ENEMY_MAX_TIME = 500
-
-  static MAGIC_UFO_SPEED = 10
-  static MAGIC_UFOS = 3
-
   static MAGIC_STATUS_ALIVE = 0
   static MAGIC_STATUS_DEAD = 1
-
-  static PARTICLE_EXPLOSION_ENEMY_SIZE = 12
-  static PARTICLE_EXPLOSION_FIREBALL_SIZE = 6
-  static PARTICLE_EXPLOSION_ICEBALL_SIZE = 6
-
-  static PARTICLE_EXPLOSION_ENEMY_COLOR = [255, 165, 0] as RGBType
-  static PARTICLE_EXPLOSION_MAGIC_FIREBALL_COLOR = [202, 191, 24] as RGBType
-  static PARTICLE_EXPLOSION_MAGIC_ICEBALL_COLOR = [0, 65, 255] as RGBType
 }

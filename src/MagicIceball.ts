@@ -1,8 +1,13 @@
 import { ConstType } from './types'
 import { Image } from 'p5'
 import { Enemy } from './Enemy'
+import { MagicFireball } from './MagicFireball'
 
 export class MagicIceball {
+  static SPEED = 10
+  static ICEBALLS = 3
+  static FREEZE_ENEMY_MAX_TIME = 500
+
   img: Image
   startX: number
   startY: number
@@ -42,23 +47,23 @@ export class MagicIceball {
   update() {
     switch (this.currentDirection) {
       case this.Const.LEFT_DIRECTION:
-        this.x = this.x - this.Const.MAGIC_FIREBALL_SPEED
+        this.x = this.x - MagicFireball.SPEED
         break
 
       case this.Const.RIGHT_DIRECTION:
-        this.x = this.x + this.Const.MAGIC_FIREBALL_SPEED
+        this.x = this.x + MagicFireball.SPEED
         break
 
       case this.Const.UP_DIRECTION:
-        this.y = this.y - this.Const.MAGIC_FIREBALL_SPEED
+        this.y = this.y - MagicFireball.SPEED
         break
 
       case this.Const.DOWN_DIRECTION:
-        this.y = this.y + this.Const.MAGIC_FIREBALL_SPEED
+        this.y = this.y + MagicFireball.SPEED
         break
     }
 
-    this.moveCount = this.moveCount + this.Const.MAGIC_FIREBALL_SPEED
+    this.moveCount = this.moveCount + MagicFireball.SPEED
 
     if (this.moveCount === this.Const.TILE_SIZE) {
       this.moveCount = 0

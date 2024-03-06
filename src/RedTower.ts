@@ -1,10 +1,17 @@
-import { ConstType, Position } from './types'
+import { ConstType, Position, RGBType } from './types'
 import { MathUtils } from './MathUtils'
 import { Image } from 'p5'
 import { ProgressBar } from './ProgressBar'
 import { Enemy } from './Enemy'
 
 export class RedTower {
+  static ID = 2
+  static COLOR = [185, 35, 35] as RGBType
+  static PROFIT_SELL_UPGRADE = [80, 110, 190, 420, 1200, 2880]
+  static COST_UPGRADE = [100, 150, 250, 500, 1300, 3000]
+  static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
+  static INFLUENCE_AREA = 240
+
   images: Image[]
   position: Position
   Const: ConstType
@@ -33,8 +40,8 @@ export class RedTower {
     this.upgrading = false
     this.progressBar = new this.ProgressBarClass(
       this.position,
-      this.Const.PROGRESSBAR_WIDTH,
-      this.Const.PROGRESSBAR_HEIGHT,
+      ProgressBar.WIDTH,
+      ProgressBar.HEIGHT,
     )
     this.upgradeProgress = 0
   }
@@ -65,7 +72,7 @@ export class RedTower {
   _drawUpgradeBackground() {
     strokeWeight(1)
     stroke('black')
-    fill(this.Const.RED_COLOR)
+    fill(RedTower.COLOR)
     rect(
       this.position.x + 4,
       this.position.y + 4,
@@ -92,14 +99,14 @@ export class RedTower {
   }
 
   getInfluenceArea() {
-    return this.Const.RED_TOWER_UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
+    return RedTower.UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
     if (selectedUpgradeLevel > this.Const.UPGRADE_MAX_LEVEL) {
-      return this.Const.COST_UPGRADE_RED_TOWER[this.Const.UPGRADE_MAX_LEVEL]
+      return RedTower.COST_UPGRADE[this.Const.UPGRADE_MAX_LEVEL]
     }
-    return this.Const.COST_UPGRADE_RED_TOWER[selectedUpgradeLevel]
+    return RedTower.COST_UPGRADE[selectedUpgradeLevel]
   }
 
   getCost() {
@@ -115,15 +122,15 @@ export class RedTower {
   }
 
   getSellProfit() {
-    return this.Const.PROFIT_SELL_UPGRADE_RED_TOWER[this.getUpgradeLevel()]
+    return RedTower.PROFIT_SELL_UPGRADE[this.getUpgradeLevel()]
   }
 
   getType() {
-    return this.Const.RED_TOWER
+    return RedTower.ID
   }
 
   getColor() {
-    return this.Const.RED_COLOR
+    return RedTower.COLOR
   }
 
   selectTarget(enemies: Enemy[]) {

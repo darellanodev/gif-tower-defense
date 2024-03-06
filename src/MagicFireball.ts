@@ -3,6 +3,10 @@ import { Image } from 'p5'
 import { Enemy } from './Enemy'
 
 export class MagicFireball {
+  static SPEED = 10
+  static FIREBALLS = 3
+  static DAMAGE = 500
+
   img: Image
   startX: number
   startY: number
@@ -42,23 +46,23 @@ export class MagicFireball {
   update() {
     switch (this.currentDirection) {
       case this.Const.LEFT_DIRECTION:
-        this.x = this.x - this.Const.MAGIC_FIREBALL_SPEED
+        this.x = this.x - MagicFireball.SPEED
         break
 
       case this.Const.RIGHT_DIRECTION:
-        this.x = this.x + this.Const.MAGIC_FIREBALL_SPEED
+        this.x = this.x + MagicFireball.SPEED
         break
 
       case this.Const.UP_DIRECTION:
-        this.y = this.y - this.Const.MAGIC_FIREBALL_SPEED
+        this.y = this.y - MagicFireball.SPEED
         break
 
       case this.Const.DOWN_DIRECTION:
-        this.y = this.y + this.Const.MAGIC_FIREBALL_SPEED
+        this.y = this.y + MagicFireball.SPEED
         break
     }
 
-    this.moveCount = this.moveCount + this.Const.MAGIC_FIREBALL_SPEED
+    this.moveCount = this.moveCount + MagicFireball.SPEED
 
     if (this.moveCount === this.Const.TILE_SIZE) {
       this.moveCount = 0
@@ -98,7 +102,7 @@ export class MagicFireball {
   }
 
   addDamage(enemy: Enemy) {
-    enemy.addDamage(this.Const.MAGIC_FIREBALL_DAMAGE)
+    enemy.addDamage(MagicFireball.DAMAGE)
   }
 
   isAlive() {
