@@ -1,12 +1,12 @@
-import { ConstType, Position, RGBType } from './types'
+import { ConstType, Position } from './types'
 import { MathUtils } from './MathUtils'
 import { ProgressBar } from './ProgressBar'
 import { Image } from 'p5'
 import { Enemy } from './Enemy'
+import { Color } from './Color'
 
 export class YellowTower {
   static ID = 3
-  static COLOR = [202, 191, 24] as RGBType
   static PROFIT_SELL_UPGRADE = [680, 2460, 7440, 21920, 66900, 199880]
   static COST_UPGRADE = [700, 2500, 7500, 22000, 67000, 200000]
   static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
@@ -68,7 +68,7 @@ export class YellowTower {
   _drawUpgradeBackground() {
     strokeWeight(1)
     stroke('black')
-    fill(YellowTower.COLOR)
+    fill(Color.YELLOW)
     rect(
       this.position.x,
       this.position.y,
@@ -126,7 +126,7 @@ export class YellowTower {
   }
 
   getColor() {
-    return YellowTower.COLOR
+    return Color.YELLOW
   }
 
   selectTarget(enemies: Enemy[]) {

@@ -1,8 +1,4 @@
-import { RGBType } from './types'
-
 export class Const {
-  static GRAY_COLOR = [50, 50, 50] as RGBType
-
   static LEFT_DIRECTION = 1
   static RIGHT_DIRECTION = 2
   static UP_DIRECTION = 3

@@ -1,13 +1,12 @@
-import { ConstType, Position, RGBType } from './types'
+import { ConstType, Position } from './types'
 import { MathUtils } from './MathUtils'
 import { Enemy } from './Enemy'
 import { Image } from 'p5'
 import { ProgressBar } from './ProgressBar'
-import { RedTower } from './RedTower'
+import { Color } from './Color'
 
 export class GreenTower {
   static ID = 1
-  static COLOR = [75, 185, 35] as RGBType
   static PROFIT_SELL_UPGRADE = [30, 35, 65, 220, 900, 1880]
   static DAMAGE_UPGRADE = [1, 2, 4, 6, 12, 24]
   static COST_UPGRADE = [50, 75, 125, 300, 1000, 2000]
@@ -83,7 +82,7 @@ export class GreenTower {
 
   _drawShotToEnemy() {
     strokeWeight(3)
-    stroke(RedTower.COLOR)
+    stroke(Color.RED)
     line(
       -1,
       -18,
@@ -95,7 +94,7 @@ export class GreenTower {
   _drawUpgradeBackground() {
     strokeWeight(1)
     stroke('black')
-    fill(GreenTower.COLOR)
+    fill(Color.GREEN)
     rect(
       this.position.x + 4,
       this.position.y + 4,
@@ -185,7 +184,7 @@ export class GreenTower {
   }
 
   getColor() {
-    return GreenTower.COLOR
+    return Color.GREEN
   }
 
   _isDistanceIntoInfluenceArea(distance: number) {

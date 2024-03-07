@@ -22,8 +22,6 @@ export type MapDataType = {
 }
 
 export type ConstType = {
-  GRAY_COLOR: RGBType
-
   LEFT_DIRECTION: number
   RIGHT_DIRECTION: number
   UP_DIRECTION: number
