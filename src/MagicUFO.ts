@@ -1,5 +1,5 @@
-import { ConstType } from './types'
 import { Image } from 'p5'
+import { Const } from './Const'
 
 export class MagicUFO {
   static SPEED = 10
@@ -9,7 +9,6 @@ export class MagicUFO {
   startX: number
   startY: number
   orders: number[]
-  Const: ConstType
 
   x: number
   y: number
@@ -17,18 +16,11 @@ export class MagicUFO {
   moveCount: number = 0
   indexOrder: number = 0
 
-  constructor(
-    img: Image,
-    startX: number,
-    startY: number,
-    orders: number[],
-    Const: ConstType,
-  ) {
+  constructor(img: Image, startX: number, startY: number, orders: number[]) {
     this.img = img
     this.startX = startX
     this.startY = startY
     this.orders = orders
-    this.Const = Const
 
     this.x = this.startX
     this.y = this.startY
@@ -37,26 +29,26 @@ export class MagicUFO {
 
   update() {
     switch (this.currentDirection) {
-      case this.Const.LEFT_DIRECTION:
+      case Const.LEFT_DIRECTION:
         this.x = this.x - MagicUFO.SPEED
         break
 
-      case this.Const.RIGHT_DIRECTION:
+      case Const.RIGHT_DIRECTION:
         this.x = this.x + MagicUFO.SPEED
         break
 
-      case this.Const.UP_DIRECTION:
+      case Const.UP_DIRECTION:
         this.y = this.y - MagicUFO.SPEED
         break
 
-      case this.Const.DOWN_DIRECTION:
+      case Const.DOWN_DIRECTION:
         this.y = this.y + MagicUFO.SPEED
         break
     }
 
     this.moveCount = this.moveCount + MagicUFO.SPEED
 
-    if (this.moveCount === this.Const.TILE_SIZE) {
+    if (this.moveCount === Const.TILE_SIZE) {
       this.moveCount = 0
       this.indexOrder++
       if (this.indexOrder == this.orders.length) {

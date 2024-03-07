@@ -1,9 +1,10 @@
-import { ConstType, Position } from './types'
+import { Position } from './types'
 import { MathUtils } from './MathUtils'
 import { ProgressBar } from './ProgressBar'
 import { Image } from 'p5'
 import { Enemy } from './Enemy'
 import { ConstColor } from './ConstColor'
+import { Const } from './Const'
 
 export class YellowTower {
   static ID = 3
@@ -14,7 +15,6 @@ export class YellowTower {
 
   images: Image[]
   position: Position
-  Const: ConstType
   MathUtilsClass: typeof MathUtils
   ProgressBarClass: typeof ProgressBar
 
@@ -26,13 +26,11 @@ export class YellowTower {
   constructor(
     images: Image[],
     position: Position,
-    Const: ConstType,
     MathUtilsClass: typeof MathUtils,
     ProgressBarClass: typeof ProgressBar,
   ) {
     this.images = images
     this.position = { ...position }
-    this.Const = Const
     this.MathUtilsClass = MathUtilsClass
     this.ProgressBarClass = ProgressBarClass
 
@@ -59,19 +57,14 @@ export class YellowTower {
   }
 
   isMaxUpgraded() {
-    return this.upgradeLevel === this.Const.UPGRADE_MAX_LEVEL - 1
+    return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1
   }
 
   _drawUpgradeBackground() {
     strokeWeight(1)
     stroke('black')
     fill(ConstColor.YELLOW)
-    rect(
-      this.position.x,
-      this.position.y,
-      this.Const.TILE_SIZE,
-      this.Const.TILE_SIZE,
-    )
+    rect(this.position.x, this.position.y, Const.TILE_SIZE, Const.TILE_SIZE)
   }
 
   draw() {
@@ -96,8 +89,8 @@ export class YellowTower {
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
-    if (selectedUpgradeLevel > this.Const.UPGRADE_MAX_LEVEL) {
-      return YellowTower.COST_UPGRADE[this.Const.UPGRADE_MAX_LEVEL]
+    if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
+      return YellowTower.COST_UPGRADE[Const.UPGRADE_MAX_LEVEL]
     }
     return YellowTower.COST_UPGRADE[selectedUpgradeLevel]
   }
@@ -108,7 +101,7 @@ export class YellowTower {
 
   getNextLevelUpgradeCost() {
     if (this.isMaxUpgraded()) {
-      return this.getCostWhenUpgradeLevelIs(this.Const.UPGRADE_MAX_LEVEL - 1)
+      return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1)
     } else {
       return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1)
     }

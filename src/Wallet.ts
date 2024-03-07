@@ -1,15 +1,12 @@
-import { ConstType } from './types'
 import { GreenTower } from './GreenTower'
 import { RedTower } from './RedTower'
 import { YellowTower } from './YellowTower'
 
 export class Wallet {
   money: number
-  Const: ConstType
 
-  constructor(money: number, Const: ConstType) {
+  constructor(money: number) {
     this.money = money
-    this.Const = Const
   }
 
   getMoney(): number {

@@ -1,25 +1,19 @@
-import { ConstType, TowerType, Position } from './types'
+import { TowerType, Position } from './types'
 import { TowerGenerator } from './TowerGenerator'
 import { Image } from 'p5'
 import { Enemy } from './Enemy'
+import { Const } from './Const'
 
 export class OrangeTile {
   img: Image
   position: Position
-  Const: ConstType
   towerGenerator: TowerGenerator
 
   tower: TowerType = null
 
-  constructor(
-    img: Image,
-    position: Position,
-    Const: ConstType,
-    towerGenerator: TowerGenerator,
-  ) {
+  constructor(img: Image, position: Position, towerGenerator: TowerGenerator) {
     this.img = img
     this.position = { ...position }
-    this.Const = Const
     this.towerGenerator = towerGenerator
   }
 
@@ -74,13 +68,13 @@ export class OrangeTile {
 
     if (
       this.position.x < mouse_x &&
-      this.position.x + this.Const.TILE_SIZE > mouse_x
+      this.position.x + Const.TILE_SIZE > mouse_x
     ) {
       insideX = true
     }
     if (
       this.position.y < mouse_y &&
-      this.position.y + this.Const.TILE_SIZE > mouse_y
+      this.position.y + Const.TILE_SIZE > mouse_y
     ) {
       insideY = true
     }

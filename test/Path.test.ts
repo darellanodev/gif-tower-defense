@@ -30,7 +30,6 @@ const towerGenerator = new TowerGenerator(
   greenTowerImages,
   redTowerImages,
   yellowTowerImages,
-  Const,
   GreenTower,
   RedTower,
   YellowTower,
@@ -41,7 +40,6 @@ const towerGenerator = new TowerGenerator(
 const tileGenerator = new TileGenerator(
   levelMap,
   mapimages,
-  Const,
   OrangeTile,
   PathTile,
   StartTile,
@@ -52,7 +50,7 @@ const pathTiles = tileGenerator.pathTiles()
 const startTile = tileGenerator.startTile()
 const endTile = tileGenerator.endTile()
 
-const path = new Path(startTile, endTile, pathTiles, Const)
+const path = new Path(startTile, endTile, pathTiles)
 
 const isIncluded = (
   bigGroupElements: number[],
@@ -86,7 +84,7 @@ describe('enemies initial position', () => {
     const expectedY = startTilePosition.y
     const expected = { x: expectedX, y: expectedY }
 
-    const path = new Path(startTile, endTile, pathTiles, Const)
+    const path = new Path(startTile, endTile, pathTiles)
 
     const result = path.getEnemiesInitialPosition()
 
@@ -114,7 +112,7 @@ describe('finds a pathtile', () => {
       new PathTile(200, 300),
     ]
 
-    const path = new Path(startTile, endTile, pathTiles, Const)
+    const path = new Path(startTile, endTile, pathTiles)
 
     const result = path.getTileInPosition(150, 300)
 
@@ -322,7 +320,6 @@ describe('invalid map', () => {
     const tileGenerator = new TileGenerator(
       levelMap,
       mapimages,
-      Const,
       OrangeTile,
       PathTile,
       StartTile,
@@ -333,7 +330,7 @@ describe('invalid map', () => {
     const startTile = tileGenerator.startTile()
     const endTile = tileGenerator.endTile()
 
-    const path = new Path(startTile, endTile, pathTiles, Const)
+    const path = new Path(startTile, endTile, pathTiles)
 
     const orders = path.makeOrders()
 

@@ -1,5 +1,6 @@
 import { ParticleSystem } from './ParticleSystem'
-import { ConstType, RGBType } from './types'
+import { RGBType } from './types'
+import { Const } from './Const'
 
 export class EnemyExplosion {
   static MAX_EMIT_TIME = 5
@@ -8,7 +9,6 @@ export class EnemyExplosion {
 
   x: number
   y: number
-  Const: ConstType
   ParticleSystemClass: typeof ParticleSystem
 
   emisionTime: number = 0
@@ -18,16 +18,14 @@ export class EnemyExplosion {
   constructor(
     x: number,
     y: number,
-    Const: ConstType,
     ParticleSystemClass: typeof ParticleSystem,
   ) {
     this.x = x
     this.y = y
-    this.Const = Const
     this.particleSystem = new ParticleSystemClass(
       createVector(
-        this.x + this.Const.EXPLOSION_OFFSET,
-        this.y + this.Const.EXPLOSION_OFFSET,
+        this.x + Const.EXPLOSION_OFFSET,
+        this.y + Const.EXPLOSION_OFFSET,
       ),
       EnemyExplosion.SIZE,
       EnemyExplosion.COLOR,

@@ -1,5 +1,6 @@
 import { ParticleSystem } from './ParticleSystem'
-import { ConstType, RGBType } from './types'
+import { RGBType } from './types'
+import { Const } from './Const'
 
 export class MagicFireballExplosion {
   static MAX_EMIT_TIME = 5
@@ -8,7 +9,6 @@ export class MagicFireballExplosion {
 
   x: number
   y: number
-  Const: ConstType
   ParticleSystemClass: typeof ParticleSystem
 
   emisionTime: number = 0
@@ -18,16 +18,14 @@ export class MagicFireballExplosion {
   constructor(
     x: number,
     y: number,
-    Const: ConstType,
     ParticleSystemClass: typeof ParticleSystem,
   ) {
     this.x = x
     this.y = y
-    this.Const = Const
     this.particleSystem = new ParticleSystemClass(
       createVector(
-        this.x + this.Const.EXPLOSION_OFFSET,
-        this.y + this.Const.EXPLOSION_OFFSET,
+        this.x + Const.EXPLOSION_OFFSET,
+        this.y + Const.EXPLOSION_OFFSET,
       ),
       MagicFireballExplosion.SIZE,
       MagicFireballExplosion.COLOR,

@@ -114,7 +114,6 @@ function setup() {
     greenTowerImages,
     redTowerImages,
     yellowTowerImages,
-    Const,
     GreenTower,
     RedTower,
     YellowTower,
@@ -125,7 +124,6 @@ function setup() {
   const tileGenerator = new TileGenerator(
     levelMap,
     tileImages,
-    Const,
     OrangeTile,
     PathTile,
     StartTile,
@@ -138,11 +136,11 @@ function setup() {
   endTile = tileGenerator.endTile()
   const pathTiles = tileGenerator.pathTiles()
 
-  const path = new Path(startTile, endTile, pathTiles, Const)
+  const path = new Path(startTile, endTile, pathTiles)
   orders = path.makeOrders()
   initialEnemiesPosition = path.getEnemiesInitialPosition()
 
-  wallet = new Wallet(tileGenerator.getInitialMoney(), Const)
+  wallet = new Wallet(tileGenerator.getInitialMoney())
   score = new Score()
   lives = 7
 
@@ -158,7 +156,6 @@ function setup() {
     hudImages,
     hudIconImages,
     wallet,
-    Const,
     lives,
     score,
     TextProperties,
@@ -183,7 +180,7 @@ function setup() {
   magicUFOs = []
   magicUFOsCount = MagicUFO.UFOS
 
-  influenceArea = new InfluenceArea(Const)
+  influenceArea = new InfluenceArea()
 
   gameStatus = Const.GAME_STATUS_PLAYING
 }
@@ -296,7 +293,6 @@ function createNewEnemy(waveEnemy: number, wave: number) {
       orders,
       endurance,
       isBoss,
-      Const,
       Random,
       ProgressBar,
     ),
@@ -311,7 +307,6 @@ function createNewMagicFireball() {
         initialEnemiesPosition.x,
         initialEnemiesPosition.y,
         orders,
-        Const,
       ),
     )
     magicFireballsCount--
@@ -327,7 +322,6 @@ function createNewMagicIceball() {
         initialEnemiesPosition.x,
         initialEnemiesPosition.y,
         orders,
-        Const,
       ),
     )
     magicIceballsCount--
@@ -343,7 +337,6 @@ function createNewMagicUFO() {
         initialEnemiesPosition.x,
         initialEnemiesPosition.y,
         orders,
-        Const,
       ),
     )
     magicUFOsCount--
@@ -364,7 +357,6 @@ function createNewBoss(wave: number) {
       orders,
       endurance,
       isBoss,
-      Const,
       Random,
       ProgressBar,
     ),
@@ -378,7 +370,6 @@ function handleEnemyExplosions() {
       new EnemyExplosion(
         enemy.getPosition().x,
         enemy.getPosition().y,
-        Const,
         ParticleSystem,
       ),
     )
@@ -511,7 +502,7 @@ function handleMagicFireballCollision(
 
 function newMagicFireballExplosion(posX: number, posY: number) {
   magicFireballExplosions.push(
-    new MagicFireballExplosion(posX, posY, Const, ParticleSystem),
+    new MagicFireballExplosion(posX, posY, ParticleSystem),
   )
 }
 
@@ -552,7 +543,7 @@ function handleMagicIceballCollision(magicIceball: MagicIceball, enemy: Enemy) {
 
 function newMagicIceballExplosion(posX: number, posY: number) {
   magicIceballExplosions.push(
-    new MagicIceballExplosion(posX, posY, Const, ParticleSystem),
+    new MagicIceballExplosion(posX, posY, ParticleSystem),
   )
 }
 

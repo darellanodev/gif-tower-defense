@@ -1,7 +1,7 @@
-import { ConstType } from './types'
 import { Image } from 'p5'
 import { Enemy } from './Enemy'
 import { MagicFireball } from './MagicFireball'
+import { Const } from './Const'
 
 export class MagicIceball {
   static SPEED = 10
@@ -12,7 +12,6 @@ export class MagicIceball {
   startX: number
   startY: number
   orders: number[]
-  Const: ConstType
 
   x: number
   y: number
@@ -22,47 +21,40 @@ export class MagicIceball {
   touchedEnemiesIds: number[] = []
   status: number
 
-  constructor(
-    img: Image,
-    startX: number,
-    startY: number,
-    orders: number[],
-    Const: ConstType,
-  ) {
+  constructor(img: Image, startX: number, startY: number, orders: number[]) {
     this.img = img
     this.startX = startX
     this.startY = startY
     this.orders = orders
-    this.Const = Const
 
     this.x = this.startX
     this.y = this.startY
     this.currentDirection = this.orders[this.indexOrder]
-    this.status = this.Const.MAGIC_STATUS_ALIVE
+    this.status = Const.MAGIC_STATUS_ALIVE
   }
 
   update() {
     switch (this.currentDirection) {
-      case this.Const.LEFT_DIRECTION:
+      case Const.LEFT_DIRECTION:
         this.x = this.x - MagicFireball.SPEED
         break
 
-      case this.Const.RIGHT_DIRECTION:
+      case Const.RIGHT_DIRECTION:
         this.x = this.x + MagicFireball.SPEED
         break
 
-      case this.Const.UP_DIRECTION:
+      case Const.UP_DIRECTION:
         this.y = this.y - MagicFireball.SPEED
         break
 
-      case this.Const.DOWN_DIRECTION:
+      case Const.DOWN_DIRECTION:
         this.y = this.y + MagicFireball.SPEED
         break
     }
 
     this.moveCount = this.moveCount + MagicFireball.SPEED
 
-    if (this.moveCount === this.Const.TILE_SIZE) {
+    if (this.moveCount === Const.TILE_SIZE) {
       this.moveCount = 0
       this.indexOrder++
       if (this.indexOrder == this.orders.length) {
@@ -103,7 +95,7 @@ export class MagicIceball {
   }
 
   isAlive() {
-    return this.status == this.Const.MAGIC_STATUS_ALIVE
+    return this.status == Const.MAGIC_STATUS_ALIVE
   }
 
   getX() {

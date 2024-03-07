@@ -1,8 +1,9 @@
 import { ProgressBar } from './ProgressBar'
-import { ConstType, Position } from './types'
+import { Position } from './types'
 import { Random } from './Random'
 import { Image } from 'p5'
 import { MagicIceball } from './MagicIceball'
+import { Const } from './Const'
 
 export class Enemy {
   static VELOCITY = 1 // must be multiple of "this.Const.TILE_SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
@@ -26,7 +27,6 @@ export class Enemy {
   orders: number[]
   endurance: number
   isBoss: boolean
-  Const: ConstType
   RandomClass: typeof Random
   ProgressBarClass: typeof ProgressBar
 
@@ -56,7 +56,6 @@ export class Enemy {
     orders: number[],
     endurance: number,
     isBoss: boolean,
-    Const: ConstType,
     RandomClass: typeof Random,
     ProgressBarClass: typeof ProgressBar,
   ) {
@@ -65,7 +64,6 @@ export class Enemy {
     this.orders = orders
     this.endurance = endurance
     this.isBoss = isBoss
-    this.Const = Const
     this.RandomClass = RandomClass
     this.ProgressBarClass = ProgressBarClass
 
@@ -154,26 +152,26 @@ export class Enemy {
     const velocity = this.isBoss ? Enemy.BOSS_VELOCITY : Enemy.VELOCITY
 
     switch (this.currentDirection) {
-      case this.Const.LEFT_DIRECTION:
+      case Const.LEFT_DIRECTION:
         this.position.x = this.position.x - velocity
         break
 
-      case this.Const.RIGHT_DIRECTION:
+      case Const.RIGHT_DIRECTION:
         this.position.x = this.position.x + velocity
         break
 
-      case this.Const.UP_DIRECTION:
+      case Const.UP_DIRECTION:
         this.position.y = this.position.y - velocity
         break
 
-      case this.Const.DOWN_DIRECTION:
+      case Const.DOWN_DIRECTION:
         this.position.y = this.position.y + velocity
         break
     }
 
     this.moveCount = this.moveCount + velocity
 
-    if (this.moveCount === this.Const.TILE_SIZE) {
+    if (this.moveCount === Const.TILE_SIZE) {
       this.moveCount = 0
       this.indexOrder++
       if (this.indexOrder == this.orders.length) {

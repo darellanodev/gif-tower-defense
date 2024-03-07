@@ -1,4 +1,4 @@
-import { ConstType, TowerType } from './types'
+import { TowerType } from './types'
 import { TextProperties } from './TextProperties'
 import { ProgressBar } from './ProgressBar'
 import { Score } from './Score'
@@ -10,6 +10,7 @@ import { YellowTower } from './YellowTower'
 import { MagicFireball } from './MagicFireball'
 import { MagicIceball } from './MagicIceball'
 import { MagicUFO } from './MagicUFO'
+import { Const } from './Const'
 
 export class Hud {
   static NORMAL = 0
@@ -26,7 +27,6 @@ export class Hud {
   hudImages: Image[]
   hudIconImages: Image[]
   wallet: Wallet
-  Const: ConstType
   lives: number
   score: Score
   TextPropertiesClass: typeof TextProperties
@@ -51,7 +51,6 @@ export class Hud {
     hudImages: Image[],
     hudIconImages: Image[],
     wallet: Wallet,
-    Const: ConstType,
     lives: number,
     score: Score,
     TextPropertiesClass: typeof TextProperties,
@@ -62,7 +61,6 @@ export class Hud {
     this.hudImages = hudImages
     this.hudIconImages = hudIconImages
     this.wallet = wallet
-    this.Const = Const
     this.lives = lives
     this.score = score
     this.TextPropertiesClass = TextPropertiesClass
@@ -333,7 +331,7 @@ export class Hud {
   }
 
   selectTowerHudType(tower: TowerType) {
-    if (tower.getUpgradeLevel() < this.Const.UPGRADE_MAX_LEVEL) {
+    if (tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL) {
       this.setType(Hud.UPGRADING)
     } else {
       this.setType(Hud.UPGRADING_MAX)

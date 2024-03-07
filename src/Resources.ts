@@ -1,11 +1,8 @@
-import { ConstType } from './types'
 import { MathUtils } from './MathUtils'
 import { Const } from './Const'
 import { Enemy } from './Enemy'
 
 export class Resources {
-  Const: ConstType
-
   static enemies() {
     const enemiesImages: any[] = []
     const countEnemiesAndBoss = Enemy.TOTAL_ENEMIES + 1

@@ -1,18 +1,15 @@
-import { ConstType, Position } from './types'
+import { Position } from './types'
 import { GreenTower } from './GreenTower'
 import { RedTower } from './RedTower'
 import { YellowTower } from './YellowTower'
 import { ConstColor } from './ConstColor'
+import { Const } from './Const'
 
 export class InfluenceArea {
   static ALPHA_FILL = 50
   static ALPHA_STROKE = 120
 
-  Const: ConstType
-
-  constructor(Const: ConstType) {
-    this.Const = Const
-  }
+  constructor() {}
 
   _setGrayInfluenceAreaColor() {
     stroke(...ConstColor.GRAY, InfluenceArea.ALPHA_STROKE)
@@ -82,8 +79,8 @@ export class InfluenceArea {
     let y = towerPosition.y
 
     if (tower.getType() === GreenTower.ID || tower.getType() === RedTower.ID) {
-      x += this.Const.TOWER_OFFSET
-      y += this.Const.TOWER_OFFSET
+      x += Const.TOWER_OFFSET
+      y += Const.TOWER_OFFSET
     }
     if (canUpgrade) {
       this._setInfluenceAreaColor(tower.getType())
@@ -94,6 +91,6 @@ export class InfluenceArea {
   }
 
   _drawCircle(x: number, y: number, diameter: number) {
-    circle(x + this.Const.TILE_SIZE / 2, y + this.Const.TILE_SIZE / 2, diameter)
+    circle(x + Const.TILE_SIZE / 2, y + Const.TILE_SIZE / 2, diameter)
   }
 }

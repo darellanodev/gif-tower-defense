@@ -1,9 +1,10 @@
-import { ConstType, Position } from './types'
+import { Position } from './types'
 import { MathUtils } from './MathUtils'
 import { Enemy } from './Enemy'
 import { Image } from 'p5'
 import { ProgressBar } from './ProgressBar'
 import { ConstColor } from './ConstColor'
+import { Const } from './Const'
 
 export class GreenTower {
   static ID = 1
@@ -15,7 +16,6 @@ export class GreenTower {
 
   images: Image[]
   position: Position
-  Const: ConstType
   MathUtilsClass: typeof MathUtils
   ProgressBarClass: typeof ProgressBar
 
@@ -30,20 +30,18 @@ export class GreenTower {
   constructor(
     images: Image[],
     position: Position,
-    Const: ConstType,
     MathUtilsClass: typeof MathUtils,
     ProgressBarClass: typeof ProgressBar,
   ) {
     this.images = images
     this.position = { ...position }
-    this.Const = Const
     this.MathUtilsClass = MathUtilsClass
     this.ProgressBarClass = ProgressBarClass
 
     this.progressBar = new this.ProgressBarClass(
       {
-        x: this.position.x + this.Const.TOWER_OFFSET,
-        y: this.position.y + this.Const.TOWER_OFFSET,
+        x: this.position.x + Const.TOWER_OFFSET,
+        y: this.position.y + Const.TOWER_OFFSET,
       },
       ProgressBar.WIDTH,
       ProgressBar.HEIGHT,
@@ -55,7 +53,7 @@ export class GreenTower {
       this.upgrading = true
       this.upgradeLevel++
       this.delayUpgradeProgress =
-        this.Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel
+        Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel
     }
   }
 
@@ -72,7 +70,7 @@ export class GreenTower {
   }
 
   isMaxUpgraded() {
-    return this.upgradeLevel === this.Const.UPGRADE_MAX_LEVEL - 1
+    return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1
   }
 
   _drawShotToEnemy() {
@@ -93,8 +91,8 @@ export class GreenTower {
     rect(
       this.position.x + 4,
       this.position.y + 4,
-      this.Const.TILE_SIZE,
-      this.Const.TILE_SIZE,
+      Const.TILE_SIZE,
+      Const.TILE_SIZE,
     )
   }
 
@@ -106,7 +104,7 @@ export class GreenTower {
           this.upgradeProgress++
           this.progressBar.setProgress(this.upgradeProgress)
           this.delayUpgradeProgress =
-            this.Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel
+            Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel
         } else {
           this.delayUpgradeProgress--
         }
@@ -152,8 +150,8 @@ export class GreenTower {
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
-    if (selectedUpgradeLevel > this.Const.UPGRADE_MAX_LEVEL) {
-      return GreenTower.COST_UPGRADE[this.Const.UPGRADE_MAX_LEVEL]
+    if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
+      return GreenTower.COST_UPGRADE[Const.UPGRADE_MAX_LEVEL]
     }
     return GreenTower.COST_UPGRADE[selectedUpgradeLevel]
   }
@@ -164,7 +162,7 @@ export class GreenTower {
 
   getNextLevelUpgradeCost() {
     if (this.isMaxUpgraded()) {
-      return this.getCostWhenUpgradeLevelIs(this.Const.UPGRADE_MAX_LEVEL - 1)
+      return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1)
     } else {
       return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1)
     }

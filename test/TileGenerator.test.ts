@@ -28,7 +28,6 @@ const towerGenerator = new TowerGenerator(
   greenTowerImages,
   redTowerImages,
   yellowTowerImages,
-  Const,
   GreenTower,
   RedTower,
   YellowTower,
@@ -46,7 +45,6 @@ test('TileGenerator throws an exception when an empty string is passed to it', (
       new TileGenerator(
         invalidLevelMap,
         mapimages,
-        Const,
         OrangeTile,
         PathTile,
         StartTile,
@@ -60,7 +58,6 @@ test('TileGenerator generate orange tiles', () => {
   const tileGenerator = new TileGenerator(
     levelMap,
     mapimages,
-    Const,
     OrangeTile,
     PathTile,
     StartTile,
@@ -78,7 +75,6 @@ test('TileGenerator generate path tiles', () => {
   const tileGenerator = new TileGenerator(
     levelMap,
     mapimages,
-    Const,
     OrangeTile,
     PathTile,
     StartTile,
@@ -96,7 +92,6 @@ test('TileGenerator generate start tile', () => {
   const tileGenerator = new TileGenerator(
     levelMap,
     mapimages,
-    Const,
     OrangeTile,
     PathTile,
     StartTile,
@@ -114,7 +109,6 @@ test('TileGenerator generate end tile', () => {
   const tileGenerator = new TileGenerator(
     levelMap,
     mapimages,
-    Const,
     OrangeTile,
     PathTile,
     StartTile,
@@ -134,7 +128,6 @@ test('TileGenerator generate the initial money', () => {
   const tileGenerator = new TileGenerator(
     levelMap,
     mapimages,
-    Const,
     OrangeTile,
     PathTile,
     StartTile,
