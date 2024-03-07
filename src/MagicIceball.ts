@@ -13,12 +13,13 @@ export class MagicIceball {
   startY: number
   orders: number[]
   Const: ConstType
+
   x: number
   y: number
   currentDirection: number
-  moveCount: number
-  indexOrder: number
-  touchedEnemiesIds: number[]
+  moveCount: number = 0
+  indexOrder: number = 0
+  touchedEnemiesIds: number[] = []
   status: number
 
   constructor(
@@ -36,11 +37,7 @@ export class MagicIceball {
 
     this.x = this.startX
     this.y = this.startY
-    this.moveCount = 0
-    this.indexOrder = 0
     this.currentDirection = this.orders[this.indexOrder]
-
-    this.touchedEnemiesIds = []
     this.status = this.Const.MAGIC_STATUS_ALIVE
   }
 

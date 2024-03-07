@@ -4,17 +4,13 @@ import { RGBType } from './types'
 
 export class ParticleSystem {
   origin: Vector
-  particles: Particle[]
   particlesSize: number
   particlesColor: RGBType
 
-  constructor(
-    position: Vector,
-    particlesSize: number,
-    particlesColor: RGBType,
-  ) {
-    this.origin = position.copy()
-    this.particles = []
+  particles: Particle[] = []
+
+  constructor(origin: Vector, particlesSize: number, particlesColor: RGBType) {
+    this.origin = origin.copy()
     this.particlesSize = particlesSize
     this.particlesColor = particlesColor
   }

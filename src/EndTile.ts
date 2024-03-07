@@ -2,8 +2,8 @@ import { Image } from 'p5'
 import { Position } from './types'
 
 export class EndTile {
-  position: Position
   img: Image
+  position: Position
 
   constructor(img: Image, position: Position) {
     this.img = img

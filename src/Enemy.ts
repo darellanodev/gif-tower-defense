@@ -37,24 +37,24 @@ export class Enemy {
   ProgressBarClass: typeof ProgressBar
 
   id: number
-  imgIndex: number
-  imgIndexBeforeEyesClosed: number
+  imgIndex: number = Enemy.EYES_CENTER
+  imgIndexBeforeEyesClosed: number = Enemy.EYES_CENTER
   eyesSequence: number[]
   healthBar: ProgressBar
-  status: number
-  damage: number
+  status: number = Enemy.STATUS_ALIVE
+  damage: number = 0
   position: Position
   currentDirection: number
-  moveCount: number
-  indexOrder: number
-  changeEyesTime: number
-  indexEyesSecuence: number
-  closeEyesTime: number
-  extendClosedEyesTime: number
-  randomCloseEyes: number
-  winned: boolean
-  freezed: boolean
-  freezedTime: number
+  moveCount: number = 0
+  indexOrder: number = 0
+  changeEyesTime: number = 0
+  indexEyesSecuence: number = 0
+  closeEyesTime: number = 0
+  extendClosedEyesTime: number = 0
+  randomCloseEyes: number = 0
+  winned: boolean = false
+  freezed: boolean = false
+  freezedTime: number = 0
 
   constructor(
     images: Image[],
@@ -66,9 +66,6 @@ export class Enemy {
     RandomClass: typeof Random,
     ProgressBarClass: typeof ProgressBar,
   ) {
-    Enemy.numberOfEnemies++
-    this.id = Enemy.numberOfEnemies
-
     this.images = images
     this.startPosition = { ...startPosition }
     this.orders = orders
@@ -78,8 +75,10 @@ export class Enemy {
     this.RandomClass = RandomClass
     this.ProgressBarClass = ProgressBarClass
 
-    this.imgIndex = Enemy.EYES_CENTER
-    this.imgIndexBeforeEyesClosed = Enemy.EYES_CENTER
+    // generate Id
+    Enemy.numberOfEnemies++
+    this.id = Enemy.numberOfEnemies
+
     this.eyesSequence = [
       Enemy.EYES_LEFT,
       Enemy.EYES_CENTER,
@@ -92,23 +91,9 @@ export class Enemy {
       ProgressBar.WIDTH,
       ProgressBar.HEIGHT,
     )
-    this.status = Enemy.STATUS_ALIVE
-    this.damage = 0
 
     this.position = { ...this.startPosition }
-    this.moveCount = 0
-    this.indexOrder = 0
     this.currentDirection = this.orders[this.indexOrder]
-
-    this.changeEyesTime = 0
-    this.indexEyesSecuence = 0
-    this.closeEyesTime = 0
-    this.extendClosedEyesTime = 0
-    this.randomCloseEyes = 0
-
-    this.winned = false
-    this.freezed = false
-    this.freezedTime = 0
   }
 
   getEndurance() {

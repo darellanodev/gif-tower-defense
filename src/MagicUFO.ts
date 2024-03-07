@@ -10,11 +10,12 @@ export class MagicUFO {
   startY: number
   orders: number[]
   Const: ConstType
+
   x: number
   y: number
   currentDirection: number
-  moveCount: number
-  indexOrder: number
+  moveCount: number = 0
+  indexOrder: number = 0
 
   constructor(
     img: Image,
@@ -31,8 +32,6 @@ export class MagicUFO {
 
     this.x = this.startX
     this.y = this.startY
-    this.moveCount = 0
-    this.indexOrder = 0
     this.currentDirection = this.orders[this.indexOrder]
   }
 

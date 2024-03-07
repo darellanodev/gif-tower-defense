@@ -7,7 +7,8 @@ export class ProgressBar {
   position: Position
   width: number
   height: number
-  progress: number
+
+  progress: number = 0
   maxProgress: number
 
   constructor(position: Position, width: number, height: number) {
@@ -15,7 +16,6 @@ export class ProgressBar {
     this.width = width
     this.height = height
 
-    this.progress = 0
     this.maxProgress = this.width - 1
   }
 

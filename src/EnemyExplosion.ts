@@ -10,8 +10,9 @@ export class EnemyExplosion {
   y: number
   Const: ConstType
   ParticleSystemClass: typeof ParticleSystem
-  emisionTime: number
-  finished: boolean
+
+  emisionTime: number = 0
+  finished: boolean = false
 
   particleSystem: ParticleSystem
   constructor(
@@ -31,8 +32,6 @@ export class EnemyExplosion {
       EnemyExplosion.SIZE,
       EnemyExplosion.COLOR,
     )
-    this.emisionTime = 0
-    this.finished = false
   }
 
   isActive() {

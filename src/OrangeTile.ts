@@ -9,7 +9,7 @@ export class OrangeTile {
   Const: ConstType
   towerGenerator: TowerGenerator
 
-  tower: TowerType
+  tower: TowerType = null
 
   constructor(
     img: Image,
@@ -21,8 +21,6 @@ export class OrangeTile {
     this.position = { ...position }
     this.Const = Const
     this.towerGenerator = towerGenerator
-
-    this.tower = null
   }
 
   sellTower() {

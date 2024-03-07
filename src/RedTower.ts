@@ -18,10 +18,10 @@ export class RedTower {
   MathUtilsClass: typeof MathUtils
   ProgressBarClass: typeof ProgressBar
 
-  upgradeLevel: number
-  upgrading: boolean
+  upgradeLevel: number = 0
+  upgrading: boolean = false
   progressBar: ProgressBar
-  upgradeProgress: number
+  upgradeProgress: number = 0
 
   constructor(
     images: Image[],
@@ -36,14 +36,11 @@ export class RedTower {
     this.MathUtilsClass = MathUtilsClass
     this.ProgressBarClass = ProgressBarClass
 
-    this.upgradeLevel = 0
-    this.upgrading = false
     this.progressBar = new this.ProgressBarClass(
       this.position,
       ProgressBar.WIDTH,
       ProgressBar.HEIGHT,
     )
-    this.upgradeProgress = 0
   }
 
   upgrade() {

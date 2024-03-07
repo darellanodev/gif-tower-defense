@@ -19,12 +19,12 @@ export class GreenTower {
   MathUtilsClass: typeof MathUtils
   ProgressBarClass: typeof ProgressBar
 
-  upgradeLevel: number
-  enemyTarget: Enemy
-  distanceToEnemyTarget: number
-  upgrading: boolean
+  upgradeLevel: number = 0
+  enemyTarget: Enemy = null
+  distanceToEnemyTarget: number = 0
+  upgrading: boolean = false
   progressBar: ProgressBar
-  upgradeProgress: number
+  upgradeProgress: number = 0
   delayUpgradeProgress: number
 
   constructor(
@@ -40,10 +40,6 @@ export class GreenTower {
     this.MathUtilsClass = MathUtilsClass
     this.ProgressBarClass = ProgressBarClass
 
-    this.upgradeLevel = 0
-    this.enemyTarget = null
-    this.distanceToEnemyTarget = 0
-    this.upgrading = false
     this.progressBar = new this.ProgressBarClass(
       {
         x: this.position.x + this.Const.TOWER_OFFSET,
@@ -52,7 +48,6 @@ export class GreenTower {
       ProgressBar.WIDTH,
       ProgressBar.HEIGHT,
     )
-    this.upgradeProgress = 0
   }
 
   upgrade() {

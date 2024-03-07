@@ -11,12 +11,6 @@ export class TileGenerator {
   MARGIN_TOP = 30
 
   levelMap: MapDataType
-  levelMapData: string
-  orangeImage: Image
-  blackImage: Image
-  startImage: Image
-  endImage: Image
-  startDirection: number
   mapImages: Image[]
   Const: ConstType
   OrangeTileClass: typeof OrangeTile
@@ -24,6 +18,12 @@ export class TileGenerator {
   StartTileClass: typeof StartTile
   EndTileClass: typeof EndTile
   towerGenerator: TowerGenerator
+
+  orangeImage: Image
+  blackImage: Image
+  startImage: Image
+  endImage: Image
+  startDirection: number
 
   constructor(
     levelMap: MapDataType,

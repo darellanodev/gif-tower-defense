@@ -7,6 +7,7 @@ import { Color } from './Color'
 export class InfluenceArea {
   static ALPHA_FILL = 50
   static ALPHA_STROKE = 120
+
   Const: ConstType
 
   constructor(Const: ConstType) {

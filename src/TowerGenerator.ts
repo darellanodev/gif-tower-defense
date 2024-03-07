@@ -10,7 +10,6 @@ export class TowerGenerator {
   greenTowerImages: Image[]
   redTowerImages: Image[]
   yellowTowerImages: Image[]
-
   Const: ConstType
   GreenTowerClass: typeof GreenTower
   RedTowerClass: typeof RedTower

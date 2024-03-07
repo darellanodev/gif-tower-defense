@@ -15,9 +15,7 @@ export class Hud {
   static NORMAL = 0
   static UPGRADING = 1
   static UPGRADING_MAX = 2
-
   static HEIGHT = 84
-
   static ICON_GREEN_TOWER_ON = 0
   static ICON_GREEN_TOWER_OFF = 1
   static ICON_RED_TOWER_ON = 2
@@ -29,24 +27,25 @@ export class Hud {
   hudIconImages: Image[]
   wallet: Wallet
   Const: ConstType
-  hudType: number
-  selectedItem: number
   lives: number
   score: Score
   TextPropertiesClass: typeof TextProperties
-  ProgressBarClass: typeof ProgressBar
   waveProgressBar: ProgressBar
   bossProgressBar: ProgressBar
   wave: number
-  upgradeCost: number
+
+  hudType: number = Hud.NORMAL
+  selectedItem: number = GreenTower.ID
+  upgradeCost: number = null
+  sellProfit: number = null
+  canBuyGreenTower: boolean = false
+  canBuyRedTower: boolean = false
+  canBuyYellowTower: boolean = false
+  magicfireballs: number = MagicFireball.FIREBALLS
+  magiciceballs: number = MagicIceball.ICEBALLS
+  magicUFOs: number = MagicUFO.UFOS
+
   canUpgrade: boolean
-  sellProfit: number
-  canBuyGreenTower: boolean
-  canBuyRedTower: boolean
-  canBuyYellowTower: boolean
-  magicfireballs: number
-  magiciceballs: number
-  magicUFOs: number
 
   constructor(
     hudImages: Image[],
@@ -73,19 +72,6 @@ export class Hud {
 
     this.waveProgressBar = new ProgressBar({ x: 335, y: -19 }, 150, 16)
     this.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, 150, 10)
-
-    this.hudType = Hud.NORMAL
-
-    this.selectedItem = GreenTower.ID
-    this.upgradeCost = null
-    this.sellProfit = null
-
-    this.canBuyGreenTower = false
-    this.canBuyRedTower = false
-    this.canBuyYellowTower = false
-    this.magicfireballs = MagicFireball.FIREBALLS
-    this.magiciceballs = MagicIceball.ICEBALLS
-    this.magicUFOs = MagicUFO.UFOS
   }
 
   isInsideButtonsBar(px: number, py: number) {
