@@ -1,7 +1,6 @@
 var Const = (function () {
     function Const() {
     }
-    Const.GRAY_COLOR = [50, 50, 50];
     Const.LEFT_DIRECTION = 1;
     Const.RIGHT_DIRECTION = 2;
     Const.UP_DIRECTION = 3;
@@ -10,13 +9,10 @@ var Const = (function () {
     Const.UPGRADE_MAX_LEVEL = 5;
     Const.CANVAS_WIDTH = 800;
     Const.CANVAS_HEIGHT = 580;
-    Const.HUD_HEIGHT = 84;
     Const.KEY_1 = 49;
     Const.KEY_2 = 50;
     Const.KEY_3 = 51;
     Const.TOWER_OFFSET = 5;
-    Const.ALPHA_INFLUENCE_AREA_FILL = 50;
-    Const.ALPHA_INFLUENCE_AREA_STROKE = 120;
     Const.EXPLOSION_OFFSET = 25;
     Const.GAME_STATUS_PLAYING = 0;
     Const.GAME_STATUS_GAME_OVER = 1;
@@ -30,6 +26,15 @@ var Const = (function () {
     Const.MAGIC_STATUS_ALIVE = 0;
     Const.MAGIC_STATUS_DEAD = 1;
     return Const;
+}());
+var ConstColor = (function () {
+    function ConstColor() {
+    }
+    ConstColor.GRAY = [50, 50, 50];
+    ConstColor.GREEN = [75, 185, 35];
+    ConstColor.YELLOW = [202, 191, 24];
+    ConstColor.RED = [185, 35, 35];
+    return ConstColor;
 }());
 var Debug = (function () {
     function Debug() {
@@ -65,31 +70,13 @@ var EndTile = (function () {
     return EndTile;
 }());
 var Enemy = (function () {
-    function Enemy(id, images, startPosition, orders, endurance, isBoss, Const, RandomClass, ProgressBarClass) {
-        this.id = id;
-        this.images = images;
-        this.startPosition = __assign({}, startPosition);
-        this.orders = orders;
-        this.endurance = endurance;
-        this.isBoss = isBoss;
-        this.Const = Const;
-        this.RandomClass = RandomClass;
-        this.ProgressBarClass = ProgressBarClass;
+    function Enemy(images, startPosition, orders, endurance, isBoss, RandomClass, ProgressBarClass) {
         this.imgIndex = Enemy.EYES_CENTER;
         this.imgIndexBeforeEyesClosed = Enemy.EYES_CENTER;
-        this.eyesSequence = [
-            Enemy.EYES_LEFT,
-            Enemy.EYES_CENTER,
-            Enemy.EYES_RIGHT,
-            Enemy.EYES_CENTER,
-        ];
-        this.healthBar = new this.ProgressBarClass({ x: 200, y: 200 }, ProgressBar.WIDTH, ProgressBar.HEIGHT);
         this.status = Enemy.STATUS_ALIVE;
         this.damage = 0;
-        this.position = __assign({}, this.startPosition);
         this.moveCount = 0;
         this.indexOrder = 0;
-        this.currentDirection = this.orders[this.indexOrder];
         this.changeEyesTime = 0;
         this.indexEyesSecuence = 0;
         this.closeEyesTime = 0;
@@ -98,6 +85,24 @@ var Enemy = (function () {
         this.winned = false;
         this.freezed = false;
         this.freezedTime = 0;
+        this.images = images;
+        this.startPosition = __assign({}, startPosition);
+        this.orders = orders;
+        this.endurance = endurance;
+        this.isBoss = isBoss;
+        this.RandomClass = RandomClass;
+        this.ProgressBarClass = ProgressBarClass;
+        Enemy.numberOfEnemies++;
+        this.id = Enemy.numberOfEnemies;
+        this.eyesSequence = [
+            Enemy.EYES_LEFT,
+            Enemy.EYES_CENTER,
+            Enemy.EYES_RIGHT,
+            Enemy.EYES_CENTER,
+        ];
+        this.healthBar = new this.ProgressBarClass({ x: 200, y: 200 }, ProgressBar.WIDTH, ProgressBar.HEIGHT);
+        this.position = __assign({}, this.startPosition);
+        this.currentDirection = this.orders[this.indexOrder];
     }
     Enemy.prototype.getEndurance = function () {
         return this.endurance;
@@ -152,21 +157,21 @@ var Enemy = (function () {
         }
         var velocity = this.isBoss ? Enemy.BOSS_VELOCITY : Enemy.VELOCITY;
         switch (this.currentDirection) {
-            case this.Const.LEFT_DIRECTION:
+            case Const.LEFT_DIRECTION:
                 this.position.x = this.position.x - velocity;
                 break;
-            case this.Const.RIGHT_DIRECTION:
+            case Const.RIGHT_DIRECTION:
                 this.position.x = this.position.x + velocity;
                 break;
-            case this.Const.UP_DIRECTION:
+            case Const.UP_DIRECTION:
                 this.position.y = this.position.y - velocity;
                 break;
-            case this.Const.DOWN_DIRECTION:
+            case Const.DOWN_DIRECTION:
                 this.position.y = this.position.y + velocity;
                 break;
         }
         this.moveCount = this.moveCount + velocity;
-        if (this.moveCount === this.Const.TILE_SIZE) {
+        if (this.moveCount === Const.TILE_SIZE) {
             this.moveCount = 0;
             this.indexOrder++;
             if (this.indexOrder == this.orders.length) {
@@ -236,16 +241,16 @@ var Enemy = (function () {
     Enemy.STATUS_DEAD = 1;
     Enemy.TOTAL_ENEMIES = 5;
     Enemy.CREATION_MAX_TIME = 200;
+    Enemy.numberOfEnemies = 0;
     return Enemy;
 }());
 var EnemyExplosion = (function () {
-    function EnemyExplosion(x, y, Const, ParticleSystemClass) {
-        this.x = x;
-        this.y = y;
-        this.Const = Const;
-        this.particleSystem = new ParticleSystemClass(createVector(this.x + this.Const.EXPLOSION_OFFSET, this.y + this.Const.EXPLOSION_OFFSET), EnemyExplosion.SIZE, EnemyExplosion.COLOR);
+    function EnemyExplosion(x, y, ParticleSystemClass) {
         this.emisionTime = 0;
         this.finished = false;
+        this.x = x;
+        this.y = y;
+        this.particleSystem = new ParticleSystemClass(createVector(this.x + Const.EXPLOSION_OFFSET, this.y + Const.EXPLOSION_OFFSET), EnemyExplosion.SIZE, EnemyExplosion.COLOR);
     }
     EnemyExplosion.prototype.isActive = function () {
         return !this.finished;
@@ -263,28 +268,27 @@ var EnemyExplosion = (function () {
     return EnemyExplosion;
 }());
 var GreenTower = (function () {
-    function GreenTower(images, position, Const, MathUtilsClass, ProgressBarClass) {
-        this.images = images;
-        this.position = __assign({}, position);
-        this.Const = Const;
-        this.MathUtilsClass = MathUtilsClass;
-        this.ProgressBarClass = ProgressBarClass;
+    function GreenTower(images, position, MathUtilsClass, ProgressBarClass) {
         this.upgradeLevel = 0;
         this.enemyTarget = null;
         this.distanceToEnemyTarget = 0;
         this.upgrading = false;
-        this.progressBar = new this.ProgressBarClass({
-            x: this.position.x + this.Const.TOWER_OFFSET,
-            y: this.position.y + this.Const.TOWER_OFFSET,
-        }, ProgressBar.WIDTH, ProgressBar.HEIGHT);
         this.upgradeProgress = 0;
+        this.images = images;
+        this.position = __assign({}, position);
+        this.MathUtilsClass = MathUtilsClass;
+        this.ProgressBarClass = ProgressBarClass;
+        this.progressBar = new this.ProgressBarClass({
+            x: this.position.x + Const.TOWER_OFFSET,
+            y: this.position.y + Const.TOWER_OFFSET,
+        }, ProgressBar.WIDTH, ProgressBar.HEIGHT);
     }
     GreenTower.prototype.upgrade = function () {
         if (!this.upgrading) {
             this.upgrading = true;
             this.upgradeLevel++;
             this.delayUpgradeProgress =
-                this.Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel;
+                Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel;
         }
     };
     GreenTower.prototype.isNotUpgrading = function () {
@@ -297,18 +301,18 @@ var GreenTower = (function () {
         return this.upgradeLevel;
     };
     GreenTower.prototype.isMaxUpgraded = function () {
-        return this.upgradeLevel === this.Const.UPGRADE_MAX_LEVEL - 1;
+        return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1;
     };
     GreenTower.prototype._drawShotToEnemy = function () {
         strokeWeight(3);
-        stroke(RedTower.COLOR);
+        stroke(ConstColor.RED);
         line(-1, -18, 7 - this.distanceToEnemyTarget / 7, -this.distanceToEnemyTarget);
     };
     GreenTower.prototype._drawUpgradeBackground = function () {
         strokeWeight(1);
         stroke('black');
-        fill(GreenTower.COLOR);
-        rect(this.position.x + 4, this.position.y + 4, this.Const.TILE_SIZE, this.Const.TILE_SIZE);
+        fill(ConstColor.GREEN);
+        rect(this.position.x + 4, this.position.y + 4, Const.TILE_SIZE, Const.TILE_SIZE);
     };
     GreenTower.prototype.draw = function () {
         if (this.upgrading) {
@@ -318,7 +322,7 @@ var GreenTower = (function () {
                     this.upgradeProgress++;
                     this.progressBar.setProgress(this.upgradeProgress);
                     this.delayUpgradeProgress =
-                        this.Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel;
+                        Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel;
                 }
                 else {
                     this.delayUpgradeProgress--;
@@ -355,8 +359,8 @@ var GreenTower = (function () {
         return GreenTower.UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
     };
     GreenTower.prototype.getCostWhenUpgradeLevelIs = function (selectedUpgradeLevel) {
-        if (selectedUpgradeLevel > this.Const.UPGRADE_MAX_LEVEL) {
-            return GreenTower.COST_UPGRADE[this.Const.UPGRADE_MAX_LEVEL];
+        if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
+            return GreenTower.COST_UPGRADE[Const.UPGRADE_MAX_LEVEL];
         }
         return GreenTower.COST_UPGRADE[selectedUpgradeLevel];
     };
@@ -365,7 +369,7 @@ var GreenTower = (function () {
     };
     GreenTower.prototype.getNextLevelUpgradeCost = function () {
         if (this.isMaxUpgraded()) {
-            return this.getCostWhenUpgradeLevelIs(this.Const.UPGRADE_MAX_LEVEL - 1);
+            return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1);
         }
         else {
             return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1);
@@ -378,7 +382,7 @@ var GreenTower = (function () {
         return GreenTower.ID;
     };
     GreenTower.prototype.getColor = function () {
-        return GreenTower.COLOR;
+        return ConstColor.GREEN;
     };
     GreenTower.prototype._isDistanceIntoInfluenceArea = function (distance) {
         return (distance <= GreenTower.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65);
@@ -407,7 +411,6 @@ var GreenTower = (function () {
         }
     };
     GreenTower.ID = 1;
-    GreenTower.COLOR = [75, 185, 35];
     GreenTower.PROFIT_SELL_UPGRADE = [30, 35, 65, 220, 900, 1880];
     GreenTower.DAMAGE_UPGRADE = [1, 2, 4, 6, 12, 24];
     GreenTower.COST_UPGRADE = [50, 75, 125, 300, 1000, 2000];
@@ -416,19 +419,7 @@ var GreenTower = (function () {
     return GreenTower;
 }());
 var Hud = (function () {
-    function Hud(hudImages, hudIconImages, wallet, Const, lives, score, TextPropertiesClass, waveProgressBar, bossProgressBar, wave) {
-        this.hudImages = hudImages;
-        this.hudIconImages = hudIconImages;
-        this.wallet = wallet;
-        this.Const = Const;
-        this.lives = lives;
-        this.score = score;
-        this.TextPropertiesClass = TextPropertiesClass;
-        this.waveProgressBar = waveProgressBar;
-        this.bossProgressBar = bossProgressBar;
-        this.wave = wave;
-        this.waveProgressBar = new ProgressBar({ x: 335, y: -19 }, 150, 16);
-        this.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, 150, 10);
+    function Hud(hudImages, hudIconImages, wallet, lives, score, TextPropertiesClass, waveProgressBar, bossProgressBar, wave) {
         this.hudType = Hud.NORMAL;
         this.selectedItem = GreenTower.ID;
         this.upgradeCost = null;
@@ -439,6 +430,17 @@ var Hud = (function () {
         this.magicfireballs = MagicFireball.FIREBALLS;
         this.magiciceballs = MagicIceball.ICEBALLS;
         this.magicUFOs = MagicUFO.UFOS;
+        this.hudImages = hudImages;
+        this.hudIconImages = hudIconImages;
+        this.wallet = wallet;
+        this.lives = lives;
+        this.score = score;
+        this.TextPropertiesClass = TextPropertiesClass;
+        this.waveProgressBar = waveProgressBar;
+        this.bossProgressBar = bossProgressBar;
+        this.wave = wave;
+        this.waveProgressBar = new ProgressBar({ x: 335, y: -19 }, 150, 16);
+        this.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, 150, 10);
     }
     Hud.prototype.isInsideButtonsBar = function (px, py) {
         if (px > 0 && px < 800 && py > 28 && py < 78) {
@@ -646,7 +648,7 @@ var Hud = (function () {
         }
     };
     Hud.prototype.selectTowerHudType = function (tower) {
-        if (tower.getUpgradeLevel() < this.Const.UPGRADE_MAX_LEVEL) {
+        if (tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL) {
             this.setType(Hud.UPGRADING);
         }
         else {
@@ -675,6 +677,7 @@ var Hud = (function () {
     Hud.NORMAL = 0;
     Hud.UPGRADING = 1;
     Hud.UPGRADING_MAX = 2;
+    Hud.HEIGHT = 84;
     Hud.ICON_GREEN_TOWER_ON = 0;
     Hud.ICON_GREEN_TOWER_OFF = 1;
     Hud.ICON_RED_TOWER_ON = 2;
@@ -693,26 +696,25 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 var InfluenceArea = (function () {
-    function InfluenceArea(Const) {
-        this.Const = Const;
+    function InfluenceArea() {
     }
     InfluenceArea.prototype._setGrayInfluenceAreaColor = function () {
-        stroke.apply(void 0, __spreadArray(__spreadArray([], this.Const.GRAY_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
-        fill.apply(void 0, __spreadArray(__spreadArray([], this.Const.GRAY_COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
+        stroke.apply(void 0, __spreadArray(__spreadArray([], ConstColor.GRAY, false), [InfluenceArea.ALPHA_STROKE], false));
+        fill.apply(void 0, __spreadArray(__spreadArray([], ConstColor.GRAY, false), [InfluenceArea.ALPHA_FILL], false));
     };
     InfluenceArea.prototype._setInfluenceAreaColor = function (towerId) {
         switch (towerId) {
             case GreenTower.ID:
-                stroke.apply(void 0, __spreadArray(__spreadArray([], GreenTower.COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
-                fill.apply(void 0, __spreadArray(__spreadArray([], GreenTower.COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
+                stroke.apply(void 0, __spreadArray(__spreadArray([], ConstColor.GREEN, false), [InfluenceArea.ALPHA_STROKE], false));
+                fill.apply(void 0, __spreadArray(__spreadArray([], ConstColor.GREEN, false), [InfluenceArea.ALPHA_FILL], false));
                 break;
             case RedTower.ID:
-                stroke.apply(void 0, __spreadArray(__spreadArray([], RedTower.COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
-                fill.apply(void 0, __spreadArray(__spreadArray([], RedTower.COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
+                stroke.apply(void 0, __spreadArray(__spreadArray([], ConstColor.RED, false), [InfluenceArea.ALPHA_STROKE], false));
+                fill.apply(void 0, __spreadArray(__spreadArray([], ConstColor.RED, false), [InfluenceArea.ALPHA_FILL], false));
                 break;
             case YellowTower.ID:
-                stroke.apply(void 0, __spreadArray(__spreadArray([], YellowTower.COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_STROKE], false));
-                fill.apply(void 0, __spreadArray(__spreadArray([], YellowTower.COLOR, false), [this.Const.ALPHA_INFLUENCE_AREA_FILL], false));
+                stroke.apply(void 0, __spreadArray(__spreadArray([], ConstColor.YELLOW, false), [InfluenceArea.ALPHA_STROKE], false));
+                fill.apply(void 0, __spreadArray(__spreadArray([], ConstColor.YELLOW, false), [InfluenceArea.ALPHA_FILL], false));
                 break;
         }
     };
@@ -747,8 +749,8 @@ var InfluenceArea = (function () {
         var x = towerPosition.x;
         var y = towerPosition.y;
         if (tower.getType() === GreenTower.ID || tower.getType() === RedTower.ID) {
-            x += this.Const.TOWER_OFFSET;
-            y += this.Const.TOWER_OFFSET;
+            x += Const.TOWER_OFFSET;
+            y += Const.TOWER_OFFSET;
         }
         if (canUpgrade) {
             this._setInfluenceAreaColor(tower.getType());
@@ -759,8 +761,10 @@ var InfluenceArea = (function () {
         this._drawCircle(x, y, tower.getInfluenceArea());
     };
     InfluenceArea.prototype._drawCircle = function (x, y, diameter) {
-        circle(x + this.Const.TILE_SIZE / 2, y + this.Const.TILE_SIZE / 2, diameter);
+        circle(x + Const.TILE_SIZE / 2, y + Const.TILE_SIZE / 2, diameter);
     };
+    InfluenceArea.ALPHA_FILL = 50;
+    InfluenceArea.ALPHA_STROKE = 120;
     return InfluenceArea;
 }());
 var LevelsData = (function () {
@@ -829,41 +833,40 @@ var LevelsDataProvider = (function () {
     return LevelsDataProvider;
 }());
 var MagicFireball = (function () {
-    function MagicFireball(img, startX, startY, orders, Const) {
+    function MagicFireball(img, startX, startY, orders) {
+        this.moveCount = 0;
+        this.indexOrder = 0;
         this.img = img;
         this.startX = startX;
         this.startY = startY;
         this.orders = orders;
-        this.Const = Const;
         this.x = this.startX;
         this.y = this.startY;
-        this.moveCount = 0;
-        this.indexOrder = 0;
         this.currentDirection = this.orders[this.indexOrder];
         this.touchedEnemiesIds = [];
-        this.status = this.Const.MAGIC_STATUS_ALIVE;
+        this.status = Const.MAGIC_STATUS_ALIVE;
     }
     MagicFireball.prototype.update = function () {
         switch (this.currentDirection) {
-            case this.Const.LEFT_DIRECTION:
+            case Const.LEFT_DIRECTION:
                 this.x = this.x - MagicFireball.SPEED;
                 break;
-            case this.Const.RIGHT_DIRECTION:
+            case Const.RIGHT_DIRECTION:
                 this.x = this.x + MagicFireball.SPEED;
                 break;
-            case this.Const.UP_DIRECTION:
+            case Const.UP_DIRECTION:
                 this.y = this.y - MagicFireball.SPEED;
                 break;
-            case this.Const.DOWN_DIRECTION:
+            case Const.DOWN_DIRECTION:
                 this.y = this.y + MagicFireball.SPEED;
                 break;
         }
         this.moveCount = this.moveCount + MagicFireball.SPEED;
-        if (this.moveCount === this.Const.TILE_SIZE) {
+        if (this.moveCount === Const.TILE_SIZE) {
             this.moveCount = 0;
             this.indexOrder++;
             if (this.indexOrder == this.orders.length) {
-                this.status = this.Const.MAGIC_STATUS_DEAD;
+                this.status = Const.MAGIC_STATUS_DEAD;
             }
             else {
                 this.currentDirection = this.orders[this.indexOrder];
@@ -893,7 +896,7 @@ var MagicFireball = (function () {
         enemy.addDamage(MagicFireball.DAMAGE);
     };
     MagicFireball.prototype.isAlive = function () {
-        return this.status == this.Const.MAGIC_STATUS_ALIVE;
+        return this.status == Const.MAGIC_STATUS_ALIVE;
     };
     MagicFireball.prototype.getX = function () {
         return this.x;
@@ -910,13 +913,12 @@ var MagicFireball = (function () {
     return MagicFireball;
 }());
 var MagicFireballExplosion = (function () {
-    function MagicFireballExplosion(x, y, Const, ParticleSystemClass) {
-        this.x = x;
-        this.y = y;
-        this.Const = Const;
-        this.particleSystem = new ParticleSystemClass(createVector(this.x + this.Const.EXPLOSION_OFFSET, this.y + this.Const.EXPLOSION_OFFSET), MagicFireballExplosion.SIZE, MagicFireballExplosion.COLOR);
+    function MagicFireballExplosion(x, y, ParticleSystemClass) {
         this.emisionTime = 0;
         this.finished = false;
+        this.x = x;
+        this.y = y;
+        this.particleSystem = new ParticleSystemClass(createVector(this.x + Const.EXPLOSION_OFFSET, this.y + Const.EXPLOSION_OFFSET), MagicFireballExplosion.SIZE, MagicFireballExplosion.COLOR);
     }
     MagicFireballExplosion.prototype.isActive = function () {
         return !this.finished;
@@ -934,37 +936,36 @@ var MagicFireballExplosion = (function () {
     return MagicFireballExplosion;
 }());
 var MagicIceball = (function () {
-    function MagicIceball(img, startX, startY, orders, Const) {
+    function MagicIceball(img, startX, startY, orders) {
+        this.moveCount = 0;
+        this.indexOrder = 0;
+        this.touchedEnemiesIds = [];
         this.img = img;
         this.startX = startX;
         this.startY = startY;
         this.orders = orders;
-        this.Const = Const;
         this.x = this.startX;
         this.y = this.startY;
-        this.moveCount = 0;
-        this.indexOrder = 0;
         this.currentDirection = this.orders[this.indexOrder];
-        this.touchedEnemiesIds = [];
-        this.status = this.Const.MAGIC_STATUS_ALIVE;
+        this.status = Const.MAGIC_STATUS_ALIVE;
     }
     MagicIceball.prototype.update = function () {
         switch (this.currentDirection) {
-            case this.Const.LEFT_DIRECTION:
+            case Const.LEFT_DIRECTION:
                 this.x = this.x - MagicFireball.SPEED;
                 break;
-            case this.Const.RIGHT_DIRECTION:
+            case Const.RIGHT_DIRECTION:
                 this.x = this.x + MagicFireball.SPEED;
                 break;
-            case this.Const.UP_DIRECTION:
+            case Const.UP_DIRECTION:
                 this.y = this.y - MagicFireball.SPEED;
                 break;
-            case this.Const.DOWN_DIRECTION:
+            case Const.DOWN_DIRECTION:
                 this.y = this.y + MagicFireball.SPEED;
                 break;
         }
         this.moveCount = this.moveCount + MagicFireball.SPEED;
-        if (this.moveCount === this.Const.TILE_SIZE) {
+        if (this.moveCount === Const.TILE_SIZE) {
             this.moveCount = 0;
             this.indexOrder++;
             if (this.indexOrder == this.orders.length) {
@@ -997,7 +998,7 @@ var MagicIceball = (function () {
         this.touchedEnemiesIds.push(enemy.id);
     };
     MagicIceball.prototype.isAlive = function () {
-        return this.status == this.Const.MAGIC_STATUS_ALIVE;
+        return this.status == Const.MAGIC_STATUS_ALIVE;
     };
     MagicIceball.prototype.getX = function () {
         return this.x;
@@ -1014,13 +1015,12 @@ var MagicIceball = (function () {
     return MagicIceball;
 }());
 var MagicIceballExplosion = (function () {
-    function MagicIceballExplosion(x, y, Const, ParticleSystemClass) {
-        this.x = x;
-        this.y = y;
-        this.Const = Const;
-        this.particleSystem = new ParticleSystemClass(createVector(this.x + this.Const.EXPLOSION_OFFSET, this.y + this.Const.EXPLOSION_OFFSET), MagicIceballExplosion.SIZE, MagicIceballExplosion.COLOR);
+    function MagicIceballExplosion(x, y, ParticleSystemClass) {
         this.emisionTime = 0;
         this.finished = false;
+        this.x = x;
+        this.y = y;
+        this.particleSystem = new ParticleSystemClass(createVector(this.x + Const.EXPLOSION_OFFSET, this.y + Const.EXPLOSION_OFFSET), MagicIceballExplosion.SIZE, MagicIceballExplosion.COLOR);
     }
     MagicIceballExplosion.prototype.isActive = function () {
         return !this.finished;
@@ -1038,35 +1038,34 @@ var MagicIceballExplosion = (function () {
     return MagicIceballExplosion;
 }());
 var MagicUFO = (function () {
-    function MagicUFO(img, startX, startY, orders, Const) {
+    function MagicUFO(img, startX, startY, orders) {
+        this.moveCount = 0;
+        this.indexOrder = 0;
         this.img = img;
         this.startX = startX;
         this.startY = startY;
         this.orders = orders;
-        this.Const = Const;
         this.x = this.startX;
         this.y = this.startY;
-        this.moveCount = 0;
-        this.indexOrder = 0;
         this.currentDirection = this.orders[this.indexOrder];
     }
     MagicUFO.prototype.update = function () {
         switch (this.currentDirection) {
-            case this.Const.LEFT_DIRECTION:
+            case Const.LEFT_DIRECTION:
                 this.x = this.x - MagicUFO.SPEED;
                 break;
-            case this.Const.RIGHT_DIRECTION:
+            case Const.RIGHT_DIRECTION:
                 this.x = this.x + MagicUFO.SPEED;
                 break;
-            case this.Const.UP_DIRECTION:
+            case Const.UP_DIRECTION:
                 this.y = this.y - MagicUFO.SPEED;
                 break;
-            case this.Const.DOWN_DIRECTION:
+            case Const.DOWN_DIRECTION:
                 this.y = this.y + MagicUFO.SPEED;
                 break;
         }
         this.moveCount = this.moveCount + MagicUFO.SPEED;
-        if (this.moveCount === this.Const.TILE_SIZE) {
+        if (this.moveCount === Const.TILE_SIZE) {
             this.moveCount = 0;
             this.indexOrder++;
             if (this.indexOrder == this.orders.length) {
@@ -1105,12 +1104,11 @@ var MathUtils = (function () {
     return MathUtils;
 }());
 var OrangeTile = (function () {
-    function OrangeTile(img, position, Const, towerGenerator) {
+    function OrangeTile(img, position, towerGenerator) {
+        this.tower = null;
         this.img = img;
         this.position = __assign({}, position);
-        this.Const = Const;
         this.towerGenerator = towerGenerator;
-        this.tower = null;
     }
     OrangeTile.prototype.sellTower = function () {
         var profit = 0;
@@ -1154,11 +1152,11 @@ var OrangeTile = (function () {
         var insideX = false;
         var insideY = false;
         if (this.position.x < mouse_x &&
-            this.position.x + this.Const.TILE_SIZE > mouse_x) {
+            this.position.x + Const.TILE_SIZE > mouse_x) {
             insideX = true;
         }
         if (this.position.y < mouse_y &&
-            this.position.y + this.Const.TILE_SIZE > mouse_y) {
+            this.position.y + Const.TILE_SIZE > mouse_y) {
             insideY = true;
         }
         if (insideX && insideY) {
@@ -1179,11 +1177,11 @@ var OrangeTile = (function () {
 }());
 var Particle = (function () {
     function Particle(position, size, color) {
+        this.lifespan = 255;
         this.position = position.copy();
         this.size = size;
-        this.velocity = createVector(random(-3, 3), random(-3, 0));
-        this.lifespan = 255;
         this.color = color;
+        this.velocity = createVector(random(-3, 3), random(-3, 0));
     }
     Particle.prototype.run = function () {
         this.update();
@@ -1205,9 +1203,9 @@ var Particle = (function () {
     return Particle;
 }());
 var ParticleSystem = (function () {
-    function ParticleSystem(position, particlesSize, particlesColor) {
-        this.origin = position.copy();
+    function ParticleSystem(origin, particlesSize, particlesColor) {
         this.particles = [];
+        this.origin = origin.copy();
         this.particlesSize = particlesSize;
         this.particlesColor = particlesColor;
     }
@@ -1226,19 +1224,18 @@ var ParticleSystem = (function () {
     return ParticleSystem;
 }());
 var Path = (function () {
-    function Path(startTile, endTile, pathTiles, Const) {
+    function Path(startTile, endTile, pathTiles) {
         this.MAX_SEARCHES = 5000;
         this.startTile = startTile;
         this.endTile = endTile;
         this.pathTiles = pathTiles;
-        this.Const = Const;
     }
     Path.prototype.getEnemiesInitialPosition = function () {
         var finalX = 0;
         var finalY = 0;
-        if (this.startTile.getStartDirection() === this.Const.LEFT_DIRECTION) {
+        if (this.startTile.getStartDirection() === Const.LEFT_DIRECTION) {
             var finalPosition = this.startTile.getPosition();
-            finalX = finalPosition.x + this.Const.TILE_SIZE;
+            finalX = finalPosition.x + Const.TILE_SIZE;
             finalY = finalPosition.y;
         }
         return { x: finalX, y: finalY };
@@ -1248,27 +1245,27 @@ var Path = (function () {
         return pathTile ? pathTile : null;
     };
     Path.prototype._searchLeftTile = function (currentTile) {
-        var searchPx = currentTile.getX() - this.Const.TILE_SIZE;
+        var searchPx = currentTile.getX() - Const.TILE_SIZE;
         var searchPy = currentTile.getY();
         return this.getTileInPosition(searchPx, searchPy);
     };
     Path.prototype._searchDownTile = function (currentTile) {
         var searchPx = currentTile.getX();
-        var searchPy = currentTile.getY() + this.Const.TILE_SIZE;
+        var searchPy = currentTile.getY() + Const.TILE_SIZE;
         return this.getTileInPosition(searchPx, searchPy);
     };
     Path.prototype._searchRightTile = function (currentTile) {
-        var searchPx = currentTile.getX() + this.Const.TILE_SIZE;
+        var searchPx = currentTile.getX() + Const.TILE_SIZE;
         var searchPy = currentTile.getY();
         return this.getTileInPosition(searchPx, searchPy);
     };
     Path.prototype._searchUpTile = function (currentTile) {
         var searchPx = currentTile.getX();
-        var searchPy = currentTile.getY() - this.Const.TILE_SIZE;
+        var searchPy = currentTile.getY() - Const.TILE_SIZE;
         return this.getTileInPosition(searchPx, searchPy);
     };
     Path.prototype._isLeftEndTile = function (currentTile) {
-        var searchPx = currentTile.getX() - this.Const.TILE_SIZE;
+        var searchPx = currentTile.getX() - Const.TILE_SIZE;
         var searchPy = currentTile.getY();
         var endPosition = this.endTile.getPosition();
         var endPx = endPosition.x;
@@ -1288,74 +1285,74 @@ var Path = (function () {
         var searchCount = 0;
         while (searchCount < this.MAX_SEARCHES && !endReached) {
             searchCount++;
-            if (currentDirection === this.Const.LEFT_DIRECTION) {
+            if (currentDirection === Const.LEFT_DIRECTION) {
                 var isLeftEndTile = this._isLeftEndTile(currentTile);
                 if (isLeftEndTile) {
                     endReached = true;
-                    orders.push(this.Const.LEFT_DIRECTION);
+                    orders.push(Const.LEFT_DIRECTION);
                 }
                 else {
                     var searchTile = this._searchLeftTile(currentTile);
                     if (searchTile) {
-                        orders.push(this.Const.LEFT_DIRECTION);
+                        orders.push(Const.LEFT_DIRECTION);
                         currentTile = searchTile;
                     }
                     else {
                         var searchNextTile = this._searchDownTile(currentTile);
                         if (searchNextTile) {
-                            currentDirection = this.Const.DOWN_DIRECTION;
+                            currentDirection = Const.DOWN_DIRECTION;
                         }
                         else {
-                            currentDirection = this.Const.UP_DIRECTION;
+                            currentDirection = Const.UP_DIRECTION;
                         }
                     }
                 }
             }
-            if (currentDirection === this.Const.DOWN_DIRECTION) {
+            if (currentDirection === Const.DOWN_DIRECTION) {
                 var searchTile = this._searchDownTile(currentTile);
                 if (searchTile) {
-                    orders.push(this.Const.DOWN_DIRECTION);
+                    orders.push(Const.DOWN_DIRECTION);
                     currentTile = searchTile;
                 }
                 else {
                     var searchNextTile = this._searchRightTile(currentTile);
                     if (searchNextTile) {
-                        currentDirection = this.Const.RIGHT_DIRECTION;
+                        currentDirection = Const.RIGHT_DIRECTION;
                     }
                     else {
-                        currentDirection = this.Const.LEFT_DIRECTION;
+                        currentDirection = Const.LEFT_DIRECTION;
                     }
                 }
             }
-            if (currentDirection === this.Const.RIGHT_DIRECTION) {
+            if (currentDirection === Const.RIGHT_DIRECTION) {
                 var searchTile = this._searchRightTile(currentTile);
                 if (searchTile) {
-                    orders.push(this.Const.RIGHT_DIRECTION);
+                    orders.push(Const.RIGHT_DIRECTION);
                     currentTile = searchTile;
                 }
                 else {
                     var searchNextTile = this._searchUpTile(currentTile);
                     if (searchNextTile) {
-                        currentDirection = this.Const.UP_DIRECTION;
+                        currentDirection = Const.UP_DIRECTION;
                     }
                     else {
-                        currentDirection = this.Const.DOWN_DIRECTION;
+                        currentDirection = Const.DOWN_DIRECTION;
                     }
                 }
             }
-            if (currentDirection === this.Const.UP_DIRECTION) {
+            if (currentDirection === Const.UP_DIRECTION) {
                 var searchTile = this._searchUpTile(currentTile);
                 if (searchTile) {
-                    orders.push(this.Const.UP_DIRECTION);
+                    orders.push(Const.UP_DIRECTION);
                     currentTile = searchTile;
                 }
                 else {
                     var searchNextTile = this._searchLeftTile(currentTile);
                     if (searchNextTile) {
-                        currentDirection = this.Const.LEFT_DIRECTION;
+                        currentDirection = Const.LEFT_DIRECTION;
                     }
                     else {
-                        currentDirection = this.Const.RIGHT_DIRECTION;
+                        currentDirection = Const.RIGHT_DIRECTION;
                     }
                 }
             }
@@ -1385,10 +1382,10 @@ var PathTile = (function () {
 }());
 var ProgressBar = (function () {
     function ProgressBar(position, width, height) {
+        this.progress = 0;
         this.position = __assign({}, position);
         this.width = width;
         this.height = height;
-        this.progress = 0;
         this.maxProgress = this.width - 1;
     }
     ProgressBar.prototype.setPosition = function (position) {
@@ -1437,16 +1434,15 @@ var Random = (function () {
     return Random;
 }());
 var RedTower = (function () {
-    function RedTower(images, position, Const, MathUtilsClass, ProgressBarClass) {
-        this.images = images;
-        this.position = __assign({}, position);
-        this.Const = Const;
-        this.MathUtilsClass = MathUtilsClass;
-        this.ProgressBarClass = ProgressBarClass;
+    function RedTower(images, position, MathUtilsClass, ProgressBarClass) {
         this.upgradeLevel = 0;
         this.upgrading = false;
-        this.progressBar = new this.ProgressBarClass(this.position, ProgressBar.WIDTH, ProgressBar.HEIGHT);
         this.upgradeProgress = 0;
+        this.images = images;
+        this.position = __assign({}, position);
+        this.MathUtilsClass = MathUtilsClass;
+        this.ProgressBarClass = ProgressBarClass;
+        this.progressBar = new this.ProgressBarClass(this.position, ProgressBar.WIDTH, ProgressBar.HEIGHT);
     }
     RedTower.prototype.upgrade = function () {
         if (!this.upgrading) {
@@ -1464,13 +1460,13 @@ var RedTower = (function () {
         return this.upgradeLevel;
     };
     RedTower.prototype.isMaxUpgraded = function () {
-        return this.upgradeLevel === this.Const.UPGRADE_MAX_LEVEL - 1;
+        return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1;
     };
     RedTower.prototype._drawUpgradeBackground = function () {
         strokeWeight(1);
         stroke('black');
-        fill(RedTower.COLOR);
-        rect(this.position.x + 4, this.position.y + 4, this.Const.TILE_SIZE, this.Const.TILE_SIZE);
+        fill(ConstColor.RED);
+        rect(this.position.x + 4, this.position.y + 4, Const.TILE_SIZE, Const.TILE_SIZE);
     };
     RedTower.prototype.draw = function () {
         if (this.upgrading) {
@@ -1494,8 +1490,8 @@ var RedTower = (function () {
         return RedTower.UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
     };
     RedTower.prototype.getCostWhenUpgradeLevelIs = function (selectedUpgradeLevel) {
-        if (selectedUpgradeLevel > this.Const.UPGRADE_MAX_LEVEL) {
-            return RedTower.COST_UPGRADE[this.Const.UPGRADE_MAX_LEVEL];
+        if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
+            return RedTower.COST_UPGRADE[Const.UPGRADE_MAX_LEVEL];
         }
         return RedTower.COST_UPGRADE[selectedUpgradeLevel];
     };
@@ -1504,7 +1500,7 @@ var RedTower = (function () {
     };
     RedTower.prototype.getNextLevelUpgradeCost = function () {
         if (this.isMaxUpgraded()) {
-            return this.getCostWhenUpgradeLevelIs(this.Const.UPGRADE_MAX_LEVEL - 1);
+            return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1);
         }
         else {
             return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1);
@@ -1517,12 +1513,11 @@ var RedTower = (function () {
         return RedTower.ID;
     };
     RedTower.prototype.getColor = function () {
-        return RedTower.COLOR;
+        return ConstColor.RED;
     };
     RedTower.prototype.selectTarget = function (enemies) {
     };
     RedTower.ID = 2;
-    RedTower.COLOR = [185, 35, 35];
     RedTower.PROFIT_SELL_UPGRADE = [80, 110, 190, 420, 1200, 2880];
     RedTower.COST_UPGRADE = [100, 150, 250, 500, 1300, 3000];
     RedTower.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
@@ -1659,12 +1654,9 @@ var TextProperties = (function () {
     return TextProperties;
 }());
 var TileGenerator = (function () {
-    function TileGenerator(levelMap, mapImages, Const, OrangeTileClass, PathTileClass, StartTileClass, EndTileClass, towerGenerator) {
-        this.FLOOR_SIZE = 50;
-        this.MARGIN_TOP = 30;
+    function TileGenerator(levelMap, mapImages, OrangeTileClass, PathTileClass, StartTileClass, EndTileClass, towerGenerator) {
         this.levelMap = levelMap;
         this.mapImages = mapImages;
-        this.Const = Const;
         this.OrangeTileClass = OrangeTileClass;
         this.PathTileClass = PathTileClass;
         this.StartTileClass = StartTileClass;
@@ -1681,36 +1673,36 @@ var TileGenerator = (function () {
     }
     TileGenerator.prototype._setStartImage = function (mapImages) {
         switch (this.levelMap.startDirection) {
-            case this.Const.DOWN_DIRECTION:
+            case Const.DOWN_DIRECTION:
                 this.startImage = mapImages[6];
-                this.startDirection = this.Const.DOWN_DIRECTION;
+                this.startDirection = Const.DOWN_DIRECTION;
                 break;
-            case this.Const.RIGHT_DIRECTION:
+            case Const.RIGHT_DIRECTION:
                 this.startImage = mapImages[7];
-                this.startDirection = this.Const.RIGHT_DIRECTION;
+                this.startDirection = Const.RIGHT_DIRECTION;
                 break;
-            case this.Const.LEFT_DIRECTION:
+            case Const.LEFT_DIRECTION:
                 this.startImage = mapImages[8];
-                this.startDirection = this.Const.LEFT_DIRECTION;
+                this.startDirection = Const.LEFT_DIRECTION;
                 break;
-            case this.Const.UP_DIRECTION:
+            case Const.UP_DIRECTION:
                 this.startImage = mapImages[9];
-                this.startDirection = this.Const.UP_DIRECTION;
+                this.startDirection = Const.UP_DIRECTION;
                 break;
         }
     };
     TileGenerator.prototype._setEndImage = function (mapImages) {
         switch (this.levelMap.endDirection) {
-            case this.Const.DOWN_DIRECTION:
+            case Const.DOWN_DIRECTION:
                 this.endImage = mapImages[2];
                 break;
-            case this.Const.RIGHT_DIRECTION:
+            case Const.RIGHT_DIRECTION:
                 this.endImage = mapImages[4];
                 break;
-            case this.Const.LEFT_DIRECTION:
+            case Const.LEFT_DIRECTION:
                 this.endImage = mapImages[3];
                 break;
-            case this.Const.UP_DIRECTION:
+            case Const.UP_DIRECTION:
                 this.endImage = mapImages[5];
                 break;
         }
@@ -1724,12 +1716,12 @@ var TileGenerator = (function () {
             rowCount++;
             for (var column = 0; column < trimmedRow.length; column++) {
                 var character = trimmedRow[column];
-                var posX = _this.FLOOR_SIZE * column;
-                var posY = _this.FLOOR_SIZE * rowCount + _this.MARGIN_TOP;
+                var posX = TileGenerator.FLOOR_SIZE * column;
+                var posY = TileGenerator.FLOOR_SIZE * rowCount + TileGenerator.MARGIN_TOP;
                 if (character === symbol) {
                     switch (symbol) {
                         case '0':
-                            resultTiles.push(new _this.OrangeTileClass(_this.orangeImage, { x: posX, y: posY }, _this.Const, _this.towerGenerator));
+                            resultTiles.push(new _this.OrangeTileClass(_this.orangeImage, { x: posX, y: posY }, _this.towerGenerator));
                             break;
                         case '1':
                             resultTiles.push(new _this.PathTileClass(posX, posY));
@@ -1761,14 +1753,15 @@ var TileGenerator = (function () {
     TileGenerator.prototype.getInitialMoney = function () {
         return Number(this.levelMap.money);
     };
+    TileGenerator.FLOOR_SIZE = 50;
+    TileGenerator.MARGIN_TOP = 30;
     return TileGenerator;
 }());
 var TowerGenerator = (function () {
-    function TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTowerClass, RedTowerClass, YellowTowerClass, MathUtilsClass, ProgressBarClass) {
+    function TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, GreenTowerClass, RedTowerClass, YellowTowerClass, MathUtilsClass, ProgressBarClass) {
         this.greenTowerImages = greenTowerImages;
         this.redTowerImages = redTowerImages;
         this.yellowTowerImages = yellowTowerImages;
-        this.Const = Const;
         this.GreenTowerClass = GreenTowerClass;
         this.RedTowerClass = RedTowerClass;
         this.YellowTowerClass = YellowTowerClass;
@@ -1780,18 +1773,18 @@ var TowerGenerator = (function () {
         switch (towerId) {
             case GreenTower.ID:
                 tower = new this.GreenTowerClass(this.greenTowerImages, {
-                    x: position.x - this.Const.TOWER_OFFSET,
-                    y: position.y - this.Const.TOWER_OFFSET,
-                }, this.Const, this.MathUtilsClass, this.ProgressBarClass);
+                    x: position.x - Const.TOWER_OFFSET,
+                    y: position.y - Const.TOWER_OFFSET,
+                }, this.MathUtilsClass, this.ProgressBarClass);
                 break;
             case RedTower.ID:
                 tower = new this.RedTowerClass(this.redTowerImages, {
-                    x: position.x - this.Const.TOWER_OFFSET,
-                    y: position.y - this.Const.TOWER_OFFSET,
-                }, this.Const, this.MathUtilsClass, this.ProgressBarClass);
+                    x: position.x - Const.TOWER_OFFSET,
+                    y: position.y - Const.TOWER_OFFSET,
+                }, this.MathUtilsClass, this.ProgressBarClass);
                 break;
             case YellowTower.ID:
-                tower = new this.YellowTowerClass(this.yellowTowerImages, { x: position.x, y: position.y }, this.Const, this.MathUtilsClass, this.ProgressBarClass);
+                tower = new this.YellowTowerClass(this.yellowTowerImages, { x: position.x, y: position.y }, this.MathUtilsClass, this.ProgressBarClass);
                 break;
             default:
                 break;
@@ -1801,9 +1794,8 @@ var TowerGenerator = (function () {
     return TowerGenerator;
 }());
 var Wallet = (function () {
-    function Wallet(money, Const) {
+    function Wallet(money) {
         this.money = money;
-        this.Const = Const;
     }
     Wallet.prototype.getMoney = function () {
         return this.money;
@@ -1834,16 +1826,15 @@ var Wallet = (function () {
     return Wallet;
 }());
 var YellowTower = (function () {
-    function YellowTower(images, position, Const, MathUtilsClass, ProgressBarClass) {
-        this.images = images;
-        this.position = __assign({}, position);
-        this.Const = Const;
-        this.MathUtilsClass = MathUtilsClass;
-        this.ProgressBarClass = ProgressBarClass;
+    function YellowTower(images, position, MathUtilsClass, ProgressBarClass) {
         this.upgradeLevel = 0;
         this.upgrading = false;
-        this.progressBar = new this.ProgressBarClass(this.position, 27, 7);
         this.upgradeProgress = 0;
+        this.images = images;
+        this.position = __assign({}, position);
+        this.MathUtilsClass = MathUtilsClass;
+        this.ProgressBarClass = ProgressBarClass;
+        this.progressBar = new this.ProgressBarClass(this.position, 27, 7);
     }
     YellowTower.prototype.upgrade = function () {
         if (!this.upgrading) {
@@ -1861,13 +1852,13 @@ var YellowTower = (function () {
         return this.upgradeLevel;
     };
     YellowTower.prototype.isMaxUpgraded = function () {
-        return this.upgradeLevel === this.Const.UPGRADE_MAX_LEVEL - 1;
+        return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1;
     };
     YellowTower.prototype._drawUpgradeBackground = function () {
         strokeWeight(1);
         stroke('black');
-        fill(YellowTower.COLOR);
-        rect(this.position.x, this.position.y, this.Const.TILE_SIZE, this.Const.TILE_SIZE);
+        fill(ConstColor.YELLOW);
+        rect(this.position.x, this.position.y, Const.TILE_SIZE, Const.TILE_SIZE);
     };
     YellowTower.prototype.draw = function () {
         if (this.upgrading) {
@@ -1891,8 +1882,8 @@ var YellowTower = (function () {
         return YellowTower.UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
     };
     YellowTower.prototype.getCostWhenUpgradeLevelIs = function (selectedUpgradeLevel) {
-        if (selectedUpgradeLevel > this.Const.UPGRADE_MAX_LEVEL) {
-            return YellowTower.COST_UPGRADE[this.Const.UPGRADE_MAX_LEVEL];
+        if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
+            return YellowTower.COST_UPGRADE[Const.UPGRADE_MAX_LEVEL];
         }
         return YellowTower.COST_UPGRADE[selectedUpgradeLevel];
     };
@@ -1901,7 +1892,7 @@ var YellowTower = (function () {
     };
     YellowTower.prototype.getNextLevelUpgradeCost = function () {
         if (this.isMaxUpgraded()) {
-            return this.getCostWhenUpgradeLevelIs(this.Const.UPGRADE_MAX_LEVEL - 1);
+            return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1);
         }
         else {
             return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1);
@@ -1914,12 +1905,11 @@ var YellowTower = (function () {
         return YellowTower.ID;
     };
     YellowTower.prototype.getColor = function () {
-        return YellowTower.COLOR;
+        return ConstColor.YELLOW;
     };
     YellowTower.prototype.selectTarget = function (enemies) {
     };
     YellowTower.ID = 3;
-    YellowTower.COLOR = [202, 191, 24];
     YellowTower.PROFIT_SELL_UPGRADE = [680, 2460, 7440, 21920, 66900, 199880];
     YellowTower.COST_UPGRADE = [700, 2500, 7500, 22000, 67000, 200000];
     YellowTower.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
@@ -1969,7 +1959,6 @@ var magicIceballsCount;
 var magicUFOImage;
 var magicUFOs;
 var magicUFOsCount;
-var currentEnemyId;
 function preload() {
     greenTowerImages = Resources.greenTower();
     redTowerImages = Resources.redTower();
@@ -1998,26 +1987,25 @@ function setup() {
     levelDataProvider = new LevelsDataProvider(LevelsData.data);
     var levelMap = levelDataProvider.getLevel(1);
     createEnemyTime = 0;
-    towerGenerator = new TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, Const, GreenTower, RedTower, YellowTower, MathUtils, ProgressBar);
-    var tileGenerator = new TileGenerator(levelMap, tileImages, Const, OrangeTile, PathTile, StartTile, EndTile, towerGenerator);
+    towerGenerator = new TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, GreenTower, RedTower, YellowTower, MathUtils, ProgressBar);
+    var tileGenerator = new TileGenerator(levelMap, tileImages, OrangeTile, PathTile, StartTile, EndTile, towerGenerator);
     orangeTiles = tileGenerator.orangeTiles();
     startTile = tileGenerator.startTile();
     endTile = tileGenerator.endTile();
     var pathTiles = tileGenerator.pathTiles();
-    var path = new Path(startTile, endTile, pathTiles, Const);
+    var path = new Path(startTile, endTile, pathTiles);
     orders = path.makeOrders();
     initialEnemiesPosition = path.getEnemiesInitialPosition();
-    wallet = new Wallet(tileGenerator.getInitialMoney(), Const);
+    wallet = new Wallet(tileGenerator.getInitialMoney());
     score = new Score();
     lives = 7;
     wave = 1;
     allowCreateEnemies = true;
     waveEnemies = 0;
     enemies = [];
-    currentEnemyId = 1;
     waveProgressBar = new ProgressBar({ x: 335, y: -19 }, 150, 16);
     bossProgressBar = new ProgressBar({ x: 335, y: -2 }, 150, 10);
-    hud = new Hud(hudImages, hudIconImages, wallet, Const, lives, score, TextProperties, waveProgressBar, bossProgressBar, wave);
+    hud = new Hud(hudImages, hudIconImages, wallet, lives, score, TextProperties, waveProgressBar, bossProgressBar, wave);
     waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
     bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
     enemyExplosions = [];
@@ -2029,7 +2017,7 @@ function setup() {
     magicIceballsCount = MagicIceball.ICEBALLS;
     magicUFOs = [];
     magicUFOsCount = MagicUFO.UFOS;
-    influenceArea = new InfluenceArea(Const);
+    influenceArea = new InfluenceArea();
     gameStatus = Const.GAME_STATUS_PLAYING;
 }
 function keyPressed() {
@@ -2121,26 +2109,25 @@ function mouseClicked() {
 function createNewEnemy(waveEnemy, wave) {
     var endurance = wave * 3 + waveEnemy * 2;
     var isBoss = false;
-    enemies.push(new Enemy(currentEnemyId, enemiesImages.slice.apply(enemiesImages, MathUtils.getTwoNumbersFourTimes(waveEnemy)), initialEnemiesPosition, orders, endurance, isBoss, Const, Random, ProgressBar));
-    currentEnemyId++;
+    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, MathUtils.getTwoNumbersFourTimes(waveEnemy)), initialEnemiesPosition, orders, endurance, isBoss, Random, ProgressBar));
 }
 function createNewMagicFireball() {
     if (magicFireballsCount > 0) {
-        magicFireballs.push(new MagicFireball(magicFireballImage, initialEnemiesPosition.x, initialEnemiesPosition.y, orders, Const));
+        magicFireballs.push(new MagicFireball(magicFireballImage, initialEnemiesPosition.x, initialEnemiesPosition.y, orders));
         magicFireballsCount--;
         hud.setMagicFireballs(magicFireballsCount);
     }
 }
 function createNewMagicIceball() {
     if (magicIceballsCount > 0) {
-        magicIceballs.push(new MagicIceball(magicIceballImage, initialEnemiesPosition.x, initialEnemiesPosition.y, orders, Const));
+        magicIceballs.push(new MagicIceball(magicIceballImage, initialEnemiesPosition.x, initialEnemiesPosition.y, orders));
         magicIceballsCount--;
         hud.setMagicIceballs(magicIceballsCount);
     }
 }
 function createNewMagicUFO() {
     if (magicUFOsCount > 0) {
-        magicUFOs.push(new MagicUFO(magicUFOImage, initialEnemiesPosition.x, initialEnemiesPosition.y, orders, Const));
+        magicUFOs.push(new MagicUFO(magicUFOImage, initialEnemiesPosition.x, initialEnemiesPosition.y, orders));
         magicUFOsCount--;
         hud.setMagicUFOs(magicUFOsCount);
     }
@@ -2149,12 +2136,12 @@ function createNewBoss(wave) {
     var endurance = wave * 25;
     var indexBossInEnemiesImages = 5;
     var isBoss = true;
-    enemies.push(new Enemy(currentEnemyId, enemiesImages.slice.apply(enemiesImages, MathUtils.getTwoNumbersFourTimes(indexBossInEnemiesImages)), initialEnemiesPosition, orders, endurance, isBoss, Const, Random, ProgressBar));
+    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, MathUtils.getTwoNumbersFourTimes(indexBossInEnemiesImages)), initialEnemiesPosition, orders, endurance, isBoss, Random, ProgressBar));
 }
 function handleEnemyExplosions() {
     var deadEnemies = enemies.filter(function (enemy) { return enemy.isDead(); });
     deadEnemies.forEach(function (enemy) {
-        enemyExplosions.push(new EnemyExplosion(enemy.getPosition().x, enemy.getPosition().y, Const, ParticleSystem));
+        enemyExplosions.push(new EnemyExplosion(enemy.getPosition().x, enemy.getPosition().y, ParticleSystem));
         var $increasedMoney = enemy.getEndurance() * Const.MONEY_MULTIPLICATOR;
         wallet.increase($increasedMoney);
         score.increase($increasedMoney * 2);
@@ -2258,7 +2245,7 @@ function handleMagicFireballCollision(magicFireball, enemy) {
     newMagicFireballExplosion(enemy.getPosition().x, enemy.getPosition().y);
 }
 function newMagicFireballExplosion(posX, posY) {
-    magicFireballExplosions.push(new MagicFireballExplosion(posX, posY, Const, ParticleSystem));
+    magicFireballExplosions.push(new MagicFireballExplosion(posX, posY, ParticleSystem));
 }
 function removeDeadFireballs() {
     magicFireballs = magicFireballs.filter(function (fireball) { return fireball.isAlive(); });
@@ -2288,7 +2275,7 @@ function handleMagicIceballCollision(magicIceball, enemy) {
     newMagicIceballExplosion(enemy.getPosition().x, enemy.getPosition().y);
 }
 function newMagicIceballExplosion(posX, posY) {
-    magicIceballExplosions.push(new MagicIceballExplosion(posX, posY, Const, ParticleSystem));
+    magicIceballExplosions.push(new MagicIceballExplosion(posX, posY, ParticleSystem));
 }
 function removeDeadIceballs() {
     magicIceballs = magicIceballs.filter(function (iceball) { return iceball.isAlive(); });
@@ -2338,7 +2325,7 @@ function draw() {
     }
     background('skyblue');
     rectMode(CORNER);
-    image(backgroundImage, 0, Const.HUD_HEIGHT);
+    image(backgroundImage, 0, Hud.HEIGHT);
     startTile.draw();
     endTile.draw();
     orangeTiles.forEach(function (orangeTile) {
