@@ -7,8 +7,8 @@ import { TowerGenerator } from './TowerGenerator'
 import { Image } from 'p5'
 
 export class TileGenerator {
-  FLOOR_SIZE = 50
-  MARGIN_TOP = 30
+  static FLOOR_SIZE = 50
+  static MARGIN_TOP = 30
 
   levelMap: MapDataType
   mapImages: Image[]
@@ -109,8 +109,9 @@ export class TileGenerator {
       rowCount++
       for (let column = 0; column < trimmedRow.length; column++) {
         const character = trimmedRow[column]
-        const posX = this.FLOOR_SIZE * column
-        const posY = this.FLOOR_SIZE * rowCount + this.MARGIN_TOP
+        const posX = TileGenerator.FLOOR_SIZE * column
+        const posY =
+          TileGenerator.FLOOR_SIZE * rowCount + TileGenerator.MARGIN_TOP
         if (character === symbol) {
           switch (symbol) {
             case '0':
