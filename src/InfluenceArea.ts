@@ -5,6 +5,8 @@ import { YellowTower } from './YellowTower'
 import { Color } from './Color'
 
 export class InfluenceArea {
+  static ALPHA_FILL = 50
+  static ALPHA_STROKE = 120
   Const: ConstType
 
   constructor(Const: ConstType) {
@@ -12,23 +14,23 @@ export class InfluenceArea {
   }
 
   _setGrayInfluenceAreaColor() {
-    stroke(...Color.GRAY, this.Const.ALPHA_INFLUENCE_AREA_STROKE)
-    fill(...Color.GRAY, this.Const.ALPHA_INFLUENCE_AREA_FILL)
+    stroke(...Color.GRAY, InfluenceArea.ALPHA_STROKE)
+    fill(...Color.GRAY, InfluenceArea.ALPHA_FILL)
   }
 
   _setInfluenceAreaColor(towerId: number) {
     switch (towerId) {
       case GreenTower.ID:
-        stroke(...Color.GREEN, this.Const.ALPHA_INFLUENCE_AREA_STROKE)
-        fill(...Color.GREEN, this.Const.ALPHA_INFLUENCE_AREA_FILL)
+        stroke(...Color.GREEN, InfluenceArea.ALPHA_STROKE)
+        fill(...Color.GREEN, InfluenceArea.ALPHA_FILL)
         break
       case RedTower.ID:
-        stroke(...Color.RED, this.Const.ALPHA_INFLUENCE_AREA_STROKE)
-        fill(...Color.RED, this.Const.ALPHA_INFLUENCE_AREA_FILL)
+        stroke(...Color.RED, InfluenceArea.ALPHA_STROKE)
+        fill(...Color.RED, InfluenceArea.ALPHA_FILL)
         break
       case YellowTower.ID:
-        stroke(...Color.YELLOW, this.Const.ALPHA_INFLUENCE_AREA_STROKE)
-        fill(...Color.YELLOW, this.Const.ALPHA_INFLUENCE_AREA_FILL)
+        stroke(...Color.YELLOW, InfluenceArea.ALPHA_STROKE)
+        fill(...Color.YELLOW, InfluenceArea.ALPHA_FILL)
         break
     }
   }

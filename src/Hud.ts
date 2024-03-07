@@ -16,6 +16,8 @@ export class Hud {
   static UPGRADING = 1
   static UPGRADING_MAX = 2
 
+  static HEIGHT = 84
+
   static ICON_GREEN_TOWER_ON = 0
   static ICON_GREEN_TOWER_OFF = 1
   static ICON_RED_TOWER_ON = 2

@@ -33,15 +33,11 @@ export type ConstType = {
 
   CANVAS_WIDTH: number
   CANVAS_HEIGHT: number
-  HUD_HEIGHT: number
   KEY_1: number
   KEY_2: number
   KEY_3: number
 
   TOWER_OFFSET: number
-
-  ALPHA_INFLUENCE_AREA_FILL: number
-  ALPHA_INFLUENCE_AREA_STROKE: number
 
   EXPLOSION_OFFSET: number
 

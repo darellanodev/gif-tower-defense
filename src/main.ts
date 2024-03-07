@@ -616,7 +616,7 @@ function draw() {
   background('skyblue')
   rectMode(CORNER)
 
-  image(backgroundImage, 0, Const.HUD_HEIGHT)
+  image(backgroundImage, 0, Hud.HEIGHT)
 
   startTile.draw()
   endTile.draw()

@@ -10,15 +10,12 @@ export class Const {
 
   static CANVAS_WIDTH = 800
   static CANVAS_HEIGHT = 580
-  static HUD_HEIGHT = 84
+
   static KEY_1 = 49
   static KEY_2 = 50
   static KEY_3 = 51
 
   static TOWER_OFFSET = 5
-
-  static ALPHA_INFLUENCE_AREA_FILL = 50
-  static ALPHA_INFLUENCE_AREA_STROKE = 120
 
   static EXPLOSION_OFFSET = 25
 
