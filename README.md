@@ -53,7 +53,15 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Improve code
   - [x] Interfaces for enemies positions
   - [x] Refactor to use Position interface in other parts of the code
-  - [ ] Use class methods (static methods) to instantiate objects
+  - [x] Instead this.Const, use Const directly to access to their constants
+  - [ ] Class properties (static properties) to put constants related to their classes
+  - [ ] Classes inheritance
+  - [ ] Class methods (static methods) to instantiate objects
+  - [ ] Getters and Setters
+    - [ ] Hud.ts: canUpgrade -> setter?
+  - [ ] Public fields
+  - [ ] Use static property for store createdEnemies and then use it to generate ID with a getter when creating a new enemy.
+  - [ ] Private properties prefixed with underscore character?
   - [ ] Use named tuples?
 
 ## Resources
