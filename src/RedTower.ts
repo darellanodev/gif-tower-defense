@@ -3,7 +3,7 @@ import { MathUtils } from './MathUtils'
 import { Image } from 'p5'
 import { ProgressBar } from './ProgressBar'
 import { Enemy } from './Enemy'
-import { Color } from './Color'
+import { ConstColor } from './ConstColor'
 
 export class RedTower {
   static ID = 2
@@ -69,7 +69,7 @@ export class RedTower {
   _drawUpgradeBackground() {
     strokeWeight(1)
     stroke('black')
-    fill(Color.RED)
+    fill(ConstColor.RED)
     rect(
       this.position.x + 4,
       this.position.y + 4,
@@ -127,7 +127,7 @@ export class RedTower {
   }
 
   getColor() {
-    return Color.RED
+    return ConstColor.RED
   }
 
   selectTarget(enemies: Enemy[]) {

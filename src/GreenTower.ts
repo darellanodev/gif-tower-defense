@@ -3,7 +3,7 @@ import { MathUtils } from './MathUtils'
 import { Enemy } from './Enemy'
 import { Image } from 'p5'
 import { ProgressBar } from './ProgressBar'
-import { Color } from './Color'
+import { ConstColor } from './ConstColor'
 
 export class GreenTower {
   static ID = 1
@@ -77,7 +77,7 @@ export class GreenTower {
 
   _drawShotToEnemy() {
     strokeWeight(3)
-    stroke(Color.RED)
+    stroke(ConstColor.RED)
     line(
       -1,
       -18,
@@ -89,7 +89,7 @@ export class GreenTower {
   _drawUpgradeBackground() {
     strokeWeight(1)
     stroke('black')
-    fill(Color.GREEN)
+    fill(ConstColor.GREEN)
     rect(
       this.position.x + 4,
       this.position.y + 4,
@@ -179,7 +179,7 @@ export class GreenTower {
   }
 
   getColor() {
-    return Color.GREEN
+    return ConstColor.GREEN
   }
 
   _isDistanceIntoInfluenceArea(distance: number) {

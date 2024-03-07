@@ -3,7 +3,7 @@ import { MathUtils } from './MathUtils'
 import { ProgressBar } from './ProgressBar'
 import { Image } from 'p5'
 import { Enemy } from './Enemy'
-import { Color } from './Color'
+import { ConstColor } from './ConstColor'
 
 export class YellowTower {
   static ID = 3
@@ -65,7 +65,7 @@ export class YellowTower {
   _drawUpgradeBackground() {
     strokeWeight(1)
     stroke('black')
-    fill(Color.YELLOW)
+    fill(ConstColor.YELLOW)
     rect(
       this.position.x,
       this.position.y,
@@ -123,7 +123,7 @@ export class YellowTower {
   }
 
   getColor() {
-    return Color.YELLOW
+    return ConstColor.YELLOW
   }
 
   selectTarget(enemies: Enemy[]) {
