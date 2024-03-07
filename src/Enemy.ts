@@ -25,7 +25,8 @@ export class Enemy {
   static TOTAL_ENEMIES = 5
   static CREATION_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
 
-  id: number
+  static numberOfEnemies = 0 // for generating IDs
+
   images: Image[]
   startPosition: Position
   orders: number[]
@@ -35,6 +36,7 @@ export class Enemy {
   RandomClass: typeof Random
   ProgressBarClass: typeof ProgressBar
 
+  id: number
   imgIndex: number
   imgIndexBeforeEyesClosed: number
   eyesSequence: number[]
@@ -55,7 +57,6 @@ export class Enemy {
   freezedTime: number
 
   constructor(
-    id: number,
     images: Image[],
     startPosition: Position,
     orders: number[],
@@ -65,7 +66,9 @@ export class Enemy {
     RandomClass: typeof Random,
     ProgressBarClass: typeof ProgressBar,
   ) {
-    this.id = id
+    Enemy.numberOfEnemies++
+    this.id = Enemy.numberOfEnemies
+
     this.images = images
     this.startPosition = { ...startPosition }
     this.orders = orders

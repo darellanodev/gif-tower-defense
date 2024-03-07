@@ -75,7 +75,6 @@ let magicIceballsCount: number
 let magicUFOImage: Image
 let magicUFOs: MagicUFO[]
 let magicUFOsCount: number
-let currentEnemyId: number
 
 function preload() {
   greenTowerImages = Resources.greenTower()
@@ -151,7 +150,6 @@ function setup() {
   allowCreateEnemies = true
   waveEnemies = 0
   enemies = []
-  currentEnemyId = 1
 
   waveProgressBar = new ProgressBar({ x: 335, y: -19 }, 150, 16)
   bossProgressBar = new ProgressBar({ x: 335, y: -2 }, 150, 10)
@@ -293,7 +291,6 @@ function createNewEnemy(waveEnemy: number, wave: number) {
 
   enemies.push(
     new Enemy(
-      currentEnemyId,
       enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemy)),
       initialEnemiesPosition,
       orders,
@@ -304,7 +301,6 @@ function createNewEnemy(waveEnemy: number, wave: number) {
       ProgressBar,
     ),
   )
-  currentEnemyId++
 }
 
 function createNewMagicFireball() {
@@ -361,7 +357,6 @@ function createNewBoss(wave: number) {
   const isBoss = true
   enemies.push(
     new Enemy(
-      currentEnemyId,
       enemiesImages.slice(
         ...MathUtils.getTwoNumbersFourTimes(indexBossInEnemiesImages),
       ),
