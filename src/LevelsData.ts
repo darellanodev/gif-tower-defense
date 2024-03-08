@@ -1,5 +1,5 @@
 import { MapDataType } from './types'
-import { Const } from './Const'
+import { ConstDirection } from './ConstDirection'
 
 export class LevelsData {
   static data: MapDataType[] = [
@@ -20,8 +20,8 @@ export class LevelsData {
         'y111111111111111',
       ],
       money: 150,
-      startDirection: Const.LEFT_DIRECTION,
-      endDirection: Const.LEFT_DIRECTION,
+      startDirection: ConstDirection.LEFT,
+      endDirection: ConstDirection.LEFT,
     },
     {
       id: 6666,
@@ -41,8 +41,8 @@ export class LevelsData {
         'y011111111111111',
       ],
       money: 150,
-      startDirection: Const.LEFT_DIRECTION,
-      endDirection: Const.LEFT_DIRECTION,
+      startDirection: ConstDirection.LEFT,
+      endDirection: ConstDirection.LEFT,
     },
     {
       id: 6667,
@@ -50,8 +50,8 @@ export class LevelsData {
       comments: 'empty rowsMap, for unit testing purposes',
       rowsMap: [],
       money: 150,
-      startDirection: Const.LEFT_DIRECTION,
-      endDirection: Const.LEFT_DIRECTION,
+      startDirection: ConstDirection.LEFT,
+      endDirection: ConstDirection.LEFT,
     },
   ]
 }

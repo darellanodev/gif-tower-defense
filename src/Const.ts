@@ -1,9 +1,4 @@
 export class Const {
-  static LEFT_DIRECTION = 1
-  static RIGHT_DIRECTION = 2
-  static UP_DIRECTION = 3
-  static DOWN_DIRECTION = 4
-
   static TILE_SIZE = 50
 
   static UPGRADE_MAX_LEVEL = 5

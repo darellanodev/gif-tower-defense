@@ -1,4 +1,5 @@
 import { Const } from '../src/Const'
+import { ConstDirection } from '../src/ConstDirection'
 import { LevelsDataProvider } from '../src/LevelsDataProvider'
 import { LevelsData } from '../src/LevelsData'
 
@@ -20,8 +21,8 @@ describe('Levels data provider', () => {
         '0000000000000001',
         'y111111111111111',
       ],
-      startDirection: Const.LEFT_DIRECTION,
-      endDirection: Const.LEFT_DIRECTION,
+      startDirection: ConstDirection.LEFT,
+      endDirection: ConstDirection.LEFT,
       money: 150,
     }
 

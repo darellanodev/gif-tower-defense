@@ -4,6 +4,7 @@ import { Random } from './Random'
 import { Image } from 'p5'
 import { MagicIceball } from './MagicIceball'
 import { Const } from './Const'
+import { ConstDirection } from './ConstDirection'
 
 export class Enemy {
   static VELOCITY = 1 // must be multiple of "this.Const.TILE_SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
@@ -152,19 +153,19 @@ export class Enemy {
     const velocity = this.isBoss ? Enemy.BOSS_VELOCITY : Enemy.VELOCITY
 
     switch (this.currentDirection) {
-      case Const.LEFT_DIRECTION:
+      case ConstDirection.LEFT:
         this.position.x = this.position.x - velocity
         break
 
-      case Const.RIGHT_DIRECTION:
+      case ConstDirection.RIGHT:
         this.position.x = this.position.x + velocity
         break
 
-      case Const.UP_DIRECTION:
+      case ConstDirection.UP:
         this.position.y = this.position.y - velocity
         break
 
-      case Const.DOWN_DIRECTION:
+      case ConstDirection.DOWN:
         this.position.y = this.position.y + velocity
         break
     }

@@ -5,7 +5,7 @@ import { OrangeTile } from './OrangeTile'
 import { PathTile } from './PathTile'
 import { TowerGenerator } from './TowerGenerator'
 import { Image } from 'p5'
-import { Const } from './Const'
+import { ConstDirection } from './ConstDirection'
 
 export class TileGenerator {
   static FLOOR_SIZE = 50
@@ -56,43 +56,43 @@ export class TileGenerator {
 
   _setStartImage(mapImages: any[]) {
     switch (this.levelMap.startDirection) {
-      case Const.DOWN_DIRECTION:
+      case ConstDirection.DOWN:
         this.startImage = mapImages[6]
-        this.startDirection = Const.DOWN_DIRECTION
+        this.startDirection = ConstDirection.DOWN
         break
 
-      case Const.RIGHT_DIRECTION:
+      case ConstDirection.RIGHT:
         this.startImage = mapImages[7]
-        this.startDirection = Const.RIGHT_DIRECTION
+        this.startDirection = ConstDirection.RIGHT
         break
 
-      case Const.LEFT_DIRECTION:
+      case ConstDirection.LEFT:
         this.startImage = mapImages[8]
-        this.startDirection = Const.LEFT_DIRECTION
+        this.startDirection = ConstDirection.LEFT
         break
 
-      case Const.UP_DIRECTION:
+      case ConstDirection.UP:
         this.startImage = mapImages[9]
-        this.startDirection = Const.UP_DIRECTION
+        this.startDirection = ConstDirection.UP
         break
     }
   }
 
   _setEndImage(mapImages: any[]) {
     switch (this.levelMap.endDirection) {
-      case Const.DOWN_DIRECTION:
+      case ConstDirection.DOWN:
         this.endImage = mapImages[2]
         break
 
-      case Const.RIGHT_DIRECTION:
+      case ConstDirection.RIGHT:
         this.endImage = mapImages[4]
         break
 
-      case Const.LEFT_DIRECTION:
+      case ConstDirection.LEFT:
         this.endImage = mapImages[3]
         break
 
-      case Const.UP_DIRECTION:
+      case ConstDirection.UP:
         this.endImage = mapImages[5]
         break
     }

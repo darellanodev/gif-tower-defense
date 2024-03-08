@@ -2,6 +2,7 @@ import { StartTile } from './StartTile'
 import { EndTile } from './EndTile'
 import { PathTile } from './PathTile'
 import { Const } from './Const'
+import { ConstDirection } from './ConstDirection'
 
 export class Path {
   MAX_SEARCHES = 5000 // For testing purposes put a low value. For production put this value at 5000
@@ -20,7 +21,7 @@ export class Path {
     let finalX = 0
     let finalY = 0
 
-    if (this.startTile.getStartDirection() === Const.LEFT_DIRECTION) {
+    if (this.startTile.getStartDirection() === ConstDirection.LEFT) {
       const finalPosition = this.startTile.getPosition()
       finalX = finalPosition.x + Const.TILE_SIZE
       finalY = finalPosition.y
@@ -94,77 +95,77 @@ export class Path {
     let searchCount = 0
     while (searchCount < this.MAX_SEARCHES && !endReached) {
       searchCount++
-      if (currentDirection === Const.LEFT_DIRECTION) {
+      if (currentDirection === ConstDirection.LEFT) {
         const isLeftEndTile = this._isLeftEndTile(currentTile)
 
         if (isLeftEndTile) {
           endReached = true
-          orders.push(Const.LEFT_DIRECTION)
+          orders.push(ConstDirection.LEFT)
         } else {
           const searchTile = this._searchLeftTile(currentTile)
 
           if (searchTile) {
-            orders.push(Const.LEFT_DIRECTION)
+            orders.push(ConstDirection.LEFT)
             currentTile = searchTile
           } else {
             // It is preferred to go first down and if it is not possible to go up
             const searchNextTile = this._searchDownTile(currentTile)
             if (searchNextTile) {
-              currentDirection = Const.DOWN_DIRECTION
+              currentDirection = ConstDirection.DOWN
             } else {
-              currentDirection = Const.UP_DIRECTION
+              currentDirection = ConstDirection.UP
             }
           }
         }
       }
 
-      if (currentDirection === Const.DOWN_DIRECTION) {
+      if (currentDirection === ConstDirection.DOWN) {
         const searchTile = this._searchDownTile(currentTile)
 
         if (searchTile) {
-          orders.push(Const.DOWN_DIRECTION)
+          orders.push(ConstDirection.DOWN)
           currentTile = searchTile
         } else {
           // It is preferred to go first to the right and if it is not possible to the left
           const searchNextTile = this._searchRightTile(currentTile)
           if (searchNextTile) {
-            currentDirection = Const.RIGHT_DIRECTION
+            currentDirection = ConstDirection.RIGHT
           } else {
-            currentDirection = Const.LEFT_DIRECTION
+            currentDirection = ConstDirection.LEFT
           }
         }
       }
 
-      if (currentDirection === Const.RIGHT_DIRECTION) {
+      if (currentDirection === ConstDirection.RIGHT) {
         const searchTile = this._searchRightTile(currentTile)
 
         if (searchTile) {
-          orders.push(Const.RIGHT_DIRECTION)
+          orders.push(ConstDirection.RIGHT)
           currentTile = searchTile
         } else {
           // It is preferred to go first up and if it is not possible to go down
           const searchNextTile = this._searchUpTile(currentTile)
           if (searchNextTile) {
-            currentDirection = Const.UP_DIRECTION
+            currentDirection = ConstDirection.UP
           } else {
-            currentDirection = Const.DOWN_DIRECTION
+            currentDirection = ConstDirection.DOWN
           }
         }
       }
 
-      if (currentDirection === Const.UP_DIRECTION) {
+      if (currentDirection === ConstDirection.UP) {
         const searchTile = this._searchUpTile(currentTile)
 
         if (searchTile) {
-          orders.push(Const.UP_DIRECTION)
+          orders.push(ConstDirection.UP)
           currentTile = searchTile
         } else {
           // It is preferred to go first left and if it is not possible to go right
           const searchNextTile = this._searchLeftTile(currentTile)
           if (searchNextTile) {
-            currentDirection = Const.LEFT_DIRECTION
+            currentDirection = ConstDirection.LEFT
           } else {
-            currentDirection = Const.RIGHT_DIRECTION
+            currentDirection = ConstDirection.RIGHT
           }
         }
       }

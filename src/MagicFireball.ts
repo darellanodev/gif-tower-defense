@@ -1,6 +1,7 @@
 import { Image } from 'p5'
 import { Enemy } from './Enemy'
 import { Const } from './Const'
+import { ConstDirection } from './ConstDirection'
 
 export class MagicFireball {
   static SPEED = 10
@@ -37,19 +38,19 @@ export class MagicFireball {
 
   update() {
     switch (this.currentDirection) {
-      case Const.LEFT_DIRECTION:
+      case ConstDirection.LEFT:
         this.x = this.x - MagicFireball.SPEED
         break
 
-      case Const.RIGHT_DIRECTION:
+      case ConstDirection.RIGHT:
         this.x = this.x + MagicFireball.SPEED
         break
 
-      case Const.UP_DIRECTION:
+      case ConstDirection.UP:
         this.y = this.y - MagicFireball.SPEED
         break
 
-      case Const.DOWN_DIRECTION:
+      case ConstDirection.DOWN:
         this.y = this.y + MagicFireball.SPEED
         break
     }
