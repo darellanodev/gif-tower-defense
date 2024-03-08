@@ -1,5 +1,6 @@
 import { Const } from '../src/Const'
 import { ConstDirection } from '../src/ConstDirection'
+import { ConstTest } from '../src/ConstTest'
 import { LevelsDataProvider } from '../src/LevelsDataProvider'
 import { LevelsData } from '../src/LevelsData'
 
@@ -28,7 +29,7 @@ describe('Levels data provider', () => {
 
     const levelsDataProvider = new LevelsDataProvider(LevelsData.data)
     const result = levelsDataProvider.getLevel(
-      Const.ID_LEVEL_VALID_FOR_UNIT_TESTING,
+      ConstTest.ID_LEVEL_VALID_FOR_UNIT_TESTING,
     )
 
     expect(result).toStrictEqual(expected)

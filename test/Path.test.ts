@@ -1,3 +1,4 @@
+import { ConstTest } from '../src/ConstTest'
 import { ConstDirection } from '../src/ConstDirection'
 import { Const } from '../src/Const'
 import { Path } from '../src/Path'
@@ -19,7 +20,7 @@ import { Position } from '../src/types'
 const levelsDataProvider = new LevelsDataProvider(LevelsData.data)
 
 const levelMap = levelsDataProvider.getLevel(
-  Const.ID_LEVEL_VALID_FOR_UNIT_TESTING,
+  ConstTest.ID_LEVEL_VALID_FOR_UNIT_TESTING,
 )
 
 const mapimages: any[] = [null, null, null]
@@ -309,7 +310,7 @@ describe('When start direction is left', () => {
 describe('invalid map', () => {
   test('when cant reach the end tile returns an empty orders array', () => {
     const levelMap = levelsDataProvider.getLevel(
-      Const.ID_LEVEL_INVALID_FOR_UNIT_TESTING,
+      ConstTest.ID_LEVEL_INVALID_FOR_UNIT_TESTING,
     )
 
     const mapimages: any[] = [null, null, null]
