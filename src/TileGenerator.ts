@@ -11,19 +11,19 @@ export class TileGenerator {
   static FLOOR_SIZE = 50
   static MARGIN_TOP = 30
 
-  levelMap: MapDataType
-  mapImages: Image[]
-  OrangeTileClass: typeof OrangeTile
-  PathTileClass: typeof PathTile
-  StartTileClass: typeof StartTile
-  EndTileClass: typeof EndTile
-  towerGenerator: TowerGenerator
+  #levelMap: MapDataType
+  #mapImages: Image[]
+  #OrangeTileClass: typeof OrangeTile
+  #PathTileClass: typeof PathTile
+  #StartTileClass: typeof StartTile
+  #EndTileClass: typeof EndTile
+  #towerGenerator: TowerGenerator
 
-  orangeImage: Image
-  blackImage: Image
-  startImage: Image
-  endImage: Image
-  startDirection: number
+  #orangeImage: Image
+  #blackImage: Image
+  #startImage: Image
+  #endImage: Image
+  #startDirection: number
 
   constructor(
     levelMap: MapDataType,
@@ -34,66 +34,66 @@ export class TileGenerator {
     EndTileClass: typeof EndTile,
     towerGenerator: TowerGenerator,
   ) {
-    this.levelMap = levelMap
-    this.mapImages = mapImages
-    this.OrangeTileClass = OrangeTileClass
-    this.PathTileClass = PathTileClass
-    this.StartTileClass = StartTileClass
-    this.EndTileClass = EndTileClass
-    this.towerGenerator = towerGenerator
+    this.#levelMap = levelMap
+    this.#mapImages = mapImages
+    this.#OrangeTileClass = OrangeTileClass
+    this.#PathTileClass = PathTileClass
+    this.#StartTileClass = StartTileClass
+    this.#EndTileClass = EndTileClass
+    this.#towerGenerator = towerGenerator
 
-    if (this.levelMap.rowsMap.length === 0) {
+    if (this.#levelMap.rowsMap.length === 0) {
       throw new Error('No rows map found')
     }
 
     this._setStartImage(mapImages)
     this._setEndImage(mapImages)
 
-    this.orangeImage = mapImages[0]
-    this.blackImage = mapImages[1]
-    this.startDirection = this.levelMap.startDirection
+    this.#orangeImage = mapImages[0]
+    this.#blackImage = mapImages[1]
+    this.#startDirection = this.#levelMap.startDirection
   }
 
   _setStartImage(mapImages: any[]) {
-    switch (this.levelMap.startDirection) {
+    switch (this.#levelMap.startDirection) {
       case ConstDirection.DOWN:
-        this.startImage = mapImages[6]
-        this.startDirection = ConstDirection.DOWN
+        this.#startImage = mapImages[6]
+        this.#startDirection = ConstDirection.DOWN
         break
 
       case ConstDirection.RIGHT:
-        this.startImage = mapImages[7]
-        this.startDirection = ConstDirection.RIGHT
+        this.#startImage = mapImages[7]
+        this.#startDirection = ConstDirection.RIGHT
         break
 
       case ConstDirection.LEFT:
-        this.startImage = mapImages[8]
-        this.startDirection = ConstDirection.LEFT
+        this.#startImage = mapImages[8]
+        this.#startDirection = ConstDirection.LEFT
         break
 
       case ConstDirection.UP:
-        this.startImage = mapImages[9]
-        this.startDirection = ConstDirection.UP
+        this.#startImage = mapImages[9]
+        this.#startDirection = ConstDirection.UP
         break
     }
   }
 
   _setEndImage(mapImages: any[]) {
-    switch (this.levelMap.endDirection) {
+    switch (this.#levelMap.endDirection) {
       case ConstDirection.DOWN:
-        this.endImage = mapImages[2]
+        this.#endImage = mapImages[2]
         break
 
       case ConstDirection.RIGHT:
-        this.endImage = mapImages[4]
+        this.#endImage = mapImages[4]
         break
 
       case ConstDirection.LEFT:
-        this.endImage = mapImages[3]
+        this.#endImage = mapImages[3]
         break
 
       case ConstDirection.UP:
-        this.endImage = mapImages[5]
+        this.#endImage = mapImages[5]
         break
     }
   }
@@ -102,7 +102,7 @@ export class TileGenerator {
     const resultTiles: any[] = []
 
     let rowCount = 0
-    this.levelMap.rowsMap.forEach((row: string) => {
+    this.#levelMap.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
       for (let column = 0; column < trimmedRow.length; column++) {
@@ -114,28 +114,28 @@ export class TileGenerator {
           switch (symbol) {
             case '0':
               resultTiles.push(
-                new this.OrangeTileClass(
-                  this.orangeImage,
+                new this.#OrangeTileClass(
+                  this.#orangeImage,
                   { x: posX, y: posY },
-                  this.towerGenerator,
+                  this.#towerGenerator,
                 ),
               )
               break
             case '1':
-              resultTiles.push(new this.PathTileClass(posX, posY))
+              resultTiles.push(new this.#PathTileClass(posX, posY))
               break
             case 'x':
               resultTiles.push(
-                new this.StartTileClass(
-                  this.startImage,
+                new this.#StartTileClass(
+                  this.#startImage,
                   { x: posX, y: posY },
-                  this.startDirection,
+                  this.#startDirection,
                 ),
               )
               break
             case 'y':
               resultTiles.push(
-                new this.EndTileClass(this.endImage, { x: posX, y: posY }),
+                new this.#EndTileClass(this.#endImage, { x: posX, y: posY }),
               )
               break
           }
@@ -163,6 +163,6 @@ export class TileGenerator {
   }
 
   getInitialMoney() {
-    return Number(this.levelMap.money)
+    return Number(this.#levelMap.money)
   }
 }

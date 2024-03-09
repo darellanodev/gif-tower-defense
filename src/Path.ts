@@ -5,24 +5,24 @@ import { Const } from './Const'
 import { ConstDirection } from './ConstDirection'
 
 export class Path {
-  MAX_SEARCHES = 5000 // For testing purposes put a low value. For production put this value at 5000
+  static MAX_SEARCHES = 5000 // For testing purposes put a low value. For production put this value at 5000
 
-  startTile: StartTile
-  endTile: EndTile
-  pathTiles: PathTile[]
+  #startTile: StartTile
+  #endTile: EndTile
+  #pathTiles: PathTile[]
 
   constructor(startTile: StartTile, endTile: EndTile, pathTiles: PathTile[]) {
-    this.startTile = startTile
-    this.endTile = endTile
-    this.pathTiles = pathTiles
+    this.#startTile = startTile
+    this.#endTile = endTile
+    this.#pathTiles = pathTiles
   }
 
   getEnemiesInitialPosition() {
     let finalX = 0
     let finalY = 0
 
-    if (this.startTile.getStartDirection() === ConstDirection.LEFT) {
-      const finalPosition = this.startTile.getPosition()
+    if (this.#startTile.getStartDirection() === ConstDirection.LEFT) {
+      const finalPosition = this.#startTile.getPosition()
       finalX = finalPosition.x + Const.TILE_SIZE
       finalY = finalPosition.y
     }
@@ -31,7 +31,7 @@ export class Path {
   }
 
   getTileInPosition(tx: number, ty: number) {
-    const pathTile = this.pathTiles.find(
+    const pathTile = this.#pathTiles.find(
       (pathTile) => tx === pathTile.getX() && ty === pathTile.getY(),
     )
 
@@ -66,7 +66,7 @@ export class Path {
     const searchPx = currentTile.getX() - Const.TILE_SIZE
     const searchPy = currentTile.getY()
 
-    const endPosition = this.endTile.getPosition()
+    const endPosition = this.#endTile.getPosition()
 
     const endPx = endPosition.x
     const endPy = endPosition.y
@@ -80,20 +80,20 @@ export class Path {
   makeOrders() {
     const orders = []
 
-    const startTilePosition = this.startTile.getPosition()
+    const startTilePosition = this.#startTile.getPosition()
 
     let currentTile: PathTile = new PathTile(
       startTilePosition.x,
       startTilePosition.y,
     )
-    let currentDirection = this.startTile.getStartDirection()
+    let currentDirection = this.#startTile.getStartDirection()
 
     // the first time it goes in the same direction than currentDirection one tile only, from out of the startTile to the startTile.
     orders.push(currentDirection)
 
     let endReached = false
     let searchCount = 0
-    while (searchCount < this.MAX_SEARCHES && !endReached) {
+    while (searchCount < Path.MAX_SEARCHES && !endReached) {
       searchCount++
       if (currentDirection === ConstDirection.LEFT) {
         const isLeftEndTile = this._isLeftEndTile(currentTile)
@@ -177,7 +177,7 @@ export class Path {
     }
 
     // cant reach the end because we spent all searchCount
-    if (searchCount === this.MAX_SEARCHES) {
+    if (searchCount === Path.MAX_SEARCHES) {
       return []
     }
 

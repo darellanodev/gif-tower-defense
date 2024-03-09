@@ -7,25 +7,24 @@ export class EnemyExplosion {
   static SIZE = 12
   static COLOR = [255, 165, 0] as RGBType
 
-  x: number
-  y: number
-  ParticleSystemClass: typeof ParticleSystem
+  #x: number
+  #y: number
 
-  emisionTime: number = 0
-  finished: boolean = false
+  #emisionTime: number = 0
+  #finished: boolean = false
+  #particleSystem: ParticleSystem
 
-  particleSystem: ParticleSystem
   constructor(
     x: number,
     y: number,
     ParticleSystemClass: typeof ParticleSystem,
   ) {
-    this.x = x
-    this.y = y
-    this.particleSystem = new ParticleSystemClass(
+    this.#x = x
+    this.#y = y
+    this.#particleSystem = new ParticleSystemClass(
       createVector(
-        this.x + Const.EXPLOSION_OFFSET,
-        this.y + Const.EXPLOSION_OFFSET,
+        this.#x + Const.EXPLOSION_OFFSET,
+        this.#y + Const.EXPLOSION_OFFSET,
       ),
       EnemyExplosion.SIZE,
       EnemyExplosion.COLOR,
@@ -33,14 +32,14 @@ export class EnemyExplosion {
   }
 
   isActive() {
-    return !this.finished
+    return !this.#finished
   }
 
   update() {
-    if (this.emisionTime < EnemyExplosion.MAX_EMIT_TIME) {
-      this.emisionTime++
-      this.particleSystem.addParticle()
+    if (this.#emisionTime < EnemyExplosion.MAX_EMIT_TIME) {
+      this.#emisionTime++
+      this.#particleSystem.addParticle()
     }
-    this.particleSystem.run()
+    this.#particleSystem.run()
   }
 }

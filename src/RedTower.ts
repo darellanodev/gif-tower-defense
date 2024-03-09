@@ -13,15 +13,15 @@ export class RedTower {
   static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
   static INFLUENCE_AREA = 240
 
-  images: Image[]
-  position: Position
-  MathUtilsClass: typeof MathUtils
-  ProgressBarClass: typeof ProgressBar
+  #images: Image[]
+  #position: Position
+  #MathUtilsClass: typeof MathUtils
+  #ProgressBarClass: typeof ProgressBar
 
-  upgradeLevel: number = 0
-  upgrading: boolean = false
-  progressBar: ProgressBar
-  upgradeProgress: number = 0
+  #upgradeLevel: number = 0
+  #upgrading: boolean = false
+  #progressBar: ProgressBar
+  #upgradeProgress: number = 0
 
   constructor(
     images: Image[],
@@ -29,39 +29,39 @@ export class RedTower {
     MathUtilsClass: typeof MathUtils,
     ProgressBarClass: typeof ProgressBar,
   ) {
-    this.images = images
-    this.position = { ...position }
-    this.MathUtilsClass = MathUtilsClass
-    this.ProgressBarClass = ProgressBarClass
+    this.#images = images
+    this.#position = { ...position }
+    this.#MathUtilsClass = MathUtilsClass
+    this.#ProgressBarClass = ProgressBarClass
 
-    this.progressBar = new this.ProgressBarClass(
-      this.position,
+    this.#progressBar = new this.#ProgressBarClass(
+      this.#position,
       ProgressBar.WIDTH,
       ProgressBar.HEIGHT,
     )
   }
 
   upgrade() {
-    if (!this.upgrading) {
-      this.upgrading = true
-      this.upgradeLevel++
+    if (!this.#upgrading) {
+      this.#upgrading = true
+      this.#upgradeLevel++
     }
   }
 
   isNotUpgrading() {
-    return !this.upgrading
+    return !this.#upgrading
   }
 
   getPosition() {
-    return this.position
+    return this.#position
   }
 
   getUpgradeLevel() {
-    return this.upgradeLevel
+    return this.#upgradeLevel
   }
 
   isMaxUpgraded() {
-    return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1
+    return this.#upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1
   }
 
   _drawUpgradeBackground() {
@@ -69,32 +69,36 @@ export class RedTower {
     stroke('black')
     fill(ConstColor.RED)
     rect(
-      this.position.x + 4,
-      this.position.y + 4,
+      this.#position.x + 4,
+      this.#position.y + 4,
       Const.TILE_SIZE,
       Const.TILE_SIZE,
     )
   }
 
   draw() {
-    if (this.upgrading) {
+    if (this.#upgrading) {
       this._drawUpgradeBackground()
-      if (!this.progressBar.isFullOfProgress()) {
-        this.upgradeProgress++
-        this.progressBar.setProgress(this.upgradeProgress)
-        this.progressBar.draw()
+      if (!this.#progressBar.isFullOfProgress()) {
+        this.#upgradeProgress++
+        this.#progressBar.setProgress(this.#upgradeProgress)
+        this.#progressBar.draw()
       } else {
-        this.upgrading = false
-        this.upgradeProgress = 0
-        this.progressBar.setProgress(0)
+        this.#upgrading = false
+        this.#upgradeProgress = 0
+        this.#progressBar.setProgress(0)
       }
     } else {
-      image(this.images[this.upgradeLevel], this.position.x, this.position.y)
+      image(
+        this.#images[this.#upgradeLevel],
+        this.#position.x,
+        this.#position.y,
+      )
     }
   }
 
   getInfluenceArea() {
-    return RedTower.UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
+    return RedTower.UPGRADE_INFLUENCE_AREA[this.#upgradeLevel]
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {

@@ -2,19 +2,19 @@ import { Vector } from 'p5'
 import { RGBType } from './types'
 
 export class Particle {
-  position: Vector
-  size: number
-  color: RGBType
+  #position: Vector
+  #size: number
+  #color: RGBType
 
-  velocity: Vector
-  lifespan: number = 255
+  #velocity: Vector
+  #lifespan: number = 255
 
   constructor(position: Vector, size: number, color: RGBType) {
-    this.position = position.copy()
-    this.size = size
-    this.color = color
+    this.#position = position.copy()
+    this.#size = size
+    this.#color = color
 
-    this.velocity = createVector(random(-3, 3), random(-3, 0))
+    this.#velocity = createVector(random(-3, 3), random(-3, 0))
   }
 
   run() {
@@ -23,18 +23,18 @@ export class Particle {
   }
 
   update() {
-    this.position.add(this.velocity)
-    this.lifespan -= 2
+    this.#position.add(this.#velocity)
+    this.#lifespan -= 2
   }
 
   display() {
-    stroke(...this.color, this.lifespan)
+    stroke(...this.#color, this.#lifespan)
     strokeWeight(2)
-    fill(127, this.lifespan)
-    ellipse(this.position.x, this.position.y, this.size, this.size)
+    fill(127, this.#lifespan)
+    ellipse(this.#position.x, this.#position.y, this.#size, this.#size)
   }
 
   isDead() {
-    return this.lifespan < 0
+    return this.#lifespan < 0
   }
 }

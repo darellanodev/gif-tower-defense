@@ -5,60 +5,60 @@ import { Enemy } from './Enemy'
 import { Const } from './Const'
 
 export class OrangeTile {
-  img: Image
-  position: Position
-  towerGenerator: TowerGenerator
+  #img: Image
+  #position: Position
+  #towerGenerator: TowerGenerator
 
-  tower: TowerType = null
+  #tower: TowerType = null
 
   constructor(img: Image, position: Position, towerGenerator: TowerGenerator) {
-    this.img = img
-    this.position = { ...position }
-    this.towerGenerator = towerGenerator
+    this.#img = img
+    this.#position = { ...position }
+    this.#towerGenerator = towerGenerator
   }
 
   sellTower() {
     let profit = 0
 
-    if (this.tower) {
-      profit = this.tower.getSellProfit()
-      this.tower = null
+    if (this.#tower) {
+      profit = this.#tower.getSellProfit()
+      this.#tower = null
     }
     return profit
   }
 
   buyTower(towerId: number) {
-    if (this.tower === null) {
-      this.tower = this.towerGenerator.newTower(towerId, this.position)
+    if (this.#tower === null) {
+      this.#tower = this.#towerGenerator.newTower(towerId, this.#position)
     } else {
-      this.tower.upgrade()
+      this.#tower.upgrade()
     }
-    return this.tower.getCost()
+    return this.#tower.getCost()
   }
 
   _upgradeTower() {
-    if (this.tower) {
-      this.tower.upgrade()
+    if (this.#tower) {
+      this.#tower.upgrade()
     }
   }
 
   drawTile() {
-    image(this.img, this.position.x, this.position.y)
+    image(this.#img, this.#position.x, this.#position.y)
   }
 
   drawTower() {
-    if (this.tower) {
-      this.tower.draw()
+    if (this.#tower) {
+      this.#tower.draw()
     }
   }
 
   getPosition() {
-    return this.position
+    return this.#position
   }
 
   selectTarget(enemies: Enemy[]) {
-    if (this.tower) {
-      this.tower.selectTarget(enemies)
+    if (this.#tower) {
+      this.#tower.selectTarget(enemies)
     }
   }
 
@@ -67,14 +67,14 @@ export class OrangeTile {
     let insideY = false
 
     if (
-      this.position.x < mouse_x &&
-      this.position.x + Const.TILE_SIZE > mouse_x
+      this.#position.x < mouse_x &&
+      this.#position.x + Const.TILE_SIZE > mouse_x
     ) {
       insideX = true
     }
     if (
-      this.position.y < mouse_y &&
-      this.position.y + Const.TILE_SIZE > mouse_y
+      this.#position.y < mouse_y &&
+      this.#position.y + Const.TILE_SIZE > mouse_y
     ) {
       insideY = true
     }
@@ -86,12 +86,12 @@ export class OrangeTile {
   }
 
   hasTower() {
-    return this.tower !== null
+    return this.#tower !== null
   }
 
   getTower() {
     if (this.hasTower()) {
-      return this.tower
+      return this.#tower
     }
     return null
   }
