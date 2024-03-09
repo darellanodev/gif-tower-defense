@@ -364,17 +364,13 @@ function createNewBoss(wave: number) {
 }
 
 function handleEnemyExplosions() {
-  const deadEnemies: Enemy[] = enemies.filter((enemy) => enemy.isDead())
+  const deadEnemies: Enemy[] = enemies.filter((enemy) => enemy.dead)
   deadEnemies.forEach((enemy) => {
     enemyExplosions.push(
-      new EnemyExplosion(
-        enemy.getPosition().x,
-        enemy.getPosition().y,
-        ParticleSystem,
-      ),
+      new EnemyExplosion(enemy.position.x, enemy.position.y, ParticleSystem),
     )
     //increase money and score
-    const $increasedMoney = enemy.getEndurance() * Const.MONEY_MULTIPLICATOR
+    const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR
 
     wallet.increase($increasedMoney)
     score.increase($increasedMoney * 2)
@@ -398,11 +394,11 @@ function handleNewEnemyCreation() {
 }
 
 function removeDeadEnemies() {
-  enemies = enemies.filter((enemy) => enemy.isAlive())
+  enemies = enemies.filter((enemy) => enemy.alive)
 }
 
 function handleWinnerEnemies() {
-  const winnerEnemies = enemies.filter((enemy) => enemy.isWinner())
+  const winnerEnemies = enemies.filter((enemy) => enemy.winner)
   winnerEnemies.forEach((enemy) => {
     lives--
     if (lives <= 0) {
@@ -497,7 +493,7 @@ function handleMagicFireballCollision(
 ) {
   magicFireball.addDamage(enemy)
   magicFireball.setToIgnoreList(enemy)
-  newMagicFireballExplosion(enemy.getPosition().x, enemy.getPosition().y)
+  newMagicFireballExplosion(enemy.position.x, enemy.position.y)
 }
 
 function newMagicFireballExplosion(posX: number, posY: number) {
@@ -538,7 +534,7 @@ function checkMagicIceballCollides(
 function handleMagicIceballCollision(magicIceball: MagicIceball, enemy: Enemy) {
   magicIceball.freeze(enemy)
   magicIceball.setToIgnoreList(enemy)
-  newMagicIceballExplosion(enemy.getPosition().x, enemy.getPosition().y)
+  newMagicIceballExplosion(enemy.position.x, enemy.position.y)
 }
 
 function newMagicIceballExplosion(posX: number, posY: number) {

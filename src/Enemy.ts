@@ -93,12 +93,32 @@ export class Enemy {
     this.#status = Enemy.STATUS_ALIVE
   }
 
-  getEndurance() {
+  get endurance() {
     return this.#endurance
   }
 
   get id() {
     return this.#id
+  }
+
+  get position() {
+    return this.#position
+  }
+
+  get dead() {
+    return this.#status == Enemy.STATUS_DEAD
+  }
+
+  get alive() {
+    return this.#status == Enemy.STATUS_ALIVE
+  }
+
+  get winner() {
+    return this.#winned
+  }
+
+  get orderPosition() {
+    return this.#indexOrder
   }
 
   addDamage(shotDamage: number) {
@@ -114,23 +134,11 @@ export class Enemy {
     this.#freezed = true
   }
 
-  isDead() {
-    return this.#status == Enemy.STATUS_DEAD
-  }
-
-  isAlive() {
-    return this.#status == Enemy.STATUS_ALIVE
-  }
-
-  isWinner() {
-    return this.#winned
-  }
-
   resetWinner() {
     this.#winned = false
   }
 
-  reinitEnemy() {
+  #reinitEnemy() {
     this.#winned = true
     this.#moveCount = 0
     this.#indexOrder = 0
@@ -140,11 +148,7 @@ export class Enemy {
     this.#extendClosedEyesTime = 0
     this.#currentDirection = this.#orders[this.#indexOrder]
     this.#position = { ...this.#startPosition }
-    this._setRandomTimeMaxForClosingEyes()
-  }
-
-  getOrderPosition() {
-    return this.#indexOrder
+    this.#setRandomTimeMaxForClosingEyes()
   }
 
   update() {
@@ -184,18 +188,18 @@ export class Enemy {
       this.#moveCount = 0
       this.#indexOrder++
       if (this.#indexOrder == this.#orders.length) {
-        this.reinitEnemy()
+        this.#reinitEnemy()
       } else {
         this.#currentDirection = this.#orders[this.#indexOrder]
       }
     }
   }
 
-  _hasOpenEyes() {
+  #hasOpenEyes() {
     return this.#imgIndex != Enemy.EYES_CLOSED
   }
 
-  _moveEyesInSequence() {
+  #moveEyesInSequence() {
     this.#changeEyesTime++
 
     if (this.#changeEyesTime > Enemy.CHANGE_EYES_MAX_TIME) {
@@ -209,25 +213,25 @@ export class Enemy {
     }
   }
 
-  _setRandomTimeMaxForClosingEyes() {
+  #setRandomTimeMaxForClosingEyes() {
     this.#randomCloseEyes = this.#RandomClass.integerBetween(
       Enemy.MIN_TIME_TO_CLOSE,
       Enemy.MAX_TIME_TO_CLOSE,
     )
   }
 
-  _changeEyes() {
-    if (this._hasOpenEyes()) {
+  #changeEyes() {
+    if (this.#hasOpenEyes()) {
       this.#closeEyesTime++
 
       if (this.#closeEyesTime > this.#randomCloseEyes) {
         this.#closeEyesTime = 0
-        this._setRandomTimeMaxForClosingEyes()
+        this.#setRandomTimeMaxForClosingEyes()
         this.#imgIndexBeforeEyesClosed = this.#imgIndex
         this.#imgIndex = Enemy.EYES_CLOSED
       }
 
-      this._moveEyesInSequence()
+      this.#moveEyesInSequence()
     } else {
       this.#extendClosedEyesTime++
 
@@ -238,12 +242,8 @@ export class Enemy {
     }
   }
 
-  getPosition() {
-    return this.#position
-  }
-
   draw() {
-    this._changeEyes()
+    this.#changeEyes()
     image(this.#images[this.#imgIndex], this.#position.x, this.#position.y)
     this.#healthBar.setPosition({
       x: this.#position.x,

@@ -71,7 +71,7 @@ export class MagicIceball {
   }
 
   checkCollision(enemy: Enemy) {
-    if (enemy.isDead() || enemy.isWinner()) {
+    if (enemy.dead || enemy.winner) {
       return false
     }
 
@@ -81,7 +81,7 @@ export class MagicIceball {
     }
 
     const fireballPos = this.#indexOrder
-    const enemyPos = enemy.getOrderPosition()
+    const enemyPos = enemy.orderPosition
     const distanceBetween = Math.abs(fireballPos - enemyPos)
 
     if (fireballPos >= enemyPos && distanceBetween < 1) {

@@ -66,7 +66,7 @@ export class Path {
     const searchPx = currentTile.getX() - Const.TILE_SIZE
     const searchPy = currentTile.getY()
 
-    const endPosition = this.#endTile.getPosition()
+    const endPosition = this.#endTile.position
 
     const endPx = endPosition.x
     const endPy = endPosition.y

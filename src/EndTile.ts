@@ -14,7 +14,7 @@ export class EndTile {
     image(this.#img, this.#position.x, this.#position.y)
   }
 
-  getPosition() {
+  get position() {
     return this.#position
   }
 }
