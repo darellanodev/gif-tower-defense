@@ -73,7 +73,7 @@ export class InfluenceArea {
   drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {
     strokeWeight(2)
 
-    const towerPosition = tower.getPosition()
+    const towerPosition = tower.position
 
     let x = towerPosition.x
     let y = towerPosition.y

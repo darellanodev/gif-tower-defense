@@ -61,7 +61,7 @@ export class GreenTower {
     return !this.#upgrading
   }
 
-  getPosition() {
+  get position() {
     return this.#position
   }
 

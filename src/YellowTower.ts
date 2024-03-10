@@ -48,7 +48,7 @@ export class YellowTower {
     return !this.#upgrading
   }
 
-  getPosition() {
+  get position() {
     return this.#position
   }
 
