@@ -27,8 +27,9 @@ export class Tower {
     return this.#upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1
   }
 
-  getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
+  getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number): number {
     // To implement in child export classes
+    return null
   }
 
   get cost() {
