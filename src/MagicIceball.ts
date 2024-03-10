@@ -37,23 +37,23 @@ export class MagicIceball {
   update() {
     switch (this.#currentDirection) {
       case ConstDirection.LEFT:
-        this.#x = this.#x - MagicFireball.SPEED
+        this.#x = this.#x - MagicIceball.SPEED
         break
 
       case ConstDirection.RIGHT:
-        this.#x = this.#x + MagicFireball.SPEED
+        this.#x = this.#x + MagicIceball.SPEED
         break
 
       case ConstDirection.UP:
-        this.#y = this.#y - MagicFireball.SPEED
+        this.#y = this.#y - MagicIceball.SPEED
         break
 
       case ConstDirection.DOWN:
-        this.#y = this.#y + MagicFireball.SPEED
+        this.#y = this.#y + MagicIceball.SPEED
         break
     }
 
-    this.#moveCount = this.#moveCount + MagicFireball.SPEED
+    this.#moveCount = this.#moveCount + MagicIceball.SPEED
 
     if (this.#moveCount === Const.TILE_SIZE) {
       this.#moveCount = 0
