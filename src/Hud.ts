@@ -354,7 +354,7 @@ export class Hud {
   viewSellProfit(tower: TowerType) {
     this.#sellProfit = null
     if (this.#hudType === Hud.UPGRADING) {
-      this.#sellProfit = tower.getSellProfit()
+      this.#sellProfit = tower.sellProfit
     }
   }
 

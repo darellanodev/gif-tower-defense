@@ -120,7 +120,7 @@ export class RedTower {
     }
   }
 
-  getSellProfit() {
+  get sellProfit() {
     return RedTower.PROFIT_SELL_UPGRADE[this.upgradeLevel]
   }
 

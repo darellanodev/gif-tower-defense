@@ -111,7 +111,7 @@ export class YellowTower {
     }
   }
 
-  getSellProfit() {
+  get sellProfit() {
     return YellowTower.PROFIT_SELL_UPGRADE[this.upgradeLevel]
   }
 

@@ -174,7 +174,7 @@ export class GreenTower {
     }
   }
 
-  getSellProfit() {
+  get sellProfit() {
     return GreenTower.PROFIT_SELL_UPGRADE[this.upgradeLevel]
   }
 
