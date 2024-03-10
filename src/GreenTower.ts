@@ -182,10 +182,6 @@ export class GreenTower {
     return GreenTower.ID
   }
 
-  getColor() {
-    return ConstColor.GREEN
-  }
-
   _isDistanceIntoInfluenceArea(distance: number) {
     return (
       distance <= GreenTower.UPGRADE_INFLUENCE_AREA[this.#upgradeLevel] / 1.65

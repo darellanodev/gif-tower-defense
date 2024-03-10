@@ -119,10 +119,6 @@ export class YellowTower {
     return YellowTower.ID
   }
 
-  getColor() {
-    return ConstColor.YELLOW
-  }
-
   selectTarget(enemies: Enemy[]) {
     //TODO
   }
