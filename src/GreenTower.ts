@@ -69,7 +69,7 @@ export class GreenTower {
     return this.#upgradeLevel
   }
 
-  isMaxUpgraded() {
+  get maxUpgraded() {
     return this.#upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1
   }
 
@@ -167,7 +167,7 @@ export class GreenTower {
   }
 
   getNextLevelUpgradeCost() {
-    if (this.isMaxUpgraded()) {
+    if (this.maxUpgraded) {
       return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1)
     } else {
       return this.getCostWhenUpgradeLevelIs(this.upgradeLevel + 1)

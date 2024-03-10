@@ -629,7 +629,7 @@ function draw() {
       const tileTower = mouseOrangeTileOver.getTower()
 
       hud.selectTowerHudType(tileTower)
-      if (!tileTower.isMaxUpgraded()) {
+      if (!tileTower.maxUpgraded) {
         const canUpgrade = wallet.haveMoneyToBuy(
           tileTower.getType(),
           tileTower.upgradeLevel + 1,
