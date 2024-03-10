@@ -4,9 +4,9 @@ import { ProgressBar } from './ProgressBar'
 import { Score } from './Score'
 import { Wallet } from './Wallet'
 import { Image } from 'p5'
-import { GreenTower } from './GreenTower'
-import { RedTower } from './RedTower'
-import { YellowTower } from './YellowTower'
+import { TowerGreen } from './TowerGreen'
+import { TowerRed } from './TowerRed'
+import { TowerYellow } from './TowerYellow'
 import { MagicFireball } from './MagicFireball'
 import { MagicIceball } from './MagicIceball'
 import { MagicUFO } from './MagicUFO'
@@ -38,9 +38,9 @@ export class Hud {
   #selectedItem: number
   #upgradeCost: number = null
   #sellProfit: number = null
-  #canBuyGreenTower: boolean = false
-  #canBuyRedTower: boolean = false
-  #canBuyYellowTower: boolean = false
+  #canBuyTowerGreen: boolean = false
+  #canBuyTowerRed: boolean = false
+  #canBuyTowerYellow: boolean = false
   #magicfireballs: number
   #magiciceballs: number
   #magicUFOs: number
@@ -71,7 +71,7 @@ export class Hud {
     this.#bossProgressBar = new ProgressBar({ x: 335, y: -2 }, 150, 10)
 
     this.#hudType = Hud.NORMAL
-    this.#selectedItem = GreenTower.ID
+    this.#selectedItem = TowerGreen.ID
     this.#magicfireballs = MagicFireball.FIREBALLS
     this.#magiciceballs = MagicIceball.ICEBALLS
     this.#magicUFOs = MagicUFO.UFOS
@@ -84,21 +84,21 @@ export class Hud {
     return false
   }
 
-  isInsideGreenTowerButton(px: number, py: number) {
+  isInsideTowerGreenButton(px: number, py: number) {
     if (px > 0 && px < 98 && py > 28 && py < 78) {
       return true
     }
     return false
   }
 
-  isInsideRedTowerButton(px: number, py: number) {
+  isInsideTowerRedButton(px: number, py: number) {
     if (px > 98 && px < 180 && py > 28 && py < 78) {
       return true
     }
     return false
   }
 
-  isInsideYellowTowerButton(px: number, py: number) {
+  isInsideTowerYellowButton(px: number, py: number) {
     if (px > 180 && px < 263 && py > 28 && py < 78) {
       return true
     }
@@ -159,13 +159,13 @@ export class Hud {
   }
 
   setCanBuy(
-    canBuyGreenTower: boolean,
-    canBuyRedTower: boolean,
-    canBuyYellowTower: boolean,
+    canBuyTowerGreen: boolean,
+    canBuyTowerRed: boolean,
+    canBuyTowerYellow: boolean,
   ) {
-    this.#canBuyGreenTower = canBuyGreenTower
-    this.#canBuyRedTower = canBuyRedTower
-    this.#canBuyYellowTower = canBuyYellowTower
+    this.#canBuyTowerGreen = canBuyTowerGreen
+    this.#canBuyTowerRed = canBuyTowerRed
+    this.#canBuyTowerYellow = canBuyTowerYellow
   }
 
   draw() {
@@ -220,13 +220,13 @@ export class Hud {
     let redIconImgPos = Hud.ICON_RED_TOWER_OFF
     let yellowIconImgPos = Hud.ICON_YELLOW_TOWER_OFF
 
-    if (this.#canBuyGreenTower) {
+    if (this.#canBuyTowerGreen) {
       greenIconImgPos = Hud.ICON_GREEN_TOWER_ON
     }
-    if (this.#canBuyRedTower) {
+    if (this.#canBuyTowerRed) {
       redIconImgPos = Hud.ICON_RED_TOWER_ON
     }
-    if (this.#canBuyYellowTower) {
+    if (this.#canBuyTowerYellow) {
       yellowIconImgPos = Hud.ICON_YELLOW_TOWER_ON
     }
 
@@ -284,35 +284,35 @@ export class Hud {
     text(`wave ${this.#wave}`, 403, 13)
   }
 
-  _drawGreenTowerPrice() {
-    if (!this.#canBuyGreenTower) {
+  _drawTowerGreenPrice() {
+    if (!this.#canBuyTowerGreen) {
       fill('gray')
     }
-    text(GreenTower.COST_UPGRADE[0], 40, 72)
+    text(TowerGreen.COST_UPGRADE[0], 40, 72)
     // restore
     fill('white')
   }
-  _drawRedTowerPrice() {
-    if (!this.#canBuyRedTower) {
+  _drawTowerRedPrice() {
+    if (!this.#canBuyTowerRed) {
       fill('gray')
     }
-    text(RedTower.COST_UPGRADE[0], 118, 72)
+    text(TowerRed.COST_UPGRADE[0], 118, 72)
     // restore
     fill('white')
   }
-  _drawYellowTowerPrice() {
-    if (!this.#canBuyYellowTower) {
+  _drawTowerYellowPrice() {
+    if (!this.#canBuyTowerYellow) {
       fill('gray')
     }
-    text(YellowTower.COST_UPGRADE[0], 202, 72)
+    text(TowerYellow.COST_UPGRADE[0], 202, 72)
     // restore
     fill('white')
   }
 
   _drawNewTowerPrices() {
-    this._drawGreenTowerPrice()
-    this._drawRedTowerPrice()
-    this._drawYellowTowerPrice()
+    this._drawTowerGreenPrice()
+    this._drawTowerRedPrice()
+    this._drawTowerYellowPrice()
   }
 
   _drawSelectedItem() {
@@ -321,15 +321,15 @@ export class Hud {
     noFill()
 
     switch (this.#selectedItem) {
-      case GreenTower.ID:
+      case TowerGreen.ID:
         square(57, 36, 37)
         break
 
-      case RedTower.ID:
+      case TowerRed.ID:
         square(140, 36, 37)
         break
 
-      case YellowTower.ID:
+      case TowerYellow.ID:
         square(225, 36, 37)
         break
     }

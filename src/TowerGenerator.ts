@@ -1,7 +1,7 @@
 import { Position } from './types'
-import { GreenTower } from './GreenTower'
-import { RedTower } from './RedTower'
-import { YellowTower } from './YellowTower'
+import { TowerGreen } from './TowerGreen'
+import { TowerRed } from './TowerRed'
+import { TowerYellow } from './TowerYellow'
 import { MathUtils } from './MathUtils'
 import { ProgressBar } from './ProgressBar'
 import { Image } from 'p5'
@@ -11,9 +11,9 @@ export class TowerGenerator {
   #greenTowerImages: Image[]
   #redTowerImages: Image[]
   #yellowTowerImages: Image[]
-  #GreenTowerClass: typeof GreenTower
-  #RedTowerClass: typeof RedTower
-  #YellowTowerClass: typeof YellowTower
+  #TowerGreenClass: typeof TowerGreen
+  #TowerRedClass: typeof TowerRed
+  #TowerYellowClass: typeof TowerYellow
   #MathUtilsClass: typeof MathUtils
   #ProgressBarClass: typeof ProgressBar
 
@@ -21,18 +21,18 @@ export class TowerGenerator {
     greenTowerImages: Image[],
     redTowerImages: Image[],
     yellowTowerImages: Image[],
-    GreenTowerClass: typeof GreenTower,
-    RedTowerClass: typeof RedTower,
-    YellowTowerClass: typeof YellowTower,
+    TowerGreenClass: typeof TowerGreen,
+    TowerRedClass: typeof TowerRed,
+    TowerYellowClass: typeof TowerYellow,
     MathUtilsClass: typeof MathUtils,
     ProgressBarClass: typeof ProgressBar,
   ) {
     this.#greenTowerImages = greenTowerImages
     this.#redTowerImages = redTowerImages
     this.#yellowTowerImages = yellowTowerImages
-    this.#GreenTowerClass = GreenTowerClass
-    this.#RedTowerClass = RedTowerClass
-    this.#YellowTowerClass = YellowTowerClass
+    this.#TowerGreenClass = TowerGreenClass
+    this.#TowerRedClass = TowerRedClass
+    this.#TowerYellowClass = TowerYellowClass
     this.#MathUtilsClass = MathUtilsClass
     this.#ProgressBarClass = ProgressBarClass
   }
@@ -41,8 +41,8 @@ export class TowerGenerator {
     let tower = null
 
     switch (towerId) {
-      case GreenTower.ID:
-        tower = new this.#GreenTowerClass(
+      case TowerGreen.ID:
+        tower = new this.#TowerGreenClass(
           this.#greenTowerImages,
           {
             x: position.x - Const.TOWER_OFFSET,
@@ -52,8 +52,8 @@ export class TowerGenerator {
           this.#ProgressBarClass,
         )
         break
-      case RedTower.ID:
-        tower = new this.#RedTowerClass(
+      case TowerRed.ID:
+        tower = new this.#TowerRedClass(
           this.#redTowerImages,
           {
             x: position.x - Const.TOWER_OFFSET,
@@ -63,8 +63,8 @@ export class TowerGenerator {
           this.#ProgressBarClass,
         )
         break
-      case YellowTower.ID:
-        tower = new this.#YellowTowerClass(
+      case TowerYellow.ID:
+        tower = new this.#TowerYellowClass(
           this.#yellowTowerImages,
           { x: position.x, y: position.y },
           this.#MathUtilsClass,

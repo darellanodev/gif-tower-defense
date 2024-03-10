@@ -7,9 +7,9 @@ import { EndTile } from './EndTile'
 import { TileGenerator } from './TileGenerator'
 import { TowerGenerator } from './TowerGenerator'
 import { OrangeTile } from './OrangeTile'
-import { GreenTower } from './GreenTower'
-import { RedTower } from './RedTower'
-import { YellowTower } from './YellowTower'
+import { TowerGreen } from './TowerGreen'
+import { TowerRed } from './TowerRed'
+import { TowerYellow } from './TowerYellow'
 import { MathUtils } from './MathUtils'
 import { Hud } from './Hud'
 import { Enemy } from './Enemy'
@@ -114,9 +114,9 @@ function setup() {
     greenTowerImages,
     redTowerImages,
     yellowTowerImages,
-    GreenTower,
-    RedTower,
-    YellowTower,
+    TowerGreen,
+    TowerRed,
+    TowerYellow,
     MathUtils,
     ProgressBar,
   )
@@ -188,15 +188,15 @@ function setup() {
 function keyPressed() {
   switch (keyCode) {
     case Const.KEY_1:
-      hud.selectTower(GreenTower.ID)
+      hud.selectTower(TowerGreen.ID)
       break
 
     case Const.KEY_2:
-      hud.selectTower(RedTower.ID)
+      hud.selectTower(TowerRed.ID)
       break
 
     case Const.KEY_3:
-      hud.selectTower(YellowTower.ID)
+      hud.selectTower(TowerYellow.ID)
       break
   }
 }
@@ -231,14 +231,14 @@ function canBuyTower(tower: TowerType) {
 }
 
 function handleHudButtons() {
-  if (hud.isInsideGreenTowerButton(mouseX, mouseY)) {
-    hud.selectTower(GreenTower.ID)
+  if (hud.isInsideTowerGreenButton(mouseX, mouseY)) {
+    hud.selectTower(TowerGreen.ID)
   }
-  if (hud.isInsideRedTowerButton(mouseX, mouseY)) {
-    hud.selectTower(RedTower.ID)
+  if (hud.isInsideTowerRedButton(mouseX, mouseY)) {
+    hud.selectTower(TowerRed.ID)
   }
-  if (hud.isInsideYellowTowerButton(mouseX, mouseY)) {
-    hud.selectTower(YellowTower.ID)
+  if (hud.isInsideTowerYellowButton(mouseX, mouseY)) {
+    hud.selectTower(TowerYellow.ID)
   }
   if (hud.isInsideMagicFireball(mouseX, mouseY)) {
     createNewMagicFireball()
@@ -620,9 +620,9 @@ function draw() {
   hud.draw()
 
   const canBuySelectedTower = canBuyNewTower(hud.getSelectedTower())
-  const canBuyGreenTower = canBuyNewTower(GreenTower.ID)
-  const canBuyRedTower = canBuyNewTower(RedTower.ID)
-  const canBuyYellowTower = canBuyNewTower(YellowTower.ID)
+  const canBuyTowerGreen = canBuyNewTower(TowerGreen.ID)
+  const canBuyTowerRed = canBuyNewTower(TowerRed.ID)
+  const canBuyTowerYellow = canBuyNewTower(TowerYellow.ID)
 
   if (mouseOrangeTileOver !== null) {
     if (mouseOrangeTileOver.hasTower()) {
@@ -647,13 +647,13 @@ function draw() {
       )
 
       hud.setType(Hud.NORMAL)
-      hud.setCanBuy(canBuyGreenTower, canBuyRedTower, canBuyYellowTower)
+      hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)
       hud.hideUpgradeCost()
       hud.hideSellProfit()
     }
   } else {
     hud.setType(Hud.NORMAL)
-    hud.setCanBuy(canBuyGreenTower, canBuyRedTower, canBuyYellowTower)
+    hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)
     hud.hideUpgradeCost()
     hud.hideSellProfit()
   }

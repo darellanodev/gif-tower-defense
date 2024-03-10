@@ -1,7 +1,7 @@
 import { OrangeTile } from '../src/OrangeTile'
-import { GreenTower } from '../src/GreenTower'
-import { RedTower } from '../src/RedTower'
-import { YellowTower } from '../src/YellowTower'
+import { TowerGreen } from '../src/TowerGreen'
+import { TowerRed } from '../src/TowerRed'
+import { TowerYellow } from '../src/TowerYellow'
 import { MathUtils } from '../src/MathUtils'
 import { TowerGenerator } from '../src/TowerGenerator'
 import { ProgressBar } from '../src/ProgressBar'
@@ -15,9 +15,9 @@ const towerGenerator = new TowerGenerator(
   greenTowerImages,
   redTowerImages,
   yellowTowerImages,
-  GreenTower,
-  RedTower,
-  YellowTower,
+  TowerGreen,
+  TowerRed,
+  TowerYellow,
   MathUtils,
   ProgressBar,
 )
@@ -50,7 +50,7 @@ describe('Other methods of the orange tile', () => {
     const position: Position = { x: 100, y: 100 }
     const orangeTile = new OrangeTile(img, position, towerGenerator)
 
-    const cost = orangeTile.buyTower(GreenTower.ID)
+    const cost = orangeTile.buyTower(TowerGreen.ID)
     const result = orangeTile.hasTower()
 
     expect(result).toBeTruthy()
@@ -63,7 +63,7 @@ describe('Other methods of the orange tile', () => {
     const position: Position = { x: 100, y: 100 }
     const orangeTile = new OrangeTile(img, position, towerGenerator)
 
-    const cost = orangeTile.buyTower(GreenTower.ID)
+    const cost = orangeTile.buyTower(TowerGreen.ID)
     const result = orangeTile.sellTower()
 
     expect(result).toBe(expected)

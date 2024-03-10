@@ -1,6 +1,6 @@
-import { GreenTower } from './GreenTower'
-import { RedTower } from './RedTower'
-import { YellowTower } from './YellowTower'
+import { TowerGreen } from './TowerGreen'
+import { TowerRed } from './TowerRed'
+import { TowerYellow } from './TowerYellow'
 
 export class Wallet {
   #money: number
@@ -25,14 +25,14 @@ export class Wallet {
     let canBuy = false
 
     switch (towerId) {
-      case GreenTower.ID:
-        canBuy = GreenTower.COST_UPGRADE[upgradeLevel] <= this.#money
+      case TowerGreen.ID:
+        canBuy = TowerGreen.COST_UPGRADE[upgradeLevel] <= this.#money
         break
-      case RedTower.ID:
-        canBuy = RedTower.COST_UPGRADE[upgradeLevel] <= this.#money
+      case TowerRed.ID:
+        canBuy = TowerRed.COST_UPGRADE[upgradeLevel] <= this.#money
         break
-      case YellowTower.ID:
-        canBuy = YellowTower.COST_UPGRADE[upgradeLevel] <= this.#money
+      case TowerYellow.ID:
+        canBuy = TowerYellow.COST_UPGRADE[upgradeLevel] <= this.#money
         break
 
       default:

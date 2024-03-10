@@ -5,9 +5,9 @@ import { PathTile } from '../src/PathTile'
 import { StartTile } from '../src/StartTile'
 import { EndTile } from '../src/EndTile'
 import { OrangeTile } from '../src/OrangeTile'
-import { GreenTower } from '../src/GreenTower'
-import { RedTower } from '../src/RedTower'
-import { YellowTower } from '../src/YellowTower'
+import { TowerGreen } from '../src/TowerGreen'
+import { TowerRed } from '../src/TowerRed'
+import { TowerYellow } from '../src/TowerYellow'
 import { MathUtils } from '../src/MathUtils'
 import { TowerGenerator } from '../src/TowerGenerator'
 import { ProgressBar } from '../src/ProgressBar'
@@ -29,9 +29,9 @@ const towerGenerator = new TowerGenerator(
   greenTowerImages,
   redTowerImages,
   yellowTowerImages,
-  GreenTower,
-  RedTower,
-  YellowTower,
+  TowerGreen,
+  TowerRed,
+  TowerYellow,
   MathUtils,
   ProgressBar,
 )

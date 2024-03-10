@@ -1,6 +1,6 @@
-import { GreenTower } from './GreenTower'
-import { RedTower } from './RedTower'
-import { YellowTower } from './YellowTower'
+import { TowerGreen } from './TowerGreen'
+import { TowerRed } from './TowerRed'
+import { TowerYellow } from './TowerYellow'
 
 export interface Position {
   x: number
@@ -9,7 +9,7 @@ export interface Position {
 
 export type RGBType = [number, number, number]
 
-export type TowerType = GreenTower | RedTower | YellowTower
+export type TowerType = TowerGreen | TowerRed | TowerYellow
 
 export type MapDataType = {
   id: number

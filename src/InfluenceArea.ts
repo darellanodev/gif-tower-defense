@@ -1,7 +1,7 @@
 import { Position } from './types'
-import { GreenTower } from './GreenTower'
-import { RedTower } from './RedTower'
-import { YellowTower } from './YellowTower'
+import { TowerGreen } from './TowerGreen'
+import { TowerRed } from './TowerRed'
+import { TowerYellow } from './TowerYellow'
 import { ConstColor } from './ConstColor'
 import { Const } from './Const'
 
@@ -18,15 +18,15 @@ export class InfluenceArea {
 
   _setInfluenceAreaColor(towerId: number) {
     switch (towerId) {
-      case GreenTower.ID:
+      case TowerGreen.ID:
         stroke(...ConstColor.GREEN, InfluenceArea.ALPHA_STROKE)
         fill(...ConstColor.GREEN, InfluenceArea.ALPHA_FILL)
         break
-      case RedTower.ID:
+      case TowerRed.ID:
         stroke(...ConstColor.RED, InfluenceArea.ALPHA_STROKE)
         fill(...ConstColor.RED, InfluenceArea.ALPHA_FILL)
         break
-      case YellowTower.ID:
+      case TowerYellow.ID:
         stroke(...ConstColor.YELLOW, InfluenceArea.ALPHA_STROKE)
         fill(...ConstColor.YELLOW, InfluenceArea.ALPHA_FILL)
         break
@@ -34,18 +34,18 @@ export class InfluenceArea {
   }
 
   _getInfluenceAreaFor(towerSelected: number) {
-    let influenceArea: number = GreenTower.INFLUENCE_AREA
+    let influenceArea: number = TowerGreen.INFLUENCE_AREA
     switch (towerSelected) {
-      case GreenTower.ID:
-        influenceArea = GreenTower.INFLUENCE_AREA
+      case TowerGreen.ID:
+        influenceArea = TowerGreen.INFLUENCE_AREA
         break
 
-      case RedTower.ID:
-        influenceArea = RedTower.INFLUENCE_AREA
+      case TowerRed.ID:
+        influenceArea = TowerRed.INFLUENCE_AREA
         break
 
-      case YellowTower.ID:
-        influenceArea = YellowTower.INFLUENCE_AREA
+      case TowerYellow.ID:
+        influenceArea = TowerYellow.INFLUENCE_AREA
         break
     }
     return influenceArea
@@ -78,7 +78,7 @@ export class InfluenceArea {
     let x = towerPosition.x
     let y = towerPosition.y
 
-    if (tower.type === GreenTower.ID || tower.type === RedTower.ID) {
+    if (tower.type === TowerGreen.ID || tower.type === TowerRed.ID) {
       x += Const.TOWER_OFFSET
       y += Const.TOWER_OFFSET
     }

@@ -5,8 +5,9 @@ import { Image } from 'p5'
 import { ProgressBar } from './ProgressBar'
 import { ConstColor } from './ConstColor'
 import { Const } from './Const'
+import { Tower } from './Tower'
 
-export class GreenTower {
+export class TowerGreen extends Tower {
   static ID = 1
   static PROFIT_SELL_UPGRADE = [30, 35, 65, 220, 900, 1880]
   static DAMAGE_UPGRADE = [1, 2, 4, 6, 12, 24]
@@ -33,6 +34,7 @@ export class GreenTower {
     MathUtilsClass: typeof MathUtils,
     ProgressBarClass: typeof ProgressBar,
   ) {
+    super(position)
     this.#images = images
     this.#position = { ...position }
     this.#MathUtilsClass = MathUtilsClass
@@ -135,7 +137,7 @@ export class GreenTower {
 
         this.#drawShotToEnemy()
         this.#enemyTarget.addDamage(
-          GreenTower.DAMAGE_UPGRADE[this.#upgradeLevel],
+          TowerGreen.DAMAGE_UPGRADE[this.#upgradeLevel],
         )
         image(this.#images[this.#upgradeLevel], 0, 0)
 
@@ -152,14 +154,14 @@ export class GreenTower {
   }
 
   get influenceArea() {
-    return GreenTower.UPGRADE_INFLUENCE_AREA[this.#upgradeLevel]
+    return TowerGreen.UPGRADE_INFLUENCE_AREA[this.#upgradeLevel]
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
     if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
-      return GreenTower.COST_UPGRADE[Const.UPGRADE_MAX_LEVEL]
+      return TowerGreen.COST_UPGRADE[Const.UPGRADE_MAX_LEVEL]
     }
-    return GreenTower.COST_UPGRADE[selectedUpgradeLevel]
+    return TowerGreen.COST_UPGRADE[selectedUpgradeLevel]
   }
 
   get cost() {
@@ -175,16 +177,16 @@ export class GreenTower {
   }
 
   get sellProfit() {
-    return GreenTower.PROFIT_SELL_UPGRADE[this.upgradeLevel]
+    return TowerGreen.PROFIT_SELL_UPGRADE[this.upgradeLevel]
   }
 
   get type() {
-    return GreenTower.ID
+    return TowerGreen.ID
   }
 
   _isDistanceIntoInfluenceArea(distance: number) {
     return (
-      distance <= GreenTower.UPGRADE_INFLUENCE_AREA[this.#upgradeLevel] / 1.65
+      distance <= TowerGreen.UPGRADE_INFLUENCE_AREA[this.#upgradeLevel] / 1.65
     )
   }
 
