@@ -33,7 +33,7 @@ export class OrangeTile {
     } else {
       this.#tower.upgrade()
     }
-    return this.#tower.getCost()
+    return this.#tower.cost
   }
 
   _upgradeTower() {

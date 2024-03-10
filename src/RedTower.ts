@@ -108,7 +108,7 @@ export class RedTower {
     return RedTower.COST_UPGRADE[selectedUpgradeLevel]
   }
 
-  getCost() {
+  get cost() {
     return this.getCostWhenUpgradeLevelIs(this.upgradeLevel)
   }
 

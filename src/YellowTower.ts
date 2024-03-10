@@ -99,7 +99,7 @@ export class YellowTower {
     return YellowTower.COST_UPGRADE[selectedUpgradeLevel]
   }
 
-  getCost() {
+  get cost() {
     return this.getCostWhenUpgradeLevelIs(this.upgradeLevel)
   }
 

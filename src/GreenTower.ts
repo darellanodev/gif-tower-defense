@@ -162,7 +162,7 @@ export class GreenTower {
     return GreenTower.COST_UPGRADE[selectedUpgradeLevel]
   }
 
-  getCost() {
+  get cost() {
     return this.getCostWhenUpgradeLevelIs(this.upgradeLevel)
   }
 
