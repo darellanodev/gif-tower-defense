@@ -57,7 +57,7 @@ export class GreenTower {
     }
   }
 
-  isNotUpgrading() {
+  get notUpgrading() {
     return !this.#upgrading
   }
 
@@ -73,7 +73,7 @@ export class GreenTower {
     return this.#upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1
   }
 
-  _drawShotToEnemy() {
+  #drawShotToEnemy() {
     strokeWeight(3)
     stroke(ConstColor.RED)
     line(
@@ -84,7 +84,7 @@ export class GreenTower {
     )
   }
 
-  _drawUpgradeBackground() {
+  #drawUpgradeBackground() {
     strokeWeight(1)
     stroke('black')
     fill(ConstColor.GREEN)
@@ -98,7 +98,7 @@ export class GreenTower {
 
   draw() {
     if (this.#upgrading) {
-      this._drawUpgradeBackground()
+      this.#drawUpgradeBackground()
       if (!this.#progressBar.isFullOfProgress()) {
         if (this.#delayUpgradeProgress == 0) {
           this.#upgradeProgress++
@@ -133,7 +133,7 @@ export class GreenTower {
           this.#position.y + 30,
         )
 
-        this._drawShotToEnemy()
+        this.#drawShotToEnemy()
         this.#enemyTarget.addDamage(
           GreenTower.DAMAGE_UPGRADE[this.#upgradeLevel],
         )

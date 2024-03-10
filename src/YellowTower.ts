@@ -44,7 +44,7 @@ export class YellowTower {
     }
   }
 
-  isNotUpgrading() {
+  get notUpgrading() {
     return !this.#upgrading
   }
 

@@ -48,7 +48,7 @@ export class RedTower {
     }
   }
 
-  isNotUpgrading() {
+  get notUpgrading() {
     return !this.#upgrading
   }
 
