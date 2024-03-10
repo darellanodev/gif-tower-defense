@@ -21,9 +21,9 @@ export class TowerGreen extends Tower {
   #ProgressBarClass: typeof ProgressBar
 
   #upgradeLevel: number = 0
+  #upgrading: boolean = false
   #enemyTarget: Enemy = null
   #distanceToEnemyTarget: number = 0
-  #upgrading: boolean = false
   #progressBar: ProgressBar
   #upgradeProgress: number = 0
   #delayUpgradeProgress: number
@@ -57,22 +57,6 @@ export class TowerGreen extends Tower {
       this.#delayUpgradeProgress =
         Const.DELAY_UPGRADE_MULTIPLIER * this.#upgradeLevel
     }
-  }
-
-  get notUpgrading() {
-    return !this.#upgrading
-  }
-
-  get position() {
-    return this.#position
-  }
-
-  get upgradeLevel() {
-    return this.#upgradeLevel
-  }
-
-  get maxUpgraded() {
-    return this.#upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1
   }
 
   #drawShotToEnemy() {
