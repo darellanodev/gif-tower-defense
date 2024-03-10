@@ -65,7 +65,7 @@ export class GreenTower {
     return this.#position
   }
 
-  getUpgradeLevel() {
+  get upgradeLevel() {
     return this.#upgradeLevel
   }
 
@@ -163,19 +163,19 @@ export class GreenTower {
   }
 
   getCost() {
-    return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel())
+    return this.getCostWhenUpgradeLevelIs(this.upgradeLevel)
   }
 
   getNextLevelUpgradeCost() {
     if (this.isMaxUpgraded()) {
       return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1)
     } else {
-      return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1)
+      return this.getCostWhenUpgradeLevelIs(this.upgradeLevel + 1)
     }
   }
 
   getSellProfit() {
-    return GreenTower.PROFIT_SELL_UPGRADE[this.getUpgradeLevel()]
+    return GreenTower.PROFIT_SELL_UPGRADE[this.upgradeLevel]
   }
 
   getType() {

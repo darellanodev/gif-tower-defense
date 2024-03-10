@@ -56,7 +56,7 @@ export class RedTower {
     return this.#position
   }
 
-  getUpgradeLevel() {
+  get upgradeLevel() {
     return this.#upgradeLevel
   }
 
@@ -109,19 +109,19 @@ export class RedTower {
   }
 
   getCost() {
-    return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel())
+    return this.getCostWhenUpgradeLevelIs(this.upgradeLevel)
   }
 
   getNextLevelUpgradeCost() {
     if (this.isMaxUpgraded()) {
       return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1)
     } else {
-      return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1)
+      return this.getCostWhenUpgradeLevelIs(this.upgradeLevel + 1)
     }
   }
 
   getSellProfit() {
-    return RedTower.PROFIT_SELL_UPGRADE[this.getUpgradeLevel()]
+    return RedTower.PROFIT_SELL_UPGRADE[this.upgradeLevel]
   }
 
   getType() {

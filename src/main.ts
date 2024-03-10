@@ -203,8 +203,8 @@ function keyPressed() {
 
 function canUpgradeTower(tower: TowerType) {
   let canUpgrade = false
-  if (tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL) {
-    if (wallet.haveMoneyToBuy(tower.getType(), tower.getUpgradeLevel() + 1)) {
+  if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
+    if (wallet.haveMoneyToBuy(tower.getType(), tower.upgradeLevel + 1)) {
       canUpgrade = true
     }
   }
@@ -632,7 +632,7 @@ function draw() {
       if (!tileTower.isMaxUpgraded()) {
         const canUpgrade = wallet.haveMoneyToBuy(
           tileTower.getType(),
-          tileTower.getUpgradeLevel() + 1,
+          tileTower.upgradeLevel + 1,
         )
         hud.viewUpgradeCost(tileTower, canUpgrade)
         influenceArea.drawTowerInfluenceArea(tileTower, canUpgrade)

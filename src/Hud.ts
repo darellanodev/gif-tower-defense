@@ -336,7 +336,7 @@ export class Hud {
   }
 
   selectTowerHudType(tower: TowerType) {
-    if (tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL) {
+    if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
       this.setType(Hud.UPGRADING)
     } else {
       this.setType(Hud.UPGRADING_MAX)
