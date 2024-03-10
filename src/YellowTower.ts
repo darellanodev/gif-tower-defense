@@ -88,7 +88,7 @@ export class YellowTower {
     }
   }
 
-  getInfluenceArea() {
+  get influenceArea() {
     return YellowTower.UPGRADE_INFLUENCE_AREA[this.#upgradeLevel]
   }
 

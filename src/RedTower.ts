@@ -97,7 +97,7 @@ export class RedTower {
     }
   }
 
-  getInfluenceArea() {
+  get influenceArea() {
     return RedTower.UPGRADE_INFLUENCE_AREA[this.#upgradeLevel]
   }
 

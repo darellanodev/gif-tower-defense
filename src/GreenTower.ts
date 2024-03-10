@@ -151,7 +151,7 @@ export class GreenTower {
     }
   }
 
-  getInfluenceArea() {
+  get influenceArea() {
     return GreenTower.UPGRADE_INFLUENCE_AREA[this.#upgradeLevel]
   }
 

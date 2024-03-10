@@ -87,7 +87,7 @@ export class InfluenceArea {
     } else {
       this._setGrayInfluenceAreaColor()
     }
-    this._drawCircle(x, y, tower.getInfluenceArea())
+    this._drawCircle(x, y, tower.influenceArea)
   }
 
   _drawCircle(x: number, y: number, diameter: number) {
