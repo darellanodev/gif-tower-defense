@@ -9,7 +9,7 @@ export class Wallet {
     this.#money = money
   }
 
-  getMoney(): number {
+  get money(): number {
     return this.#money
   }
 

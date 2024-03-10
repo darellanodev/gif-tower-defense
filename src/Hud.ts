@@ -236,7 +236,7 @@ export class Hud {
   }
 
   _drawMoney() {
-    text(this.#wallet.getMoney(), 445, 48)
+    text(this.#wallet.money, 445, 48)
   }
 
   _drawUpgradeCost() {
