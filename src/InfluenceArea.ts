@@ -78,12 +78,12 @@ export class InfluenceArea {
     let x = towerPosition.x
     let y = towerPosition.y
 
-    if (tower.getType() === GreenTower.ID || tower.getType() === RedTower.ID) {
+    if (tower.type === GreenTower.ID || tower.type === RedTower.ID) {
       x += Const.TOWER_OFFSET
       y += Const.TOWER_OFFSET
     }
     if (canUpgrade) {
-      this._setInfluenceAreaColor(tower.getType())
+      this._setInfluenceAreaColor(tower.type)
     } else {
       this._setGrayInfluenceAreaColor()
     }

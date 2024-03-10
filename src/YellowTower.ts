@@ -115,7 +115,7 @@ export class YellowTower {
     return YellowTower.PROFIT_SELL_UPGRADE[this.upgradeLevel]
   }
 
-  getType() {
+  get type() {
     return YellowTower.ID
   }
 

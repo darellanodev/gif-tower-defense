@@ -124,7 +124,7 @@ export class RedTower {
     return RedTower.PROFIT_SELL_UPGRADE[this.upgradeLevel]
   }
 
-  getType() {
+  get type() {
     return RedTower.ID
   }
 
