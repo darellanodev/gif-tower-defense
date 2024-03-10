@@ -346,7 +346,7 @@ export class Hud {
   viewUpgradeCost(tower: TowerType, canUpgrade: boolean) {
     this.#upgradeCost = null
     if (this.#hudType === Hud.UPGRADING) {
-      this.#upgradeCost = tower.getNextLevelUpgradeCost()
+      this.#upgradeCost = tower.nextLevelUpgradeCost
     }
     this.#canUpgrade = canUpgrade
   }
