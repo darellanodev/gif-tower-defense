@@ -94,18 +94,6 @@ export class TowerRed extends Tower {
     return TowerRed.COST_UPGRADE[selectedUpgradeLevel]
   }
 
-  get cost() {
-    return this.getCostWhenUpgradeLevelIs(this.upgradeLevel)
-  }
-
-  get nextLevelUpgradeCost() {
-    if (this.maxUpgraded) {
-      return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1)
-    } else {
-      return this.getCostWhenUpgradeLevelIs(this.upgradeLevel + 1)
-    }
-  }
-
   get sellProfit() {
     return TowerRed.PROFIT_SELL_UPGRADE[this.upgradeLevel]
   }
