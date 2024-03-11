@@ -1,6 +1,7 @@
 {
   "scripts": {
     "test": "jest",
+    "testw": "jest --watch",
     "build": "node build.js"
   },
   "devDependencies": {
