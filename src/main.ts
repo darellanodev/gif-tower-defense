@@ -19,9 +19,9 @@ import { ProgressBar } from './ProgressBar'
 import { Wallet } from './Wallet'
 import { Score } from './Score'
 import { InfluenceArea } from './InfluenceArea'
-import { EnemyExplosion } from './EnemyExplosion'
-import { MagicFireballExplosion } from './MagicFireballExplosion'
-import { MagicIceballExplosion } from './MagicIceballExplosion'
+import { ExplosionEnemy } from './ExplosionEnemy'
+import { MagicFireballExplosion } from './ExplosionMagicFireball'
+import { MagicIceballExplosion } from './ExplosionagicIceball'
 import { TextProperties } from './TextProperties'
 import { Image } from 'p5'
 import { ParticleSystem } from './ParticleSystem'
@@ -54,7 +54,7 @@ let backgroundImage: Image
 let enemiesImages: Image[]
 let towerGenerator: TowerGenerator
 let influenceArea: InfluenceArea
-let enemyExplosions: EnemyExplosion[]
+let enemyExplosions: ExplosionEnemy[]
 let magicFireballExplosions: MagicFireballExplosion[]
 let magicIceballExplosions: MagicIceballExplosion[]
 let lives: number
@@ -363,11 +363,11 @@ function createNewBoss(wave: number) {
   )
 }
 
-function handleEnemyExplosions() {
+function handleExplosionEnemys() {
   const deadEnemies: Enemy[] = enemies.filter((enemy) => enemy.dead)
   deadEnemies.forEach((enemy) => {
     enemyExplosions.push(
-      new EnemyExplosion(enemy.position.x, enemy.position.y, ParticleSystem),
+      new ExplosionEnemy(enemy.position.x, enemy.position.y, ParticleSystem),
     )
     //increase money and score
     const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR
@@ -411,7 +411,7 @@ function handleWinnerEnemies() {
 
 function updateEnemies() {
   handleNewEnemyCreation()
-  handleEnemyExplosions()
+  handleExplosionEnemys()
   removeDeadEnemies()
 
   // update enemies
