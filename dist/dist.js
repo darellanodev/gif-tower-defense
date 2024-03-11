@@ -1,535 +1,444 @@
-var Const = (function () {
-    function Const() {
-    }
-    Const.LEFT_DIRECTION = 1;
-    Const.RIGHT_DIRECTION = 2;
-    Const.UP_DIRECTION = 3;
-    Const.DOWN_DIRECTION = 4;
-    Const.TILE_SIZE = 50;
-    Const.UPGRADE_MAX_LEVEL = 5;
-    Const.CANVAS_WIDTH = 800;
-    Const.CANVAS_HEIGHT = 580;
-    Const.KEY_1 = 49;
-    Const.KEY_2 = 50;
-    Const.KEY_3 = 51;
-    Const.TOWER_OFFSET = 5;
-    Const.EXPLOSION_OFFSET = 25;
-    Const.GAME_STATUS_PLAYING = 0;
-    Const.GAME_STATUS_GAME_OVER = 1;
-    Const.WAVE_PROGRESS_DELAY = 35;
-    Const.BOSS_PROGRESS_DELAY = Const.WAVE_PROGRESS_DELAY * 6;
-    Const.MONEY_MULTIPLICATOR = 10;
-    Const.ID_LEVEL_VALID_FOR_UNIT_TESTING = 1;
-    Const.ID_LEVEL_INVALID_FOR_UNIT_TESTING = 6666;
-    Const.ID_LEVEL_INVALID_WITHOUT_ROWSMAP_FOR_UNIT_TESTING = 6667;
-    Const.DELAY_UPGRADE_MULTIPLIER = 5;
-    Const.MAGIC_STATUS_ALIVE = 0;
-    Const.MAGIC_STATUS_DEAD = 1;
-    return Const;
-}());
-var ConstColor = (function () {
-    function ConstColor() {
-    }
-    ConstColor.GRAY = [50, 50, 50];
-    ConstColor.GREEN = [75, 185, 35];
-    ConstColor.YELLOW = [202, 191, 24];
-    ConstColor.RED = [185, 35, 35];
-    return ConstColor;
-}());
-var Debug = (function () {
-    function Debug() {
-    }
-    Debug.showMouseCoordinates = function (position) {
+class Const {
+}
+Const.TILE_SIZE = 50;
+Const.UPGRADE_MAX_LEVEL = 5;
+Const.CANVAS_WIDTH = 800;
+Const.CANVAS_HEIGHT = 580;
+Const.KEY_1 = 49;
+Const.KEY_2 = 50;
+Const.KEY_3 = 51;
+Const.TOWER_OFFSET = 5;
+Const.EXPLOSION_OFFSET = 25;
+Const.GAME_STATUS_PLAYING = 0;
+Const.GAME_STATUS_GAME_OVER = 1;
+Const.WAVE_PROGRESS_DELAY = 35;
+Const.BOSS_PROGRESS_DELAY = Const.WAVE_PROGRESS_DELAY * 6;
+Const.MONEY_MULTIPLICATOR = 10;
+Const.DELAY_UPGRADE_MULTIPLIER = 5;
+Const.MAGIC_STATUS_ALIVE = 0;
+Const.MAGIC_STATUS_DEAD = 1;
+class ConstColor {
+}
+ConstColor.GRAY = [50, 50, 50];
+ConstColor.GREEN = [75, 185, 35];
+ConstColor.YELLOW = [202, 191, 24];
+ConstColor.RED = [185, 35, 35];
+class ConstDirection {
+}
+ConstDirection.LEFT = 1;
+ConstDirection.RIGHT = 2;
+ConstDirection.UP = 3;
+ConstDirection.DOWN = 4;
+class ConstTest {
+}
+ConstTest.ID_LEVEL_VALID_FOR_UNIT_TESTING = 1;
+ConstTest.ID_LEVEL_INVALID_FOR_UNIT_TESTING = 6666;
+ConstTest.ID_LEVEL_INVALID_WITHOUT_ROWSMAP_FOR_UNIT_TESTING = 6667;
+class Debug {
+    static showMouseCoordinates(position) {
+        const mousePosX = Math.round(position.x);
+        const mousePosY = Math.round(position.y);
         TextProperties.setForHudData();
-        text("".concat(position.x, " - ").concat(position.y), 260, 18);
-    };
-    return Debug;
-}());
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+        text(`x:${mousePosX}, y:${mousePosY}`, 260, 18);
+    }
+}
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
 };
-var EndTile = (function () {
-    function EndTile(img, position) {
-        this.img = img;
-        this.position = __assign({}, position);
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+};
+var _EndTile_img, _EndTile_position;
+class EndTile {
+    constructor(img, position) {
+        _EndTile_img.set(this, void 0);
+        _EndTile_position.set(this, void 0);
+        __classPrivateFieldSet(this, _EndTile_img, img, "f");
+        __classPrivateFieldSet(this, _EndTile_position, Object.assign({}, position), "f");
     }
-    EndTile.prototype.draw = function () {
-        image(this.img, this.position.x, this.position.y);
-    };
-    EndTile.prototype.getPosition = function () {
-        return this.position;
-    };
-    return EndTile;
-}());
-var Enemy = (function () {
-    function Enemy(images, startPosition, orders, endurance, isBoss, RandomClass, ProgressBarClass) {
-        this.imgIndex = Enemy.EYES_CENTER;
-        this.imgIndexBeforeEyesClosed = Enemy.EYES_CENTER;
-        this.status = Enemy.STATUS_ALIVE;
-        this.damage = 0;
-        this.moveCount = 0;
-        this.indexOrder = 0;
-        this.changeEyesTime = 0;
-        this.indexEyesSecuence = 0;
-        this.closeEyesTime = 0;
-        this.extendClosedEyesTime = 0;
-        this.randomCloseEyes = 0;
-        this.winned = false;
-        this.freezed = false;
-        this.freezedTime = 0;
-        this.images = images;
-        this.startPosition = __assign({}, startPosition);
-        this.orders = orders;
-        this.endurance = endurance;
-        this.isBoss = isBoss;
-        this.RandomClass = RandomClass;
-        this.ProgressBarClass = ProgressBarClass;
-        Enemy.numberOfEnemies++;
-        this.id = Enemy.numberOfEnemies;
-        this.eyesSequence = [
-            Enemy.EYES_LEFT,
-            Enemy.EYES_CENTER,
-            Enemy.EYES_RIGHT,
-            Enemy.EYES_CENTER,
-        ];
-        this.healthBar = new this.ProgressBarClass({ x: 200, y: 200 }, ProgressBar.WIDTH, ProgressBar.HEIGHT);
-        this.position = __assign({}, this.startPosition);
-        this.currentDirection = this.orders[this.indexOrder];
+    draw() {
+        image(__classPrivateFieldGet(this, _EndTile_img, "f"), __classPrivateFieldGet(this, _EndTile_position, "f").x, __classPrivateFieldGet(this, _EndTile_position, "f").y);
     }
-    Enemy.prototype.getEndurance = function () {
-        return this.endurance;
-    };
-    Enemy.prototype.addDamage = function (shotDamage) {
-        this.damage += shotDamage / this.endurance;
-        this.healthBar.setProgress(this.damage);
-        if (this.healthBar.isFullOfProgress()) {
-            this.status = Enemy.STATUS_DEAD;
+    get position() {
+        return __classPrivateFieldGet(this, _EndTile_position, "f");
+    }
+}
+_EndTile_img = new WeakMap(), _EndTile_position = new WeakMap();
+var _Enemy_instances, _a, _Enemy_images, _Enemy_startPosition, _Enemy_orders, _Enemy_endurance, _Enemy_isBoss, _Enemy_RandomClass, _Enemy_ProgressBarClass, _Enemy_id, _Enemy_imgIndex, _Enemy_imgIndexBeforeEyesClosed, _Enemy_eyesSequence, _Enemy_healthBar, _Enemy_status, _Enemy_damage, _Enemy_position, _Enemy_currentDirection, _Enemy_moveCount, _Enemy_indexOrder, _Enemy_changeEyesTime, _Enemy_indexEyesSecuence, _Enemy_closeEyesTime, _Enemy_extendClosedEyesTime, _Enemy_randomCloseEyes, _Enemy_winned, _Enemy_freezed, _Enemy_freezedTime, _Enemy_reinitEnemy, _Enemy_hasOpenEyes, _Enemy_moveEyesInSequence, _Enemy_setRandomTimeMaxForClosingEyes, _Enemy_changeEyes;
+class Enemy {
+    constructor(images, startPosition, orders, endurance, isBoss, RandomClass, ProgressBarClass) {
+        _Enemy_instances.add(this);
+        _Enemy_images.set(this, void 0);
+        _Enemy_startPosition.set(this, void 0);
+        _Enemy_orders.set(this, void 0);
+        _Enemy_endurance.set(this, void 0);
+        _Enemy_isBoss.set(this, void 0);
+        _Enemy_RandomClass.set(this, void 0);
+        _Enemy_ProgressBarClass.set(this, void 0);
+        _Enemy_id.set(this, void 0);
+        _Enemy_imgIndex.set(this, void 0);
+        _Enemy_imgIndexBeforeEyesClosed.set(this, void 0);
+        _Enemy_eyesSequence.set(this, void 0);
+        _Enemy_healthBar.set(this, void 0);
+        _Enemy_status.set(this, void 0);
+        _Enemy_damage.set(this, 0);
+        _Enemy_position.set(this, void 0);
+        _Enemy_currentDirection.set(this, void 0);
+        _Enemy_moveCount.set(this, 0);
+        _Enemy_indexOrder.set(this, 0);
+        _Enemy_changeEyesTime.set(this, 0);
+        _Enemy_indexEyesSecuence.set(this, 0);
+        _Enemy_closeEyesTime.set(this, 0);
+        _Enemy_extendClosedEyesTime.set(this, 0);
+        _Enemy_randomCloseEyes.set(this, 0);
+        _Enemy_winned.set(this, false);
+        _Enemy_freezed.set(this, false);
+        _Enemy_freezedTime.set(this, 0);
+        __classPrivateFieldSet(this, _Enemy_images, images, "f");
+        __classPrivateFieldSet(this, _Enemy_startPosition, Object.assign({}, startPosition), "f");
+        __classPrivateFieldSet(this, _Enemy_orders, orders, "f");
+        __classPrivateFieldSet(this, _Enemy_endurance, endurance, "f");
+        __classPrivateFieldSet(this, _Enemy_isBoss, isBoss, "f");
+        __classPrivateFieldSet(this, _Enemy_RandomClass, RandomClass, "f");
+        __classPrivateFieldSet(this, _Enemy_ProgressBarClass, ProgressBarClass, "f");
+        _a.numberOfEnemies++;
+        __classPrivateFieldSet(this, _Enemy_id, _a.numberOfEnemies, "f");
+        __classPrivateFieldSet(this, _Enemy_eyesSequence, [
+            _a.EYES_LEFT,
+            _a.EYES_CENTER,
+            _a.EYES_RIGHT,
+            _a.EYES_CENTER,
+        ], "f");
+        __classPrivateFieldSet(this, _Enemy_healthBar, new (__classPrivateFieldGet(this, _Enemy_ProgressBarClass, "f"))({ x: 200, y: 200 }, ProgressBar.WIDTH, ProgressBar.HEIGHT), "f");
+        __classPrivateFieldSet(this, _Enemy_position, Object.assign({}, __classPrivateFieldGet(this, _Enemy_startPosition, "f")), "f");
+        __classPrivateFieldSet(this, _Enemy_currentDirection, __classPrivateFieldGet(this, _Enemy_orders, "f")[__classPrivateFieldGet(this, _Enemy_indexOrder, "f")], "f");
+        __classPrivateFieldSet(this, _Enemy_imgIndex, _a.EYES_CENTER, "f");
+        __classPrivateFieldSet(this, _Enemy_imgIndexBeforeEyesClosed, _a.EYES_CENTER, "f");
+        __classPrivateFieldSet(this, _Enemy_status, _a.STATUS_ALIVE, "f");
+    }
+    get endurance() {
+        return __classPrivateFieldGet(this, _Enemy_endurance, "f");
+    }
+    get id() {
+        return __classPrivateFieldGet(this, _Enemy_id, "f");
+    }
+    get position() {
+        return __classPrivateFieldGet(this, _Enemy_position, "f");
+    }
+    get dead() {
+        return __classPrivateFieldGet(this, _Enemy_status, "f") == _a.STATUS_DEAD;
+    }
+    get alive() {
+        return __classPrivateFieldGet(this, _Enemy_status, "f") == _a.STATUS_ALIVE;
+    }
+    get winner() {
+        return __classPrivateFieldGet(this, _Enemy_winned, "f");
+    }
+    get orderPosition() {
+        return __classPrivateFieldGet(this, _Enemy_indexOrder, "f");
+    }
+    addDamage(shotDamage) {
+        __classPrivateFieldSet(this, _Enemy_damage, __classPrivateFieldGet(this, _Enemy_damage, "f") + shotDamage / __classPrivateFieldGet(this, _Enemy_endurance, "f"), "f");
+        __classPrivateFieldGet(this, _Enemy_healthBar, "f").setProgress(__classPrivateFieldGet(this, _Enemy_damage, "f"));
+        if (__classPrivateFieldGet(this, _Enemy_healthBar, "f").isFullOfProgress()) {
+            __classPrivateFieldSet(this, _Enemy_status, _a.STATUS_DEAD, "f");
         }
-    };
-    Enemy.prototype.freeze = function () {
-        this.freezed = true;
-    };
-    Enemy.prototype.isDead = function () {
-        return this.status == Enemy.STATUS_DEAD;
-    };
-    Enemy.prototype.isAlive = function () {
-        return this.status == Enemy.STATUS_ALIVE;
-    };
-    Enemy.prototype.isWinner = function () {
-        return this.winned;
-    };
-    Enemy.prototype.resetWinner = function () {
-        this.winned = false;
-    };
-    Enemy.prototype.reinitEnemy = function () {
-        this.winned = true;
-        this.moveCount = 0;
-        this.indexOrder = 0;
-        this.changeEyesTime = 0;
-        this.indexEyesSecuence = 0;
-        this.closeEyesTime = 0;
-        this.extendClosedEyesTime = 0;
-        this.currentDirection = this.orders[this.indexOrder];
-        this.position = __assign({}, this.startPosition);
-        this._setRandomTimeMaxForClosingEyes();
-    };
-    Enemy.prototype.getOrderPosition = function () {
-        return this.indexOrder;
-    };
-    Enemy.prototype.update = function () {
-        if (this.freezed) {
-            if (this.freezedTime < MagicIceball.FREEZE_ENEMY_MAX_TIME) {
-                this.freezedTime++;
+    }
+    freeze() {
+        __classPrivateFieldSet(this, _Enemy_freezed, true, "f");
+    }
+    resetWinner() {
+        __classPrivateFieldSet(this, _Enemy_winned, false, "f");
+    }
+    update() {
+        var _b, _c;
+        if (__classPrivateFieldGet(this, _Enemy_freezed, "f")) {
+            if (__classPrivateFieldGet(this, _Enemy_freezedTime, "f") < MagicIceball.FREEZE_ENEMY_MAX_TIME) {
+                __classPrivateFieldSet(this, _Enemy_freezedTime, (_b = __classPrivateFieldGet(this, _Enemy_freezedTime, "f"), _b++, _b), "f");
             }
             else {
-                this.freezed = false;
-                this.freezedTime = 0;
+                __classPrivateFieldSet(this, _Enemy_freezed, false, "f");
+                __classPrivateFieldSet(this, _Enemy_freezedTime, 0, "f");
             }
             return;
         }
-        var velocity = this.isBoss ? Enemy.BOSS_VELOCITY : Enemy.VELOCITY;
-        switch (this.currentDirection) {
-            case Const.LEFT_DIRECTION:
-                this.position.x = this.position.x - velocity;
+        const velocity = __classPrivateFieldGet(this, _Enemy_isBoss, "f") ? _a.BOSS_VELOCITY : _a.VELOCITY;
+        switch (__classPrivateFieldGet(this, _Enemy_currentDirection, "f")) {
+            case ConstDirection.LEFT:
+                __classPrivateFieldGet(this, _Enemy_position, "f").x = __classPrivateFieldGet(this, _Enemy_position, "f").x - velocity;
                 break;
-            case Const.RIGHT_DIRECTION:
-                this.position.x = this.position.x + velocity;
+            case ConstDirection.RIGHT:
+                __classPrivateFieldGet(this, _Enemy_position, "f").x = __classPrivateFieldGet(this, _Enemy_position, "f").x + velocity;
                 break;
-            case Const.UP_DIRECTION:
-                this.position.y = this.position.y - velocity;
+            case ConstDirection.UP:
+                __classPrivateFieldGet(this, _Enemy_position, "f").y = __classPrivateFieldGet(this, _Enemy_position, "f").y - velocity;
                 break;
-            case Const.DOWN_DIRECTION:
-                this.position.y = this.position.y + velocity;
+            case ConstDirection.DOWN:
+                __classPrivateFieldGet(this, _Enemy_position, "f").y = __classPrivateFieldGet(this, _Enemy_position, "f").y + velocity;
                 break;
         }
-        this.moveCount = this.moveCount + velocity;
-        if (this.moveCount === Const.TILE_SIZE) {
-            this.moveCount = 0;
-            this.indexOrder++;
-            if (this.indexOrder == this.orders.length) {
-                this.reinitEnemy();
+        __classPrivateFieldSet(this, _Enemy_moveCount, __classPrivateFieldGet(this, _Enemy_moveCount, "f") + velocity, "f");
+        if (__classPrivateFieldGet(this, _Enemy_moveCount, "f") === Const.TILE_SIZE) {
+            __classPrivateFieldSet(this, _Enemy_moveCount, 0, "f");
+            __classPrivateFieldSet(this, _Enemy_indexOrder, (_c = __classPrivateFieldGet(this, _Enemy_indexOrder, "f"), _c++, _c), "f");
+            if (__classPrivateFieldGet(this, _Enemy_indexOrder, "f") == __classPrivateFieldGet(this, _Enemy_orders, "f").length) {
+                __classPrivateFieldGet(this, _Enemy_instances, "m", _Enemy_reinitEnemy).call(this);
             }
             else {
-                this.currentDirection = this.orders[this.indexOrder];
+                __classPrivateFieldSet(this, _Enemy_currentDirection, __classPrivateFieldGet(this, _Enemy_orders, "f")[__classPrivateFieldGet(this, _Enemy_indexOrder, "f")], "f");
             }
         }
-    };
-    Enemy.prototype._hasOpenEyes = function () {
-        return this.imgIndex != Enemy.EYES_CLOSED;
-    };
-    Enemy.prototype._moveEyesInSequence = function () {
-        this.changeEyesTime++;
-        if (this.changeEyesTime > Enemy.CHANGE_EYES_MAX_TIME) {
-            this.changeEyesTime = 0;
-            this.indexEyesSecuence++;
-            if (this.indexEyesSecuence == this.eyesSequence.length) {
-                this.indexEyesSecuence = 0;
-            }
-            this.imgIndex = this.eyesSequence[this.indexEyesSecuence];
+    }
+    draw() {
+        __classPrivateFieldGet(this, _Enemy_instances, "m", _Enemy_changeEyes).call(this);
+        image(__classPrivateFieldGet(this, _Enemy_images, "f")[__classPrivateFieldGet(this, _Enemy_imgIndex, "f")], __classPrivateFieldGet(this, _Enemy_position, "f").x, __classPrivateFieldGet(this, _Enemy_position, "f").y);
+        __classPrivateFieldGet(this, _Enemy_healthBar, "f").setPosition({
+            x: __classPrivateFieldGet(this, _Enemy_position, "f").x,
+            y: __classPrivateFieldGet(this, _Enemy_position, "f").y - 20,
+        });
+        __classPrivateFieldGet(this, _Enemy_healthBar, "f").draw();
+    }
+}
+_a = Enemy, _Enemy_images = new WeakMap(), _Enemy_startPosition = new WeakMap(), _Enemy_orders = new WeakMap(), _Enemy_endurance = new WeakMap(), _Enemy_isBoss = new WeakMap(), _Enemy_RandomClass = new WeakMap(), _Enemy_ProgressBarClass = new WeakMap(), _Enemy_id = new WeakMap(), _Enemy_imgIndex = new WeakMap(), _Enemy_imgIndexBeforeEyesClosed = new WeakMap(), _Enemy_eyesSequence = new WeakMap(), _Enemy_healthBar = new WeakMap(), _Enemy_status = new WeakMap(), _Enemy_damage = new WeakMap(), _Enemy_position = new WeakMap(), _Enemy_currentDirection = new WeakMap(), _Enemy_moveCount = new WeakMap(), _Enemy_indexOrder = new WeakMap(), _Enemy_changeEyesTime = new WeakMap(), _Enemy_indexEyesSecuence = new WeakMap(), _Enemy_closeEyesTime = new WeakMap(), _Enemy_extendClosedEyesTime = new WeakMap(), _Enemy_randomCloseEyes = new WeakMap(), _Enemy_winned = new WeakMap(), _Enemy_freezed = new WeakMap(), _Enemy_freezedTime = new WeakMap(), _Enemy_instances = new WeakSet(), _Enemy_reinitEnemy = function _Enemy_reinitEnemy() {
+    __classPrivateFieldSet(this, _Enemy_winned, true, "f");
+    __classPrivateFieldSet(this, _Enemy_moveCount, 0, "f");
+    __classPrivateFieldSet(this, _Enemy_indexOrder, 0, "f");
+    __classPrivateFieldSet(this, _Enemy_changeEyesTime, 0, "f");
+    __classPrivateFieldSet(this, _Enemy_indexEyesSecuence, 0, "f");
+    __classPrivateFieldSet(this, _Enemy_closeEyesTime, 0, "f");
+    __classPrivateFieldSet(this, _Enemy_extendClosedEyesTime, 0, "f");
+    __classPrivateFieldSet(this, _Enemy_currentDirection, __classPrivateFieldGet(this, _Enemy_orders, "f")[__classPrivateFieldGet(this, _Enemy_indexOrder, "f")], "f");
+    __classPrivateFieldSet(this, _Enemy_position, Object.assign({}, __classPrivateFieldGet(this, _Enemy_startPosition, "f")), "f");
+    __classPrivateFieldGet(this, _Enemy_instances, "m", _Enemy_setRandomTimeMaxForClosingEyes).call(this);
+}, _Enemy_hasOpenEyes = function _Enemy_hasOpenEyes() {
+    return __classPrivateFieldGet(this, _Enemy_imgIndex, "f") != _a.EYES_CLOSED;
+}, _Enemy_moveEyesInSequence = function _Enemy_moveEyesInSequence() {
+    var _b, _c;
+    __classPrivateFieldSet(this, _Enemy_changeEyesTime, (_b = __classPrivateFieldGet(this, _Enemy_changeEyesTime, "f"), _b++, _b), "f");
+    if (__classPrivateFieldGet(this, _Enemy_changeEyesTime, "f") > _a.CHANGE_EYES_MAX_TIME) {
+        __classPrivateFieldSet(this, _Enemy_changeEyesTime, 0, "f");
+        __classPrivateFieldSet(this, _Enemy_indexEyesSecuence, (_c = __classPrivateFieldGet(this, _Enemy_indexEyesSecuence, "f"), _c++, _c), "f");
+        if (__classPrivateFieldGet(this, _Enemy_indexEyesSecuence, "f") == __classPrivateFieldGet(this, _Enemy_eyesSequence, "f").length) {
+            __classPrivateFieldSet(this, _Enemy_indexEyesSecuence, 0, "f");
         }
-    };
-    Enemy.prototype._setRandomTimeMaxForClosingEyes = function () {
-        this.randomCloseEyes = this.RandomClass.integerBetween(Enemy.MIN_TIME_TO_CLOSE, Enemy.MAX_TIME_TO_CLOSE);
-    };
-    Enemy.prototype._changeEyes = function () {
-        if (this._hasOpenEyes()) {
-            this.closeEyesTime++;
-            if (this.closeEyesTime > this.randomCloseEyes) {
-                this.closeEyesTime = 0;
-                this._setRandomTimeMaxForClosingEyes();
-                this.imgIndexBeforeEyesClosed = this.imgIndex;
-                this.imgIndex = Enemy.EYES_CLOSED;
-            }
-            this._moveEyesInSequence();
+        __classPrivateFieldSet(this, _Enemy_imgIndex, __classPrivateFieldGet(this, _Enemy_eyesSequence, "f")[__classPrivateFieldGet(this, _Enemy_indexEyesSecuence, "f")], "f");
+    }
+}, _Enemy_setRandomTimeMaxForClosingEyes = function _Enemy_setRandomTimeMaxForClosingEyes() {
+    __classPrivateFieldSet(this, _Enemy_randomCloseEyes, __classPrivateFieldGet(this, _Enemy_RandomClass, "f").integerBetween(_a.MIN_TIME_TO_CLOSE, _a.MAX_TIME_TO_CLOSE), "f");
+}, _Enemy_changeEyes = function _Enemy_changeEyes() {
+    var _b, _c;
+    if (__classPrivateFieldGet(this, _Enemy_instances, "m", _Enemy_hasOpenEyes).call(this)) {
+        __classPrivateFieldSet(this, _Enemy_closeEyesTime, (_b = __classPrivateFieldGet(this, _Enemy_closeEyesTime, "f"), _b++, _b), "f");
+        if (__classPrivateFieldGet(this, _Enemy_closeEyesTime, "f") > __classPrivateFieldGet(this, _Enemy_randomCloseEyes, "f")) {
+            __classPrivateFieldSet(this, _Enemy_closeEyesTime, 0, "f");
+            __classPrivateFieldGet(this, _Enemy_instances, "m", _Enemy_setRandomTimeMaxForClosingEyes).call(this);
+            __classPrivateFieldSet(this, _Enemy_imgIndexBeforeEyesClosed, __classPrivateFieldGet(this, _Enemy_imgIndex, "f"), "f");
+            __classPrivateFieldSet(this, _Enemy_imgIndex, _a.EYES_CLOSED, "f");
         }
-        else {
-            this.extendClosedEyesTime++;
-            if (this.extendClosedEyesTime > Enemy.EXTEND_CLOSED_EYES_MAX_TIME) {
-                this.extendClosedEyesTime = 0;
-                this.imgIndex = this.imgIndexBeforeEyesClosed;
-            }
+        __classPrivateFieldGet(this, _Enemy_instances, "m", _Enemy_moveEyesInSequence).call(this);
+    }
+    else {
+        __classPrivateFieldSet(this, _Enemy_extendClosedEyesTime, (_c = __classPrivateFieldGet(this, _Enemy_extendClosedEyesTime, "f"), _c++, _c), "f");
+        if (__classPrivateFieldGet(this, _Enemy_extendClosedEyesTime, "f") > _a.EXTEND_CLOSED_EYES_MAX_TIME) {
+            __classPrivateFieldSet(this, _Enemy_extendClosedEyesTime, 0, "f");
+            __classPrivateFieldSet(this, _Enemy_imgIndex, __classPrivateFieldGet(this, _Enemy_imgIndexBeforeEyesClosed, "f"), "f");
         }
-    };
-    Enemy.prototype.getPosition = function () {
-        return this.position;
-    };
-    Enemy.prototype.draw = function () {
-        this._changeEyes();
-        image(this.images[this.imgIndex], this.position.x, this.position.y);
-        this.healthBar.setPosition({ x: this.position.x, y: this.position.y - 20 });
-        this.healthBar.draw();
-    };
-    Enemy.VELOCITY = 1;
-    Enemy.BOSS_VELOCITY = 0.5;
-    Enemy.CHANGE_EYES_MAX_TIME = 50;
-    Enemy.EXTEND_CLOSED_EYES_MAX_TIME = 20;
-    Enemy.MIN_TIME_TO_CLOSE = 50;
-    Enemy.MAX_TIME_TO_CLOSE = 200;
-    Enemy.EYES_CENTER = 0;
-    Enemy.EYES_LEFT = 1;
-    Enemy.EYES_RIGHT = 2;
-    Enemy.EYES_CLOSED = 3;
-    Enemy.STATUS_ALIVE = 0;
-    Enemy.STATUS_DEAD = 1;
-    Enemy.TOTAL_ENEMIES = 5;
-    Enemy.CREATION_MAX_TIME = 200;
-    Enemy.numberOfEnemies = 0;
-    return Enemy;
-}());
-var EnemyExplosion = (function () {
-    function EnemyExplosion(x, y, ParticleSystemClass) {
-        this.emisionTime = 0;
-        this.finished = false;
+    }
+};
+Enemy.VELOCITY = 1;
+Enemy.BOSS_VELOCITY = 0.5;
+Enemy.CHANGE_EYES_MAX_TIME = 50;
+Enemy.EXTEND_CLOSED_EYES_MAX_TIME = 20;
+Enemy.MIN_TIME_TO_CLOSE = 50;
+Enemy.MAX_TIME_TO_CLOSE = 200;
+Enemy.EYES_CENTER = 0;
+Enemy.EYES_LEFT = 1;
+Enemy.EYES_RIGHT = 2;
+Enemy.EYES_CLOSED = 3;
+Enemy.STATUS_ALIVE = 0;
+Enemy.STATUS_DEAD = 1;
+Enemy.TOTAL_ENEMIES = 5;
+Enemy.CREATION_MAX_TIME = 200;
+Enemy.numberOfEnemies = 0;
+var _Explosion_emisionTime, _Explosion_finished;
+class Explosion {
+    constructor(x, y) {
+        _Explosion_emisionTime.set(this, 0);
+        _Explosion_finished.set(this, false);
         this.x = x;
         this.y = y;
-        this.particleSystem = new ParticleSystemClass(createVector(this.x + Const.EXPLOSION_OFFSET, this.y + Const.EXPLOSION_OFFSET), EnemyExplosion.SIZE, EnemyExplosion.COLOR);
     }
-    EnemyExplosion.prototype.isActive = function () {
-        return !this.finished;
-    };
-    EnemyExplosion.prototype.update = function () {
-        if (this.emisionTime < EnemyExplosion.MAX_EMIT_TIME) {
-            this.emisionTime++;
+    isActive() {
+        return !__classPrivateFieldGet(this, _Explosion_finished, "f");
+    }
+    update() {
+        var _a;
+        if (__classPrivateFieldGet(this, _Explosion_emisionTime, "f") < Explosion.MAX_EMIT_TIME) {
+            __classPrivateFieldSet(this, _Explosion_emisionTime, (_a = __classPrivateFieldGet(this, _Explosion_emisionTime, "f"), _a++, _a), "f");
             this.particleSystem.addParticle();
         }
         this.particleSystem.run();
-    };
-    EnemyExplosion.MAX_EMIT_TIME = 5;
-    EnemyExplosion.SIZE = 12;
-    EnemyExplosion.COLOR = [255, 165, 0];
-    return EnemyExplosion;
-}());
-var GreenTower = (function () {
-    function GreenTower(images, position, MathUtilsClass, ProgressBarClass) {
-        this.upgradeLevel = 0;
-        this.enemyTarget = null;
-        this.distanceToEnemyTarget = 0;
-        this.upgrading = false;
-        this.upgradeProgress = 0;
-        this.images = images;
-        this.position = __assign({}, position);
-        this.MathUtilsClass = MathUtilsClass;
-        this.ProgressBarClass = ProgressBarClass;
-        this.progressBar = new this.ProgressBarClass({
-            x: this.position.x + Const.TOWER_OFFSET,
-            y: this.position.y + Const.TOWER_OFFSET,
-        }, ProgressBar.WIDTH, ProgressBar.HEIGHT);
     }
-    GreenTower.prototype.upgrade = function () {
-        if (!this.upgrading) {
-            this.upgrading = true;
-            this.upgradeLevel++;
-            this.delayUpgradeProgress =
-                Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel;
-        }
-    };
-    GreenTower.prototype.isNotUpgrading = function () {
-        return !this.upgrading;
-    };
-    GreenTower.prototype.getPosition = function () {
-        return this.position;
-    };
-    GreenTower.prototype.getUpgradeLevel = function () {
-        return this.upgradeLevel;
-    };
-    GreenTower.prototype.isMaxUpgraded = function () {
-        return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1;
-    };
-    GreenTower.prototype._drawShotToEnemy = function () {
-        strokeWeight(3);
-        stroke(ConstColor.RED);
-        line(-1, -18, 7 - this.distanceToEnemyTarget / 7, -this.distanceToEnemyTarget);
-    };
-    GreenTower.prototype._drawUpgradeBackground = function () {
-        strokeWeight(1);
-        stroke('black');
-        fill(ConstColor.GREEN);
-        rect(this.position.x + 4, this.position.y + 4, Const.TILE_SIZE, Const.TILE_SIZE);
-    };
-    GreenTower.prototype.draw = function () {
-        if (this.upgrading) {
-            this._drawUpgradeBackground();
-            if (!this.progressBar.isFullOfProgress()) {
-                if (this.delayUpgradeProgress == 0) {
-                    this.upgradeProgress++;
-                    this.progressBar.setProgress(this.upgradeProgress);
-                    this.delayUpgradeProgress =
-                        Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel;
-                }
-                else {
-                    this.delayUpgradeProgress--;
-                }
-                this.progressBar.draw();
-            }
-            else {
-                this.upgrading = false;
-                this.upgradeProgress = 0;
-                this.progressBar.setProgress(0);
-            }
-        }
-        else {
-            if (this.enemyTarget) {
-                var r_dx = this.enemyTarget.getPosition().x - this.position.x;
-                var r_dy = this.enemyTarget.getPosition().y - this.position.y;
-                var angle = Math.atan2(r_dy, r_dx) + 1.55;
-                var cos_a = cos(angle);
-                var sin_a = sin(angle);
-                imageMode(CENTER);
-                applyMatrix(cos_a, sin_a, -sin_a, cos_a, this.position.x + 30, this.position.y + 30);
-                this._drawShotToEnemy();
-                this.enemyTarget.addDamage(GreenTower.DAMAGE_UPGRADE[this.upgradeLevel]);
-                image(this.images[this.upgradeLevel], 0, 0);
-                resetMatrix();
-                imageMode(CORNER);
-            }
-            else {
-                image(this.images[this.upgradeLevel], this.position.x, this.position.y);
-            }
-        }
-    };
-    GreenTower.prototype.getInfluenceArea = function () {
-        return GreenTower.UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
-    };
-    GreenTower.prototype.getCostWhenUpgradeLevelIs = function (selectedUpgradeLevel) {
-        if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
-            return GreenTower.COST_UPGRADE[Const.UPGRADE_MAX_LEVEL];
-        }
-        return GreenTower.COST_UPGRADE[selectedUpgradeLevel];
-    };
-    GreenTower.prototype.getCost = function () {
-        return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel());
-    };
-    GreenTower.prototype.getNextLevelUpgradeCost = function () {
-        if (this.isMaxUpgraded()) {
-            return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1);
-        }
-        else {
-            return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1);
-        }
-    };
-    GreenTower.prototype.getSellProfit = function () {
-        return GreenTower.PROFIT_SELL_UPGRADE[this.getUpgradeLevel()];
-    };
-    GreenTower.prototype.getType = function () {
-        return GreenTower.ID;
-    };
-    GreenTower.prototype.getColor = function () {
-        return ConstColor.GREEN;
-    };
-    GreenTower.prototype._isDistanceIntoInfluenceArea = function (distance) {
-        return (distance <= GreenTower.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65);
-    };
-    GreenTower.prototype.selectTarget = function (enemies) {
-        var _this = this;
-        var minDistance = 99999;
-        var enemyTarget = null;
-        enemies.forEach(function (enemy) {
-            var distance = _this.MathUtilsClass.distance({ x: _this.position.x, y: _this.position.y }, {
-                x: enemy.getPosition().x,
-                y: enemy.getPosition().y,
-            });
-            if (distance < minDistance) {
-                minDistance = distance;
-                enemyTarget = enemy;
-            }
-        });
-        if (this._isDistanceIntoInfluenceArea(minDistance)) {
-            this.enemyTarget = enemyTarget;
-            this.distanceToEnemyTarget = minDistance;
-        }
-        else {
-            this.enemyTarget = null;
-            this.distanceToEnemyTarget = 0;
-        }
-    };
-    GreenTower.ID = 1;
-    GreenTower.PROFIT_SELL_UPGRADE = [30, 35, 65, 220, 900, 1880];
-    GreenTower.DAMAGE_UPGRADE = [1, 2, 4, 6, 12, 24];
-    GreenTower.COST_UPGRADE = [50, 75, 125, 300, 1000, 2000];
-    GreenTower.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
-    GreenTower.INFLUENCE_AREA = 150;
-    return GreenTower;
-}());
-var Hud = (function () {
-    function Hud(hudImages, hudIconImages, wallet, lives, score, TextPropertiesClass, waveProgressBar, bossProgressBar, wave) {
-        this.hudType = Hud.NORMAL;
-        this.selectedItem = GreenTower.ID;
-        this.upgradeCost = null;
-        this.sellProfit = null;
-        this.canBuyGreenTower = false;
-        this.canBuyRedTower = false;
-        this.canBuyYellowTower = false;
-        this.magicfireballs = MagicFireball.FIREBALLS;
-        this.magiciceballs = MagicIceball.ICEBALLS;
-        this.magicUFOs = MagicUFO.UFOS;
-        this.hudImages = hudImages;
-        this.hudIconImages = hudIconImages;
-        this.wallet = wallet;
-        this.lives = lives;
-        this.score = score;
-        this.TextPropertiesClass = TextPropertiesClass;
-        this.waveProgressBar = waveProgressBar;
-        this.bossProgressBar = bossProgressBar;
-        this.wave = wave;
-        this.waveProgressBar = new ProgressBar({ x: 335, y: -19 }, 150, 16);
-        this.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, 150, 10);
+}
+_Explosion_emisionTime = new WeakMap(), _Explosion_finished = new WeakMap();
+Explosion.MAX_EMIT_TIME = 5;
+class ExplosionEnemy extends Explosion {
+    constructor(x, y, ParticleSystemClass) {
+        super(x, y);
+        this.particleSystem = new ParticleSystemClass(createVector(this.x + Const.EXPLOSION_OFFSET, this.y + Const.EXPLOSION_OFFSET), ExplosionEnemy.SIZE, ExplosionEnemy.COLOR);
     }
-    Hud.prototype.isInsideButtonsBar = function (px, py) {
+}
+ExplosionEnemy.SIZE = 12;
+ExplosionEnemy.COLOR = [255, 165, 0];
+class ExplosionMagicFireball extends Explosion {
+    constructor(x, y, ParticleSystemClass) {
+        super(x, y);
+        this.particleSystem = new ParticleSystemClass(createVector(this.x + Const.EXPLOSION_OFFSET, this.y + Const.EXPLOSION_OFFSET), ExplosionMagicFireball.SIZE, ExplosionMagicFireball.COLOR);
+    }
+}
+ExplosionMagicFireball.SIZE = 6;
+ExplosionMagicFireball.COLOR = [202, 191, 24];
+class ExplosionMagicIceball extends Explosion {
+    constructor(x, y, ParticleSystemClass) {
+        super(x, y);
+        this.particleSystem = new ParticleSystemClass(createVector(this.x + Const.EXPLOSION_OFFSET, this.y + Const.EXPLOSION_OFFSET), ExplosionMagicIceball.SIZE, ExplosionMagicIceball.COLOR);
+    }
+}
+ExplosionMagicIceball.SIZE = 6;
+ExplosionMagicIceball.COLOR = [0, 65, 255];
+var _Hud_hudImages, _Hud_hudIconImages, _Hud_wallet, _Hud_lives, _Hud_score, _Hud_TextPropertiesClass, _Hud_waveProgressBar, _Hud_bossProgressBar, _Hud_wave, _Hud_hudType, _Hud_selectedItem, _Hud_upgradeCost, _Hud_sellProfit, _Hud_canBuyTowerGreen, _Hud_canBuyTowerRed, _Hud_canBuyTowerYellow, _Hud_magicfireballs, _Hud_magiciceballs, _Hud_magicUFOs, _Hud_canUpgrade;
+class Hud {
+    constructor(hudImages, hudIconImages, wallet, lives, score, TextPropertiesClass, waveProgressBar, bossProgressBar, wave) {
+        _Hud_hudImages.set(this, void 0);
+        _Hud_hudIconImages.set(this, void 0);
+        _Hud_wallet.set(this, void 0);
+        _Hud_lives.set(this, void 0);
+        _Hud_score.set(this, void 0);
+        _Hud_TextPropertiesClass.set(this, void 0);
+        _Hud_waveProgressBar.set(this, void 0);
+        _Hud_bossProgressBar.set(this, void 0);
+        _Hud_wave.set(this, void 0);
+        _Hud_hudType.set(this, void 0);
+        _Hud_selectedItem.set(this, void 0);
+        _Hud_upgradeCost.set(this, null);
+        _Hud_sellProfit.set(this, null);
+        _Hud_canBuyTowerGreen.set(this, false);
+        _Hud_canBuyTowerRed.set(this, false);
+        _Hud_canBuyTowerYellow.set(this, false);
+        _Hud_magicfireballs.set(this, void 0);
+        _Hud_magiciceballs.set(this, void 0);
+        _Hud_magicUFOs.set(this, void 0);
+        _Hud_canUpgrade.set(this, void 0);
+        __classPrivateFieldSet(this, _Hud_hudImages, hudImages, "f");
+        __classPrivateFieldSet(this, _Hud_hudIconImages, hudIconImages, "f");
+        __classPrivateFieldSet(this, _Hud_wallet, wallet, "f");
+        __classPrivateFieldSet(this, _Hud_lives, lives, "f");
+        __classPrivateFieldSet(this, _Hud_score, score, "f");
+        __classPrivateFieldSet(this, _Hud_TextPropertiesClass, TextPropertiesClass, "f");
+        __classPrivateFieldSet(this, _Hud_waveProgressBar, waveProgressBar, "f");
+        __classPrivateFieldSet(this, _Hud_bossProgressBar, bossProgressBar, "f");
+        __classPrivateFieldSet(this, _Hud_wave, wave, "f");
+        __classPrivateFieldSet(this, _Hud_waveProgressBar, new ProgressBar({ x: 335, y: -19 }, 150, 16), "f");
+        __classPrivateFieldSet(this, _Hud_bossProgressBar, new ProgressBar({ x: 335, y: -2 }, 150, 10), "f");
+        __classPrivateFieldSet(this, _Hud_hudType, Hud.NORMAL, "f");
+        __classPrivateFieldSet(this, _Hud_selectedItem, TowerGreen.ID, "f");
+        __classPrivateFieldSet(this, _Hud_magicfireballs, MagicFireball.FIREBALLS, "f");
+        __classPrivateFieldSet(this, _Hud_magiciceballs, MagicIceball.ICEBALLS, "f");
+        __classPrivateFieldSet(this, _Hud_magicUFOs, MagicUFO.UFOS, "f");
+    }
+    isInsideButtonsBar(px, py) {
         if (px > 0 && px < 800 && py > 28 && py < 78) {
             return true;
         }
         return false;
-    };
-    Hud.prototype.isInsideGreenTowerButton = function (px, py) {
+    }
+    isInsideTowerGreenButton(px, py) {
         if (px > 0 && px < 98 && py > 28 && py < 78) {
             return true;
         }
         return false;
-    };
-    Hud.prototype.isInsideRedTowerButton = function (px, py) {
+    }
+    isInsideTowerRedButton(px, py) {
         if (px > 98 && px < 180 && py > 28 && py < 78) {
             return true;
         }
         return false;
-    };
-    Hud.prototype.isInsideYellowTowerButton = function (px, py) {
+    }
+    isInsideTowerYellowButton(px, py) {
         if (px > 180 && px < 263 && py > 28 && py < 78) {
             return true;
         }
         return false;
-    };
-    Hud.prototype.isInsideMagicFireball = function (px, py) {
+    }
+    isInsideMagicFireball(px, py) {
         if (px > 616 && px < 692 && py > 28 && py < 78) {
             return true;
         }
         return false;
-    };
-    Hud.prototype.isInsideMagicIceball = function (px, py) {
+    }
+    isInsideMagicIceball(px, py) {
         if (px > 692 && px < 795 && py > 28 && py < 78) {
             return true;
         }
         return false;
-    };
-    Hud.prototype.isInsideMagicUFO = function (px, py) {
+    }
+    isInsideMagicUFO(px, py) {
         if (px > 498 && px < 616 && py > 28 && py < 78) {
             return true;
         }
         return false;
-    };
-    Hud.prototype.setMagicFireballs = function (magicfireballs) {
-        this.magicfireballs = magicfireballs;
-    };
-    Hud.prototype.setMagicIceballs = function (magiciceballs) {
-        this.magiciceballs = magiciceballs;
-    };
-    Hud.prototype.setMagicUFOs = function (magicUFOs) {
-        this.magicUFOs = magicUFOs;
-    };
-    Hud.prototype.setWaveProgressBar = function (waveProgressBar) {
-        this.waveProgressBar = waveProgressBar;
-    };
-    Hud.prototype.setBossProgressBar = function (bossProgressBar) {
-        this.bossProgressBar = bossProgressBar;
-    };
-    Hud.prototype.selectTower = function (towerId) {
-        this.selectedItem = towerId;
-    };
-    Hud.prototype.getSelectedTower = function () {
-        return this.selectedItem;
-    };
-    Hud.prototype.setType = function (hudType) {
-        this.hudType = hudType;
-    };
-    Hud.prototype.setCanBuy = function (canBuyGreenTower, canBuyRedTower, canBuyYellowTower) {
-        this.canBuyGreenTower = canBuyGreenTower;
-        this.canBuyRedTower = canBuyRedTower;
-        this.canBuyYellowTower = canBuyYellowTower;
-    };
-    Hud.prototype.draw = function () {
-        switch (this.hudType) {
+    }
+    setMagicFireballs(magicfireballs) {
+        __classPrivateFieldSet(this, _Hud_magicfireballs, magicfireballs, "f");
+    }
+    setMagicIceballs(magiciceballs) {
+        __classPrivateFieldSet(this, _Hud_magiciceballs, magiciceballs, "f");
+    }
+    setMagicUFOs(magicUFOs) {
+        __classPrivateFieldSet(this, _Hud_magicUFOs, magicUFOs, "f");
+    }
+    setWaveProgressBar(waveProgressBar) {
+        __classPrivateFieldSet(this, _Hud_waveProgressBar, waveProgressBar, "f");
+    }
+    setBossProgressBar(bossProgressBar) {
+        __classPrivateFieldSet(this, _Hud_bossProgressBar, bossProgressBar, "f");
+    }
+    selectTower(towerId) {
+        __classPrivateFieldSet(this, _Hud_selectedItem, towerId, "f");
+    }
+    getSelectedTower() {
+        return __classPrivateFieldGet(this, _Hud_selectedItem, "f");
+    }
+    setType(hudType) {
+        __classPrivateFieldSet(this, _Hud_hudType, hudType, "f");
+    }
+    setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow) {
+        __classPrivateFieldSet(this, _Hud_canBuyTowerGreen, canBuyTowerGreen, "f");
+        __classPrivateFieldSet(this, _Hud_canBuyTowerRed, canBuyTowerRed, "f");
+        __classPrivateFieldSet(this, _Hud_canBuyTowerYellow, canBuyTowerYellow, "f");
+    }
+    draw() {
+        switch (__classPrivateFieldGet(this, _Hud_hudType, "f")) {
             case Hud.NORMAL:
-                image(this.hudImages[Hud.NORMAL], 0, 0);
+                image(__classPrivateFieldGet(this, _Hud_hudImages, "f")[Hud.NORMAL], 0, 0);
                 this._drawTowerIcons();
                 this._drawSelectedItem();
                 break;
             case Hud.UPGRADING:
-                image(this.hudImages[Hud.UPGRADING], 0, 0);
+                image(__classPrivateFieldGet(this, _Hud_hudImages, "f")[Hud.UPGRADING], 0, 0);
                 break;
             case Hud.UPGRADING_MAX:
-                image(this.hudImages[Hud.UPGRADING_MAX], 0, 0);
+                image(__classPrivateFieldGet(this, _Hud_hudImages, "f")[Hud.UPGRADING_MAX], 0, 0);
                 break;
         }
-        this.waveProgressBar.draw();
-        this.bossProgressBar.draw();
-        this.TextPropertiesClass.setForHudData();
+        __classPrivateFieldGet(this, _Hud_waveProgressBar, "f").draw();
+        __classPrivateFieldGet(this, _Hud_bossProgressBar, "f").draw();
+        __classPrivateFieldGet(this, _Hud_TextPropertiesClass, "f").setForHudData();
         this._drawMoney();
         this._drawLives();
         this._drawScore();
@@ -540,200 +449,190 @@ var Hud = (function () {
         this._drawMagicUFO();
         this._drawMagicFireball();
         this._drawMagicIceball();
-        if (this.hudType === Hud.NORMAL) {
+        if (__classPrivateFieldGet(this, _Hud_hudType, "f") === Hud.NORMAL) {
             this._drawNewTowerPrices();
         }
-    };
-    Hud.prototype.setWave = function (wave) {
-        this.wave = wave;
-    };
-    Hud.prototype.setLives = function (lives) {
-        this.lives = lives;
-    };
-    Hud.prototype._drawTowerIcons = function () {
-        var greenIconImgPos = Hud.ICON_GREEN_TOWER_OFF;
-        var redIconImgPos = Hud.ICON_RED_TOWER_OFF;
-        var yellowIconImgPos = Hud.ICON_YELLOW_TOWER_OFF;
-        if (this.canBuyGreenTower) {
+    }
+    setWave(wave) {
+        __classPrivateFieldSet(this, _Hud_wave, wave, "f");
+    }
+    setLives(lives) {
+        __classPrivateFieldSet(this, _Hud_lives, lives, "f");
+    }
+    _drawTowerIcons() {
+        let greenIconImgPos = Hud.ICON_GREEN_TOWER_OFF;
+        let redIconImgPos = Hud.ICON_RED_TOWER_OFF;
+        let yellowIconImgPos = Hud.ICON_YELLOW_TOWER_OFF;
+        if (__classPrivateFieldGet(this, _Hud_canBuyTowerGreen, "f")) {
             greenIconImgPos = Hud.ICON_GREEN_TOWER_ON;
         }
-        if (this.canBuyRedTower) {
+        if (__classPrivateFieldGet(this, _Hud_canBuyTowerRed, "f")) {
             redIconImgPos = Hud.ICON_RED_TOWER_ON;
         }
-        if (this.canBuyYellowTower) {
+        if (__classPrivateFieldGet(this, _Hud_canBuyTowerYellow, "f")) {
             yellowIconImgPos = Hud.ICON_YELLOW_TOWER_ON;
         }
-        image(this.hudIconImages[greenIconImgPos], 60, 38);
-        image(this.hudIconImages[redIconImgPos], 142, 38);
-        image(this.hudIconImages[yellowIconImgPos], 226, 38);
-    };
-    Hud.prototype._drawMoney = function () {
-        text(this.wallet.getMoney(), 445, 48);
-    };
-    Hud.prototype._drawUpgradeCost = function () {
-        if (this.upgradeCost !== null) {
-            if (!this.canUpgrade) {
+        image(__classPrivateFieldGet(this, _Hud_hudIconImages, "f")[greenIconImgPos], 60, 38);
+        image(__classPrivateFieldGet(this, _Hud_hudIconImages, "f")[redIconImgPos], 142, 38);
+        image(__classPrivateFieldGet(this, _Hud_hudIconImages, "f")[yellowIconImgPos], 226, 38);
+    }
+    _drawMoney() {
+        text(__classPrivateFieldGet(this, _Hud_wallet, "f").money, 445, 48);
+    }
+    _drawUpgradeCost() {
+        if (__classPrivateFieldGet(this, _Hud_upgradeCost, "f") !== null) {
+            if (!__classPrivateFieldGet(this, _Hud_canUpgrade, "f")) {
                 fill('gray');
             }
-            text(this.upgradeCost, 33, 72);
+            text(__classPrivateFieldGet(this, _Hud_upgradeCost, "f"), 33, 72);
             fill('white');
         }
-    };
-    Hud.prototype._drawMagicUFO = function () {
-        text(this.magicUFOs, 592, 74);
-    };
-    Hud.prototype._drawMagicFireball = function () {
-        text(this.magicfireballs, 680, 74);
-    };
-    Hud.prototype._drawMagicIceball = function () {
-        text(this.magiciceballs, 769, 74);
-    };
-    Hud.prototype._drawSellProfit = function () {
-        if (this.sellProfit !== null) {
-            text(this.sellProfit, 182, 72);
+    }
+    _drawMagicUFO() {
+        text(__classPrivateFieldGet(this, _Hud_magicUFOs, "f"), 592, 74);
+    }
+    _drawMagicFireball() {
+        text(__classPrivateFieldGet(this, _Hud_magicfireballs, "f"), 680, 74);
+    }
+    _drawMagicIceball() {
+        text(__classPrivateFieldGet(this, _Hud_magiciceballs, "f"), 769, 74);
+    }
+    _drawSellProfit() {
+        if (__classPrivateFieldGet(this, _Hud_sellProfit, "f") !== null) {
+            text(__classPrivateFieldGet(this, _Hud_sellProfit, "f"), 182, 72);
         }
-    };
-    Hud.prototype._drawLives = function () {
-        text(this.lives, 390, 48);
-    };
-    Hud.prototype._drawScore = function () {
-        text(this.score.getPrintScore(), 404, 73);
-    };
-    Hud.prototype._drawLevelTitle = function () {
+    }
+    _drawLives() {
+        text(__classPrivateFieldGet(this, _Hud_lives, "f"), 390, 48);
+    }
+    _drawScore() {
+        text(__classPrivateFieldGet(this, _Hud_score, "f").getPrintScore(), 404, 73);
+    }
+    _drawLevelTitle() {
         text('Serpent by Ocliboy', 130, 18);
-    };
-    Hud.prototype._drawWave = function () {
-        text("wave ".concat(this.wave), 403, 13);
-    };
-    Hud.prototype._drawGreenTowerPrice = function () {
-        if (!this.canBuyGreenTower) {
+    }
+    _drawWave() {
+        text(`wave ${__classPrivateFieldGet(this, _Hud_wave, "f")}`, 403, 13);
+    }
+    _drawTowerGreenPrice() {
+        if (!__classPrivateFieldGet(this, _Hud_canBuyTowerGreen, "f")) {
             fill('gray');
         }
-        text(GreenTower.COST_UPGRADE[0], 40, 72);
+        text(TowerGreen.COST_UPGRADE[0], 40, 72);
         fill('white');
-    };
-    Hud.prototype._drawRedTowerPrice = function () {
-        if (!this.canBuyRedTower) {
+    }
+    _drawTowerRedPrice() {
+        if (!__classPrivateFieldGet(this, _Hud_canBuyTowerRed, "f")) {
             fill('gray');
         }
-        text(RedTower.COST_UPGRADE[0], 118, 72);
+        text(TowerRed.COST_UPGRADE[0], 118, 72);
         fill('white');
-    };
-    Hud.prototype._drawYellowTowerPrice = function () {
-        if (!this.canBuyYellowTower) {
+    }
+    _drawTowerYellowPrice() {
+        if (!__classPrivateFieldGet(this, _Hud_canBuyTowerYellow, "f")) {
             fill('gray');
         }
-        text(YellowTower.COST_UPGRADE[0], 202, 72);
+        text(TowerYellow.COST_UPGRADE[0], 202, 72);
         fill('white');
-    };
-    Hud.prototype._drawNewTowerPrices = function () {
-        this._drawGreenTowerPrice();
-        this._drawRedTowerPrice();
-        this._drawYellowTowerPrice();
-    };
-    Hud.prototype._drawSelectedItem = function () {
+    }
+    _drawNewTowerPrices() {
+        this._drawTowerGreenPrice();
+        this._drawTowerRedPrice();
+        this._drawTowerYellowPrice();
+    }
+    _drawSelectedItem() {
         strokeWeight(3);
         stroke(255, 204, 0);
         noFill();
-        switch (this.selectedItem) {
-            case GreenTower.ID:
+        switch (__classPrivateFieldGet(this, _Hud_selectedItem, "f")) {
+            case TowerGreen.ID:
                 square(57, 36, 37);
                 break;
-            case RedTower.ID:
+            case TowerRed.ID:
                 square(140, 36, 37);
                 break;
-            case YellowTower.ID:
+            case TowerYellow.ID:
                 square(225, 36, 37);
                 break;
         }
-    };
-    Hud.prototype.selectTowerHudType = function (tower) {
-        if (tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL) {
+    }
+    selectTowerHudType(tower) {
+        if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
             this.setType(Hud.UPGRADING);
         }
         else {
             this.setType(Hud.UPGRADING_MAX);
         }
-    };
-    Hud.prototype.viewUpgradeCost = function (tower, canUpgrade) {
-        this.upgradeCost = null;
-        if (this.hudType === Hud.UPGRADING) {
-            this.upgradeCost = tower.getNextLevelUpgradeCost();
+    }
+    viewUpgradeCost(tower, canUpgrade) {
+        __classPrivateFieldSet(this, _Hud_upgradeCost, null, "f");
+        if (__classPrivateFieldGet(this, _Hud_hudType, "f") === Hud.UPGRADING) {
+            __classPrivateFieldSet(this, _Hud_upgradeCost, tower.nextLevelUpgradeCost, "f");
         }
-        this.canUpgrade = canUpgrade;
-    };
-    Hud.prototype.viewSellProfit = function (tower) {
-        this.sellProfit = null;
-        if (this.hudType === Hud.UPGRADING) {
-            this.sellProfit = tower.getSellProfit();
-        }
-    };
-    Hud.prototype.hideUpgradeCost = function () {
-        this.upgradeCost = null;
-    };
-    Hud.prototype.hideSellProfit = function () {
-        this.sellProfit = null;
-    };
-    Hud.NORMAL = 0;
-    Hud.UPGRADING = 1;
-    Hud.UPGRADING_MAX = 2;
-    Hud.HEIGHT = 84;
-    Hud.ICON_GREEN_TOWER_ON = 0;
-    Hud.ICON_GREEN_TOWER_OFF = 1;
-    Hud.ICON_RED_TOWER_ON = 2;
-    Hud.ICON_RED_TOWER_OFF = 3;
-    Hud.ICON_YELLOW_TOWER_ON = 4;
-    Hud.ICON_YELLOW_TOWER_OFF = 5;
-    return Hud;
-}());
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
+        __classPrivateFieldSet(this, _Hud_canUpgrade, canUpgrade, "f");
+    }
+    viewSellProfit(tower) {
+        __classPrivateFieldSet(this, _Hud_sellProfit, null, "f");
+        if (__classPrivateFieldGet(this, _Hud_hudType, "f") === Hud.UPGRADING) {
+            __classPrivateFieldSet(this, _Hud_sellProfit, tower.sellProfit, "f");
         }
     }
-    return to.concat(ar || Array.prototype.slice.call(from));
-};
-var InfluenceArea = (function () {
-    function InfluenceArea() {
+    hideUpgradeCost() {
+        __classPrivateFieldSet(this, _Hud_upgradeCost, null, "f");
     }
-    InfluenceArea.prototype._setGrayInfluenceAreaColor = function () {
-        stroke.apply(void 0, __spreadArray(__spreadArray([], ConstColor.GRAY, false), [InfluenceArea.ALPHA_STROKE], false));
-        fill.apply(void 0, __spreadArray(__spreadArray([], ConstColor.GRAY, false), [InfluenceArea.ALPHA_FILL], false));
-    };
-    InfluenceArea.prototype._setInfluenceAreaColor = function (towerId) {
+    hideSellProfit() {
+        __classPrivateFieldSet(this, _Hud_sellProfit, null, "f");
+    }
+}
+_Hud_hudImages = new WeakMap(), _Hud_hudIconImages = new WeakMap(), _Hud_wallet = new WeakMap(), _Hud_lives = new WeakMap(), _Hud_score = new WeakMap(), _Hud_TextPropertiesClass = new WeakMap(), _Hud_waveProgressBar = new WeakMap(), _Hud_bossProgressBar = new WeakMap(), _Hud_wave = new WeakMap(), _Hud_hudType = new WeakMap(), _Hud_selectedItem = new WeakMap(), _Hud_upgradeCost = new WeakMap(), _Hud_sellProfit = new WeakMap(), _Hud_canBuyTowerGreen = new WeakMap(), _Hud_canBuyTowerRed = new WeakMap(), _Hud_canBuyTowerYellow = new WeakMap(), _Hud_magicfireballs = new WeakMap(), _Hud_magiciceballs = new WeakMap(), _Hud_magicUFOs = new WeakMap(), _Hud_canUpgrade = new WeakMap();
+Hud.NORMAL = 0;
+Hud.UPGRADING = 1;
+Hud.UPGRADING_MAX = 2;
+Hud.HEIGHT = 84;
+Hud.ICON_GREEN_TOWER_ON = 0;
+Hud.ICON_GREEN_TOWER_OFF = 1;
+Hud.ICON_RED_TOWER_ON = 2;
+Hud.ICON_RED_TOWER_OFF = 3;
+Hud.ICON_YELLOW_TOWER_ON = 4;
+Hud.ICON_YELLOW_TOWER_OFF = 5;
+class InfluenceArea {
+    constructor() { }
+    _setGrayInfluenceAreaColor() {
+        stroke(...ConstColor.GRAY, InfluenceArea.ALPHA_STROKE);
+        fill(...ConstColor.GRAY, InfluenceArea.ALPHA_FILL);
+    }
+    _setInfluenceAreaColor(towerId) {
         switch (towerId) {
-            case GreenTower.ID:
-                stroke.apply(void 0, __spreadArray(__spreadArray([], ConstColor.GREEN, false), [InfluenceArea.ALPHA_STROKE], false));
-                fill.apply(void 0, __spreadArray(__spreadArray([], ConstColor.GREEN, false), [InfluenceArea.ALPHA_FILL], false));
+            case TowerGreen.ID:
+                stroke(...ConstColor.GREEN, InfluenceArea.ALPHA_STROKE);
+                fill(...ConstColor.GREEN, InfluenceArea.ALPHA_FILL);
                 break;
-            case RedTower.ID:
-                stroke.apply(void 0, __spreadArray(__spreadArray([], ConstColor.RED, false), [InfluenceArea.ALPHA_STROKE], false));
-                fill.apply(void 0, __spreadArray(__spreadArray([], ConstColor.RED, false), [InfluenceArea.ALPHA_FILL], false));
+            case TowerRed.ID:
+                stroke(...ConstColor.RED, InfluenceArea.ALPHA_STROKE);
+                fill(...ConstColor.RED, InfluenceArea.ALPHA_FILL);
                 break;
-            case YellowTower.ID:
-                stroke.apply(void 0, __spreadArray(__spreadArray([], ConstColor.YELLOW, false), [InfluenceArea.ALPHA_STROKE], false));
-                fill.apply(void 0, __spreadArray(__spreadArray([], ConstColor.YELLOW, false), [InfluenceArea.ALPHA_FILL], false));
+            case TowerYellow.ID:
+                stroke(...ConstColor.YELLOW, InfluenceArea.ALPHA_STROKE);
+                fill(...ConstColor.YELLOW, InfluenceArea.ALPHA_FILL);
                 break;
         }
-    };
-    InfluenceArea.prototype._getInfluenceAreaFor = function (towerSelected) {
-        var influenceArea = GreenTower.INFLUENCE_AREA;
+    }
+    _getInfluenceAreaFor(towerSelected) {
+        let influenceArea = TowerGreen.INFLUENCE_AREA;
         switch (towerSelected) {
-            case GreenTower.ID:
-                influenceArea = GreenTower.INFLUENCE_AREA;
+            case TowerGreen.ID:
+                influenceArea = TowerGreen.INFLUENCE_AREA;
                 break;
-            case RedTower.ID:
-                influenceArea = RedTower.INFLUENCE_AREA;
+            case TowerRed.ID:
+                influenceArea = TowerRed.INFLUENCE_AREA;
                 break;
-            case YellowTower.ID:
-                influenceArea = YellowTower.INFLUENCE_AREA;
+            case TowerYellow.ID:
+                influenceArea = TowerYellow.INFLUENCE_AREA;
                 break;
         }
         return influenceArea;
-    };
-    InfluenceArea.prototype.drawHudTowerInfluenceArea = function (hudTowerSelected, position, canBuy) {
+    }
+    drawHudTowerInfluenceArea(hudTowerSelected, position, canBuy) {
         strokeWeight(2);
         if (canBuy) {
             this._setInfluenceAreaColor(hudTowerSelected);
@@ -742,617 +641,496 @@ var InfluenceArea = (function () {
             this._setGrayInfluenceAreaColor();
         }
         this._drawCircle(position.x, position.y, this._getInfluenceAreaFor(hudTowerSelected));
-    };
-    InfluenceArea.prototype.drawTowerInfluenceArea = function (tower, canUpgrade) {
+    }
+    drawTowerInfluenceArea(tower, canUpgrade) {
         strokeWeight(2);
-        var towerPosition = tower.getPosition();
-        var x = towerPosition.x;
-        var y = towerPosition.y;
-        if (tower.getType() === GreenTower.ID || tower.getType() === RedTower.ID) {
+        const towerPosition = tower.position;
+        let x = towerPosition.x;
+        let y = towerPosition.y;
+        if (tower.type === TowerGreen.ID || tower.type === TowerRed.ID) {
             x += Const.TOWER_OFFSET;
             y += Const.TOWER_OFFSET;
         }
         if (canUpgrade) {
-            this._setInfluenceAreaColor(tower.getType());
+            this._setInfluenceAreaColor(tower.type);
         }
         else {
             this._setGrayInfluenceAreaColor();
         }
-        this._drawCircle(x, y, tower.getInfluenceArea());
-    };
-    InfluenceArea.prototype._drawCircle = function (x, y, diameter) {
+        this._drawCircle(x, y, tower.influenceArea);
+    }
+    _drawCircle(x, y, diameter) {
         circle(x + Const.TILE_SIZE / 2, y + Const.TILE_SIZE / 2, diameter);
-    };
-    InfluenceArea.ALPHA_FILL = 50;
-    InfluenceArea.ALPHA_STROKE = 120;
-    return InfluenceArea;
-}());
-var LevelsData = (function () {
-    function LevelsData() {
     }
-    LevelsData.data = [
-        {
-            id: 1,
-            title: 'serpent',
-            comments: 'first level and also used in unit testing',
-            rowsMap: [
-                '111111111111111x',
-                '1000000000000000',
-                '1011111111111111',
-                '1010000000000001',
-                '1010000111111101',
-                '1011111100000101',
-                '1000000000000101',
-                '1111111111111101',
-                '0000000000000001',
-                'y111111111111111',
-            ],
-            money: 150,
-            startDirection: Const.LEFT_DIRECTION,
-            endDirection: Const.LEFT_DIRECTION,
-        },
-        {
-            id: 6666,
-            title: 'no valid map 1',
-            comments: 'invalid map with unreachable exit (look at the last row, there is a "0" blocking the exit), for unit testing purposes',
-            rowsMap: [
-                '111111111111111x',
-                '1000000000000000',
-                '1011111111111111',
-                '1010000000000001',
-                '1010000111111101',
-                '1011111100000101',
-                '1000000000000101',
-                '1111111111111101',
-                '0000000000000001',
-                'y011111111111111',
-            ],
-            money: 150,
-            startDirection: Const.LEFT_DIRECTION,
-            endDirection: Const.LEFT_DIRECTION,
-        },
-        {
-            id: 6667,
-            title: 'no valid map 2',
-            comments: 'empty rowsMap, for unit testing purposes',
-            rowsMap: [],
-            money: 150,
-            startDirection: Const.LEFT_DIRECTION,
-            endDirection: Const.LEFT_DIRECTION,
-        },
-    ];
-    return LevelsData;
-}());
-var LevelsDataProvider = (function () {
-    function LevelsDataProvider(levels) {
-        this.levels = levels;
+}
+InfluenceArea.ALPHA_FILL = 50;
+InfluenceArea.ALPHA_STROKE = 120;
+class LevelsData {
+}
+LevelsData.data = [
+    {
+        id: 1,
+        title: 'serpent',
+        comments: 'first level and also used in unit testing',
+        rowsMap: [
+            '111111111111111x',
+            '1000000000000000',
+            '1011111111111111',
+            '1010000000000001',
+            '1010000111111101',
+            '1011111100000101',
+            '1000000000000101',
+            '1111111111111101',
+            '0000000000000001',
+            'y111111111111111',
+        ],
+        money: 150,
+        startDirection: ConstDirection.LEFT,
+        endDirection: ConstDirection.LEFT,
+    },
+    {
+        id: 6666,
+        title: 'no valid map 1',
+        comments: 'invalid map with unreachable exit (look at the last row, there is a "0" blocking the exit), for unit testing purposes',
+        rowsMap: [
+            '111111111111111x',
+            '1000000000000000',
+            '1011111111111111',
+            '1010000000000001',
+            '1010000111111101',
+            '1011111100000101',
+            '1000000000000101',
+            '1111111111111101',
+            '0000000000000001',
+            'y011111111111111',
+        ],
+        money: 150,
+        startDirection: ConstDirection.LEFT,
+        endDirection: ConstDirection.LEFT,
+    },
+    {
+        id: 6667,
+        title: 'no valid map 2',
+        comments: 'empty rowsMap, for unit testing purposes',
+        rowsMap: [],
+        money: 150,
+        startDirection: ConstDirection.LEFT,
+        endDirection: ConstDirection.LEFT,
+    },
+];
+var _LevelsDataProvider_levels;
+class LevelsDataProvider {
+    constructor(levels) {
+        _LevelsDataProvider_levels.set(this, void 0);
+        __classPrivateFieldSet(this, _LevelsDataProvider_levels, levels, "f");
     }
-    LevelsDataProvider.prototype.getLevel = function (id) {
-        return this.levels.find(function (level) { return level.id == id; });
-    };
-    return LevelsDataProvider;
-}());
-var MagicFireball = (function () {
-    function MagicFireball(img, startX, startY, orders) {
-        this.moveCount = 0;
-        this.indexOrder = 0;
-        this.img = img;
+    getLevel(id) {
+        return __classPrivateFieldGet(this, _LevelsDataProvider_levels, "f").find((level) => level.id == id);
+    }
+}
+_LevelsDataProvider_levels = new WeakMap();
+var _Magic_orders, _Magic_currentDirection, _Magic_moveCount, _Magic_indexOrder, _Magic_touchedEnemiesIds, _Magic_status;
+class Magic {
+    constructor(startX, startY, orders) {
+        _Magic_orders.set(this, void 0);
+        _Magic_currentDirection.set(this, void 0);
+        _Magic_moveCount.set(this, 0);
+        _Magic_indexOrder.set(this, 0);
+        _Magic_touchedEnemiesIds.set(this, void 0);
+        _Magic_status.set(this, void 0);
         this.startX = startX;
         this.startY = startY;
-        this.orders = orders;
+        __classPrivateFieldSet(this, _Magic_orders, orders, "f");
         this.x = this.startX;
         this.y = this.startY;
-        this.currentDirection = this.orders[this.indexOrder];
-        this.touchedEnemiesIds = [];
-        this.status = Const.MAGIC_STATUS_ALIVE;
+        __classPrivateFieldSet(this, _Magic_currentDirection, __classPrivateFieldGet(this, _Magic_orders, "f")[__classPrivateFieldGet(this, _Magic_indexOrder, "f")], "f");
+        __classPrivateFieldSet(this, _Magic_touchedEnemiesIds, [], "f");
+        __classPrivateFieldSet(this, _Magic_status, Const.MAGIC_STATUS_ALIVE, "f");
     }
-    MagicFireball.prototype.update = function () {
-        switch (this.currentDirection) {
-            case Const.LEFT_DIRECTION:
-                this.x = this.x - MagicFireball.SPEED;
+    update() {
+        var _a;
+        switch (__classPrivateFieldGet(this, _Magic_currentDirection, "f")) {
+            case ConstDirection.LEFT:
+                this.x = this.x - Magic.SPEED;
                 break;
-            case Const.RIGHT_DIRECTION:
-                this.x = this.x + MagicFireball.SPEED;
+            case ConstDirection.RIGHT:
+                this.x = this.x + Magic.SPEED;
                 break;
-            case Const.UP_DIRECTION:
-                this.y = this.y - MagicFireball.SPEED;
+            case ConstDirection.UP:
+                this.y = this.y - Magic.SPEED;
                 break;
-            case Const.DOWN_DIRECTION:
-                this.y = this.y + MagicFireball.SPEED;
+            case ConstDirection.DOWN:
+                this.y = this.y + Magic.SPEED;
                 break;
         }
-        this.moveCount = this.moveCount + MagicFireball.SPEED;
-        if (this.moveCount === Const.TILE_SIZE) {
-            this.moveCount = 0;
-            this.indexOrder++;
-            if (this.indexOrder == this.orders.length) {
-                this.status = Const.MAGIC_STATUS_DEAD;
+        __classPrivateFieldSet(this, _Magic_moveCount, __classPrivateFieldGet(this, _Magic_moveCount, "f") + Magic.SPEED, "f");
+        if (__classPrivateFieldGet(this, _Magic_moveCount, "f") === Const.TILE_SIZE) {
+            __classPrivateFieldSet(this, _Magic_moveCount, 0, "f");
+            __classPrivateFieldSet(this, _Magic_indexOrder, (_a = __classPrivateFieldGet(this, _Magic_indexOrder, "f"), _a++, _a), "f");
+            if (__classPrivateFieldGet(this, _Magic_indexOrder, "f") == __classPrivateFieldGet(this, _Magic_orders, "f").length) {
+                __classPrivateFieldSet(this, _Magic_status, Const.MAGIC_STATUS_DEAD, "f");
             }
             else {
-                this.currentDirection = this.orders[this.indexOrder];
+                __classPrivateFieldSet(this, _Magic_currentDirection, __classPrivateFieldGet(this, _Magic_orders, "f")[__classPrivateFieldGet(this, _Magic_indexOrder, "f")], "f");
             }
         }
-    };
-    MagicFireball.prototype.checkCollision = function (enemy) {
-        if (enemy.isDead() || enemy.isWinner()) {
+    }
+    checkCollision(enemy) {
+        if (enemy.dead || enemy.winner) {
             return false;
         }
-        var found = this.touchedEnemiesIds.find(function (id) { return id === enemy.id; });
+        const found = __classPrivateFieldGet(this, _Magic_touchedEnemiesIds, "f").find((id) => id === enemy.id);
         if (found !== undefined) {
             return false;
         }
-        var fireballPos = this.indexOrder;
-        var enemyPos = enemy.getOrderPosition();
-        var distanceBetween = Math.abs(fireballPos - enemyPos);
+        const fireballPos = __classPrivateFieldGet(this, _Magic_indexOrder, "f");
+        const enemyPos = enemy.orderPosition;
+        const distanceBetween = Math.abs(fireballPos - enemyPos);
         if (fireballPos >= enemyPos && distanceBetween < 1) {
             return true;
         }
         return false;
-    };
-    MagicFireball.prototype.setToIgnoreList = function (enemy) {
-        this.touchedEnemiesIds.push(enemy.id);
-    };
-    MagicFireball.prototype.addDamage = function (enemy) {
+    }
+    setToIgnoreList(enemy) {
+        __classPrivateFieldGet(this, _Magic_touchedEnemiesIds, "f").push(enemy.id);
+    }
+    isAlive() {
+        return __classPrivateFieldGet(this, _Magic_status, "f") == Const.MAGIC_STATUS_ALIVE;
+    }
+    getX() {
+        return this.x;
+    }
+    getY() {
+        return this.y;
+    }
+}
+_Magic_orders = new WeakMap(), _Magic_currentDirection = new WeakMap(), _Magic_moveCount = new WeakMap(), _Magic_indexOrder = new WeakMap(), _Magic_touchedEnemiesIds = new WeakMap(), _Magic_status = new WeakMap();
+Magic.SPEED = 10;
+var _MagicFireball_img;
+class MagicFireball extends Magic {
+    constructor(img, startX, startY, orders) {
+        super(startX, startY, orders);
+        _MagicFireball_img.set(this, void 0);
+        __classPrivateFieldSet(this, _MagicFireball_img, img, "f");
+    }
+    addDamage(enemy) {
         enemy.addDamage(MagicFireball.DAMAGE);
-    };
-    MagicFireball.prototype.isAlive = function () {
-        return this.status == Const.MAGIC_STATUS_ALIVE;
-    };
-    MagicFireball.prototype.getX = function () {
-        return this.x;
-    };
-    MagicFireball.prototype.getY = function () {
-        return this.y;
-    };
-    MagicFireball.prototype.draw = function () {
-        image(this.img, this.x, this.y);
-    };
-    MagicFireball.SPEED = 10;
-    MagicFireball.FIREBALLS = 3;
-    MagicFireball.DAMAGE = 500;
-    return MagicFireball;
-}());
-var MagicFireballExplosion = (function () {
-    function MagicFireballExplosion(x, y, ParticleSystemClass) {
-        this.emisionTime = 0;
-        this.finished = false;
-        this.x = x;
-        this.y = y;
-        this.particleSystem = new ParticleSystemClass(createVector(this.x + Const.EXPLOSION_OFFSET, this.y + Const.EXPLOSION_OFFSET), MagicFireballExplosion.SIZE, MagicFireballExplosion.COLOR);
     }
-    MagicFireballExplosion.prototype.isActive = function () {
-        return !this.finished;
-    };
-    MagicFireballExplosion.prototype.update = function () {
-        if (this.emisionTime < MagicFireballExplosion.MAX_EMIT_TIME) {
-            this.emisionTime++;
-            this.particleSystem.addParticle();
-        }
-        this.particleSystem.run();
-    };
-    MagicFireballExplosion.MAX_EMIT_TIME = 5;
-    MagicFireballExplosion.SIZE = 6;
-    MagicFireballExplosion.COLOR = [202, 191, 24];
-    return MagicFireballExplosion;
-}());
-var MagicIceball = (function () {
-    function MagicIceball(img, startX, startY, orders) {
-        this.moveCount = 0;
-        this.indexOrder = 0;
-        this.touchedEnemiesIds = [];
-        this.img = img;
-        this.startX = startX;
-        this.startY = startY;
-        this.orders = orders;
-        this.x = this.startX;
-        this.y = this.startY;
-        this.currentDirection = this.orders[this.indexOrder];
-        this.status = Const.MAGIC_STATUS_ALIVE;
+    draw() {
+        image(__classPrivateFieldGet(this, _MagicFireball_img, "f"), this.x, this.y);
     }
-    MagicIceball.prototype.update = function () {
-        switch (this.currentDirection) {
-            case Const.LEFT_DIRECTION:
-                this.x = this.x - MagicFireball.SPEED;
-                break;
-            case Const.RIGHT_DIRECTION:
-                this.x = this.x + MagicFireball.SPEED;
-                break;
-            case Const.UP_DIRECTION:
-                this.y = this.y - MagicFireball.SPEED;
-                break;
-            case Const.DOWN_DIRECTION:
-                this.y = this.y + MagicFireball.SPEED;
-                break;
-        }
-        this.moveCount = this.moveCount + MagicFireball.SPEED;
-        if (this.moveCount === Const.TILE_SIZE) {
-            this.moveCount = 0;
-            this.indexOrder++;
-            if (this.indexOrder == this.orders.length) {
-            }
-            else {
-                this.currentDirection = this.orders[this.indexOrder];
-            }
-        }
-    };
-    MagicIceball.prototype.freeze = function (enemy) {
+}
+_MagicFireball_img = new WeakMap();
+MagicFireball.FIREBALLS = 3;
+MagicFireball.DAMAGE = 500;
+var _MagicIceball_img;
+class MagicIceball extends Magic {
+    constructor(img, startX, startY, orders) {
+        super(startX, startY, orders);
+        _MagicIceball_img.set(this, void 0);
+        __classPrivateFieldSet(this, _MagicIceball_img, img, "f");
+    }
+    freeze(enemy) {
         enemy.freeze();
-    };
-    MagicIceball.prototype.checkCollision = function (enemy) {
-        if (enemy.isDead() || enemy.isWinner()) {
-            return false;
-        }
-        var found = this.touchedEnemiesIds.find(function (id) { return id === enemy.id; });
-        if (found !== undefined) {
-            return false;
-        }
-        var fireballPos = this.indexOrder;
-        var enemyPos = enemy.getOrderPosition();
-        var distanceBetween = Math.abs(fireballPos - enemyPos);
-        if (fireballPos >= enemyPos && distanceBetween < 1) {
-            return true;
-        }
-        return false;
-    };
-    MagicIceball.prototype.setToIgnoreList = function (enemy) {
-        this.touchedEnemiesIds.push(enemy.id);
-    };
-    MagicIceball.prototype.isAlive = function () {
-        return this.status == Const.MAGIC_STATUS_ALIVE;
-    };
-    MagicIceball.prototype.getX = function () {
-        return this.x;
-    };
-    MagicIceball.prototype.getY = function () {
-        return this.y;
-    };
-    MagicIceball.prototype.draw = function () {
-        image(this.img, this.x, this.y);
-    };
-    MagicIceball.SPEED = 10;
-    MagicIceball.ICEBALLS = 3;
-    MagicIceball.FREEZE_ENEMY_MAX_TIME = 500;
-    return MagicIceball;
-}());
-var MagicIceballExplosion = (function () {
-    function MagicIceballExplosion(x, y, ParticleSystemClass) {
-        this.emisionTime = 0;
-        this.finished = false;
-        this.x = x;
-        this.y = y;
-        this.particleSystem = new ParticleSystemClass(createVector(this.x + Const.EXPLOSION_OFFSET, this.y + Const.EXPLOSION_OFFSET), MagicIceballExplosion.SIZE, MagicIceballExplosion.COLOR);
     }
-    MagicIceballExplosion.prototype.isActive = function () {
-        return !this.finished;
-    };
-    MagicIceballExplosion.prototype.update = function () {
-        if (this.emisionTime < MagicIceballExplosion.MAX_EMIT_TIME) {
-            this.emisionTime++;
-            this.particleSystem.addParticle();
-        }
-        this.particleSystem.run();
-    };
-    MagicIceballExplosion.MAX_EMIT_TIME = 5;
-    MagicIceballExplosion.SIZE = 6;
-    MagicIceballExplosion.COLOR = [0, 65, 255];
-    return MagicIceballExplosion;
-}());
-var MagicUFO = (function () {
-    function MagicUFO(img, startX, startY, orders) {
-        this.moveCount = 0;
-        this.indexOrder = 0;
-        this.img = img;
-        this.startX = startX;
-        this.startY = startY;
-        this.orders = orders;
-        this.x = this.startX;
-        this.y = this.startY;
-        this.currentDirection = this.orders[this.indexOrder];
+    draw() {
+        image(__classPrivateFieldGet(this, _MagicIceball_img, "f"), this.x, this.y);
     }
-    MagicUFO.prototype.update = function () {
-        switch (this.currentDirection) {
-            case Const.LEFT_DIRECTION:
-                this.x = this.x - MagicUFO.SPEED;
-                break;
-            case Const.RIGHT_DIRECTION:
-                this.x = this.x + MagicUFO.SPEED;
-                break;
-            case Const.UP_DIRECTION:
-                this.y = this.y - MagicUFO.SPEED;
-                break;
-            case Const.DOWN_DIRECTION:
-                this.y = this.y + MagicUFO.SPEED;
-                break;
-        }
-        this.moveCount = this.moveCount + MagicUFO.SPEED;
-        if (this.moveCount === Const.TILE_SIZE) {
-            this.moveCount = 0;
-            this.indexOrder++;
-            if (this.indexOrder == this.orders.length) {
-            }
-            else {
-                this.currentDirection = this.orders[this.indexOrder];
-            }
-        }
-    };
-    MagicUFO.prototype.getX = function () {
-        return this.x;
-    };
-    MagicUFO.prototype.getY = function () {
-        return this.y;
-    };
-    MagicUFO.prototype.draw = function () {
-        image(this.img, this.x, this.y);
-    };
-    MagicUFO.SPEED = 10;
-    MagicUFO.UFOS = 3;
-    return MagicUFO;
-}());
-var MathUtils = (function () {
-    function MathUtils() {
+}
+_MagicIceball_img = new WeakMap();
+MagicIceball.ICEBALLS = 3;
+MagicIceball.FREEZE_ENEMY_MAX_TIME = 500;
+var _MagicUFO_img;
+class MagicUFO extends Magic {
+    constructor(img, startX, startY, orders) {
+        super(startX, startY, orders);
+        _MagicUFO_img.set(this, void 0);
+        __classPrivateFieldSet(this, _MagicUFO_img, img, "f");
     }
-    MathUtils.distance = function (posA, posB) {
+    draw() {
+        image(__classPrivateFieldGet(this, _MagicUFO_img, "f"), this.x, this.y);
+    }
+}
+_MagicUFO_img = new WeakMap();
+MagicUFO.UFOS = 3;
+class MathUtils {
+    static distance(posA, posB) {
         return Math.sqrt((posA.x - posB.x) * (posA.x - posB.x) +
             (posA.y - posB.y) * (posA.y - posB.y));
-    };
-    MathUtils.range = function (start, stop) {
-        return new Array(stop - start + 1).fill(0).map(function (v, i) { return start + i; });
-    };
-    MathUtils.getTwoNumbersFourTimes = function (number) {
-        return [number * 4, (number + 1) * 4];
-    };
-    return MathUtils;
-}());
-var OrangeTile = (function () {
-    function OrangeTile(img, position, towerGenerator) {
-        this.tower = null;
-        this.img = img;
-        this.position = __assign({}, position);
-        this.towerGenerator = towerGenerator;
     }
-    OrangeTile.prototype.sellTower = function () {
-        var profit = 0;
-        if (this.tower) {
-            profit = this.tower.getSellProfit();
-            this.tower = null;
+    static range(start, stop) {
+        return new Array(stop - start + 1).fill(0).map((v, i) => start + i);
+    }
+    static getTwoNumbersFourTimes(number) {
+        return [number * 4, (number + 1) * 4];
+    }
+}
+var _OrangeTile_img, _OrangeTile_position, _OrangeTile_towerGenerator, _OrangeTile_tower;
+class OrangeTile {
+    constructor(img, position, towerGenerator) {
+        _OrangeTile_img.set(this, void 0);
+        _OrangeTile_position.set(this, void 0);
+        _OrangeTile_towerGenerator.set(this, void 0);
+        _OrangeTile_tower.set(this, null);
+        __classPrivateFieldSet(this, _OrangeTile_img, img, "f");
+        __classPrivateFieldSet(this, _OrangeTile_position, Object.assign({}, position), "f");
+        __classPrivateFieldSet(this, _OrangeTile_towerGenerator, towerGenerator, "f");
+    }
+    sellTower() {
+        let profit = 0;
+        if (__classPrivateFieldGet(this, _OrangeTile_tower, "f")) {
+            profit = __classPrivateFieldGet(this, _OrangeTile_tower, "f").sellProfit;
+            __classPrivateFieldSet(this, _OrangeTile_tower, null, "f");
         }
         return profit;
-    };
-    OrangeTile.prototype.buyTower = function (towerId) {
-        if (this.tower === null) {
-            this.tower = this.towerGenerator.newTower(towerId, this.position);
+    }
+    buyTower(towerId) {
+        if (__classPrivateFieldGet(this, _OrangeTile_tower, "f") === null) {
+            __classPrivateFieldSet(this, _OrangeTile_tower, __classPrivateFieldGet(this, _OrangeTile_towerGenerator, "f").newTower(towerId, __classPrivateFieldGet(this, _OrangeTile_position, "f")), "f");
         }
         else {
-            this.tower.upgrade();
+            __classPrivateFieldGet(this, _OrangeTile_tower, "f").upgrade();
         }
-        return this.tower.getCost();
-    };
-    OrangeTile.prototype._upgradeTower = function () {
-        if (this.tower) {
-            this.tower.upgrade();
+        return __classPrivateFieldGet(this, _OrangeTile_tower, "f").cost;
+    }
+    _upgradeTower() {
+        if (__classPrivateFieldGet(this, _OrangeTile_tower, "f")) {
+            __classPrivateFieldGet(this, _OrangeTile_tower, "f").upgrade();
         }
-    };
-    OrangeTile.prototype.drawTile = function () {
-        image(this.img, this.position.x, this.position.y);
-    };
-    OrangeTile.prototype.drawTower = function () {
-        if (this.tower) {
-            this.tower.draw();
+    }
+    drawTile() {
+        image(__classPrivateFieldGet(this, _OrangeTile_img, "f"), __classPrivateFieldGet(this, _OrangeTile_position, "f").x, __classPrivateFieldGet(this, _OrangeTile_position, "f").y);
+    }
+    drawTower() {
+        if (__classPrivateFieldGet(this, _OrangeTile_tower, "f")) {
+            __classPrivateFieldGet(this, _OrangeTile_tower, "f").draw();
         }
-    };
-    OrangeTile.prototype.getPosition = function () {
-        return this.position;
-    };
-    OrangeTile.prototype.selectTarget = function (enemies) {
-        if (this.tower) {
-            this.tower.selectTarget(enemies);
+    }
+    getPosition() {
+        return __classPrivateFieldGet(this, _OrangeTile_position, "f");
+    }
+    selectTarget(enemies) {
+        if (__classPrivateFieldGet(this, _OrangeTile_tower, "f")) {
+            __classPrivateFieldGet(this, _OrangeTile_tower, "f").selectTarget(enemies);
         }
-    };
-    OrangeTile.prototype.isInside = function (mouse_x, mouse_y) {
-        var insideX = false;
-        var insideY = false;
-        if (this.position.x < mouse_x &&
-            this.position.x + Const.TILE_SIZE > mouse_x) {
+    }
+    isInside(mouse_x, mouse_y) {
+        let insideX = false;
+        let insideY = false;
+        if (__classPrivateFieldGet(this, _OrangeTile_position, "f").x < mouse_x &&
+            __classPrivateFieldGet(this, _OrangeTile_position, "f").x + Const.TILE_SIZE > mouse_x) {
             insideX = true;
         }
-        if (this.position.y < mouse_y &&
-            this.position.y + Const.TILE_SIZE > mouse_y) {
+        if (__classPrivateFieldGet(this, _OrangeTile_position, "f").y < mouse_y &&
+            __classPrivateFieldGet(this, _OrangeTile_position, "f").y + Const.TILE_SIZE > mouse_y) {
             insideY = true;
         }
         if (insideX && insideY) {
             return true;
         }
         return false;
-    };
-    OrangeTile.prototype.hasTower = function () {
-        return this.tower !== null;
-    };
-    OrangeTile.prototype.getTower = function () {
+    }
+    hasTower() {
+        return __classPrivateFieldGet(this, _OrangeTile_tower, "f") !== null;
+    }
+    getTower() {
         if (this.hasTower()) {
-            return this.tower;
+            return __classPrivateFieldGet(this, _OrangeTile_tower, "f");
         }
         return null;
-    };
-    return OrangeTile;
-}());
-var Particle = (function () {
-    function Particle(position, size, color) {
-        this.lifespan = 255;
-        this.position = position.copy();
-        this.size = size;
-        this.color = color;
-        this.velocity = createVector(random(-3, 3), random(-3, 0));
     }
-    Particle.prototype.run = function () {
+}
+_OrangeTile_img = new WeakMap(), _OrangeTile_position = new WeakMap(), _OrangeTile_towerGenerator = new WeakMap(), _OrangeTile_tower = new WeakMap();
+var _Particle_position, _Particle_size, _Particle_color, _Particle_velocity, _Particle_lifespan;
+class Particle {
+    constructor(position, size, color) {
+        _Particle_position.set(this, void 0);
+        _Particle_size.set(this, void 0);
+        _Particle_color.set(this, void 0);
+        _Particle_velocity.set(this, void 0);
+        _Particle_lifespan.set(this, 255);
+        __classPrivateFieldSet(this, _Particle_position, position.copy(), "f");
+        __classPrivateFieldSet(this, _Particle_size, size, "f");
+        __classPrivateFieldSet(this, _Particle_color, color, "f");
+        __classPrivateFieldSet(this, _Particle_velocity, createVector(random(-3, 3), random(-3, 0)), "f");
+    }
+    run() {
         this.update();
         this.display();
-    };
-    Particle.prototype.update = function () {
-        this.position.add(this.velocity);
-        this.lifespan -= 2;
-    };
-    Particle.prototype.display = function () {
-        stroke.apply(void 0, __spreadArray(__spreadArray([], this.color, false), [this.lifespan], false));
-        strokeWeight(2);
-        fill(127, this.lifespan);
-        ellipse(this.position.x, this.position.y, this.size, this.size);
-    };
-    Particle.prototype.isDead = function () {
-        return this.lifespan < 0;
-    };
-    return Particle;
-}());
-var ParticleSystem = (function () {
-    function ParticleSystem(origin, particlesSize, particlesColor) {
-        this.particles = [];
-        this.origin = origin.copy();
-        this.particlesSize = particlesSize;
-        this.particlesColor = particlesColor;
     }
-    ParticleSystem.prototype.addParticle = function () {
-        this.particles.push(new Particle(this.origin, this.particlesSize, this.particlesColor));
-    };
-    ParticleSystem.prototype.run = function () {
-        for (var i = this.particles.length - 1; i >= 0; i--) {
-            var p = this.particles[i];
+    update() {
+        __classPrivateFieldGet(this, _Particle_position, "f").add(__classPrivateFieldGet(this, _Particle_velocity, "f"));
+        __classPrivateFieldSet(this, _Particle_lifespan, __classPrivateFieldGet(this, _Particle_lifespan, "f") - 2, "f");
+    }
+    display() {
+        stroke(...__classPrivateFieldGet(this, _Particle_color, "f"), __classPrivateFieldGet(this, _Particle_lifespan, "f"));
+        strokeWeight(2);
+        fill(127, __classPrivateFieldGet(this, _Particle_lifespan, "f"));
+        ellipse(__classPrivateFieldGet(this, _Particle_position, "f").x, __classPrivateFieldGet(this, _Particle_position, "f").y, __classPrivateFieldGet(this, _Particle_size, "f"), __classPrivateFieldGet(this, _Particle_size, "f"));
+    }
+    isDead() {
+        return __classPrivateFieldGet(this, _Particle_lifespan, "f") < 0;
+    }
+}
+_Particle_position = new WeakMap(), _Particle_size = new WeakMap(), _Particle_color = new WeakMap(), _Particle_velocity = new WeakMap(), _Particle_lifespan = new WeakMap();
+var _ParticleSystem_origin, _ParticleSystem_particlesSize, _ParticleSystem_particlesColor, _ParticleSystem_particles;
+class ParticleSystem {
+    constructor(origin, particlesSize, particlesColor) {
+        _ParticleSystem_origin.set(this, void 0);
+        _ParticleSystem_particlesSize.set(this, void 0);
+        _ParticleSystem_particlesColor.set(this, void 0);
+        _ParticleSystem_particles.set(this, []);
+        __classPrivateFieldSet(this, _ParticleSystem_origin, origin.copy(), "f");
+        __classPrivateFieldSet(this, _ParticleSystem_particlesSize, particlesSize, "f");
+        __classPrivateFieldSet(this, _ParticleSystem_particlesColor, particlesColor, "f");
+    }
+    addParticle() {
+        __classPrivateFieldGet(this, _ParticleSystem_particles, "f").push(new Particle(__classPrivateFieldGet(this, _ParticleSystem_origin, "f"), __classPrivateFieldGet(this, _ParticleSystem_particlesSize, "f"), __classPrivateFieldGet(this, _ParticleSystem_particlesColor, "f")));
+    }
+    run() {
+        for (let i = __classPrivateFieldGet(this, _ParticleSystem_particles, "f").length - 1; i >= 0; i--) {
+            let p = __classPrivateFieldGet(this, _ParticleSystem_particles, "f")[i];
             p.run();
             if (p.isDead()) {
-                this.particles.splice(i, 1);
+                __classPrivateFieldGet(this, _ParticleSystem_particles, "f").splice(i, 1);
             }
         }
-    };
-    return ParticleSystem;
-}());
-var Path = (function () {
-    function Path(startTile, endTile, pathTiles) {
-        this.MAX_SEARCHES = 5000;
-        this.startTile = startTile;
-        this.endTile = endTile;
-        this.pathTiles = pathTiles;
     }
-    Path.prototype.getEnemiesInitialPosition = function () {
-        var finalX = 0;
-        var finalY = 0;
-        if (this.startTile.getStartDirection() === Const.LEFT_DIRECTION) {
-            var finalPosition = this.startTile.getPosition();
+}
+_ParticleSystem_origin = new WeakMap(), _ParticleSystem_particlesSize = new WeakMap(), _ParticleSystem_particlesColor = new WeakMap(), _ParticleSystem_particles = new WeakMap();
+var _Path_startTile, _Path_endTile, _Path_pathTiles;
+class Path {
+    constructor(startTile, endTile, pathTiles) {
+        _Path_startTile.set(this, void 0);
+        _Path_endTile.set(this, void 0);
+        _Path_pathTiles.set(this, void 0);
+        __classPrivateFieldSet(this, _Path_startTile, startTile, "f");
+        __classPrivateFieldSet(this, _Path_endTile, endTile, "f");
+        __classPrivateFieldSet(this, _Path_pathTiles, pathTiles, "f");
+    }
+    getEnemiesInitialPosition() {
+        let finalX = 0;
+        let finalY = 0;
+        if (__classPrivateFieldGet(this, _Path_startTile, "f").getStartDirection() === ConstDirection.LEFT) {
+            const finalPosition = __classPrivateFieldGet(this, _Path_startTile, "f").getPosition();
             finalX = finalPosition.x + Const.TILE_SIZE;
             finalY = finalPosition.y;
         }
         return { x: finalX, y: finalY };
-    };
-    Path.prototype.getTileInPosition = function (tx, ty) {
-        var pathTile = this.pathTiles.find(function (pathTile) { return tx === pathTile.getX() && ty === pathTile.getY(); });
+    }
+    getTileInPosition(tx, ty) {
+        const pathTile = __classPrivateFieldGet(this, _Path_pathTiles, "f").find((pathTile) => tx === pathTile.getX() && ty === pathTile.getY());
         return pathTile ? pathTile : null;
-    };
-    Path.prototype._searchLeftTile = function (currentTile) {
-        var searchPx = currentTile.getX() - Const.TILE_SIZE;
-        var searchPy = currentTile.getY();
+    }
+    _searchLeftTile(currentTile) {
+        const searchPx = currentTile.getX() - Const.TILE_SIZE;
+        const searchPy = currentTile.getY();
         return this.getTileInPosition(searchPx, searchPy);
-    };
-    Path.prototype._searchDownTile = function (currentTile) {
-        var searchPx = currentTile.getX();
-        var searchPy = currentTile.getY() + Const.TILE_SIZE;
+    }
+    _searchDownTile(currentTile) {
+        const searchPx = currentTile.getX();
+        const searchPy = currentTile.getY() + Const.TILE_SIZE;
         return this.getTileInPosition(searchPx, searchPy);
-    };
-    Path.prototype._searchRightTile = function (currentTile) {
-        var searchPx = currentTile.getX() + Const.TILE_SIZE;
-        var searchPy = currentTile.getY();
+    }
+    _searchRightTile(currentTile) {
+        const searchPx = currentTile.getX() + Const.TILE_SIZE;
+        const searchPy = currentTile.getY();
         return this.getTileInPosition(searchPx, searchPy);
-    };
-    Path.prototype._searchUpTile = function (currentTile) {
-        var searchPx = currentTile.getX();
-        var searchPy = currentTile.getY() - Const.TILE_SIZE;
+    }
+    _searchUpTile(currentTile) {
+        const searchPx = currentTile.getX();
+        const searchPy = currentTile.getY() - Const.TILE_SIZE;
         return this.getTileInPosition(searchPx, searchPy);
-    };
-    Path.prototype._isLeftEndTile = function (currentTile) {
-        var searchPx = currentTile.getX() - Const.TILE_SIZE;
-        var searchPy = currentTile.getY();
-        var endPosition = this.endTile.getPosition();
-        var endPx = endPosition.x;
-        var endPy = endPosition.y;
+    }
+    _isLeftEndTile(currentTile) {
+        const searchPx = currentTile.getX() - Const.TILE_SIZE;
+        const searchPy = currentTile.getY();
+        const endPosition = __classPrivateFieldGet(this, _Path_endTile, "f").position;
+        const endPx = endPosition.x;
+        const endPy = endPosition.y;
         if (searchPx === endPx && searchPy === endPy) {
             return true;
         }
         return false;
-    };
-    Path.prototype.makeOrders = function () {
-        var orders = [];
-        var startTilePosition = this.startTile.getPosition();
-        var currentTile = new PathTile(startTilePosition.x, startTilePosition.y);
-        var currentDirection = this.startTile.getStartDirection();
+    }
+    makeOrders() {
+        const orders = [];
+        const startTilePosition = __classPrivateFieldGet(this, _Path_startTile, "f").getPosition();
+        let currentTile = new PathTile(startTilePosition.x, startTilePosition.y);
+        let currentDirection = __classPrivateFieldGet(this, _Path_startTile, "f").getStartDirection();
         orders.push(currentDirection);
-        var endReached = false;
-        var searchCount = 0;
-        while (searchCount < this.MAX_SEARCHES && !endReached) {
+        let endReached = false;
+        let searchCount = 0;
+        while (searchCount < Path.MAX_SEARCHES && !endReached) {
             searchCount++;
-            if (currentDirection === Const.LEFT_DIRECTION) {
-                var isLeftEndTile = this._isLeftEndTile(currentTile);
+            if (currentDirection === ConstDirection.LEFT) {
+                const isLeftEndTile = this._isLeftEndTile(currentTile);
                 if (isLeftEndTile) {
                     endReached = true;
-                    orders.push(Const.LEFT_DIRECTION);
+                    orders.push(ConstDirection.LEFT);
                 }
                 else {
-                    var searchTile = this._searchLeftTile(currentTile);
+                    const searchTile = this._searchLeftTile(currentTile);
                     if (searchTile) {
-                        orders.push(Const.LEFT_DIRECTION);
+                        orders.push(ConstDirection.LEFT);
                         currentTile = searchTile;
                     }
                     else {
-                        var searchNextTile = this._searchDownTile(currentTile);
+                        const searchNextTile = this._searchDownTile(currentTile);
                         if (searchNextTile) {
-                            currentDirection = Const.DOWN_DIRECTION;
+                            currentDirection = ConstDirection.DOWN;
                         }
                         else {
-                            currentDirection = Const.UP_DIRECTION;
+                            currentDirection = ConstDirection.UP;
                         }
                     }
                 }
             }
-            if (currentDirection === Const.DOWN_DIRECTION) {
-                var searchTile = this._searchDownTile(currentTile);
+            if (currentDirection === ConstDirection.DOWN) {
+                const searchTile = this._searchDownTile(currentTile);
                 if (searchTile) {
-                    orders.push(Const.DOWN_DIRECTION);
+                    orders.push(ConstDirection.DOWN);
                     currentTile = searchTile;
                 }
                 else {
-                    var searchNextTile = this._searchRightTile(currentTile);
+                    const searchNextTile = this._searchRightTile(currentTile);
                     if (searchNextTile) {
-                        currentDirection = Const.RIGHT_DIRECTION;
+                        currentDirection = ConstDirection.RIGHT;
                     }
                     else {
-                        currentDirection = Const.LEFT_DIRECTION;
+                        currentDirection = ConstDirection.LEFT;
                     }
                 }
             }
-            if (currentDirection === Const.RIGHT_DIRECTION) {
-                var searchTile = this._searchRightTile(currentTile);
+            if (currentDirection === ConstDirection.RIGHT) {
+                const searchTile = this._searchRightTile(currentTile);
                 if (searchTile) {
-                    orders.push(Const.RIGHT_DIRECTION);
+                    orders.push(ConstDirection.RIGHT);
                     currentTile = searchTile;
                 }
                 else {
-                    var searchNextTile = this._searchUpTile(currentTile);
+                    const searchNextTile = this._searchUpTile(currentTile);
                     if (searchNextTile) {
-                        currentDirection = Const.UP_DIRECTION;
+                        currentDirection = ConstDirection.UP;
                     }
                     else {
-                        currentDirection = Const.DOWN_DIRECTION;
+                        currentDirection = ConstDirection.DOWN;
                     }
                 }
             }
-            if (currentDirection === Const.UP_DIRECTION) {
-                var searchTile = this._searchUpTile(currentTile);
+            if (currentDirection === ConstDirection.UP) {
+                const searchTile = this._searchUpTile(currentTile);
                 if (searchTile) {
-                    orders.push(Const.UP_DIRECTION);
+                    orders.push(ConstDirection.UP);
                     currentTile = searchTile;
                 }
                 else {
-                    var searchNextTile = this._searchLeftTile(currentTile);
+                    const searchNextTile = this._searchLeftTile(currentTile);
                     if (searchNextTile) {
-                        currentDirection = Const.LEFT_DIRECTION;
+                        currentDirection = ConstDirection.LEFT;
                     }
                     else {
-                        currentDirection = Const.RIGHT_DIRECTION;
+                        currentDirection = ConstDirection.RIGHT;
                     }
                 }
             }
@@ -1360,206 +1138,120 @@ var Path = (function () {
         if (endReached) {
             orders.push(currentDirection);
         }
-        if (searchCount === this.MAX_SEARCHES) {
+        if (searchCount === Path.MAX_SEARCHES) {
             return [];
         }
         return orders;
-    };
-    return Path;
-}());
-var PathTile = (function () {
-    function PathTile(x, y) {
-        this.x = x;
-        this.y = y;
     }
-    PathTile.prototype.getX = function () {
-        return this.x;
-    };
-    PathTile.prototype.getY = function () {
-        return this.y;
-    };
-    return PathTile;
-}());
-var ProgressBar = (function () {
-    function ProgressBar(position, width, height) {
-        this.progress = 0;
-        this.position = __assign({}, position);
-        this.width = width;
-        this.height = height;
-        this.maxProgress = this.width - 1;
+}
+_Path_startTile = new WeakMap(), _Path_endTile = new WeakMap(), _Path_pathTiles = new WeakMap();
+Path.MAX_SEARCHES = 5000;
+var _PathTile_x, _PathTile_y;
+class PathTile {
+    constructor(x, y) {
+        _PathTile_x.set(this, void 0);
+        _PathTile_y.set(this, void 0);
+        __classPrivateFieldSet(this, _PathTile_x, x, "f");
+        __classPrivateFieldSet(this, _PathTile_y, y, "f");
     }
-    ProgressBar.prototype.setPosition = function (position) {
-        this.position = __assign({}, position);
-    };
-    ProgressBar.prototype.setProgress = function (progress) {
-        this.progress = progress;
-    };
-    ProgressBar.prototype.getProgress = function () {
-        return this.progress;
-    };
-    ProgressBar.prototype.increaseProgress = function () {
-        this.progress++;
-    };
-    ProgressBar.prototype.isFullOfProgress = function () {
-        return this.progress >= 100;
-    };
-    ProgressBar.prototype._drawBackgroundBar = function () {
+    getX() {
+        return __classPrivateFieldGet(this, _PathTile_x, "f");
+    }
+    getY() {
+        return __classPrivateFieldGet(this, _PathTile_y, "f");
+    }
+}
+_PathTile_x = new WeakMap(), _PathTile_y = new WeakMap();
+var _ProgressBar_position, _ProgressBar_width, _ProgressBar_height, _ProgressBar_progress, _ProgressBar_maxProgress;
+class ProgressBar {
+    constructor(position, width, height) {
+        _ProgressBar_position.set(this, void 0);
+        _ProgressBar_width.set(this, void 0);
+        _ProgressBar_height.set(this, void 0);
+        _ProgressBar_progress.set(this, 0);
+        _ProgressBar_maxProgress.set(this, void 0);
+        __classPrivateFieldSet(this, _ProgressBar_position, Object.assign({}, position), "f");
+        __classPrivateFieldSet(this, _ProgressBar_width, width, "f");
+        __classPrivateFieldSet(this, _ProgressBar_height, height, "f");
+        __classPrivateFieldSet(this, _ProgressBar_maxProgress, __classPrivateFieldGet(this, _ProgressBar_width, "f") - 1, "f");
+    }
+    setPosition(position) {
+        __classPrivateFieldSet(this, _ProgressBar_position, Object.assign({}, position), "f");
+    }
+    setProgress(progress) {
+        __classPrivateFieldSet(this, _ProgressBar_progress, progress, "f");
+    }
+    getProgress() {
+        return __classPrivateFieldGet(this, _ProgressBar_progress, "f");
+    }
+    increaseProgress() {
+        var _a;
+        __classPrivateFieldSet(this, _ProgressBar_progress, (_a = __classPrivateFieldGet(this, _ProgressBar_progress, "f"), _a++, _a), "f");
+    }
+    isFullOfProgress() {
+        return __classPrivateFieldGet(this, _ProgressBar_progress, "f") >= 100;
+    }
+    _drawBackgroundBar() {
         strokeWeight(1);
         stroke('black');
         fill('green');
-        rect(this.position.x + 10, this.position.y + 20, this.width, this.height);
-    };
-    ProgressBar.prototype._drawProgressBar = function () {
+        rect(__classPrivateFieldGet(this, _ProgressBar_position, "f").x + 10, __classPrivateFieldGet(this, _ProgressBar_position, "f").y + 20, __classPrivateFieldGet(this, _ProgressBar_width, "f"), __classPrivateFieldGet(this, _ProgressBar_height, "f"));
+    }
+    _drawProgressBar() {
         strokeWeight(0);
         fill('red');
-        var progressLevel = (this.progress * this.maxProgress) / 100;
-        rect(this.position.x + 11, this.position.y + 21, progressLevel, this.height - 2);
-    };
-    ProgressBar.prototype.draw = function () {
+        const progressLevel = (__classPrivateFieldGet(this, _ProgressBar_progress, "f") * __classPrivateFieldGet(this, _ProgressBar_maxProgress, "f")) / 100;
+        rect(__classPrivateFieldGet(this, _ProgressBar_position, "f").x + 11, __classPrivateFieldGet(this, _ProgressBar_position, "f").y + 21, progressLevel, __classPrivateFieldGet(this, _ProgressBar_height, "f") - 2);
+    }
+    draw() {
         this._drawBackgroundBar();
-        if (this.progress > 0) {
+        if (__classPrivateFieldGet(this, _ProgressBar_progress, "f") > 0) {
             this._drawProgressBar();
         }
-    };
-    ProgressBar.WIDTH = 27;
-    ProgressBar.HEIGHT = 7;
-    return ProgressBar;
-}());
-var Random = (function () {
-    function Random() {
     }
-    Random.integerBetween = function (min, max) {
+}
+_ProgressBar_position = new WeakMap(), _ProgressBar_width = new WeakMap(), _ProgressBar_height = new WeakMap(), _ProgressBar_progress = new WeakMap(), _ProgressBar_maxProgress = new WeakMap();
+ProgressBar.WIDTH = 27;
+ProgressBar.HEIGHT = 7;
+class Random {
+    static integerBetween(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
-    };
-    return Random;
-}());
-var RedTower = (function () {
-    function RedTower(images, position, MathUtilsClass, ProgressBarClass) {
-        this.upgradeLevel = 0;
-        this.upgrading = false;
-        this.upgradeProgress = 0;
-        this.images = images;
-        this.position = __assign({}, position);
-        this.MathUtilsClass = MathUtilsClass;
-        this.ProgressBarClass = ProgressBarClass;
-        this.progressBar = new this.ProgressBarClass(this.position, ProgressBar.WIDTH, ProgressBar.HEIGHT);
     }
-    RedTower.prototype.upgrade = function () {
-        if (!this.upgrading) {
-            this.upgrading = true;
-            this.upgradeLevel++;
-        }
-    };
-    RedTower.prototype.isNotUpgrading = function () {
-        return !this.upgrading;
-    };
-    RedTower.prototype.getPosition = function () {
-        return this.position;
-    };
-    RedTower.prototype.getUpgradeLevel = function () {
-        return this.upgradeLevel;
-    };
-    RedTower.prototype.isMaxUpgraded = function () {
-        return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1;
-    };
-    RedTower.prototype._drawUpgradeBackground = function () {
-        strokeWeight(1);
-        stroke('black');
-        fill(ConstColor.RED);
-        rect(this.position.x + 4, this.position.y + 4, Const.TILE_SIZE, Const.TILE_SIZE);
-    };
-    RedTower.prototype.draw = function () {
-        if (this.upgrading) {
-            this._drawUpgradeBackground();
-            if (!this.progressBar.isFullOfProgress()) {
-                this.upgradeProgress++;
-                this.progressBar.setProgress(this.upgradeProgress);
-                this.progressBar.draw();
-            }
-            else {
-                this.upgrading = false;
-                this.upgradeProgress = 0;
-                this.progressBar.setProgress(0);
-            }
-        }
-        else {
-            image(this.images[this.upgradeLevel], this.position.x, this.position.y);
-        }
-    };
-    RedTower.prototype.getInfluenceArea = function () {
-        return RedTower.UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
-    };
-    RedTower.prototype.getCostWhenUpgradeLevelIs = function (selectedUpgradeLevel) {
-        if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
-            return RedTower.COST_UPGRADE[Const.UPGRADE_MAX_LEVEL];
-        }
-        return RedTower.COST_UPGRADE[selectedUpgradeLevel];
-    };
-    RedTower.prototype.getCost = function () {
-        return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel());
-    };
-    RedTower.prototype.getNextLevelUpgradeCost = function () {
-        if (this.isMaxUpgraded()) {
-            return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1);
-        }
-        else {
-            return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1);
-        }
-    };
-    RedTower.prototype.getSellProfit = function () {
-        return RedTower.PROFIT_SELL_UPGRADE[this.getUpgradeLevel()];
-    };
-    RedTower.prototype.getType = function () {
-        return RedTower.ID;
-    };
-    RedTower.prototype.getColor = function () {
-        return ConstColor.RED;
-    };
-    RedTower.prototype.selectTarget = function (enemies) {
-    };
-    RedTower.ID = 2;
-    RedTower.PROFIT_SELL_UPGRADE = [80, 110, 190, 420, 1200, 2880];
-    RedTower.COST_UPGRADE = [100, 150, 250, 500, 1300, 3000];
-    RedTower.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
-    RedTower.INFLUENCE_AREA = 240;
-    return RedTower;
-}());
-var Resources = (function () {
-    function Resources() {
-    }
-    Resources.enemies = function () {
-        var enemiesImages = [];
-        var countEnemiesAndBoss = Enemy.TOTAL_ENEMIES + 1;
-        MathUtils.range(1, countEnemiesAndBoss).forEach(function (v) {
+}
+class Resources {
+    static enemies() {
+        const enemiesImages = [];
+        const countEnemiesAndBoss = Enemy.TOTAL_ENEMIES + 1;
+        MathUtils.range(1, countEnemiesAndBoss).forEach((v) => {
             enemiesImages.push(loadImage('img/enemies/' + v + '_center.png'));
             enemiesImages.push(loadImage('img/enemies/' + v + '_left.png'));
             enemiesImages.push(loadImage('img/enemies/' + v + '_right.png'));
             enemiesImages.push(loadImage('img/enemies/' + v + '_closed.png'));
         });
         return enemiesImages;
-    };
-    Resources.greenTower = function () {
-        var greenTowerImages = [];
-        MathUtils.range(0, Const.UPGRADE_MAX_LEVEL).forEach(function (v) {
+    }
+    static greenTower() {
+        const greenTowerImages = [];
+        MathUtils.range(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
             greenTowerImages.push(loadImage('img/towers/green_tower_upgrade_' + v + '.png'));
         });
         return greenTowerImages;
-    };
-    Resources.redTower = function () {
-        var redTowerImages = [];
-        MathUtils.range(0, Const.UPGRADE_MAX_LEVEL).forEach(function (v) {
+    }
+    static redTower() {
+        const redTowerImages = [];
+        MathUtils.range(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
             redTowerImages.push(loadImage('img/towers/red_tower_upgrade_' + v + '.png'));
         });
         return redTowerImages;
-    };
-    Resources.yellowTower = function () {
-        var yellowTowerImages = [];
-        MathUtils.range(0, Const.UPGRADE_MAX_LEVEL).forEach(function (v) {
+    }
+    static yellowTower() {
+        const yellowTowerImages = [];
+        MathUtils.range(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
             yellowTowerImages.push(loadImage('img/towers/yellow_tower_upgrade_' + v + '.png'));
         });
         return yellowTowerImages;
-    };
-    Resources.tileImages = function () {
+    }
+    static tileImages() {
         return [
             loadImage('img/tiles/orange.png'),
             loadImage('img/tiles/black.png'),
@@ -1573,15 +1265,15 @@ var Resources = (function () {
             loadImage('img/tiles/start_up.png'),
             loadImage('img/tiles/crystal.png'),
         ];
-    };
-    Resources.hudImages = function () {
+    }
+    static hudImages() {
         return [
             loadImage('img/hud/normal.png'),
             loadImage('img/hud/upgrading.png'),
             loadImage('img/hud/upgrading_max.png'),
         ];
-    };
-    Resources.hudIconImages = function () {
+    }
+    static hudIconImages() {
         return [
             loadImage('img/hud/icon_green_tower_on.png'),
             loadImage('img/hud/icon_green_tower_off.png'),
@@ -1590,375 +1282,623 @@ var Resources = (function () {
             loadImage('img/hud/icon_yellow_tower_on.png'),
             loadImage('img/hud/icon_yellow_tower_off.png'),
         ];
-    };
-    Resources.backgroundImage = function () {
+    }
+    static backgroundImage() {
         return loadImage('img/backgrounds/ground.jpg');
-    };
-    Resources.magicFireball = function () {
+    }
+    static magicFireball() {
         return loadImage('img/magics/fireball.png');
-    };
-    Resources.magicIceball = function () {
+    }
+    static magicIceball() {
         return loadImage('img/magics/iceball.png');
-    };
-    Resources.magicUFO = function () {
+    }
+    static magicUFO() {
         return loadImage('img/magics/ufo.png');
-    };
-    return Resources;
-}());
-var Score = (function () {
-    function Score() {
+    }
+}
+class Score {
+    constructor() {
         this.score = 0;
     }
-    Score.prototype.increase = function (score) {
+    increase(score) {
         this.score = score;
-    };
-    Score.prototype.getPrintScore = function () {
+    }
+    getPrintScore() {
         return String(this.score).padStart(10, '0');
-    };
-    return Score;
-}());
-var StartTile = (function () {
-    function StartTile(img, position, startDirection) {
-        this.img = img;
-        this.position = __assign({}, position);
-        this.startDirection = startDirection;
     }
-    StartTile.prototype.draw = function () {
-        image(this.img, this.position.x, this.position.y);
-    };
-    StartTile.prototype.getPosition = function () {
-        return this.position;
-    };
-    StartTile.prototype.getStartDirection = function () {
-        return this.startDirection;
-    };
-    return StartTile;
-}());
-var TextProperties = (function () {
-    function TextProperties() {
+}
+var _StartTile_img, _StartTile_position, _StartTile_startDirection;
+class StartTile {
+    constructor(img, position, startDirection) {
+        _StartTile_img.set(this, void 0);
+        _StartTile_position.set(this, void 0);
+        _StartTile_startDirection.set(this, void 0);
+        __classPrivateFieldSet(this, _StartTile_img, img, "f");
+        __classPrivateFieldSet(this, _StartTile_position, Object.assign({}, position), "f");
+        __classPrivateFieldSet(this, _StartTile_startDirection, startDirection, "f");
     }
-    TextProperties.setForBigCenteredTitle = function () {
+    draw() {
+        image(__classPrivateFieldGet(this, _StartTile_img, "f"), __classPrivateFieldGet(this, _StartTile_position, "f").x, __classPrivateFieldGet(this, _StartTile_position, "f").y);
+    }
+    getPosition() {
+        return __classPrivateFieldGet(this, _StartTile_position, "f");
+    }
+    getStartDirection() {
+        return __classPrivateFieldGet(this, _StartTile_startDirection, "f");
+    }
+}
+_StartTile_img = new WeakMap(), _StartTile_position = new WeakMap(), _StartTile_startDirection = new WeakMap();
+class TextProperties {
+    static setForBigCenteredTitle() {
         fill('white');
         stroke('black');
         strokeWeight(2);
         textSize(30);
         textAlign(CENTER);
-    };
-    TextProperties.setForHudData = function () {
+    }
+    static setForHudData() {
         textSize(12);
         fill('white');
         stroke('black');
         strokeWeight(2);
         textAlign(LEFT);
-    };
-    return TextProperties;
-}());
-var TileGenerator = (function () {
-    function TileGenerator(levelMap, mapImages, OrangeTileClass, PathTileClass, StartTileClass, EndTileClass, towerGenerator) {
-        this.levelMap = levelMap;
-        this.mapImages = mapImages;
-        this.OrangeTileClass = OrangeTileClass;
-        this.PathTileClass = PathTileClass;
-        this.StartTileClass = StartTileClass;
-        this.EndTileClass = EndTileClass;
-        this.towerGenerator = towerGenerator;
-        if (this.levelMap.rowsMap.length === 0) {
+    }
+}
+var _TileGenerator_levelMap, _TileGenerator_mapImages, _TileGenerator_OrangeTileClass, _TileGenerator_PathTileClass, _TileGenerator_StartTileClass, _TileGenerator_EndTileClass, _TileGenerator_towerGenerator, _TileGenerator_orangeImage, _TileGenerator_blackImage, _TileGenerator_startImage, _TileGenerator_endImage, _TileGenerator_startDirection;
+class TileGenerator {
+    constructor(levelMap, mapImages, OrangeTileClass, PathTileClass, StartTileClass, EndTileClass, towerGenerator) {
+        _TileGenerator_levelMap.set(this, void 0);
+        _TileGenerator_mapImages.set(this, void 0);
+        _TileGenerator_OrangeTileClass.set(this, void 0);
+        _TileGenerator_PathTileClass.set(this, void 0);
+        _TileGenerator_StartTileClass.set(this, void 0);
+        _TileGenerator_EndTileClass.set(this, void 0);
+        _TileGenerator_towerGenerator.set(this, void 0);
+        _TileGenerator_orangeImage.set(this, void 0);
+        _TileGenerator_blackImage.set(this, void 0);
+        _TileGenerator_startImage.set(this, void 0);
+        _TileGenerator_endImage.set(this, void 0);
+        _TileGenerator_startDirection.set(this, void 0);
+        __classPrivateFieldSet(this, _TileGenerator_levelMap, levelMap, "f");
+        __classPrivateFieldSet(this, _TileGenerator_mapImages, mapImages, "f");
+        __classPrivateFieldSet(this, _TileGenerator_OrangeTileClass, OrangeTileClass, "f");
+        __classPrivateFieldSet(this, _TileGenerator_PathTileClass, PathTileClass, "f");
+        __classPrivateFieldSet(this, _TileGenerator_StartTileClass, StartTileClass, "f");
+        __classPrivateFieldSet(this, _TileGenerator_EndTileClass, EndTileClass, "f");
+        __classPrivateFieldSet(this, _TileGenerator_towerGenerator, towerGenerator, "f");
+        if (__classPrivateFieldGet(this, _TileGenerator_levelMap, "f").rowsMap.length === 0) {
             throw new Error('No rows map found');
         }
         this._setStartImage(mapImages);
         this._setEndImage(mapImages);
-        this.orangeImage = mapImages[0];
-        this.blackImage = mapImages[1];
-        this.startDirection = this.levelMap.startDirection;
+        __classPrivateFieldSet(this, _TileGenerator_orangeImage, mapImages[0], "f");
+        __classPrivateFieldSet(this, _TileGenerator_blackImage, mapImages[1], "f");
+        __classPrivateFieldSet(this, _TileGenerator_startDirection, __classPrivateFieldGet(this, _TileGenerator_levelMap, "f").startDirection, "f");
     }
-    TileGenerator.prototype._setStartImage = function (mapImages) {
-        switch (this.levelMap.startDirection) {
-            case Const.DOWN_DIRECTION:
-                this.startImage = mapImages[6];
-                this.startDirection = Const.DOWN_DIRECTION;
+    _setStartImage(mapImages) {
+        switch (__classPrivateFieldGet(this, _TileGenerator_levelMap, "f").startDirection) {
+            case ConstDirection.DOWN:
+                __classPrivateFieldSet(this, _TileGenerator_startImage, mapImages[6], "f");
+                __classPrivateFieldSet(this, _TileGenerator_startDirection, ConstDirection.DOWN, "f");
                 break;
-            case Const.RIGHT_DIRECTION:
-                this.startImage = mapImages[7];
-                this.startDirection = Const.RIGHT_DIRECTION;
+            case ConstDirection.RIGHT:
+                __classPrivateFieldSet(this, _TileGenerator_startImage, mapImages[7], "f");
+                __classPrivateFieldSet(this, _TileGenerator_startDirection, ConstDirection.RIGHT, "f");
                 break;
-            case Const.LEFT_DIRECTION:
-                this.startImage = mapImages[8];
-                this.startDirection = Const.LEFT_DIRECTION;
+            case ConstDirection.LEFT:
+                __classPrivateFieldSet(this, _TileGenerator_startImage, mapImages[8], "f");
+                __classPrivateFieldSet(this, _TileGenerator_startDirection, ConstDirection.LEFT, "f");
                 break;
-            case Const.UP_DIRECTION:
-                this.startImage = mapImages[9];
-                this.startDirection = Const.UP_DIRECTION;
-                break;
-        }
-    };
-    TileGenerator.prototype._setEndImage = function (mapImages) {
-        switch (this.levelMap.endDirection) {
-            case Const.DOWN_DIRECTION:
-                this.endImage = mapImages[2];
-                break;
-            case Const.RIGHT_DIRECTION:
-                this.endImage = mapImages[4];
-                break;
-            case Const.LEFT_DIRECTION:
-                this.endImage = mapImages[3];
-                break;
-            case Const.UP_DIRECTION:
-                this.endImage = mapImages[5];
+            case ConstDirection.UP:
+                __classPrivateFieldSet(this, _TileGenerator_startImage, mapImages[9], "f");
+                __classPrivateFieldSet(this, _TileGenerator_startDirection, ConstDirection.UP, "f");
                 break;
         }
-    };
-    TileGenerator.prototype._extractTiles = function (symbol) {
-        var _this = this;
-        var resultTiles = [];
-        var rowCount = 0;
-        this.levelMap.rowsMap.forEach(function (row) {
-            var trimmedRow = row.trim();
+    }
+    _setEndImage(mapImages) {
+        switch (__classPrivateFieldGet(this, _TileGenerator_levelMap, "f").endDirection) {
+            case ConstDirection.DOWN:
+                __classPrivateFieldSet(this, _TileGenerator_endImage, mapImages[2], "f");
+                break;
+            case ConstDirection.RIGHT:
+                __classPrivateFieldSet(this, _TileGenerator_endImage, mapImages[4], "f");
+                break;
+            case ConstDirection.LEFT:
+                __classPrivateFieldSet(this, _TileGenerator_endImage, mapImages[3], "f");
+                break;
+            case ConstDirection.UP:
+                __classPrivateFieldSet(this, _TileGenerator_endImage, mapImages[5], "f");
+                break;
+        }
+    }
+    _extractTiles(symbol) {
+        const resultTiles = [];
+        let rowCount = 0;
+        __classPrivateFieldGet(this, _TileGenerator_levelMap, "f").rowsMap.forEach((row) => {
+            const trimmedRow = row.trim();
             rowCount++;
-            for (var column = 0; column < trimmedRow.length; column++) {
-                var character = trimmedRow[column];
-                var posX = TileGenerator.FLOOR_SIZE * column;
-                var posY = TileGenerator.FLOOR_SIZE * rowCount + TileGenerator.MARGIN_TOP;
+            for (let column = 0; column < trimmedRow.length; column++) {
+                const character = trimmedRow[column];
+                const posX = TileGenerator.FLOOR_SIZE * column;
+                const posY = TileGenerator.FLOOR_SIZE * rowCount + TileGenerator.MARGIN_TOP;
                 if (character === symbol) {
                     switch (symbol) {
                         case '0':
-                            resultTiles.push(new _this.OrangeTileClass(_this.orangeImage, { x: posX, y: posY }, _this.towerGenerator));
+                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_OrangeTileClass, "f"))(__classPrivateFieldGet(this, _TileGenerator_orangeImage, "f"), { x: posX, y: posY }, __classPrivateFieldGet(this, _TileGenerator_towerGenerator, "f")));
                             break;
                         case '1':
-                            resultTiles.push(new _this.PathTileClass(posX, posY));
+                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_PathTileClass, "f"))(posX, posY));
                             break;
                         case 'x':
-                            resultTiles.push(new _this.StartTileClass(_this.startImage, { x: posX, y: posY }, _this.startDirection));
+                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_StartTileClass, "f"))(__classPrivateFieldGet(this, _TileGenerator_startImage, "f"), { x: posX, y: posY }, __classPrivateFieldGet(this, _TileGenerator_startDirection, "f")));
                             break;
                         case 'y':
-                            resultTiles.push(new _this.EndTileClass(_this.endImage, { x: posX, y: posY }));
+                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_EndTileClass, "f"))(__classPrivateFieldGet(this, _TileGenerator_endImage, "f"), { x: posX, y: posY }));
                             break;
                     }
                 }
             }
         });
         return resultTiles;
-    };
-    TileGenerator.prototype.orangeTiles = function () {
-        return this._extractTiles('0');
-    };
-    TileGenerator.prototype.pathTiles = function () {
-        return this._extractTiles('1');
-    };
-    TileGenerator.prototype.startTile = function () {
-        return this._extractTiles('x')[0];
-    };
-    TileGenerator.prototype.endTile = function () {
-        return this._extractTiles('y')[0];
-    };
-    TileGenerator.prototype.getInitialMoney = function () {
-        return Number(this.levelMap.money);
-    };
-    TileGenerator.FLOOR_SIZE = 50;
-    TileGenerator.MARGIN_TOP = 30;
-    return TileGenerator;
-}());
-var TowerGenerator = (function () {
-    function TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, GreenTowerClass, RedTowerClass, YellowTowerClass, MathUtilsClass, ProgressBarClass) {
-        this.greenTowerImages = greenTowerImages;
-        this.redTowerImages = redTowerImages;
-        this.yellowTowerImages = yellowTowerImages;
-        this.GreenTowerClass = GreenTowerClass;
-        this.RedTowerClass = RedTowerClass;
-        this.YellowTowerClass = YellowTowerClass;
-        this.MathUtilsClass = MathUtilsClass;
-        this.ProgressBarClass = ProgressBarClass;
     }
-    TowerGenerator.prototype.newTower = function (towerId, position) {
-        var tower = null;
+    orangeTiles() {
+        return this._extractTiles('0');
+    }
+    pathTiles() {
+        return this._extractTiles('1');
+    }
+    startTile() {
+        return this._extractTiles('x')[0];
+    }
+    endTile() {
+        return this._extractTiles('y')[0];
+    }
+    getInitialMoney() {
+        return Number(__classPrivateFieldGet(this, _TileGenerator_levelMap, "f").money);
+    }
+}
+_TileGenerator_levelMap = new WeakMap(), _TileGenerator_mapImages = new WeakMap(), _TileGenerator_OrangeTileClass = new WeakMap(), _TileGenerator_PathTileClass = new WeakMap(), _TileGenerator_StartTileClass = new WeakMap(), _TileGenerator_EndTileClass = new WeakMap(), _TileGenerator_towerGenerator = new WeakMap(), _TileGenerator_orangeImage = new WeakMap(), _TileGenerator_blackImage = new WeakMap(), _TileGenerator_startImage = new WeakMap(), _TileGenerator_endImage = new WeakMap(), _TileGenerator_startDirection = new WeakMap();
+TileGenerator.FLOOR_SIZE = 50;
+TileGenerator.MARGIN_TOP = 30;
+var _Tower_position, _Tower_upgrading, _Tower_upgradeLevel;
+class Tower {
+    constructor(position) {
+        _Tower_position.set(this, void 0);
+        _Tower_upgrading.set(this, false);
+        _Tower_upgradeLevel.set(this, 0);
+        __classPrivateFieldSet(this, _Tower_position, Object.assign({}, position), "f");
+        __classPrivateFieldSet(this, _Tower_upgrading, false, "f");
+        __classPrivateFieldSet(this, _Tower_upgradeLevel, 0, "f");
+    }
+    get notUpgrading() {
+        return !__classPrivateFieldGet(this, _Tower_upgrading, "f");
+    }
+    get position() {
+        return __classPrivateFieldGet(this, _Tower_position, "f");
+    }
+    get upgradeLevel() {
+        return __classPrivateFieldGet(this, _Tower_upgradeLevel, "f");
+    }
+    get maxUpgraded() {
+        return __classPrivateFieldGet(this, _Tower_upgradeLevel, "f") === Const.UPGRADE_MAX_LEVEL - 1;
+    }
+    getCostWhenUpgradeLevelIs(selectedUpgradeLevel) {
+        return null;
+    }
+    get cost() {
+        return this.getCostWhenUpgradeLevelIs(this.upgradeLevel);
+    }
+    get nextLevelUpgradeCost() {
+        if (this.maxUpgraded) {
+            return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1);
+        }
+        else {
+            return this.getCostWhenUpgradeLevelIs(this.upgradeLevel + 1);
+        }
+    }
+}
+_Tower_position = new WeakMap(), _Tower_upgrading = new WeakMap(), _Tower_upgradeLevel = new WeakMap();
+var _TowerGenerator_greenTowerImages, _TowerGenerator_redTowerImages, _TowerGenerator_yellowTowerImages, _TowerGenerator_TowerGreenClass, _TowerGenerator_TowerRedClass, _TowerGenerator_TowerYellowClass, _TowerGenerator_MathUtilsClass, _TowerGenerator_ProgressBarClass;
+class TowerGenerator {
+    constructor(greenTowerImages, redTowerImages, yellowTowerImages, TowerGreenClass, TowerRedClass, TowerYellowClass, MathUtilsClass, ProgressBarClass) {
+        _TowerGenerator_greenTowerImages.set(this, void 0);
+        _TowerGenerator_redTowerImages.set(this, void 0);
+        _TowerGenerator_yellowTowerImages.set(this, void 0);
+        _TowerGenerator_TowerGreenClass.set(this, void 0);
+        _TowerGenerator_TowerRedClass.set(this, void 0);
+        _TowerGenerator_TowerYellowClass.set(this, void 0);
+        _TowerGenerator_MathUtilsClass.set(this, void 0);
+        _TowerGenerator_ProgressBarClass.set(this, void 0);
+        __classPrivateFieldSet(this, _TowerGenerator_greenTowerImages, greenTowerImages, "f");
+        __classPrivateFieldSet(this, _TowerGenerator_redTowerImages, redTowerImages, "f");
+        __classPrivateFieldSet(this, _TowerGenerator_yellowTowerImages, yellowTowerImages, "f");
+        __classPrivateFieldSet(this, _TowerGenerator_TowerGreenClass, TowerGreenClass, "f");
+        __classPrivateFieldSet(this, _TowerGenerator_TowerRedClass, TowerRedClass, "f");
+        __classPrivateFieldSet(this, _TowerGenerator_TowerYellowClass, TowerYellowClass, "f");
+        __classPrivateFieldSet(this, _TowerGenerator_MathUtilsClass, MathUtilsClass, "f");
+        __classPrivateFieldSet(this, _TowerGenerator_ProgressBarClass, ProgressBarClass, "f");
+    }
+    newTower(towerId, position) {
+        let tower = null;
         switch (towerId) {
-            case GreenTower.ID:
-                tower = new this.GreenTowerClass(this.greenTowerImages, {
+            case TowerGreen.ID:
+                tower = new (__classPrivateFieldGet(this, _TowerGenerator_TowerGreenClass, "f"))(__classPrivateFieldGet(this, _TowerGenerator_greenTowerImages, "f"), {
                     x: position.x - Const.TOWER_OFFSET,
                     y: position.y - Const.TOWER_OFFSET,
-                }, this.MathUtilsClass, this.ProgressBarClass);
+                }, __classPrivateFieldGet(this, _TowerGenerator_MathUtilsClass, "f"), __classPrivateFieldGet(this, _TowerGenerator_ProgressBarClass, "f"));
                 break;
-            case RedTower.ID:
-                tower = new this.RedTowerClass(this.redTowerImages, {
+            case TowerRed.ID:
+                tower = new (__classPrivateFieldGet(this, _TowerGenerator_TowerRedClass, "f"))(__classPrivateFieldGet(this, _TowerGenerator_redTowerImages, "f"), {
                     x: position.x - Const.TOWER_OFFSET,
                     y: position.y - Const.TOWER_OFFSET,
-                }, this.MathUtilsClass, this.ProgressBarClass);
+                }, __classPrivateFieldGet(this, _TowerGenerator_MathUtilsClass, "f"), __classPrivateFieldGet(this, _TowerGenerator_ProgressBarClass, "f"));
                 break;
-            case YellowTower.ID:
-                tower = new this.YellowTowerClass(this.yellowTowerImages, { x: position.x, y: position.y }, this.MathUtilsClass, this.ProgressBarClass);
+            case TowerYellow.ID:
+                tower = new (__classPrivateFieldGet(this, _TowerGenerator_TowerYellowClass, "f"))(__classPrivateFieldGet(this, _TowerGenerator_yellowTowerImages, "f"), { x: position.x, y: position.y }, __classPrivateFieldGet(this, _TowerGenerator_MathUtilsClass, "f"), __classPrivateFieldGet(this, _TowerGenerator_ProgressBarClass, "f"));
                 break;
             default:
                 break;
         }
         return tower;
-    };
-    return TowerGenerator;
-}());
-var Wallet = (function () {
-    function Wallet(money) {
-        this.money = money;
     }
-    Wallet.prototype.getMoney = function () {
-        return this.money;
-    };
-    Wallet.prototype.increase = function (quantity) {
-        this.money += quantity;
-    };
-    Wallet.prototype.decrease = function (quantity) {
-        this.money -= quantity;
-    };
-    Wallet.prototype.haveMoneyToBuy = function (towerId, upgradeLevel) {
-        var canBuy = false;
+}
+_TowerGenerator_greenTowerImages = new WeakMap(), _TowerGenerator_redTowerImages = new WeakMap(), _TowerGenerator_yellowTowerImages = new WeakMap(), _TowerGenerator_TowerGreenClass = new WeakMap(), _TowerGenerator_TowerRedClass = new WeakMap(), _TowerGenerator_TowerYellowClass = new WeakMap(), _TowerGenerator_MathUtilsClass = new WeakMap(), _TowerGenerator_ProgressBarClass = new WeakMap();
+var _TowerGreen_instances, _TowerGreen_images, _TowerGreen_position, _TowerGreen_MathUtilsClass, _TowerGreen_ProgressBarClass, _TowerGreen_upgradeLevel, _TowerGreen_upgrading, _TowerGreen_enemyTarget, _TowerGreen_distanceToEnemyTarget, _TowerGreen_progressBar, _TowerGreen_upgradeProgress, _TowerGreen_delayUpgradeProgress, _TowerGreen_drawShotToEnemy, _TowerGreen_drawUpgradeBackground;
+class TowerGreen extends Tower {
+    constructor(images, position, MathUtilsClass, ProgressBarClass) {
+        super(position);
+        _TowerGreen_instances.add(this);
+        _TowerGreen_images.set(this, void 0);
+        _TowerGreen_position.set(this, void 0);
+        _TowerGreen_MathUtilsClass.set(this, void 0);
+        _TowerGreen_ProgressBarClass.set(this, void 0);
+        _TowerGreen_upgradeLevel.set(this, 0);
+        _TowerGreen_upgrading.set(this, false);
+        _TowerGreen_enemyTarget.set(this, null);
+        _TowerGreen_distanceToEnemyTarget.set(this, 0);
+        _TowerGreen_progressBar.set(this, void 0);
+        _TowerGreen_upgradeProgress.set(this, 0);
+        _TowerGreen_delayUpgradeProgress.set(this, void 0);
+        __classPrivateFieldSet(this, _TowerGreen_images, images, "f");
+        __classPrivateFieldSet(this, _TowerGreen_position, Object.assign({}, position), "f");
+        __classPrivateFieldSet(this, _TowerGreen_MathUtilsClass, MathUtilsClass, "f");
+        __classPrivateFieldSet(this, _TowerGreen_ProgressBarClass, ProgressBarClass, "f");
+        __classPrivateFieldSet(this, _TowerGreen_progressBar, new (__classPrivateFieldGet(this, _TowerGreen_ProgressBarClass, "f"))({
+            x: __classPrivateFieldGet(this, _TowerGreen_position, "f").x + Const.TOWER_OFFSET,
+            y: __classPrivateFieldGet(this, _TowerGreen_position, "f").y + Const.TOWER_OFFSET,
+        }, ProgressBar.WIDTH, ProgressBar.HEIGHT), "f");
+    }
+    upgrade() {
+        var _a;
+        if (!__classPrivateFieldGet(this, _TowerGreen_upgrading, "f")) {
+            __classPrivateFieldSet(this, _TowerGreen_upgrading, true, "f");
+            __classPrivateFieldSet(this, _TowerGreen_upgradeLevel, (_a = __classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f"), _a++, _a), "f");
+            __classPrivateFieldSet(this, _TowerGreen_delayUpgradeProgress, Const.DELAY_UPGRADE_MULTIPLIER * __classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f"), "f");
+        }
+    }
+    draw() {
+        var _a, _b;
+        if (__classPrivateFieldGet(this, _TowerGreen_upgrading, "f")) {
+            __classPrivateFieldGet(this, _TowerGreen_instances, "m", _TowerGreen_drawUpgradeBackground).call(this);
+            if (!__classPrivateFieldGet(this, _TowerGreen_progressBar, "f").isFullOfProgress()) {
+                if (__classPrivateFieldGet(this, _TowerGreen_delayUpgradeProgress, "f") == 0) {
+                    __classPrivateFieldSet(this, _TowerGreen_upgradeProgress, (_a = __classPrivateFieldGet(this, _TowerGreen_upgradeProgress, "f"), _a++, _a), "f");
+                    __classPrivateFieldGet(this, _TowerGreen_progressBar, "f").setProgress(__classPrivateFieldGet(this, _TowerGreen_upgradeProgress, "f"));
+                    __classPrivateFieldSet(this, _TowerGreen_delayUpgradeProgress, Const.DELAY_UPGRADE_MULTIPLIER * __classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f"), "f");
+                }
+                else {
+                    __classPrivateFieldSet(this, _TowerGreen_delayUpgradeProgress, (_b = __classPrivateFieldGet(this, _TowerGreen_delayUpgradeProgress, "f"), _b--, _b), "f");
+                }
+                __classPrivateFieldGet(this, _TowerGreen_progressBar, "f").draw();
+            }
+            else {
+                __classPrivateFieldSet(this, _TowerGreen_upgrading, false, "f");
+                __classPrivateFieldSet(this, _TowerGreen_upgradeProgress, 0, "f");
+                __classPrivateFieldGet(this, _TowerGreen_progressBar, "f").setProgress(0);
+            }
+        }
+        else {
+            if (__classPrivateFieldGet(this, _TowerGreen_enemyTarget, "f")) {
+                let r_dx = __classPrivateFieldGet(this, _TowerGreen_enemyTarget, "f").position.x - __classPrivateFieldGet(this, _TowerGreen_position, "f").x;
+                let r_dy = __classPrivateFieldGet(this, _TowerGreen_enemyTarget, "f").position.y - __classPrivateFieldGet(this, _TowerGreen_position, "f").y;
+                let angle = Math.atan2(r_dy, r_dx) + 1.55;
+                let cos_a = cos(angle);
+                let sin_a = sin(angle);
+                imageMode(CENTER);
+                applyMatrix(cos_a, sin_a, -sin_a, cos_a, __classPrivateFieldGet(this, _TowerGreen_position, "f").x + 30, __classPrivateFieldGet(this, _TowerGreen_position, "f").y + 30);
+                __classPrivateFieldGet(this, _TowerGreen_instances, "m", _TowerGreen_drawShotToEnemy).call(this);
+                __classPrivateFieldGet(this, _TowerGreen_enemyTarget, "f").addDamage(TowerGreen.DAMAGE_UPGRADE[__classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f")]);
+                image(__classPrivateFieldGet(this, _TowerGreen_images, "f")[__classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f")], 0, 0);
+                resetMatrix();
+                imageMode(CORNER);
+            }
+            else {
+                image(__classPrivateFieldGet(this, _TowerGreen_images, "f")[__classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f")], __classPrivateFieldGet(this, _TowerGreen_position, "f").x, __classPrivateFieldGet(this, _TowerGreen_position, "f").y);
+            }
+        }
+    }
+    get influenceArea() {
+        return TowerGreen.UPGRADE_INFLUENCE_AREA[__classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f")];
+    }
+    getCostWhenUpgradeLevelIs(selectedUpgradeLevel) {
+        if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
+            return TowerGreen.COST_UPGRADE[Const.UPGRADE_MAX_LEVEL];
+        }
+        return TowerGreen.COST_UPGRADE[selectedUpgradeLevel];
+    }
+    get sellProfit() {
+        return TowerGreen.PROFIT_SELL_UPGRADE[this.upgradeLevel];
+    }
+    get type() {
+        return TowerGreen.ID;
+    }
+    _isDistanceIntoInfluenceArea(distance) {
+        return (distance <= TowerGreen.UPGRADE_INFLUENCE_AREA[__classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f")] / 1.65);
+    }
+    selectTarget(enemies) {
+        let minDistance = 99999;
+        let enemyTarget = null;
+        enemies.forEach((enemy) => {
+            const distance = __classPrivateFieldGet(this, _TowerGreen_MathUtilsClass, "f").distance({ x: __classPrivateFieldGet(this, _TowerGreen_position, "f").x, y: __classPrivateFieldGet(this, _TowerGreen_position, "f").y }, {
+                x: enemy.position.x,
+                y: enemy.position.y,
+            });
+            if (distance < minDistance) {
+                minDistance = distance;
+                enemyTarget = enemy;
+            }
+        });
+        if (this._isDistanceIntoInfluenceArea(minDistance)) {
+            __classPrivateFieldSet(this, _TowerGreen_enemyTarget, enemyTarget, "f");
+            __classPrivateFieldSet(this, _TowerGreen_distanceToEnemyTarget, minDistance, "f");
+        }
+        else {
+            __classPrivateFieldSet(this, _TowerGreen_enemyTarget, null, "f");
+            __classPrivateFieldSet(this, _TowerGreen_distanceToEnemyTarget, 0, "f");
+        }
+    }
+}
+_TowerGreen_images = new WeakMap(), _TowerGreen_position = new WeakMap(), _TowerGreen_MathUtilsClass = new WeakMap(), _TowerGreen_ProgressBarClass = new WeakMap(), _TowerGreen_upgradeLevel = new WeakMap(), _TowerGreen_upgrading = new WeakMap(), _TowerGreen_enemyTarget = new WeakMap(), _TowerGreen_distanceToEnemyTarget = new WeakMap(), _TowerGreen_progressBar = new WeakMap(), _TowerGreen_upgradeProgress = new WeakMap(), _TowerGreen_delayUpgradeProgress = new WeakMap(), _TowerGreen_instances = new WeakSet(), _TowerGreen_drawShotToEnemy = function _TowerGreen_drawShotToEnemy() {
+    strokeWeight(3);
+    stroke(ConstColor.RED);
+    line(-1, -18, 7 - __classPrivateFieldGet(this, _TowerGreen_distanceToEnemyTarget, "f") / 7, -__classPrivateFieldGet(this, _TowerGreen_distanceToEnemyTarget, "f"));
+}, _TowerGreen_drawUpgradeBackground = function _TowerGreen_drawUpgradeBackground() {
+    strokeWeight(1);
+    stroke('black');
+    fill(ConstColor.GREEN);
+    rect(__classPrivateFieldGet(this, _TowerGreen_position, "f").x + 4, __classPrivateFieldGet(this, _TowerGreen_position, "f").y + 4, Const.TILE_SIZE, Const.TILE_SIZE);
+};
+TowerGreen.ID = 1;
+TowerGreen.PROFIT_SELL_UPGRADE = [30, 35, 65, 220, 900, 1880];
+TowerGreen.DAMAGE_UPGRADE = [1, 2, 4, 6, 12, 24];
+TowerGreen.COST_UPGRADE = [50, 75, 125, 300, 1000, 2000];
+TowerGreen.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
+TowerGreen.INFLUENCE_AREA = 150;
+var _TowerRed_images, _TowerRed_position, _TowerRed_MathUtilsClass, _TowerRed_ProgressBarClass, _TowerRed_upgradeLevel, _TowerRed_upgrading, _TowerRed_progressBar, _TowerRed_upgradeProgress;
+class TowerRed extends Tower {
+    constructor(images, position, MathUtilsClass, ProgressBarClass) {
+        super(position);
+        _TowerRed_images.set(this, void 0);
+        _TowerRed_position.set(this, void 0);
+        _TowerRed_MathUtilsClass.set(this, void 0);
+        _TowerRed_ProgressBarClass.set(this, void 0);
+        _TowerRed_upgradeLevel.set(this, 0);
+        _TowerRed_upgrading.set(this, false);
+        _TowerRed_progressBar.set(this, void 0);
+        _TowerRed_upgradeProgress.set(this, 0);
+        __classPrivateFieldSet(this, _TowerRed_images, images, "f");
+        __classPrivateFieldSet(this, _TowerRed_position, Object.assign({}, position), "f");
+        __classPrivateFieldSet(this, _TowerRed_MathUtilsClass, MathUtilsClass, "f");
+        __classPrivateFieldSet(this, _TowerRed_ProgressBarClass, ProgressBarClass, "f");
+        __classPrivateFieldSet(this, _TowerRed_progressBar, new (__classPrivateFieldGet(this, _TowerRed_ProgressBarClass, "f"))(__classPrivateFieldGet(this, _TowerRed_position, "f"), ProgressBar.WIDTH, ProgressBar.HEIGHT), "f");
+    }
+    upgrade() {
+        var _a;
+        if (!__classPrivateFieldGet(this, _TowerRed_upgrading, "f")) {
+            __classPrivateFieldSet(this, _TowerRed_upgrading, true, "f");
+            __classPrivateFieldSet(this, _TowerRed_upgradeLevel, (_a = __classPrivateFieldGet(this, _TowerRed_upgradeLevel, "f"), _a++, _a), "f");
+        }
+    }
+    _drawUpgradeBackground() {
+        strokeWeight(1);
+        stroke('black');
+        fill(ConstColor.RED);
+        rect(__classPrivateFieldGet(this, _TowerRed_position, "f").x + 4, __classPrivateFieldGet(this, _TowerRed_position, "f").y + 4, Const.TILE_SIZE, Const.TILE_SIZE);
+    }
+    draw() {
+        var _a;
+        if (__classPrivateFieldGet(this, _TowerRed_upgrading, "f")) {
+            this._drawUpgradeBackground();
+            if (!__classPrivateFieldGet(this, _TowerRed_progressBar, "f").isFullOfProgress()) {
+                __classPrivateFieldSet(this, _TowerRed_upgradeProgress, (_a = __classPrivateFieldGet(this, _TowerRed_upgradeProgress, "f"), _a++, _a), "f");
+                __classPrivateFieldGet(this, _TowerRed_progressBar, "f").setProgress(__classPrivateFieldGet(this, _TowerRed_upgradeProgress, "f"));
+                __classPrivateFieldGet(this, _TowerRed_progressBar, "f").draw();
+            }
+            else {
+                __classPrivateFieldSet(this, _TowerRed_upgrading, false, "f");
+                __classPrivateFieldSet(this, _TowerRed_upgradeProgress, 0, "f");
+                __classPrivateFieldGet(this, _TowerRed_progressBar, "f").setProgress(0);
+            }
+        }
+        else {
+            image(__classPrivateFieldGet(this, _TowerRed_images, "f")[__classPrivateFieldGet(this, _TowerRed_upgradeLevel, "f")], __classPrivateFieldGet(this, _TowerRed_position, "f").x, __classPrivateFieldGet(this, _TowerRed_position, "f").y);
+        }
+    }
+    get influenceArea() {
+        return TowerRed.UPGRADE_INFLUENCE_AREA[__classPrivateFieldGet(this, _TowerRed_upgradeLevel, "f")];
+    }
+    getCostWhenUpgradeLevelIs(selectedUpgradeLevel) {
+        if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
+            return TowerRed.COST_UPGRADE[Const.UPGRADE_MAX_LEVEL];
+        }
+        return TowerRed.COST_UPGRADE[selectedUpgradeLevel];
+    }
+    get sellProfit() {
+        return TowerRed.PROFIT_SELL_UPGRADE[this.upgradeLevel];
+    }
+    get type() {
+        return TowerRed.ID;
+    }
+    selectTarget(enemies) {
+    }
+}
+_TowerRed_images = new WeakMap(), _TowerRed_position = new WeakMap(), _TowerRed_MathUtilsClass = new WeakMap(), _TowerRed_ProgressBarClass = new WeakMap(), _TowerRed_upgradeLevel = new WeakMap(), _TowerRed_upgrading = new WeakMap(), _TowerRed_progressBar = new WeakMap(), _TowerRed_upgradeProgress = new WeakMap();
+TowerRed.ID = 2;
+TowerRed.PROFIT_SELL_UPGRADE = [80, 110, 190, 420, 1200, 2880];
+TowerRed.COST_UPGRADE = [100, 150, 250, 500, 1300, 3000];
+TowerRed.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
+TowerRed.INFLUENCE_AREA = 240;
+var _TowerYellow_images, _TowerYellow_position, _TowerYellow_MathUtilsClass, _TowerYellow_ProgressBarClass, _TowerYellow_upgradeLevel, _TowerYellow_upgrading, _TowerYellow_progressBar, _TowerYellow_upgradeProgress;
+class TowerYellow extends Tower {
+    constructor(images, position, MathUtilsClass, ProgressBarClass) {
+        super(position);
+        _TowerYellow_images.set(this, void 0);
+        _TowerYellow_position.set(this, void 0);
+        _TowerYellow_MathUtilsClass.set(this, void 0);
+        _TowerYellow_ProgressBarClass.set(this, void 0);
+        _TowerYellow_upgradeLevel.set(this, 0);
+        _TowerYellow_upgrading.set(this, false);
+        _TowerYellow_progressBar.set(this, void 0);
+        _TowerYellow_upgradeProgress.set(this, 0);
+        __classPrivateFieldSet(this, _TowerYellow_images, images, "f");
+        __classPrivateFieldSet(this, _TowerYellow_position, Object.assign({}, position), "f");
+        __classPrivateFieldSet(this, _TowerYellow_MathUtilsClass, MathUtilsClass, "f");
+        __classPrivateFieldSet(this, _TowerYellow_ProgressBarClass, ProgressBarClass, "f");
+        __classPrivateFieldSet(this, _TowerYellow_progressBar, new (__classPrivateFieldGet(this, _TowerYellow_ProgressBarClass, "f"))(__classPrivateFieldGet(this, _TowerYellow_position, "f"), 27, 7), "f");
+    }
+    upgrade() {
+        var _a;
+        if (!__classPrivateFieldGet(this, _TowerYellow_upgrading, "f")) {
+            __classPrivateFieldSet(this, _TowerYellow_upgrading, true, "f");
+            __classPrivateFieldSet(this, _TowerYellow_upgradeLevel, (_a = __classPrivateFieldGet(this, _TowerYellow_upgradeLevel, "f"), _a++, _a), "f");
+        }
+    }
+    _drawUpgradeBackground() {
+        strokeWeight(1);
+        stroke('black');
+        fill(ConstColor.YELLOW);
+        rect(__classPrivateFieldGet(this, _TowerYellow_position, "f").x, __classPrivateFieldGet(this, _TowerYellow_position, "f").y, Const.TILE_SIZE, Const.TILE_SIZE);
+    }
+    draw() {
+        var _a;
+        if (__classPrivateFieldGet(this, _TowerYellow_upgrading, "f")) {
+            this._drawUpgradeBackground();
+            if (!__classPrivateFieldGet(this, _TowerYellow_progressBar, "f").isFullOfProgress()) {
+                __classPrivateFieldSet(this, _TowerYellow_upgradeProgress, (_a = __classPrivateFieldGet(this, _TowerYellow_upgradeProgress, "f"), _a++, _a), "f");
+                __classPrivateFieldGet(this, _TowerYellow_progressBar, "f").setProgress(__classPrivateFieldGet(this, _TowerYellow_upgradeProgress, "f"));
+                __classPrivateFieldGet(this, _TowerYellow_progressBar, "f").draw();
+            }
+            else {
+                __classPrivateFieldSet(this, _TowerYellow_upgrading, false, "f");
+                __classPrivateFieldSet(this, _TowerYellow_upgradeProgress, 0, "f");
+                __classPrivateFieldGet(this, _TowerYellow_progressBar, "f").setProgress(0);
+            }
+        }
+        else {
+            image(__classPrivateFieldGet(this, _TowerYellow_images, "f")[__classPrivateFieldGet(this, _TowerYellow_upgradeLevel, "f")], __classPrivateFieldGet(this, _TowerYellow_position, "f").x, __classPrivateFieldGet(this, _TowerYellow_position, "f").y);
+        }
+    }
+    get influenceArea() {
+        return TowerYellow.UPGRADE_INFLUENCE_AREA[__classPrivateFieldGet(this, _TowerYellow_upgradeLevel, "f")];
+    }
+    getCostWhenUpgradeLevelIs(selectedUpgradeLevel) {
+        if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
+            return TowerYellow.COST_UPGRADE[Const.UPGRADE_MAX_LEVEL];
+        }
+        return TowerYellow.COST_UPGRADE[selectedUpgradeLevel];
+    }
+    get sellProfit() {
+        return TowerYellow.PROFIT_SELL_UPGRADE[this.upgradeLevel];
+    }
+    get type() {
+        return TowerYellow.ID;
+    }
+    selectTarget(enemies) {
+    }
+}
+_TowerYellow_images = new WeakMap(), _TowerYellow_position = new WeakMap(), _TowerYellow_MathUtilsClass = new WeakMap(), _TowerYellow_ProgressBarClass = new WeakMap(), _TowerYellow_upgradeLevel = new WeakMap(), _TowerYellow_upgrading = new WeakMap(), _TowerYellow_progressBar = new WeakMap(), _TowerYellow_upgradeProgress = new WeakMap();
+TowerYellow.ID = 3;
+TowerYellow.PROFIT_SELL_UPGRADE = [680, 2460, 7440, 21920, 66900, 199880];
+TowerYellow.COST_UPGRADE = [700, 2500, 7500, 22000, 67000, 200000];
+TowerYellow.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
+TowerYellow.INFLUENCE_AREA = 290;
+var _Wallet_money;
+class Wallet {
+    constructor(money) {
+        _Wallet_money.set(this, void 0);
+        __classPrivateFieldSet(this, _Wallet_money, money, "f");
+    }
+    get money() {
+        return __classPrivateFieldGet(this, _Wallet_money, "f");
+    }
+    increase(quantity) {
+        __classPrivateFieldSet(this, _Wallet_money, __classPrivateFieldGet(this, _Wallet_money, "f") + quantity, "f");
+    }
+    decrease(quantity) {
+        __classPrivateFieldSet(this, _Wallet_money, __classPrivateFieldGet(this, _Wallet_money, "f") - quantity, "f");
+    }
+    haveMoneyToBuy(towerId, upgradeLevel) {
+        let canBuy = false;
         switch (towerId) {
-            case GreenTower.ID:
-                canBuy = GreenTower.COST_UPGRADE[upgradeLevel] <= this.money;
+            case TowerGreen.ID:
+                canBuy = TowerGreen.COST_UPGRADE[upgradeLevel] <= __classPrivateFieldGet(this, _Wallet_money, "f");
                 break;
-            case RedTower.ID:
-                canBuy = RedTower.COST_UPGRADE[upgradeLevel] <= this.money;
+            case TowerRed.ID:
+                canBuy = TowerRed.COST_UPGRADE[upgradeLevel] <= __classPrivateFieldGet(this, _Wallet_money, "f");
                 break;
-            case YellowTower.ID:
-                canBuy = YellowTower.COST_UPGRADE[upgradeLevel] <= this.money;
+            case TowerYellow.ID:
+                canBuy = TowerYellow.COST_UPGRADE[upgradeLevel] <= __classPrivateFieldGet(this, _Wallet_money, "f");
                 break;
             default:
                 break;
         }
         return canBuy;
-    };
-    return Wallet;
-}());
-var YellowTower = (function () {
-    function YellowTower(images, position, MathUtilsClass, ProgressBarClass) {
-        this.upgradeLevel = 0;
-        this.upgrading = false;
-        this.upgradeProgress = 0;
-        this.images = images;
-        this.position = __assign({}, position);
-        this.MathUtilsClass = MathUtilsClass;
-        this.ProgressBarClass = ProgressBarClass;
-        this.progressBar = new this.ProgressBarClass(this.position, 27, 7);
     }
-    YellowTower.prototype.upgrade = function () {
-        if (!this.upgrading) {
-            this.upgrading = true;
-            this.upgradeLevel++;
-        }
-    };
-    YellowTower.prototype.isNotUpgrading = function () {
-        return !this.upgrading;
-    };
-    YellowTower.prototype.getPosition = function () {
-        return this.position;
-    };
-    YellowTower.prototype.getUpgradeLevel = function () {
-        return this.upgradeLevel;
-    };
-    YellowTower.prototype.isMaxUpgraded = function () {
-        return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1;
-    };
-    YellowTower.prototype._drawUpgradeBackground = function () {
-        strokeWeight(1);
-        stroke('black');
-        fill(ConstColor.YELLOW);
-        rect(this.position.x, this.position.y, Const.TILE_SIZE, Const.TILE_SIZE);
-    };
-    YellowTower.prototype.draw = function () {
-        if (this.upgrading) {
-            this._drawUpgradeBackground();
-            if (!this.progressBar.isFullOfProgress()) {
-                this.upgradeProgress++;
-                this.progressBar.setProgress(this.upgradeProgress);
-                this.progressBar.draw();
-            }
-            else {
-                this.upgrading = false;
-                this.upgradeProgress = 0;
-                this.progressBar.setProgress(0);
-            }
-        }
-        else {
-            image(this.images[this.upgradeLevel], this.position.x, this.position.y);
-        }
-    };
-    YellowTower.prototype.getInfluenceArea = function () {
-        return YellowTower.UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
-    };
-    YellowTower.prototype.getCostWhenUpgradeLevelIs = function (selectedUpgradeLevel) {
-        if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
-            return YellowTower.COST_UPGRADE[Const.UPGRADE_MAX_LEVEL];
-        }
-        return YellowTower.COST_UPGRADE[selectedUpgradeLevel];
-    };
-    YellowTower.prototype.getCost = function () {
-        return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel());
-    };
-    YellowTower.prototype.getNextLevelUpgradeCost = function () {
-        if (this.isMaxUpgraded()) {
-            return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1);
-        }
-        else {
-            return this.getCostWhenUpgradeLevelIs(this.getUpgradeLevel() + 1);
-        }
-    };
-    YellowTower.prototype.getSellProfit = function () {
-        return YellowTower.PROFIT_SELL_UPGRADE[this.getUpgradeLevel()];
-    };
-    YellowTower.prototype.getType = function () {
-        return YellowTower.ID;
-    };
-    YellowTower.prototype.getColor = function () {
-        return ConstColor.YELLOW;
-    };
-    YellowTower.prototype.selectTarget = function (enemies) {
-    };
-    YellowTower.ID = 3;
-    YellowTower.PROFIT_SELL_UPGRADE = [680, 2460, 7440, 21920, 66900, 199880];
-    YellowTower.COST_UPGRADE = [700, 2500, 7500, 22000, 67000, 200000];
-    YellowTower.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
-    YellowTower.INFLUENCE_AREA = 290;
-    return YellowTower;
-}());
-var orders;
-var createEnemyTime;
-var enemies;
-var hud;
-var wallet;
-var score;
-var orangeTiles;
-var mouseOrangeTileOver;
-var wave;
-var waveEnemies;
-var tileImages;
-var greenTowerImages;
-var redTowerImages;
-var yellowTowerImages;
-var startTile;
-var endTile;
-var hudImages;
-var hudIconImages;
-var backgroundImage;
-var enemiesImages;
-var towerGenerator;
-var influenceArea;
-var enemyExplosions;
-var magicFireballExplosions;
-var magicIceballExplosions;
-var lives;
-var gameStatus;
-var waveProgressBar;
-var waveProgressDelay;
-var bossProgressBar;
-var bossProgressDelay;
-var initialEnemiesPosition;
-var allowCreateEnemies;
-var levelDataProvider;
-var magicFireballImage;
-var magicFireballs;
-var magicFireballsCount;
-var magicIceballImage;
-var magicIceballs;
-var magicIceballsCount;
-var magicUFOImage;
-var magicUFOs;
-var magicUFOsCount;
+}
+_Wallet_money = new WeakMap();
+let orders;
+let createEnemyTime;
+let enemies;
+let hud;
+let wallet;
+let score;
+let orangeTiles;
+let mouseOrangeTileOver;
+let wave;
+let waveEnemies;
+let tileImages;
+let greenTowerImages;
+let redTowerImages;
+let yellowTowerImages;
+let startTile;
+let endTile;
+let hudImages;
+let hudIconImages;
+let backgroundImage;
+let enemiesImages;
+let towerGenerator;
+let influenceArea;
+let explosionsEnemy;
+let explosionsMagicFireball;
+let explosionsMagicIceball;
+let lives;
+let gameStatus;
+let waveProgressBar;
+let waveProgressDelay;
+let bossProgressBar;
+let bossProgressDelay;
+let initialEnemiesPosition;
+let allowCreateEnemies;
+let levelDataProvider;
+let magicFireballImage;
+let magicFireballs;
+let magicFireballsCount;
+let magicIceballImage;
+let magicIceballs;
+let magicIceballsCount;
+let magicUFOImage;
+let magicUFOs;
+let magicUFOsCount;
 function preload() {
     greenTowerImages = Resources.greenTower();
     redTowerImages = Resources.redTower();
@@ -1973,9 +1913,8 @@ function preload() {
     magicUFOImage = Resources.magicUFO();
 }
 function disableContextualMenu() {
-    for (var _i = 0, _a = document.getElementsByClassName('p5Canvas'); _i < _a.length; _i++) {
-        var element = _a[_i];
-        element.addEventListener('contextmenu', function (e) {
+    for (let element of document.getElementsByClassName('p5Canvas')) {
+        element.addEventListener('contextmenu', (e) => {
             e.preventDefault();
             mouseClicked();
         });
@@ -1985,15 +1924,15 @@ function setup() {
     disableContextualMenu();
     createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT);
     levelDataProvider = new LevelsDataProvider(LevelsData.data);
-    var levelMap = levelDataProvider.getLevel(1);
+    const levelMap = levelDataProvider.getLevel(1);
     createEnemyTime = 0;
-    towerGenerator = new TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, GreenTower, RedTower, YellowTower, MathUtils, ProgressBar);
-    var tileGenerator = new TileGenerator(levelMap, tileImages, OrangeTile, PathTile, StartTile, EndTile, towerGenerator);
+    towerGenerator = new TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, TowerGreen, TowerRed, TowerYellow, MathUtils, ProgressBar);
+    const tileGenerator = new TileGenerator(levelMap, tileImages, OrangeTile, PathTile, StartTile, EndTile, towerGenerator);
     orangeTiles = tileGenerator.orangeTiles();
     startTile = tileGenerator.startTile();
     endTile = tileGenerator.endTile();
-    var pathTiles = tileGenerator.pathTiles();
-    var path = new Path(startTile, endTile, pathTiles);
+    const pathTiles = tileGenerator.pathTiles();
+    const path = new Path(startTile, endTile, pathTiles);
     orders = path.makeOrders();
     initialEnemiesPosition = path.getEnemiesInitialPosition();
     wallet = new Wallet(tileGenerator.getInitialMoney());
@@ -2008,9 +1947,9 @@ function setup() {
     hud = new Hud(hudImages, hudIconImages, wallet, lives, score, TextProperties, waveProgressBar, bossProgressBar, wave);
     waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
     bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
-    enemyExplosions = [];
-    magicFireballExplosions = [];
-    magicIceballExplosions = [];
+    explosionsEnemy = [];
+    explosionsMagicFireball = [];
+    explosionsMagicIceball = [];
     magicFireballs = [];
     magicFireballsCount = MagicFireball.FIREBALLS;
     magicIceballs = [];
@@ -2023,35 +1962,35 @@ function setup() {
 function keyPressed() {
     switch (keyCode) {
         case Const.KEY_1:
-            hud.selectTower(GreenTower.ID);
+            hud.selectTower(TowerGreen.ID);
             break;
         case Const.KEY_2:
-            hud.selectTower(RedTower.ID);
+            hud.selectTower(TowerRed.ID);
             break;
         case Const.KEY_3:
-            hud.selectTower(YellowTower.ID);
+            hud.selectTower(TowerYellow.ID);
             break;
     }
 }
 function canUpgradeTower(tower) {
-    var canUpgrade = false;
-    if (tower.getUpgradeLevel() < Const.UPGRADE_MAX_LEVEL) {
-        if (wallet.haveMoneyToBuy(tower.getType(), tower.getUpgradeLevel() + 1)) {
+    let canUpgrade = false;
+    if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
+        if (wallet.haveMoneyToBuy(tower.type, tower.upgradeLevel + 1)) {
             canUpgrade = true;
         }
     }
     return canUpgrade;
 }
 function canBuyNewTower(hudSelectedTower) {
-    var canBuy = false;
-    var zeroUpgradeLevel = 0;
+    let canBuy = false;
+    const zeroUpgradeLevel = 0;
     if (wallet.haveMoneyToBuy(hudSelectedTower, zeroUpgradeLevel)) {
         canBuy = true;
     }
     return canBuy;
 }
 function canBuyTower(tower) {
-    var result = false;
+    let result = false;
     if (tower) {
         result = canUpgradeTower(tower);
     }
@@ -2061,14 +2000,14 @@ function canBuyTower(tower) {
     return result;
 }
 function handleHudButtons() {
-    if (hud.isInsideGreenTowerButton(mouseX, mouseY)) {
-        hud.selectTower(GreenTower.ID);
+    if (hud.isInsideTowerGreenButton(mouseX, mouseY)) {
+        hud.selectTower(TowerGreen.ID);
     }
-    if (hud.isInsideRedTowerButton(mouseX, mouseY)) {
-        hud.selectTower(RedTower.ID);
+    if (hud.isInsideTowerRedButton(mouseX, mouseY)) {
+        hud.selectTower(TowerRed.ID);
     }
-    if (hud.isInsideYellowTowerButton(mouseX, mouseY)) {
-        hud.selectTower(YellowTower.ID);
+    if (hud.isInsideTowerYellowButton(mouseX, mouseY)) {
+        hud.selectTower(TowerYellow.ID);
     }
     if (hud.isInsideMagicFireball(mouseX, mouseY)) {
         createNewMagicFireball();
@@ -2081,12 +2020,12 @@ function handleHudButtons() {
     }
 }
 function handleSellTower() {
-    var profit = mouseOrangeTileOver.sellTower();
+    const profit = mouseOrangeTileOver.sellTower();
     wallet.increase(profit);
 }
 function handleBuyTower() {
     if (canBuyTower(mouseOrangeTileOver.getTower())) {
-        var cost = mouseOrangeTileOver.buyTower(hud.getSelectedTower());
+        const cost = mouseOrangeTileOver.buyTower(hud.getSelectedTower());
         wallet.decrease(cost);
     }
 }
@@ -2097,7 +2036,7 @@ function mouseClicked() {
     }
     if (mouseOrangeTileOver !== null) {
         if (mouseButton === RIGHT && mouseOrangeTileOver.hasTower()) {
-            if (mouseOrangeTileOver.getTower().isNotUpgrading()) {
+            if (mouseOrangeTileOver.getTower().notUpgrading) {
                 handleSellTower();
             }
         }
@@ -2107,9 +2046,9 @@ function mouseClicked() {
     }
 }
 function createNewEnemy(waveEnemy, wave) {
-    var endurance = wave * 3 + waveEnemy * 2;
-    var isBoss = false;
-    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, MathUtils.getTwoNumbersFourTimes(waveEnemy)), initialEnemiesPosition, orders, endurance, isBoss, Random, ProgressBar));
+    const endurance = wave * 3 + waveEnemy * 2;
+    const isBoss = false;
+    enemies.push(new Enemy(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemy)), initialEnemiesPosition, orders, endurance, isBoss, Random, ProgressBar));
 }
 function createNewMagicFireball() {
     if (magicFireballsCount > 0) {
@@ -2133,16 +2072,16 @@ function createNewMagicUFO() {
     }
 }
 function createNewBoss(wave) {
-    var endurance = wave * 25;
-    var indexBossInEnemiesImages = 5;
-    var isBoss = true;
-    enemies.push(new Enemy(enemiesImages.slice.apply(enemiesImages, MathUtils.getTwoNumbersFourTimes(indexBossInEnemiesImages)), initialEnemiesPosition, orders, endurance, isBoss, Random, ProgressBar));
+    const endurance = wave * 25;
+    const indexBossInEnemiesImages = 5;
+    const isBoss = true;
+    enemies.push(new Enemy(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(indexBossInEnemiesImages)), initialEnemiesPosition, orders, endurance, isBoss, Random, ProgressBar));
 }
-function handleEnemyExplosions() {
-    var deadEnemies = enemies.filter(function (enemy) { return enemy.isDead(); });
-    deadEnemies.forEach(function (enemy) {
-        enemyExplosions.push(new EnemyExplosion(enemy.getPosition().x, enemy.getPosition().y, ParticleSystem));
-        var $increasedMoney = enemy.getEndurance() * Const.MONEY_MULTIPLICATOR;
+function handleExplosionEnemys() {
+    const deadEnemies = enemies.filter((enemy) => enemy.dead);
+    deadEnemies.forEach((enemy) => {
+        explosionsEnemy.push(new ExplosionEnemy(enemy.position.x, enemy.position.y, ParticleSystem));
+        const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR;
         wallet.increase($increasedMoney);
         score.increase($increasedMoney * 2);
     });
@@ -2164,11 +2103,11 @@ function handleNewEnemyCreation() {
     }
 }
 function removeDeadEnemies() {
-    enemies = enemies.filter(function (enemy) { return enemy.isAlive(); });
+    enemies = enemies.filter((enemy) => enemy.alive);
 }
 function handleWinnerEnemies() {
-    var winnerEnemies = enemies.filter(function (enemy) { return enemy.isWinner(); });
-    winnerEnemies.forEach(function (enemy) {
+    const winnerEnemies = enemies.filter((enemy) => enemy.winner);
+    winnerEnemies.forEach((enemy) => {
         lives--;
         if (lives <= 0) {
             gameStatus = Const.GAME_STATUS_GAME_OVER;
@@ -2179,9 +2118,9 @@ function handleWinnerEnemies() {
 }
 function updateEnemies() {
     handleNewEnemyCreation();
-    handleEnemyExplosions();
+    handleExplosionEnemys();
     removeDeadEnemies();
-    enemies.forEach(function (enemy) {
+    enemies.forEach((enemy) => {
         enemy.update();
     });
     handleWinnerEnemies();
@@ -2190,9 +2129,7 @@ function updateMouseOrangeTileOver() {
     mouseOrangeTileOver = getMouseOrangeTileOver();
 }
 function getMouseOrangeTileOver() {
-    var result = orangeTiles.find(function (orangeTile) {
-        return orangeTile.isInside(mouseX, mouseY);
-    });
+    const result = orangeTiles.find((orangeTile) => orangeTile.isInside(mouseX, mouseY));
     return result ? result : null;
 }
 function updateWaveProgressBar() {
@@ -2226,14 +2163,14 @@ function updateBossProgressBar() {
     }
 }
 function updateMagicFireballs() {
-    magicFireballs.forEach(function (magicFireball) {
+    magicFireballs.forEach((magicFireball) => {
         magicFireball.update();
         checkMagicFireballCollides(magicFireball, enemies);
     });
     removeDeadFireballs();
 }
 function checkMagicFireballCollides(magicFireball, enemies) {
-    enemies.forEach(function (enemy) {
+    enemies.forEach((enemy) => {
         if (magicFireball.checkCollision(enemy)) {
             handleMagicFireballCollision(magicFireball, enemy);
         }
@@ -2242,28 +2179,28 @@ function checkMagicFireballCollides(magicFireball, enemies) {
 function handleMagicFireballCollision(magicFireball, enemy) {
     magicFireball.addDamage(enemy);
     magicFireball.setToIgnoreList(enemy);
-    newMagicFireballExplosion(enemy.getPosition().x, enemy.getPosition().y);
+    newMagicFireballExplosion(enemy.position.x, enemy.position.y);
 }
 function newMagicFireballExplosion(posX, posY) {
-    magicFireballExplosions.push(new MagicFireballExplosion(posX, posY, ParticleSystem));
+    explosionsMagicFireball.push(new ExplosionMagicFireball(posX, posY, ParticleSystem));
 }
 function removeDeadFireballs() {
-    magicFireballs = magicFireballs.filter(function (fireball) { return fireball.isAlive(); });
+    magicFireballs = magicFireballs.filter((fireball) => fireball.isAlive());
 }
 function drawMagicFireballs() {
-    magicFireballs.forEach(function (fireball) {
+    magicFireballs.forEach((fireball) => {
         fireball.draw();
     });
 }
 function updateMagicIceballs() {
-    magicIceballs.forEach(function (iceball) {
+    magicIceballs.forEach((iceball) => {
         iceball.update();
         checkMagicIceballCollides(iceball, enemies);
     });
     removeDeadIceballs();
 }
 function checkMagicIceballCollides(magicIceball, enemies) {
-    enemies.forEach(function (enemy) {
+    enemies.forEach((enemy) => {
         if (magicIceball.checkCollision(enemy)) {
             handleMagicIceballCollision(magicIceball, enemy);
         }
@@ -2272,45 +2209,43 @@ function checkMagicIceballCollides(magicIceball, enemies) {
 function handleMagicIceballCollision(magicIceball, enemy) {
     magicIceball.freeze(enemy);
     magicIceball.setToIgnoreList(enemy);
-    newMagicIceballExplosion(enemy.getPosition().x, enemy.getPosition().y);
+    newMagicIceballExplosion(enemy.position.x, enemy.position.y);
 }
 function newMagicIceballExplosion(posX, posY) {
-    magicIceballExplosions.push(new MagicIceballExplosion(posX, posY, ParticleSystem));
+    explosionsMagicIceball.push(new ExplosionMagicIceball(posX, posY, ParticleSystem));
 }
 function removeDeadIceballs() {
-    magicIceballs = magicIceballs.filter(function (iceball) { return iceball.isAlive(); });
+    magicIceballs = magicIceballs.filter((iceball) => iceball.isAlive());
 }
 function drawMagicIceballs() {
-    magicIceballs.forEach(function (iceball) {
+    magicIceballs.forEach((iceball) => {
         iceball.draw();
     });
 }
 function updateMagicUFOs() {
-    magicUFOs.forEach(function (ufo) {
+    magicUFOs.forEach((ufo) => {
         ufo.update();
     });
 }
 function drawMagicUFOs() {
-    magicUFOs.forEach(function (ufo) {
+    magicUFOs.forEach((ufo) => {
         ufo.draw();
     });
 }
 function removeDeadExplosions() {
-    enemyExplosions = enemyExplosions.filter(function (enemyExplosion) {
-        return enemyExplosion.isActive();
-    });
-    magicFireballExplosions = magicFireballExplosions.filter(function (magicFireballExplosion) { return magicFireballExplosion.isActive(); });
-    magicIceballExplosions = magicIceballExplosions.filter(function (magicIceballExplosion) { return magicIceballExplosion.isActive(); });
+    explosionsEnemy = explosionsEnemy.filter((e) => e.isActive());
+    explosionsMagicFireball = explosionsMagicFireball.filter((e) => e.isActive());
+    explosionsMagicIceball = explosionsMagicIceball.filter((e) => e.isActive());
 }
 function updateExplosions() {
-    enemyExplosions.forEach(function (enemyExplosion) {
-        enemyExplosion.update();
+    explosionsEnemy.forEach((e) => {
+        e.update();
     });
-    magicFireballExplosions.forEach(function (magicFireballExplosion) {
-        magicFireballExplosion.update();
+    explosionsMagicFireball.forEach((e) => {
+        e.update();
     });
-    magicIceballExplosions.forEach(function (magicIceballExplosion) {
-        magicIceballExplosion.update();
+    explosionsMagicIceball.forEach((e) => {
+        e.update();
     });
 }
 function draw() {
@@ -2328,24 +2263,24 @@ function draw() {
     image(backgroundImage, 0, Hud.HEIGHT);
     startTile.draw();
     endTile.draw();
-    orangeTiles.forEach(function (orangeTile) {
+    orangeTiles.forEach((orangeTile) => {
         orangeTile.selectTarget(enemies);
         orangeTile.drawTile();
     });
-    orangeTiles.forEach(function (orangeTile) {
+    orangeTiles.forEach((orangeTile) => {
         orangeTile.drawTower();
     });
     hud.draw();
-    var canBuySelectedTower = canBuyNewTower(hud.getSelectedTower());
-    var canBuyGreenTower = canBuyNewTower(GreenTower.ID);
-    var canBuyRedTower = canBuyNewTower(RedTower.ID);
-    var canBuyYellowTower = canBuyNewTower(YellowTower.ID);
+    const canBuySelectedTower = canBuyNewTower(hud.getSelectedTower());
+    const canBuyTowerGreen = canBuyNewTower(TowerGreen.ID);
+    const canBuyTowerRed = canBuyNewTower(TowerRed.ID);
+    const canBuyTowerYellow = canBuyNewTower(TowerYellow.ID);
     if (mouseOrangeTileOver !== null) {
         if (mouseOrangeTileOver.hasTower()) {
-            var tileTower = mouseOrangeTileOver.getTower();
+            const tileTower = mouseOrangeTileOver.getTower();
             hud.selectTowerHudType(tileTower);
-            if (!tileTower.isMaxUpgraded()) {
-                var canUpgrade = wallet.haveMoneyToBuy(tileTower.getType(), tileTower.getUpgradeLevel() + 1);
+            if (!tileTower.maxUpgraded) {
+                const canUpgrade = wallet.haveMoneyToBuy(tileTower.type, tileTower.upgradeLevel + 1);
                 hud.viewUpgradeCost(tileTower, canUpgrade);
                 influenceArea.drawTowerInfluenceArea(tileTower, canUpgrade);
             }
@@ -2354,18 +2289,18 @@ function draw() {
         else {
             influenceArea.drawHudTowerInfluenceArea(hud.getSelectedTower(), mouseOrangeTileOver.getPosition(), canBuySelectedTower);
             hud.setType(Hud.NORMAL);
-            hud.setCanBuy(canBuyGreenTower, canBuyRedTower, canBuyYellowTower);
+            hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow);
             hud.hideUpgradeCost();
             hud.hideSellProfit();
         }
     }
     else {
         hud.setType(Hud.NORMAL);
-        hud.setCanBuy(canBuyGreenTower, canBuyRedTower, canBuyYellowTower);
+        hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow);
         hud.hideUpgradeCost();
         hud.hideSellProfit();
     }
-    enemies.forEach(function (enemy) {
+    enemies.forEach((enemy) => {
         enemy.draw();
     });
     drawMagicFireballs();
