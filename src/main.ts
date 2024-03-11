@@ -20,8 +20,8 @@ import { Wallet } from './Wallet'
 import { Score } from './Score'
 import { InfluenceArea } from './InfluenceArea'
 import { ExplosionEnemy } from './ExplosionEnemy'
-import { MagicFireballExplosion } from './ExplosionMagicFireball'
-import { MagicIceballExplosion } from './ExplosionagicIceball'
+import { ExplosionMagicFireball } from './ExplosionMagicFireball'
+import { ExplosionMagicIceball } from './ExplosionMagicIceball'
 import { TextProperties } from './TextProperties'
 import { Image } from 'p5'
 import { ParticleSystem } from './ParticleSystem'
@@ -54,9 +54,9 @@ let backgroundImage: Image
 let enemiesImages: Image[]
 let towerGenerator: TowerGenerator
 let influenceArea: InfluenceArea
-let enemyExplosions: ExplosionEnemy[]
-let magicFireballExplosions: MagicFireballExplosion[]
-let magicIceballExplosions: MagicIceballExplosion[]
+let explosionsEnemy: ExplosionEnemy[]
+let explosionsMagicFireball: ExplosionMagicFireball[]
+let explosionsMagicIceball: ExplosionMagicIceball[]
 let lives: number
 let gameStatus: number
 let waveProgressBar: ProgressBar
@@ -167,9 +167,9 @@ function setup() {
   waveProgressDelay = Const.WAVE_PROGRESS_DELAY
   bossProgressDelay = Const.BOSS_PROGRESS_DELAY
 
-  enemyExplosions = []
-  magicFireballExplosions = []
-  magicIceballExplosions = []
+  explosionsEnemy = []
+  explosionsMagicFireball = []
+  explosionsMagicIceball = []
 
   magicFireballs = []
   magicFireballsCount = MagicFireball.FIREBALLS
@@ -366,7 +366,7 @@ function createNewBoss(wave: number) {
 function handleExplosionEnemys() {
   const deadEnemies: Enemy[] = enemies.filter((enemy) => enemy.dead)
   deadEnemies.forEach((enemy) => {
-    enemyExplosions.push(
+    explosionsEnemy.push(
       new ExplosionEnemy(enemy.position.x, enemy.position.y, ParticleSystem),
     )
     //increase money and score
@@ -497,8 +497,8 @@ function handleMagicFireballCollision(
 }
 
 function newMagicFireballExplosion(posX: number, posY: number) {
-  magicFireballExplosions.push(
-    new MagicFireballExplosion(posX, posY, ParticleSystem),
+  explosionsMagicFireball.push(
+    new ExplosionMagicFireball(posX, posY, ParticleSystem),
   )
 }
 
@@ -538,8 +538,8 @@ function handleMagicIceballCollision(magicIceball: MagicIceball, enemy: Enemy) {
 }
 
 function newMagicIceballExplosion(posX: number, posY: number) {
-  magicIceballExplosions.push(
-    new MagicIceballExplosion(posX, posY, ParticleSystem),
+  explosionsMagicIceball.push(
+    new ExplosionMagicIceball(posX, posY, ParticleSystem),
   )
 }
 
@@ -566,26 +566,20 @@ function drawMagicUFOs() {
 }
 
 function removeDeadExplosions() {
-  enemyExplosions = enemyExplosions.filter((enemyExplosion) =>
-    enemyExplosion.isActive(),
-  )
-  magicFireballExplosions = magicFireballExplosions.filter(
-    (magicFireballExplosion) => magicFireballExplosion.isActive(),
-  )
-  magicIceballExplosions = magicIceballExplosions.filter(
-    (magicIceballExplosion) => magicIceballExplosion.isActive(),
-  )
+  explosionsEnemy = explosionsEnemy.filter((e) => e.isActive())
+  explosionsMagicFireball = explosionsMagicFireball.filter((e) => e.isActive())
+  explosionsMagicIceball = explosionsMagicIceball.filter((e) => e.isActive())
 }
 
 function updateExplosions() {
-  enemyExplosions.forEach((enemyExplosion) => {
-    enemyExplosion.update()
+  explosionsEnemy.forEach((e) => {
+    e.update()
   })
-  magicFireballExplosions.forEach((magicFireballExplosion) => {
-    magicFireballExplosion.update()
+  explosionsMagicFireball.forEach((e) => {
+    e.update()
   })
-  magicIceballExplosions.forEach((magicIceballExplosion) => {
-    magicIceballExplosion.update()
+  explosionsMagicIceball.forEach((e) => {
+    e.update()
   })
 }
 

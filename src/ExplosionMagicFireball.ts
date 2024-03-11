@@ -3,7 +3,7 @@ import { RGBType } from './types'
 import { Const } from './Const'
 import { Explosion } from './Explosion'
 
-export class MagicFireballExplosion extends Explosion {
+export class ExplosionMagicFireball extends Explosion {
   static SIZE = 6
   static COLOR = [202, 191, 24] as RGBType
 
@@ -18,8 +18,8 @@ export class MagicFireballExplosion extends Explosion {
         this.x + Const.EXPLOSION_OFFSET,
         this.y + Const.EXPLOSION_OFFSET,
       ),
-      MagicFireballExplosion.SIZE,
-      MagicFireballExplosion.COLOR,
+      ExplosionMagicFireball.SIZE,
+      ExplosionMagicFireball.COLOR,
     )
   }
 }
