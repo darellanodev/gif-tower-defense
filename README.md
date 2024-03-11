@@ -14,6 +14,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 ## Execute the unit tests
 
 - Execute `run_tests.sh` or `npm test` command
+- Also you can run `run_tests_watch.sh` or `npm run testw` command to use jest in watch mode
 
 ## Build to web
 
@@ -50,19 +51,23 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Speed button
 - [ ] Level editor
 
+- [ ] Bug: when Game Over towers continue increasing damage bar of enemies.
+
 - [ ] Improve code
+  - [x] create parent Magic class
+    - [x] instead of three types of speed, due that are equal, use magicspeed in the Magic parent class. And I will can move the update method to the Magic parent class
+  - [x] rename xxxxxxxExplosion to Explosionxxxxxxx, and then create an Explosion parent class.
   - [x] Interfaces for enemies positions
-  - [x] Refactor to use Position interface in other parts of the code
   - [x] Instead this.Const, use Const directly to access to their constants
-  - [ ] Class properties (static properties) to put constants related to their classes
-  - [ ] Classes inheritance
+  - [x] Classes inheritance
+  - [x] Getters
+  - [x] Class properties (static properties) to put constants related to their classes
+  - [x] Use static property for store createdEnemies and then use it to generate ID with a getter when creating a new enemy.
+  - [ ] Refactor to use Position interface in other parts of the code (for example, explosions)
+  - [ ] Private methods (some of them now are prefixed with a -)
+  - [ ] Public/Private properties
   - [ ] Class methods (static methods) to instantiate objects
-  - [ ] Getters and Setters
-    - [ ] Hud.ts: canUpgrade -> setter?
-  - [ ] Public fields
-  - [ ] Use static property for store createdEnemies and then use it to generate ID with a getter when creating a new enemy.
-  - [ ] Private properties prefixed with underscore character?
-  - [ ] Use named tuples?
+  - [ ] Setters
 
 ## Resources
 
