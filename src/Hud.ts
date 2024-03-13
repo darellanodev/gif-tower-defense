@@ -173,7 +173,7 @@ export class Hud {
       case Hud.NORMAL:
         image(this.#hudImages[Hud.NORMAL], 0, 0)
         this._drawTowerIcons()
-        this._drawSelectedItem()
+        this.#drawSelectedItem()
         break
 
       case Hud.UPGRADING:
@@ -191,16 +191,16 @@ export class Hud {
     // draw texts
     this.#TextPropertiesClass.setForHudData()
 
-    this._drawMoney()
-    this._drawLives()
-    this._drawScore()
-    this._drawLevelTitle()
-    this._drawWave()
-    this._drawUpgradeCost()
-    this._drawSellProfit()
-    this._drawMagicUFO()
-    this._drawMagicFireball()
-    this._drawMagicIceball()
+    this.#drawMoney()
+    this.#drawLives()
+    this.#drawScore()
+    this.#drawLevelTitle()
+    this.#drawWave()
+    this.#drawUpgradeCost()
+    this.#drawSellProfit()
+    this.#drawMagicUFO()
+    this.#drawMagicFireball()
+    this.#drawMagicIceball()
 
     if (this.#hudType === Hud.NORMAL) {
       this._drawNewTowerPrices()
@@ -215,6 +215,7 @@ export class Hud {
     this.#lives = lives
   }
 
+  // can't be private with # because it needs to access class public static properties
   _drawTowerIcons() {
     let greenIconImgPos = Hud.ICON_GREEN_TOWER_OFF
     let redIconImgPos = Hud.ICON_RED_TOWER_OFF
@@ -235,11 +236,11 @@ export class Hud {
     image(this.#hudIconImages[yellowIconImgPos], 226, 38)
   }
 
-  _drawMoney() {
+  #drawMoney() {
     text(this.#wallet.money, 445, 48)
   }
 
-  _drawUpgradeCost() {
+  #drawUpgradeCost() {
     if (this.#upgradeCost !== null) {
       if (!this.#canUpgrade) {
         fill('gray')
@@ -250,37 +251,37 @@ export class Hud {
     }
   }
 
-  _drawMagicUFO() {
+  #drawMagicUFO() {
     text(this.#magicUFOs, 592, 74)
   }
 
-  _drawMagicFireball() {
+  #drawMagicFireball() {
     text(this.#magicfireballs, 680, 74)
   }
 
-  _drawMagicIceball() {
+  #drawMagicIceball() {
     text(this.#magiciceballs, 769, 74)
   }
 
-  _drawSellProfit() {
+  #drawSellProfit() {
     if (this.#sellProfit !== null) {
       text(this.#sellProfit, 182, 72)
     }
   }
 
-  _drawLives() {
+  #drawLives() {
     text(this.#lives, 390, 48)
   }
 
-  _drawScore() {
+  #drawScore() {
     text(this.#score.getPrintScore(), 404, 73)
   }
 
-  _drawLevelTitle() {
+  #drawLevelTitle() {
     text('Serpent by Ocliboy', 130, 18)
   }
 
-  _drawWave() {
+  #drawWave() {
     text(`wave ${this.#wave}`, 403, 13)
   }
 
@@ -315,7 +316,7 @@ export class Hud {
     this._drawTowerYellowPrice()
   }
 
-  _drawSelectedItem() {
+  #drawSelectedItem() {
     strokeWeight(3)
     stroke(255, 204, 0)
     noFill()
