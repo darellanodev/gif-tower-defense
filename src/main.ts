@@ -304,8 +304,7 @@ function createNewMagicFireball() {
     magicFireballs.push(
       new MagicFireball(
         magicFireballImage,
-        initialEnemiesPosition.x,
-        initialEnemiesPosition.y,
+        { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
         orders,
       ),
     )
@@ -319,8 +318,7 @@ function createNewMagicIceball() {
     magicIceballs.push(
       new MagicIceball(
         magicIceballImage,
-        initialEnemiesPosition.x,
-        initialEnemiesPosition.y,
+        { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
         orders,
       ),
     )
@@ -334,8 +332,7 @@ function createNewMagicUFO() {
     magicUFOs.push(
       new MagicUFO(
         magicUFOImage,
-        initialEnemiesPosition.x,
-        initialEnemiesPosition.y,
+        { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
         orders,
       ),
     )

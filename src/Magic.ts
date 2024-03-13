@@ -1,14 +1,13 @@
 import { Const } from './Const'
 import { ConstDirection } from './ConstDirection'
 import { Enemy } from './Enemy'
+import { Position } from './types'
 
 export class Magic {
   static SPEED = 10
 
-  startX: number
-  startY: number
-  x: number
-  y: number
+  startPosition: Position
+  position: Position
   #orders: number[]
 
   #currentDirection: number
@@ -17,13 +16,11 @@ export class Magic {
   #touchedEnemiesIds: number[]
   #status: number
 
-  constructor(startX: number, startY: number, orders: number[]) {
-    this.startX = startX
-    this.startY = startY
+  constructor(startPosition: Position, orders: number[]) {
+    this.startPosition = { ...startPosition }
     this.#orders = orders
 
-    this.x = this.startX
-    this.y = this.startY
+    this.position = { ...startPosition }
 
     this.#currentDirection = this.#orders[this.#indexOrder]
 
@@ -34,19 +31,19 @@ export class Magic {
   update() {
     switch (this.#currentDirection) {
       case ConstDirection.LEFT:
-        this.x = this.x - Magic.SPEED
+        this.position.x = this.position.x - Magic.SPEED
         break
 
       case ConstDirection.RIGHT:
-        this.x = this.x + Magic.SPEED
+        this.position.x = this.position.x + Magic.SPEED
         break
 
       case ConstDirection.UP:
-        this.y = this.y - Magic.SPEED
+        this.position.y = this.position.y - Magic.SPEED
         break
 
       case ConstDirection.DOWN:
-        this.y = this.y + Magic.SPEED
+        this.position.y = this.position.y + Magic.SPEED
         break
     }
 
@@ -94,10 +91,10 @@ export class Magic {
   }
 
   getX() {
-    return this.x
+    return this.position.x
   }
 
   getY() {
-    return this.y
+    return this.position.y
   }
 }
