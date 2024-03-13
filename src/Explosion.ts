@@ -1,18 +1,17 @@
 import { ParticleSystem } from './ParticleSystem'
+import { Position } from './types'
 
 export class Explosion {
   static MAX_EMIT_TIME = 5
 
-  x: number
-  y: number
+  position: Position
 
   #emisionTime: number = 0
   #finished: boolean = false
 
   particleSystem: ParticleSystem
-  constructor(x: number, y: number) {
-    this.x = x
-    this.y = y
+  constructor(position: Position) {
+    this.position = { ...position }
   }
 
   isActive() {

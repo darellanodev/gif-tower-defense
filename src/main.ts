@@ -367,7 +367,10 @@ function handleExplosionEnemys() {
   const deadEnemies: Enemy[] = enemies.filter((enemy) => enemy.dead)
   deadEnemies.forEach((enemy) => {
     explosionsEnemy.push(
-      new ExplosionEnemy(enemy.position.x, enemy.position.y, ParticleSystem),
+      new ExplosionEnemy(
+        { x: enemy.position.x, y: enemy.position.y },
+        ParticleSystem,
+      ),
     )
     //increase money and score
     const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR
@@ -498,7 +501,7 @@ function handleMagicFireballCollision(
 
 function newMagicFireballExplosion(posX: number, posY: number) {
   explosionsMagicFireball.push(
-    new ExplosionMagicFireball(posX, posY, ParticleSystem),
+    new ExplosionMagicFireball({ x: posX, y: posY }, ParticleSystem),
   )
 }
 
@@ -539,7 +542,7 @@ function handleMagicIceballCollision(magicIceball: MagicIceball, enemy: Enemy) {
 
 function newMagicIceballExplosion(posX: number, posY: number) {
   explosionsMagicIceball.push(
-    new ExplosionMagicIceball(posX, posY, ParticleSystem),
+    new ExplosionMagicIceball({ x: posX, y: posY }, ParticleSystem),
   )
 }
 

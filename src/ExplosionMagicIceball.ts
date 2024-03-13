@@ -1,5 +1,5 @@
 import { ParticleSystem } from './ParticleSystem'
-import { RGBType } from './types'
+import { Position, RGBType } from './types'
 import { Const } from './Const'
 import { Explosion } from './Explosion'
 
@@ -7,16 +7,12 @@ export class ExplosionMagicIceball extends Explosion {
   static SIZE = 6
   static COLOR = [0, 65, 255] as RGBType
 
-  constructor(
-    x: number,
-    y: number,
-    ParticleSystemClass: typeof ParticleSystem,
-  ) {
-    super(x, y)
+  constructor(position: Position, ParticleSystemClass: typeof ParticleSystem) {
+    super(position)
     this.particleSystem = new ParticleSystemClass(
       createVector(
-        this.x + Const.EXPLOSION_OFFSET,
-        this.y + Const.EXPLOSION_OFFSET,
+        this.position.x + Const.EXPLOSION_OFFSET,
+        this.position.y + Const.EXPLOSION_OFFSET,
       ),
       ExplosionMagicIceball.SIZE,
       ExplosionMagicIceball.COLOR,
