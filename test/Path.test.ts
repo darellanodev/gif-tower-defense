@@ -48,9 +48,9 @@ const tileGenerator = new TileGenerator(
   EndTile,
   towerGenerator,
 )
-const pathTiles = tileGenerator.pathTiles()
-const startTile = tileGenerator.startTile()
-const endTile = tileGenerator.endTile()
+const pathTiles = tileGenerator.pathTiles
+const startTile = tileGenerator.startTile
+const endTile = tileGenerator.endTile
 
 const path = new Path(startTile, endTile, pathTiles)
 
@@ -324,9 +324,9 @@ describe('invalid map', () => {
       EndTile,
       towerGenerator,
     )
-    const pathTiles = tileGenerator.pathTiles()
-    const startTile = tileGenerator.startTile()
-    const endTile = tileGenerator.endTile()
+    const pathTiles = tileGenerator.pathTiles
+    const startTile = tileGenerator.startTile
+    const endTile = tileGenerator.endTile
 
     const path = new Path(startTile, endTile, pathTiles)
 

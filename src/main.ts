@@ -130,11 +130,11 @@ function setup() {
     EndTile,
     towerGenerator,
   )
-  orangeTiles = tileGenerator.orangeTiles()
-  startTile = tileGenerator.startTile()
+  orangeTiles = tileGenerator.orangeTiles
+  startTile = tileGenerator.startTile
 
-  endTile = tileGenerator.endTile()
-  const pathTiles = tileGenerator.pathTiles()
+  endTile = tileGenerator.endTile
+  const pathTiles = tileGenerator.pathTiles
 
   const path = new Path(startTile, endTile, pathTiles)
   orders = path.makeOrders()

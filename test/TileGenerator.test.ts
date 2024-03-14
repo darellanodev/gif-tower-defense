@@ -66,7 +66,7 @@ test('TileGenerator generate orange tiles', () => {
     towerGenerator,
   )
 
-  const result = tileGenerator.orangeTiles()
+  const result = tileGenerator.orangeTiles
 
   expect(result).toHaveLength(71)
 })
@@ -83,7 +83,7 @@ test('TileGenerator generate path tiles', () => {
     towerGenerator,
   )
 
-  const result = tileGenerator.pathTiles()
+  const result = tileGenerator.pathTiles
 
   expect(result).toHaveLength(87)
 })
@@ -100,7 +100,7 @@ test('TileGenerator generate start tile', () => {
     towerGenerator,
   )
 
-  const result = tileGenerator.startTile()
+  const result = tileGenerator.startTile
 
   expect(result).toBeInstanceOf(Object)
 })
@@ -117,7 +117,7 @@ test('TileGenerator generate end tile', () => {
     towerGenerator,
   )
 
-  const result = tileGenerator.endTile()
+  const result = tileGenerator.endTile
 
   expect(result).toBeInstanceOf(Object)
 })

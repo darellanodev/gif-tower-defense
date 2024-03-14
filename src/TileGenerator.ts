@@ -146,19 +146,19 @@ export class TileGenerator {
     return resultTiles
   }
 
-  orangeTiles() {
+  get orangeTiles() {
     return this._extractTiles('0')
   }
 
-  pathTiles() {
+  get pathTiles() {
     return this._extractTiles('1')
   }
 
-  startTile() {
+  get startTile() {
     return this._extractTiles('x')[0]
   }
 
-  endTile() {
+  get endTile() {
     return this._extractTiles('y')[0]
   }
 
