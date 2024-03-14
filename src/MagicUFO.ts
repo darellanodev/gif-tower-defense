@@ -1,5 +1,4 @@
 import { Image } from 'p5'
-import { Const } from './Const'
 import { Magic } from './Magic'
 import { Position } from './types'
 

@@ -1,5 +1,4 @@
 import { TileGenerator } from '../src/TileGenerator'
-import { Const } from '../src/Const'
 import { ConstTest } from '../src/ConstTest'
 import { TilePath } from '../src/TilePath'
 import { TileStart } from '../src/TileStart'

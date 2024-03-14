@@ -1,6 +1,5 @@
 import { ConstTest } from '../src/ConstTest'
 import { ConstDirection } from '../src/ConstDirection'
-import { Const } from '../src/Const'
 import { Path } from '../src/Path'
 import { TilePath } from '../src/TilePath'
 import { TileStart } from '../src/TileStart'

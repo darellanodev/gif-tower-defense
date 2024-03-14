@@ -1,4 +1,3 @@
-import { Const } from '../src/Const'
 import { ConstDirection } from '../src/ConstDirection'
 import { ConstTest } from '../src/ConstTest'
 import { LevelsDataProvider } from '../src/LevelsDataProvider'
