@@ -1,3 +1,14 @@
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
+};
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+};
 class Const {
 }
 Const.TILE_SIZE = 50;
@@ -42,44 +53,15 @@ class Debug {
         text(`x:${mousePosX}, y:${mousePosY}`, 260, 18);
     }
 }
-var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
-};
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _EndTile_img, _EndTile_position;
-class EndTile {
-    constructor(img, position) {
-        _EndTile_img.set(this, void 0);
-        _EndTile_position.set(this, void 0);
-        __classPrivateFieldSet(this, _EndTile_img, img, "f");
-        __classPrivateFieldSet(this, _EndTile_position, Object.assign({}, position), "f");
-    }
-    draw() {
-        image(__classPrivateFieldGet(this, _EndTile_img, "f"), __classPrivateFieldGet(this, _EndTile_position, "f").x, __classPrivateFieldGet(this, _EndTile_position, "f").y);
-    }
-    get position() {
-        return __classPrivateFieldGet(this, _EndTile_position, "f");
-    }
-}
-_EndTile_img = new WeakMap(), _EndTile_position = new WeakMap();
-var _Enemy_instances, _a, _Enemy_images, _Enemy_startPosition, _Enemy_orders, _Enemy_endurance, _Enemy_isBoss, _Enemy_RandomClass, _Enemy_ProgressBarClass, _Enemy_id, _Enemy_imgIndex, _Enemy_imgIndexBeforeEyesClosed, _Enemy_eyesSequence, _Enemy_healthBar, _Enemy_status, _Enemy_damage, _Enemy_position, _Enemy_currentDirection, _Enemy_moveCount, _Enemy_indexOrder, _Enemy_changeEyesTime, _Enemy_indexEyesSecuence, _Enemy_closeEyesTime, _Enemy_extendClosedEyesTime, _Enemy_randomCloseEyes, _Enemy_winned, _Enemy_freezed, _Enemy_freezedTime, _Enemy_reinitEnemy, _Enemy_hasOpenEyes, _Enemy_moveEyesInSequence, _Enemy_setRandomTimeMaxForClosingEyes, _Enemy_changeEyes;
+var _Enemy_instances, _a, _Enemy_images, _Enemy_startPosition, _Enemy_orders, _Enemy_endurance, _Enemy_isBoss, _Enemy_id, _Enemy_imgIndex, _Enemy_imgIndexBeforeEyesClosed, _Enemy_eyesSequence, _Enemy_healthBar, _Enemy_status, _Enemy_damage, _Enemy_position, _Enemy_currentDirection, _Enemy_moveCount, _Enemy_indexOrder, _Enemy_changeEyesTime, _Enemy_indexEyesSecuence, _Enemy_closeEyesTime, _Enemy_extendClosedEyesTime, _Enemy_randomCloseEyes, _Enemy_winned, _Enemy_freezed, _Enemy_freezedTime, _Enemy_reinitEnemy, _Enemy_hasOpenEyes, _Enemy_moveEyesInSequence, _Enemy_setRandomTimeMaxForClosingEyes, _Enemy_changeEyes;
 class Enemy {
-    constructor(images, startPosition, orders, endurance, isBoss, RandomClass, ProgressBarClass) {
+    constructor(images, startPosition, orders, endurance, isBoss) {
         _Enemy_instances.add(this);
         _Enemy_images.set(this, void 0);
         _Enemy_startPosition.set(this, void 0);
         _Enemy_orders.set(this, void 0);
         _Enemy_endurance.set(this, void 0);
         _Enemy_isBoss.set(this, void 0);
-        _Enemy_RandomClass.set(this, void 0);
-        _Enemy_ProgressBarClass.set(this, void 0);
         _Enemy_id.set(this, void 0);
         _Enemy_imgIndex.set(this, void 0);
         _Enemy_imgIndexBeforeEyesClosed.set(this, void 0);
@@ -104,8 +86,6 @@ class Enemy {
         __classPrivateFieldSet(this, _Enemy_orders, orders, "f");
         __classPrivateFieldSet(this, _Enemy_endurance, endurance, "f");
         __classPrivateFieldSet(this, _Enemy_isBoss, isBoss, "f");
-        __classPrivateFieldSet(this, _Enemy_RandomClass, RandomClass, "f");
-        __classPrivateFieldSet(this, _Enemy_ProgressBarClass, ProgressBarClass, "f");
         _a.numberOfEnemies++;
         __classPrivateFieldSet(this, _Enemy_id, _a.numberOfEnemies, "f");
         __classPrivateFieldSet(this, _Enemy_eyesSequence, [
@@ -114,7 +94,7 @@ class Enemy {
             _a.EYES_RIGHT,
             _a.EYES_CENTER,
         ], "f");
-        __classPrivateFieldSet(this, _Enemy_healthBar, new (__classPrivateFieldGet(this, _Enemy_ProgressBarClass, "f"))({ x: 200, y: 200 }, ProgressBar.WIDTH, ProgressBar.HEIGHT), "f");
+        __classPrivateFieldSet(this, _Enemy_healthBar, new ProgressBar({ x: 200, y: 200 }, ProgressBar.WIDTH, ProgressBar.HEIGHT), "f");
         __classPrivateFieldSet(this, _Enemy_position, Object.assign({}, __classPrivateFieldGet(this, _Enemy_startPosition, "f")), "f");
         __classPrivateFieldSet(this, _Enemy_currentDirection, __classPrivateFieldGet(this, _Enemy_orders, "f")[__classPrivateFieldGet(this, _Enemy_indexOrder, "f")], "f");
         __classPrivateFieldSet(this, _Enemy_imgIndex, _a.EYES_CENTER, "f");
@@ -204,7 +184,7 @@ class Enemy {
         __classPrivateFieldGet(this, _Enemy_healthBar, "f").draw();
     }
 }
-_a = Enemy, _Enemy_images = new WeakMap(), _Enemy_startPosition = new WeakMap(), _Enemy_orders = new WeakMap(), _Enemy_endurance = new WeakMap(), _Enemy_isBoss = new WeakMap(), _Enemy_RandomClass = new WeakMap(), _Enemy_ProgressBarClass = new WeakMap(), _Enemy_id = new WeakMap(), _Enemy_imgIndex = new WeakMap(), _Enemy_imgIndexBeforeEyesClosed = new WeakMap(), _Enemy_eyesSequence = new WeakMap(), _Enemy_healthBar = new WeakMap(), _Enemy_status = new WeakMap(), _Enemy_damage = new WeakMap(), _Enemy_position = new WeakMap(), _Enemy_currentDirection = new WeakMap(), _Enemy_moveCount = new WeakMap(), _Enemy_indexOrder = new WeakMap(), _Enemy_changeEyesTime = new WeakMap(), _Enemy_indexEyesSecuence = new WeakMap(), _Enemy_closeEyesTime = new WeakMap(), _Enemy_extendClosedEyesTime = new WeakMap(), _Enemy_randomCloseEyes = new WeakMap(), _Enemy_winned = new WeakMap(), _Enemy_freezed = new WeakMap(), _Enemy_freezedTime = new WeakMap(), _Enemy_instances = new WeakSet(), _Enemy_reinitEnemy = function _Enemy_reinitEnemy() {
+_a = Enemy, _Enemy_images = new WeakMap(), _Enemy_startPosition = new WeakMap(), _Enemy_orders = new WeakMap(), _Enemy_endurance = new WeakMap(), _Enemy_isBoss = new WeakMap(), _Enemy_id = new WeakMap(), _Enemy_imgIndex = new WeakMap(), _Enemy_imgIndexBeforeEyesClosed = new WeakMap(), _Enemy_eyesSequence = new WeakMap(), _Enemy_healthBar = new WeakMap(), _Enemy_status = new WeakMap(), _Enemy_damage = new WeakMap(), _Enemy_position = new WeakMap(), _Enemy_currentDirection = new WeakMap(), _Enemy_moveCount = new WeakMap(), _Enemy_indexOrder = new WeakMap(), _Enemy_changeEyesTime = new WeakMap(), _Enemy_indexEyesSecuence = new WeakMap(), _Enemy_closeEyesTime = new WeakMap(), _Enemy_extendClosedEyesTime = new WeakMap(), _Enemy_randomCloseEyes = new WeakMap(), _Enemy_winned = new WeakMap(), _Enemy_freezed = new WeakMap(), _Enemy_freezedTime = new WeakMap(), _Enemy_instances = new WeakSet(), _Enemy_reinitEnemy = function _Enemy_reinitEnemy() {
     __classPrivateFieldSet(this, _Enemy_winned, true, "f");
     __classPrivateFieldSet(this, _Enemy_moveCount, 0, "f");
     __classPrivateFieldSet(this, _Enemy_indexOrder, 0, "f");
@@ -229,7 +209,7 @@ _a = Enemy, _Enemy_images = new WeakMap(), _Enemy_startPosition = new WeakMap(),
         __classPrivateFieldSet(this, _Enemy_imgIndex, __classPrivateFieldGet(this, _Enemy_eyesSequence, "f")[__classPrivateFieldGet(this, _Enemy_indexEyesSecuence, "f")], "f");
     }
 }, _Enemy_setRandomTimeMaxForClosingEyes = function _Enemy_setRandomTimeMaxForClosingEyes() {
-    __classPrivateFieldSet(this, _Enemy_randomCloseEyes, __classPrivateFieldGet(this, _Enemy_RandomClass, "f").integerBetween(_a.MIN_TIME_TO_CLOSE, _a.MAX_TIME_TO_CLOSE), "f");
+    __classPrivateFieldSet(this, _Enemy_randomCloseEyes, Random.integerBetween(_a.MIN_TIME_TO_CLOSE, _a.MAX_TIME_TO_CLOSE), "f");
 }, _Enemy_changeEyes = function _Enemy_changeEyes() {
     var _b, _c;
     if (__classPrivateFieldGet(this, _Enemy_instances, "m", _Enemy_hasOpenEyes).call(this)) {
@@ -267,11 +247,10 @@ Enemy.CREATION_MAX_TIME = 200;
 Enemy.numberOfEnemies = 0;
 var _Explosion_emisionTime, _Explosion_finished;
 class Explosion {
-    constructor(x, y) {
+    constructor(position) {
         _Explosion_emisionTime.set(this, 0);
         _Explosion_finished.set(this, false);
-        this.x = x;
-        this.y = y;
+        this.position = Object.assign({}, position);
     }
     isActive() {
         return !__classPrivateFieldGet(this, _Explosion_finished, "f");
@@ -288,32 +267,33 @@ class Explosion {
 _Explosion_emisionTime = new WeakMap(), _Explosion_finished = new WeakMap();
 Explosion.MAX_EMIT_TIME = 5;
 class ExplosionEnemy extends Explosion {
-    constructor(x, y, ParticleSystemClass) {
-        super(x, y);
-        this.particleSystem = new ParticleSystemClass(createVector(this.x + Const.EXPLOSION_OFFSET, this.y + Const.EXPLOSION_OFFSET), ExplosionEnemy.SIZE, ExplosionEnemy.COLOR);
+    constructor(position, ParticleSystemClass) {
+        super(position);
+        this.particleSystem = new ParticleSystemClass(createVector(this.position.x + Const.EXPLOSION_OFFSET, this.position.y + Const.EXPLOSION_OFFSET), ExplosionEnemy.SIZE, ExplosionEnemy.COLOR);
     }
 }
 ExplosionEnemy.SIZE = 12;
 ExplosionEnemy.COLOR = [255, 165, 0];
 class ExplosionMagicFireball extends Explosion {
-    constructor(x, y, ParticleSystemClass) {
-        super(x, y);
-        this.particleSystem = new ParticleSystemClass(createVector(this.x + Const.EXPLOSION_OFFSET, this.y + Const.EXPLOSION_OFFSET), ExplosionMagicFireball.SIZE, ExplosionMagicFireball.COLOR);
+    constructor(position, ParticleSystemClass) {
+        super(position);
+        this.particleSystem = new ParticleSystemClass(createVector(this.position.x + Const.EXPLOSION_OFFSET, this.position.y + Const.EXPLOSION_OFFSET), ExplosionMagicFireball.SIZE, ExplosionMagicFireball.COLOR);
     }
 }
 ExplosionMagicFireball.SIZE = 6;
 ExplosionMagicFireball.COLOR = [202, 191, 24];
 class ExplosionMagicIceball extends Explosion {
-    constructor(x, y, ParticleSystemClass) {
-        super(x, y);
-        this.particleSystem = new ParticleSystemClass(createVector(this.x + Const.EXPLOSION_OFFSET, this.y + Const.EXPLOSION_OFFSET), ExplosionMagicIceball.SIZE, ExplosionMagicIceball.COLOR);
+    constructor(position, ParticleSystemClass) {
+        super(position);
+        this.particleSystem = new ParticleSystemClass(createVector(this.position.x + Const.EXPLOSION_OFFSET, this.position.y + Const.EXPLOSION_OFFSET), ExplosionMagicIceball.SIZE, ExplosionMagicIceball.COLOR);
     }
 }
 ExplosionMagicIceball.SIZE = 6;
 ExplosionMagicIceball.COLOR = [0, 65, 255];
-var _Hud_hudImages, _Hud_hudIconImages, _Hud_wallet, _Hud_lives, _Hud_score, _Hud_TextPropertiesClass, _Hud_waveProgressBar, _Hud_bossProgressBar, _Hud_wave, _Hud_hudType, _Hud_selectedItem, _Hud_upgradeCost, _Hud_sellProfit, _Hud_canBuyTowerGreen, _Hud_canBuyTowerRed, _Hud_canBuyTowerYellow, _Hud_magicfireballs, _Hud_magiciceballs, _Hud_magicUFOs, _Hud_canUpgrade;
+var _Hud_instances, _Hud_hudImages, _Hud_hudIconImages, _Hud_wallet, _Hud_lives, _Hud_score, _Hud_TextPropertiesClass, _Hud_waveProgressBar, _Hud_bossProgressBar, _Hud_wave, _Hud_hudType, _Hud_selectedItem, _Hud_upgradeCost, _Hud_sellProfit, _Hud_canBuyTowerGreen, _Hud_canBuyTowerRed, _Hud_canBuyTowerYellow, _Hud_magicfireballs, _Hud_magiciceballs, _Hud_magicUFOs, _Hud_canUpgrade, _Hud_drawMoney, _Hud_drawUpgradeCost, _Hud_drawMagicUFO, _Hud_drawMagicFireball, _Hud_drawMagicIceball, _Hud_drawSellProfit, _Hud_drawLives, _Hud_drawScore, _Hud_drawLevelTitle, _Hud_drawWave, _Hud_drawSelectedItem;
 class Hud {
     constructor(hudImages, hudIconImages, wallet, lives, score, TextPropertiesClass, waveProgressBar, bossProgressBar, wave) {
+        _Hud_instances.add(this);
         _Hud_hudImages.set(this, void 0);
         _Hud_hudIconImages.set(this, void 0);
         _Hud_wallet.set(this, void 0);
@@ -427,7 +407,7 @@ class Hud {
             case Hud.NORMAL:
                 image(__classPrivateFieldGet(this, _Hud_hudImages, "f")[Hud.NORMAL], 0, 0);
                 this._drawTowerIcons();
-                this._drawSelectedItem();
+                __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawSelectedItem).call(this);
                 break;
             case Hud.UPGRADING:
                 image(__classPrivateFieldGet(this, _Hud_hudImages, "f")[Hud.UPGRADING], 0, 0);
@@ -439,16 +419,16 @@ class Hud {
         __classPrivateFieldGet(this, _Hud_waveProgressBar, "f").draw();
         __classPrivateFieldGet(this, _Hud_bossProgressBar, "f").draw();
         __classPrivateFieldGet(this, _Hud_TextPropertiesClass, "f").setForHudData();
-        this._drawMoney();
-        this._drawLives();
-        this._drawScore();
-        this._drawLevelTitle();
-        this._drawWave();
-        this._drawUpgradeCost();
-        this._drawSellProfit();
-        this._drawMagicUFO();
-        this._drawMagicFireball();
-        this._drawMagicIceball();
+        __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawMoney).call(this);
+        __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawLives).call(this);
+        __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawScore).call(this);
+        __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawLevelTitle).call(this);
+        __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawWave).call(this);
+        __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawUpgradeCost).call(this);
+        __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawSellProfit).call(this);
+        __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawMagicUFO).call(this);
+        __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawMagicFireball).call(this);
+        __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawMagicIceball).call(this);
         if (__classPrivateFieldGet(this, _Hud_hudType, "f") === Hud.NORMAL) {
             this._drawNewTowerPrices();
         }
@@ -476,44 +456,6 @@ class Hud {
         image(__classPrivateFieldGet(this, _Hud_hudIconImages, "f")[redIconImgPos], 142, 38);
         image(__classPrivateFieldGet(this, _Hud_hudIconImages, "f")[yellowIconImgPos], 226, 38);
     }
-    _drawMoney() {
-        text(__classPrivateFieldGet(this, _Hud_wallet, "f").money, 445, 48);
-    }
-    _drawUpgradeCost() {
-        if (__classPrivateFieldGet(this, _Hud_upgradeCost, "f") !== null) {
-            if (!__classPrivateFieldGet(this, _Hud_canUpgrade, "f")) {
-                fill('gray');
-            }
-            text(__classPrivateFieldGet(this, _Hud_upgradeCost, "f"), 33, 72);
-            fill('white');
-        }
-    }
-    _drawMagicUFO() {
-        text(__classPrivateFieldGet(this, _Hud_magicUFOs, "f"), 592, 74);
-    }
-    _drawMagicFireball() {
-        text(__classPrivateFieldGet(this, _Hud_magicfireballs, "f"), 680, 74);
-    }
-    _drawMagicIceball() {
-        text(__classPrivateFieldGet(this, _Hud_magiciceballs, "f"), 769, 74);
-    }
-    _drawSellProfit() {
-        if (__classPrivateFieldGet(this, _Hud_sellProfit, "f") !== null) {
-            text(__classPrivateFieldGet(this, _Hud_sellProfit, "f"), 182, 72);
-        }
-    }
-    _drawLives() {
-        text(__classPrivateFieldGet(this, _Hud_lives, "f"), 390, 48);
-    }
-    _drawScore() {
-        text(__classPrivateFieldGet(this, _Hud_score, "f").getPrintScore(), 404, 73);
-    }
-    _drawLevelTitle() {
-        text('Serpent by Ocliboy', 130, 18);
-    }
-    _drawWave() {
-        text(`wave ${__classPrivateFieldGet(this, _Hud_wave, "f")}`, 403, 13);
-    }
     _drawTowerGreenPrice() {
         if (!__classPrivateFieldGet(this, _Hud_canBuyTowerGreen, "f")) {
             fill('gray');
@@ -539,22 +481,6 @@ class Hud {
         this._drawTowerGreenPrice();
         this._drawTowerRedPrice();
         this._drawTowerYellowPrice();
-    }
-    _drawSelectedItem() {
-        strokeWeight(3);
-        stroke(255, 204, 0);
-        noFill();
-        switch (__classPrivateFieldGet(this, _Hud_selectedItem, "f")) {
-            case TowerGreen.ID:
-                square(57, 36, 37);
-                break;
-            case TowerRed.ID:
-                square(140, 36, 37);
-                break;
-            case TowerYellow.ID:
-                square(225, 36, 37);
-                break;
-        }
     }
     selectTowerHudType(tower) {
         if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
@@ -584,7 +510,50 @@ class Hud {
         __classPrivateFieldSet(this, _Hud_sellProfit, null, "f");
     }
 }
-_Hud_hudImages = new WeakMap(), _Hud_hudIconImages = new WeakMap(), _Hud_wallet = new WeakMap(), _Hud_lives = new WeakMap(), _Hud_score = new WeakMap(), _Hud_TextPropertiesClass = new WeakMap(), _Hud_waveProgressBar = new WeakMap(), _Hud_bossProgressBar = new WeakMap(), _Hud_wave = new WeakMap(), _Hud_hudType = new WeakMap(), _Hud_selectedItem = new WeakMap(), _Hud_upgradeCost = new WeakMap(), _Hud_sellProfit = new WeakMap(), _Hud_canBuyTowerGreen = new WeakMap(), _Hud_canBuyTowerRed = new WeakMap(), _Hud_canBuyTowerYellow = new WeakMap(), _Hud_magicfireballs = new WeakMap(), _Hud_magiciceballs = new WeakMap(), _Hud_magicUFOs = new WeakMap(), _Hud_canUpgrade = new WeakMap();
+_Hud_hudImages = new WeakMap(), _Hud_hudIconImages = new WeakMap(), _Hud_wallet = new WeakMap(), _Hud_lives = new WeakMap(), _Hud_score = new WeakMap(), _Hud_TextPropertiesClass = new WeakMap(), _Hud_waveProgressBar = new WeakMap(), _Hud_bossProgressBar = new WeakMap(), _Hud_wave = new WeakMap(), _Hud_hudType = new WeakMap(), _Hud_selectedItem = new WeakMap(), _Hud_upgradeCost = new WeakMap(), _Hud_sellProfit = new WeakMap(), _Hud_canBuyTowerGreen = new WeakMap(), _Hud_canBuyTowerRed = new WeakMap(), _Hud_canBuyTowerYellow = new WeakMap(), _Hud_magicfireballs = new WeakMap(), _Hud_magiciceballs = new WeakMap(), _Hud_magicUFOs = new WeakMap(), _Hud_canUpgrade = new WeakMap(), _Hud_instances = new WeakSet(), _Hud_drawMoney = function _Hud_drawMoney() {
+    text(__classPrivateFieldGet(this, _Hud_wallet, "f").money, 445, 48);
+}, _Hud_drawUpgradeCost = function _Hud_drawUpgradeCost() {
+    if (__classPrivateFieldGet(this, _Hud_upgradeCost, "f") !== null) {
+        if (!__classPrivateFieldGet(this, _Hud_canUpgrade, "f")) {
+            fill('gray');
+        }
+        text(__classPrivateFieldGet(this, _Hud_upgradeCost, "f"), 33, 72);
+        fill('white');
+    }
+}, _Hud_drawMagicUFO = function _Hud_drawMagicUFO() {
+    text(__classPrivateFieldGet(this, _Hud_magicUFOs, "f"), 592, 74);
+}, _Hud_drawMagicFireball = function _Hud_drawMagicFireball() {
+    text(__classPrivateFieldGet(this, _Hud_magicfireballs, "f"), 680, 74);
+}, _Hud_drawMagicIceball = function _Hud_drawMagicIceball() {
+    text(__classPrivateFieldGet(this, _Hud_magiciceballs, "f"), 769, 74);
+}, _Hud_drawSellProfit = function _Hud_drawSellProfit() {
+    if (__classPrivateFieldGet(this, _Hud_sellProfit, "f") !== null) {
+        text(__classPrivateFieldGet(this, _Hud_sellProfit, "f"), 182, 72);
+    }
+}, _Hud_drawLives = function _Hud_drawLives() {
+    text(__classPrivateFieldGet(this, _Hud_lives, "f"), 390, 48);
+}, _Hud_drawScore = function _Hud_drawScore() {
+    text(__classPrivateFieldGet(this, _Hud_score, "f").getPrintScore(), 404, 73);
+}, _Hud_drawLevelTitle = function _Hud_drawLevelTitle() {
+    text('Serpent by Ocliboy', 130, 18);
+}, _Hud_drawWave = function _Hud_drawWave() {
+    text(`wave ${__classPrivateFieldGet(this, _Hud_wave, "f")}`, 403, 13);
+}, _Hud_drawSelectedItem = function _Hud_drawSelectedItem() {
+    strokeWeight(3);
+    stroke(255, 204, 0);
+    noFill();
+    switch (__classPrivateFieldGet(this, _Hud_selectedItem, "f")) {
+        case TowerGreen.ID:
+            square(57, 36, 37);
+            break;
+        case TowerRed.ID:
+            square(140, 36, 37);
+            break;
+        case TowerYellow.ID:
+            square(225, 36, 37);
+            break;
+    }
+};
 Hud.NORMAL = 0;
 Hud.UPGRADING = 1;
 Hud.UPGRADING_MAX = 2;
@@ -731,18 +700,16 @@ class LevelsDataProvider {
 _LevelsDataProvider_levels = new WeakMap();
 var _Magic_orders, _Magic_currentDirection, _Magic_moveCount, _Magic_indexOrder, _Magic_touchedEnemiesIds, _Magic_status;
 class Magic {
-    constructor(startX, startY, orders) {
+    constructor(startPosition, orders) {
         _Magic_orders.set(this, void 0);
         _Magic_currentDirection.set(this, void 0);
         _Magic_moveCount.set(this, 0);
         _Magic_indexOrder.set(this, 0);
         _Magic_touchedEnemiesIds.set(this, void 0);
         _Magic_status.set(this, void 0);
-        this.startX = startX;
-        this.startY = startY;
+        this.startPosition = Object.assign({}, startPosition);
         __classPrivateFieldSet(this, _Magic_orders, orders, "f");
-        this.x = this.startX;
-        this.y = this.startY;
+        this.position = Object.assign({}, startPosition);
         __classPrivateFieldSet(this, _Magic_currentDirection, __classPrivateFieldGet(this, _Magic_orders, "f")[__classPrivateFieldGet(this, _Magic_indexOrder, "f")], "f");
         __classPrivateFieldSet(this, _Magic_touchedEnemiesIds, [], "f");
         __classPrivateFieldSet(this, _Magic_status, Const.MAGIC_STATUS_ALIVE, "f");
@@ -751,16 +718,16 @@ class Magic {
         var _a;
         switch (__classPrivateFieldGet(this, _Magic_currentDirection, "f")) {
             case ConstDirection.LEFT:
-                this.x = this.x - Magic.SPEED;
+                this.position.x = this.position.x - Magic.SPEED;
                 break;
             case ConstDirection.RIGHT:
-                this.x = this.x + Magic.SPEED;
+                this.position.x = this.position.x + Magic.SPEED;
                 break;
             case ConstDirection.UP:
-                this.y = this.y - Magic.SPEED;
+                this.position.y = this.position.y - Magic.SPEED;
                 break;
             case ConstDirection.DOWN:
-                this.y = this.y + Magic.SPEED;
+                this.position.y = this.position.y + Magic.SPEED;
                 break;
         }
         __classPrivateFieldSet(this, _Magic_moveCount, __classPrivateFieldGet(this, _Magic_moveCount, "f") + Magic.SPEED, "f");
@@ -798,18 +765,18 @@ class Magic {
         return __classPrivateFieldGet(this, _Magic_status, "f") == Const.MAGIC_STATUS_ALIVE;
     }
     getX() {
-        return this.x;
+        return this.position.x;
     }
     getY() {
-        return this.y;
+        return this.position.y;
     }
 }
 _Magic_orders = new WeakMap(), _Magic_currentDirection = new WeakMap(), _Magic_moveCount = new WeakMap(), _Magic_indexOrder = new WeakMap(), _Magic_touchedEnemiesIds = new WeakMap(), _Magic_status = new WeakMap();
 Magic.SPEED = 10;
 var _MagicFireball_img;
 class MagicFireball extends Magic {
-    constructor(img, startX, startY, orders) {
-        super(startX, startY, orders);
+    constructor(img, startPosition, orders) {
+        super(startPosition, orders);
         _MagicFireball_img.set(this, void 0);
         __classPrivateFieldSet(this, _MagicFireball_img, img, "f");
     }
@@ -817,7 +784,7 @@ class MagicFireball extends Magic {
         enemy.addDamage(MagicFireball.DAMAGE);
     }
     draw() {
-        image(__classPrivateFieldGet(this, _MagicFireball_img, "f"), this.x, this.y);
+        image(__classPrivateFieldGet(this, _MagicFireball_img, "f"), this.position.x, this.position.y);
     }
 }
 _MagicFireball_img = new WeakMap();
@@ -825,8 +792,8 @@ MagicFireball.FIREBALLS = 3;
 MagicFireball.DAMAGE = 500;
 var _MagicIceball_img;
 class MagicIceball extends Magic {
-    constructor(img, startX, startY, orders) {
-        super(startX, startY, orders);
+    constructor(img, startPosition, orders) {
+        super(startPosition, orders);
         _MagicIceball_img.set(this, void 0);
         __classPrivateFieldSet(this, _MagicIceball_img, img, "f");
     }
@@ -834,7 +801,7 @@ class MagicIceball extends Magic {
         enemy.freeze();
     }
     draw() {
-        image(__classPrivateFieldGet(this, _MagicIceball_img, "f"), this.x, this.y);
+        image(__classPrivateFieldGet(this, _MagicIceball_img, "f"), this.position.x, this.position.y);
     }
 }
 _MagicIceball_img = new WeakMap();
@@ -842,13 +809,13 @@ MagicIceball.ICEBALLS = 3;
 MagicIceball.FREEZE_ENEMY_MAX_TIME = 500;
 var _MagicUFO_img;
 class MagicUFO extends Magic {
-    constructor(img, startX, startY, orders) {
-        super(startX, startY, orders);
+    constructor(img, startPosition, orders) {
+        super(startPosition, orders);
         _MagicUFO_img.set(this, void 0);
         __classPrivateFieldSet(this, _MagicUFO_img, img, "f");
     }
     draw() {
-        image(__classPrivateFieldGet(this, _MagicUFO_img, "f"), this.x, this.y);
+        image(__classPrivateFieldGet(this, _MagicUFO_img, "f"), this.position.x, this.position.y);
     }
 }
 _MagicUFO_img = new WeakMap();
@@ -865,82 +832,6 @@ class MathUtils {
         return [number * 4, (number + 1) * 4];
     }
 }
-var _OrangeTile_img, _OrangeTile_position, _OrangeTile_towerGenerator, _OrangeTile_tower;
-class OrangeTile {
-    constructor(img, position, towerGenerator) {
-        _OrangeTile_img.set(this, void 0);
-        _OrangeTile_position.set(this, void 0);
-        _OrangeTile_towerGenerator.set(this, void 0);
-        _OrangeTile_tower.set(this, null);
-        __classPrivateFieldSet(this, _OrangeTile_img, img, "f");
-        __classPrivateFieldSet(this, _OrangeTile_position, Object.assign({}, position), "f");
-        __classPrivateFieldSet(this, _OrangeTile_towerGenerator, towerGenerator, "f");
-    }
-    sellTower() {
-        let profit = 0;
-        if (__classPrivateFieldGet(this, _OrangeTile_tower, "f")) {
-            profit = __classPrivateFieldGet(this, _OrangeTile_tower, "f").sellProfit;
-            __classPrivateFieldSet(this, _OrangeTile_tower, null, "f");
-        }
-        return profit;
-    }
-    buyTower(towerId) {
-        if (__classPrivateFieldGet(this, _OrangeTile_tower, "f") === null) {
-            __classPrivateFieldSet(this, _OrangeTile_tower, __classPrivateFieldGet(this, _OrangeTile_towerGenerator, "f").newTower(towerId, __classPrivateFieldGet(this, _OrangeTile_position, "f")), "f");
-        }
-        else {
-            __classPrivateFieldGet(this, _OrangeTile_tower, "f").upgrade();
-        }
-        return __classPrivateFieldGet(this, _OrangeTile_tower, "f").cost;
-    }
-    _upgradeTower() {
-        if (__classPrivateFieldGet(this, _OrangeTile_tower, "f")) {
-            __classPrivateFieldGet(this, _OrangeTile_tower, "f").upgrade();
-        }
-    }
-    drawTile() {
-        image(__classPrivateFieldGet(this, _OrangeTile_img, "f"), __classPrivateFieldGet(this, _OrangeTile_position, "f").x, __classPrivateFieldGet(this, _OrangeTile_position, "f").y);
-    }
-    drawTower() {
-        if (__classPrivateFieldGet(this, _OrangeTile_tower, "f")) {
-            __classPrivateFieldGet(this, _OrangeTile_tower, "f").draw();
-        }
-    }
-    getPosition() {
-        return __classPrivateFieldGet(this, _OrangeTile_position, "f");
-    }
-    selectTarget(enemies) {
-        if (__classPrivateFieldGet(this, _OrangeTile_tower, "f")) {
-            __classPrivateFieldGet(this, _OrangeTile_tower, "f").selectTarget(enemies);
-        }
-    }
-    isInside(mouse_x, mouse_y) {
-        let insideX = false;
-        let insideY = false;
-        if (__classPrivateFieldGet(this, _OrangeTile_position, "f").x < mouse_x &&
-            __classPrivateFieldGet(this, _OrangeTile_position, "f").x + Const.TILE_SIZE > mouse_x) {
-            insideX = true;
-        }
-        if (__classPrivateFieldGet(this, _OrangeTile_position, "f").y < mouse_y &&
-            __classPrivateFieldGet(this, _OrangeTile_position, "f").y + Const.TILE_SIZE > mouse_y) {
-            insideY = true;
-        }
-        if (insideX && insideY) {
-            return true;
-        }
-        return false;
-    }
-    hasTower() {
-        return __classPrivateFieldGet(this, _OrangeTile_tower, "f") !== null;
-    }
-    getTower() {
-        if (this.hasTower()) {
-            return __classPrivateFieldGet(this, _OrangeTile_tower, "f");
-        }
-        return null;
-    }
-}
-_OrangeTile_img = new WeakMap(), _OrangeTile_position = new WeakMap(), _OrangeTile_towerGenerator = new WeakMap(), _OrangeTile_tower = new WeakMap();
 var _Particle_position, _Particle_size, _Particle_color, _Particle_velocity, _Particle_lifespan;
 class Particle {
     constructor(position, size, color) {
@@ -1019,32 +910,32 @@ class Path {
         return { x: finalX, y: finalY };
     }
     getTileInPosition(tx, ty) {
-        const pathTile = __classPrivateFieldGet(this, _Path_pathTiles, "f").find((pathTile) => tx === pathTile.getX() && ty === pathTile.getY());
+        const pathTile = __classPrivateFieldGet(this, _Path_pathTiles, "f").find((pathTile) => tx === pathTile.getPosition().x && ty === pathTile.getPosition().y);
         return pathTile ? pathTile : null;
     }
     _searchLeftTile(currentTile) {
-        const searchPx = currentTile.getX() - Const.TILE_SIZE;
-        const searchPy = currentTile.getY();
+        const searchPx = currentTile.getPosition().x - Const.TILE_SIZE;
+        const searchPy = currentTile.getPosition().y;
         return this.getTileInPosition(searchPx, searchPy);
     }
     _searchDownTile(currentTile) {
-        const searchPx = currentTile.getX();
-        const searchPy = currentTile.getY() + Const.TILE_SIZE;
+        const searchPx = currentTile.getPosition().x;
+        const searchPy = currentTile.getPosition().y + Const.TILE_SIZE;
         return this.getTileInPosition(searchPx, searchPy);
     }
     _searchRightTile(currentTile) {
-        const searchPx = currentTile.getX() + Const.TILE_SIZE;
-        const searchPy = currentTile.getY();
+        const searchPx = currentTile.getPosition().x + Const.TILE_SIZE;
+        const searchPy = currentTile.getPosition().y;
         return this.getTileInPosition(searchPx, searchPy);
     }
     _searchUpTile(currentTile) {
-        const searchPx = currentTile.getX();
-        const searchPy = currentTile.getY() - Const.TILE_SIZE;
+        const searchPx = currentTile.getPosition().x;
+        const searchPy = currentTile.getPosition().y - Const.TILE_SIZE;
         return this.getTileInPosition(searchPx, searchPy);
     }
-    _isLeftEndTile(currentTile) {
-        const searchPx = currentTile.getX() - Const.TILE_SIZE;
-        const searchPy = currentTile.getY();
+    _isLeftTileEnd(currentTile) {
+        const searchPx = currentTile.getPosition().x - Const.TILE_SIZE;
+        const searchPy = currentTile.getPosition().y;
         const endPosition = __classPrivateFieldGet(this, _Path_endTile, "f").position;
         const endPx = endPosition.x;
         const endPy = endPosition.y;
@@ -1056,7 +947,10 @@ class Path {
     makeOrders() {
         const orders = [];
         const startTilePosition = __classPrivateFieldGet(this, _Path_startTile, "f").getPosition();
-        let currentTile = new PathTile(startTilePosition.x, startTilePosition.y);
+        let currentTile = new TilePath({
+            x: startTilePosition.x,
+            y: startTilePosition.y,
+        });
         let currentDirection = __classPrivateFieldGet(this, _Path_startTile, "f").getStartDirection();
         orders.push(currentDirection);
         let endReached = false;
@@ -1064,8 +958,8 @@ class Path {
         while (searchCount < Path.MAX_SEARCHES && !endReached) {
             searchCount++;
             if (currentDirection === ConstDirection.LEFT) {
-                const isLeftEndTile = this._isLeftEndTile(currentTile);
-                if (isLeftEndTile) {
+                const isLeftTileEnd = this._isLeftTileEnd(currentTile);
+                if (isLeftTileEnd) {
                     endReached = true;
                     orders.push(ConstDirection.LEFT);
                 }
@@ -1146,22 +1040,6 @@ class Path {
 }
 _Path_startTile = new WeakMap(), _Path_endTile = new WeakMap(), _Path_pathTiles = new WeakMap();
 Path.MAX_SEARCHES = 5000;
-var _PathTile_x, _PathTile_y;
-class PathTile {
-    constructor(x, y) {
-        _PathTile_x.set(this, void 0);
-        _PathTile_y.set(this, void 0);
-        __classPrivateFieldSet(this, _PathTile_x, x, "f");
-        __classPrivateFieldSet(this, _PathTile_y, y, "f");
-    }
-    getX() {
-        return __classPrivateFieldGet(this, _PathTile_x, "f");
-    }
-    getY() {
-        return __classPrivateFieldGet(this, _PathTile_y, "f");
-    }
-}
-_PathTile_x = new WeakMap(), _PathTile_y = new WeakMap();
 var _ProgressBar_position, _ProgressBar_width, _ProgressBar_height, _ProgressBar_progress, _ProgressBar_maxProgress;
 class ProgressBar {
     constructor(position, width, height) {
@@ -1307,27 +1185,6 @@ class Score {
         return String(this.score).padStart(10, '0');
     }
 }
-var _StartTile_img, _StartTile_position, _StartTile_startDirection;
-class StartTile {
-    constructor(img, position, startDirection) {
-        _StartTile_img.set(this, void 0);
-        _StartTile_position.set(this, void 0);
-        _StartTile_startDirection.set(this, void 0);
-        __classPrivateFieldSet(this, _StartTile_img, img, "f");
-        __classPrivateFieldSet(this, _StartTile_position, Object.assign({}, position), "f");
-        __classPrivateFieldSet(this, _StartTile_startDirection, startDirection, "f");
-    }
-    draw() {
-        image(__classPrivateFieldGet(this, _StartTile_img, "f"), __classPrivateFieldGet(this, _StartTile_position, "f").x, __classPrivateFieldGet(this, _StartTile_position, "f").y);
-    }
-    getPosition() {
-        return __classPrivateFieldGet(this, _StartTile_position, "f");
-    }
-    getStartDirection() {
-        return __classPrivateFieldGet(this, _StartTile_startDirection, "f");
-    }
-}
-_StartTile_img = new WeakMap(), _StartTile_position = new WeakMap(), _StartTile_startDirection = new WeakMap();
 class TextProperties {
     static setForBigCenteredTitle() {
         fill('white');
@@ -1344,15 +1201,37 @@ class TextProperties {
         textAlign(LEFT);
     }
 }
-var _TileGenerator_levelMap, _TileGenerator_mapImages, _TileGenerator_OrangeTileClass, _TileGenerator_PathTileClass, _TileGenerator_StartTileClass, _TileGenerator_EndTileClass, _TileGenerator_towerGenerator, _TileGenerator_orangeImage, _TileGenerator_blackImage, _TileGenerator_startImage, _TileGenerator_endImage, _TileGenerator_startDirection;
+class Tile {
+    constructor(position) {
+        this.position = Object.assign({}, position);
+    }
+    getPosition() {
+        return this.position;
+    }
+}
+var _TileEnd_img;
+class TileEnd extends Tile {
+    constructor(img, position) {
+        super(position);
+        _TileEnd_img.set(this, void 0);
+        __classPrivateFieldSet(this, _TileEnd_img, img, "f");
+        this.position = Object.assign({}, position);
+    }
+    draw() {
+        image(__classPrivateFieldGet(this, _TileEnd_img, "f"), this.position.x, this.position.y);
+    }
+}
+_TileEnd_img = new WeakMap();
+var _TileGenerator_instances, _TileGenerator_levelMap, _TileGenerator_mapImages, _TileGenerator_TileOrangeClass, _TileGenerator_TilePathClass, _TileGenerator_TileStartClass, _TileGenerator_TileEndClass, _TileGenerator_towerGenerator, _TileGenerator_orangeImage, _TileGenerator_blackImage, _TileGenerator_startImage, _TileGenerator_endImage, _TileGenerator_startDirection, _TileGenerator_setStartImage, _TileGenerator_setEndImage;
 class TileGenerator {
-    constructor(levelMap, mapImages, OrangeTileClass, PathTileClass, StartTileClass, EndTileClass, towerGenerator) {
+    constructor(levelMap, mapImages, TileOrangeClass, TilePathClass, TileStartClass, TileEndClass, towerGenerator) {
+        _TileGenerator_instances.add(this);
         _TileGenerator_levelMap.set(this, void 0);
         _TileGenerator_mapImages.set(this, void 0);
-        _TileGenerator_OrangeTileClass.set(this, void 0);
-        _TileGenerator_PathTileClass.set(this, void 0);
-        _TileGenerator_StartTileClass.set(this, void 0);
-        _TileGenerator_EndTileClass.set(this, void 0);
+        _TileGenerator_TileOrangeClass.set(this, void 0);
+        _TileGenerator_TilePathClass.set(this, void 0);
+        _TileGenerator_TileStartClass.set(this, void 0);
+        _TileGenerator_TileEndClass.set(this, void 0);
         _TileGenerator_towerGenerator.set(this, void 0);
         _TileGenerator_orangeImage.set(this, void 0);
         _TileGenerator_blackImage.set(this, void 0);
@@ -1361,55 +1240,19 @@ class TileGenerator {
         _TileGenerator_startDirection.set(this, void 0);
         __classPrivateFieldSet(this, _TileGenerator_levelMap, levelMap, "f");
         __classPrivateFieldSet(this, _TileGenerator_mapImages, mapImages, "f");
-        __classPrivateFieldSet(this, _TileGenerator_OrangeTileClass, OrangeTileClass, "f");
-        __classPrivateFieldSet(this, _TileGenerator_PathTileClass, PathTileClass, "f");
-        __classPrivateFieldSet(this, _TileGenerator_StartTileClass, StartTileClass, "f");
-        __classPrivateFieldSet(this, _TileGenerator_EndTileClass, EndTileClass, "f");
+        __classPrivateFieldSet(this, _TileGenerator_TileOrangeClass, TileOrangeClass, "f");
+        __classPrivateFieldSet(this, _TileGenerator_TilePathClass, TilePathClass, "f");
+        __classPrivateFieldSet(this, _TileGenerator_TileStartClass, TileStartClass, "f");
+        __classPrivateFieldSet(this, _TileGenerator_TileEndClass, TileEndClass, "f");
         __classPrivateFieldSet(this, _TileGenerator_towerGenerator, towerGenerator, "f");
         if (__classPrivateFieldGet(this, _TileGenerator_levelMap, "f").rowsMap.length === 0) {
             throw new Error('No rows map found');
         }
-        this._setStartImage(mapImages);
-        this._setEndImage(mapImages);
+        __classPrivateFieldGet(this, _TileGenerator_instances, "m", _TileGenerator_setStartImage).call(this, mapImages);
+        __classPrivateFieldGet(this, _TileGenerator_instances, "m", _TileGenerator_setEndImage).call(this, mapImages);
         __classPrivateFieldSet(this, _TileGenerator_orangeImage, mapImages[0], "f");
         __classPrivateFieldSet(this, _TileGenerator_blackImage, mapImages[1], "f");
         __classPrivateFieldSet(this, _TileGenerator_startDirection, __classPrivateFieldGet(this, _TileGenerator_levelMap, "f").startDirection, "f");
-    }
-    _setStartImage(mapImages) {
-        switch (__classPrivateFieldGet(this, _TileGenerator_levelMap, "f").startDirection) {
-            case ConstDirection.DOWN:
-                __classPrivateFieldSet(this, _TileGenerator_startImage, mapImages[6], "f");
-                __classPrivateFieldSet(this, _TileGenerator_startDirection, ConstDirection.DOWN, "f");
-                break;
-            case ConstDirection.RIGHT:
-                __classPrivateFieldSet(this, _TileGenerator_startImage, mapImages[7], "f");
-                __classPrivateFieldSet(this, _TileGenerator_startDirection, ConstDirection.RIGHT, "f");
-                break;
-            case ConstDirection.LEFT:
-                __classPrivateFieldSet(this, _TileGenerator_startImage, mapImages[8], "f");
-                __classPrivateFieldSet(this, _TileGenerator_startDirection, ConstDirection.LEFT, "f");
-                break;
-            case ConstDirection.UP:
-                __classPrivateFieldSet(this, _TileGenerator_startImage, mapImages[9], "f");
-                __classPrivateFieldSet(this, _TileGenerator_startDirection, ConstDirection.UP, "f");
-                break;
-        }
-    }
-    _setEndImage(mapImages) {
-        switch (__classPrivateFieldGet(this, _TileGenerator_levelMap, "f").endDirection) {
-            case ConstDirection.DOWN:
-                __classPrivateFieldSet(this, _TileGenerator_endImage, mapImages[2], "f");
-                break;
-            case ConstDirection.RIGHT:
-                __classPrivateFieldSet(this, _TileGenerator_endImage, mapImages[4], "f");
-                break;
-            case ConstDirection.LEFT:
-                __classPrivateFieldSet(this, _TileGenerator_endImage, mapImages[3], "f");
-                break;
-            case ConstDirection.UP:
-                __classPrivateFieldSet(this, _TileGenerator_endImage, mapImages[5], "f");
-                break;
-        }
     }
     _extractTiles(symbol) {
         const resultTiles = [];
@@ -1424,16 +1267,16 @@ class TileGenerator {
                 if (character === symbol) {
                     switch (symbol) {
                         case '0':
-                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_OrangeTileClass, "f"))(__classPrivateFieldGet(this, _TileGenerator_orangeImage, "f"), { x: posX, y: posY }, __classPrivateFieldGet(this, _TileGenerator_towerGenerator, "f")));
+                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_TileOrangeClass, "f"))(__classPrivateFieldGet(this, _TileGenerator_orangeImage, "f"), { x: posX, y: posY }, __classPrivateFieldGet(this, _TileGenerator_towerGenerator, "f")));
                             break;
                         case '1':
-                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_PathTileClass, "f"))(posX, posY));
+                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_TilePathClass, "f"))({ x: posX, y: posY }));
                             break;
                         case 'x':
-                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_StartTileClass, "f"))(__classPrivateFieldGet(this, _TileGenerator_startImage, "f"), { x: posX, y: posY }, __classPrivateFieldGet(this, _TileGenerator_startDirection, "f")));
+                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_TileStartClass, "f"))(__classPrivateFieldGet(this, _TileGenerator_startImage, "f"), { x: posX, y: posY }, __classPrivateFieldGet(this, _TileGenerator_startDirection, "f")));
                             break;
                         case 'y':
-                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_EndTileClass, "f"))(__classPrivateFieldGet(this, _TileGenerator_endImage, "f"), { x: posX, y: posY }));
+                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_TileEndClass, "f"))(__classPrivateFieldGet(this, _TileGenerator_endImage, "f"), { x: posX, y: posY }));
                             break;
                     }
                 }
@@ -1441,25 +1284,156 @@ class TileGenerator {
         });
         return resultTiles;
     }
-    orangeTiles() {
+    get orangeTiles() {
         return this._extractTiles('0');
     }
-    pathTiles() {
+    get pathTiles() {
         return this._extractTiles('1');
     }
-    startTile() {
+    get startTile() {
         return this._extractTiles('x')[0];
     }
-    endTile() {
+    get endTile() {
         return this._extractTiles('y')[0];
     }
-    getInitialMoney() {
+    get initialMoney() {
         return Number(__classPrivateFieldGet(this, _TileGenerator_levelMap, "f").money);
     }
 }
-_TileGenerator_levelMap = new WeakMap(), _TileGenerator_mapImages = new WeakMap(), _TileGenerator_OrangeTileClass = new WeakMap(), _TileGenerator_PathTileClass = new WeakMap(), _TileGenerator_StartTileClass = new WeakMap(), _TileGenerator_EndTileClass = new WeakMap(), _TileGenerator_towerGenerator = new WeakMap(), _TileGenerator_orangeImage = new WeakMap(), _TileGenerator_blackImage = new WeakMap(), _TileGenerator_startImage = new WeakMap(), _TileGenerator_endImage = new WeakMap(), _TileGenerator_startDirection = new WeakMap();
+_TileGenerator_levelMap = new WeakMap(), _TileGenerator_mapImages = new WeakMap(), _TileGenerator_TileOrangeClass = new WeakMap(), _TileGenerator_TilePathClass = new WeakMap(), _TileGenerator_TileStartClass = new WeakMap(), _TileGenerator_TileEndClass = new WeakMap(), _TileGenerator_towerGenerator = new WeakMap(), _TileGenerator_orangeImage = new WeakMap(), _TileGenerator_blackImage = new WeakMap(), _TileGenerator_startImage = new WeakMap(), _TileGenerator_endImage = new WeakMap(), _TileGenerator_startDirection = new WeakMap(), _TileGenerator_instances = new WeakSet(), _TileGenerator_setStartImage = function _TileGenerator_setStartImage(mapImages) {
+    switch (__classPrivateFieldGet(this, _TileGenerator_levelMap, "f").startDirection) {
+        case ConstDirection.DOWN:
+            __classPrivateFieldSet(this, _TileGenerator_startImage, mapImages[6], "f");
+            __classPrivateFieldSet(this, _TileGenerator_startDirection, ConstDirection.DOWN, "f");
+            break;
+        case ConstDirection.RIGHT:
+            __classPrivateFieldSet(this, _TileGenerator_startImage, mapImages[7], "f");
+            __classPrivateFieldSet(this, _TileGenerator_startDirection, ConstDirection.RIGHT, "f");
+            break;
+        case ConstDirection.LEFT:
+            __classPrivateFieldSet(this, _TileGenerator_startImage, mapImages[8], "f");
+            __classPrivateFieldSet(this, _TileGenerator_startDirection, ConstDirection.LEFT, "f");
+            break;
+        case ConstDirection.UP:
+            __classPrivateFieldSet(this, _TileGenerator_startImage, mapImages[9], "f");
+            __classPrivateFieldSet(this, _TileGenerator_startDirection, ConstDirection.UP, "f");
+            break;
+    }
+}, _TileGenerator_setEndImage = function _TileGenerator_setEndImage(mapImages) {
+    switch (__classPrivateFieldGet(this, _TileGenerator_levelMap, "f").endDirection) {
+        case ConstDirection.DOWN:
+            __classPrivateFieldSet(this, _TileGenerator_endImage, mapImages[2], "f");
+            break;
+        case ConstDirection.RIGHT:
+            __classPrivateFieldSet(this, _TileGenerator_endImage, mapImages[4], "f");
+            break;
+        case ConstDirection.LEFT:
+            __classPrivateFieldSet(this, _TileGenerator_endImage, mapImages[3], "f");
+            break;
+        case ConstDirection.UP:
+            __classPrivateFieldSet(this, _TileGenerator_endImage, mapImages[5], "f");
+            break;
+    }
+};
 TileGenerator.FLOOR_SIZE = 50;
 TileGenerator.MARGIN_TOP = 30;
+var _TileOrange_img, _TileOrange_towerGenerator, _TileOrange_tower;
+class TileOrange extends Tile {
+    constructor(img, position, towerGenerator) {
+        super(position);
+        _TileOrange_img.set(this, void 0);
+        _TileOrange_towerGenerator.set(this, void 0);
+        _TileOrange_tower.set(this, null);
+        __classPrivateFieldSet(this, _TileOrange_img, img, "f");
+        __classPrivateFieldSet(this, _TileOrange_towerGenerator, towerGenerator, "f");
+    }
+    sellTower() {
+        let profit = 0;
+        if (__classPrivateFieldGet(this, _TileOrange_tower, "f")) {
+            profit = __classPrivateFieldGet(this, _TileOrange_tower, "f").sellProfit;
+            __classPrivateFieldSet(this, _TileOrange_tower, null, "f");
+        }
+        return profit;
+    }
+    buyTower(towerId) {
+        if (__classPrivateFieldGet(this, _TileOrange_tower, "f") === null) {
+            __classPrivateFieldSet(this, _TileOrange_tower, __classPrivateFieldGet(this, _TileOrange_towerGenerator, "f").newTower(towerId, this.position), "f");
+        }
+        else {
+            __classPrivateFieldGet(this, _TileOrange_tower, "f").upgrade();
+        }
+        return __classPrivateFieldGet(this, _TileOrange_tower, "f").cost;
+    }
+    _upgradeTower() {
+        if (__classPrivateFieldGet(this, _TileOrange_tower, "f")) {
+            __classPrivateFieldGet(this, _TileOrange_tower, "f").upgrade();
+        }
+    }
+    drawTile() {
+        image(__classPrivateFieldGet(this, _TileOrange_img, "f"), this.position.x, this.position.y);
+    }
+    drawTower() {
+        if (__classPrivateFieldGet(this, _TileOrange_tower, "f")) {
+            __classPrivateFieldGet(this, _TileOrange_tower, "f").draw();
+        }
+    }
+    selectTarget(enemies) {
+        if (__classPrivateFieldGet(this, _TileOrange_tower, "f")) {
+            __classPrivateFieldGet(this, _TileOrange_tower, "f").selectTarget(enemies);
+        }
+    }
+    isInside(mouse_x, mouse_y) {
+        let insideX = false;
+        let insideY = false;
+        if (this.position.x < mouse_x &&
+            this.position.x + Const.TILE_SIZE > mouse_x) {
+            insideX = true;
+        }
+        if (this.position.y < mouse_y &&
+            this.position.y + Const.TILE_SIZE > mouse_y) {
+            insideY = true;
+        }
+        if (insideX && insideY) {
+            return true;
+        }
+        return false;
+    }
+    hasTower() {
+        return __classPrivateFieldGet(this, _TileOrange_tower, "f") !== null;
+    }
+    getTower() {
+        if (this.hasTower()) {
+            return __classPrivateFieldGet(this, _TileOrange_tower, "f");
+        }
+        return null;
+    }
+}
+_TileOrange_img = new WeakMap(), _TileOrange_towerGenerator = new WeakMap(), _TileOrange_tower = new WeakMap();
+class TilePath extends Tile {
+    constructor(position) {
+        super(position);
+    }
+}
+var _TileStart_img, _TileStart_startDirection;
+class TileStart extends Tile {
+    constructor(img, position, startDirection) {
+        super(position);
+        _TileStart_img.set(this, void 0);
+        _TileStart_startDirection.set(this, void 0);
+        __classPrivateFieldSet(this, _TileStart_img, img, "f");
+        __classPrivateFieldSet(this, _TileStart_startDirection, startDirection, "f");
+    }
+    draw() {
+        image(__classPrivateFieldGet(this, _TileStart_img, "f"), this.position.x, this.position.y);
+    }
+    getPosition() {
+        return this.position;
+    }
+    getStartDirection() {
+        return __classPrivateFieldGet(this, _TileStart_startDirection, "f");
+    }
+}
+_TileStart_img = new WeakMap(), _TileStart_startDirection = new WeakMap();
 var _Tower_position, _Tower_upgrading, _Tower_upgradeLevel;
 class Tower {
     constructor(position) {
@@ -1863,7 +1837,7 @@ let hud;
 let wallet;
 let score;
 let orangeTiles;
-let mouseOrangeTileOver;
+let mouseTileOrangeOver;
 let wave;
 let waveEnemies;
 let tileImages;
@@ -1927,15 +1901,15 @@ function setup() {
     const levelMap = levelDataProvider.getLevel(1);
     createEnemyTime = 0;
     towerGenerator = new TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, TowerGreen, TowerRed, TowerYellow, MathUtils, ProgressBar);
-    const tileGenerator = new TileGenerator(levelMap, tileImages, OrangeTile, PathTile, StartTile, EndTile, towerGenerator);
-    orangeTiles = tileGenerator.orangeTiles();
-    startTile = tileGenerator.startTile();
-    endTile = tileGenerator.endTile();
-    const pathTiles = tileGenerator.pathTiles();
+    const tileGenerator = new TileGenerator(levelMap, tileImages, TileOrange, TilePath, TileStart, TileEnd, towerGenerator);
+    orangeTiles = tileGenerator.orangeTiles;
+    startTile = tileGenerator.startTile;
+    endTile = tileGenerator.endTile;
+    const pathTiles = tileGenerator.pathTiles;
     const path = new Path(startTile, endTile, pathTiles);
     orders = path.makeOrders();
     initialEnemiesPosition = path.getEnemiesInitialPosition();
-    wallet = new Wallet(tileGenerator.getInitialMoney());
+    wallet = new Wallet(tileGenerator.initialMoney);
     score = new Score();
     lives = 7;
     wave = 1;
@@ -2020,12 +1994,12 @@ function handleHudButtons() {
     }
 }
 function handleSellTower() {
-    const profit = mouseOrangeTileOver.sellTower();
+    const profit = mouseTileOrangeOver.sellTower();
     wallet.increase(profit);
 }
 function handleBuyTower() {
-    if (canBuyTower(mouseOrangeTileOver.getTower())) {
-        const cost = mouseOrangeTileOver.buyTower(hud.getSelectedTower());
+    if (canBuyTower(mouseTileOrangeOver.getTower())) {
+        const cost = mouseTileOrangeOver.buyTower(hud.getSelectedTower());
         wallet.decrease(cost);
     }
 }
@@ -2034,9 +2008,9 @@ function mouseClicked() {
         handleHudButtons();
         return;
     }
-    if (mouseOrangeTileOver !== null) {
-        if (mouseButton === RIGHT && mouseOrangeTileOver.hasTower()) {
-            if (mouseOrangeTileOver.getTower().notUpgrading) {
+    if (mouseTileOrangeOver !== null) {
+        if (mouseButton === RIGHT && mouseTileOrangeOver.hasTower()) {
+            if (mouseTileOrangeOver.getTower().notUpgrading) {
                 handleSellTower();
             }
         }
@@ -2048,25 +2022,25 @@ function mouseClicked() {
 function createNewEnemy(waveEnemy, wave) {
     const endurance = wave * 3 + waveEnemy * 2;
     const isBoss = false;
-    enemies.push(new Enemy(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemy)), initialEnemiesPosition, orders, endurance, isBoss, Random, ProgressBar));
+    enemies.push(new Enemy(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemy)), initialEnemiesPosition, orders, endurance, isBoss));
 }
 function createNewMagicFireball() {
     if (magicFireballsCount > 0) {
-        magicFireballs.push(new MagicFireball(magicFireballImage, initialEnemiesPosition.x, initialEnemiesPosition.y, orders));
+        magicFireballs.push(new MagicFireball(magicFireballImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders));
         magicFireballsCount--;
         hud.setMagicFireballs(magicFireballsCount);
     }
 }
 function createNewMagicIceball() {
     if (magicIceballsCount > 0) {
-        magicIceballs.push(new MagicIceball(magicIceballImage, initialEnemiesPosition.x, initialEnemiesPosition.y, orders));
+        magicIceballs.push(new MagicIceball(magicIceballImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders));
         magicIceballsCount--;
         hud.setMagicIceballs(magicIceballsCount);
     }
 }
 function createNewMagicUFO() {
     if (magicUFOsCount > 0) {
-        magicUFOs.push(new MagicUFO(magicUFOImage, initialEnemiesPosition.x, initialEnemiesPosition.y, orders));
+        magicUFOs.push(new MagicUFO(magicUFOImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders));
         magicUFOsCount--;
         hud.setMagicUFOs(magicUFOsCount);
     }
@@ -2075,12 +2049,12 @@ function createNewBoss(wave) {
     const endurance = wave * 25;
     const indexBossInEnemiesImages = 5;
     const isBoss = true;
-    enemies.push(new Enemy(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(indexBossInEnemiesImages)), initialEnemiesPosition, orders, endurance, isBoss, Random, ProgressBar));
+    enemies.push(new Enemy(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(indexBossInEnemiesImages)), initialEnemiesPosition, orders, endurance, isBoss));
 }
 function handleExplosionEnemys() {
     const deadEnemies = enemies.filter((enemy) => enemy.dead);
     deadEnemies.forEach((enemy) => {
-        explosionsEnemy.push(new ExplosionEnemy(enemy.position.x, enemy.position.y, ParticleSystem));
+        explosionsEnemy.push(new ExplosionEnemy({ x: enemy.position.x, y: enemy.position.y }, ParticleSystem));
         const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR;
         wallet.increase($increasedMoney);
         score.increase($increasedMoney * 2);
@@ -2125,10 +2099,10 @@ function updateEnemies() {
     });
     handleWinnerEnemies();
 }
-function updateMouseOrangeTileOver() {
-    mouseOrangeTileOver = getMouseOrangeTileOver();
+function updateMouseTileOrangeOver() {
+    mouseTileOrangeOver = getMouseTileOrangeOver();
 }
-function getMouseOrangeTileOver() {
+function getMouseTileOrangeOver() {
     const result = orangeTiles.find((orangeTile) => orangeTile.isInside(mouseX, mouseY));
     return result ? result : null;
 }
@@ -2182,7 +2156,7 @@ function handleMagicFireballCollision(magicFireball, enemy) {
     newMagicFireballExplosion(enemy.position.x, enemy.position.y);
 }
 function newMagicFireballExplosion(posX, posY) {
-    explosionsMagicFireball.push(new ExplosionMagicFireball(posX, posY, ParticleSystem));
+    explosionsMagicFireball.push(new ExplosionMagicFireball({ x: posX, y: posY }, ParticleSystem));
 }
 function removeDeadFireballs() {
     magicFireballs = magicFireballs.filter((fireball) => fireball.isAlive());
@@ -2212,7 +2186,7 @@ function handleMagicIceballCollision(magicIceball, enemy) {
     newMagicIceballExplosion(enemy.position.x, enemy.position.y);
 }
 function newMagicIceballExplosion(posX, posY) {
-    explosionsMagicIceball.push(new ExplosionMagicIceball(posX, posY, ParticleSystem));
+    explosionsMagicIceball.push(new ExplosionMagicIceball({ x: posX, y: posY }, ParticleSystem));
 }
 function removeDeadIceballs() {
     magicIceballs = magicIceballs.filter((iceball) => iceball.isAlive());
@@ -2251,7 +2225,7 @@ function updateExplosions() {
 function draw() {
     if (gameStatus === Const.GAME_STATUS_PLAYING) {
         updateEnemies();
-        updateMouseOrangeTileOver();
+        updateMouseTileOrangeOver();
         updateWaveProgressBar();
         updateBossProgressBar();
         updateMagicFireballs();
@@ -2275,9 +2249,9 @@ function draw() {
     const canBuyTowerGreen = canBuyNewTower(TowerGreen.ID);
     const canBuyTowerRed = canBuyNewTower(TowerRed.ID);
     const canBuyTowerYellow = canBuyNewTower(TowerYellow.ID);
-    if (mouseOrangeTileOver !== null) {
-        if (mouseOrangeTileOver.hasTower()) {
-            const tileTower = mouseOrangeTileOver.getTower();
+    if (mouseTileOrangeOver !== null) {
+        if (mouseTileOrangeOver.hasTower()) {
+            const tileTower = mouseTileOrangeOver.getTower();
             hud.selectTowerHudType(tileTower);
             if (!tileTower.maxUpgraded) {
                 const canUpgrade = wallet.haveMoneyToBuy(tileTower.type, tileTower.upgradeLevel + 1);
@@ -2287,7 +2261,7 @@ function draw() {
             hud.viewSellProfit(tileTower);
         }
         else {
-            influenceArea.drawHudTowerInfluenceArea(hud.getSelectedTower(), mouseOrangeTileOver.getPosition(), canBuySelectedTower);
+            influenceArea.drawHudTowerInfluenceArea(hud.getSelectedTower(), mouseTileOrangeOver.getPosition(), canBuySelectedTower);
             hud.setType(Hud.NORMAL);
             hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow);
             hud.hideUpgradeCost();
