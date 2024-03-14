@@ -46,15 +46,15 @@ export class TileGenerator {
       throw new Error('No rows map found')
     }
 
-    this._setStartImage(mapImages)
-    this._setEndImage(mapImages)
+    this.#setStartImage(mapImages)
+    this.#setEndImage(mapImages)
 
     this.#orangeImage = mapImages[0]
     this.#blackImage = mapImages[1]
     this.#startDirection = this.#levelMap.startDirection
   }
 
-  _setStartImage(mapImages: any[]) {
+  #setStartImage(mapImages: any[]) {
     switch (this.#levelMap.startDirection) {
       case ConstDirection.DOWN:
         this.#startImage = mapImages[6]
@@ -78,7 +78,7 @@ export class TileGenerator {
     }
   }
 
-  _setEndImage(mapImages: any[]) {
+  #setEndImage(mapImages: any[]) {
     switch (this.#levelMap.endDirection) {
       case ConstDirection.DOWN:
         this.#endImage = mapImages[2]
