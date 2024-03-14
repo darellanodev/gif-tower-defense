@@ -14,7 +14,6 @@ import { MathUtils } from './MathUtils'
 import { Hud } from './Hud'
 import { Enemy } from './Enemy'
 import { Debug } from './Debug'
-import { Random } from './Random'
 import { ProgressBar } from './ProgressBar'
 import { Wallet } from './Wallet'
 import { Score } from './Score'
@@ -293,8 +292,6 @@ function createNewEnemy(waveEnemy: number, wave: number) {
       orders,
       endurance,
       isBoss,
-      Random,
-      ProgressBar,
     ),
   )
 }
@@ -354,8 +351,6 @@ function createNewBoss(wave: number) {
       orders,
       endurance,
       isBoss,
-      Random,
-      ProgressBar,
     ),
   )
 }

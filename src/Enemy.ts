@@ -28,8 +28,6 @@ export class Enemy {
   #orders: number[]
   #endurance: number
   #isBoss: boolean
-  #RandomClass: typeof Random
-  #ProgressBarClass: typeof ProgressBar
 
   #id: number
   #imgIndex: number
@@ -57,16 +55,12 @@ export class Enemy {
     orders: number[],
     endurance: number,
     isBoss: boolean,
-    RandomClass: typeof Random,
-    ProgressBarClass: typeof ProgressBar,
   ) {
     this.#images = images
     this.#startPosition = { ...startPosition }
     this.#orders = orders
     this.#endurance = endurance
     this.#isBoss = isBoss
-    this.#RandomClass = RandomClass
-    this.#ProgressBarClass = ProgressBarClass
 
     // generate Id
     Enemy.numberOfEnemies++
@@ -79,7 +73,7 @@ export class Enemy {
       Enemy.EYES_CENTER,
     ]
 
-    this.#healthBar = new this.#ProgressBarClass(
+    this.#healthBar = new ProgressBar(
       { x: 200, y: 200 },
       ProgressBar.WIDTH,
       ProgressBar.HEIGHT,
@@ -214,7 +208,7 @@ export class Enemy {
   }
 
   #setRandomTimeMaxForClosingEyes() {
-    this.#randomCloseEyes = this.#RandomClass.integerBetween(
+    this.#randomCloseEyes = Random.integerBetween(
       Enemy.MIN_TIME_TO_CLOSE,
       Enemy.MAX_TIME_TO_CLOSE,
     )
