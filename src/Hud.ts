@@ -215,7 +215,7 @@ export class Hud {
     this.#lives = lives
   }
 
-  // can't be private with # because it needs to access this class public static properties
+  // can't be private with # because it needs to access their public static properties
   _drawTowerIcons() {
     let greenIconImgPos = Hud.ICON_GREEN_TOWER_OFF
     let redIconImgPos = Hud.ICON_RED_TOWER_OFF
