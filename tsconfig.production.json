@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "none",
+    "module": "commonjs",
     "noImplicitAny": true,
     "outFile": "./dist/dist.js",
     "preserveConstEnums": true,
@@ -10,6 +10,9 @@
     "target": "es6",
     "moduleResolution": "node"
   },
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
     "node_modules",
     "test"

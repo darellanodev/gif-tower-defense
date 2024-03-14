@@ -1,41 +1,53 @@
 const fs = require('fs')
+const path = require('path')
 const child_process = require('child_process')
 
-const protectBeforeBuild = (files) => {
+const protectBeforeBuild = (dir) => {
+  const files = fs.readdirSync(dir)
+
   files.forEach((file) => {
-    let contents = fs.readFileSync(`src/${file}`, 'utf8')
+    const filePath = path.join(dir, file)
+    const stat = fs.statSync(filePath)
 
-    if (file !== 'main.ts') {
-      contents = contents.replace(/export class/g, 'class')
+    if (stat.isDirectory()) {
+      protectBeforeBuild(filePath) // recursive for subdirectories
+    } else {
+      let contents = fs.readFileSync(filePath, 'utf8')
+      if (file !== 'main.ts') {
+        contents = contents.replace(/export class/g, 'class')
+      }
+      contents = contents.replace(/import /g, '//import ')
+      fs.writeFileSync(filePath, contents, 'utf8')
     }
-    contents = contents.replace(/import /g, '//import ')
-
-    fs.writeFileSync(`src/${file}`, contents, 'utf8')
   })
 }
 
-const restoreAfterBuild = (files) => {
+const restoreAfterBuild = (dir) => {
+  const files = fs.readdirSync(dir)
+
   files.forEach((file) => {
-    let contents = fs.readFileSync(`src/${file}`, 'utf8')
+    const filePath = path.join(dir, file)
+    const stat = fs.statSync(filePath)
 
-    if (file !== 'main.ts') {
-      contents = contents.replace(/class/g, 'export class')
+    if (stat.isDirectory()) {
+      restoreAfterBuild(filePath) // recursive for subdirectories
+    } else {
+      let contents = fs.readFileSync(filePath, 'utf8')
+      if (file !== 'main.ts') {
+        contents = contents.replace(/class/g, 'export class')
+      }
+      contents = contents.replace(/\/\/import /g, 'import ')
+      fs.writeFileSync(filePath, contents, 'utf8')
     }
-    contents = contents.replace(/\/\/import /g, 'import ')
-
-    fs.writeFileSync(`src/${file}`, contents, 'utf8')
   })
 }
 
-const files = fs.readdirSync('src')
-protectBeforeBuild(files)
+const srcDir = 'src'
+protectBeforeBuild(srcDir)
 
 child_process.exec(
   'tsc --project tsconfig.production.json',
   (error, stdout, stderr) => {
-    const fs = require('fs')
-
-    const files = fs.readdirSync('src')
-    restoreAfterBuild(files)
+    restoreAfterBuild(srcDir)
   },
 )
