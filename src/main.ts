@@ -140,7 +140,7 @@ function setup() {
   orders = path.makeOrders()
   initialEnemiesPosition = path.getEnemiesInitialPosition()
 
-  wallet = new Wallet(tileGenerator.getInitialMoney())
+  wallet = new Wallet(tileGenerator.initialMoney)
   score = new Score()
   lives = 7
 

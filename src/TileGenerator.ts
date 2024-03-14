@@ -162,7 +162,7 @@ export class TileGenerator {
     return this._extractTiles('y')[0]
   }
 
-  getInitialMoney() {
+  get initialMoney() {
     return Number(this.#levelMap.money)
   }
 }

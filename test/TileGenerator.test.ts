@@ -136,7 +136,7 @@ test('TileGenerator generate the initial money', () => {
     towerGenerator,
   )
 
-  const result = tileGenerator.getInitialMoney()
+  const result = tileGenerator.initialMoney
 
   expect(result).toBe(expected)
 })
