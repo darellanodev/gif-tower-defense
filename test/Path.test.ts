@@ -2,11 +2,11 @@ import { ConstTest } from '../src/ConstTest'
 import { ConstDirection } from '../src/ConstDirection'
 import { Const } from '../src/Const'
 import { Path } from '../src/Path'
-import { PathTile } from '../src/PathTile'
-import { StartTile } from '../src/StartTile'
-import { EndTile } from '../src/EndTile'
+import { TilePath } from '../src/TilePath'
+import { TileStart } from '../src/TileStart'
+import { TileEnd } from '../src/TileEnd'
 import { TileGenerator } from '../src/TileGenerator'
-import { OrangeTile } from '../src/OrangeTile'
+import { TileOrange } from '../src/TileOrange'
 import { TowerGreen } from '../src/TowerGreen'
 import { TowerRed } from '../src/TowerRed'
 import { TowerYellow } from '../src/TowerYellow'
@@ -42,10 +42,10 @@ const towerGenerator = new TowerGenerator(
 const tileGenerator = new TileGenerator(
   levelMap,
   mapimages,
-  OrangeTile,
-  PathTile,
-  StartTile,
-  EndTile,
+  TileOrange,
+  TilePath,
+  TileStart,
+  TileEnd,
   towerGenerator,
 )
 const pathTiles = tileGenerator.pathTiles
@@ -97,17 +97,17 @@ describe('enemies initial position', () => {
 describe('finds a pathtile', () => {
   test('if exists return the pathtile', () => {
     const img: any = null
-    const positionStartTile: Position = { x: 300, y: 300 }
-    const positionEndTile: Position = { x: 0, y: 300 }
-    const startTile = new StartTile(img, positionStartTile, ConstDirection.LEFT)
-    const endTile = new EndTile(img, positionEndTile)
+    const positionTileStart: Position = { x: 300, y: 300 }
+    const positionTileEnd: Position = { x: 0, y: 300 }
+    const startTile = new TileStart(img, positionTileStart, ConstDirection.LEFT)
+    const endTile = new TileEnd(img, positionTileEnd)
 
-    const searchTile = new PathTile(150, 300)
+    const searchTile = new TilePath(150, 300)
 
     const pathTiles = [
-      new PathTile(100, 300),
-      new PathTile(150, 300),
-      new PathTile(200, 300),
+      new TilePath(100, 300),
+      new TilePath(150, 300),
+      new TilePath(200, 300),
     ]
 
     const path = new Path(startTile, endTile, pathTiles)
@@ -318,10 +318,10 @@ describe('invalid map', () => {
     const tileGenerator = new TileGenerator(
       levelMap,
       mapimages,
-      OrangeTile,
-      PathTile,
-      StartTile,
-      EndTile,
+      TileOrange,
+      TilePath,
+      TileStart,
+      TileEnd,
       towerGenerator,
     )
     const pathTiles = tileGenerator.pathTiles

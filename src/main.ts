@@ -1,12 +1,12 @@
 import { TowerType, Position } from './types'
 import { Const } from './Const'
 import { Path } from './Path'
-import { PathTile } from './PathTile'
-import { StartTile } from './StartTile'
-import { EndTile } from './EndTile'
+import { TilePath } from './TilePath'
+import { TileStart } from './TileStart'
+import { TileEnd } from './TileEnd'
 import { TileGenerator } from './TileGenerator'
 import { TowerGenerator } from './TowerGenerator'
-import { OrangeTile } from './OrangeTile'
+import { TileOrange } from './TileOrange'
 import { TowerGreen } from './TowerGreen'
 import { TowerRed } from './TowerRed'
 import { TowerYellow } from './TowerYellow'
@@ -38,16 +38,16 @@ let enemies: Enemy[]
 let hud: Hud
 let wallet: Wallet
 let score: Score
-let orangeTiles: OrangeTile[]
-let mouseOrangeTileOver: OrangeTile
+let orangeTiles: TileOrange[]
+let mouseTileOrangeOver: TileOrange
 let wave: number
 let waveEnemies: number
 let tileImages: Image[]
 let greenTowerImages: Image[]
 let redTowerImages: Image[]
 let yellowTowerImages: Image[]
-let startTile: StartTile
-let endTile: EndTile
+let startTile: TileStart
+let endTile: TileEnd
 let hudImages: Image[]
 let hudIconImages: Image[]
 let backgroundImage: Image
@@ -124,10 +124,10 @@ function setup() {
   const tileGenerator = new TileGenerator(
     levelMap,
     tileImages,
-    OrangeTile,
-    PathTile,
-    StartTile,
-    EndTile,
+    TileOrange,
+    TilePath,
+    TileStart,
+    TileEnd,
     towerGenerator,
   )
   orangeTiles = tileGenerator.orangeTiles
@@ -252,13 +252,13 @@ function handleHudButtons() {
 }
 
 function handleSellTower() {
-  const profit = mouseOrangeTileOver.sellTower()
+  const profit = mouseTileOrangeOver.sellTower()
   wallet.increase(profit)
 }
 
 function handleBuyTower() {
-  if (canBuyTower(mouseOrangeTileOver.getTower())) {
-    const cost = mouseOrangeTileOver.buyTower(hud.getSelectedTower())
+  if (canBuyTower(mouseTileOrangeOver.getTower())) {
+    const cost = mouseTileOrangeOver.buyTower(hud.getSelectedTower())
     wallet.decrease(cost)
   }
 }
@@ -269,9 +269,9 @@ function mouseClicked() {
     return
   }
 
-  if (mouseOrangeTileOver !== null) {
-    if (mouseButton === RIGHT && mouseOrangeTileOver.hasTower()) {
-      if (mouseOrangeTileOver.getTower().notUpgrading) {
+  if (mouseTileOrangeOver !== null) {
+    if (mouseButton === RIGHT && mouseTileOrangeOver.hasTower()) {
+      if (mouseTileOrangeOver.getTower().notUpgrading) {
         handleSellTower()
       }
     }
@@ -422,11 +422,11 @@ function updateEnemies() {
   handleWinnerEnemies()
 }
 
-function updateMouseOrangeTileOver() {
-  mouseOrangeTileOver = getMouseOrangeTileOver()
+function updateMouseTileOrangeOver() {
+  mouseTileOrangeOver = getMouseTileOrangeOver()
 }
 
-function getMouseOrangeTileOver() {
+function getMouseTileOrangeOver() {
   const result = orangeTiles.find((orangeTile) =>
     orangeTile.isInside(mouseX, mouseY),
   )
@@ -586,7 +586,7 @@ function updateExplosions() {
 function draw() {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
     updateEnemies()
-    updateMouseOrangeTileOver()
+    updateMouseTileOrangeOver()
     updateWaveProgressBar()
     updateBossProgressBar()
     updateMagicFireballs()
@@ -618,9 +618,9 @@ function draw() {
   const canBuyTowerRed = canBuyNewTower(TowerRed.ID)
   const canBuyTowerYellow = canBuyNewTower(TowerYellow.ID)
 
-  if (mouseOrangeTileOver !== null) {
-    if (mouseOrangeTileOver.hasTower()) {
-      const tileTower = mouseOrangeTileOver.getTower()
+  if (mouseTileOrangeOver !== null) {
+    if (mouseTileOrangeOver.hasTower()) {
+      const tileTower = mouseTileOrangeOver.getTower()
 
       hud.selectTowerHudType(tileTower)
       if (!tileTower.maxUpgraded) {
@@ -636,7 +636,7 @@ function draw() {
     } else {
       influenceArea.drawHudTowerInfluenceArea(
         hud.getSelectedTower(),
-        mouseOrangeTileOver.getPosition(),
+        mouseTileOrangeOver.getPosition(),
         canBuySelectedTower,
       )
 

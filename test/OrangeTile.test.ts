@@ -1,4 +1,4 @@
-import { OrangeTile } from '../src/OrangeTile'
+import { TileOrange } from '../src/TileOrange'
 import { TowerGreen } from '../src/TowerGreen'
 import { TowerRed } from '../src/TowerRed'
 import { TowerYellow } from '../src/TowerYellow'
@@ -26,7 +26,7 @@ describe('When clic over an orange tile', () => {
   test('If mouse is inside should return true', () => {
     const img: any = null
     const position: Position = { x: 100, y: 200 }
-    const orangeTile = new OrangeTile(img, position, towerGenerator)
+    const orangeTile = new TileOrange(img, position, towerGenerator)
 
     const result = orangeTile.isInside(120, 220)
 
@@ -36,7 +36,7 @@ describe('When clic over an orange tile', () => {
   test('If mouse is outside should return false', () => {
     const img: any = null
     const position: Position = { x: 100, y: 200 }
-    const orangeTile = new OrangeTile(img, position, towerGenerator)
+    const orangeTile = new TileOrange(img, position, towerGenerator)
 
     const result = orangeTile.isInside(90, 220)
 
@@ -48,7 +48,7 @@ describe('Other methods of the orange tile', () => {
   test('should return true when has a tower', () => {
     const img: any = null
     const position: Position = { x: 100, y: 100 }
-    const orangeTile = new OrangeTile(img, position, towerGenerator)
+    const orangeTile = new TileOrange(img, position, towerGenerator)
 
     const cost = orangeTile.buyTower(TowerGreen.ID)
     const result = orangeTile.hasTower()
@@ -61,7 +61,7 @@ describe('Other methods of the orange tile', () => {
 
     const img: any = null
     const position: Position = { x: 100, y: 100 }
-    const orangeTile = new OrangeTile(img, position, towerGenerator)
+    const orangeTile = new TileOrange(img, position, towerGenerator)
 
     const cost = orangeTile.buyTower(TowerGreen.ID)
     const result = orangeTile.sellTower()

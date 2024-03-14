@@ -1,8 +1,8 @@
 import { MapDataType } from './types'
-import { StartTile } from './StartTile'
-import { EndTile } from './EndTile'
-import { OrangeTile } from './OrangeTile'
-import { PathTile } from './PathTile'
+import { TileStart } from './TileStart'
+import { TileEnd } from './TileEnd'
+import { TileOrange } from './TileOrange'
+import { TilePath } from './TilePath'
 import { TowerGenerator } from './TowerGenerator'
 import { Image } from 'p5'
 import { ConstDirection } from './ConstDirection'
@@ -13,10 +13,10 @@ export class TileGenerator {
 
   #levelMap: MapDataType
   #mapImages: Image[]
-  #OrangeTileClass: typeof OrangeTile
-  #PathTileClass: typeof PathTile
-  #StartTileClass: typeof StartTile
-  #EndTileClass: typeof EndTile
+  #TileOrangeClass: typeof TileOrange
+  #TilePathClass: typeof TilePath
+  #TileStartClass: typeof TileStart
+  #TileEndClass: typeof TileEnd
   #towerGenerator: TowerGenerator
 
   #orangeImage: Image
@@ -28,18 +28,18 @@ export class TileGenerator {
   constructor(
     levelMap: MapDataType,
     mapImages: Image[],
-    OrangeTileClass: typeof OrangeTile,
-    PathTileClass: typeof PathTile,
-    StartTileClass: typeof StartTile,
-    EndTileClass: typeof EndTile,
+    TileOrangeClass: typeof TileOrange,
+    TilePathClass: typeof TilePath,
+    TileStartClass: typeof TileStart,
+    TileEndClass: typeof TileEnd,
     towerGenerator: TowerGenerator,
   ) {
     this.#levelMap = levelMap
     this.#mapImages = mapImages
-    this.#OrangeTileClass = OrangeTileClass
-    this.#PathTileClass = PathTileClass
-    this.#StartTileClass = StartTileClass
-    this.#EndTileClass = EndTileClass
+    this.#TileOrangeClass = TileOrangeClass
+    this.#TilePathClass = TilePathClass
+    this.#TileStartClass = TileStartClass
+    this.#TileEndClass = TileEndClass
     this.#towerGenerator = towerGenerator
 
     if (this.#levelMap.rowsMap.length === 0) {
@@ -114,7 +114,7 @@ export class TileGenerator {
           switch (symbol) {
             case '0':
               resultTiles.push(
-                new this.#OrangeTileClass(
+                new this.#TileOrangeClass(
                   this.#orangeImage,
                   { x: posX, y: posY },
                   this.#towerGenerator,
@@ -122,11 +122,11 @@ export class TileGenerator {
               )
               break
             case '1':
-              resultTiles.push(new this.#PathTileClass(posX, posY))
+              resultTiles.push(new this.#TilePathClass(posX, posY))
               break
             case 'x':
               resultTiles.push(
-                new this.#StartTileClass(
+                new this.#TileStartClass(
                   this.#startImage,
                   { x: posX, y: posY },
                   this.#startDirection,
@@ -135,7 +135,7 @@ export class TileGenerator {
               break
             case 'y':
               resultTiles.push(
-                new this.#EndTileClass(this.#endImage, { x: posX, y: posY }),
+                new this.#TileEndClass(this.#endImage, { x: posX, y: posY }),
               )
               break
           }

@@ -1,4 +1,4 @@
-export class PathTile {
+export class TilePath {
   #x: number
   #y: number
 

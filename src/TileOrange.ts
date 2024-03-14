@@ -4,7 +4,7 @@ import { Image } from 'p5'
 import { Enemy } from './Enemy'
 import { Const } from './Const'
 
-export class OrangeTile {
+export class TileOrange {
   #img: Image
   #position: Position
   #towerGenerator: TowerGenerator

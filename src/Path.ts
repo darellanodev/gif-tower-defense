@@ -1,17 +1,17 @@
-import { StartTile } from './StartTile'
-import { EndTile } from './EndTile'
-import { PathTile } from './PathTile'
+import { TileStart } from './TileStart'
+import { TileEnd } from './TileEnd'
+import { TilePath } from './TilePath'
 import { Const } from './Const'
 import { ConstDirection } from './ConstDirection'
 
 export class Path {
   static MAX_SEARCHES = 5000 // For testing purposes put a low value. For production put this value at 5000
 
-  #startTile: StartTile
-  #endTile: EndTile
-  #pathTiles: PathTile[]
+  #startTile: TileStart
+  #endTile: TileEnd
+  #pathTiles: TilePath[]
 
-  constructor(startTile: StartTile, endTile: EndTile, pathTiles: PathTile[]) {
+  constructor(startTile: TileStart, endTile: TileEnd, pathTiles: TilePath[]) {
     this.#startTile = startTile
     this.#endTile = endTile
     this.#pathTiles = pathTiles
@@ -62,7 +62,7 @@ export class Path {
     return this.getTileInPosition(searchPx, searchPy)
   }
 
-  _isLeftEndTile(currentTile: any) {
+  _isLeftTileEnd(currentTile: any) {
     const searchPx = currentTile.getX() - Const.TILE_SIZE
     const searchPy = currentTile.getY()
 
@@ -82,7 +82,7 @@ export class Path {
 
     const startTilePosition = this.#startTile.getPosition()
 
-    let currentTile: PathTile = new PathTile(
+    let currentTile: TilePath = new TilePath(
       startTilePosition.x,
       startTilePosition.y,
     )
@@ -96,9 +96,9 @@ export class Path {
     while (searchCount < Path.MAX_SEARCHES && !endReached) {
       searchCount++
       if (currentDirection === ConstDirection.LEFT) {
-        const isLeftEndTile = this._isLeftEndTile(currentTile)
+        const isLeftTileEnd = this._isLeftTileEnd(currentTile)
 
-        if (isLeftEndTile) {
+        if (isLeftTileEnd) {
           endReached = true
           orders.push(ConstDirection.LEFT)
         } else {
