@@ -102,12 +102,12 @@ describe('finds a pathtile', () => {
     const startTile = new TileStart(img, positionTileStart, ConstDirection.LEFT)
     const endTile = new TileEnd(img, positionTileEnd)
 
-    const searchTile = new TilePath(150, 300)
+    const searchTile = new TilePath({ x: 150, y: 300 })
 
     const pathTiles = [
-      new TilePath(100, 300),
-      new TilePath(150, 300),
-      new TilePath(200, 300),
+      new TilePath({ x: 100, y: 300 }),
+      new TilePath({ x: 150, y: 300 }),
+      new TilePath({ x: 200, y: 300 }),
     ]
 
     const path = new Path(startTile, endTile, pathTiles)

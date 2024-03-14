@@ -122,7 +122,7 @@ export class TileGenerator {
               )
               break
             case '1':
-              resultTiles.push(new this.#TilePathClass(posX, posY))
+              resultTiles.push(new this.#TilePathClass({ x: posX, y: posY }))
               break
             case 'x':
               resultTiles.push(

@@ -1,23 +1,23 @@
 import { Image } from 'p5'
 import { Position } from './types'
+import { Tile } from './Tile'
 
-export class TileStart {
+export class TileStart extends Tile {
   #img: Image
-  #position: Position
   #startDirection: number
 
   constructor(img: Image, position: Position, startDirection: number) {
+    super(position)
     this.#img = img
-    this.#position = { ...position }
     this.#startDirection = startDirection
   }
 
   draw() {
-    image(this.#img, this.#position.x, this.#position.y)
+    image(this.#img, this.position.x, this.position.y)
   }
 
   getPosition() {
-    return this.#position
+    return this.position
   }
 
   getStartDirection() {

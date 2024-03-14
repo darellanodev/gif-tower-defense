@@ -1,17 +1,8 @@
-export class TilePath {
-  #x: number
-  #y: number
+import { Tile } from './Tile'
+import { Position } from './types'
 
-  constructor(x: number, y: number) {
-    this.#x = x
-    this.#y = y
-  }
-
-  getX() {
-    return this.#x
-  }
-
-  getY() {
-    return this.#y
+export class TilePath extends Tile {
+  constructor(position: Position) {
+    super(position)
   }
 }

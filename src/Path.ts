@@ -32,39 +32,40 @@ export class Path {
 
   getTileInPosition(tx: number, ty: number) {
     const pathTile = this.#pathTiles.find(
-      (pathTile) => tx === pathTile.getX() && ty === pathTile.getY(),
+      (pathTile) =>
+        tx === pathTile.getPosition().x && ty === pathTile.getPosition().y,
     )
 
     return pathTile ? pathTile : null
   }
 
   _searchLeftTile(currentTile: any) {
-    const searchPx = currentTile.getX() - Const.TILE_SIZE
-    const searchPy = currentTile.getY()
+    const searchPx = currentTile.getPosition().x - Const.TILE_SIZE
+    const searchPy = currentTile.getPosition().y
     return this.getTileInPosition(searchPx, searchPy)
   }
 
   _searchDownTile(currentTile: any) {
-    const searchPx = currentTile.getX()
-    const searchPy = currentTile.getY() + Const.TILE_SIZE
+    const searchPx = currentTile.getPosition().x
+    const searchPy = currentTile.getPosition().y + Const.TILE_SIZE
     return this.getTileInPosition(searchPx, searchPy)
   }
 
   _searchRightTile(currentTile: any) {
-    const searchPx = currentTile.getX() + Const.TILE_SIZE
-    const searchPy = currentTile.getY()
+    const searchPx = currentTile.getPosition().x + Const.TILE_SIZE
+    const searchPy = currentTile.getPosition().y
     return this.getTileInPosition(searchPx, searchPy)
   }
 
   _searchUpTile(currentTile: any) {
-    const searchPx = currentTile.getX()
-    const searchPy = currentTile.getY() - Const.TILE_SIZE
+    const searchPx = currentTile.getPosition().x
+    const searchPy = currentTile.getPosition().y - Const.TILE_SIZE
     return this.getTileInPosition(searchPx, searchPy)
   }
 
   _isLeftTileEnd(currentTile: any) {
-    const searchPx = currentTile.getX() - Const.TILE_SIZE
-    const searchPy = currentTile.getY()
+    const searchPx = currentTile.getPosition().x - Const.TILE_SIZE
+    const searchPy = currentTile.getPosition().y
 
     const endPosition = this.#endTile.position
 
@@ -82,10 +83,10 @@ export class Path {
 
     const startTilePosition = this.#startTile.getPosition()
 
-    let currentTile: TilePath = new TilePath(
-      startTilePosition.x,
-      startTilePosition.y,
-    )
+    let currentTile: TilePath = new TilePath({
+      x: startTilePosition.x,
+      y: startTilePosition.y,
+    })
     let currentDirection = this.#startTile.getStartDirection()
 
     // the first time it goes in the same direction than currentDirection one tile only, from out of the startTile to the startTile.
