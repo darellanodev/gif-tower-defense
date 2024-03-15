@@ -63,11 +63,14 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
   - [x] Getters
   - [x] Class properties (static properties) to put constants related to their classes
   - [x] Use static property for store createdEnemies and then use it to generate ID with a getter when creating a new enemy.
-  - [ ] Refactor to use Position interface in other parts of the code (for example, explosions)
-  - [ ] Private methods (some of them now are prefixed with a -)
-  - [ ] Public/Private properties
+  - [x] Remove unnecesary code (search for use of this.XXXXClass and call directly classes)
+  - [x] Refactor to use Position interface in other parts of the code (for example, explosions)
+  - [ ] Move from main.ts related code into their classes.
   - [ ] Class methods (static methods) to instantiate objects
   - [ ] Setters
+  - [ ] Private methods
+  - [ ] Public/Private properties
+  - [ ] Subdirectories: towers, constants, tiles
 
 ## Resources
 
