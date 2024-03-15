@@ -26,7 +26,7 @@ export class TowerYellow extends Tower {
     this.#images = images
     this.#position = { ...position }
 
-    this.#progressBar = new ProgressBar(this.#position, 27, 7)
+    this.#progressBar = new ProgressBar(this.#position, { w: 27, h: 7 })
   }
 
   upgrade() {

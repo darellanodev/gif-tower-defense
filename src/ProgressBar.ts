@@ -1,22 +1,20 @@
-import { Position } from './types'
+import { Position, Size } from './types'
 
 export class ProgressBar {
   static WIDTH = 27
   static HEIGHT = 7
 
   #position: Position
-  #width: number
-  #height: number
+  #size: Size
 
   #progress: number = 0
   #maxProgress: number
 
-  constructor(position: Position, width: number, height: number) {
+  constructor(position: Position, size: Size) {
     this.#position = { ...position }
-    this.#width = width
-    this.#height = height
+    this.#size = { ...size }
 
-    this.#maxProgress = this.#width - 1
+    this.#maxProgress = this.#size.w - 1
   }
 
   setPosition(position: Position) {
@@ -46,8 +44,8 @@ export class ProgressBar {
     rect(
       this.#position.x + 10,
       this.#position.y + 20,
-      this.#width,
-      this.#height,
+      this.#size.w,
+      this.#size.h,
     )
   }
 
@@ -59,7 +57,7 @@ export class ProgressBar {
       this.#position.x + 11,
       this.#position.y + 21,
       progressLevel,
-      this.#height - 2,
+      this.#size.h - 2,
     )
   }
 

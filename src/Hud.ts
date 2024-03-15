@@ -64,8 +64,14 @@ export class Hud {
     this.#bossProgressBar = bossProgressBar
     this.#wave = wave
 
-    this.#waveProgressBar = new ProgressBar({ x: 335, y: -19 }, 150, 16)
-    this.#bossProgressBar = new ProgressBar({ x: 335, y: -2 }, 150, 10)
+    this.#waveProgressBar = new ProgressBar(
+      { x: 335, y: -19 },
+      { w: 150, h: 16 },
+    )
+    this.#bossProgressBar = new ProgressBar(
+      { x: 335, y: -2 },
+      { w: 150, h: 10 },
+    )
 
     this.#hudType = Hud.NORMAL
     this.#selectedItem = TowerGreen.ID

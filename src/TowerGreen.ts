@@ -36,8 +36,7 @@ export class TowerGreen extends Tower {
         x: this.#position.x + Const.TOWER_OFFSET,
         y: this.#position.y + Const.TOWER_OFFSET,
       },
-      ProgressBar.WIDTH,
-      ProgressBar.HEIGHT,
+      { w: ProgressBar.WIDTH, h: ProgressBar.HEIGHT },
     )
   }
 

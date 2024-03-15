@@ -75,8 +75,7 @@ export class Enemy {
 
     this.#healthBar = new ProgressBar(
       { x: 200, y: 200 },
-      ProgressBar.WIDTH,
-      ProgressBar.HEIGHT,
+      { w: ProgressBar.WIDTH, h: ProgressBar.HEIGHT },
     )
 
     this.#position = { ...this.#startPosition }

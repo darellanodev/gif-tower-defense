@@ -26,11 +26,10 @@ export class TowerRed extends Tower {
     this.#images = images
     this.#position = { ...position }
 
-    this.#progressBar = new ProgressBar(
-      this.#position,
-      ProgressBar.WIDTH,
-      ProgressBar.HEIGHT,
-    )
+    this.#progressBar = new ProgressBar(this.#position, {
+      w: ProgressBar.WIDTH,
+      h: ProgressBar.HEIGHT,
+    })
   }
 
   upgrade() {

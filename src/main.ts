@@ -133,8 +133,8 @@ function setup() {
   waveEnemies = 0
   enemies = []
 
-  waveProgressBar = new ProgressBar({ x: 335, y: -19 }, 150, 16)
-  bossProgressBar = new ProgressBar({ x: 335, y: -2 }, 150, 10)
+  waveProgressBar = new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 })
+  bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 })
 
   hud = new Hud(
     hudImages,
