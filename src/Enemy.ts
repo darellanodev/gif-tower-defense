@@ -9,6 +9,7 @@ import { ConstDirection } from './ConstDirection'
 export class Enemy {
   static VELOCITY = 1 // must be multiple of "this.#Const.TILE_SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
   static BOSS_VELOCITY = 0.5
+  static INDEX_BOSS_IN_ENEMIES_IMAGES = 5
   static CHANGE_EYES_MAX_TIME = 50
   static EXTEND_CLOSED_EYES_MAX_TIME = 20
   static MIN_TIME_TO_CLOSE = 50
@@ -89,12 +90,12 @@ export class Enemy {
 
   static instantiateNormalEnemy(
     images: Image[],
-    waveEnemy: number,
+    waveEnemies: number,
     orders: number[],
     initialEnemiesPosition: Position,
     wave: number,
   ) {
-    const endurance = wave * 3 + waveEnemy * 2
+    const endurance = wave * 3 + waveEnemies * 2
     const isBoss = false
 
     Enemy.instances.push(

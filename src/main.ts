@@ -263,16 +263,6 @@ function mouseClicked() {
   }
 }
 
-function createNewEnemy(waveEnemy: number, wave: number) {
-  Enemy.instantiateNormalEnemy(
-    enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemy)),
-    waveEnemy,
-    orders,
-    initialEnemiesPosition,
-    wave,
-  )
-}
-
 function createNewMagicFireball() {
   if (magicFireballsCount > 0) {
     magicFireballs.push(
@@ -315,18 +305,6 @@ function createNewMagicUFO() {
   }
 }
 
-function createNewBoss(wave: number) {
-  const indexBossInEnemiesImages = 5
-  Enemy.instantiateBoss(
-    enemiesImages.slice(
-      ...MathUtils.getTwoNumbersFourTimes(indexBossInEnemiesImages),
-    ),
-    orders,
-    initialEnemiesPosition,
-    wave,
-  )
-}
-
 function handleExplosionEnemys() {
   const deadEnemies: Enemy[] = Enemy.instances.filter((enemy) => enemy.dead)
   deadEnemies.forEach((enemy) => {
@@ -347,7 +325,15 @@ function handleNewEnemyCreation() {
       createEnemyTime++
       if (createEnemyTime === Enemy.CREATION_MAX_TIME) {
         createEnemyTime = 0
-        createNewEnemy(waveEnemies, wave)
+
+        Enemy.instantiateNormalEnemy(
+          enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemies)),
+          waveEnemies,
+          orders,
+          initialEnemiesPosition,
+          wave,
+        )
+
         waveEnemies++
       }
     } else {
@@ -426,7 +412,17 @@ function updateBossProgressBar() {
     if (bossProgressBar.isFullOfProgress()) {
       // next boss
       bossProgressBar.setProgress(0)
-      createNewBoss(wave)
+
+      Enemy.instantiateBoss(
+        enemiesImages.slice(
+          ...MathUtils.getTwoNumbersFourTimes(
+            Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES,
+          ),
+        ),
+        orders,
+        initialEnemiesPosition,
+        wave,
+      )
     }
     hud.setBossProgressBar(bossProgressBar)
   }
