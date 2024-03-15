@@ -1,15 +1,6 @@
 import { TileGenerator } from '../src/TileGenerator'
 import { ConstTest } from '../src/ConstTest'
-import { TilePath } from '../src/TilePath'
-import { TileStart } from '../src/TileStart'
-import { TileEnd } from '../src/TileEnd'
-import { TileOrange } from '../src/TileOrange'
-import { TowerGreen } from '../src/TowerGreen'
-import { TowerRed } from '../src/TowerRed'
-import { TowerYellow } from '../src/TowerYellow'
-import { MathUtils } from '../src/MathUtils'
 import { TowerGenerator } from '../src/TowerGenerator'
-import { ProgressBar } from '../src/ProgressBar'
 import { LevelsData } from '../src/LevelsData'
 import { LevelsDataProvider } from '../src/LevelsDataProvider'
 
@@ -28,11 +19,6 @@ const towerGenerator = new TowerGenerator(
   greenTowerImages,
   redTowerImages,
   yellowTowerImages,
-  TowerGreen,
-  TowerRed,
-  TowerYellow,
-  MathUtils,
-  ProgressBar,
 )
 
 test('TileGenerator throws an exception when an empty string is passed to it', () => {
@@ -41,29 +27,12 @@ test('TileGenerator throws an exception when an empty string is passed to it', (
   )
 
   expect(
-    () =>
-      new TileGenerator(
-        invalidLevelMap,
-        mapimages,
-        TileOrange,
-        TilePath,
-        TileStart,
-        TileEnd,
-        towerGenerator,
-      ),
+    () => new TileGenerator(invalidLevelMap, mapimages, towerGenerator),
   ).toThrowError('No rows map found')
 })
 
 test('TileGenerator generate orange tiles', () => {
-  const tileGenerator = new TileGenerator(
-    levelMap,
-    mapimages,
-    TileOrange,
-    TilePath,
-    TileStart,
-    TileEnd,
-    towerGenerator,
-  )
+  const tileGenerator = new TileGenerator(levelMap, mapimages, towerGenerator)
 
   const result = tileGenerator.orangeTiles
 
@@ -72,15 +41,7 @@ test('TileGenerator generate orange tiles', () => {
 
 test('TileGenerator generate path tiles', () => {
   const mapimages: any[] = [null, null, null]
-  const tileGenerator = new TileGenerator(
-    levelMap,
-    mapimages,
-    TileOrange,
-    TilePath,
-    TileStart,
-    TileEnd,
-    towerGenerator,
-  )
+  const tileGenerator = new TileGenerator(levelMap, mapimages, towerGenerator)
 
   const result = tileGenerator.pathTiles
 
@@ -89,15 +50,7 @@ test('TileGenerator generate path tiles', () => {
 
 test('TileGenerator generate start tile', () => {
   const mapimages: any[] = [null, null, null]
-  const tileGenerator = new TileGenerator(
-    levelMap,
-    mapimages,
-    TileOrange,
-    TilePath,
-    TileStart,
-    TileEnd,
-    towerGenerator,
-  )
+  const tileGenerator = new TileGenerator(levelMap, mapimages, towerGenerator)
 
   const result = tileGenerator.startTile
 
@@ -106,15 +59,7 @@ test('TileGenerator generate start tile', () => {
 
 test('TileGenerator generate end tile', () => {
   const mapimages: any[] = [null, null, null]
-  const tileGenerator = new TileGenerator(
-    levelMap,
-    mapimages,
-    TileOrange,
-    TilePath,
-    TileStart,
-    TileEnd,
-    towerGenerator,
-  )
+  const tileGenerator = new TileGenerator(levelMap, mapimages, towerGenerator)
 
   const result = tileGenerator.endTile
 
@@ -125,15 +70,7 @@ test('TileGenerator generate the initial money', () => {
   const expected = 150
 
   const mapimages: any[] = [null, null, null]
-  const tileGenerator = new TileGenerator(
-    levelMap,
-    mapimages,
-    TileOrange,
-    TilePath,
-    TileStart,
-    TileEnd,
-    towerGenerator,
-  )
+  const tileGenerator = new TileGenerator(levelMap, mapimages, towerGenerator)
 
   const result = tileGenerator.initialMoney
 

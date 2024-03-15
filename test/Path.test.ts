@@ -5,13 +5,7 @@ import { TilePath } from '../src/TilePath'
 import { TileStart } from '../src/TileStart'
 import { TileEnd } from '../src/TileEnd'
 import { TileGenerator } from '../src/TileGenerator'
-import { TileOrange } from '../src/TileOrange'
-import { TowerGreen } from '../src/TowerGreen'
-import { TowerRed } from '../src/TowerRed'
-import { TowerYellow } from '../src/TowerYellow'
-import { MathUtils } from '../src/MathUtils'
 import { TowerGenerator } from '../src/TowerGenerator'
-import { ProgressBar } from '../src/ProgressBar'
 import { LevelsData } from '../src/LevelsData'
 import { LevelsDataProvider } from '../src/LevelsDataProvider'
 import { Position } from '../src/types'
@@ -31,22 +25,9 @@ const towerGenerator = new TowerGenerator(
   greenTowerImages,
   redTowerImages,
   yellowTowerImages,
-  TowerGreen,
-  TowerRed,
-  TowerYellow,
-  MathUtils,
-  ProgressBar,
 )
 
-const tileGenerator = new TileGenerator(
-  levelMap,
-  mapimages,
-  TileOrange,
-  TilePath,
-  TileStart,
-  TileEnd,
-  towerGenerator,
-)
+const tileGenerator = new TileGenerator(levelMap, mapimages, towerGenerator)
 const pathTiles = tileGenerator.pathTiles
 const startTile = tileGenerator.startTile
 const endTile = tileGenerator.endTile
@@ -314,15 +295,7 @@ describe('invalid map', () => {
 
     const mapimages: any[] = [null, null, null]
 
-    const tileGenerator = new TileGenerator(
-      levelMap,
-      mapimages,
-      TileOrange,
-      TilePath,
-      TileStart,
-      TileEnd,
-      towerGenerator,
-    )
+    const tileGenerator = new TileGenerator(levelMap, mapimages, towerGenerator)
     const pathTiles = tileGenerator.pathTiles
     const startTile = tileGenerator.startTile
     const endTile = tileGenerator.endTile

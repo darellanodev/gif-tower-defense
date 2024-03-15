@@ -1,5 +1,4 @@
 import { Position } from './types'
-import { MathUtils } from './MathUtils'
 import { ProgressBar } from './ProgressBar'
 import { Image } from 'p5'
 import { Enemy } from './Enemy'
@@ -16,27 +15,18 @@ export class TowerYellow extends Tower {
 
   #images: Image[]
   #position: Position
-  #MathUtilsClass: typeof MathUtils
-  #ProgressBarClass: typeof ProgressBar
 
   #upgradeLevel: number = 0
   #upgrading: boolean = false
   #progressBar: ProgressBar
   #upgradeProgress: number = 0
 
-  constructor(
-    images: Image[],
-    position: Position,
-    MathUtilsClass: typeof MathUtils,
-    ProgressBarClass: typeof ProgressBar,
-  ) {
+  constructor(images: Image[], position: Position) {
     super(position)
     this.#images = images
     this.#position = { ...position }
-    this.#MathUtilsClass = MathUtilsClass
-    this.#ProgressBarClass = ProgressBarClass
 
-    this.#progressBar = new this.#ProgressBarClass(this.#position, 27, 7)
+    this.#progressBar = new ProgressBar(this.#position, 27, 7)
   }
 
   upgrade() {

@@ -29,7 +29,6 @@ export class Hud {
   #wallet: Wallet
   #lives: number
   #score: Score
-  #TextPropertiesClass: typeof TextProperties
   #waveProgressBar: ProgressBar
   #bossProgressBar: ProgressBar
   #wave: number
@@ -52,7 +51,6 @@ export class Hud {
     wallet: Wallet,
     lives: number,
     score: Score,
-    TextPropertiesClass: typeof TextProperties,
     waveProgressBar: ProgressBar,
     bossProgressBar: ProgressBar,
     wave: number,
@@ -62,7 +60,6 @@ export class Hud {
     this.#wallet = wallet
     this.#lives = lives
     this.#score = score
-    this.#TextPropertiesClass = TextPropertiesClass
     this.#waveProgressBar = waveProgressBar
     this.#bossProgressBar = bossProgressBar
     this.#wave = wave
@@ -189,7 +186,7 @@ export class Hud {
     this.#bossProgressBar.draw()
 
     // draw texts
-    this.#TextPropertiesClass.setForHudData()
+    TextProperties.setForHudData()
 
     this.#drawMoney()
     this.#drawLives()

@@ -13,10 +13,6 @@ export class TileGenerator {
 
   #levelMap: MapDataType
   #mapImages: Image[]
-  #TileOrangeClass: typeof TileOrange
-  #TilePathClass: typeof TilePath
-  #TileStartClass: typeof TileStart
-  #TileEndClass: typeof TileEnd
   #towerGenerator: TowerGenerator
 
   #orangeImage: Image
@@ -28,18 +24,10 @@ export class TileGenerator {
   constructor(
     levelMap: MapDataType,
     mapImages: Image[],
-    TileOrangeClass: typeof TileOrange,
-    TilePathClass: typeof TilePath,
-    TileStartClass: typeof TileStart,
-    TileEndClass: typeof TileEnd,
     towerGenerator: TowerGenerator,
   ) {
     this.#levelMap = levelMap
     this.#mapImages = mapImages
-    this.#TileOrangeClass = TileOrangeClass
-    this.#TilePathClass = TilePathClass
-    this.#TileStartClass = TileStartClass
-    this.#TileEndClass = TileEndClass
     this.#towerGenerator = towerGenerator
 
     if (this.#levelMap.rowsMap.length === 0) {
@@ -114,7 +102,7 @@ export class TileGenerator {
           switch (symbol) {
             case '0':
               resultTiles.push(
-                new this.#TileOrangeClass(
+                new TileOrange(
                   this.#orangeImage,
                   { x: posX, y: posY },
                   this.#towerGenerator,
@@ -122,11 +110,11 @@ export class TileGenerator {
               )
               break
             case '1':
-              resultTiles.push(new this.#TilePathClass({ x: posX, y: posY }))
+              resultTiles.push(new TilePath({ x: posX, y: posY }))
               break
             case 'x':
               resultTiles.push(
-                new this.#TileStartClass(
+                new TileStart(
                   this.#startImage,
                   { x: posX, y: posY },
                   this.#startDirection,
@@ -135,7 +123,7 @@ export class TileGenerator {
               break
             case 'y':
               resultTiles.push(
-                new this.#TileEndClass(this.#endImage, { x: posX, y: posY }),
+                new TileEnd(this.#endImage, { x: posX, y: posY }),
               )
               break
           }

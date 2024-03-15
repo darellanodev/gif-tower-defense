@@ -1,7 +1,6 @@
 import { TowerType, Position } from './types'
 import { Const } from './Const'
 import { Path } from './Path'
-import { TilePath } from './TilePath'
 import { TileStart } from './TileStart'
 import { TileEnd } from './TileEnd'
 import { TileGenerator } from './TileGenerator'
@@ -23,7 +22,6 @@ import { ExplosionMagicFireball } from './ExplosionMagicFireball'
 import { ExplosionMagicIceball } from './ExplosionMagicIceball'
 import { TextProperties } from './TextProperties'
 import { Image } from 'p5'
-import { ParticleSystem } from './ParticleSystem'
 import { Resources } from './Resources'
 import { LevelsDataProvider } from './LevelsDataProvider'
 import { LevelsData } from './LevelsData'
@@ -113,22 +111,9 @@ function setup() {
     greenTowerImages,
     redTowerImages,
     yellowTowerImages,
-    TowerGreen,
-    TowerRed,
-    TowerYellow,
-    MathUtils,
-    ProgressBar,
   )
 
-  const tileGenerator = new TileGenerator(
-    levelMap,
-    tileImages,
-    TileOrange,
-    TilePath,
-    TileStart,
-    TileEnd,
-    towerGenerator,
-  )
+  const tileGenerator = new TileGenerator(levelMap, tileImages, towerGenerator)
   orangeTiles = tileGenerator.orangeTiles
   startTile = tileGenerator.startTile
 
@@ -157,7 +142,6 @@ function setup() {
     wallet,
     lives,
     score,
-    TextProperties,
     waveProgressBar,
     bossProgressBar,
     wave,

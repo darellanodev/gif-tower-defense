@@ -1,10 +1,6 @@
 import { TileOrange } from '../src/TileOrange'
 import { TowerGreen } from '../src/TowerGreen'
-import { TowerRed } from '../src/TowerRed'
-import { TowerYellow } from '../src/TowerYellow'
-import { MathUtils } from '../src/MathUtils'
 import { TowerGenerator } from '../src/TowerGenerator'
-import { ProgressBar } from '../src/ProgressBar'
 import { Position } from '../src/types'
 
 const greenTowerImages: any[] = [null, null, null]
@@ -15,11 +11,6 @@ const towerGenerator = new TowerGenerator(
   greenTowerImages,
   redTowerImages,
   yellowTowerImages,
-  TowerGreen,
-  TowerRed,
-  TowerYellow,
-  MathUtils,
-  ProgressBar,
 )
 
 describe('When clic over an orange tile', () => {

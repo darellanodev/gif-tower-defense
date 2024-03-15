@@ -17,8 +17,6 @@ export class TowerGreen extends Tower {
 
   #images: Image[]
   #position: Position
-  #MathUtilsClass: typeof MathUtils
-  #ProgressBarClass: typeof ProgressBar
 
   #upgradeLevel: number = 0
   #upgrading: boolean = false
@@ -28,19 +26,12 @@ export class TowerGreen extends Tower {
   #upgradeProgress: number = 0
   #delayUpgradeProgress: number
 
-  constructor(
-    images: Image[],
-    position: Position,
-    MathUtilsClass: typeof MathUtils,
-    ProgressBarClass: typeof ProgressBar,
-  ) {
+  constructor(images: Image[], position: Position) {
     super(position)
     this.#images = images
     this.#position = { ...position }
-    this.#MathUtilsClass = MathUtilsClass
-    this.#ProgressBarClass = ProgressBarClass
 
-    this.#progressBar = new this.#ProgressBarClass(
+    this.#progressBar = new ProgressBar(
       {
         x: this.#position.x + Const.TOWER_OFFSET,
         y: this.#position.y + Const.TOWER_OFFSET,
@@ -167,7 +158,7 @@ export class TowerGreen extends Tower {
     let enemyTarget = null
 
     enemies.forEach((enemy) => {
-      const distance = this.#MathUtilsClass.distance(
+      const distance = MathUtils.distance(
         { x: this.#position.x, y: this.#position.y },
         {
           x: enemy.position.x,
