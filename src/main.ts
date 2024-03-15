@@ -31,7 +31,6 @@ import { MagicUFO } from './MagicUFO'
 
 let orders: number[]
 let createEnemyTime: number
-let enemies: Enemy[]
 let hud: Hud
 let wallet: Wallet
 let score: Score
@@ -131,7 +130,6 @@ function setup() {
   wave = 1
   allowCreateEnemies = true
   waveEnemies = 0
-  enemies = []
 
   waveProgressBar = new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 })
   bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 })
@@ -266,17 +264,12 @@ function mouseClicked() {
 }
 
 function createNewEnemy(waveEnemy: number, wave: number) {
-  const endurance = wave * 3 + waveEnemy * 2
-  const isBoss = false
-
-  enemies.push(
-    new Enemy(
-      enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemy)),
-      initialEnemiesPosition,
-      orders,
-      endurance,
-      isBoss,
-    ),
+  Enemy.instantiateNormalEnemy(
+    enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemy)),
+    waveEnemy,
+    orders,
+    initialEnemiesPosition,
+    wave,
   )
 }
 
@@ -323,24 +316,19 @@ function createNewMagicUFO() {
 }
 
 function createNewBoss(wave: number) {
-  const endurance = wave * 25
   const indexBossInEnemiesImages = 5
-  const isBoss = true
-  enemies.push(
-    new Enemy(
-      enemiesImages.slice(
-        ...MathUtils.getTwoNumbersFourTimes(indexBossInEnemiesImages),
-      ),
-      initialEnemiesPosition,
-      orders,
-      endurance,
-      isBoss,
+  Enemy.instantiateBoss(
+    enemiesImages.slice(
+      ...MathUtils.getTwoNumbersFourTimes(indexBossInEnemiesImages),
     ),
+    orders,
+    initialEnemiesPosition,
+    wave,
   )
 }
 
 function handleExplosionEnemys() {
-  const deadEnemies: Enemy[] = enemies.filter((enemy) => enemy.dead)
+  const deadEnemies: Enemy[] = Enemy.instances.filter((enemy) => enemy.dead)
   deadEnemies.forEach((enemy) => {
     explosionsEnemy.push(
       new ExplosionEnemy({ x: enemy.position.x, y: enemy.position.y }),
@@ -370,11 +358,11 @@ function handleNewEnemyCreation() {
 }
 
 function removeDeadEnemies() {
-  enemies = enemies.filter((enemy) => enemy.alive)
+  Enemy.instances = Enemy.instances.filter((enemy) => enemy.alive)
 }
 
 function handleWinnerEnemies() {
-  const winnerEnemies = enemies.filter((enemy) => enemy.winner)
+  const winnerEnemies = Enemy.instances.filter((enemy) => enemy.winner)
   winnerEnemies.forEach((enemy) => {
     lives--
     if (lives <= 0) {
@@ -391,7 +379,7 @@ function updateEnemies() {
   removeDeadEnemies()
 
   // update enemies
-  enemies.forEach((enemy) => {
+  Enemy.instances.forEach((enemy) => {
     enemy.update()
   })
 
@@ -447,7 +435,7 @@ function updateBossProgressBar() {
 function updateMagicFireballs() {
   magicFireballs.forEach((magicFireball) => {
     magicFireball.update()
-    checkMagicFireballCollides(magicFireball, enemies)
+    checkMagicFireballCollides(magicFireball, Enemy.instances)
   })
   removeDeadFireballs()
 }
@@ -489,7 +477,7 @@ function drawMagicFireballs() {
 function updateMagicIceballs() {
   magicIceballs.forEach((iceball) => {
     iceball.update()
-    checkMagicIceballCollides(iceball, enemies)
+    checkMagicIceballCollides(iceball, Enemy.instances)
   })
   removeDeadIceballs()
 }
@@ -575,7 +563,7 @@ function draw() {
   endTile.draw()
 
   orangeTiles.forEach((orangeTile) => {
-    orangeTile.selectTarget(enemies)
+    orangeTile.selectTarget(Enemy.instances)
     orangeTile.drawTile()
   })
 
@@ -624,7 +612,7 @@ function draw() {
     hud.hideSellProfit()
   }
 
-  enemies.forEach((enemy) => {
+  Enemy.instances.forEach((enemy) => {
     enemy.draw()
   })
 

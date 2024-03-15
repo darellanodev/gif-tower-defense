@@ -22,6 +22,7 @@ export class Enemy {
   static TOTAL_ENEMIES = 5
   static CREATION_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
   static numberOfEnemies = 0 // for generating IDs
+  static instances: Enemy[] = []
 
   #images: Image[]
   #startPosition: Position
@@ -84,6 +85,35 @@ export class Enemy {
     this.#imgIndex = Enemy.EYES_CENTER
     this.#imgIndexBeforeEyesClosed = Enemy.EYES_CENTER
     this.#status = Enemy.STATUS_ALIVE
+  }
+
+  static instantiateNormalEnemy(
+    images: Image[],
+    waveEnemy: number,
+    orders: number[],
+    initialEnemiesPosition: Position,
+    wave: number,
+  ) {
+    const endurance = wave * 3 + waveEnemy * 2
+    const isBoss = false
+
+    Enemy.instances.push(
+      new Enemy(images, initialEnemiesPosition, orders, endurance, isBoss),
+    )
+  }
+
+  static instantiateBoss(
+    images: Image[],
+    orders: number[],
+    initialEnemiesPosition: Position,
+    wave: number,
+  ) {
+    const endurance = wave * 25
+    const isBoss = false
+
+    Enemy.instances.push(
+      new Enemy(images, initialEnemiesPosition, orders, endurance, isBoss),
+    )
   }
 
   get endurance() {
