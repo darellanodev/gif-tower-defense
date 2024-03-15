@@ -94,12 +94,22 @@ class Enemy {
             _a.EYES_RIGHT,
             _a.EYES_CENTER,
         ], "f");
-        __classPrivateFieldSet(this, _Enemy_healthBar, new ProgressBar({ x: 200, y: 200 }, ProgressBar.WIDTH, ProgressBar.HEIGHT), "f");
+        __classPrivateFieldSet(this, _Enemy_healthBar, new ProgressBar({ x: 200, y: 200 }, { w: ProgressBar.WIDTH, h: ProgressBar.HEIGHT }), "f");
         __classPrivateFieldSet(this, _Enemy_position, Object.assign({}, __classPrivateFieldGet(this, _Enemy_startPosition, "f")), "f");
         __classPrivateFieldSet(this, _Enemy_currentDirection, __classPrivateFieldGet(this, _Enemy_orders, "f")[__classPrivateFieldGet(this, _Enemy_indexOrder, "f")], "f");
         __classPrivateFieldSet(this, _Enemy_imgIndex, _a.EYES_CENTER, "f");
         __classPrivateFieldSet(this, _Enemy_imgIndexBeforeEyesClosed, _a.EYES_CENTER, "f");
         __classPrivateFieldSet(this, _Enemy_status, _a.STATUS_ALIVE, "f");
+    }
+    static instantiateNormalEnemy(images, waveEnemies, orders, initialEnemiesPosition, wave) {
+        const endurance = wave * 3 + waveEnemies * 2;
+        const isBoss = false;
+        _a.instances.push(new _a(images, initialEnemiesPosition, orders, endurance, isBoss));
+    }
+    static instantiateBoss(images, orders, initialEnemiesPosition, wave) {
+        const endurance = wave * 25;
+        const isBoss = false;
+        _a.instances.push(new _a(images, initialEnemiesPosition, orders, endurance, isBoss));
     }
     get endurance() {
         return __classPrivateFieldGet(this, _Enemy_endurance, "f");
@@ -232,6 +242,7 @@ _a = Enemy, _Enemy_images = new WeakMap(), _Enemy_startPosition = new WeakMap(),
 };
 Enemy.VELOCITY = 1;
 Enemy.BOSS_VELOCITY = 0.5;
+Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES = 5;
 Enemy.CHANGE_EYES_MAX_TIME = 50;
 Enemy.EXTEND_CLOSED_EYES_MAX_TIME = 20;
 Enemy.MIN_TIME_TO_CLOSE = 50;
@@ -245,6 +256,7 @@ Enemy.STATUS_DEAD = 1;
 Enemy.TOTAL_ENEMIES = 5;
 Enemy.CREATION_MAX_TIME = 200;
 Enemy.numberOfEnemies = 0;
+Enemy.instances = [];
 var _Explosion_emisionTime, _Explosion_finished;
 class Explosion {
     constructor(position) {
@@ -267,39 +279,38 @@ class Explosion {
 _Explosion_emisionTime = new WeakMap(), _Explosion_finished = new WeakMap();
 Explosion.MAX_EMIT_TIME = 5;
 class ExplosionEnemy extends Explosion {
-    constructor(position, ParticleSystemClass) {
+    constructor(position) {
         super(position);
-        this.particleSystem = new ParticleSystemClass(createVector(this.position.x + Const.EXPLOSION_OFFSET, this.position.y + Const.EXPLOSION_OFFSET), ExplosionEnemy.SIZE, ExplosionEnemy.COLOR);
+        this.particleSystem = new ParticleSystem(createVector(this.position.x + Const.EXPLOSION_OFFSET, this.position.y + Const.EXPLOSION_OFFSET), ExplosionEnemy.SIZE, ExplosionEnemy.COLOR);
     }
 }
 ExplosionEnemy.SIZE = 12;
 ExplosionEnemy.COLOR = [255, 165, 0];
 class ExplosionMagicFireball extends Explosion {
-    constructor(position, ParticleSystemClass) {
+    constructor(position) {
         super(position);
-        this.particleSystem = new ParticleSystemClass(createVector(this.position.x + Const.EXPLOSION_OFFSET, this.position.y + Const.EXPLOSION_OFFSET), ExplosionMagicFireball.SIZE, ExplosionMagicFireball.COLOR);
+        this.particleSystem = new ParticleSystem(createVector(this.position.x + Const.EXPLOSION_OFFSET, this.position.y + Const.EXPLOSION_OFFSET), ExplosionMagicFireball.SIZE, ExplosionMagicFireball.COLOR);
     }
 }
 ExplosionMagicFireball.SIZE = 6;
 ExplosionMagicFireball.COLOR = [202, 191, 24];
 class ExplosionMagicIceball extends Explosion {
-    constructor(position, ParticleSystemClass) {
+    constructor(position) {
         super(position);
-        this.particleSystem = new ParticleSystemClass(createVector(this.position.x + Const.EXPLOSION_OFFSET, this.position.y + Const.EXPLOSION_OFFSET), ExplosionMagicIceball.SIZE, ExplosionMagicIceball.COLOR);
+        this.particleSystem = new ParticleSystem(createVector(this.position.x + Const.EXPLOSION_OFFSET, this.position.y + Const.EXPLOSION_OFFSET), ExplosionMagicIceball.SIZE, ExplosionMagicIceball.COLOR);
     }
 }
 ExplosionMagicIceball.SIZE = 6;
 ExplosionMagicIceball.COLOR = [0, 65, 255];
-var _Hud_instances, _Hud_hudImages, _Hud_hudIconImages, _Hud_wallet, _Hud_lives, _Hud_score, _Hud_TextPropertiesClass, _Hud_waveProgressBar, _Hud_bossProgressBar, _Hud_wave, _Hud_hudType, _Hud_selectedItem, _Hud_upgradeCost, _Hud_sellProfit, _Hud_canBuyTowerGreen, _Hud_canBuyTowerRed, _Hud_canBuyTowerYellow, _Hud_magicfireballs, _Hud_magiciceballs, _Hud_magicUFOs, _Hud_canUpgrade, _Hud_drawMoney, _Hud_drawUpgradeCost, _Hud_drawMagicUFO, _Hud_drawMagicFireball, _Hud_drawMagicIceball, _Hud_drawSellProfit, _Hud_drawLives, _Hud_drawScore, _Hud_drawLevelTitle, _Hud_drawWave, _Hud_drawSelectedItem;
+var _Hud_instances, _Hud_hudImages, _Hud_hudIconImages, _Hud_wallet, _Hud_lives, _Hud_score, _Hud_waveProgressBar, _Hud_bossProgressBar, _Hud_wave, _Hud_hudType, _Hud_selectedItem, _Hud_upgradeCost, _Hud_sellProfit, _Hud_canBuyTowerGreen, _Hud_canBuyTowerRed, _Hud_canBuyTowerYellow, _Hud_magicfireballs, _Hud_magiciceballs, _Hud_magicUFOs, _Hud_canUpgrade, _Hud_drawMoney, _Hud_drawUpgradeCost, _Hud_drawMagicUFO, _Hud_drawMagicFireball, _Hud_drawMagicIceball, _Hud_drawSellProfit, _Hud_drawLives, _Hud_drawScore, _Hud_drawLevelTitle, _Hud_drawWave, _Hud_drawSelectedItem;
 class Hud {
-    constructor(hudImages, hudIconImages, wallet, lives, score, TextPropertiesClass, waveProgressBar, bossProgressBar, wave) {
+    constructor(hudImages, hudIconImages, wallet, lives, score, waveProgressBar, bossProgressBar, wave) {
         _Hud_instances.add(this);
         _Hud_hudImages.set(this, void 0);
         _Hud_hudIconImages.set(this, void 0);
         _Hud_wallet.set(this, void 0);
         _Hud_lives.set(this, void 0);
         _Hud_score.set(this, void 0);
-        _Hud_TextPropertiesClass.set(this, void 0);
         _Hud_waveProgressBar.set(this, void 0);
         _Hud_bossProgressBar.set(this, void 0);
         _Hud_wave.set(this, void 0);
@@ -319,17 +330,16 @@ class Hud {
         __classPrivateFieldSet(this, _Hud_wallet, wallet, "f");
         __classPrivateFieldSet(this, _Hud_lives, lives, "f");
         __classPrivateFieldSet(this, _Hud_score, score, "f");
-        __classPrivateFieldSet(this, _Hud_TextPropertiesClass, TextPropertiesClass, "f");
         __classPrivateFieldSet(this, _Hud_waveProgressBar, waveProgressBar, "f");
         __classPrivateFieldSet(this, _Hud_bossProgressBar, bossProgressBar, "f");
         __classPrivateFieldSet(this, _Hud_wave, wave, "f");
-        __classPrivateFieldSet(this, _Hud_waveProgressBar, new ProgressBar({ x: 335, y: -19 }, 150, 16), "f");
-        __classPrivateFieldSet(this, _Hud_bossProgressBar, new ProgressBar({ x: 335, y: -2 }, 150, 10), "f");
+        __classPrivateFieldSet(this, _Hud_waveProgressBar, new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 }), "f");
+        __classPrivateFieldSet(this, _Hud_bossProgressBar, new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 }), "f");
         __classPrivateFieldSet(this, _Hud_hudType, Hud.NORMAL, "f");
         __classPrivateFieldSet(this, _Hud_selectedItem, TowerGreen.ID, "f");
-        __classPrivateFieldSet(this, _Hud_magicfireballs, MagicFireball.FIREBALLS, "f");
-        __classPrivateFieldSet(this, _Hud_magiciceballs, MagicIceball.ICEBALLS, "f");
-        __classPrivateFieldSet(this, _Hud_magicUFOs, MagicUFO.UFOS, "f");
+        __classPrivateFieldSet(this, _Hud_magicfireballs, MagicFireball.total, "f");
+        __classPrivateFieldSet(this, _Hud_magiciceballs, MagicIceball.total, "f");
+        __classPrivateFieldSet(this, _Hud_magicUFOs, MagicUFO.total, "f");
     }
     isInsideButtonsBar(px, py) {
         if (px > 0 && px < 800 && py > 28 && py < 78) {
@@ -418,7 +428,7 @@ class Hud {
         }
         __classPrivateFieldGet(this, _Hud_waveProgressBar, "f").draw();
         __classPrivateFieldGet(this, _Hud_bossProgressBar, "f").draw();
-        __classPrivateFieldGet(this, _Hud_TextPropertiesClass, "f").setForHudData();
+        TextProperties.setForHudData();
         __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawMoney).call(this);
         __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawLives).call(this);
         __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawScore).call(this);
@@ -510,7 +520,7 @@ class Hud {
         __classPrivateFieldSet(this, _Hud_sellProfit, null, "f");
     }
 }
-_Hud_hudImages = new WeakMap(), _Hud_hudIconImages = new WeakMap(), _Hud_wallet = new WeakMap(), _Hud_lives = new WeakMap(), _Hud_score = new WeakMap(), _Hud_TextPropertiesClass = new WeakMap(), _Hud_waveProgressBar = new WeakMap(), _Hud_bossProgressBar = new WeakMap(), _Hud_wave = new WeakMap(), _Hud_hudType = new WeakMap(), _Hud_selectedItem = new WeakMap(), _Hud_upgradeCost = new WeakMap(), _Hud_sellProfit = new WeakMap(), _Hud_canBuyTowerGreen = new WeakMap(), _Hud_canBuyTowerRed = new WeakMap(), _Hud_canBuyTowerYellow = new WeakMap(), _Hud_magicfireballs = new WeakMap(), _Hud_magiciceballs = new WeakMap(), _Hud_magicUFOs = new WeakMap(), _Hud_canUpgrade = new WeakMap(), _Hud_instances = new WeakSet(), _Hud_drawMoney = function _Hud_drawMoney() {
+_Hud_hudImages = new WeakMap(), _Hud_hudIconImages = new WeakMap(), _Hud_wallet = new WeakMap(), _Hud_lives = new WeakMap(), _Hud_score = new WeakMap(), _Hud_waveProgressBar = new WeakMap(), _Hud_bossProgressBar = new WeakMap(), _Hud_wave = new WeakMap(), _Hud_hudType = new WeakMap(), _Hud_selectedItem = new WeakMap(), _Hud_upgradeCost = new WeakMap(), _Hud_sellProfit = new WeakMap(), _Hud_canBuyTowerGreen = new WeakMap(), _Hud_canBuyTowerRed = new WeakMap(), _Hud_canBuyTowerYellow = new WeakMap(), _Hud_magicfireballs = new WeakMap(), _Hud_magiciceballs = new WeakMap(), _Hud_magicUFOs = new WeakMap(), _Hud_canUpgrade = new WeakMap(), _Hud_instances = new WeakSet(), _Hud_drawMoney = function _Hud_drawMoney() {
     text(__classPrivateFieldGet(this, _Hud_wallet, "f").money, 445, 48);
 }, _Hud_drawUpgradeCost = function _Hud_drawUpgradeCost() {
     if (__classPrivateFieldGet(this, _Hud_upgradeCost, "f") !== null) {
@@ -780,6 +790,10 @@ class MagicFireball extends Magic {
         _MagicFireball_img.set(this, void 0);
         __classPrivateFieldSet(this, _MagicFireball_img, img, "f");
     }
+    static instantiate(images, position, orders) {
+        MagicFireball.instances.push(new MagicFireball(images, position, orders));
+        MagicFireball.total--;
+    }
     addDamage(enemy) {
         enemy.addDamage(MagicFireball.DAMAGE);
     }
@@ -788,14 +802,19 @@ class MagicFireball extends Magic {
     }
 }
 _MagicFireball_img = new WeakMap();
-MagicFireball.FIREBALLS = 3;
 MagicFireball.DAMAGE = 500;
+MagicFireball.instances = [];
+MagicFireball.total = 3;
 var _MagicIceball_img;
 class MagicIceball extends Magic {
     constructor(img, startPosition, orders) {
         super(startPosition, orders);
         _MagicIceball_img.set(this, void 0);
         __classPrivateFieldSet(this, _MagicIceball_img, img, "f");
+    }
+    static instantiate(images, position, orders) {
+        MagicIceball.instances.push(new MagicIceball(images, position, orders));
+        MagicIceball.total--;
     }
     freeze(enemy) {
         enemy.freeze();
@@ -805,8 +824,9 @@ class MagicIceball extends Magic {
     }
 }
 _MagicIceball_img = new WeakMap();
-MagicIceball.ICEBALLS = 3;
 MagicIceball.FREEZE_ENEMY_MAX_TIME = 500;
+MagicIceball.instances = [];
+MagicIceball.total = 3;
 var _MagicUFO_img;
 class MagicUFO extends Magic {
     constructor(img, startPosition, orders) {
@@ -814,12 +834,17 @@ class MagicUFO extends Magic {
         _MagicUFO_img.set(this, void 0);
         __classPrivateFieldSet(this, _MagicUFO_img, img, "f");
     }
+    static instantiate(images, position, orders) {
+        MagicUFO.instances.push(new MagicUFO(images, position, orders));
+        MagicUFO.total--;
+    }
     draw() {
         image(__classPrivateFieldGet(this, _MagicUFO_img, "f"), this.position.x, this.position.y);
     }
 }
 _MagicUFO_img = new WeakMap();
-MagicUFO.UFOS = 3;
+MagicUFO.instances = [];
+MagicUFO.total = 3;
 class MathUtils {
     static distance(posA, posB) {
         return Math.sqrt((posA.x - posB.x) * (posA.x - posB.x) +
@@ -1040,18 +1065,16 @@ class Path {
 }
 _Path_startTile = new WeakMap(), _Path_endTile = new WeakMap(), _Path_pathTiles = new WeakMap();
 Path.MAX_SEARCHES = 5000;
-var _ProgressBar_position, _ProgressBar_width, _ProgressBar_height, _ProgressBar_progress, _ProgressBar_maxProgress;
+var _ProgressBar_position, _ProgressBar_size, _ProgressBar_progress, _ProgressBar_maxProgress;
 class ProgressBar {
-    constructor(position, width, height) {
+    constructor(position, size) {
         _ProgressBar_position.set(this, void 0);
-        _ProgressBar_width.set(this, void 0);
-        _ProgressBar_height.set(this, void 0);
+        _ProgressBar_size.set(this, void 0);
         _ProgressBar_progress.set(this, 0);
         _ProgressBar_maxProgress.set(this, void 0);
         __classPrivateFieldSet(this, _ProgressBar_position, Object.assign({}, position), "f");
-        __classPrivateFieldSet(this, _ProgressBar_width, width, "f");
-        __classPrivateFieldSet(this, _ProgressBar_height, height, "f");
-        __classPrivateFieldSet(this, _ProgressBar_maxProgress, __classPrivateFieldGet(this, _ProgressBar_width, "f") - 1, "f");
+        __classPrivateFieldSet(this, _ProgressBar_size, Object.assign({}, size), "f");
+        __classPrivateFieldSet(this, _ProgressBar_maxProgress, __classPrivateFieldGet(this, _ProgressBar_size, "f").w - 1, "f");
     }
     setPosition(position) {
         __classPrivateFieldSet(this, _ProgressBar_position, Object.assign({}, position), "f");
@@ -1073,13 +1096,13 @@ class ProgressBar {
         strokeWeight(1);
         stroke('black');
         fill('green');
-        rect(__classPrivateFieldGet(this, _ProgressBar_position, "f").x + 10, __classPrivateFieldGet(this, _ProgressBar_position, "f").y + 20, __classPrivateFieldGet(this, _ProgressBar_width, "f"), __classPrivateFieldGet(this, _ProgressBar_height, "f"));
+        rect(__classPrivateFieldGet(this, _ProgressBar_position, "f").x + 10, __classPrivateFieldGet(this, _ProgressBar_position, "f").y + 20, __classPrivateFieldGet(this, _ProgressBar_size, "f").w, __classPrivateFieldGet(this, _ProgressBar_size, "f").h);
     }
     _drawProgressBar() {
         strokeWeight(0);
         fill('red');
         const progressLevel = (__classPrivateFieldGet(this, _ProgressBar_progress, "f") * __classPrivateFieldGet(this, _ProgressBar_maxProgress, "f")) / 100;
-        rect(__classPrivateFieldGet(this, _ProgressBar_position, "f").x + 11, __classPrivateFieldGet(this, _ProgressBar_position, "f").y + 21, progressLevel, __classPrivateFieldGet(this, _ProgressBar_height, "f") - 2);
+        rect(__classPrivateFieldGet(this, _ProgressBar_position, "f").x + 11, __classPrivateFieldGet(this, _ProgressBar_position, "f").y + 21, progressLevel, __classPrivateFieldGet(this, _ProgressBar_size, "f").h - 2);
     }
     draw() {
         this._drawBackgroundBar();
@@ -1088,7 +1111,7 @@ class ProgressBar {
         }
     }
 }
-_ProgressBar_position = new WeakMap(), _ProgressBar_width = new WeakMap(), _ProgressBar_height = new WeakMap(), _ProgressBar_progress = new WeakMap(), _ProgressBar_maxProgress = new WeakMap();
+_ProgressBar_position = new WeakMap(), _ProgressBar_size = new WeakMap(), _ProgressBar_progress = new WeakMap(), _ProgressBar_maxProgress = new WeakMap();
 ProgressBar.WIDTH = 27;
 ProgressBar.HEIGHT = 7;
 class Random {
@@ -1222,16 +1245,12 @@ class TileEnd extends Tile {
     }
 }
 _TileEnd_img = new WeakMap();
-var _TileGenerator_instances, _TileGenerator_levelMap, _TileGenerator_mapImages, _TileGenerator_TileOrangeClass, _TileGenerator_TilePathClass, _TileGenerator_TileStartClass, _TileGenerator_TileEndClass, _TileGenerator_towerGenerator, _TileGenerator_orangeImage, _TileGenerator_blackImage, _TileGenerator_startImage, _TileGenerator_endImage, _TileGenerator_startDirection, _TileGenerator_setStartImage, _TileGenerator_setEndImage;
+var _TileGenerator_instances, _TileGenerator_levelMap, _TileGenerator_mapImages, _TileGenerator_towerGenerator, _TileGenerator_orangeImage, _TileGenerator_blackImage, _TileGenerator_startImage, _TileGenerator_endImage, _TileGenerator_startDirection, _TileGenerator_setStartImage, _TileGenerator_setEndImage;
 class TileGenerator {
-    constructor(levelMap, mapImages, TileOrangeClass, TilePathClass, TileStartClass, TileEndClass, towerGenerator) {
+    constructor(levelMap, mapImages, towerGenerator) {
         _TileGenerator_instances.add(this);
         _TileGenerator_levelMap.set(this, void 0);
         _TileGenerator_mapImages.set(this, void 0);
-        _TileGenerator_TileOrangeClass.set(this, void 0);
-        _TileGenerator_TilePathClass.set(this, void 0);
-        _TileGenerator_TileStartClass.set(this, void 0);
-        _TileGenerator_TileEndClass.set(this, void 0);
         _TileGenerator_towerGenerator.set(this, void 0);
         _TileGenerator_orangeImage.set(this, void 0);
         _TileGenerator_blackImage.set(this, void 0);
@@ -1240,10 +1259,6 @@ class TileGenerator {
         _TileGenerator_startDirection.set(this, void 0);
         __classPrivateFieldSet(this, _TileGenerator_levelMap, levelMap, "f");
         __classPrivateFieldSet(this, _TileGenerator_mapImages, mapImages, "f");
-        __classPrivateFieldSet(this, _TileGenerator_TileOrangeClass, TileOrangeClass, "f");
-        __classPrivateFieldSet(this, _TileGenerator_TilePathClass, TilePathClass, "f");
-        __classPrivateFieldSet(this, _TileGenerator_TileStartClass, TileStartClass, "f");
-        __classPrivateFieldSet(this, _TileGenerator_TileEndClass, TileEndClass, "f");
         __classPrivateFieldSet(this, _TileGenerator_towerGenerator, towerGenerator, "f");
         if (__classPrivateFieldGet(this, _TileGenerator_levelMap, "f").rowsMap.length === 0) {
             throw new Error('No rows map found');
@@ -1267,16 +1282,16 @@ class TileGenerator {
                 if (character === symbol) {
                     switch (symbol) {
                         case '0':
-                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_TileOrangeClass, "f"))(__classPrivateFieldGet(this, _TileGenerator_orangeImage, "f"), { x: posX, y: posY }, __classPrivateFieldGet(this, _TileGenerator_towerGenerator, "f")));
+                            resultTiles.push(new TileOrange(__classPrivateFieldGet(this, _TileGenerator_orangeImage, "f"), { x: posX, y: posY }, __classPrivateFieldGet(this, _TileGenerator_towerGenerator, "f")));
                             break;
                         case '1':
-                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_TilePathClass, "f"))({ x: posX, y: posY }));
+                            resultTiles.push(new TilePath({ x: posX, y: posY }));
                             break;
                         case 'x':
-                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_TileStartClass, "f"))(__classPrivateFieldGet(this, _TileGenerator_startImage, "f"), { x: posX, y: posY }, __classPrivateFieldGet(this, _TileGenerator_startDirection, "f")));
+                            resultTiles.push(new TileStart(__classPrivateFieldGet(this, _TileGenerator_startImage, "f"), { x: posX, y: posY }, __classPrivateFieldGet(this, _TileGenerator_startDirection, "f")));
                             break;
                         case 'y':
-                            resultTiles.push(new (__classPrivateFieldGet(this, _TileGenerator_TileEndClass, "f"))(__classPrivateFieldGet(this, _TileGenerator_endImage, "f"), { x: posX, y: posY }));
+                            resultTiles.push(new TileEnd(__classPrivateFieldGet(this, _TileGenerator_endImage, "f"), { x: posX, y: posY }));
                             break;
                     }
                 }
@@ -1300,7 +1315,7 @@ class TileGenerator {
         return Number(__classPrivateFieldGet(this, _TileGenerator_levelMap, "f").money);
     }
 }
-_TileGenerator_levelMap = new WeakMap(), _TileGenerator_mapImages = new WeakMap(), _TileGenerator_TileOrangeClass = new WeakMap(), _TileGenerator_TilePathClass = new WeakMap(), _TileGenerator_TileStartClass = new WeakMap(), _TileGenerator_TileEndClass = new WeakMap(), _TileGenerator_towerGenerator = new WeakMap(), _TileGenerator_orangeImage = new WeakMap(), _TileGenerator_blackImage = new WeakMap(), _TileGenerator_startImage = new WeakMap(), _TileGenerator_endImage = new WeakMap(), _TileGenerator_startDirection = new WeakMap(), _TileGenerator_instances = new WeakSet(), _TileGenerator_setStartImage = function _TileGenerator_setStartImage(mapImages) {
+_TileGenerator_levelMap = new WeakMap(), _TileGenerator_mapImages = new WeakMap(), _TileGenerator_towerGenerator = new WeakMap(), _TileGenerator_orangeImage = new WeakMap(), _TileGenerator_blackImage = new WeakMap(), _TileGenerator_startImage = new WeakMap(), _TileGenerator_endImage = new WeakMap(), _TileGenerator_startDirection = new WeakMap(), _TileGenerator_instances = new WeakSet(), _TileGenerator_setStartImage = function _TileGenerator_setStartImage(mapImages) {
     switch (__classPrivateFieldGet(this, _TileGenerator_levelMap, "f").startDirection) {
         case ConstDirection.DOWN:
             __classPrivateFieldSet(this, _TileGenerator_startImage, mapImages[6], "f");
@@ -1472,43 +1487,36 @@ class Tower {
     }
 }
 _Tower_position = new WeakMap(), _Tower_upgrading = new WeakMap(), _Tower_upgradeLevel = new WeakMap();
-var _TowerGenerator_greenTowerImages, _TowerGenerator_redTowerImages, _TowerGenerator_yellowTowerImages, _TowerGenerator_TowerGreenClass, _TowerGenerator_TowerRedClass, _TowerGenerator_TowerYellowClass, _TowerGenerator_MathUtilsClass, _TowerGenerator_ProgressBarClass;
+var _TowerGenerator_greenTowerImages, _TowerGenerator_redTowerImages, _TowerGenerator_yellowTowerImages;
 class TowerGenerator {
-    constructor(greenTowerImages, redTowerImages, yellowTowerImages, TowerGreenClass, TowerRedClass, TowerYellowClass, MathUtilsClass, ProgressBarClass) {
+    constructor(greenTowerImages, redTowerImages, yellowTowerImages) {
         _TowerGenerator_greenTowerImages.set(this, void 0);
         _TowerGenerator_redTowerImages.set(this, void 0);
         _TowerGenerator_yellowTowerImages.set(this, void 0);
-        _TowerGenerator_TowerGreenClass.set(this, void 0);
-        _TowerGenerator_TowerRedClass.set(this, void 0);
-        _TowerGenerator_TowerYellowClass.set(this, void 0);
-        _TowerGenerator_MathUtilsClass.set(this, void 0);
-        _TowerGenerator_ProgressBarClass.set(this, void 0);
         __classPrivateFieldSet(this, _TowerGenerator_greenTowerImages, greenTowerImages, "f");
         __classPrivateFieldSet(this, _TowerGenerator_redTowerImages, redTowerImages, "f");
         __classPrivateFieldSet(this, _TowerGenerator_yellowTowerImages, yellowTowerImages, "f");
-        __classPrivateFieldSet(this, _TowerGenerator_TowerGreenClass, TowerGreenClass, "f");
-        __classPrivateFieldSet(this, _TowerGenerator_TowerRedClass, TowerRedClass, "f");
-        __classPrivateFieldSet(this, _TowerGenerator_TowerYellowClass, TowerYellowClass, "f");
-        __classPrivateFieldSet(this, _TowerGenerator_MathUtilsClass, MathUtilsClass, "f");
-        __classPrivateFieldSet(this, _TowerGenerator_ProgressBarClass, ProgressBarClass, "f");
     }
     newTower(towerId, position) {
         let tower = null;
         switch (towerId) {
             case TowerGreen.ID:
-                tower = new (__classPrivateFieldGet(this, _TowerGenerator_TowerGreenClass, "f"))(__classPrivateFieldGet(this, _TowerGenerator_greenTowerImages, "f"), {
+                tower = new TowerGreen(__classPrivateFieldGet(this, _TowerGenerator_greenTowerImages, "f"), {
                     x: position.x - Const.TOWER_OFFSET,
                     y: position.y - Const.TOWER_OFFSET,
-                }, __classPrivateFieldGet(this, _TowerGenerator_MathUtilsClass, "f"), __classPrivateFieldGet(this, _TowerGenerator_ProgressBarClass, "f"));
+                });
                 break;
             case TowerRed.ID:
-                tower = new (__classPrivateFieldGet(this, _TowerGenerator_TowerRedClass, "f"))(__classPrivateFieldGet(this, _TowerGenerator_redTowerImages, "f"), {
+                tower = new TowerRed(__classPrivateFieldGet(this, _TowerGenerator_redTowerImages, "f"), {
                     x: position.x - Const.TOWER_OFFSET,
                     y: position.y - Const.TOWER_OFFSET,
-                }, __classPrivateFieldGet(this, _TowerGenerator_MathUtilsClass, "f"), __classPrivateFieldGet(this, _TowerGenerator_ProgressBarClass, "f"));
+                });
                 break;
             case TowerYellow.ID:
-                tower = new (__classPrivateFieldGet(this, _TowerGenerator_TowerYellowClass, "f"))(__classPrivateFieldGet(this, _TowerGenerator_yellowTowerImages, "f"), { x: position.x, y: position.y }, __classPrivateFieldGet(this, _TowerGenerator_MathUtilsClass, "f"), __classPrivateFieldGet(this, _TowerGenerator_ProgressBarClass, "f"));
+                tower = new TowerYellow(__classPrivateFieldGet(this, _TowerGenerator_yellowTowerImages, "f"), {
+                    x: position.x,
+                    y: position.y,
+                });
                 break;
             default:
                 break;
@@ -1516,16 +1524,14 @@ class TowerGenerator {
         return tower;
     }
 }
-_TowerGenerator_greenTowerImages = new WeakMap(), _TowerGenerator_redTowerImages = new WeakMap(), _TowerGenerator_yellowTowerImages = new WeakMap(), _TowerGenerator_TowerGreenClass = new WeakMap(), _TowerGenerator_TowerRedClass = new WeakMap(), _TowerGenerator_TowerYellowClass = new WeakMap(), _TowerGenerator_MathUtilsClass = new WeakMap(), _TowerGenerator_ProgressBarClass = new WeakMap();
-var _TowerGreen_instances, _TowerGreen_images, _TowerGreen_position, _TowerGreen_MathUtilsClass, _TowerGreen_ProgressBarClass, _TowerGreen_upgradeLevel, _TowerGreen_upgrading, _TowerGreen_enemyTarget, _TowerGreen_distanceToEnemyTarget, _TowerGreen_progressBar, _TowerGreen_upgradeProgress, _TowerGreen_delayUpgradeProgress, _TowerGreen_drawShotToEnemy, _TowerGreen_drawUpgradeBackground;
+_TowerGenerator_greenTowerImages = new WeakMap(), _TowerGenerator_redTowerImages = new WeakMap(), _TowerGenerator_yellowTowerImages = new WeakMap();
+var _TowerGreen_instances, _TowerGreen_images, _TowerGreen_position, _TowerGreen_upgradeLevel, _TowerGreen_upgrading, _TowerGreen_enemyTarget, _TowerGreen_distanceToEnemyTarget, _TowerGreen_progressBar, _TowerGreen_upgradeProgress, _TowerGreen_delayUpgradeProgress, _TowerGreen_drawShotToEnemy, _TowerGreen_drawUpgradeBackground;
 class TowerGreen extends Tower {
-    constructor(images, position, MathUtilsClass, ProgressBarClass) {
+    constructor(images, position) {
         super(position);
         _TowerGreen_instances.add(this);
         _TowerGreen_images.set(this, void 0);
         _TowerGreen_position.set(this, void 0);
-        _TowerGreen_MathUtilsClass.set(this, void 0);
-        _TowerGreen_ProgressBarClass.set(this, void 0);
         _TowerGreen_upgradeLevel.set(this, 0);
         _TowerGreen_upgrading.set(this, false);
         _TowerGreen_enemyTarget.set(this, null);
@@ -1535,12 +1541,10 @@ class TowerGreen extends Tower {
         _TowerGreen_delayUpgradeProgress.set(this, void 0);
         __classPrivateFieldSet(this, _TowerGreen_images, images, "f");
         __classPrivateFieldSet(this, _TowerGreen_position, Object.assign({}, position), "f");
-        __classPrivateFieldSet(this, _TowerGreen_MathUtilsClass, MathUtilsClass, "f");
-        __classPrivateFieldSet(this, _TowerGreen_ProgressBarClass, ProgressBarClass, "f");
-        __classPrivateFieldSet(this, _TowerGreen_progressBar, new (__classPrivateFieldGet(this, _TowerGreen_ProgressBarClass, "f"))({
+        __classPrivateFieldSet(this, _TowerGreen_progressBar, new ProgressBar({
             x: __classPrivateFieldGet(this, _TowerGreen_position, "f").x + Const.TOWER_OFFSET,
             y: __classPrivateFieldGet(this, _TowerGreen_position, "f").y + Const.TOWER_OFFSET,
-        }, ProgressBar.WIDTH, ProgressBar.HEIGHT), "f");
+        }, { w: ProgressBar.WIDTH, h: ProgressBar.HEIGHT }), "f");
     }
     upgrade() {
         var _a;
@@ -1613,7 +1617,7 @@ class TowerGreen extends Tower {
         let minDistance = 99999;
         let enemyTarget = null;
         enemies.forEach((enemy) => {
-            const distance = __classPrivateFieldGet(this, _TowerGreen_MathUtilsClass, "f").distance({ x: __classPrivateFieldGet(this, _TowerGreen_position, "f").x, y: __classPrivateFieldGet(this, _TowerGreen_position, "f").y }, {
+            const distance = MathUtils.distance({ x: __classPrivateFieldGet(this, _TowerGreen_position, "f").x, y: __classPrivateFieldGet(this, _TowerGreen_position, "f").y }, {
                 x: enemy.position.x,
                 y: enemy.position.y,
             });
@@ -1632,7 +1636,7 @@ class TowerGreen extends Tower {
         }
     }
 }
-_TowerGreen_images = new WeakMap(), _TowerGreen_position = new WeakMap(), _TowerGreen_MathUtilsClass = new WeakMap(), _TowerGreen_ProgressBarClass = new WeakMap(), _TowerGreen_upgradeLevel = new WeakMap(), _TowerGreen_upgrading = new WeakMap(), _TowerGreen_enemyTarget = new WeakMap(), _TowerGreen_distanceToEnemyTarget = new WeakMap(), _TowerGreen_progressBar = new WeakMap(), _TowerGreen_upgradeProgress = new WeakMap(), _TowerGreen_delayUpgradeProgress = new WeakMap(), _TowerGreen_instances = new WeakSet(), _TowerGreen_drawShotToEnemy = function _TowerGreen_drawShotToEnemy() {
+_TowerGreen_images = new WeakMap(), _TowerGreen_position = new WeakMap(), _TowerGreen_upgradeLevel = new WeakMap(), _TowerGreen_upgrading = new WeakMap(), _TowerGreen_enemyTarget = new WeakMap(), _TowerGreen_distanceToEnemyTarget = new WeakMap(), _TowerGreen_progressBar = new WeakMap(), _TowerGreen_upgradeProgress = new WeakMap(), _TowerGreen_delayUpgradeProgress = new WeakMap(), _TowerGreen_instances = new WeakSet(), _TowerGreen_drawShotToEnemy = function _TowerGreen_drawShotToEnemy() {
     strokeWeight(3);
     stroke(ConstColor.RED);
     line(-1, -18, 7 - __classPrivateFieldGet(this, _TowerGreen_distanceToEnemyTarget, "f") / 7, -__classPrivateFieldGet(this, _TowerGreen_distanceToEnemyTarget, "f"));
@@ -1648,23 +1652,22 @@ TowerGreen.DAMAGE_UPGRADE = [1, 2, 4, 6, 12, 24];
 TowerGreen.COST_UPGRADE = [50, 75, 125, 300, 1000, 2000];
 TowerGreen.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
 TowerGreen.INFLUENCE_AREA = 150;
-var _TowerRed_images, _TowerRed_position, _TowerRed_MathUtilsClass, _TowerRed_ProgressBarClass, _TowerRed_upgradeLevel, _TowerRed_upgrading, _TowerRed_progressBar, _TowerRed_upgradeProgress;
+var _TowerRed_images, _TowerRed_position, _TowerRed_upgradeLevel, _TowerRed_upgrading, _TowerRed_progressBar, _TowerRed_upgradeProgress;
 class TowerRed extends Tower {
-    constructor(images, position, MathUtilsClass, ProgressBarClass) {
+    constructor(images, position) {
         super(position);
         _TowerRed_images.set(this, void 0);
         _TowerRed_position.set(this, void 0);
-        _TowerRed_MathUtilsClass.set(this, void 0);
-        _TowerRed_ProgressBarClass.set(this, void 0);
         _TowerRed_upgradeLevel.set(this, 0);
         _TowerRed_upgrading.set(this, false);
         _TowerRed_progressBar.set(this, void 0);
         _TowerRed_upgradeProgress.set(this, 0);
         __classPrivateFieldSet(this, _TowerRed_images, images, "f");
         __classPrivateFieldSet(this, _TowerRed_position, Object.assign({}, position), "f");
-        __classPrivateFieldSet(this, _TowerRed_MathUtilsClass, MathUtilsClass, "f");
-        __classPrivateFieldSet(this, _TowerRed_ProgressBarClass, ProgressBarClass, "f");
-        __classPrivateFieldSet(this, _TowerRed_progressBar, new (__classPrivateFieldGet(this, _TowerRed_ProgressBarClass, "f"))(__classPrivateFieldGet(this, _TowerRed_position, "f"), ProgressBar.WIDTH, ProgressBar.HEIGHT), "f");
+        __classPrivateFieldSet(this, _TowerRed_progressBar, new ProgressBar(__classPrivateFieldGet(this, _TowerRed_position, "f"), {
+            w: ProgressBar.WIDTH,
+            h: ProgressBar.HEIGHT,
+        }), "f");
     }
     upgrade() {
         var _a;
@@ -1716,29 +1719,25 @@ class TowerRed extends Tower {
     selectTarget(enemies) {
     }
 }
-_TowerRed_images = new WeakMap(), _TowerRed_position = new WeakMap(), _TowerRed_MathUtilsClass = new WeakMap(), _TowerRed_ProgressBarClass = new WeakMap(), _TowerRed_upgradeLevel = new WeakMap(), _TowerRed_upgrading = new WeakMap(), _TowerRed_progressBar = new WeakMap(), _TowerRed_upgradeProgress = new WeakMap();
+_TowerRed_images = new WeakMap(), _TowerRed_position = new WeakMap(), _TowerRed_upgradeLevel = new WeakMap(), _TowerRed_upgrading = new WeakMap(), _TowerRed_progressBar = new WeakMap(), _TowerRed_upgradeProgress = new WeakMap();
 TowerRed.ID = 2;
 TowerRed.PROFIT_SELL_UPGRADE = [80, 110, 190, 420, 1200, 2880];
 TowerRed.COST_UPGRADE = [100, 150, 250, 500, 1300, 3000];
 TowerRed.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
 TowerRed.INFLUENCE_AREA = 240;
-var _TowerYellow_images, _TowerYellow_position, _TowerYellow_MathUtilsClass, _TowerYellow_ProgressBarClass, _TowerYellow_upgradeLevel, _TowerYellow_upgrading, _TowerYellow_progressBar, _TowerYellow_upgradeProgress;
+var _TowerYellow_images, _TowerYellow_position, _TowerYellow_upgradeLevel, _TowerYellow_upgrading, _TowerYellow_progressBar, _TowerYellow_upgradeProgress;
 class TowerYellow extends Tower {
-    constructor(images, position, MathUtilsClass, ProgressBarClass) {
+    constructor(images, position) {
         super(position);
         _TowerYellow_images.set(this, void 0);
         _TowerYellow_position.set(this, void 0);
-        _TowerYellow_MathUtilsClass.set(this, void 0);
-        _TowerYellow_ProgressBarClass.set(this, void 0);
         _TowerYellow_upgradeLevel.set(this, 0);
         _TowerYellow_upgrading.set(this, false);
         _TowerYellow_progressBar.set(this, void 0);
         _TowerYellow_upgradeProgress.set(this, 0);
         __classPrivateFieldSet(this, _TowerYellow_images, images, "f");
         __classPrivateFieldSet(this, _TowerYellow_position, Object.assign({}, position), "f");
-        __classPrivateFieldSet(this, _TowerYellow_MathUtilsClass, MathUtilsClass, "f");
-        __classPrivateFieldSet(this, _TowerYellow_ProgressBarClass, ProgressBarClass, "f");
-        __classPrivateFieldSet(this, _TowerYellow_progressBar, new (__classPrivateFieldGet(this, _TowerYellow_ProgressBarClass, "f"))(__classPrivateFieldGet(this, _TowerYellow_position, "f"), 27, 7), "f");
+        __classPrivateFieldSet(this, _TowerYellow_progressBar, new ProgressBar(__classPrivateFieldGet(this, _TowerYellow_position, "f"), { w: 27, h: 7 }), "f");
     }
     upgrade() {
         var _a;
@@ -1790,7 +1789,7 @@ class TowerYellow extends Tower {
     selectTarget(enemies) {
     }
 }
-_TowerYellow_images = new WeakMap(), _TowerYellow_position = new WeakMap(), _TowerYellow_MathUtilsClass = new WeakMap(), _TowerYellow_ProgressBarClass = new WeakMap(), _TowerYellow_upgradeLevel = new WeakMap(), _TowerYellow_upgrading = new WeakMap(), _TowerYellow_progressBar = new WeakMap(), _TowerYellow_upgradeProgress = new WeakMap();
+_TowerYellow_images = new WeakMap(), _TowerYellow_position = new WeakMap(), _TowerYellow_upgradeLevel = new WeakMap(), _TowerYellow_upgrading = new WeakMap(), _TowerYellow_progressBar = new WeakMap(), _TowerYellow_upgradeProgress = new WeakMap();
 TowerYellow.ID = 3;
 TowerYellow.PROFIT_SELL_UPGRADE = [680, 2460, 7440, 21920, 66900, 199880];
 TowerYellow.COST_UPGRADE = [700, 2500, 7500, 22000, 67000, 200000];
@@ -1832,7 +1831,6 @@ class Wallet {
 _Wallet_money = new WeakMap();
 let orders;
 let createEnemyTime;
-let enemies;
 let hud;
 let wallet;
 let score;
@@ -1865,14 +1863,8 @@ let initialEnemiesPosition;
 let allowCreateEnemies;
 let levelDataProvider;
 let magicFireballImage;
-let magicFireballs;
-let magicFireballsCount;
 let magicIceballImage;
-let magicIceballs;
-let magicIceballsCount;
 let magicUFOImage;
-let magicUFOs;
-let magicUFOsCount;
 function preload() {
     greenTowerImages = Resources.greenTower();
     redTowerImages = Resources.redTower();
@@ -1900,8 +1892,8 @@ function setup() {
     levelDataProvider = new LevelsDataProvider(LevelsData.data);
     const levelMap = levelDataProvider.getLevel(1);
     createEnemyTime = 0;
-    towerGenerator = new TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages, TowerGreen, TowerRed, TowerYellow, MathUtils, ProgressBar);
-    const tileGenerator = new TileGenerator(levelMap, tileImages, TileOrange, TilePath, TileStart, TileEnd, towerGenerator);
+    towerGenerator = new TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages);
+    const tileGenerator = new TileGenerator(levelMap, tileImages, towerGenerator);
     orangeTiles = tileGenerator.orangeTiles;
     startTile = tileGenerator.startTile;
     endTile = tileGenerator.endTile;
@@ -1915,21 +1907,14 @@ function setup() {
     wave = 1;
     allowCreateEnemies = true;
     waveEnemies = 0;
-    enemies = [];
-    waveProgressBar = new ProgressBar({ x: 335, y: -19 }, 150, 16);
-    bossProgressBar = new ProgressBar({ x: 335, y: -2 }, 150, 10);
-    hud = new Hud(hudImages, hudIconImages, wallet, lives, score, TextProperties, waveProgressBar, bossProgressBar, wave);
+    waveProgressBar = new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 });
+    bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 });
+    hud = new Hud(hudImages, hudIconImages, wallet, lives, score, waveProgressBar, bossProgressBar, wave);
     waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
     bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
     explosionsEnemy = [];
     explosionsMagicFireball = [];
     explosionsMagicIceball = [];
-    magicFireballs = [];
-    magicFireballsCount = MagicFireball.FIREBALLS;
-    magicIceballs = [];
-    magicIceballsCount = MagicIceball.ICEBALLS;
-    magicUFOs = [];
-    magicUFOsCount = MagicUFO.UFOS;
     influenceArea = new InfluenceArea();
     gameStatus = Const.GAME_STATUS_PLAYING;
 }
@@ -2019,42 +2004,28 @@ function mouseClicked() {
         }
     }
 }
-function createNewEnemy(waveEnemy, wave) {
-    const endurance = wave * 3 + waveEnemy * 2;
-    const isBoss = false;
-    enemies.push(new Enemy(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemy)), initialEnemiesPosition, orders, endurance, isBoss));
-}
 function createNewMagicFireball() {
-    if (magicFireballsCount > 0) {
-        magicFireballs.push(new MagicFireball(magicFireballImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders));
-        magicFireballsCount--;
-        hud.setMagicFireballs(magicFireballsCount);
+    if (MagicFireball.total > 0) {
+        MagicFireball.instantiate(magicFireballImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders);
+        hud.setMagicFireballs(MagicFireball.total);
     }
 }
 function createNewMagicIceball() {
-    if (magicIceballsCount > 0) {
-        magicIceballs.push(new MagicIceball(magicIceballImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders));
-        magicIceballsCount--;
-        hud.setMagicIceballs(magicIceballsCount);
+    if (MagicIceball.total > 0) {
+        MagicIceball.instantiate(magicIceballImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders);
+        hud.setMagicIceballs(MagicIceball.total);
     }
 }
 function createNewMagicUFO() {
-    if (magicUFOsCount > 0) {
-        magicUFOs.push(new MagicUFO(magicUFOImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders));
-        magicUFOsCount--;
-        hud.setMagicUFOs(magicUFOsCount);
+    if (MagicUFO.total > 0) {
+        MagicUFO.instantiate(magicUFOImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders);
+        hud.setMagicUFOs(MagicUFO.total);
     }
 }
-function createNewBoss(wave) {
-    const endurance = wave * 25;
-    const indexBossInEnemiesImages = 5;
-    const isBoss = true;
-    enemies.push(new Enemy(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(indexBossInEnemiesImages)), initialEnemiesPosition, orders, endurance, isBoss));
-}
 function handleExplosionEnemys() {
-    const deadEnemies = enemies.filter((enemy) => enemy.dead);
+    const deadEnemies = Enemy.instances.filter((enemy) => enemy.dead);
     deadEnemies.forEach((enemy) => {
-        explosionsEnemy.push(new ExplosionEnemy({ x: enemy.position.x, y: enemy.position.y }, ParticleSystem));
+        explosionsEnemy.push(new ExplosionEnemy({ x: enemy.position.x, y: enemy.position.y }));
         const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR;
         wallet.increase($increasedMoney);
         score.increase($increasedMoney * 2);
@@ -2066,7 +2037,7 @@ function handleNewEnemyCreation() {
             createEnemyTime++;
             if (createEnemyTime === Enemy.CREATION_MAX_TIME) {
                 createEnemyTime = 0;
-                createNewEnemy(waveEnemies, wave);
+                Enemy.instantiateNormalEnemy(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemies)), waveEnemies, orders, initialEnemiesPosition, wave);
                 waveEnemies++;
             }
         }
@@ -2077,10 +2048,10 @@ function handleNewEnemyCreation() {
     }
 }
 function removeDeadEnemies() {
-    enemies = enemies.filter((enemy) => enemy.alive);
+    Enemy.instances = Enemy.instances.filter((enemy) => enemy.alive);
 }
 function handleWinnerEnemies() {
-    const winnerEnemies = enemies.filter((enemy) => enemy.winner);
+    const winnerEnemies = Enemy.instances.filter((enemy) => enemy.winner);
     winnerEnemies.forEach((enemy) => {
         lives--;
         if (lives <= 0) {
@@ -2094,7 +2065,7 @@ function updateEnemies() {
     handleNewEnemyCreation();
     handleExplosionEnemys();
     removeDeadEnemies();
-    enemies.forEach((enemy) => {
+    Enemy.instances.forEach((enemy) => {
         enemy.update();
     });
     handleWinnerEnemies();
@@ -2131,15 +2102,15 @@ function updateBossProgressBar() {
         bossProgressBar.increaseProgress();
         if (bossProgressBar.isFullOfProgress()) {
             bossProgressBar.setProgress(0);
-            createNewBoss(wave);
+            Enemy.instantiateBoss(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES)), orders, initialEnemiesPosition, wave);
         }
         hud.setBossProgressBar(bossProgressBar);
     }
 }
 function updateMagicFireballs() {
-    magicFireballs.forEach((magicFireball) => {
+    MagicFireball.instances.forEach((magicFireball) => {
         magicFireball.update();
-        checkMagicFireballCollides(magicFireball, enemies);
+        checkMagicFireballCollides(magicFireball, Enemy.instances);
     });
     removeDeadFireballs();
 }
@@ -2156,20 +2127,20 @@ function handleMagicFireballCollision(magicFireball, enemy) {
     newMagicFireballExplosion(enemy.position.x, enemy.position.y);
 }
 function newMagicFireballExplosion(posX, posY) {
-    explosionsMagicFireball.push(new ExplosionMagicFireball({ x: posX, y: posY }, ParticleSystem));
+    explosionsMagicFireball.push(new ExplosionMagicFireball({ x: posX, y: posY }));
 }
 function removeDeadFireballs() {
-    magicFireballs = magicFireballs.filter((fireball) => fireball.isAlive());
+    MagicFireball.instances = MagicFireball.instances.filter((fireball) => fireball.isAlive());
 }
 function drawMagicFireballs() {
-    magicFireballs.forEach((fireball) => {
+    MagicFireball.instances.forEach((fireball) => {
         fireball.draw();
     });
 }
 function updateMagicIceballs() {
-    magicIceballs.forEach((iceball) => {
+    MagicIceball.instances.forEach((iceball) => {
         iceball.update();
-        checkMagicIceballCollides(iceball, enemies);
+        checkMagicIceballCollides(iceball, Enemy.instances);
     });
     removeDeadIceballs();
 }
@@ -2186,23 +2157,23 @@ function handleMagicIceballCollision(magicIceball, enemy) {
     newMagicIceballExplosion(enemy.position.x, enemy.position.y);
 }
 function newMagicIceballExplosion(posX, posY) {
-    explosionsMagicIceball.push(new ExplosionMagicIceball({ x: posX, y: posY }, ParticleSystem));
+    explosionsMagicIceball.push(new ExplosionMagicIceball({ x: posX, y: posY }));
 }
 function removeDeadIceballs() {
-    magicIceballs = magicIceballs.filter((iceball) => iceball.isAlive());
+    MagicIceball.instances = MagicIceball.instances.filter((iceball) => iceball.isAlive());
 }
 function drawMagicIceballs() {
-    magicIceballs.forEach((iceball) => {
+    MagicIceball.instances.forEach((iceball) => {
         iceball.draw();
     });
 }
 function updateMagicUFOs() {
-    magicUFOs.forEach((ufo) => {
+    MagicUFO.instances.forEach((ufo) => {
         ufo.update();
     });
 }
 function drawMagicUFOs() {
-    magicUFOs.forEach((ufo) => {
+    MagicUFO.instances.forEach((ufo) => {
         ufo.draw();
     });
 }
@@ -2238,7 +2209,7 @@ function draw() {
     startTile.draw();
     endTile.draw();
     orangeTiles.forEach((orangeTile) => {
-        orangeTile.selectTarget(enemies);
+        orangeTile.selectTarget(Enemy.instances);
         orangeTile.drawTile();
     });
     orangeTiles.forEach((orangeTile) => {
@@ -2274,7 +2245,7 @@ function draw() {
         hud.hideUpgradeCost();
         hud.hideSellProfit();
     }
-    enemies.forEach((enemy) => {
+    Enemy.instances.forEach((enemy) => {
         enemy.draw();
     });
     drawMagicFireballs();
