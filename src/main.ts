@@ -63,14 +63,8 @@ let initialEnemiesPosition: Position
 let allowCreateEnemies: boolean
 let levelDataProvider: LevelsDataProvider
 let magicFireballImage: Image
-let magicFireballs: MagicFireball[]
-let magicFireballsCount: number
 let magicIceballImage: Image
-let magicIceballs: MagicIceball[]
-let magicIceballsCount: number
 let magicUFOImage: Image
-let magicUFOs: MagicUFO[]
-let magicUFOsCount: number
 
 function preload() {
   greenTowerImages = Resources.greenTower()
@@ -151,15 +145,6 @@ function setup() {
   explosionsEnemy = []
   explosionsMagicFireball = []
   explosionsMagicIceball = []
-
-  magicFireballs = []
-  magicFireballsCount = MagicFireball.FIREBALLS
-
-  magicIceballs = []
-  magicIceballsCount = MagicIceball.ICEBALLS
-
-  magicUFOs = []
-  magicUFOsCount = MagicUFO.UFOS
 
   influenceArea = new InfluenceArea()
 
@@ -264,44 +249,38 @@ function mouseClicked() {
 }
 
 function createNewMagicFireball() {
-  if (magicFireballsCount > 0) {
-    magicFireballs.push(
-      new MagicFireball(
-        magicFireballImage,
-        { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
-        orders,
-      ),
+  if (MagicFireball.total > 0) {
+    MagicFireball.instantiate(
+      magicFireballImage,
+      { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
+      orders,
     )
-    magicFireballsCount--
-    hud.setMagicFireballs(magicFireballsCount)
+
+    hud.setMagicFireballs(MagicFireball.total)
   }
 }
 
 function createNewMagicIceball() {
-  if (magicIceballsCount > 0) {
-    magicIceballs.push(
-      new MagicIceball(
-        magicIceballImage,
-        { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
-        orders,
-      ),
+  if (MagicIceball.total > 0) {
+    MagicIceball.instantiate(
+      magicIceballImage,
+      { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
+      orders,
     )
-    magicIceballsCount--
-    hud.setMagicIceballs(magicIceballsCount)
+
+    hud.setMagicIceballs(MagicIceball.total)
   }
 }
 
 function createNewMagicUFO() {
-  if (magicUFOsCount > 0) {
-    magicUFOs.push(
-      new MagicUFO(
-        magicUFOImage,
-        { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
-        orders,
-      ),
+  if (MagicUFO.total > 0) {
+    MagicUFO.instantiate(
+      magicUFOImage,
+      { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
+      orders,
     )
-    magicUFOsCount--
-    hud.setMagicUFOs(magicUFOsCount)
+
+    hud.setMagicUFOs(MagicUFO.total)
   }
 }
 
@@ -429,7 +408,7 @@ function updateBossProgressBar() {
 }
 
 function updateMagicFireballs() {
-  magicFireballs.forEach((magicFireball) => {
+  MagicFireball.instances.forEach((magicFireball) => {
     magicFireball.update()
     checkMagicFireballCollides(magicFireball, Enemy.instances)
   })
@@ -461,17 +440,19 @@ function newMagicFireballExplosion(posX: number, posY: number) {
 }
 
 function removeDeadFireballs() {
-  magicFireballs = magicFireballs.filter((fireball) => fireball.isAlive())
+  MagicFireball.instances = MagicFireball.instances.filter((fireball) =>
+    fireball.isAlive(),
+  )
 }
 
 function drawMagicFireballs() {
-  magicFireballs.forEach((fireball) => {
+  MagicFireball.instances.forEach((fireball) => {
     fireball.draw()
   })
 }
 
 function updateMagicIceballs() {
-  magicIceballs.forEach((iceball) => {
+  MagicIceball.instances.forEach((iceball) => {
     iceball.update()
     checkMagicIceballCollides(iceball, Enemy.instances)
   })
@@ -500,23 +481,25 @@ function newMagicIceballExplosion(posX: number, posY: number) {
 }
 
 function removeDeadIceballs() {
-  magicIceballs = magicIceballs.filter((iceball) => iceball.isAlive())
+  MagicIceball.instances = MagicIceball.instances.filter((iceball) =>
+    iceball.isAlive(),
+  )
 }
 
 function drawMagicIceballs() {
-  magicIceballs.forEach((iceball) => {
+  MagicIceball.instances.forEach((iceball) => {
     iceball.draw()
   })
 }
 
 function updateMagicUFOs() {
-  magicUFOs.forEach((ufo) => {
+  MagicUFO.instances.forEach((ufo) => {
     ufo.update()
   })
 }
 
 function drawMagicUFOs() {
-  magicUFOs.forEach((ufo) => {
+  MagicUFO.instances.forEach((ufo) => {
     ufo.draw()
   })
 }

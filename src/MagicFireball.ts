@@ -4,13 +4,20 @@ import { Magic } from './Magic'
 import { Position } from './types'
 
 export class MagicFireball extends Magic {
-  static FIREBALLS = 3
   static DAMAGE = 500
+
+  static instances: MagicFireball[] = []
+  static total: number = 3
 
   #img: Image
   constructor(img: Image, startPosition: Position, orders: number[]) {
     super(startPosition, orders)
     this.#img = img
+  }
+
+  static instantiate(images: Image, position: Position, orders: number[]) {
+    MagicFireball.instances.push(new MagicFireball(images, position, orders))
+    MagicFireball.total--
   }
 
   addDamage(enemy: Enemy) {

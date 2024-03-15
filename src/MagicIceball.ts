@@ -4,13 +4,20 @@ import { Magic } from './Magic'
 import { Position } from './types'
 
 export class MagicIceball extends Magic {
-  static ICEBALLS = 3
   static FREEZE_ENEMY_MAX_TIME = 500
+
+  static instances: MagicIceball[] = []
+  static total: number = 3
 
   #img: Image
   constructor(img: Image, startPosition: Position, orders: number[]) {
     super(startPosition, orders)
     this.#img = img
+  }
+
+  static instantiate(images: Image, position: Position, orders: number[]) {
+    MagicIceball.instances.push(new MagicIceball(images, position, orders))
+    MagicIceball.total--
   }
 
   freeze(enemy: Enemy) {

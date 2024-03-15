@@ -75,9 +75,9 @@ export class Hud {
 
     this.#hudType = Hud.NORMAL
     this.#selectedItem = TowerGreen.ID
-    this.#magicfireballs = MagicFireball.FIREBALLS
-    this.#magiciceballs = MagicIceball.ICEBALLS
-    this.#magicUFOs = MagicUFO.UFOS
+    this.#magicfireballs = MagicFireball.total
+    this.#magiciceballs = MagicIceball.total
+    this.#magicUFOs = MagicUFO.total
   }
 
   isInsideButtonsBar(px: number, py: number) {
