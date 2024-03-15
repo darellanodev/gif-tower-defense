@@ -7,9 +7,9 @@ export class ExplosionMagicFireball extends Explosion {
   static SIZE = 6
   static COLOR = [202, 191, 24] as RGBType
 
-  constructor(position: Position, ParticleSystemClass: typeof ParticleSystem) {
+  constructor(position: Position) {
     super(position)
-    this.particleSystem = new ParticleSystemClass(
+    this.particleSystem = new ParticleSystem(
       createVector(
         this.position.x + Const.EXPLOSION_OFFSET,
         this.position.y + Const.EXPLOSION_OFFSET,
