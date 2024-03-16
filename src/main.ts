@@ -15,7 +15,6 @@ import { Enemy } from './Enemy'
 import { Debug } from './Debug'
 import { ProgressBar } from './ProgressBar'
 import { Wallet } from './Wallet'
-import { Score } from './Score'
 import { InfluenceArea } from './InfluenceArea'
 import { ExplosionEnemy } from './ExplosionEnemy'
 import { ExplosionMagicFireball } from './ExplosionMagicFireball'
@@ -33,8 +32,6 @@ import { Player } from './Player'
 let orders: number[]
 let createEnemyTime: number
 let hud: Hud
-let wallet: Wallet
-let score: Score
 let orangeTiles: TileOrange[]
 let mouseTileOrangeOver: TileOrange
 let wave: number
@@ -51,7 +48,6 @@ let backgroundImage: Image
 let enemiesImages: Image[]
 let towerGenerator: TowerGenerator
 let influenceArea: InfluenceArea
-let lives: number
 let gameStatus: number
 let waveProgressBar: ProgressBar
 let waveProgressDelay: number
@@ -355,34 +351,8 @@ function drawMagicFireballs() {
 }
 
 function updateMagicIceballs() {
-  MagicIceball.instances.forEach((iceball) => {
-    iceball.update()
-    checkMagicIceballCollides(iceball, Enemy.instances)
-  })
-  removeDeadIceballs()
-}
-
-function checkMagicIceballCollides(
-  magicIceball: MagicIceball,
-  enemies: Enemy[],
-) {
-  enemies.forEach((enemy) => {
-    if (magicIceball.checkCollision(enemy)) {
-      handleMagicIceballCollision(magicIceball, enemy)
-    }
-  })
-}
-
-function handleMagicIceballCollision(magicIceball: MagicIceball, enemy: Enemy) {
-  magicIceball.freeze(enemy)
-  magicIceball.setToIgnoreList(enemy)
-  ExplosionMagicIceball.instantiate(enemy.position)
-}
-
-function removeDeadIceballs() {
-  MagicIceball.instances = MagicIceball.instances.filter((iceball) =>
-    iceball.isAlive(),
-  )
+  MagicIceball.updateInstances()
+  MagicIceball.removeDeadInstances()
 }
 
 function drawMagicIceballs() {

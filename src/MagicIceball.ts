@@ -2,6 +2,7 @@ import { Image } from 'p5'
 import { Enemy } from './Enemy'
 import { Magic } from './Magic'
 import { Position } from './types'
+import { ExplosionMagicIceball } from './ExplosionMagicIceball'
 
 export class MagicIceball extends Magic {
   static FREEZE_ENEMY_MAX_TIME = 500
@@ -28,5 +29,35 @@ export class MagicIceball extends Magic {
 
   draw() {
     image(this.#img, this.position.x, this.position.y)
+  }
+
+  static updateInstances() {
+    MagicIceball.instances.forEach((iceball) => {
+      iceball.update()
+      MagicIceball.checkMagicIceballCollides(iceball, Enemy.instances)
+    })
+  }
+
+  static removeDeadInstances() {
+    MagicIceball.instances = MagicIceball.instances.filter((iceball) =>
+      iceball.isAlive(),
+    )
+  }
+
+  static checkMagicIceballCollides(
+    magicIceball: MagicIceball,
+    enemies: Enemy[],
+  ) {
+    enemies.forEach((enemy) => {
+      if (magicIceball.checkCollision(enemy)) {
+        MagicIceball.handleMagicIceballCollision(magicIceball, enemy)
+      }
+    })
+  }
+
+  static handleMagicIceballCollision(magicIceball: MagicIceball, enemy: Enemy) {
+    magicIceball.freeze(enemy)
+    magicIceball.setToIgnoreList(enemy)
+    ExplosionMagicIceball.instantiate(enemy.position)
   }
 }
