@@ -11,6 +11,7 @@ import { MagicFireball } from './MagicFireball'
 import { MagicIceball } from './MagicIceball'
 import { MagicUFO } from './MagicUFO'
 import { Const } from './Const'
+import { Player } from './Player'
 
 export class Hud {
   static NORMAL = 0
@@ -26,9 +27,6 @@ export class Hud {
 
   #hudImages: Image[]
   #hudIconImages: Image[]
-  #wallet: Wallet
-  #lives: number
-  #score: Score
   #waveProgressBar: ProgressBar
   #bossProgressBar: ProgressBar
   #wave: number
@@ -45,18 +43,12 @@ export class Hud {
   constructor(
     hudImages: Image[],
     hudIconImages: Image[],
-    wallet: Wallet,
-    lives: number,
-    score: Score,
     waveProgressBar: ProgressBar,
     bossProgressBar: ProgressBar,
     wave: number,
   ) {
     this.#hudImages = hudImages
     this.#hudIconImages = hudIconImages
-    this.#wallet = wallet
-    this.#lives = lives
-    this.#score = score
     this.#waveProgressBar = waveProgressBar
     this.#bossProgressBar = bossProgressBar
     this.#wave = wave
@@ -196,10 +188,6 @@ export class Hud {
     this.#wave = wave
   }
 
-  setLives(lives: number) {
-    this.#lives = lives
-  }
-
   // can't be private with # because it needs to access their public static properties
   _drawTowerIcons() {
     let greenIconImgPos = Hud.ICON_GREEN_TOWER_OFF
@@ -222,7 +210,7 @@ export class Hud {
   }
 
   #drawMoney() {
-    text(this.#wallet.money, 445, 48)
+    text(Wallet.money, 445, 48)
   }
 
   #drawUpgradeCost() {
@@ -255,11 +243,11 @@ export class Hud {
   }
 
   #drawLives() {
-    text(this.#lives, 390, 48)
+    text(Player.lives, 390, 48)
   }
 
   #drawScore() {
-    text(this.#score.getPrintScore(), 404, 73)
+    text(Score.getPrintScore(), 404, 73)
   }
 
   #drawLevelTitle() {

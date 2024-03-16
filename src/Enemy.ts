@@ -5,6 +5,10 @@ import { Image } from 'p5'
 import { MagicIceball } from './MagicIceball'
 import { Const } from './Const'
 import { ConstDirection } from './ConstDirection'
+import { Player } from './Player'
+import { ExplosionEnemy } from './ExplosionEnemy'
+import { Score } from './Score'
+import { Wallet } from './Wallet'
 
 export class Enemy {
   static VELOCITY = 1 // must be multiple of "this.#Const.TILE_SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
@@ -274,5 +278,39 @@ export class Enemy {
       y: this.#position.y - 20,
     })
     this.#healthBar.draw()
+  }
+
+  static removeDeadInstances() {
+    Enemy.instances = Enemy.instances.filter((enemy) => enemy.alive)
+  }
+
+  static updateInstances() {
+    Enemy.instances.forEach((enemy) => {
+      enemy.update()
+    })
+  }
+
+  static handleWinners() {
+    let gameStatus = Const.GAME_STATUS_PLAYING
+    const winnerEnemies = Enemy.instances.filter((enemy) => enemy.winner)
+    winnerEnemies.forEach((enemy) => {
+      Player.lives--
+      if (Player.lives <= 0) {
+        gameStatus = Const.GAME_STATUS_GAME_OVER
+      }
+      enemy.resetWinner()
+    })
+    return gameStatus
+  }
+
+  static handleExplosionEnemys() {
+    const deadEnemies: Enemy[] = Enemy.instances.filter((enemy) => enemy.dead)
+    deadEnemies.forEach((enemy) => {
+      ExplosionEnemy.instantiate(enemy.position)
+
+      const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR
+      Wallet.increase($increasedMoney)
+      Score.increase($increasedMoney * 2)
+    })
   }
 }

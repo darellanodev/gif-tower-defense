@@ -3,36 +3,28 @@ import { TowerRed } from './TowerRed'
 import { TowerYellow } from './TowerYellow'
 
 export class Wallet {
-  #money: number
+  static money: number
 
-  constructor(money: number) {
-    this.#money = money
+  static increase(quantity: number) {
+    this.money += quantity
   }
 
-  get money(): number {
-    return this.#money
+  static decrease(quantity: number) {
+    this.money -= quantity
   }
 
-  increase(quantity: number) {
-    this.#money += quantity
-  }
-
-  decrease(quantity: number) {
-    this.#money -= quantity
-  }
-
-  haveMoneyToBuy(towerId: number, upgradeLevel: number) {
+  static haveMoneyToBuy(towerId: number, upgradeLevel: number) {
     let canBuy = false
 
     switch (towerId) {
       case TowerGreen.ID:
-        canBuy = TowerGreen.COST_UPGRADE[upgradeLevel] <= this.#money
+        canBuy = TowerGreen.COST_UPGRADE[upgradeLevel] <= Wallet.money
         break
       case TowerRed.ID:
-        canBuy = TowerRed.COST_UPGRADE[upgradeLevel] <= this.#money
+        canBuy = TowerRed.COST_UPGRADE[upgradeLevel] <= Wallet.money
         break
       case TowerYellow.ID:
-        canBuy = TowerYellow.COST_UPGRADE[upgradeLevel] <= this.#money
+        canBuy = TowerYellow.COST_UPGRADE[upgradeLevel] <= Wallet.money
         break
 
       default:

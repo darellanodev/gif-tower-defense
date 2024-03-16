@@ -1,15 +1,11 @@
 export class Score {
-  score: number
+  static score: number = 0
 
-  constructor() {
-    this.score = 0
+  static increase(score: number) {
+    Score.score += score
   }
 
-  increase(score: number) {
-    this.score = score
-  }
-
-  getPrintScore(): string {
-    return String(this.score).padStart(10, '0')
+  static getPrintScore(): string {
+    return String(Score.score).padStart(10, '0')
   }
 }

@@ -28,6 +28,7 @@ import { LevelsData } from './LevelsData'
 import { MagicFireball } from './MagicFireball'
 import { MagicIceball } from './MagicIceball'
 import { MagicUFO } from './MagicUFO'
+import { Player } from './Player'
 
 let orders: number[]
 let createEnemyTime: number
@@ -114,9 +115,9 @@ function setup() {
   orders = path.makeOrders()
   initialEnemiesPosition = path.getEnemiesInitialPosition()
 
-  wallet = new Wallet(tileGenerator.initialMoney)
-  score = new Score()
-  lives = 7
+  Wallet.money = tileGenerator.initialMoney
+
+  Player.lives = 7
 
   wave = 1
   allowCreateEnemies = true
@@ -128,9 +129,6 @@ function setup() {
   hud = new Hud(
     hudImages,
     hudIconImages,
-    wallet,
-    lives,
-    score,
     waveProgressBar,
     bossProgressBar,
     wave,
@@ -163,7 +161,7 @@ function keyPressed() {
 function canUpgradeTower(tower: TowerType) {
   let canUpgrade = false
   if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
-    if (wallet.haveMoneyToBuy(tower.type, tower.upgradeLevel + 1)) {
+    if (Wallet.haveMoneyToBuy(tower.type, tower.upgradeLevel + 1)) {
       canUpgrade = true
     }
   }
@@ -173,7 +171,7 @@ function canUpgradeTower(tower: TowerType) {
 function canBuyNewTower(hudSelectedTower: number) {
   let canBuy = false
   const zeroUpgradeLevel = 0
-  if (wallet.haveMoneyToBuy(hudSelectedTower, zeroUpgradeLevel)) {
+  if (Wallet.haveMoneyToBuy(hudSelectedTower, zeroUpgradeLevel)) {
     canBuy = true
   }
   return canBuy
@@ -191,13 +189,13 @@ function canBuyTower(tower: TowerType) {
 
 function handleSellTower() {
   const profit = mouseTileOrangeOver.sellTower()
-  wallet.increase(profit)
+  Wallet.increase(profit)
 }
 
 function handleBuyTower() {
   if (canBuyTower(mouseTileOrangeOver.getTower())) {
     const cost = mouseTileOrangeOver.buyTower(hud.getSelectedTower())
-    wallet.decrease(cost)
+    Wallet.decrease(cost)
   }
 }
 
@@ -228,19 +226,6 @@ function mouseClicked() {
   }
 }
 
-function handleExplosionEnemys() {
-  const deadEnemies: Enemy[] = Enemy.instances.filter((enemy) => enemy.dead)
-  deadEnemies.forEach((enemy) => {
-    ExplosionEnemy.instantiate(enemy.position)
-
-    //increase money and score
-    const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR
-
-    wallet.increase($increasedMoney)
-    score.increase($increasedMoney * 2)
-  })
-}
-
 function handleNewEnemyCreation() {
   if (allowCreateEnemies) {
     if (waveEnemies < Enemy.TOTAL_ENEMIES) {
@@ -265,33 +250,12 @@ function handleNewEnemyCreation() {
   }
 }
 
-function removeDeadEnemies() {
-  Enemy.instances = Enemy.instances.filter((enemy) => enemy.alive)
-}
-
-function handleWinnerEnemies() {
-  const winnerEnemies = Enemy.instances.filter((enemy) => enemy.winner)
-  winnerEnemies.forEach((enemy) => {
-    lives--
-    if (lives <= 0) {
-      gameStatus = Const.GAME_STATUS_GAME_OVER
-    }
-    hud.setLives(lives)
-    enemy.resetWinner()
-  })
-}
-
 function updateEnemies() {
   handleNewEnemyCreation()
-  handleExplosionEnemys()
-  removeDeadEnemies()
-
-  // update enemies
-  Enemy.instances.forEach((enemy) => {
-    enemy.update()
-  })
-
-  handleWinnerEnemies()
+  Enemy.handleExplosionEnemys()
+  Enemy.removeDeadInstances()
+  Enemy.updateInstances()
+  gameStatus = Enemy.handleWinners()
 }
 
 function updateMouseTileOrangeOver() {
@@ -480,7 +444,7 @@ function draw() {
 
       hud.selectTowerHudType(tileTower)
       if (!tileTower.maxUpgraded) {
-        const canUpgrade = wallet.haveMoneyToBuy(
+        const canUpgrade = Wallet.haveMoneyToBuy(
           tileTower.type,
           tileTower.upgradeLevel + 1,
         )
