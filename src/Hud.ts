@@ -1,4 +1,4 @@
-import { TowerType } from './types'
+import { Position, TowerType } from './types'
 import { TextProperties } from './TextProperties'
 import { ProgressBar } from './ProgressBar'
 import { Score } from './Score'
@@ -350,5 +350,46 @@ export class Hud {
 
   hideSellProfit() {
     this.#sellProfit = null
+  }
+
+  handleButtons(
+    mouseX: number,
+    mouseY: number,
+    magicIceballImage: Image,
+    magicFireballImage: Image,
+    magicUFOImage: Image,
+    initialEnemiesPosition: Position,
+    orders: number[],
+  ) {
+    if (this.isInsideTowerGreenButton(mouseX, mouseY)) {
+      this.selectTower(TowerGreen.ID)
+    }
+    if (this.isInsideTowerRedButton(mouseX, mouseY)) {
+      this.selectTower(TowerRed.ID)
+    }
+    if (this.isInsideTowerYellowButton(mouseX, mouseY)) {
+      this.selectTower(TowerYellow.ID)
+    }
+    if (this.isInsideMagicFireball(mouseX, mouseY)) {
+      MagicFireball.instantiate(
+        magicFireballImage,
+        initialEnemiesPosition,
+        orders,
+      )
+    }
+    if (this.isInsideMagicIceball(mouseX, mouseY)) {
+      MagicIceball.instantiate(
+        magicIceballImage,
+        { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
+        orders,
+      )
+    }
+    if (this.isInsideMagicUFO(mouseX, mouseY)) {
+      MagicUFO.instantiate(
+        magicUFOImage,
+        { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
+        orders,
+      )
+    }
   }
 }

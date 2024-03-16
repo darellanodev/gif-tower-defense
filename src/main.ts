@@ -189,39 +189,6 @@ function canBuyTower(tower: TowerType) {
   return result
 }
 
-function handleHudButtons() {
-  if (hud.isInsideTowerGreenButton(mouseX, mouseY)) {
-    hud.selectTower(TowerGreen.ID)
-  }
-  if (hud.isInsideTowerRedButton(mouseX, mouseY)) {
-    hud.selectTower(TowerRed.ID)
-  }
-  if (hud.isInsideTowerYellowButton(mouseX, mouseY)) {
-    hud.selectTower(TowerYellow.ID)
-  }
-  if (hud.isInsideMagicFireball(mouseX, mouseY)) {
-    MagicFireball.instantiate(
-      magicFireballImage,
-      initialEnemiesPosition,
-      orders,
-    )
-  }
-  if (hud.isInsideMagicIceball(mouseX, mouseY)) {
-    MagicIceball.instantiate(
-      magicIceballImage,
-      { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
-      orders,
-    )
-  }
-  if (hud.isInsideMagicUFO(mouseX, mouseY)) {
-    MagicUFO.instantiate(
-      magicUFOImage,
-      { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
-      orders,
-    )
-  }
-}
-
 function handleSellTower() {
   const profit = mouseTileOrangeOver.sellTower()
   wallet.increase(profit)
@@ -236,7 +203,15 @@ function handleBuyTower() {
 
 function mouseClicked() {
   if (hud.isInsideButtonsBar(mouseX, mouseY)) {
-    handleHudButtons()
+    hud.handleButtons(
+      mouseX,
+      mouseY,
+      magicIceballImage,
+      magicFireballImage,
+      magicUFOImage,
+      initialEnemiesPosition,
+      orders,
+    )
     return
   }
 
@@ -464,30 +439,6 @@ function drawMagicUFOs() {
   })
 }
 
-function removeDeadExplosions() {
-  ExplosionEnemy.instances = ExplosionEnemy.instances.filter((e) =>
-    e.isActive(),
-  )
-  ExplosionMagicFireball.instances = ExplosionMagicFireball.instances.filter(
-    (e) => e.isActive(),
-  )
-  ExplosionMagicIceball.instances = ExplosionMagicIceball.instances.filter(
-    (e) => e.isActive(),
-  )
-}
-
-function updateExplosions() {
-  ExplosionEnemy.instances.forEach((e) => {
-    e.update()
-  })
-  ExplosionMagicFireball.instances.forEach((e) => {
-    e.update()
-  })
-  ExplosionMagicIceball.instances.forEach((e) => {
-    e.update()
-  })
-}
-
 function draw() {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
     updateEnemies()
@@ -565,8 +516,13 @@ function draw() {
   drawMagicIceballs()
   drawMagicUFOs()
 
-  removeDeadExplosions()
-  updateExplosions()
+  ExplosionEnemy.removeDeadInstances()
+  ExplosionMagicFireball.removeDeadInstances()
+  ExplosionMagicIceball.removeDeadInstances()
+
+  ExplosionEnemy.updateInstances()
+  ExplosionMagicFireball.updateInstances()
+  ExplosionMagicIceball.updateInstances()
 
   if (gameStatus === Const.GAME_STATUS_GAME_OVER) {
     TextProperties.setForBigCenteredTitle()

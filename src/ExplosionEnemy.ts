@@ -24,4 +24,16 @@ export class ExplosionEnemy extends Explosion {
   static instantiate(position: Position) {
     ExplosionEnemy.instances.push(new ExplosionEnemy(position))
   }
+
+  static updateInstances() {
+    ExplosionEnemy.instances.forEach((e) => {
+      e.update()
+    })
+  }
+
+  static removeDeadInstances() {
+    ExplosionEnemy.instances = ExplosionEnemy.instances.filter((e) =>
+      e.isActive(),
+    )
+  }
 }

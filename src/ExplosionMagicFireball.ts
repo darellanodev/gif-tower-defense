@@ -24,4 +24,16 @@ export class ExplosionMagicFireball extends Explosion {
   static instantiate(position: Position) {
     ExplosionMagicFireball.instances.push(new ExplosionMagicFireball(position))
   }
+
+  static updateInstances() {
+    ExplosionMagicFireball.instances.forEach((e) => {
+      e.update()
+    })
+  }
+
+  static removeDeadInstances() {
+    ExplosionMagicFireball.instances = ExplosionMagicFireball.instances.filter(
+      (e) => e.isActive(),
+    )
+  }
 }
