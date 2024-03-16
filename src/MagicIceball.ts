@@ -31,6 +31,12 @@ export class MagicIceball extends Magic {
     image(this.#img, this.position.x, this.position.y)
   }
 
+  static drawInstances() {
+    MagicIceball.instances.forEach((iceball) => {
+      iceball.draw()
+    })
+  }
+
   static updateInstances() {
     MagicIceball.instances.forEach((iceball) => {
       iceball.update()

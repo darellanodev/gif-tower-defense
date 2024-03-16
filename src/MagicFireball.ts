@@ -31,6 +31,12 @@ export class MagicFireball extends Magic {
     image(this.#img, this.position.x, this.position.y)
   }
 
+  static drawInstances() {
+    MagicFireball.instances.forEach((fireball) => {
+      fireball.draw()
+    })
+  }
+
   static updateInstances() {
     MagicFireball.instances.forEach((magicFireball) => {
       magicFireball.update()

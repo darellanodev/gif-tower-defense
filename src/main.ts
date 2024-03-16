@@ -310,12 +310,6 @@ function updateBossProgressBar() {
   }
 }
 
-function drawMagicFireballs() {
-  MagicFireball.instances.forEach((fireball) => {
-    fireball.draw()
-  })
-}
-
 function updateMagics() {
   MagicFireball.updateInstances()
   MagicFireball.removeDeadInstances()
@@ -327,16 +321,10 @@ function updateMagics() {
   MagicUFO.removeDeadInstances()
 }
 
-function drawMagicIceballs() {
-  MagicIceball.instances.forEach((iceball) => {
-    iceball.draw()
-  })
-}
-
-function drawMagicUFOs() {
-  MagicUFO.instances.forEach((ufo) => {
-    ufo.draw()
-  })
+function drawMagics() {
+  MagicFireball.drawInstances()
+  MagicIceball.drawInstances()
+  MagicUFO.drawInstances()
 }
 
 function draw() {
@@ -410,9 +398,7 @@ function draw() {
     enemy.draw()
   })
 
-  drawMagicFireballs()
-  drawMagicIceballs()
-  drawMagicUFOs()
+  drawMagics()
 
   ExplosionEnemy.removeDeadInstances()
   ExplosionMagicFireball.removeDeadInstances()

@@ -23,6 +23,12 @@ export class MagicUFO extends Magic {
     image(this.#img, this.position.x, this.position.y)
   }
 
+  static drawInstances() {
+    MagicUFO.instances.forEach((ufo) => {
+      ufo.draw()
+    })
+  }
+
   static updateInstances() {
     MagicUFO.instances.forEach((ufo) => {
       ufo.update()
