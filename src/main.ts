@@ -310,44 +310,15 @@ function updateBossProgressBar() {
   }
 }
 
-function updateMagicFireballs() {
-  MagicFireball.instances.forEach((magicFireball) => {
-    magicFireball.update()
-    checkMagicFireballCollides(magicFireball, Enemy.instances)
-  })
-  removeDeadFireballs()
-}
-
-function checkMagicFireballCollides(
-  magicFireball: MagicFireball,
-  enemies: Enemy[],
-) {
-  enemies.forEach((enemy) => {
-    if (magicFireball.checkCollision(enemy)) {
-      handleMagicFireballCollision(magicFireball, enemy)
-    }
-  })
-}
-
-function handleMagicFireballCollision(
-  magicFireball: MagicFireball,
-  enemy: Enemy,
-) {
-  magicFireball.addDamage(enemy)
-  magicFireball.setToIgnoreList(enemy)
-  ExplosionMagicFireball.instantiate(enemy.position)
-}
-
-function removeDeadFireballs() {
-  MagicFireball.instances = MagicFireball.instances.filter((fireball) =>
-    fireball.isAlive(),
-  )
-}
-
 function drawMagicFireballs() {
   MagicFireball.instances.forEach((fireball) => {
     fireball.draw()
   })
+}
+
+function updateMagicFireballs() {
+  MagicFireball.updateInstances()
+  MagicFireball.removeDeadInstances()
 }
 
 function updateMagicIceballs() {

@@ -2,6 +2,7 @@ import { Image } from 'p5'
 import { Enemy } from './Enemy'
 import { Magic } from './Magic'
 import { Position } from './types'
+import { ExplosionMagicFireball } from './ExplosionMagicFireball'
 
 export class MagicFireball extends Magic {
   static DAMAGE = 500
@@ -28,5 +29,38 @@ export class MagicFireball extends Magic {
 
   draw() {
     image(this.#img, this.position.x, this.position.y)
+  }
+
+  static updateInstances() {
+    MagicFireball.instances.forEach((magicFireball) => {
+      magicFireball.update()
+      MagicFireball.checkMagicFireballCollides(magicFireball, Enemy.instances)
+    })
+  }
+
+  static removeDeadInstances() {
+    MagicFireball.instances = MagicFireball.instances.filter((fireball) =>
+      fireball.isAlive(),
+    )
+  }
+
+  static checkMagicFireballCollides(
+    magicFireball: MagicFireball,
+    enemies: Enemy[],
+  ) {
+    enemies.forEach((enemy) => {
+      if (magicFireball.checkCollision(enemy)) {
+        MagicFireball.handleMagicFireballCollision(magicFireball, enemy)
+      }
+    })
+  }
+
+  static handleMagicFireballCollision(
+    magicFireball: MagicFireball,
+    enemy: Enemy,
+  ) {
+    magicFireball.addDamage(enemy)
+    magicFireball.setToIgnoreList(enemy)
+    ExplosionMagicFireball.instantiate(enemy.position)
   }
 }
