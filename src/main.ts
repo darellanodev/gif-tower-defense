@@ -200,13 +200,25 @@ function handleHudButtons() {
     hud.selectTower(TowerYellow.ID)
   }
   if (hud.isInsideMagicFireball(mouseX, mouseY)) {
-    createNewMagicFireball()
+    MagicFireball.instantiate(
+      magicFireballImage,
+      initialEnemiesPosition,
+      orders,
+    )
   }
   if (hud.isInsideMagicIceball(mouseX, mouseY)) {
-    createNewMagicIceball()
+    MagicIceball.instantiate(
+      magicIceballImage,
+      { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
+      orders,
+    )
   }
   if (hud.isInsideMagicUFO(mouseX, mouseY)) {
-    createNewMagicUFO()
+    MagicUFO.instantiate(
+      magicUFOImage,
+      { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
+      orders,
+    )
   }
 }
 
@@ -238,42 +250,6 @@ function mouseClicked() {
     if (mouseButton === LEFT) {
       handleBuyTower()
     }
-  }
-}
-
-function createNewMagicFireball() {
-  if (MagicFireball.total > 0) {
-    MagicFireball.instantiate(
-      magicFireballImage,
-      { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
-      orders,
-    )
-
-    hud.setMagicFireballs(MagicFireball.total)
-  }
-}
-
-function createNewMagicIceball() {
-  if (MagicIceball.total > 0) {
-    MagicIceball.instantiate(
-      magicIceballImage,
-      { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
-      orders,
-    )
-
-    hud.setMagicIceballs(MagicIceball.total)
-  }
-}
-
-function createNewMagicUFO() {
-  if (MagicUFO.total > 0) {
-    MagicUFO.instantiate(
-      magicUFOImage,
-      { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
-      orders,
-    )
-
-    hud.setMagicUFOs(MagicUFO.total)
   }
 }
 

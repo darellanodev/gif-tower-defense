@@ -40,9 +40,6 @@ export class Hud {
   #canBuyTowerGreen: boolean = false
   #canBuyTowerRed: boolean = false
   #canBuyTowerYellow: boolean = false
-  #magicfireballs: number
-  #magiciceballs: number
-  #magicUFOs: number
   #canUpgrade: boolean
 
   constructor(
@@ -75,9 +72,6 @@ export class Hud {
 
     this.#hudType = Hud.NORMAL
     this.#selectedItem = TowerGreen.ID
-    this.#magicfireballs = MagicFireball.total
-    this.#magiciceballs = MagicIceball.total
-    this.#magicUFOs = MagicUFO.total
   }
 
   isInsideButtonsBar(px: number, py: number) {
@@ -127,18 +121,6 @@ export class Hud {
       return true
     }
     return false
-  }
-
-  setMagicFireballs(magicfireballs: number) {
-    this.#magicfireballs = magicfireballs
-  }
-
-  setMagicIceballs(magiciceballs: number) {
-    this.#magiciceballs = magiciceballs
-  }
-
-  setMagicUFOs(magicUFOs: number) {
-    this.#magicUFOs = magicUFOs
   }
 
   setWaveProgressBar(waveProgressBar: ProgressBar) {
@@ -255,15 +237,15 @@ export class Hud {
   }
 
   #drawMagicUFO() {
-    text(this.#magicUFOs, 592, 74)
+    text(MagicUFO.total, 592, 74)
   }
 
   #drawMagicFireball() {
-    text(this.#magicfireballs, 680, 74)
+    text(MagicFireball.total, 680, 74)
   }
 
   #drawMagicIceball() {
-    text(this.#magiciceballs, 769, 74)
+    text(MagicIceball.total, 769, 74)
   }
 
   #drawSellProfit() {

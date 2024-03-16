@@ -13,8 +13,10 @@ export class MagicUFO extends Magic {
   }
 
   static instantiate(images: Image, position: Position, orders: number[]) {
-    MagicUFO.instances.push(new MagicUFO(images, position, orders))
-    MagicUFO.total--
+    if (MagicUFO.total > 0) {
+      MagicUFO.instances.push(new MagicUFO(images, position, orders))
+      MagicUFO.total--
+    }
   }
 
   draw() {

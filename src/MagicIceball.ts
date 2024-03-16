@@ -16,8 +16,10 @@ export class MagicIceball extends Magic {
   }
 
   static instantiate(images: Image, position: Position, orders: number[]) {
-    MagicIceball.instances.push(new MagicIceball(images, position, orders))
-    MagicIceball.total--
+    if (MagicIceball.total > 0) {
+      MagicIceball.instances.push(new MagicIceball(images, position, orders))
+      MagicIceball.total--
+    }
   }
 
   freeze(enemy: Enemy) {
