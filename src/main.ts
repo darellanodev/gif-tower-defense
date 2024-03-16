@@ -50,9 +50,6 @@ let backgroundImage: Image
 let enemiesImages: Image[]
 let towerGenerator: TowerGenerator
 let influenceArea: InfluenceArea
-let explosionsEnemy: ExplosionEnemy[]
-let explosionsMagicFireball: ExplosionMagicFireball[]
-let explosionsMagicIceball: ExplosionMagicIceball[]
 let lives: number
 let gameStatus: number
 let waveProgressBar: ProgressBar
@@ -141,10 +138,6 @@ function setup() {
 
   waveProgressDelay = Const.WAVE_PROGRESS_DELAY
   bossProgressDelay = Const.BOSS_PROGRESS_DELAY
-
-  explosionsEnemy = []
-  explosionsMagicFireball = []
-  explosionsMagicIceball = []
 
   influenceArea = new InfluenceArea()
 
@@ -287,9 +280,8 @@ function createNewMagicUFO() {
 function handleExplosionEnemys() {
   const deadEnemies: Enemy[] = Enemy.instances.filter((enemy) => enemy.dead)
   deadEnemies.forEach((enemy) => {
-    explosionsEnemy.push(
-      new ExplosionEnemy({ x: enemy.position.x, y: enemy.position.y }),
-    )
+    ExplosionEnemy.instantiate(enemy.position)
+
     //increase money and score
     const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR
 
@@ -432,11 +424,7 @@ function handleMagicFireballCollision(
 ) {
   magicFireball.addDamage(enemy)
   magicFireball.setToIgnoreList(enemy)
-  newMagicFireballExplosion(enemy.position.x, enemy.position.y)
-}
-
-function newMagicFireballExplosion(posX: number, posY: number) {
-  explosionsMagicFireball.push(new ExplosionMagicFireball({ x: posX, y: posY }))
+  ExplosionMagicFireball.instantiate(enemy.position)
 }
 
 function removeDeadFireballs() {
@@ -473,11 +461,7 @@ function checkMagicIceballCollides(
 function handleMagicIceballCollision(magicIceball: MagicIceball, enemy: Enemy) {
   magicIceball.freeze(enemy)
   magicIceball.setToIgnoreList(enemy)
-  newMagicIceballExplosion(enemy.position.x, enemy.position.y)
-}
-
-function newMagicIceballExplosion(posX: number, posY: number) {
-  explosionsMagicIceball.push(new ExplosionMagicIceball({ x: posX, y: posY }))
+  ExplosionMagicIceball.instantiate(enemy.position)
 }
 
 function removeDeadIceballs() {
@@ -505,19 +489,25 @@ function drawMagicUFOs() {
 }
 
 function removeDeadExplosions() {
-  explosionsEnemy = explosionsEnemy.filter((e) => e.isActive())
-  explosionsMagicFireball = explosionsMagicFireball.filter((e) => e.isActive())
-  explosionsMagicIceball = explosionsMagicIceball.filter((e) => e.isActive())
+  ExplosionEnemy.instances = ExplosionEnemy.instances.filter((e) =>
+    e.isActive(),
+  )
+  ExplosionMagicFireball.instances = ExplosionMagicFireball.instances.filter(
+    (e) => e.isActive(),
+  )
+  ExplosionMagicIceball.instances = ExplosionMagicIceball.instances.filter(
+    (e) => e.isActive(),
+  )
 }
 
 function updateExplosions() {
-  explosionsEnemy.forEach((e) => {
+  ExplosionEnemy.instances.forEach((e) => {
     e.update()
   })
-  explosionsMagicFireball.forEach((e) => {
+  ExplosionMagicFireball.instances.forEach((e) => {
     e.update()
   })
-  explosionsMagicIceball.forEach((e) => {
+  ExplosionMagicIceball.instances.forEach((e) => {
     e.update()
   })
 }

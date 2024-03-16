@@ -7,6 +7,8 @@ export class ExplosionEnemy extends Explosion {
   static SIZE = 12
   static COLOR = [255, 165, 0] as RGBType
 
+  static instances: ExplosionEnemy[] = []
+
   constructor(position: Position) {
     super(position)
     this.particleSystem = new ParticleSystem(
@@ -17,5 +19,9 @@ export class ExplosionEnemy extends Explosion {
       ExplosionEnemy.SIZE,
       ExplosionEnemy.COLOR,
     )
+  }
+
+  static instantiate(position: Position) {
+    ExplosionEnemy.instances.push(new ExplosionEnemy(position))
   }
 }

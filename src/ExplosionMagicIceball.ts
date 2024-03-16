@@ -7,6 +7,8 @@ export class ExplosionMagicIceball extends Explosion {
   static SIZE = 6
   static COLOR = [0, 65, 255] as RGBType
 
+  static instances: ExplosionMagicIceball[] = []
+
   constructor(position: Position) {
     super(position)
     this.particleSystem = new ParticleSystem(
@@ -17,5 +19,9 @@ export class ExplosionMagicIceball extends Explosion {
       ExplosionMagicIceball.SIZE,
       ExplosionMagicIceball.COLOR,
     )
+  }
+
+  static instantiate(position: Position) {
+    ExplosionMagicIceball.instances.push(new ExplosionMagicIceball(position))
   }
 }
