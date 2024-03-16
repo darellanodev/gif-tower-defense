@@ -193,6 +193,35 @@ class Enemy {
         });
         __classPrivateFieldGet(this, _Enemy_healthBar, "f").draw();
     }
+    static removeDeadInstances() {
+        _a.instances = _a.instances.filter((enemy) => enemy.alive);
+    }
+    static updateInstances() {
+        _a.instances.forEach((enemy) => {
+            enemy.update();
+        });
+    }
+    static handleWinners() {
+        let gameStatus = Const.GAME_STATUS_PLAYING;
+        const winnerEnemies = _a.instances.filter((enemy) => enemy.winner);
+        winnerEnemies.forEach((enemy) => {
+            Player.lives--;
+            if (Player.lives <= 0) {
+                gameStatus = Const.GAME_STATUS_GAME_OVER;
+            }
+            enemy.resetWinner();
+        });
+        return gameStatus;
+    }
+    static handleExplosionEnemys() {
+        const deadEnemies = _a.instances.filter((enemy) => enemy.dead);
+        deadEnemies.forEach((enemy) => {
+            ExplosionEnemy.instantiate(enemy.position);
+            const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR;
+            Wallet.increase($increasedMoney);
+            Score.increase($increasedMoney * 2);
+        });
+    }
 }
 _a = Enemy, _Enemy_images = new WeakMap(), _Enemy_startPosition = new WeakMap(), _Enemy_orders = new WeakMap(), _Enemy_endurance = new WeakMap(), _Enemy_isBoss = new WeakMap(), _Enemy_id = new WeakMap(), _Enemy_imgIndex = new WeakMap(), _Enemy_imgIndexBeforeEyesClosed = new WeakMap(), _Enemy_eyesSequence = new WeakMap(), _Enemy_healthBar = new WeakMap(), _Enemy_status = new WeakMap(), _Enemy_damage = new WeakMap(), _Enemy_position = new WeakMap(), _Enemy_currentDirection = new WeakMap(), _Enemy_moveCount = new WeakMap(), _Enemy_indexOrder = new WeakMap(), _Enemy_changeEyesTime = new WeakMap(), _Enemy_indexEyesSecuence = new WeakMap(), _Enemy_closeEyesTime = new WeakMap(), _Enemy_extendClosedEyesTime = new WeakMap(), _Enemy_randomCloseEyes = new WeakMap(), _Enemy_winned = new WeakMap(), _Enemy_freezed = new WeakMap(), _Enemy_freezedTime = new WeakMap(), _Enemy_instances = new WeakSet(), _Enemy_reinitEnemy = function _Enemy_reinitEnemy() {
     __classPrivateFieldSet(this, _Enemy_winned, true, "f");
@@ -283,34 +312,67 @@ class ExplosionEnemy extends Explosion {
         super(position);
         this.particleSystem = new ParticleSystem(createVector(this.position.x + Const.EXPLOSION_OFFSET, this.position.y + Const.EXPLOSION_OFFSET), ExplosionEnemy.SIZE, ExplosionEnemy.COLOR);
     }
+    static instantiate(position) {
+        ExplosionEnemy.instances.push(new ExplosionEnemy(position));
+    }
+    static updateInstances() {
+        ExplosionEnemy.instances.forEach((e) => {
+            e.update();
+        });
+    }
+    static removeDeadInstances() {
+        ExplosionEnemy.instances = ExplosionEnemy.instances.filter((e) => e.isActive());
+    }
 }
 ExplosionEnemy.SIZE = 12;
 ExplosionEnemy.COLOR = [255, 165, 0];
+ExplosionEnemy.instances = [];
 class ExplosionMagicFireball extends Explosion {
     constructor(position) {
         super(position);
         this.particleSystem = new ParticleSystem(createVector(this.position.x + Const.EXPLOSION_OFFSET, this.position.y + Const.EXPLOSION_OFFSET), ExplosionMagicFireball.SIZE, ExplosionMagicFireball.COLOR);
     }
+    static instantiate(position) {
+        ExplosionMagicFireball.instances.push(new ExplosionMagicFireball(position));
+    }
+    static updateInstances() {
+        ExplosionMagicFireball.instances.forEach((e) => {
+            e.update();
+        });
+    }
+    static removeDeadInstances() {
+        ExplosionMagicFireball.instances = ExplosionMagicFireball.instances.filter((e) => e.isActive());
+    }
 }
 ExplosionMagicFireball.SIZE = 6;
 ExplosionMagicFireball.COLOR = [202, 191, 24];
+ExplosionMagicFireball.instances = [];
 class ExplosionMagicIceball extends Explosion {
     constructor(position) {
         super(position);
         this.particleSystem = new ParticleSystem(createVector(this.position.x + Const.EXPLOSION_OFFSET, this.position.y + Const.EXPLOSION_OFFSET), ExplosionMagicIceball.SIZE, ExplosionMagicIceball.COLOR);
     }
+    static instantiate(position) {
+        ExplosionMagicIceball.instances.push(new ExplosionMagicIceball(position));
+    }
+    static updateInstances() {
+        ExplosionMagicIceball.instances.forEach((e) => {
+            e.update();
+        });
+    }
+    static removeDeadInstances() {
+        ExplosionMagicIceball.instances = ExplosionMagicIceball.instances.filter((e) => e.isActive());
+    }
 }
 ExplosionMagicIceball.SIZE = 6;
 ExplosionMagicIceball.COLOR = [0, 65, 255];
-var _Hud_instances, _Hud_hudImages, _Hud_hudIconImages, _Hud_wallet, _Hud_lives, _Hud_score, _Hud_waveProgressBar, _Hud_bossProgressBar, _Hud_wave, _Hud_hudType, _Hud_selectedItem, _Hud_upgradeCost, _Hud_sellProfit, _Hud_canBuyTowerGreen, _Hud_canBuyTowerRed, _Hud_canBuyTowerYellow, _Hud_magicfireballs, _Hud_magiciceballs, _Hud_magicUFOs, _Hud_canUpgrade, _Hud_drawMoney, _Hud_drawUpgradeCost, _Hud_drawMagicUFO, _Hud_drawMagicFireball, _Hud_drawMagicIceball, _Hud_drawSellProfit, _Hud_drawLives, _Hud_drawScore, _Hud_drawLevelTitle, _Hud_drawWave, _Hud_drawSelectedItem;
+ExplosionMagicIceball.instances = [];
+var _Hud_instances, _Hud_hudImages, _Hud_hudIconImages, _Hud_waveProgressBar, _Hud_bossProgressBar, _Hud_wave, _Hud_hudType, _Hud_selectedItem, _Hud_upgradeCost, _Hud_sellProfit, _Hud_canBuyTowerGreen, _Hud_canBuyTowerRed, _Hud_canBuyTowerYellow, _Hud_canUpgrade, _Hud_drawMoney, _Hud_drawUpgradeCost, _Hud_drawMagicUFO, _Hud_drawMagicFireball, _Hud_drawMagicIceball, _Hud_drawSellProfit, _Hud_drawLives, _Hud_drawScore, _Hud_drawLevelTitle, _Hud_drawWave, _Hud_drawSelectedItem;
 class Hud {
-    constructor(hudImages, hudIconImages, wallet, lives, score, waveProgressBar, bossProgressBar, wave) {
+    constructor(hudImages, hudIconImages, waveProgressBar, bossProgressBar, wave) {
         _Hud_instances.add(this);
         _Hud_hudImages.set(this, void 0);
         _Hud_hudIconImages.set(this, void 0);
-        _Hud_wallet.set(this, void 0);
-        _Hud_lives.set(this, void 0);
-        _Hud_score.set(this, void 0);
         _Hud_waveProgressBar.set(this, void 0);
         _Hud_bossProgressBar.set(this, void 0);
         _Hud_wave.set(this, void 0);
@@ -321,15 +383,9 @@ class Hud {
         _Hud_canBuyTowerGreen.set(this, false);
         _Hud_canBuyTowerRed.set(this, false);
         _Hud_canBuyTowerYellow.set(this, false);
-        _Hud_magicfireballs.set(this, void 0);
-        _Hud_magiciceballs.set(this, void 0);
-        _Hud_magicUFOs.set(this, void 0);
         _Hud_canUpgrade.set(this, void 0);
         __classPrivateFieldSet(this, _Hud_hudImages, hudImages, "f");
         __classPrivateFieldSet(this, _Hud_hudIconImages, hudIconImages, "f");
-        __classPrivateFieldSet(this, _Hud_wallet, wallet, "f");
-        __classPrivateFieldSet(this, _Hud_lives, lives, "f");
-        __classPrivateFieldSet(this, _Hud_score, score, "f");
         __classPrivateFieldSet(this, _Hud_waveProgressBar, waveProgressBar, "f");
         __classPrivateFieldSet(this, _Hud_bossProgressBar, bossProgressBar, "f");
         __classPrivateFieldSet(this, _Hud_wave, wave, "f");
@@ -337,9 +393,6 @@ class Hud {
         __classPrivateFieldSet(this, _Hud_bossProgressBar, new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 }), "f");
         __classPrivateFieldSet(this, _Hud_hudType, Hud.NORMAL, "f");
         __classPrivateFieldSet(this, _Hud_selectedItem, TowerGreen.ID, "f");
-        __classPrivateFieldSet(this, _Hud_magicfireballs, MagicFireball.total, "f");
-        __classPrivateFieldSet(this, _Hud_magiciceballs, MagicIceball.total, "f");
-        __classPrivateFieldSet(this, _Hud_magicUFOs, MagicUFO.total, "f");
     }
     isInsideButtonsBar(px, py) {
         if (px > 0 && px < 800 && py > 28 && py < 78) {
@@ -382,15 +435,6 @@ class Hud {
             return true;
         }
         return false;
-    }
-    setMagicFireballs(magicfireballs) {
-        __classPrivateFieldSet(this, _Hud_magicfireballs, magicfireballs, "f");
-    }
-    setMagicIceballs(magiciceballs) {
-        __classPrivateFieldSet(this, _Hud_magiciceballs, magiciceballs, "f");
-    }
-    setMagicUFOs(magicUFOs) {
-        __classPrivateFieldSet(this, _Hud_magicUFOs, magicUFOs, "f");
     }
     setWaveProgressBar(waveProgressBar) {
         __classPrivateFieldSet(this, _Hud_waveProgressBar, waveProgressBar, "f");
@@ -445,9 +489,6 @@ class Hud {
     }
     setWave(wave) {
         __classPrivateFieldSet(this, _Hud_wave, wave, "f");
-    }
-    setLives(lives) {
-        __classPrivateFieldSet(this, _Hud_lives, lives, "f");
     }
     _drawTowerIcons() {
         let greenIconImgPos = Hud.ICON_GREEN_TOWER_OFF;
@@ -519,9 +560,29 @@ class Hud {
     hideSellProfit() {
         __classPrivateFieldSet(this, _Hud_sellProfit, null, "f");
     }
+    handleButtons(mouseX, mouseY, magicIceballImage, magicFireballImage, magicUFOImage, initialEnemiesPosition, orders) {
+        if (this.isInsideTowerGreenButton(mouseX, mouseY)) {
+            this.selectTower(TowerGreen.ID);
+        }
+        if (this.isInsideTowerRedButton(mouseX, mouseY)) {
+            this.selectTower(TowerRed.ID);
+        }
+        if (this.isInsideTowerYellowButton(mouseX, mouseY)) {
+            this.selectTower(TowerYellow.ID);
+        }
+        if (this.isInsideMagicFireball(mouseX, mouseY)) {
+            MagicFireball.instantiate(magicFireballImage, initialEnemiesPosition, orders);
+        }
+        if (this.isInsideMagicIceball(mouseX, mouseY)) {
+            MagicIceball.instantiate(magicIceballImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders);
+        }
+        if (this.isInsideMagicUFO(mouseX, mouseY)) {
+            MagicUFO.instantiate(magicUFOImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders);
+        }
+    }
 }
-_Hud_hudImages = new WeakMap(), _Hud_hudIconImages = new WeakMap(), _Hud_wallet = new WeakMap(), _Hud_lives = new WeakMap(), _Hud_score = new WeakMap(), _Hud_waveProgressBar = new WeakMap(), _Hud_bossProgressBar = new WeakMap(), _Hud_wave = new WeakMap(), _Hud_hudType = new WeakMap(), _Hud_selectedItem = new WeakMap(), _Hud_upgradeCost = new WeakMap(), _Hud_sellProfit = new WeakMap(), _Hud_canBuyTowerGreen = new WeakMap(), _Hud_canBuyTowerRed = new WeakMap(), _Hud_canBuyTowerYellow = new WeakMap(), _Hud_magicfireballs = new WeakMap(), _Hud_magiciceballs = new WeakMap(), _Hud_magicUFOs = new WeakMap(), _Hud_canUpgrade = new WeakMap(), _Hud_instances = new WeakSet(), _Hud_drawMoney = function _Hud_drawMoney() {
-    text(__classPrivateFieldGet(this, _Hud_wallet, "f").money, 445, 48);
+_Hud_hudImages = new WeakMap(), _Hud_hudIconImages = new WeakMap(), _Hud_waveProgressBar = new WeakMap(), _Hud_bossProgressBar = new WeakMap(), _Hud_wave = new WeakMap(), _Hud_hudType = new WeakMap(), _Hud_selectedItem = new WeakMap(), _Hud_upgradeCost = new WeakMap(), _Hud_sellProfit = new WeakMap(), _Hud_canBuyTowerGreen = new WeakMap(), _Hud_canBuyTowerRed = new WeakMap(), _Hud_canBuyTowerYellow = new WeakMap(), _Hud_canUpgrade = new WeakMap(), _Hud_instances = new WeakSet(), _Hud_drawMoney = function _Hud_drawMoney() {
+    text(Wallet.money, 445, 48);
 }, _Hud_drawUpgradeCost = function _Hud_drawUpgradeCost() {
     if (__classPrivateFieldGet(this, _Hud_upgradeCost, "f") !== null) {
         if (!__classPrivateFieldGet(this, _Hud_canUpgrade, "f")) {
@@ -531,19 +592,19 @@ _Hud_hudImages = new WeakMap(), _Hud_hudIconImages = new WeakMap(), _Hud_wallet 
         fill('white');
     }
 }, _Hud_drawMagicUFO = function _Hud_drawMagicUFO() {
-    text(__classPrivateFieldGet(this, _Hud_magicUFOs, "f"), 592, 74);
+    text(MagicUFO.total, 592, 74);
 }, _Hud_drawMagicFireball = function _Hud_drawMagicFireball() {
-    text(__classPrivateFieldGet(this, _Hud_magicfireballs, "f"), 680, 74);
+    text(MagicFireball.total, 680, 74);
 }, _Hud_drawMagicIceball = function _Hud_drawMagicIceball() {
-    text(__classPrivateFieldGet(this, _Hud_magiciceballs, "f"), 769, 74);
+    text(MagicIceball.total, 769, 74);
 }, _Hud_drawSellProfit = function _Hud_drawSellProfit() {
     if (__classPrivateFieldGet(this, _Hud_sellProfit, "f") !== null) {
         text(__classPrivateFieldGet(this, _Hud_sellProfit, "f"), 182, 72);
     }
 }, _Hud_drawLives = function _Hud_drawLives() {
-    text(__classPrivateFieldGet(this, _Hud_lives, "f"), 390, 48);
+    text(Player.lives, 390, 48);
 }, _Hud_drawScore = function _Hud_drawScore() {
-    text(__classPrivateFieldGet(this, _Hud_score, "f").getPrintScore(), 404, 73);
+    text(Score.getPrintScore(), 404, 73);
 }, _Hud_drawLevelTitle = function _Hud_drawLevelTitle() {
     text('Serpent by Ocliboy', 130, 18);
 }, _Hud_drawWave = function _Hud_drawWave() {
@@ -791,14 +852,42 @@ class MagicFireball extends Magic {
         __classPrivateFieldSet(this, _MagicFireball_img, img, "f");
     }
     static instantiate(images, position, orders) {
-        MagicFireball.instances.push(new MagicFireball(images, position, orders));
-        MagicFireball.total--;
+        if (MagicFireball.total > 0) {
+            MagicFireball.instances.push(new MagicFireball(images, position, orders));
+            MagicFireball.total--;
+        }
     }
     addDamage(enemy) {
         enemy.addDamage(MagicFireball.DAMAGE);
     }
     draw() {
         image(__classPrivateFieldGet(this, _MagicFireball_img, "f"), this.position.x, this.position.y);
+    }
+    static drawInstances() {
+        MagicFireball.instances.forEach((fireball) => {
+            fireball.draw();
+        });
+    }
+    static updateInstances() {
+        MagicFireball.instances.forEach((magicFireball) => {
+            magicFireball.update();
+            MagicFireball.checkMagicFireballCollides(magicFireball, Enemy.instances);
+        });
+    }
+    static removeDeadInstances() {
+        MagicFireball.instances = MagicFireball.instances.filter((fireball) => fireball.isAlive());
+    }
+    static checkMagicFireballCollides(magicFireball, enemies) {
+        enemies.forEach((enemy) => {
+            if (magicFireball.checkCollision(enemy)) {
+                MagicFireball.handleMagicFireballCollision(magicFireball, enemy);
+            }
+        });
+    }
+    static handleMagicFireballCollision(magicFireball, enemy) {
+        magicFireball.addDamage(enemy);
+        magicFireball.setToIgnoreList(enemy);
+        ExplosionMagicFireball.instantiate(enemy.position);
     }
 }
 _MagicFireball_img = new WeakMap();
@@ -813,14 +902,42 @@ class MagicIceball extends Magic {
         __classPrivateFieldSet(this, _MagicIceball_img, img, "f");
     }
     static instantiate(images, position, orders) {
-        MagicIceball.instances.push(new MagicIceball(images, position, orders));
-        MagicIceball.total--;
+        if (MagicIceball.total > 0) {
+            MagicIceball.instances.push(new MagicIceball(images, position, orders));
+            MagicIceball.total--;
+        }
     }
     freeze(enemy) {
         enemy.freeze();
     }
     draw() {
         image(__classPrivateFieldGet(this, _MagicIceball_img, "f"), this.position.x, this.position.y);
+    }
+    static drawInstances() {
+        MagicIceball.instances.forEach((iceball) => {
+            iceball.draw();
+        });
+    }
+    static updateInstances() {
+        MagicIceball.instances.forEach((iceball) => {
+            iceball.update();
+            MagicIceball.checkMagicIceballCollides(iceball, Enemy.instances);
+        });
+    }
+    static removeDeadInstances() {
+        MagicIceball.instances = MagicIceball.instances.filter((iceball) => iceball.isAlive());
+    }
+    static checkMagicIceballCollides(magicIceball, enemies) {
+        enemies.forEach((enemy) => {
+            if (magicIceball.checkCollision(enemy)) {
+                MagicIceball.handleMagicIceballCollision(magicIceball, enemy);
+            }
+        });
+    }
+    static handleMagicIceballCollision(magicIceball, enemy) {
+        magicIceball.freeze(enemy);
+        magicIceball.setToIgnoreList(enemy);
+        ExplosionMagicIceball.instantiate(enemy.position);
     }
 }
 _MagicIceball_img = new WeakMap();
@@ -835,11 +952,26 @@ class MagicUFO extends Magic {
         __classPrivateFieldSet(this, _MagicUFO_img, img, "f");
     }
     static instantiate(images, position, orders) {
-        MagicUFO.instances.push(new MagicUFO(images, position, orders));
-        MagicUFO.total--;
+        if (MagicUFO.total > 0) {
+            MagicUFO.instances.push(new MagicUFO(images, position, orders));
+            MagicUFO.total--;
+        }
     }
     draw() {
         image(__classPrivateFieldGet(this, _MagicUFO_img, "f"), this.position.x, this.position.y);
+    }
+    static drawInstances() {
+        MagicUFO.instances.forEach((ufo) => {
+            ufo.draw();
+        });
+    }
+    static updateInstances() {
+        MagicUFO.instances.forEach((ufo) => {
+            ufo.update();
+        });
+    }
+    static removeDeadInstances() {
+        MagicUFO.instances = MagicUFO.instances.filter((ufo) => ufo.isAlive());
     }
 }
 _MagicUFO_img = new WeakMap();
@@ -1065,6 +1197,9 @@ class Path {
 }
 _Path_startTile = new WeakMap(), _Path_endTile = new WeakMap(), _Path_pathTiles = new WeakMap();
 Path.MAX_SEARCHES = 5000;
+class Player {
+}
+Player.lives = 7;
 var _ProgressBar_position, _ProgressBar_size, _ProgressBar_progress, _ProgressBar_maxProgress;
 class ProgressBar {
     constructor(position, size) {
@@ -1198,16 +1333,14 @@ class Resources {
     }
 }
 class Score {
-    constructor() {
-        this.score = 0;
+    static increase(score) {
+        Score.score += score;
     }
-    increase(score) {
-        this.score = score;
-    }
-    getPrintScore() {
-        return String(this.score).padStart(10, '0');
+    static getPrintScore() {
+        return String(Score.score).padStart(10, '0');
     }
 }
+Score.score = 0;
 class TextProperties {
     static setForBigCenteredTitle() {
         fill('white');
@@ -1795,32 +1928,24 @@ TowerYellow.PROFIT_SELL_UPGRADE = [680, 2460, 7440, 21920, 66900, 199880];
 TowerYellow.COST_UPGRADE = [700, 2500, 7500, 22000, 67000, 200000];
 TowerYellow.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
 TowerYellow.INFLUENCE_AREA = 290;
-var _Wallet_money;
 class Wallet {
-    constructor(money) {
-        _Wallet_money.set(this, void 0);
-        __classPrivateFieldSet(this, _Wallet_money, money, "f");
+    static increase(quantity) {
+        this.money += quantity;
     }
-    get money() {
-        return __classPrivateFieldGet(this, _Wallet_money, "f");
+    static decrease(quantity) {
+        this.money -= quantity;
     }
-    increase(quantity) {
-        __classPrivateFieldSet(this, _Wallet_money, __classPrivateFieldGet(this, _Wallet_money, "f") + quantity, "f");
-    }
-    decrease(quantity) {
-        __classPrivateFieldSet(this, _Wallet_money, __classPrivateFieldGet(this, _Wallet_money, "f") - quantity, "f");
-    }
-    haveMoneyToBuy(towerId, upgradeLevel) {
+    static haveMoneyToBuy(towerId, upgradeLevel) {
         let canBuy = false;
         switch (towerId) {
             case TowerGreen.ID:
-                canBuy = TowerGreen.COST_UPGRADE[upgradeLevel] <= __classPrivateFieldGet(this, _Wallet_money, "f");
+                canBuy = TowerGreen.COST_UPGRADE[upgradeLevel] <= Wallet.money;
                 break;
             case TowerRed.ID:
-                canBuy = TowerRed.COST_UPGRADE[upgradeLevel] <= __classPrivateFieldGet(this, _Wallet_money, "f");
+                canBuy = TowerRed.COST_UPGRADE[upgradeLevel] <= Wallet.money;
                 break;
             case TowerYellow.ID:
-                canBuy = TowerYellow.COST_UPGRADE[upgradeLevel] <= __classPrivateFieldGet(this, _Wallet_money, "f");
+                canBuy = TowerYellow.COST_UPGRADE[upgradeLevel] <= Wallet.money;
                 break;
             default:
                 break;
@@ -1828,12 +1953,9 @@ class Wallet {
         return canBuy;
     }
 }
-_Wallet_money = new WeakMap();
 let orders;
 let createEnemyTime;
 let hud;
-let wallet;
-let score;
 let orangeTiles;
 let mouseTileOrangeOver;
 let wave;
@@ -1850,10 +1972,6 @@ let backgroundImage;
 let enemiesImages;
 let towerGenerator;
 let influenceArea;
-let explosionsEnemy;
-let explosionsMagicFireball;
-let explosionsMagicIceball;
-let lives;
 let gameStatus;
 let waveProgressBar;
 let waveProgressDelay;
@@ -1901,20 +2019,16 @@ function setup() {
     const path = new Path(startTile, endTile, pathTiles);
     orders = path.makeOrders();
     initialEnemiesPosition = path.getEnemiesInitialPosition();
-    wallet = new Wallet(tileGenerator.initialMoney);
-    score = new Score();
-    lives = 7;
+    Wallet.money = tileGenerator.initialMoney;
+    Player.lives = 7;
     wave = 1;
     allowCreateEnemies = true;
     waveEnemies = 0;
     waveProgressBar = new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 });
     bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 });
-    hud = new Hud(hudImages, hudIconImages, wallet, lives, score, waveProgressBar, bossProgressBar, wave);
+    hud = new Hud(hudImages, hudIconImages, waveProgressBar, bossProgressBar, wave);
     waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
     bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
-    explosionsEnemy = [];
-    explosionsMagicFireball = [];
-    explosionsMagicIceball = [];
     influenceArea = new InfluenceArea();
     gameStatus = Const.GAME_STATUS_PLAYING;
 }
@@ -1934,7 +2048,7 @@ function keyPressed() {
 function canUpgradeTower(tower) {
     let canUpgrade = false;
     if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
-        if (wallet.haveMoneyToBuy(tower.type, tower.upgradeLevel + 1)) {
+        if (Wallet.haveMoneyToBuy(tower.type, tower.upgradeLevel + 1)) {
             canUpgrade = true;
         }
     }
@@ -1943,7 +2057,7 @@ function canUpgradeTower(tower) {
 function canBuyNewTower(hudSelectedTower) {
     let canBuy = false;
     const zeroUpgradeLevel = 0;
-    if (wallet.haveMoneyToBuy(hudSelectedTower, zeroUpgradeLevel)) {
+    if (Wallet.haveMoneyToBuy(hudSelectedTower, zeroUpgradeLevel)) {
         canBuy = true;
     }
     return canBuy;
@@ -1958,39 +2072,19 @@ function canBuyTower(tower) {
     }
     return result;
 }
-function handleHudButtons() {
-    if (hud.isInsideTowerGreenButton(mouseX, mouseY)) {
-        hud.selectTower(TowerGreen.ID);
-    }
-    if (hud.isInsideTowerRedButton(mouseX, mouseY)) {
-        hud.selectTower(TowerRed.ID);
-    }
-    if (hud.isInsideTowerYellowButton(mouseX, mouseY)) {
-        hud.selectTower(TowerYellow.ID);
-    }
-    if (hud.isInsideMagicFireball(mouseX, mouseY)) {
-        createNewMagicFireball();
-    }
-    if (hud.isInsideMagicIceball(mouseX, mouseY)) {
-        createNewMagicIceball();
-    }
-    if (hud.isInsideMagicUFO(mouseX, mouseY)) {
-        createNewMagicUFO();
-    }
-}
 function handleSellTower() {
     const profit = mouseTileOrangeOver.sellTower();
-    wallet.increase(profit);
+    Wallet.increase(profit);
 }
 function handleBuyTower() {
     if (canBuyTower(mouseTileOrangeOver.getTower())) {
         const cost = mouseTileOrangeOver.buyTower(hud.getSelectedTower());
-        wallet.decrease(cost);
+        Wallet.decrease(cost);
     }
 }
 function mouseClicked() {
     if (hud.isInsideButtonsBar(mouseX, mouseY)) {
-        handleHudButtons();
+        hud.handleButtons(mouseX, mouseY, magicIceballImage, magicFireballImage, magicUFOImage, initialEnemiesPosition, orders);
         return;
     }
     if (mouseTileOrangeOver !== null) {
@@ -2003,33 +2097,6 @@ function mouseClicked() {
             handleBuyTower();
         }
     }
-}
-function createNewMagicFireball() {
-    if (MagicFireball.total > 0) {
-        MagicFireball.instantiate(magicFireballImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders);
-        hud.setMagicFireballs(MagicFireball.total);
-    }
-}
-function createNewMagicIceball() {
-    if (MagicIceball.total > 0) {
-        MagicIceball.instantiate(magicIceballImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders);
-        hud.setMagicIceballs(MagicIceball.total);
-    }
-}
-function createNewMagicUFO() {
-    if (MagicUFO.total > 0) {
-        MagicUFO.instantiate(magicUFOImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders);
-        hud.setMagicUFOs(MagicUFO.total);
-    }
-}
-function handleExplosionEnemys() {
-    const deadEnemies = Enemy.instances.filter((enemy) => enemy.dead);
-    deadEnemies.forEach((enemy) => {
-        explosionsEnemy.push(new ExplosionEnemy({ x: enemy.position.x, y: enemy.position.y }));
-        const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR;
-        wallet.increase($increasedMoney);
-        score.increase($increasedMoney * 2);
-    });
 }
 function handleNewEnemyCreation() {
     if (allowCreateEnemies) {
@@ -2047,28 +2114,12 @@ function handleNewEnemyCreation() {
         }
     }
 }
-function removeDeadEnemies() {
-    Enemy.instances = Enemy.instances.filter((enemy) => enemy.alive);
-}
-function handleWinnerEnemies() {
-    const winnerEnemies = Enemy.instances.filter((enemy) => enemy.winner);
-    winnerEnemies.forEach((enemy) => {
-        lives--;
-        if (lives <= 0) {
-            gameStatus = Const.GAME_STATUS_GAME_OVER;
-        }
-        hud.setLives(lives);
-        enemy.resetWinner();
-    });
-}
 function updateEnemies() {
     handleNewEnemyCreation();
-    handleExplosionEnemys();
-    removeDeadEnemies();
-    Enemy.instances.forEach((enemy) => {
-        enemy.update();
-    });
-    handleWinnerEnemies();
+    Enemy.handleExplosionEnemys();
+    Enemy.removeDeadInstances();
+    Enemy.updateInstances();
+    gameStatus = Enemy.handleWinners();
 }
 function updateMouseTileOrangeOver() {
     mouseTileOrangeOver = getMouseTileOrangeOver();
@@ -2107,91 +2158,18 @@ function updateBossProgressBar() {
         hud.setBossProgressBar(bossProgressBar);
     }
 }
-function updateMagicFireballs() {
-    MagicFireball.instances.forEach((magicFireball) => {
-        magicFireball.update();
-        checkMagicFireballCollides(magicFireball, Enemy.instances);
-    });
-    removeDeadFireballs();
+function updateMagics() {
+    MagicFireball.updateInstances();
+    MagicFireball.removeDeadInstances();
+    MagicIceball.updateInstances();
+    MagicIceball.removeDeadInstances();
+    MagicUFO.updateInstances();
+    MagicUFO.removeDeadInstances();
 }
-function checkMagicFireballCollides(magicFireball, enemies) {
-    enemies.forEach((enemy) => {
-        if (magicFireball.checkCollision(enemy)) {
-            handleMagicFireballCollision(magicFireball, enemy);
-        }
-    });
-}
-function handleMagicFireballCollision(magicFireball, enemy) {
-    magicFireball.addDamage(enemy);
-    magicFireball.setToIgnoreList(enemy);
-    newMagicFireballExplosion(enemy.position.x, enemy.position.y);
-}
-function newMagicFireballExplosion(posX, posY) {
-    explosionsMagicFireball.push(new ExplosionMagicFireball({ x: posX, y: posY }));
-}
-function removeDeadFireballs() {
-    MagicFireball.instances = MagicFireball.instances.filter((fireball) => fireball.isAlive());
-}
-function drawMagicFireballs() {
-    MagicFireball.instances.forEach((fireball) => {
-        fireball.draw();
-    });
-}
-function updateMagicIceballs() {
-    MagicIceball.instances.forEach((iceball) => {
-        iceball.update();
-        checkMagicIceballCollides(iceball, Enemy.instances);
-    });
-    removeDeadIceballs();
-}
-function checkMagicIceballCollides(magicIceball, enemies) {
-    enemies.forEach((enemy) => {
-        if (magicIceball.checkCollision(enemy)) {
-            handleMagicIceballCollision(magicIceball, enemy);
-        }
-    });
-}
-function handleMagicIceballCollision(magicIceball, enemy) {
-    magicIceball.freeze(enemy);
-    magicIceball.setToIgnoreList(enemy);
-    newMagicIceballExplosion(enemy.position.x, enemy.position.y);
-}
-function newMagicIceballExplosion(posX, posY) {
-    explosionsMagicIceball.push(new ExplosionMagicIceball({ x: posX, y: posY }));
-}
-function removeDeadIceballs() {
-    MagicIceball.instances = MagicIceball.instances.filter((iceball) => iceball.isAlive());
-}
-function drawMagicIceballs() {
-    MagicIceball.instances.forEach((iceball) => {
-        iceball.draw();
-    });
-}
-function updateMagicUFOs() {
-    MagicUFO.instances.forEach((ufo) => {
-        ufo.update();
-    });
-}
-function drawMagicUFOs() {
-    MagicUFO.instances.forEach((ufo) => {
-        ufo.draw();
-    });
-}
-function removeDeadExplosions() {
-    explosionsEnemy = explosionsEnemy.filter((e) => e.isActive());
-    explosionsMagicFireball = explosionsMagicFireball.filter((e) => e.isActive());
-    explosionsMagicIceball = explosionsMagicIceball.filter((e) => e.isActive());
-}
-function updateExplosions() {
-    explosionsEnemy.forEach((e) => {
-        e.update();
-    });
-    explosionsMagicFireball.forEach((e) => {
-        e.update();
-    });
-    explosionsMagicIceball.forEach((e) => {
-        e.update();
-    });
+function drawMagics() {
+    MagicFireball.drawInstances();
+    MagicIceball.drawInstances();
+    MagicUFO.drawInstances();
 }
 function draw() {
     if (gameStatus === Const.GAME_STATUS_PLAYING) {
@@ -2199,9 +2177,7 @@ function draw() {
         updateMouseTileOrangeOver();
         updateWaveProgressBar();
         updateBossProgressBar();
-        updateMagicFireballs();
-        updateMagicIceballs();
-        updateMagicUFOs();
+        updateMagics();
     }
     background('skyblue');
     rectMode(CORNER);
@@ -2225,7 +2201,7 @@ function draw() {
             const tileTower = mouseTileOrangeOver.getTower();
             hud.selectTowerHudType(tileTower);
             if (!tileTower.maxUpgraded) {
-                const canUpgrade = wallet.haveMoneyToBuy(tileTower.type, tileTower.upgradeLevel + 1);
+                const canUpgrade = Wallet.haveMoneyToBuy(tileTower.type, tileTower.upgradeLevel + 1);
                 hud.viewUpgradeCost(tileTower, canUpgrade);
                 influenceArea.drawTowerInfluenceArea(tileTower, canUpgrade);
             }
@@ -2248,11 +2224,13 @@ function draw() {
     Enemy.instances.forEach((enemy) => {
         enemy.draw();
     });
-    drawMagicFireballs();
-    drawMagicIceballs();
-    drawMagicUFOs();
-    removeDeadExplosions();
-    updateExplosions();
+    drawMagics();
+    ExplosionEnemy.removeDeadInstances();
+    ExplosionMagicFireball.removeDeadInstances();
+    ExplosionMagicIceball.removeDeadInstances();
+    ExplosionEnemy.updateInstances();
+    ExplosionMagicFireball.updateInstances();
+    ExplosionMagicIceball.updateInstances();
     if (gameStatus === Const.GAME_STATUS_GAME_OVER) {
         TextProperties.setForBigCenteredTitle();
         text('Game over', width / 2, height / 2);
