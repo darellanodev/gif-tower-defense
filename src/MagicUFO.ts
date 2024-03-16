@@ -22,4 +22,14 @@ export class MagicUFO extends Magic {
   draw() {
     image(this.#img, this.position.x, this.position.y)
   }
+
+  static updateInstances() {
+    MagicUFO.instances.forEach((ufo) => {
+      ufo.update()
+    })
+  }
+
+  static removeDeadInstances() {
+    MagicUFO.instances = MagicUFO.instances.filter((ufo) => ufo.isAlive())
+  }
 }

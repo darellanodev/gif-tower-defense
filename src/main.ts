@@ -316,25 +316,20 @@ function drawMagicFireballs() {
   })
 }
 
-function updateMagicFireballs() {
+function updateMagics() {
   MagicFireball.updateInstances()
   MagicFireball.removeDeadInstances()
-}
 
-function updateMagicIceballs() {
   MagicIceball.updateInstances()
   MagicIceball.removeDeadInstances()
+
+  MagicUFO.updateInstances()
+  MagicUFO.removeDeadInstances()
 }
 
 function drawMagicIceballs() {
   MagicIceball.instances.forEach((iceball) => {
     iceball.draw()
-  })
-}
-
-function updateMagicUFOs() {
-  MagicUFO.instances.forEach((ufo) => {
-    ufo.update()
   })
 }
 
@@ -350,9 +345,7 @@ function draw() {
     updateMouseTileOrangeOver()
     updateWaveProgressBar()
     updateBossProgressBar()
-    updateMagicFireballs()
-    updateMagicIceballs()
-    updateMagicUFOs()
+    updateMagics()
   }
 
   background('skyblue')
