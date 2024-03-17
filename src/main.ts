@@ -33,7 +33,6 @@ let createEnemyTime: number
 let hud: Hud
 let orangeTiles: TileOrange[]
 let mouseTileOrangeOver: TileOrange
-let wave: number
 let waveEnemies: number
 let tileImages: Image[]
 let greenTowerImages: Image[]
@@ -112,22 +111,13 @@ function setup() {
 
   Player.money = tileGenerator.initialMoney
 
-  Player.lives = 7
-
-  wave = 1
   allowCreateEnemies = true
   waveEnemies = 0
 
   waveProgressBar = new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 })
   bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 })
 
-  hud = new Hud(
-    hudImages,
-    hudIconImages,
-    waveProgressBar,
-    bossProgressBar,
-    wave,
-  )
+  hud = new Hud(hudImages, hudIconImages, waveProgressBar, bossProgressBar)
 
   waveProgressDelay = Const.WAVE_PROGRESS_DELAY
   bossProgressDelay = Const.BOSS_PROGRESS_DELAY
@@ -233,7 +223,7 @@ function handleNewEnemyCreation() {
           waveEnemies,
           orders,
           initialEnemiesPosition,
-          wave,
+          Player.wave,
         )
 
         waveEnemies++
@@ -275,8 +265,7 @@ function updateWaveProgressBar() {
     if (waveProgressBar.isFullOfProgress()) {
       // next wave
       waveProgressBar.setProgress(0)
-      wave++
-      hud.setWave(wave)
+      Player.wave++
       allowCreateEnemies = true
     }
     hud.setWaveProgressBar(waveProgressBar)
@@ -302,7 +291,7 @@ function updateBossProgressBar() {
         ),
         orders,
         initialEnemiesPosition,
-        wave,
+        Player.wave,
       )
     }
     hud.setBossProgressBar(bossProgressBar)

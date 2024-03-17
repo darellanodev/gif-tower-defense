@@ -27,7 +27,6 @@ export class Hud {
   #hudIconImages: Image[]
   #waveProgressBar: ProgressBar
   #bossProgressBar: ProgressBar
-  #wave: number
 
   #hudType: number
   #selectedItem: number
@@ -43,13 +42,11 @@ export class Hud {
     hudIconImages: Image[],
     waveProgressBar: ProgressBar,
     bossProgressBar: ProgressBar,
-    wave: number,
   ) {
     this.#hudImages = hudImages
     this.#hudIconImages = hudIconImages
     this.#waveProgressBar = waveProgressBar
     this.#bossProgressBar = bossProgressBar
-    this.#wave = wave
 
     this.#waveProgressBar = new ProgressBar(
       { x: 335, y: -19 },
@@ -196,10 +193,6 @@ export class Hud {
     }
   }
 
-  setWave(wave: number) {
-    this.#wave = wave
-  }
-
   // can't be private with # because it needs to access their public static properties
   _drawTowerIcons() {
     let greenIconImgPos = Hud.ICON_GREEN_TOWER_OFF
@@ -267,7 +260,7 @@ export class Hud {
   }
 
   #drawWave() {
-    text(`wave ${this.#wave}`, 403, 13)
+    text(`wave ${Player.wave}`, 403, 13)
   }
 
   _drawTowerGreenPrice() {

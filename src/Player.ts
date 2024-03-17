@@ -6,6 +6,7 @@ export class Player {
   static lives: number = 7
   static score: number = 0
   static money: number = 0
+  static wave: number = 1
 
   static increaseScore(score: number) {
     Player.score += score
