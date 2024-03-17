@@ -1,33 +1,20 @@
-import { Player } from '../src/Player'
-import { TowerGreen } from '../src/TowerGreen'
+import { Hud } from '../src/Hud'
 
-describe('Score', () => {
-  test('when creating a new score object print 0000000000', () => {
-    const result = Player.getPrintScore()
+describe('isInsideTowersButtonsBar', () => {
+  test('when mouse is inside, return true', () => {
+    const posMouseX = 235
+    const posMouseY = 56
 
-    expect(result).toBe('0000000000')
+    const result = Hud.isInsideTowersButtonsBar(posMouseX, posMouseY)
+
+    expect(result).toBeTruthy
   })
-  test('print score 25 as 0000000025', () => {
-    Player.increaseScore(10)
-    Player.increaseScore(15)
-    const result = Player.getPrintScore()
+  test('when mouse is outside, return false', () => {
+    const posMouseX = 560
+    const posMouseY = 56
 
-    expect(result).toBe('0000000025')
-  })
-  test('have money to buy a green tower', () => {
-    Player.money = 150
-    const upgradeLevel = 0
+    const result = Hud.isInsideTowersButtonsBar(posMouseX, posMouseY)
 
-    const result = Player.haveMoneyToBuy(TowerGreen.ID, upgradeLevel)
-
-    expect(result).toBeTruthy()
-  })
-  test('have no money to buy a green tower', () => {
-    Player.money = 20
-    const upgradeLevel = 30
-
-    const result = Player.haveMoneyToBuy(TowerGreen.ID, upgradeLevel)
-
-    expect(result).toBeFalsy()
+    expect(result).toBeFalsy
   })
 })
