@@ -3,8 +3,8 @@ import { ConstTest } from '../src/ConstTest'
 import { LevelsDataProvider } from '../src/LevelsDataProvider'
 import { LevelsData } from '../src/LevelsData'
 
-describe('Levels data provider', () => {
-  test('get level data', () => {
+describe('getLevel', () => {
+  test('when request the id of a testing level, return data of the corresponding level', () => {
     const expected = {
       id: 1,
       comments: 'first level and also used in unit testing',
@@ -27,6 +27,7 @@ describe('Levels data provider', () => {
     }
 
     const levelsDataProvider = new LevelsDataProvider(LevelsData.data)
+
     const result = levelsDataProvider.getLevel(
       ConstTest.ID_LEVEL_VALID_FOR_UNIT_TESTING,
     )

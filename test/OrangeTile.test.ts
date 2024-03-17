@@ -13,8 +13,8 @@ const towerGenerator = new TowerGenerator(
   yellowTowerImages,
 )
 
-describe('When clic over an orange tile', () => {
-  test('If mouse is inside should return true', () => {
+describe('isInside', () => {
+  test('If mouse is inside, return true', () => {
     const img: any = null
     const position: Position = { x: 100, y: 200 }
     const orangeTile = new TileOrange(img, position, towerGenerator)
@@ -24,7 +24,7 @@ describe('When clic over an orange tile', () => {
     expect(result).toBeTruthy()
   })
 
-  test('If mouse is outside should return false', () => {
+  test('If mouse is outside, return false', () => {
     const img: any = null
     const position: Position = { x: 100, y: 200 }
     const orangeTile = new TileOrange(img, position, towerGenerator)
@@ -35,8 +35,8 @@ describe('When clic over an orange tile', () => {
   })
 })
 
-describe('Other methods of the orange tile', () => {
-  test('should return true when has a tower', () => {
+describe('hasTower', () => {
+  test('after buy a tower, return true', () => {
     const img: any = null
     const position: Position = { x: 100, y: 100 }
     const orangeTile = new TileOrange(img, position, towerGenerator)
@@ -46,8 +46,10 @@ describe('Other methods of the orange tile', () => {
 
     expect(result).toBeTruthy()
   })
+})
 
-  test('get profit when sell a tower', () => {
+describe('sell tower', () => {
+  test('after buy a new tower, return selling profit (30)', () => {
     const expected = 30
 
     const img: any = null
