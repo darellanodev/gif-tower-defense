@@ -1,4 +1,4 @@
-import { TowerType, Position } from './types'
+import { Position } from './types'
 import { Const } from './Const'
 import { Path } from './Path'
 import { TileStart } from './TileStart'
@@ -112,56 +112,20 @@ function setup() {
 }
 
 function keyPressed() {
-  switch (keyCode) {
-    case Const.KEY_1:
-      Hud.selectTower(TowerGreen.ID)
-      break
-    case Const.KEY_2:
-      Hud.selectTower(TowerRed.ID)
-      break
-    case Const.KEY_3:
-      Hud.selectTower(TowerYellow.ID)
-      break
-  }
-}
-
-function handleSellTower() {
-  const profit = mouseTileOrangeOver.sellTower()
-  Player.increaseMoney(profit)
-}
-
-function handleBuyTower() {
-  if (Player.canBuyTower(mouseTileOrangeOver.getTower())) {
-    const cost = mouseTileOrangeOver.buyTower(Hud.getSelectedTower())
-    Player.decreaseMoney(cost)
-  }
+  Player.keyPressed()
 }
 
 function mouseClicked() {
-  if (Hud.isInsideButtonsBar(mouseX, mouseY)) {
-    hud.handleButtons(
-      mouseX,
-      mouseY,
-      magicIceballImage,
-      magicFireballImage,
-      magicUFOImage,
-      initialEnemiesPosition,
-      orders,
-    )
-    return
-  }
-
-  if (mouseTileOrangeOver !== null) {
-    if (mouseButton === RIGHT && mouseTileOrangeOver.hasTower()) {
-      if (mouseTileOrangeOver.getTower().notUpgrading) {
-        handleSellTower()
-      }
-    }
-
-    if (mouseButton === LEFT) {
-      handleBuyTower()
-    }
-  }
+  Player.mouseClicked(
+    mouseX,
+    mouseY,
+    magicIceballImage,
+    magicFireballImage,
+    magicUFOImage,
+    initialEnemiesPosition,
+    orders,
+    mouseTileOrangeOver,
+  )
 }
 
 function handleNewEnemyCreation() {

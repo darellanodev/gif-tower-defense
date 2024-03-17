@@ -361,7 +361,7 @@ export class Hud {
     this.#sellProfit = null
   }
 
-  handleButtons(
+  static handleButtons(
     mouseX: number,
     mouseY: number,
     magicIceballImage: Image,

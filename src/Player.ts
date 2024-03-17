@@ -4,6 +4,9 @@ import { TowerYellow } from './TowerYellow'
 import { TowerType } from './types'
 import { Const } from './Const'
 import { Hud } from './Hud'
+import { Image } from 'p5'
+import { Position } from './types'
+import { TileOrange } from './TileOrange'
 
 export class Player {
   static lives: number = 7
@@ -75,5 +78,67 @@ export class Player {
       }
     }
     return canUpgrade
+  }
+
+  static keyPressed() {
+    switch (keyCode) {
+      case Const.KEY_1:
+        Hud.selectTower(TowerGreen.ID)
+        break
+      case Const.KEY_2:
+        Hud.selectTower(TowerRed.ID)
+        break
+      case Const.KEY_3:
+        Hud.selectTower(TowerYellow.ID)
+        break
+    }
+  }
+
+  static mouseClicked(
+    mouseX: number,
+    mouseY: number,
+    magicIceballImage: Image,
+    magicFireballImage: Image,
+    magicUFOImage: Image,
+    initialEnemiesPosition: Position,
+    orders: number[],
+    mouseTileOrangeOver: TileOrange,
+  ) {
+    if (Hud.isInsideButtonsBar(mouseX, mouseY)) {
+      Hud.handleButtons(
+        mouseX,
+        mouseY,
+        magicIceballImage,
+        magicFireballImage,
+        magicUFOImage,
+        initialEnemiesPosition,
+        orders,
+      )
+      return
+    }
+
+    if (mouseTileOrangeOver !== null) {
+      if (mouseButton === RIGHT && mouseTileOrangeOver.hasTower()) {
+        if (mouseTileOrangeOver.getTower().notUpgrading) {
+          Player.sellTower(mouseTileOrangeOver)
+        }
+      }
+
+      if (mouseButton === LEFT) {
+        Player.buyTower(mouseTileOrangeOver)
+      }
+    }
+  }
+
+  static sellTower(mouseTileOrangeOver: TileOrange) {
+    const profit = mouseTileOrangeOver.sellTower()
+    Player.increaseMoney(profit)
+  }
+
+  static buyTower(mouseTileOrangeOver: TileOrange) {
+    if (Player.canBuyTower(mouseTileOrangeOver.getTower())) {
+      const cost = mouseTileOrangeOver.buyTower(Hud.getSelectedTower())
+      Player.decreaseMoney(cost)
+    }
   }
 }
