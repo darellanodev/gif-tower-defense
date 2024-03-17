@@ -10,7 +10,6 @@ import { MagicIceball } from './MagicIceball'
 import { MagicUFO } from './MagicUFO'
 import { Const } from './Const'
 import { Player } from './Player'
-import { Enemy } from './Enemy'
 
 export class Hud {
   static NORMAL = 0
@@ -28,12 +27,12 @@ export class Hud {
   static waveProgressDelay: number = Const.WAVE_PROGRESS_DELAY
   static bossProgressBar: ProgressBar
   static bossProgressDelay: number = Const.BOSS_PROGRESS_DELAY
+  static selectedItem: number = 1
 
   #hudImages: Image[]
   #hudIconImages: Image[]
 
   #hudType: number
-  #selectedItem: number
   #upgradeCost: number = null
   #sellProfit: number = null
   #canBuyTowerGreen: boolean = false
@@ -49,7 +48,6 @@ export class Hud {
     Hud.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 })
 
     this.#hudType = Hud.NORMAL
-    this.#selectedItem = TowerGreen.ID
   }
 
   static updateWaveProgressBar() {
@@ -150,12 +148,12 @@ export class Hud {
     return false
   }
 
-  selectTower(towerId: number) {
-    this.#selectedItem = towerId
+  static selectTower(towerId: number) {
+    Hud.selectedItem = towerId
   }
 
-  getSelectedTower() {
-    return this.#selectedItem
+  static getSelectedTower() {
+    return Hud.selectedItem
   }
 
   setType(hudType: number) {
@@ -177,7 +175,7 @@ export class Hud {
       case Hud.NORMAL:
         image(this.#hudImages[Hud.NORMAL], 0, 0)
         this._drawTowerIcons()
-        this.#drawSelectedItem()
+        Hud.drawSelectedItem()
         break
 
       case Hud.UPGRADING:
@@ -312,12 +310,12 @@ export class Hud {
     this._drawTowerYellowPrice()
   }
 
-  #drawSelectedItem() {
+  static drawSelectedItem() {
     strokeWeight(3)
     stroke(255, 204, 0)
     noFill()
 
-    switch (this.#selectedItem) {
+    switch (Hud.selectedItem) {
       case TowerGreen.ID:
         square(57, 36, 37)
         break
@@ -373,13 +371,13 @@ export class Hud {
     orders: number[],
   ) {
     if (Hud.isInsideTowerGreenButton(mouseX, mouseY)) {
-      this.selectTower(TowerGreen.ID)
+      Hud.selectTower(TowerGreen.ID)
     }
     if (Hud.isInsideTowerRedButton(mouseX, mouseY)) {
-      this.selectTower(TowerRed.ID)
+      Hud.selectTower(TowerRed.ID)
     }
     if (Hud.isInsideTowerYellowButton(mouseX, mouseY)) {
-      this.selectTower(TowerYellow.ID)
+      Hud.selectTower(TowerYellow.ID)
     }
     if (Hud.isInsideMagicFireball(mouseX, mouseY)) {
       MagicFireball.instantiate(

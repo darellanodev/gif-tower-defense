@@ -28,11 +28,11 @@ import { MagicUFO } from './MagicUFO'
 import { Player } from './Player'
 
 let orders: number[]
-let createEnemyTime: number
+let createEnemyTime: number = 0
 let hud: Hud
 let orangeTiles: TileOrange[]
 let mouseTileOrangeOver: TileOrange
-let waveEnemies: number
+let waveEnemies: number = 0
 let tileImages: Image[]
 let greenTowerImages: Image[]
 let redTowerImages: Image[]
@@ -45,7 +45,7 @@ let backgroundImage: Image
 let enemiesImages: Image[]
 let towerGenerator: TowerGenerator
 let influenceArea: InfluenceArea
-let gameStatus: number
+let gameStatus: number = 0
 let initialEnemiesPosition: Position
 let allowCreateEnemies: boolean = true
 let levelDataProvider: LevelsDataProvider
@@ -87,8 +87,6 @@ function setup() {
 
   const levelMap = levelDataProvider.getLevel(1)
 
-  createEnemyTime = 0
-
   towerGenerator = new TowerGenerator(
     greenTowerImages,
     redTowerImages,
@@ -108,58 +106,23 @@ function setup() {
 
   Player.money = tileGenerator.initialMoney
 
-  waveEnemies = 0
-
   hud = new Hud(hudImages, hudIconImages)
 
   influenceArea = new InfluenceArea()
-
-  gameStatus = Const.GAME_STATUS_PLAYING
 }
 
 function keyPressed() {
   switch (keyCode) {
     case Const.KEY_1:
-      hud.selectTower(TowerGreen.ID)
+      Hud.selectTower(TowerGreen.ID)
       break
-
     case Const.KEY_2:
-      hud.selectTower(TowerRed.ID)
+      Hud.selectTower(TowerRed.ID)
       break
-
     case Const.KEY_3:
-      hud.selectTower(TowerYellow.ID)
+      Hud.selectTower(TowerYellow.ID)
       break
   }
-}
-
-function canUpgradeTower(tower: TowerType) {
-  let canUpgrade = false
-  if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
-    if (Player.haveMoneyToBuy(tower.type, tower.upgradeLevel + 1)) {
-      canUpgrade = true
-    }
-  }
-  return canUpgrade
-}
-
-function canBuyNewTower(hudSelectedTower: number) {
-  let canBuy = false
-  const zeroUpgradeLevel = 0
-  if (Player.haveMoneyToBuy(hudSelectedTower, zeroUpgradeLevel)) {
-    canBuy = true
-  }
-  return canBuy
-}
-
-function canBuyTower(tower: TowerType) {
-  let result = false
-  if (tower) {
-    result = canUpgradeTower(tower)
-  } else {
-    result = canBuyNewTower(hud.getSelectedTower())
-  }
-  return result
 }
 
 function handleSellTower() {
@@ -168,8 +131,8 @@ function handleSellTower() {
 }
 
 function handleBuyTower() {
-  if (canBuyTower(mouseTileOrangeOver.getTower())) {
-    const cost = mouseTileOrangeOver.buyTower(hud.getSelectedTower())
+  if (Player.canBuyTower(mouseTileOrangeOver.getTower())) {
+    const cost = mouseTileOrangeOver.buyTower(Hud.getSelectedTower())
     Player.decreaseMoney(cost)
   }
 }
@@ -308,10 +271,10 @@ function draw() {
 
   hud.draw()
 
-  const canBuySelectedTower = canBuyNewTower(hud.getSelectedTower())
-  const canBuyTowerGreen = canBuyNewTower(TowerGreen.ID)
-  const canBuyTowerRed = canBuyNewTower(TowerRed.ID)
-  const canBuyTowerYellow = canBuyNewTower(TowerYellow.ID)
+  const canBuySelectedTower = Player.canBuyNewTower(Hud.getSelectedTower())
+  const canBuyTowerGreen = Player.canBuyNewTower(TowerGreen.ID)
+  const canBuyTowerRed = Player.canBuyNewTower(TowerRed.ID)
+  const canBuyTowerYellow = Player.canBuyNewTower(TowerYellow.ID)
 
   if (mouseTileOrangeOver !== null) {
     if (mouseTileOrangeOver.hasTower()) {
@@ -330,7 +293,7 @@ function draw() {
       hud.viewSellProfit(tileTower)
     } else {
       influenceArea.drawHudTowerInfluenceArea(
-        hud.getSelectedTower(),
+        Hud.getSelectedTower(),
         mouseTileOrangeOver.getPosition(),
         canBuySelectedTower,
       )

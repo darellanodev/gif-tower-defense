@@ -1,6 +1,9 @@
 import { TowerGreen } from './TowerGreen'
 import { TowerRed } from './TowerRed'
 import { TowerYellow } from './TowerYellow'
+import { TowerType } from './types'
+import { Const } from './Const'
+import { Hud } from './Hud'
 
 export class Player {
   static lives: number = 7
@@ -43,5 +46,34 @@ export class Player {
     }
 
     return canBuy
+  }
+
+  static canBuyNewTower(hudSelectedTower: number) {
+    let canBuy = false
+    const zeroUpgradeLevel = 0
+    if (Player.haveMoneyToBuy(hudSelectedTower, zeroUpgradeLevel)) {
+      canBuy = true
+    }
+    return canBuy
+  }
+
+  static canBuyTower(tower: TowerType) {
+    let result = false
+    if (tower) {
+      result = Player.canUpgradeTower(tower)
+    } else {
+      result = Player.canBuyNewTower(Hud.getSelectedTower())
+    }
+    return result
+  }
+
+  static canUpgradeTower(tower: TowerType) {
+    let canUpgrade = false
+    if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
+      if (Player.haveMoneyToBuy(tower.type, tower.upgradeLevel + 1)) {
+        canUpgrade = true
+      }
+    }
+    return canUpgrade
   }
 }
