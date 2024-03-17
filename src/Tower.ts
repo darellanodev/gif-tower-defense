@@ -1,30 +1,33 @@
 import { Position } from './types'
 import { Const } from './Const'
+import { ProgressBar } from './ProgressBar'
 
 export class Tower {
-  #position: Position
-  #upgrading: boolean = false
-  #upgradeLevel: number = 0
+  position: Position
+  upgrading: boolean = false
+  upgradeLevel: number = 0
+  progressBar: ProgressBar
+  upgradeProgress: number = 0
+  delayUpgradeProgress: number
+
   constructor(position: Position) {
-    this.#position = { ...position }
-    this.#upgrading = false
-    this.#upgradeLevel = 0
+    this.position = { ...position }
+
+    this.progressBar = new ProgressBar(
+      {
+        x: this.position.x + Const.TOWER_OFFSET,
+        y: this.position.y + Const.TOWER_OFFSET,
+      },
+      { w: ProgressBar.WIDTH, h: ProgressBar.HEIGHT },
+    )
   }
 
   get notUpgrading() {
-    return !this.#upgrading
-  }
-
-  get position() {
-    return this.#position
-  }
-
-  get upgradeLevel() {
-    return this.#upgradeLevel
+    return !this.upgrading
   }
 
   get maxUpgraded() {
-    return this.#upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1
+    return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number): number {

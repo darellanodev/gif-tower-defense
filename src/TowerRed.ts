@@ -1,6 +1,5 @@
 import { Position } from './types'
 import { Image } from 'p5'
-import { ProgressBar } from './ProgressBar'
 import { Enemy } from './Enemy'
 import { ConstColor } from './ConstColor'
 import { Const } from './Const'
@@ -14,28 +13,16 @@ export class TowerRed extends Tower {
   static INFLUENCE_AREA = 240
 
   #images: Image[]
-  #position: Position
-
-  #upgradeLevel: number = 0
-  #upgrading: boolean = false
-  #progressBar: ProgressBar
-  #upgradeProgress: number = 0
 
   constructor(images: Image[], position: Position) {
     super(position)
     this.#images = images
-    this.#position = { ...position }
-
-    this.#progressBar = new ProgressBar(this.#position, {
-      w: ProgressBar.WIDTH,
-      h: ProgressBar.HEIGHT,
-    })
   }
 
   upgrade() {
-    if (!this.#upgrading) {
-      this.#upgrading = true
-      this.#upgradeLevel++
+    if (!this.upgrading) {
+      this.upgrading = true
+      this.upgradeLevel++
     }
   }
 
@@ -44,36 +31,32 @@ export class TowerRed extends Tower {
     stroke('black')
     fill(ConstColor.RED)
     rect(
-      this.#position.x + 4,
-      this.#position.y + 4,
+      this.position.x + 4,
+      this.position.y + 4,
       Const.TILE_SIZE,
       Const.TILE_SIZE,
     )
   }
 
   draw() {
-    if (this.#upgrading) {
+    if (this.upgrading) {
       this._drawUpgradeBackground()
-      if (!this.#progressBar.isFullOfProgress()) {
-        this.#upgradeProgress++
-        this.#progressBar.setProgress(this.#upgradeProgress)
-        this.#progressBar.draw()
+      if (!this.progressBar.isFullOfProgress()) {
+        this.upgradeProgress++
+        this.progressBar.setProgress(this.upgradeProgress)
+        this.progressBar.draw()
       } else {
-        this.#upgrading = false
-        this.#upgradeProgress = 0
-        this.#progressBar.setProgress(0)
+        this.upgrading = false
+        this.upgradeProgress = 0
+        this.progressBar.setProgress(0)
       }
     } else {
-      image(
-        this.#images[this.#upgradeLevel],
-        this.#position.x,
-        this.#position.y,
-      )
+      image(this.#images[this.upgradeLevel], this.position.x, this.position.y)
     }
   }
 
   get influenceArea() {
-    return TowerRed.UPGRADE_INFLUENCE_AREA[this.#upgradeLevel]
+    return TowerRed.UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {

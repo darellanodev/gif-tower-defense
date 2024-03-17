@@ -2,7 +2,6 @@ import { Position } from './types'
 import { MathUtils } from './MathUtils'
 import { Enemy } from './Enemy'
 import { Image } from 'p5'
-import { ProgressBar } from './ProgressBar'
 import { ConstColor } from './ConstColor'
 import { Const } from './Const'
 import { Tower } from './Tower'
@@ -16,36 +15,20 @@ export class TowerGreen extends Tower {
   static INFLUENCE_AREA = 150
 
   #images: Image[]
-  #position: Position
-
-  #upgradeLevel: number = 0
-  #upgrading: boolean = false
   #enemyTarget: Enemy = null
   #distanceToEnemyTarget: number = 0
-  #progressBar: ProgressBar
-  #upgradeProgress: number = 0
-  #delayUpgradeProgress: number
 
   constructor(images: Image[], position: Position) {
     super(position)
     this.#images = images
-    this.#position = { ...position }
-
-    this.#progressBar = new ProgressBar(
-      {
-        x: this.#position.x + Const.TOWER_OFFSET,
-        y: this.#position.y + Const.TOWER_OFFSET,
-      },
-      { w: ProgressBar.WIDTH, h: ProgressBar.HEIGHT },
-    )
   }
 
   upgrade() {
-    if (!this.#upgrading) {
-      this.#upgrading = true
-      this.#upgradeLevel++
-      this.#delayUpgradeProgress =
-        Const.DELAY_UPGRADE_MULTIPLIER * this.#upgradeLevel
+    if (!this.upgrading) {
+      this.upgrading = true
+      this.upgradeLevel++
+      this.delayUpgradeProgress =
+        Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel
     }
   }
 
@@ -65,35 +48,35 @@ export class TowerGreen extends Tower {
     stroke('black')
     fill(ConstColor.GREEN)
     rect(
-      this.#position.x + 4,
-      this.#position.y + 4,
+      this.position.x + 4,
+      this.position.y + 4,
       Const.TILE_SIZE,
       Const.TILE_SIZE,
     )
   }
 
   draw() {
-    if (this.#upgrading) {
+    if (this.upgrading) {
       this.#drawUpgradeBackground()
-      if (!this.#progressBar.isFullOfProgress()) {
-        if (this.#delayUpgradeProgress == 0) {
-          this.#upgradeProgress++
-          this.#progressBar.setProgress(this.#upgradeProgress)
-          this.#delayUpgradeProgress =
-            Const.DELAY_UPGRADE_MULTIPLIER * this.#upgradeLevel
+      if (!this.progressBar.isFullOfProgress()) {
+        if (this.delayUpgradeProgress == 0) {
+          this.upgradeProgress++
+          this.progressBar.setProgress(this.upgradeProgress)
+          this.delayUpgradeProgress =
+            Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel
         } else {
-          this.#delayUpgradeProgress--
+          this.delayUpgradeProgress--
         }
-        this.#progressBar.draw()
+        this.progressBar.draw()
       } else {
-        this.#upgrading = false
-        this.#upgradeProgress = 0
-        this.#progressBar.setProgress(0)
+        this.upgrading = false
+        this.upgradeProgress = 0
+        this.progressBar.setProgress(0)
       }
     } else {
       if (this.#enemyTarget) {
-        let r_dx = this.#enemyTarget.position.x - this.#position.x
-        let r_dy = this.#enemyTarget.position.y - this.#position.y
+        let r_dx = this.#enemyTarget.position.x - this.position.x
+        let r_dy = this.#enemyTarget.position.y - this.position.y
         let angle = Math.atan2(r_dy, r_dx) + 1.55
 
         let cos_a = cos(angle)
@@ -105,30 +88,26 @@ export class TowerGreen extends Tower {
           sin_a,
           -sin_a,
           cos_a,
-          this.#position.x + 30,
-          this.#position.y + 30,
+          this.position.x + 30,
+          this.position.y + 30,
         )
 
         this.#drawShotToEnemy()
         this.#enemyTarget.addDamage(
-          TowerGreen.DAMAGE_UPGRADE[this.#upgradeLevel],
+          TowerGreen.DAMAGE_UPGRADE[this.upgradeLevel],
         )
-        image(this.#images[this.#upgradeLevel], 0, 0)
+        image(this.#images[this.upgradeLevel], 0, 0)
 
         resetMatrix()
         imageMode(CORNER)
       } else {
-        image(
-          this.#images[this.#upgradeLevel],
-          this.#position.x,
-          this.#position.y,
-        )
+        image(this.#images[this.upgradeLevel], this.position.x, this.position.y)
       }
     }
   }
 
   get influenceArea() {
-    return TowerGreen.UPGRADE_INFLUENCE_AREA[this.#upgradeLevel]
+    return TowerGreen.UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
@@ -148,7 +127,7 @@ export class TowerGreen extends Tower {
 
   _isDistanceIntoInfluenceArea(distance: number) {
     return (
-      distance <= TowerGreen.UPGRADE_INFLUENCE_AREA[this.#upgradeLevel] / 1.65
+      distance <= TowerGreen.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65
     )
   }
 
@@ -158,7 +137,7 @@ export class TowerGreen extends Tower {
 
     enemies.forEach((enemy) => {
       const distance = MathUtils.distance(
-        { x: this.#position.x, y: this.#position.y },
+        { x: this.position.x, y: this.position.y },
         {
           x: enemy.position.x,
           y: enemy.position.y,
