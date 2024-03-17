@@ -21,17 +21,17 @@ const towerGenerator = new TowerGenerator(
   yellowTowerImages,
 )
 
-test('TileGenerator throws an exception when an empty string is passed to it', () => {
+test('Constructor, when passing an invalid map without rows map, throws "No rows map found" exception', () => {
   const invalidLevelMap = levelsDataProvider.getLevel(
     ConstTest.ID_LEVEL_INVALID_WITHOUT_ROWSMAP_FOR_UNIT_TESTING,
   )
 
   expect(
     () => new TileGenerator(invalidLevelMap, mapimages, towerGenerator),
-  ).toThrowError('No rows map found')
+  ).toThrow('No rows map found')
 })
 
-test('TileGenerator generate orange tiles', () => {
+test('orangeTiles getter, when valid map is passed, return the orange tiles', () => {
   const tileGenerator = new TileGenerator(levelMap, mapimages, towerGenerator)
 
   const result = tileGenerator.orangeTiles
@@ -39,7 +39,7 @@ test('TileGenerator generate orange tiles', () => {
   expect(result).toHaveLength(71)
 })
 
-test('TileGenerator generate path tiles', () => {
+test('pathTiles getter, when valid map is passed, return the path tiles', () => {
   const mapimages: any[] = [null, null, null]
   const tileGenerator = new TileGenerator(levelMap, mapimages, towerGenerator)
 
@@ -48,7 +48,7 @@ test('TileGenerator generate path tiles', () => {
   expect(result).toHaveLength(87)
 })
 
-test('TileGenerator generate start tile', () => {
+test('startTile getter, when valid map is passed, return the start tile', () => {
   const mapimages: any[] = [null, null, null]
   const tileGenerator = new TileGenerator(levelMap, mapimages, towerGenerator)
 
@@ -57,7 +57,7 @@ test('TileGenerator generate start tile', () => {
   expect(result).toBeInstanceOf(Object)
 })
 
-test('TileGenerator generate end tile', () => {
+test('endTile getter, when valid map is passed, return the end tile', () => {
   const mapimages: any[] = [null, null, null]
   const tileGenerator = new TileGenerator(levelMap, mapimages, towerGenerator)
 
@@ -66,9 +66,8 @@ test('TileGenerator generate end tile', () => {
   expect(result).toBeInstanceOf(Object)
 })
 
-test('TileGenerator generate the initial money', () => {
+test('initialMoney getter, when valid map is passed, return the initial money', () => {
   const expected = 150
-
   const mapimages: any[] = [null, null, null]
   const tileGenerator = new TileGenerator(levelMap, mapimages, towerGenerator)
 
