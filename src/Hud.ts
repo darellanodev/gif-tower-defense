@@ -1,8 +1,6 @@
 import { Position, TowerType } from './types'
 import { TextProperties } from './TextProperties'
 import { ProgressBar } from './ProgressBar'
-import { Score } from './Score'
-import { Wallet } from './Wallet'
 import { Image } from 'p5'
 import { TowerGreen } from './TowerGreen'
 import { TowerRed } from './TowerRed'
@@ -66,49 +64,63 @@ export class Hud {
     this.#selectedItem = TowerGreen.ID
   }
 
-  isInsideButtonsBar(px: number, py: number) {
+  static isInsideButtonsBar(px: number, py: number) {
     if (px > 0 && px < 800 && py > 28 && py < 78) {
       return true
     }
     return false
   }
 
-  isInsideTowerGreenButton(px: number, py: number) {
+  static isInsideTowersButtonsBar(px: number, py: number) {
+    if (this.isInsideButtonsBar(px, py) && px < 265) {
+      return true
+    }
+    return false
+  }
+
+  static isInsideMagicsButtonsBar(px: number, py: number) {
+    if (this.isInsideButtonsBar(px, py) && px > 495) {
+      return true
+    }
+    return false
+  }
+
+  static isInsideTowerGreenButton(px: number, py: number) {
     if (px > 0 && px < 98 && py > 28 && py < 78) {
       return true
     }
     return false
   }
 
-  isInsideTowerRedButton(px: number, py: number) {
+  static isInsideTowerRedButton(px: number, py: number) {
     if (px > 98 && px < 180 && py > 28 && py < 78) {
       return true
     }
     return false
   }
 
-  isInsideTowerYellowButton(px: number, py: number) {
+  static isInsideTowerYellowButton(px: number, py: number) {
     if (px > 180 && px < 263 && py > 28 && py < 78) {
       return true
     }
     return false
   }
 
-  isInsideMagicFireball(px: number, py: number) {
+  static isInsideMagicFireball(px: number, py: number) {
     if (px > 616 && px < 692 && py > 28 && py < 78) {
       return true
     }
     return false
   }
 
-  isInsideMagicIceball(px: number, py: number) {
+  static isInsideMagicIceball(px: number, py: number) {
     if (px > 692 && px < 795 && py > 28 && py < 78) {
       return true
     }
     return false
   }
 
-  isInsideMagicUFO(px: number, py: number) {
+  static isInsideMagicUFO(px: number, py: number) {
     if (px > 498 && px < 616 && py > 28 && py < 78) {
       return true
     }
@@ -210,7 +222,7 @@ export class Hud {
   }
 
   #drawMoney() {
-    text(Wallet.money, 445, 48)
+    text(Player.money, 445, 48)
   }
 
   #drawUpgradeCost() {
@@ -247,7 +259,7 @@ export class Hud {
   }
 
   #drawScore() {
-    text(Score.getPrintScore(), 404, 73)
+    text(Player.getPrintScore(), 404, 73)
   }
 
   #drawLevelTitle() {
@@ -349,30 +361,30 @@ export class Hud {
     initialEnemiesPosition: Position,
     orders: number[],
   ) {
-    if (this.isInsideTowerGreenButton(mouseX, mouseY)) {
+    if (Hud.isInsideTowerGreenButton(mouseX, mouseY)) {
       this.selectTower(TowerGreen.ID)
     }
-    if (this.isInsideTowerRedButton(mouseX, mouseY)) {
+    if (Hud.isInsideTowerRedButton(mouseX, mouseY)) {
       this.selectTower(TowerRed.ID)
     }
-    if (this.isInsideTowerYellowButton(mouseX, mouseY)) {
+    if (Hud.isInsideTowerYellowButton(mouseX, mouseY)) {
       this.selectTower(TowerYellow.ID)
     }
-    if (this.isInsideMagicFireball(mouseX, mouseY)) {
+    if (Hud.isInsideMagicFireball(mouseX, mouseY)) {
       MagicFireball.instantiate(
         magicFireballImage,
         initialEnemiesPosition,
         orders,
       )
     }
-    if (this.isInsideMagicIceball(mouseX, mouseY)) {
+    if (Hud.isInsideMagicIceball(mouseX, mouseY)) {
       MagicIceball.instantiate(
         magicIceballImage,
         { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
         orders,
       )
     }
-    if (this.isInsideMagicUFO(mouseX, mouseY)) {
+    if (Hud.isInsideMagicUFO(mouseX, mouseY)) {
       MagicUFO.instantiate(
         magicUFOImage,
         { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },

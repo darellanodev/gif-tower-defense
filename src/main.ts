@@ -14,7 +14,6 @@ import { Hud } from './Hud'
 import { Enemy } from './Enemy'
 import { Debug } from './Debug'
 import { ProgressBar } from './ProgressBar'
-import { Wallet } from './Wallet'
 import { InfluenceArea } from './InfluenceArea'
 import { ExplosionEnemy } from './ExplosionEnemy'
 import { ExplosionMagicFireball } from './ExplosionMagicFireball'
@@ -111,7 +110,7 @@ function setup() {
   orders = path.makeOrders()
   initialEnemiesPosition = path.getEnemiesInitialPosition()
 
-  Wallet.money = tileGenerator.initialMoney
+  Player.money = tileGenerator.initialMoney
 
   Player.lives = 7
 
@@ -157,7 +156,7 @@ function keyPressed() {
 function canUpgradeTower(tower: TowerType) {
   let canUpgrade = false
   if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
-    if (Wallet.haveMoneyToBuy(tower.type, tower.upgradeLevel + 1)) {
+    if (Player.haveMoneyToBuy(tower.type, tower.upgradeLevel + 1)) {
       canUpgrade = true
     }
   }
@@ -167,7 +166,7 @@ function canUpgradeTower(tower: TowerType) {
 function canBuyNewTower(hudSelectedTower: number) {
   let canBuy = false
   const zeroUpgradeLevel = 0
-  if (Wallet.haveMoneyToBuy(hudSelectedTower, zeroUpgradeLevel)) {
+  if (Player.haveMoneyToBuy(hudSelectedTower, zeroUpgradeLevel)) {
     canBuy = true
   }
   return canBuy
@@ -185,18 +184,18 @@ function canBuyTower(tower: TowerType) {
 
 function handleSellTower() {
   const profit = mouseTileOrangeOver.sellTower()
-  Wallet.increase(profit)
+  Player.increaseMoney(profit)
 }
 
 function handleBuyTower() {
   if (canBuyTower(mouseTileOrangeOver.getTower())) {
     const cost = mouseTileOrangeOver.buyTower(hud.getSelectedTower())
-    Wallet.decrease(cost)
+    Player.decreaseMoney(cost)
   }
 }
 
 function mouseClicked() {
-  if (hud.isInsideButtonsBar(mouseX, mouseY)) {
+  if (Hud.isInsideButtonsBar(mouseX, mouseY)) {
     hud.handleButtons(
       mouseX,
       mouseY,
@@ -366,7 +365,7 @@ function draw() {
 
       hud.selectTowerHudType(tileTower)
       if (!tileTower.maxUpgraded) {
-        const canUpgrade = Wallet.haveMoneyToBuy(
+        const canUpgrade = Player.haveMoneyToBuy(
           tileTower.type,
           tileTower.upgradeLevel + 1,
         )

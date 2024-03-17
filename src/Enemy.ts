@@ -7,8 +7,6 @@ import { Const } from './Const'
 import { ConstDirection } from './ConstDirection'
 import { Player } from './Player'
 import { ExplosionEnemy } from './ExplosionEnemy'
-import { Score } from './Score'
-import { Wallet } from './Wallet'
 
 export class Enemy {
   static VELOCITY = 1 // must be multiple of "this.#Const.TILE_SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
@@ -309,8 +307,8 @@ export class Enemy {
       ExplosionEnemy.instantiate(enemy.position)
 
       const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR
-      Wallet.increase($increasedMoney)
-      Score.increase($increasedMoney * 2)
+      Player.increaseMoney($increasedMoney)
+      Player.increaseScore($increasedMoney * 2)
     })
   }
 }
