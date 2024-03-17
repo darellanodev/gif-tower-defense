@@ -10,6 +10,7 @@ import { MagicIceball } from './MagicIceball'
 import { MagicUFO } from './MagicUFO'
 import { Const } from './Const'
 import { Player } from './Player'
+import { Enemy } from './Enemy'
 
 export class Hud {
   static NORMAL = 0
@@ -23,10 +24,13 @@ export class Hud {
   static ICON_YELLOW_TOWER_ON = 4
   static ICON_YELLOW_TOWER_OFF = 5
 
+  static waveProgressBar: ProgressBar
+  static waveProgressDelay: number = Const.WAVE_PROGRESS_DELAY
+  static bossProgressBar: ProgressBar
+  static bossProgressDelay: number = Const.BOSS_PROGRESS_DELAY
+
   #hudImages: Image[]
   #hudIconImages: Image[]
-  #waveProgressBar: ProgressBar
-  #bossProgressBar: ProgressBar
 
   #hudType: number
   #selectedItem: number
@@ -37,28 +41,50 @@ export class Hud {
   #canBuyTowerYellow: boolean = false
   #canUpgrade: boolean
 
-  constructor(
-    hudImages: Image[],
-    hudIconImages: Image[],
-    waveProgressBar: ProgressBar,
-    bossProgressBar: ProgressBar,
-  ) {
+  constructor(hudImages: Image[], hudIconImages: Image[]) {
     this.#hudImages = hudImages
     this.#hudIconImages = hudIconImages
-    this.#waveProgressBar = waveProgressBar
-    this.#bossProgressBar = bossProgressBar
 
-    this.#waveProgressBar = new ProgressBar(
-      { x: 335, y: -19 },
-      { w: 150, h: 16 },
-    )
-    this.#bossProgressBar = new ProgressBar(
-      { x: 335, y: -2 },
-      { w: 150, h: 10 },
-    )
+    Hud.waveProgressBar = new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 })
+    Hud.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 })
 
     this.#hudType = Hud.NORMAL
     this.#selectedItem = TowerGreen.ID
+  }
+
+  static updateWaveProgressBar() {
+    let instantiateEnemies = false
+    if (Hud.waveProgressDelay > 0) {
+      Hud.waveProgressDelay--
+    } else {
+      Hud.waveProgressDelay = Const.WAVE_PROGRESS_DELAY
+      Hud.waveProgressBar.increaseProgress()
+
+      if (Hud.waveProgressBar.isFullOfProgress()) {
+        // next wave
+        Hud.waveProgressBar.setProgress(0)
+        Player.wave++
+        instantiateEnemies = true
+      }
+    }
+    return instantiateEnemies
+  }
+
+  static updateBossProgressBar() {
+    let instantiateBoss = false
+    if (Hud.bossProgressDelay > 0) {
+      Hud.bossProgressDelay--
+    } else {
+      Hud.bossProgressDelay = Const.BOSS_PROGRESS_DELAY
+      Hud.bossProgressBar.increaseProgress()
+
+      if (Hud.bossProgressBar.isFullOfProgress()) {
+        // next boss
+        Hud.bossProgressBar.setProgress(0)
+        instantiateBoss = true
+      }
+    }
+    return instantiateBoss
   }
 
   static isInsideButtonsBar(px: number, py: number) {
@@ -124,14 +150,6 @@ export class Hud {
     return false
   }
 
-  setWaveProgressBar(waveProgressBar: ProgressBar) {
-    this.#waveProgressBar = waveProgressBar
-  }
-
-  setBossProgressBar(bossProgressBar: ProgressBar) {
-    this.#bossProgressBar = bossProgressBar
-  }
-
   selectTower(towerId: number) {
     this.#selectedItem = towerId
   }
@@ -171,8 +189,8 @@ export class Hud {
         break
     }
 
-    this.#waveProgressBar.draw()
-    this.#bossProgressBar.draw()
+    Hud.waveProgressBar.draw()
+    Hud.bossProgressBar.draw()
 
     // draw texts
     TextProperties.setForHudData()

@@ -13,7 +13,6 @@ import { MathUtils } from './MathUtils'
 import { Hud } from './Hud'
 import { Enemy } from './Enemy'
 import { Debug } from './Debug'
-import { ProgressBar } from './ProgressBar'
 import { InfluenceArea } from './InfluenceArea'
 import { ExplosionEnemy } from './ExplosionEnemy'
 import { ExplosionMagicFireball } from './ExplosionMagicFireball'
@@ -47,16 +46,14 @@ let enemiesImages: Image[]
 let towerGenerator: TowerGenerator
 let influenceArea: InfluenceArea
 let gameStatus: number
-let waveProgressBar: ProgressBar
-let waveProgressDelay: number
-let bossProgressBar: ProgressBar
-let bossProgressDelay: number
 let initialEnemiesPosition: Position
-let allowCreateEnemies: boolean
+let allowCreateEnemies: boolean = true
 let levelDataProvider: LevelsDataProvider
 let magicFireballImage: Image
 let magicIceballImage: Image
 let magicUFOImage: Image
+let instantiateBoss: boolean = false
+let instantiateEnemies: boolean = false
 
 function preload() {
   greenTowerImages = Resources.greenTower()
@@ -111,16 +108,9 @@ function setup() {
 
   Player.money = tileGenerator.initialMoney
 
-  allowCreateEnemies = true
   waveEnemies = 0
 
-  waveProgressBar = new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 })
-  bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 })
-
-  hud = new Hud(hudImages, hudIconImages, waveProgressBar, bossProgressBar)
-
-  waveProgressDelay = Const.WAVE_PROGRESS_DELAY
-  bossProgressDelay = Const.BOSS_PROGRESS_DELAY
+  hud = new Hud(hudImages, hudIconImages)
 
   influenceArea = new InfluenceArea()
 
@@ -255,49 +245,6 @@ function getMouseTileOrangeOver() {
   return result ? result : null
 }
 
-function updateWaveProgressBar() {
-  if (waveProgressDelay > 0) {
-    waveProgressDelay--
-  } else {
-    waveProgressDelay = Const.WAVE_PROGRESS_DELAY
-    waveProgressBar.increaseProgress()
-
-    if (waveProgressBar.isFullOfProgress()) {
-      // next wave
-      waveProgressBar.setProgress(0)
-      Player.wave++
-      allowCreateEnemies = true
-    }
-    hud.setWaveProgressBar(waveProgressBar)
-  }
-}
-
-function updateBossProgressBar() {
-  if (bossProgressDelay > 0) {
-    bossProgressDelay--
-  } else {
-    bossProgressDelay = Const.BOSS_PROGRESS_DELAY
-    bossProgressBar.increaseProgress()
-
-    if (bossProgressBar.isFullOfProgress()) {
-      // next boss
-      bossProgressBar.setProgress(0)
-
-      Enemy.instantiateBoss(
-        enemiesImages.slice(
-          ...MathUtils.getTwoNumbersFourTimes(
-            Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES,
-          ),
-        ),
-        orders,
-        initialEnemiesPosition,
-        Player.wave,
-      )
-    }
-    hud.setBossProgressBar(bossProgressBar)
-  }
-}
-
 function updateMagics() {
   MagicFireball.updateInstances()
   MagicFireball.removeDeadInstances()
@@ -319,8 +266,26 @@ function draw() {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
     updateEnemies()
     updateMouseTileOrangeOver()
-    updateWaveProgressBar()
-    updateBossProgressBar()
+    instantiateEnemies = Hud.updateWaveProgressBar()
+    instantiateBoss = Hud.updateBossProgressBar()
+
+    if (instantiateBoss) {
+      Enemy.instantiateBoss(
+        enemiesImages.slice(
+          ...MathUtils.getTwoNumbersFourTimes(
+            Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES,
+          ),
+        ),
+        orders,
+        initialEnemiesPosition,
+        Player.wave,
+      )
+    }
+
+    if (instantiateEnemies) {
+      allowCreateEnemies = true
+    }
+
     updateMagics()
   }
 
