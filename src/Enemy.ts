@@ -112,7 +112,7 @@ export class Enemy {
     wave: number,
   ) {
     const endurance = wave * 25
-    const isBoss = false
+    const isBoss = true
 
     Enemy.instances.push(
       new Enemy(images, initialEnemiesPosition, orders, endurance, isBoss),
