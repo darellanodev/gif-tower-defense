@@ -108,7 +108,7 @@ class Enemy {
     }
     static instantiateBoss(images, orders, initialEnemiesPosition, wave) {
         const endurance = wave * 25;
-        const isBoss = false;
+        const isBoss = true;
         _a.instances.push(new _a(images, initialEnemiesPosition, orders, endurance, isBoss));
     }
     get endurance() {
@@ -218,8 +218,8 @@ class Enemy {
         deadEnemies.forEach((enemy) => {
             ExplosionEnemy.instantiate(enemy.position);
             const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR;
-            Wallet.increase($increasedMoney);
-            Score.increase($increasedMoney * 2);
+            Player.increaseMoney($increasedMoney);
+            Player.increaseScore($increasedMoney * 2);
         });
     }
 }
@@ -367,17 +367,13 @@ class ExplosionMagicIceball extends Explosion {
 ExplosionMagicIceball.SIZE = 6;
 ExplosionMagicIceball.COLOR = [0, 65, 255];
 ExplosionMagicIceball.instances = [];
-var _Hud_instances, _Hud_hudImages, _Hud_hudIconImages, _Hud_waveProgressBar, _Hud_bossProgressBar, _Hud_wave, _Hud_hudType, _Hud_selectedItem, _Hud_upgradeCost, _Hud_sellProfit, _Hud_canBuyTowerGreen, _Hud_canBuyTowerRed, _Hud_canBuyTowerYellow, _Hud_canUpgrade, _Hud_drawMoney, _Hud_drawUpgradeCost, _Hud_drawMagicUFO, _Hud_drawMagicFireball, _Hud_drawMagicIceball, _Hud_drawSellProfit, _Hud_drawLives, _Hud_drawScore, _Hud_drawLevelTitle, _Hud_drawWave, _Hud_drawSelectedItem;
+var _Hud_instances, _Hud_hudImages, _Hud_hudIconImages, _Hud_hudType, _Hud_upgradeCost, _Hud_sellProfit, _Hud_canBuyTowerGreen, _Hud_canBuyTowerRed, _Hud_canBuyTowerYellow, _Hud_canUpgrade, _Hud_drawMoney, _Hud_drawUpgradeCost, _Hud_drawMagicUFO, _Hud_drawMagicFireball, _Hud_drawMagicIceball, _Hud_drawSellProfit, _Hud_drawLives, _Hud_drawScore, _Hud_drawLevelTitle, _Hud_drawWave;
 class Hud {
-    constructor(hudImages, hudIconImages, waveProgressBar, bossProgressBar, wave) {
+    constructor(hudImages, hudIconImages) {
         _Hud_instances.add(this);
         _Hud_hudImages.set(this, void 0);
         _Hud_hudIconImages.set(this, void 0);
-        _Hud_waveProgressBar.set(this, void 0);
-        _Hud_bossProgressBar.set(this, void 0);
-        _Hud_wave.set(this, void 0);
         _Hud_hudType.set(this, void 0);
-        _Hud_selectedItem.set(this, void 0);
         _Hud_upgradeCost.set(this, null);
         _Hud_sellProfit.set(this, null);
         _Hud_canBuyTowerGreen.set(this, false);
@@ -386,67 +382,100 @@ class Hud {
         _Hud_canUpgrade.set(this, void 0);
         __classPrivateFieldSet(this, _Hud_hudImages, hudImages, "f");
         __classPrivateFieldSet(this, _Hud_hudIconImages, hudIconImages, "f");
-        __classPrivateFieldSet(this, _Hud_waveProgressBar, waveProgressBar, "f");
-        __classPrivateFieldSet(this, _Hud_bossProgressBar, bossProgressBar, "f");
-        __classPrivateFieldSet(this, _Hud_wave, wave, "f");
-        __classPrivateFieldSet(this, _Hud_waveProgressBar, new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 }), "f");
-        __classPrivateFieldSet(this, _Hud_bossProgressBar, new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 }), "f");
+        Hud.waveProgressBar = new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 });
+        Hud.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 });
         __classPrivateFieldSet(this, _Hud_hudType, Hud.NORMAL, "f");
-        __classPrivateFieldSet(this, _Hud_selectedItem, TowerGreen.ID, "f");
     }
-    isInsideButtonsBar(px, py) {
+    static updateWaveProgressBar() {
+        let instantiateEnemies = false;
+        if (Hud.waveProgressDelay > 0) {
+            Hud.waveProgressDelay--;
+        }
+        else {
+            Hud.waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
+            Hud.waveProgressBar.increaseProgress();
+            if (Hud.waveProgressBar.isFullOfProgress()) {
+                Hud.waveProgressBar.setProgress(0);
+                Player.wave++;
+                instantiateEnemies = true;
+            }
+        }
+        return instantiateEnemies;
+    }
+    static updateBossProgressBar() {
+        let instantiateBoss = false;
+        if (Hud.bossProgressDelay > 0) {
+            Hud.bossProgressDelay--;
+        }
+        else {
+            Hud.bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
+            Hud.bossProgressBar.increaseProgress();
+            if (Hud.bossProgressBar.isFullOfProgress()) {
+                Hud.bossProgressBar.setProgress(0);
+                instantiateBoss = true;
+            }
+        }
+        return instantiateBoss;
+    }
+    static isInsideButtonsBar(px, py) {
         if (px > 0 && px < 800 && py > 28 && py < 78) {
             return true;
         }
         return false;
     }
-    isInsideTowerGreenButton(px, py) {
+    static isInsideTowersButtonsBar(px, py) {
+        if (this.isInsideButtonsBar(px, py) && px < 265) {
+            return true;
+        }
+        return false;
+    }
+    static isInsideMagicsButtonsBar(px, py) {
+        if (this.isInsideButtonsBar(px, py) && px > 495) {
+            return true;
+        }
+        return false;
+    }
+    static isInsideTowerGreenButton(px, py) {
         if (px > 0 && px < 98 && py > 28 && py < 78) {
             return true;
         }
         return false;
     }
-    isInsideTowerRedButton(px, py) {
+    static isInsideTowerRedButton(px, py) {
         if (px > 98 && px < 180 && py > 28 && py < 78) {
             return true;
         }
         return false;
     }
-    isInsideTowerYellowButton(px, py) {
+    static isInsideTowerYellowButton(px, py) {
         if (px > 180 && px < 263 && py > 28 && py < 78) {
             return true;
         }
         return false;
     }
-    isInsideMagicFireball(px, py) {
+    static isInsideMagicFireball(px, py) {
         if (px > 616 && px < 692 && py > 28 && py < 78) {
             return true;
         }
         return false;
     }
-    isInsideMagicIceball(px, py) {
+    static isInsideMagicIceball(px, py) {
         if (px > 692 && px < 795 && py > 28 && py < 78) {
             return true;
         }
         return false;
     }
-    isInsideMagicUFO(px, py) {
+    static isInsideMagicUFO(px, py) {
         if (px > 498 && px < 616 && py > 28 && py < 78) {
             return true;
         }
         return false;
     }
-    setWaveProgressBar(waveProgressBar) {
-        __classPrivateFieldSet(this, _Hud_waveProgressBar, waveProgressBar, "f");
+    static selectTower(towerId) {
+        Hud.selectedItem = towerId;
     }
-    setBossProgressBar(bossProgressBar) {
-        __classPrivateFieldSet(this, _Hud_bossProgressBar, bossProgressBar, "f");
-    }
-    selectTower(towerId) {
-        __classPrivateFieldSet(this, _Hud_selectedItem, towerId, "f");
-    }
-    getSelectedTower() {
-        return __classPrivateFieldGet(this, _Hud_selectedItem, "f");
+    static getSelectedTower() {
+        return Hud.selectedItem;
     }
     setType(hudType) {
         __classPrivateFieldSet(this, _Hud_hudType, hudType, "f");
@@ -461,7 +490,7 @@ class Hud {
             case Hud.NORMAL:
                 image(__classPrivateFieldGet(this, _Hud_hudImages, "f")[Hud.NORMAL], 0, 0);
                 this._drawTowerIcons();
-                __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawSelectedItem).call(this);
+                Hud.drawSelectedItem();
                 break;
             case Hud.UPGRADING:
                 image(__classPrivateFieldGet(this, _Hud_hudImages, "f")[Hud.UPGRADING], 0, 0);
@@ -470,8 +499,8 @@ class Hud {
                 image(__classPrivateFieldGet(this, _Hud_hudImages, "f")[Hud.UPGRADING_MAX], 0, 0);
                 break;
         }
-        __classPrivateFieldGet(this, _Hud_waveProgressBar, "f").draw();
-        __classPrivateFieldGet(this, _Hud_bossProgressBar, "f").draw();
+        Hud.waveProgressBar.draw();
+        Hud.bossProgressBar.draw();
         TextProperties.setForHudData();
         __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawMoney).call(this);
         __classPrivateFieldGet(this, _Hud_instances, "m", _Hud_drawLives).call(this);
@@ -486,9 +515,6 @@ class Hud {
         if (__classPrivateFieldGet(this, _Hud_hudType, "f") === Hud.NORMAL) {
             this._drawNewTowerPrices();
         }
-    }
-    setWave(wave) {
-        __classPrivateFieldSet(this, _Hud_wave, wave, "f");
     }
     _drawTowerIcons() {
         let greenIconImgPos = Hud.ICON_GREEN_TOWER_OFF;
@@ -533,6 +559,22 @@ class Hud {
         this._drawTowerRedPrice();
         this._drawTowerYellowPrice();
     }
+    static drawSelectedItem() {
+        strokeWeight(3);
+        stroke(255, 204, 0);
+        noFill();
+        switch (Hud.selectedItem) {
+            case TowerGreen.ID:
+                square(57, 36, 37);
+                break;
+            case TowerRed.ID:
+                square(140, 36, 37);
+                break;
+            case TowerYellow.ID:
+                square(225, 36, 37);
+                break;
+        }
+    }
     selectTowerHudType(tower) {
         if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
             this.setType(Hud.UPGRADING);
@@ -560,29 +602,29 @@ class Hud {
     hideSellProfit() {
         __classPrivateFieldSet(this, _Hud_sellProfit, null, "f");
     }
-    handleButtons(mouseX, mouseY, magicIceballImage, magicFireballImage, magicUFOImage, initialEnemiesPosition, orders) {
-        if (this.isInsideTowerGreenButton(mouseX, mouseY)) {
-            this.selectTower(TowerGreen.ID);
+    static handleButtons(mouseX, mouseY, magicIceballImage, magicFireballImage, magicUFOImage, initialEnemiesPosition, orders) {
+        if (Hud.isInsideTowerGreenButton(mouseX, mouseY)) {
+            Hud.selectTower(TowerGreen.ID);
         }
-        if (this.isInsideTowerRedButton(mouseX, mouseY)) {
-            this.selectTower(TowerRed.ID);
+        if (Hud.isInsideTowerRedButton(mouseX, mouseY)) {
+            Hud.selectTower(TowerRed.ID);
         }
-        if (this.isInsideTowerYellowButton(mouseX, mouseY)) {
-            this.selectTower(TowerYellow.ID);
+        if (Hud.isInsideTowerYellowButton(mouseX, mouseY)) {
+            Hud.selectTower(TowerYellow.ID);
         }
-        if (this.isInsideMagicFireball(mouseX, mouseY)) {
+        if (Hud.isInsideMagicFireball(mouseX, mouseY)) {
             MagicFireball.instantiate(magicFireballImage, initialEnemiesPosition, orders);
         }
-        if (this.isInsideMagicIceball(mouseX, mouseY)) {
+        if (Hud.isInsideMagicIceball(mouseX, mouseY)) {
             MagicIceball.instantiate(magicIceballImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders);
         }
-        if (this.isInsideMagicUFO(mouseX, mouseY)) {
+        if (Hud.isInsideMagicUFO(mouseX, mouseY)) {
             MagicUFO.instantiate(magicUFOImage, { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y }, orders);
         }
     }
 }
-_Hud_hudImages = new WeakMap(), _Hud_hudIconImages = new WeakMap(), _Hud_waveProgressBar = new WeakMap(), _Hud_bossProgressBar = new WeakMap(), _Hud_wave = new WeakMap(), _Hud_hudType = new WeakMap(), _Hud_selectedItem = new WeakMap(), _Hud_upgradeCost = new WeakMap(), _Hud_sellProfit = new WeakMap(), _Hud_canBuyTowerGreen = new WeakMap(), _Hud_canBuyTowerRed = new WeakMap(), _Hud_canBuyTowerYellow = new WeakMap(), _Hud_canUpgrade = new WeakMap(), _Hud_instances = new WeakSet(), _Hud_drawMoney = function _Hud_drawMoney() {
-    text(Wallet.money, 445, 48);
+_Hud_hudImages = new WeakMap(), _Hud_hudIconImages = new WeakMap(), _Hud_hudType = new WeakMap(), _Hud_upgradeCost = new WeakMap(), _Hud_sellProfit = new WeakMap(), _Hud_canBuyTowerGreen = new WeakMap(), _Hud_canBuyTowerRed = new WeakMap(), _Hud_canBuyTowerYellow = new WeakMap(), _Hud_canUpgrade = new WeakMap(), _Hud_instances = new WeakSet(), _Hud_drawMoney = function _Hud_drawMoney() {
+    text(Player.money, 445, 48);
 }, _Hud_drawUpgradeCost = function _Hud_drawUpgradeCost() {
     if (__classPrivateFieldGet(this, _Hud_upgradeCost, "f") !== null) {
         if (!__classPrivateFieldGet(this, _Hud_canUpgrade, "f")) {
@@ -604,26 +646,11 @@ _Hud_hudImages = new WeakMap(), _Hud_hudIconImages = new WeakMap(), _Hud_wavePro
 }, _Hud_drawLives = function _Hud_drawLives() {
     text(Player.lives, 390, 48);
 }, _Hud_drawScore = function _Hud_drawScore() {
-    text(Score.getPrintScore(), 404, 73);
+    text(Player.getPrintScore(), 404, 73);
 }, _Hud_drawLevelTitle = function _Hud_drawLevelTitle() {
     text('Serpent by Ocliboy', 130, 18);
 }, _Hud_drawWave = function _Hud_drawWave() {
-    text(`wave ${__classPrivateFieldGet(this, _Hud_wave, "f")}`, 403, 13);
-}, _Hud_drawSelectedItem = function _Hud_drawSelectedItem() {
-    strokeWeight(3);
-    stroke(255, 204, 0);
-    noFill();
-    switch (__classPrivateFieldGet(this, _Hud_selectedItem, "f")) {
-        case TowerGreen.ID:
-            square(57, 36, 37);
-            break;
-        case TowerRed.ID:
-            square(140, 36, 37);
-            break;
-        case TowerYellow.ID:
-            square(225, 36, 37);
-            break;
-    }
+    text(`wave ${Player.wave}`, 403, 13);
 };
 Hud.NORMAL = 0;
 Hud.UPGRADING = 1;
@@ -635,6 +662,9 @@ Hud.ICON_RED_TOWER_ON = 2;
 Hud.ICON_RED_TOWER_OFF = 3;
 Hud.ICON_YELLOW_TOWER_ON = 4;
 Hud.ICON_YELLOW_TOWER_OFF = 5;
+Hud.waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
+Hud.bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
+Hud.selectedItem = 1;
 class InfluenceArea {
     constructor() { }
     _setGrayInfluenceAreaColor() {
@@ -1198,8 +1228,106 @@ class Path {
 _Path_startTile = new WeakMap(), _Path_endTile = new WeakMap(), _Path_pathTiles = new WeakMap();
 Path.MAX_SEARCHES = 5000;
 class Player {
+    static increaseScore(score) {
+        Player.score += score;
+    }
+    static getPrintScore() {
+        return String(Player.score).padStart(10, '0');
+    }
+    static increaseMoney(profit) {
+        Player.money += profit;
+    }
+    static decreaseMoney(cost) {
+        Player.money -= cost;
+    }
+    static haveMoneyToBuy(towerId, upgradeLevel) {
+        let canBuy = false;
+        switch (towerId) {
+            case TowerGreen.ID:
+                canBuy = TowerGreen.COST_UPGRADE[upgradeLevel] <= Player.money;
+                break;
+            case TowerRed.ID:
+                canBuy = TowerRed.COST_UPGRADE[upgradeLevel] <= Player.money;
+                break;
+            case TowerYellow.ID:
+                canBuy = TowerYellow.COST_UPGRADE[upgradeLevel] <= Player.money;
+                break;
+            default:
+                break;
+        }
+        return canBuy;
+    }
+    static canBuyNewTower(hudSelectedTower) {
+        let canBuy = false;
+        const zeroUpgradeLevel = 0;
+        if (Player.haveMoneyToBuy(hudSelectedTower, zeroUpgradeLevel)) {
+            canBuy = true;
+        }
+        return canBuy;
+    }
+    static canBuyTower(tower) {
+        let result = false;
+        if (tower) {
+            result = Player.canUpgradeTower(tower);
+        }
+        else {
+            result = Player.canBuyNewTower(Hud.getSelectedTower());
+        }
+        return result;
+    }
+    static canUpgradeTower(tower) {
+        let canUpgrade = false;
+        if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
+            if (Player.haveMoneyToBuy(tower.type, tower.upgradeLevel + 1)) {
+                canUpgrade = true;
+            }
+        }
+        return canUpgrade;
+    }
+    static keyPressed() {
+        switch (keyCode) {
+            case Const.KEY_1:
+                Hud.selectTower(TowerGreen.ID);
+                break;
+            case Const.KEY_2:
+                Hud.selectTower(TowerRed.ID);
+                break;
+            case Const.KEY_3:
+                Hud.selectTower(TowerYellow.ID);
+                break;
+        }
+    }
+    static mouseClicked(mouseX, mouseY, magicIceballImage, magicFireballImage, magicUFOImage, initialEnemiesPosition, orders, mouseTileOrangeOver) {
+        if (Hud.isInsideButtonsBar(mouseX, mouseY)) {
+            Hud.handleButtons(mouseX, mouseY, magicIceballImage, magicFireballImage, magicUFOImage, initialEnemiesPosition, orders);
+            return;
+        }
+        if (mouseTileOrangeOver !== null) {
+            if (mouseButton === RIGHT && mouseTileOrangeOver.hasTower()) {
+                if (mouseTileOrangeOver.getTower().notUpgrading) {
+                    Player.sellTower(mouseTileOrangeOver);
+                }
+            }
+            if (mouseButton === LEFT) {
+                Player.buyTower(mouseTileOrangeOver);
+            }
+        }
+    }
+    static sellTower(mouseTileOrangeOver) {
+        const profit = mouseTileOrangeOver.sellTower();
+        Player.increaseMoney(profit);
+    }
+    static buyTower(mouseTileOrangeOver) {
+        if (Player.canBuyTower(mouseTileOrangeOver.getTower())) {
+            const cost = mouseTileOrangeOver.buyTower(Hud.getSelectedTower());
+            Player.decreaseMoney(cost);
+        }
+    }
 }
 Player.lives = 7;
+Player.score = 0;
+Player.money = 0;
+Player.wave = 1;
 var _ProgressBar_position, _ProgressBar_size, _ProgressBar_progress, _ProgressBar_maxProgress;
 class ProgressBar {
     constructor(position, size) {
@@ -1332,15 +1460,6 @@ class Resources {
         return loadImage('img/magics/ufo.png');
     }
 }
-class Score {
-    static increase(score) {
-        Score.score += score;
-    }
-    static getPrintScore() {
-        return String(Score.score).padStart(10, '0');
-    }
-}
-Score.score = 0;
 class TextProperties {
     static setForBigCenteredTitle() {
         fill('white');
@@ -1582,27 +1701,22 @@ class TileStart extends Tile {
     }
 }
 _TileStart_img = new WeakMap(), _TileStart_startDirection = new WeakMap();
-var _Tower_position, _Tower_upgrading, _Tower_upgradeLevel;
 class Tower {
     constructor(position) {
-        _Tower_position.set(this, void 0);
-        _Tower_upgrading.set(this, false);
-        _Tower_upgradeLevel.set(this, 0);
-        __classPrivateFieldSet(this, _Tower_position, Object.assign({}, position), "f");
-        __classPrivateFieldSet(this, _Tower_upgrading, false, "f");
-        __classPrivateFieldSet(this, _Tower_upgradeLevel, 0, "f");
+        this.upgrading = false;
+        this.upgradeLevel = 0;
+        this.upgradeProgress = 0;
+        this.position = Object.assign({}, position);
+        this.progressBar = new ProgressBar({
+            x: this.position.x + Const.TOWER_OFFSET,
+            y: this.position.y + Const.TOWER_OFFSET,
+        }, { w: ProgressBar.WIDTH, h: ProgressBar.HEIGHT });
     }
     get notUpgrading() {
-        return !__classPrivateFieldGet(this, _Tower_upgrading, "f");
-    }
-    get position() {
-        return __classPrivateFieldGet(this, _Tower_position, "f");
-    }
-    get upgradeLevel() {
-        return __classPrivateFieldGet(this, _Tower_upgradeLevel, "f");
+        return !this.upgrading;
     }
     get maxUpgraded() {
-        return __classPrivateFieldGet(this, _Tower_upgradeLevel, "f") === Const.UPGRADE_MAX_LEVEL - 1;
+        return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1;
     }
     getCostWhenUpgradeLevelIs(selectedUpgradeLevel) {
         return null;
@@ -1619,7 +1733,6 @@ class Tower {
         }
     }
 }
-_Tower_position = new WeakMap(), _Tower_upgrading = new WeakMap(), _Tower_upgradeLevel = new WeakMap();
 var _TowerGenerator_greenTowerImages, _TowerGenerator_redTowerImages, _TowerGenerator_yellowTowerImages;
 class TowerGenerator {
     constructor(greenTowerImages, redTowerImages, yellowTowerImages) {
@@ -1658,78 +1771,67 @@ class TowerGenerator {
     }
 }
 _TowerGenerator_greenTowerImages = new WeakMap(), _TowerGenerator_redTowerImages = new WeakMap(), _TowerGenerator_yellowTowerImages = new WeakMap();
-var _TowerGreen_instances, _TowerGreen_images, _TowerGreen_position, _TowerGreen_upgradeLevel, _TowerGreen_upgrading, _TowerGreen_enemyTarget, _TowerGreen_distanceToEnemyTarget, _TowerGreen_progressBar, _TowerGreen_upgradeProgress, _TowerGreen_delayUpgradeProgress, _TowerGreen_drawShotToEnemy, _TowerGreen_drawUpgradeBackground;
+var _TowerGreen_instances, _TowerGreen_images, _TowerGreen_enemyTarget, _TowerGreen_distanceToEnemyTarget, _TowerGreen_drawShotToEnemy, _TowerGreen_drawUpgradeBackground;
 class TowerGreen extends Tower {
     constructor(images, position) {
         super(position);
         _TowerGreen_instances.add(this);
         _TowerGreen_images.set(this, void 0);
-        _TowerGreen_position.set(this, void 0);
-        _TowerGreen_upgradeLevel.set(this, 0);
-        _TowerGreen_upgrading.set(this, false);
         _TowerGreen_enemyTarget.set(this, null);
         _TowerGreen_distanceToEnemyTarget.set(this, 0);
-        _TowerGreen_progressBar.set(this, void 0);
-        _TowerGreen_upgradeProgress.set(this, 0);
-        _TowerGreen_delayUpgradeProgress.set(this, void 0);
         __classPrivateFieldSet(this, _TowerGreen_images, images, "f");
-        __classPrivateFieldSet(this, _TowerGreen_position, Object.assign({}, position), "f");
-        __classPrivateFieldSet(this, _TowerGreen_progressBar, new ProgressBar({
-            x: __classPrivateFieldGet(this, _TowerGreen_position, "f").x + Const.TOWER_OFFSET,
-            y: __classPrivateFieldGet(this, _TowerGreen_position, "f").y + Const.TOWER_OFFSET,
-        }, { w: ProgressBar.WIDTH, h: ProgressBar.HEIGHT }), "f");
     }
     upgrade() {
-        var _a;
-        if (!__classPrivateFieldGet(this, _TowerGreen_upgrading, "f")) {
-            __classPrivateFieldSet(this, _TowerGreen_upgrading, true, "f");
-            __classPrivateFieldSet(this, _TowerGreen_upgradeLevel, (_a = __classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f"), _a++, _a), "f");
-            __classPrivateFieldSet(this, _TowerGreen_delayUpgradeProgress, Const.DELAY_UPGRADE_MULTIPLIER * __classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f"), "f");
+        if (!this.upgrading) {
+            this.upgrading = true;
+            this.upgradeLevel++;
+            this.delayUpgradeProgress =
+                Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel;
         }
     }
     draw() {
-        var _a, _b;
-        if (__classPrivateFieldGet(this, _TowerGreen_upgrading, "f")) {
+        if (this.upgrading) {
             __classPrivateFieldGet(this, _TowerGreen_instances, "m", _TowerGreen_drawUpgradeBackground).call(this);
-            if (!__classPrivateFieldGet(this, _TowerGreen_progressBar, "f").isFullOfProgress()) {
-                if (__classPrivateFieldGet(this, _TowerGreen_delayUpgradeProgress, "f") == 0) {
-                    __classPrivateFieldSet(this, _TowerGreen_upgradeProgress, (_a = __classPrivateFieldGet(this, _TowerGreen_upgradeProgress, "f"), _a++, _a), "f");
-                    __classPrivateFieldGet(this, _TowerGreen_progressBar, "f").setProgress(__classPrivateFieldGet(this, _TowerGreen_upgradeProgress, "f"));
-                    __classPrivateFieldSet(this, _TowerGreen_delayUpgradeProgress, Const.DELAY_UPGRADE_MULTIPLIER * __classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f"), "f");
+            if (!this.progressBar.isFullOfProgress()) {
+                if (this.delayUpgradeProgress == 0) {
+                    this.upgradeProgress++;
+                    this.progressBar.setProgress(this.upgradeProgress);
+                    this.delayUpgradeProgress =
+                        Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel;
                 }
                 else {
-                    __classPrivateFieldSet(this, _TowerGreen_delayUpgradeProgress, (_b = __classPrivateFieldGet(this, _TowerGreen_delayUpgradeProgress, "f"), _b--, _b), "f");
+                    this.delayUpgradeProgress--;
                 }
-                __classPrivateFieldGet(this, _TowerGreen_progressBar, "f").draw();
+                this.progressBar.draw();
             }
             else {
-                __classPrivateFieldSet(this, _TowerGreen_upgrading, false, "f");
-                __classPrivateFieldSet(this, _TowerGreen_upgradeProgress, 0, "f");
-                __classPrivateFieldGet(this, _TowerGreen_progressBar, "f").setProgress(0);
+                this.upgrading = false;
+                this.upgradeProgress = 0;
+                this.progressBar.setProgress(0);
             }
         }
         else {
             if (__classPrivateFieldGet(this, _TowerGreen_enemyTarget, "f")) {
-                let r_dx = __classPrivateFieldGet(this, _TowerGreen_enemyTarget, "f").position.x - __classPrivateFieldGet(this, _TowerGreen_position, "f").x;
-                let r_dy = __classPrivateFieldGet(this, _TowerGreen_enemyTarget, "f").position.y - __classPrivateFieldGet(this, _TowerGreen_position, "f").y;
+                let r_dx = __classPrivateFieldGet(this, _TowerGreen_enemyTarget, "f").position.x - this.position.x;
+                let r_dy = __classPrivateFieldGet(this, _TowerGreen_enemyTarget, "f").position.y - this.position.y;
                 let angle = Math.atan2(r_dy, r_dx) + 1.55;
                 let cos_a = cos(angle);
                 let sin_a = sin(angle);
                 imageMode(CENTER);
-                applyMatrix(cos_a, sin_a, -sin_a, cos_a, __classPrivateFieldGet(this, _TowerGreen_position, "f").x + 30, __classPrivateFieldGet(this, _TowerGreen_position, "f").y + 30);
+                applyMatrix(cos_a, sin_a, -sin_a, cos_a, this.position.x + 30, this.position.y + 30);
                 __classPrivateFieldGet(this, _TowerGreen_instances, "m", _TowerGreen_drawShotToEnemy).call(this);
-                __classPrivateFieldGet(this, _TowerGreen_enemyTarget, "f").addDamage(TowerGreen.DAMAGE_UPGRADE[__classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f")]);
-                image(__classPrivateFieldGet(this, _TowerGreen_images, "f")[__classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f")], 0, 0);
+                __classPrivateFieldGet(this, _TowerGreen_enemyTarget, "f").addDamage(TowerGreen.DAMAGE_UPGRADE[this.upgradeLevel]);
+                image(__classPrivateFieldGet(this, _TowerGreen_images, "f")[this.upgradeLevel], 0, 0);
                 resetMatrix();
                 imageMode(CORNER);
             }
             else {
-                image(__classPrivateFieldGet(this, _TowerGreen_images, "f")[__classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f")], __classPrivateFieldGet(this, _TowerGreen_position, "f").x, __classPrivateFieldGet(this, _TowerGreen_position, "f").y);
+                image(__classPrivateFieldGet(this, _TowerGreen_images, "f")[this.upgradeLevel], this.position.x, this.position.y);
             }
         }
     }
     get influenceArea() {
-        return TowerGreen.UPGRADE_INFLUENCE_AREA[__classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f")];
+        return TowerGreen.UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
     }
     getCostWhenUpgradeLevelIs(selectedUpgradeLevel) {
         if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
@@ -1744,13 +1846,13 @@ class TowerGreen extends Tower {
         return TowerGreen.ID;
     }
     _isDistanceIntoInfluenceArea(distance) {
-        return (distance <= TowerGreen.UPGRADE_INFLUENCE_AREA[__classPrivateFieldGet(this, _TowerGreen_upgradeLevel, "f")] / 1.65);
+        return (distance <= TowerGreen.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65);
     }
     selectTarget(enemies) {
         let minDistance = 99999;
         let enemyTarget = null;
         enemies.forEach((enemy) => {
-            const distance = MathUtils.distance({ x: __classPrivateFieldGet(this, _TowerGreen_position, "f").x, y: __classPrivateFieldGet(this, _TowerGreen_position, "f").y }, {
+            const distance = MathUtils.distance({ x: this.position.x, y: this.position.y }, {
                 x: enemy.position.x,
                 y: enemy.position.y,
             });
@@ -1769,7 +1871,7 @@ class TowerGreen extends Tower {
         }
     }
 }
-_TowerGreen_images = new WeakMap(), _TowerGreen_position = new WeakMap(), _TowerGreen_upgradeLevel = new WeakMap(), _TowerGreen_upgrading = new WeakMap(), _TowerGreen_enemyTarget = new WeakMap(), _TowerGreen_distanceToEnemyTarget = new WeakMap(), _TowerGreen_progressBar = new WeakMap(), _TowerGreen_upgradeProgress = new WeakMap(), _TowerGreen_delayUpgradeProgress = new WeakMap(), _TowerGreen_instances = new WeakSet(), _TowerGreen_drawShotToEnemy = function _TowerGreen_drawShotToEnemy() {
+_TowerGreen_images = new WeakMap(), _TowerGreen_enemyTarget = new WeakMap(), _TowerGreen_distanceToEnemyTarget = new WeakMap(), _TowerGreen_instances = new WeakSet(), _TowerGreen_drawShotToEnemy = function _TowerGreen_drawShotToEnemy() {
     strokeWeight(3);
     stroke(ConstColor.RED);
     line(-1, -18, 7 - __classPrivateFieldGet(this, _TowerGreen_distanceToEnemyTarget, "f") / 7, -__classPrivateFieldGet(this, _TowerGreen_distanceToEnemyTarget, "f"));
@@ -1777,7 +1879,7 @@ _TowerGreen_images = new WeakMap(), _TowerGreen_position = new WeakMap(), _Tower
     strokeWeight(1);
     stroke('black');
     fill(ConstColor.GREEN);
-    rect(__classPrivateFieldGet(this, _TowerGreen_position, "f").x + 4, __classPrivateFieldGet(this, _TowerGreen_position, "f").y + 4, Const.TILE_SIZE, Const.TILE_SIZE);
+    rect(this.position.x + 4, this.position.y + 4, Const.TILE_SIZE, Const.TILE_SIZE);
 };
 TowerGreen.ID = 1;
 TowerGreen.PROFIT_SELL_UPGRADE = [30, 35, 65, 220, 900, 1880];
@@ -1785,57 +1887,45 @@ TowerGreen.DAMAGE_UPGRADE = [1, 2, 4, 6, 12, 24];
 TowerGreen.COST_UPGRADE = [50, 75, 125, 300, 1000, 2000];
 TowerGreen.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
 TowerGreen.INFLUENCE_AREA = 150;
-var _TowerRed_images, _TowerRed_position, _TowerRed_upgradeLevel, _TowerRed_upgrading, _TowerRed_progressBar, _TowerRed_upgradeProgress;
+var _TowerRed_images;
 class TowerRed extends Tower {
     constructor(images, position) {
         super(position);
         _TowerRed_images.set(this, void 0);
-        _TowerRed_position.set(this, void 0);
-        _TowerRed_upgradeLevel.set(this, 0);
-        _TowerRed_upgrading.set(this, false);
-        _TowerRed_progressBar.set(this, void 0);
-        _TowerRed_upgradeProgress.set(this, 0);
         __classPrivateFieldSet(this, _TowerRed_images, images, "f");
-        __classPrivateFieldSet(this, _TowerRed_position, Object.assign({}, position), "f");
-        __classPrivateFieldSet(this, _TowerRed_progressBar, new ProgressBar(__classPrivateFieldGet(this, _TowerRed_position, "f"), {
-            w: ProgressBar.WIDTH,
-            h: ProgressBar.HEIGHT,
-        }), "f");
     }
     upgrade() {
-        var _a;
-        if (!__classPrivateFieldGet(this, _TowerRed_upgrading, "f")) {
-            __classPrivateFieldSet(this, _TowerRed_upgrading, true, "f");
-            __classPrivateFieldSet(this, _TowerRed_upgradeLevel, (_a = __classPrivateFieldGet(this, _TowerRed_upgradeLevel, "f"), _a++, _a), "f");
+        if (!this.upgrading) {
+            this.upgrading = true;
+            this.upgradeLevel++;
         }
     }
     _drawUpgradeBackground() {
         strokeWeight(1);
         stroke('black');
         fill(ConstColor.RED);
-        rect(__classPrivateFieldGet(this, _TowerRed_position, "f").x + 4, __classPrivateFieldGet(this, _TowerRed_position, "f").y + 4, Const.TILE_SIZE, Const.TILE_SIZE);
+        rect(this.position.x + 4, this.position.y + 4, Const.TILE_SIZE, Const.TILE_SIZE);
     }
     draw() {
-        var _a;
-        if (__classPrivateFieldGet(this, _TowerRed_upgrading, "f")) {
+        if (this.upgrading) {
             this._drawUpgradeBackground();
-            if (!__classPrivateFieldGet(this, _TowerRed_progressBar, "f").isFullOfProgress()) {
-                __classPrivateFieldSet(this, _TowerRed_upgradeProgress, (_a = __classPrivateFieldGet(this, _TowerRed_upgradeProgress, "f"), _a++, _a), "f");
-                __classPrivateFieldGet(this, _TowerRed_progressBar, "f").setProgress(__classPrivateFieldGet(this, _TowerRed_upgradeProgress, "f"));
-                __classPrivateFieldGet(this, _TowerRed_progressBar, "f").draw();
+            if (!this.progressBar.isFullOfProgress()) {
+                this.upgradeProgress++;
+                this.progressBar.setProgress(this.upgradeProgress);
+                this.progressBar.draw();
             }
             else {
-                __classPrivateFieldSet(this, _TowerRed_upgrading, false, "f");
-                __classPrivateFieldSet(this, _TowerRed_upgradeProgress, 0, "f");
-                __classPrivateFieldGet(this, _TowerRed_progressBar, "f").setProgress(0);
+                this.upgrading = false;
+                this.upgradeProgress = 0;
+                this.progressBar.setProgress(0);
             }
         }
         else {
-            image(__classPrivateFieldGet(this, _TowerRed_images, "f")[__classPrivateFieldGet(this, _TowerRed_upgradeLevel, "f")], __classPrivateFieldGet(this, _TowerRed_position, "f").x, __classPrivateFieldGet(this, _TowerRed_position, "f").y);
+            image(__classPrivateFieldGet(this, _TowerRed_images, "f")[this.upgradeLevel], this.position.x, this.position.y);
         }
     }
     get influenceArea() {
-        return TowerRed.UPGRADE_INFLUENCE_AREA[__classPrivateFieldGet(this, _TowerRed_upgradeLevel, "f")];
+        return TowerRed.UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
     }
     getCostWhenUpgradeLevelIs(selectedUpgradeLevel) {
         if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
@@ -1852,60 +1942,51 @@ class TowerRed extends Tower {
     selectTarget(enemies) {
     }
 }
-_TowerRed_images = new WeakMap(), _TowerRed_position = new WeakMap(), _TowerRed_upgradeLevel = new WeakMap(), _TowerRed_upgrading = new WeakMap(), _TowerRed_progressBar = new WeakMap(), _TowerRed_upgradeProgress = new WeakMap();
+_TowerRed_images = new WeakMap();
 TowerRed.ID = 2;
 TowerRed.PROFIT_SELL_UPGRADE = [80, 110, 190, 420, 1200, 2880];
 TowerRed.COST_UPGRADE = [100, 150, 250, 500, 1300, 3000];
 TowerRed.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
 TowerRed.INFLUENCE_AREA = 240;
-var _TowerYellow_images, _TowerYellow_position, _TowerYellow_upgradeLevel, _TowerYellow_upgrading, _TowerYellow_progressBar, _TowerYellow_upgradeProgress;
+var _TowerYellow_images;
 class TowerYellow extends Tower {
     constructor(images, position) {
         super(position);
         _TowerYellow_images.set(this, void 0);
-        _TowerYellow_position.set(this, void 0);
-        _TowerYellow_upgradeLevel.set(this, 0);
-        _TowerYellow_upgrading.set(this, false);
-        _TowerYellow_progressBar.set(this, void 0);
-        _TowerYellow_upgradeProgress.set(this, 0);
         __classPrivateFieldSet(this, _TowerYellow_images, images, "f");
-        __classPrivateFieldSet(this, _TowerYellow_position, Object.assign({}, position), "f");
-        __classPrivateFieldSet(this, _TowerYellow_progressBar, new ProgressBar(__classPrivateFieldGet(this, _TowerYellow_position, "f"), { w: 27, h: 7 }), "f");
     }
     upgrade() {
-        var _a;
-        if (!__classPrivateFieldGet(this, _TowerYellow_upgrading, "f")) {
-            __classPrivateFieldSet(this, _TowerYellow_upgrading, true, "f");
-            __classPrivateFieldSet(this, _TowerYellow_upgradeLevel, (_a = __classPrivateFieldGet(this, _TowerYellow_upgradeLevel, "f"), _a++, _a), "f");
+        if (!this.upgrading) {
+            this.upgrading = true;
+            this.upgradeLevel++;
         }
     }
     _drawUpgradeBackground() {
         strokeWeight(1);
         stroke('black');
         fill(ConstColor.YELLOW);
-        rect(__classPrivateFieldGet(this, _TowerYellow_position, "f").x, __classPrivateFieldGet(this, _TowerYellow_position, "f").y, Const.TILE_SIZE, Const.TILE_SIZE);
+        rect(this.position.x, this.position.y, Const.TILE_SIZE, Const.TILE_SIZE);
     }
     draw() {
-        var _a;
-        if (__classPrivateFieldGet(this, _TowerYellow_upgrading, "f")) {
+        if (this.upgrading) {
             this._drawUpgradeBackground();
-            if (!__classPrivateFieldGet(this, _TowerYellow_progressBar, "f").isFullOfProgress()) {
-                __classPrivateFieldSet(this, _TowerYellow_upgradeProgress, (_a = __classPrivateFieldGet(this, _TowerYellow_upgradeProgress, "f"), _a++, _a), "f");
-                __classPrivateFieldGet(this, _TowerYellow_progressBar, "f").setProgress(__classPrivateFieldGet(this, _TowerYellow_upgradeProgress, "f"));
-                __classPrivateFieldGet(this, _TowerYellow_progressBar, "f").draw();
+            if (!this.progressBar.isFullOfProgress()) {
+                this.upgradeProgress++;
+                this.progressBar.setProgress(this.upgradeProgress);
+                this.progressBar.draw();
             }
             else {
-                __classPrivateFieldSet(this, _TowerYellow_upgrading, false, "f");
-                __classPrivateFieldSet(this, _TowerYellow_upgradeProgress, 0, "f");
-                __classPrivateFieldGet(this, _TowerYellow_progressBar, "f").setProgress(0);
+                this.upgrading = false;
+                this.upgradeProgress = 0;
+                this.progressBar.setProgress(0);
             }
         }
         else {
-            image(__classPrivateFieldGet(this, _TowerYellow_images, "f")[__classPrivateFieldGet(this, _TowerYellow_upgradeLevel, "f")], __classPrivateFieldGet(this, _TowerYellow_position, "f").x, __classPrivateFieldGet(this, _TowerYellow_position, "f").y);
+            image(__classPrivateFieldGet(this, _TowerYellow_images, "f")[this.upgradeLevel], this.position.x, this.position.y);
         }
     }
     get influenceArea() {
-        return TowerYellow.UPGRADE_INFLUENCE_AREA[__classPrivateFieldGet(this, _TowerYellow_upgradeLevel, "f")];
+        return TowerYellow.UPGRADE_INFLUENCE_AREA[this.upgradeLevel];
     }
     getCostWhenUpgradeLevelIs(selectedUpgradeLevel) {
         if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
@@ -1922,44 +2003,18 @@ class TowerYellow extends Tower {
     selectTarget(enemies) {
     }
 }
-_TowerYellow_images = new WeakMap(), _TowerYellow_position = new WeakMap(), _TowerYellow_upgradeLevel = new WeakMap(), _TowerYellow_upgrading = new WeakMap(), _TowerYellow_progressBar = new WeakMap(), _TowerYellow_upgradeProgress = new WeakMap();
+_TowerYellow_images = new WeakMap();
 TowerYellow.ID = 3;
 TowerYellow.PROFIT_SELL_UPGRADE = [680, 2460, 7440, 21920, 66900, 199880];
 TowerYellow.COST_UPGRADE = [700, 2500, 7500, 22000, 67000, 200000];
 TowerYellow.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
 TowerYellow.INFLUENCE_AREA = 290;
-class Wallet {
-    static increase(quantity) {
-        this.money += quantity;
-    }
-    static decrease(quantity) {
-        this.money -= quantity;
-    }
-    static haveMoneyToBuy(towerId, upgradeLevel) {
-        let canBuy = false;
-        switch (towerId) {
-            case TowerGreen.ID:
-                canBuy = TowerGreen.COST_UPGRADE[upgradeLevel] <= Wallet.money;
-                break;
-            case TowerRed.ID:
-                canBuy = TowerRed.COST_UPGRADE[upgradeLevel] <= Wallet.money;
-                break;
-            case TowerYellow.ID:
-                canBuy = TowerYellow.COST_UPGRADE[upgradeLevel] <= Wallet.money;
-                break;
-            default:
-                break;
-        }
-        return canBuy;
-    }
-}
 let orders;
-let createEnemyTime;
+let createEnemyTime = 0;
 let hud;
 let orangeTiles;
 let mouseTileOrangeOver;
-let wave;
-let waveEnemies;
+let waveEnemies = 0;
 let tileImages;
 let greenTowerImages;
 let redTowerImages;
@@ -1972,17 +2027,15 @@ let backgroundImage;
 let enemiesImages;
 let towerGenerator;
 let influenceArea;
-let gameStatus;
-let waveProgressBar;
-let waveProgressDelay;
-let bossProgressBar;
-let bossProgressDelay;
+let gameStatus = 0;
 let initialEnemiesPosition;
-let allowCreateEnemies;
+let allowCreateEnemies = true;
 let levelDataProvider;
 let magicFireballImage;
 let magicIceballImage;
 let magicUFOImage;
+let instantiateBoss = false;
+let instantiateEnemies = false;
 function preload() {
     greenTowerImages = Resources.greenTower();
     redTowerImages = Resources.redTower();
@@ -2009,7 +2062,6 @@ function setup() {
     createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT);
     levelDataProvider = new LevelsDataProvider(LevelsData.data);
     const levelMap = levelDataProvider.getLevel(1);
-    createEnemyTime = 0;
     towerGenerator = new TowerGenerator(greenTowerImages, redTowerImages, yellowTowerImages);
     const tileGenerator = new TileGenerator(levelMap, tileImages, towerGenerator);
     orangeTiles = tileGenerator.orangeTiles;
@@ -2019,84 +2071,15 @@ function setup() {
     const path = new Path(startTile, endTile, pathTiles);
     orders = path.makeOrders();
     initialEnemiesPosition = path.getEnemiesInitialPosition();
-    Wallet.money = tileGenerator.initialMoney;
-    Player.lives = 7;
-    wave = 1;
-    allowCreateEnemies = true;
-    waveEnemies = 0;
-    waveProgressBar = new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 });
-    bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 });
-    hud = new Hud(hudImages, hudIconImages, waveProgressBar, bossProgressBar, wave);
-    waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
-    bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
+    Player.money = tileGenerator.initialMoney;
+    hud = new Hud(hudImages, hudIconImages);
     influenceArea = new InfluenceArea();
-    gameStatus = Const.GAME_STATUS_PLAYING;
 }
 function keyPressed() {
-    switch (keyCode) {
-        case Const.KEY_1:
-            hud.selectTower(TowerGreen.ID);
-            break;
-        case Const.KEY_2:
-            hud.selectTower(TowerRed.ID);
-            break;
-        case Const.KEY_3:
-            hud.selectTower(TowerYellow.ID);
-            break;
-    }
-}
-function canUpgradeTower(tower) {
-    let canUpgrade = false;
-    if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
-        if (Wallet.haveMoneyToBuy(tower.type, tower.upgradeLevel + 1)) {
-            canUpgrade = true;
-        }
-    }
-    return canUpgrade;
-}
-function canBuyNewTower(hudSelectedTower) {
-    let canBuy = false;
-    const zeroUpgradeLevel = 0;
-    if (Wallet.haveMoneyToBuy(hudSelectedTower, zeroUpgradeLevel)) {
-        canBuy = true;
-    }
-    return canBuy;
-}
-function canBuyTower(tower) {
-    let result = false;
-    if (tower) {
-        result = canUpgradeTower(tower);
-    }
-    else {
-        result = canBuyNewTower(hud.getSelectedTower());
-    }
-    return result;
-}
-function handleSellTower() {
-    const profit = mouseTileOrangeOver.sellTower();
-    Wallet.increase(profit);
-}
-function handleBuyTower() {
-    if (canBuyTower(mouseTileOrangeOver.getTower())) {
-        const cost = mouseTileOrangeOver.buyTower(hud.getSelectedTower());
-        Wallet.decrease(cost);
-    }
+    Player.keyPressed();
 }
 function mouseClicked() {
-    if (hud.isInsideButtonsBar(mouseX, mouseY)) {
-        hud.handleButtons(mouseX, mouseY, magicIceballImage, magicFireballImage, magicUFOImage, initialEnemiesPosition, orders);
-        return;
-    }
-    if (mouseTileOrangeOver !== null) {
-        if (mouseButton === RIGHT && mouseTileOrangeOver.hasTower()) {
-            if (mouseTileOrangeOver.getTower().notUpgrading) {
-                handleSellTower();
-            }
-        }
-        if (mouseButton === LEFT) {
-            handleBuyTower();
-        }
-    }
+    Player.mouseClicked(mouseX, mouseY, magicIceballImage, magicFireballImage, magicUFOImage, initialEnemiesPosition, orders, mouseTileOrangeOver);
 }
 function handleNewEnemyCreation() {
     if (allowCreateEnemies) {
@@ -2104,7 +2087,7 @@ function handleNewEnemyCreation() {
             createEnemyTime++;
             if (createEnemyTime === Enemy.CREATION_MAX_TIME) {
                 createEnemyTime = 0;
-                Enemy.instantiateNormalEnemy(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemies)), waveEnemies, orders, initialEnemiesPosition, wave);
+                Enemy.instantiateNormalEnemy(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemies)), waveEnemies, orders, initialEnemiesPosition, Player.wave);
                 waveEnemies++;
             }
         }
@@ -2128,36 +2111,6 @@ function getMouseTileOrangeOver() {
     const result = orangeTiles.find((orangeTile) => orangeTile.isInside(mouseX, mouseY));
     return result ? result : null;
 }
-function updateWaveProgressBar() {
-    if (waveProgressDelay > 0) {
-        waveProgressDelay--;
-    }
-    else {
-        waveProgressDelay = Const.WAVE_PROGRESS_DELAY;
-        waveProgressBar.increaseProgress();
-        if (waveProgressBar.isFullOfProgress()) {
-            waveProgressBar.setProgress(0);
-            wave++;
-            hud.setWave(wave);
-            allowCreateEnemies = true;
-        }
-        hud.setWaveProgressBar(waveProgressBar);
-    }
-}
-function updateBossProgressBar() {
-    if (bossProgressDelay > 0) {
-        bossProgressDelay--;
-    }
-    else {
-        bossProgressDelay = Const.BOSS_PROGRESS_DELAY;
-        bossProgressBar.increaseProgress();
-        if (bossProgressBar.isFullOfProgress()) {
-            bossProgressBar.setProgress(0);
-            Enemy.instantiateBoss(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES)), orders, initialEnemiesPosition, wave);
-        }
-        hud.setBossProgressBar(bossProgressBar);
-    }
-}
 function updateMagics() {
     MagicFireball.updateInstances();
     MagicFireball.removeDeadInstances();
@@ -2175,8 +2128,14 @@ function draw() {
     if (gameStatus === Const.GAME_STATUS_PLAYING) {
         updateEnemies();
         updateMouseTileOrangeOver();
-        updateWaveProgressBar();
-        updateBossProgressBar();
+        instantiateEnemies = Hud.updateWaveProgressBar();
+        instantiateBoss = Hud.updateBossProgressBar();
+        if (instantiateBoss) {
+            Enemy.instantiateBoss(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES)), orders, initialEnemiesPosition, Player.wave);
+        }
+        if (instantiateEnemies) {
+            allowCreateEnemies = true;
+        }
         updateMagics();
     }
     background('skyblue');
@@ -2192,23 +2151,23 @@ function draw() {
         orangeTile.drawTower();
     });
     hud.draw();
-    const canBuySelectedTower = canBuyNewTower(hud.getSelectedTower());
-    const canBuyTowerGreen = canBuyNewTower(TowerGreen.ID);
-    const canBuyTowerRed = canBuyNewTower(TowerRed.ID);
-    const canBuyTowerYellow = canBuyNewTower(TowerYellow.ID);
+    const canBuySelectedTower = Player.canBuyNewTower(Hud.getSelectedTower());
+    const canBuyTowerGreen = Player.canBuyNewTower(TowerGreen.ID);
+    const canBuyTowerRed = Player.canBuyNewTower(TowerRed.ID);
+    const canBuyTowerYellow = Player.canBuyNewTower(TowerYellow.ID);
     if (mouseTileOrangeOver !== null) {
         if (mouseTileOrangeOver.hasTower()) {
             const tileTower = mouseTileOrangeOver.getTower();
             hud.selectTowerHudType(tileTower);
             if (!tileTower.maxUpgraded) {
-                const canUpgrade = Wallet.haveMoneyToBuy(tileTower.type, tileTower.upgradeLevel + 1);
+                const canUpgrade = Player.haveMoneyToBuy(tileTower.type, tileTower.upgradeLevel + 1);
                 hud.viewUpgradeCost(tileTower, canUpgrade);
                 influenceArea.drawTowerInfluenceArea(tileTower, canUpgrade);
             }
             hud.viewSellProfit(tileTower);
         }
         else {
-            influenceArea.drawHudTowerInfluenceArea(hud.getSelectedTower(), mouseTileOrangeOver.getPosition(), canBuySelectedTower);
+            influenceArea.drawHudTowerInfluenceArea(Hud.getSelectedTower(), mouseTileOrangeOver.getPosition(), canBuySelectedTower);
             hud.setType(Hud.NORMAL);
             hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow);
             hud.hideUpgradeCost();
