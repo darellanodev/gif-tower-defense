@@ -28,11 +28,11 @@ export class Hud {
   static bossProgressBar: ProgressBar
   static bossProgressDelay: number = Const.BOSS_PROGRESS_DELAY
   static selectedItem: number = 1
+  static mode: number = 0
 
   #hudImages: Image[]
   #hudIconImages: Image[]
 
-  #hudType: number
   #upgradeCost: number = null
   #sellProfit: number = null
   #canBuyTowerGreen: boolean = false
@@ -46,8 +46,6 @@ export class Hud {
 
     Hud.waveProgressBar = new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 })
     Hud.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 })
-
-    this.#hudType = Hud.NORMAL
   }
 
   static updateWaveProgressBar() {
@@ -156,10 +154,6 @@ export class Hud {
     return Hud.selectedItem
   }
 
-  setType(hudType: number) {
-    this.#hudType = hudType
-  }
-
   setCanBuy(
     canBuyTowerGreen: boolean,
     canBuyTowerRed: boolean,
@@ -171,7 +165,7 @@ export class Hud {
   }
 
   draw() {
-    switch (this.#hudType) {
+    switch (Hud.mode) {
       case Hud.NORMAL:
         image(this.#hudImages[Hud.NORMAL], 0, 0)
         this._drawTowerIcons()
@@ -204,7 +198,7 @@ export class Hud {
     this.#drawMagicFireball()
     this.#drawMagicIceball()
 
-    if (this.#hudType === Hud.NORMAL) {
+    if (Hud.mode === Hud.NORMAL) {
       this._drawNewTowerPrices()
     }
   }
@@ -330,17 +324,17 @@ export class Hud {
     }
   }
 
-  selectTowerHudType(tower: TowerType) {
+  static selectHudMode(tower: TowerType) {
     if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
-      this.setType(Hud.UPGRADING)
+      Hud.mode = Hud.UPGRADING
     } else {
-      this.setType(Hud.UPGRADING_MAX)
+      Hud.mode = Hud.UPGRADING_MAX
     }
   }
 
   viewUpgradeCost(tower: TowerType, canUpgrade: boolean) {
     this.#upgradeCost = null
-    if (this.#hudType === Hud.UPGRADING) {
+    if (Hud.mode === Hud.UPGRADING) {
       this.#upgradeCost = tower.nextLevelUpgradeCost
     }
     this.#canUpgrade = canUpgrade
@@ -348,7 +342,7 @@ export class Hud {
 
   viewSellProfit(tower: TowerType) {
     this.#sellProfit = null
-    if (this.#hudType === Hud.UPGRADING) {
+    if (Hud.mode === Hud.UPGRADING) {
       this.#sellProfit = tower.sellProfit
     }
   }

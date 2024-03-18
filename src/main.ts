@@ -244,7 +244,7 @@ function draw() {
     if (mouseTileOrangeOver.hasTower()) {
       const tileTower = mouseTileOrangeOver.getTower()
 
-      hud.selectTowerHudType(tileTower)
+      Hud.selectHudMode(tileTower)
       if (!tileTower.maxUpgraded) {
         const canUpgrade = Player.haveMoneyToBuy(
           tileTower.type,
@@ -262,13 +262,13 @@ function draw() {
         canBuySelectedTower,
       )
 
-      hud.setType(Hud.NORMAL)
+      Hud.mode = Hud.NORMAL
       hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)
       hud.hideUpgradeCost()
       hud.hideSellProfit()
     }
   } else {
-    hud.setType(Hud.NORMAL)
+    Hud.mode = Hud.NORMAL
     hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)
     hud.hideUpgradeCost()
     hud.hideSellProfit()
