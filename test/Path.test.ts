@@ -5,7 +5,6 @@ import { TilePath } from '../src/TilePath'
 import { TileStart } from '../src/TileStart'
 import { TileEnd } from '../src/TileEnd'
 import { TileGenerator } from '../src/TileGenerator'
-import { TowerGenerator } from '../src/TowerGenerator'
 import { LevelsData } from '../src/LevelsData'
 import { LevelsDataProvider } from '../src/LevelsDataProvider'
 import { Position } from '../src/types'
@@ -17,17 +16,8 @@ const levelMap = levelsDataProvider.getLevel(
 )
 
 const mapimages: any[] = [null, null, null]
-const greenTowerImages: any[] = [null, null, null]
-const redTowerImages: any[] = [null, null, null]
-const yellowTowerImages: any[] = [null, null, null]
 
-const towerGenerator = new TowerGenerator(
-  greenTowerImages,
-  redTowerImages,
-  yellowTowerImages,
-)
-
-const tileGenerator = new TileGenerator(levelMap, mapimages, towerGenerator)
+const tileGenerator = new TileGenerator(levelMap, mapimages)
 const pathTiles = tileGenerator.pathTiles
 const startTile = tileGenerator.startTile
 const endTile = tileGenerator.endTile
@@ -265,7 +255,7 @@ describe('makeOrders when map is invalid', () => {
       ConstTest.ID_LEVEL_INVALID_FOR_UNIT_TESTING,
     )
     const mapimages: any[] = [null, null, null]
-    const tileGenerator = new TileGenerator(levelMap, mapimages, towerGenerator)
+    const tileGenerator = new TileGenerator(levelMap, mapimages)
     const pathTiles = tileGenerator.pathTiles
     const startTile = tileGenerator.startTile
     const endTile = tileGenerator.endTile

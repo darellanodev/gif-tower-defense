@@ -6,38 +6,38 @@ import { Image } from 'p5'
 import { Const } from './Const'
 
 export class TowerGenerator {
-  #greenTowerImages: Image[]
-  #redTowerImages: Image[]
-  #yellowTowerImages: Image[]
+  static greenTowerImages: Image[]
+  static redTowerImages: Image[]
+  static yellowTowerImages: Image[]
 
-  constructor(
+  static initialize(
     greenTowerImages: Image[],
     redTowerImages: Image[],
     yellowTowerImages: Image[],
   ) {
-    this.#greenTowerImages = greenTowerImages
-    this.#redTowerImages = redTowerImages
-    this.#yellowTowerImages = yellowTowerImages
+    TowerGenerator.greenTowerImages = greenTowerImages
+    TowerGenerator.redTowerImages = redTowerImages
+    TowerGenerator.yellowTowerImages = yellowTowerImages
   }
 
-  newTower(towerId: number, position: Position) {
+  static newTower(towerId: number, position: Position) {
     let tower = null
 
     switch (towerId) {
       case TowerGreen.ID:
-        tower = new TowerGreen(this.#greenTowerImages, {
+        tower = new TowerGreen(TowerGenerator.greenTowerImages, {
           x: position.x - Const.TOWER_OFFSET,
           y: position.y - Const.TOWER_OFFSET,
         })
         break
       case TowerRed.ID:
-        tower = new TowerRed(this.#redTowerImages, {
+        tower = new TowerRed(TowerGenerator.redTowerImages, {
           x: position.x - Const.TOWER_OFFSET,
           y: position.y - Const.TOWER_OFFSET,
         })
         break
       case TowerYellow.ID:
-        tower = new TowerYellow(this.#yellowTowerImages, {
+        tower = new TowerYellow(TowerGenerator.yellowTowerImages, {
           x: position.x,
           y: position.y,
         })

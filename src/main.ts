@@ -86,13 +86,9 @@ function setup() {
 
   const levelMap = levelDataProvider.getLevel(1)
 
-  towerGenerator = new TowerGenerator(
-    greenTowerImages,
-    redTowerImages,
-    yellowTowerImages,
-  )
+  TowerGenerator.initialize(greenTowerImages, redTowerImages, yellowTowerImages)
 
-  const tileGenerator = new TileGenerator(levelMap, tileImages, towerGenerator)
+  const tileGenerator = new TileGenerator(levelMap, tileImages)
   orangeTiles = tileGenerator.orangeTiles
   startTile = tileGenerator.startTile
 

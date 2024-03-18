@@ -3,7 +3,6 @@ import { TileStart } from './TileStart'
 import { TileEnd } from './TileEnd'
 import { TileOrange } from './TileOrange'
 import { TilePath } from './TilePath'
-import { TowerGenerator } from './TowerGenerator'
 import { Image } from 'p5'
 import { ConstDirection } from './ConstDirection'
 
@@ -13,7 +12,6 @@ export class TileGenerator {
 
   #levelMap: MapDataType
   #mapImages: Image[]
-  #towerGenerator: TowerGenerator
 
   #orangeImage: Image
   #blackImage: Image
@@ -21,14 +19,9 @@ export class TileGenerator {
   #endImage: Image
   #startDirection: number
 
-  constructor(
-    levelMap: MapDataType,
-    mapImages: Image[],
-    towerGenerator: TowerGenerator,
-  ) {
+  constructor(levelMap: MapDataType, mapImages: Image[]) {
     this.#levelMap = levelMap
     this.#mapImages = mapImages
-    this.#towerGenerator = towerGenerator
 
     if (this.#levelMap.rowsMap.length === 0) {
       throw new Error('No rows map found')
@@ -102,11 +95,7 @@ export class TileGenerator {
           switch (symbol) {
             case '0':
               resultTiles.push(
-                new TileOrange(
-                  this.#orangeImage,
-                  { x: posX, y: posY },
-                  this.#towerGenerator,
-                ),
+                new TileOrange(this.#orangeImage, { x: posX, y: posY }),
               )
               break
             case '1':

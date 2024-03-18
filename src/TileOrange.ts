@@ -7,14 +7,11 @@ import { Tile } from './Tile'
 
 export class TileOrange extends Tile {
   #img: Image
-  #towerGenerator: TowerGenerator
-
   #tower: TowerType = null
 
-  constructor(img: Image, position: Position, towerGenerator: TowerGenerator) {
+  constructor(img: Image, position: Position) {
     super(position)
     this.#img = img
-    this.#towerGenerator = towerGenerator
   }
 
   sellTower() {
@@ -29,7 +26,7 @@ export class TileOrange extends Tile {
 
   buyTower(towerId: number) {
     if (this.#tower === null) {
-      this.#tower = this.#towerGenerator.newTower(towerId, this.position)
+      this.#tower = TowerGenerator.newTower(towerId, this.position)
     } else {
       this.#tower.upgrade()
     }
