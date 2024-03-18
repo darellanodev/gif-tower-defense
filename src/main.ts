@@ -155,10 +155,6 @@ function updateEnemies() {
   gameStatus = Enemy.handleWinners()
 }
 
-function updateMouseTileOrangeOver() {
-  mouseTileOrangeOver = getMouseTileOrangeOver()
-}
-
 function getMouseTileOrangeOver() {
   const result = orangeTiles.find((orangeTile) =>
     orangeTile.isInside(mouseX, mouseY),
@@ -187,7 +183,7 @@ function drawMagics() {
 function draw() {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
     updateEnemies()
-    updateMouseTileOrangeOver()
+    mouseTileOrangeOver = getMouseTileOrangeOver()
     instantiateEnemies = Hud.updateWaveProgressBar()
     instantiateBoss = Hud.updateBossProgressBar()
 
