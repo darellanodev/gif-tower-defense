@@ -29,20 +29,19 @@ export class Hud {
   static bossProgressDelay: number = Const.BOSS_PROGRESS_DELAY
   static selectedItem: number = 1
   static mode: number = 0
+  static canBuyTowerGreen: boolean = false
+  static canBuyTowerRed: boolean = false
+  static canBuyTowerYellow: boolean = false
 
-  #hudImages: Image[]
-  #hudIconImages: Image[]
+  static hudImages: Image[]
+  static hudIconImages: Image[]
+  static upgradeCost: number = null
+  static sellProfit: number = null
+  static canUpgrade: boolean
 
-  #upgradeCost: number = null
-  #sellProfit: number = null
-  #canBuyTowerGreen: boolean = false
-  #canBuyTowerRed: boolean = false
-  #canBuyTowerYellow: boolean = false
-  #canUpgrade: boolean
-
-  constructor(hudImages: Image[], hudIconImages: Image[]) {
-    this.#hudImages = hudImages
-    this.#hudIconImages = hudIconImages
+  static initialize(hudImages: Image[], hudIconImages: Image[]) {
+    Hud.hudImages = hudImages
+    Hud.hudIconImages = hudIconImages
 
     Hud.waveProgressBar = new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 })
     Hud.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 })
@@ -154,30 +153,30 @@ export class Hud {
     return Hud.selectedItem
   }
 
-  setCanBuy(
+  static setCanBuy(
     canBuyTowerGreen: boolean,
     canBuyTowerRed: boolean,
     canBuyTowerYellow: boolean,
   ) {
-    this.#canBuyTowerGreen = canBuyTowerGreen
-    this.#canBuyTowerRed = canBuyTowerRed
-    this.#canBuyTowerYellow = canBuyTowerYellow
+    Hud.canBuyTowerGreen = canBuyTowerGreen
+    Hud.canBuyTowerRed = canBuyTowerRed
+    Hud.canBuyTowerYellow = canBuyTowerYellow
   }
 
-  draw() {
+  static draw() {
     switch (Hud.mode) {
       case Hud.NORMAL:
-        image(this.#hudImages[Hud.NORMAL], 0, 0)
-        this._drawTowerIcons()
-        Hud.drawSelectedItem()
+        image(Hud.hudImages[Hud.NORMAL], 0, 0)
+        Hud._drawTowerIcons()
+        Hud._drawSelectedItem()
         break
 
       case Hud.UPGRADING:
-        image(this.#hudImages[Hud.UPGRADING], 0, 0)
+        image(Hud.hudImages[Hud.UPGRADING], 0, 0)
         break
 
       case Hud.UPGRADING_MAX:
-        image(this.#hudImages[Hud.UPGRADING_MAX], 0, 0)
+        image(Hud.hudImages[Hud.UPGRADING_MAX], 0, 0)
         break
     }
 
@@ -187,110 +186,109 @@ export class Hud {
     // draw texts
     TextProperties.setForHudData()
 
-    this.#drawMoney()
-    this.#drawLives()
-    this.#drawScore()
-    this.#drawLevelTitle()
-    this.#drawWave()
-    this.#drawUpgradeCost()
-    this.#drawSellProfit()
-    this.#drawMagicUFO()
-    this.#drawMagicFireball()
-    this.#drawMagicIceball()
+    Hud._drawMoney()
+    Hud._drawLives()
+    Hud._drawScore()
+    Hud._drawLevelTitle()
+    Hud._drawWave()
+    Hud._drawUpgradeCost()
+    Hud._drawSellProfit()
+    Hud._drawMagicUFO()
+    Hud._drawMagicFireball()
+    Hud._drawMagicIceball()
 
     if (Hud.mode === Hud.NORMAL) {
-      this._drawNewTowerPrices()
+      Hud._drawNewTowerPrices()
     }
   }
 
-  // can't be private with # because it needs to access their public static properties
-  _drawTowerIcons() {
+  static _drawTowerIcons() {
     let greenIconImgPos = Hud.ICON_GREEN_TOWER_OFF
     let redIconImgPos = Hud.ICON_RED_TOWER_OFF
     let yellowIconImgPos = Hud.ICON_YELLOW_TOWER_OFF
 
-    if (this.#canBuyTowerGreen) {
+    if (Hud.canBuyTowerGreen) {
       greenIconImgPos = Hud.ICON_GREEN_TOWER_ON
     }
-    if (this.#canBuyTowerRed) {
+    if (Hud.canBuyTowerRed) {
       redIconImgPos = Hud.ICON_RED_TOWER_ON
     }
-    if (this.#canBuyTowerYellow) {
+    if (Hud.canBuyTowerYellow) {
       yellowIconImgPos = Hud.ICON_YELLOW_TOWER_ON
     }
 
-    image(this.#hudIconImages[greenIconImgPos], 60, 38)
-    image(this.#hudIconImages[redIconImgPos], 142, 38)
-    image(this.#hudIconImages[yellowIconImgPos], 226, 38)
+    image(Hud.hudIconImages[greenIconImgPos], 60, 38)
+    image(Hud.hudIconImages[redIconImgPos], 142, 38)
+    image(Hud.hudIconImages[yellowIconImgPos], 226, 38)
   }
 
-  #drawMoney() {
+  static _drawMoney() {
     text(Player.money, 445, 48)
   }
 
-  #drawUpgradeCost() {
-    if (this.#upgradeCost !== null) {
-      if (!this.#canUpgrade) {
+  static _drawUpgradeCost() {
+    if (Hud.upgradeCost !== null) {
+      if (!Hud.canUpgrade) {
         fill('gray')
       }
-      text(this.#upgradeCost, 33, 72)
+      text(Hud.upgradeCost, 33, 72)
       // restore color
       fill('white')
     }
   }
 
-  #drawMagicUFO() {
+  static _drawMagicUFO() {
     text(MagicUFO.total, 592, 74)
   }
 
-  #drawMagicFireball() {
+  static _drawMagicFireball() {
     text(MagicFireball.total, 680, 74)
   }
 
-  #drawMagicIceball() {
+  static _drawMagicIceball() {
     text(MagicIceball.total, 769, 74)
   }
 
-  #drawSellProfit() {
-    if (this.#sellProfit !== null) {
-      text(this.#sellProfit, 182, 72)
+  static _drawSellProfit() {
+    if (Hud.sellProfit !== null) {
+      text(Hud.sellProfit, 182, 72)
     }
   }
 
-  #drawLives() {
+  static _drawLives() {
     text(Player.lives, 390, 48)
   }
 
-  #drawScore() {
+  static _drawScore() {
     text(Player.getPrintScore(), 404, 73)
   }
 
-  #drawLevelTitle() {
+  static _drawLevelTitle() {
     text('Serpent by Ocliboy', 130, 18)
   }
 
-  #drawWave() {
+  static _drawWave() {
     text(`wave ${Player.wave}`, 403, 13)
   }
 
-  _drawTowerGreenPrice() {
-    if (!this.#canBuyTowerGreen) {
+  static _drawTowerGreenPrice() {
+    if (!Hud.canBuyTowerGreen) {
       fill('gray')
     }
     text(TowerGreen.COST_UPGRADE[0], 40, 72)
     // restore
     fill('white')
   }
-  _drawTowerRedPrice() {
-    if (!this.#canBuyTowerRed) {
+  static _drawTowerRedPrice() {
+    if (!Hud.canBuyTowerRed) {
       fill('gray')
     }
     text(TowerRed.COST_UPGRADE[0], 118, 72)
     // restore
     fill('white')
   }
-  _drawTowerYellowPrice() {
-    if (!this.#canBuyTowerYellow) {
+  static _drawTowerYellowPrice() {
+    if (!Hud.canBuyTowerYellow) {
       fill('gray')
     }
     text(TowerYellow.COST_UPGRADE[0], 202, 72)
@@ -298,13 +296,13 @@ export class Hud {
     fill('white')
   }
 
-  _drawNewTowerPrices() {
+  static _drawNewTowerPrices() {
     this._drawTowerGreenPrice()
     this._drawTowerRedPrice()
     this._drawTowerYellowPrice()
   }
 
-  static drawSelectedItem() {
+  static _drawSelectedItem() {
     strokeWeight(3)
     stroke(255, 204, 0)
     noFill()
@@ -332,27 +330,27 @@ export class Hud {
     }
   }
 
-  viewUpgradeCost(tower: TowerType, canUpgrade: boolean) {
-    this.#upgradeCost = null
+  static viewUpgradeCost(tower: TowerType, canUpgrade: boolean) {
+    Hud.upgradeCost = null
     if (Hud.mode === Hud.UPGRADING) {
-      this.#upgradeCost = tower.nextLevelUpgradeCost
+      Hud.upgradeCost = tower.nextLevelUpgradeCost
     }
-    this.#canUpgrade = canUpgrade
+    Hud.canUpgrade = canUpgrade
   }
 
-  viewSellProfit(tower: TowerType) {
-    this.#sellProfit = null
+  static viewSellProfit(tower: TowerType) {
+    Hud.sellProfit = null
     if (Hud.mode === Hud.UPGRADING) {
-      this.#sellProfit = tower.sellProfit
+      Hud.sellProfit = tower.sellProfit
     }
   }
 
-  hideUpgradeCost() {
-    this.#upgradeCost = null
+  static hideUpgradeCost() {
+    Hud.upgradeCost = null
   }
 
-  hideSellProfit() {
-    this.#sellProfit = null
+  static hideSellProfit() {
+    Hud.sellProfit = null
   }
 
   static handleTowerButtons(mouseX: number, mouseY: number) {

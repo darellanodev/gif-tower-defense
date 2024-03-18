@@ -29,7 +29,6 @@ import { Player } from './Player'
 
 let orders: number[]
 let createEnemyTime: number = 0
-let hud: Hud
 let orangeTiles: TileOrange[]
 let mouseTileOrangeOver: TileOrange
 let waveEnemies: number = 0
@@ -106,7 +105,7 @@ function setup() {
 
   Player.money = tileGenerator.initialMoney
 
-  hud = new Hud(hudImages, hudIconImages)
+  Hud.initialize(hudImages, hudIconImages)
 
   influenceArea = new InfluenceArea()
 }
@@ -233,7 +232,7 @@ function draw() {
     orangeTile.drawTower()
   })
 
-  hud.draw()
+  Hud.draw()
 
   const canBuySelectedTower = Player.canBuyNewTower(Hud.getSelectedTower())
   const canBuyTowerGreen = Player.canBuyNewTower(TowerGreen.ID)
@@ -250,11 +249,11 @@ function draw() {
           tileTower.type,
           tileTower.upgradeLevel + 1,
         )
-        hud.viewUpgradeCost(tileTower, canUpgrade)
+        Hud.viewUpgradeCost(tileTower, canUpgrade)
         influenceArea.drawTowerInfluenceArea(tileTower, canUpgrade)
       }
 
-      hud.viewSellProfit(tileTower)
+      Hud.viewSellProfit(tileTower)
     } else {
       influenceArea.drawHudTowerInfluenceArea(
         Hud.getSelectedTower(),
@@ -263,15 +262,15 @@ function draw() {
       )
 
       Hud.mode = Hud.NORMAL
-      hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)
-      hud.hideUpgradeCost()
-      hud.hideSellProfit()
+      Hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)
+      Hud.hideUpgradeCost()
+      Hud.hideSellProfit()
     }
   } else {
     Hud.mode = Hud.NORMAL
-    hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)
-    hud.hideUpgradeCost()
-    hud.hideSellProfit()
+    Hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)
+    Hud.hideUpgradeCost()
+    Hud.hideSellProfit()
   }
 
   Enemy.instances.forEach((enemy) => {
