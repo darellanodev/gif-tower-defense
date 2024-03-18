@@ -361,15 +361,7 @@ export class Hud {
     this.#sellProfit = null
   }
 
-  static handleButtons(
-    mouseX: number,
-    mouseY: number,
-    magicIceballImage: Image,
-    magicFireballImage: Image,
-    magicUFOImage: Image,
-    initialEnemiesPosition: Position,
-    orders: number[],
-  ) {
+  static handleTowerButtons(mouseX: number, mouseY: number) {
     if (Hud.isInsideTowerGreenButton(mouseX, mouseY)) {
       Hud.selectTower(TowerGreen.ID)
     }
@@ -379,6 +371,17 @@ export class Hud {
     if (Hud.isInsideTowerYellowButton(mouseX, mouseY)) {
       Hud.selectTower(TowerYellow.ID)
     }
+  }
+
+  static handleMagicButtons(
+    mouseX: number,
+    mouseY: number,
+    magicIceballImage: Image,
+    magicFireballImage: Image,
+    magicUFOImage: Image,
+    initialEnemiesPosition: Position,
+    orders: number[],
+  ) {
     if (Hud.isInsideMagicFireball(mouseX, mouseY)) {
       MagicFireball.instantiate(
         magicFireballImage,

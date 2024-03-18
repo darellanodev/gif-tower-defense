@@ -105,15 +105,20 @@ export class Player {
     mouseTileOrangeOver: TileOrange,
   ) {
     if (Hud.isInsideButtonsBar(mouseX, mouseY)) {
-      Hud.handleButtons(
-        mouseX,
-        mouseY,
-        magicIceballImage,
-        magicFireballImage,
-        magicUFOImage,
-        initialEnemiesPosition,
-        orders,
-      )
+      if (Hud.isInsideTowersButtonsBar(mouseX, mouseY)) {
+        Hud.handleTowerButtons(mouseX, mouseY)
+      }
+      if (Hud.isInsideMagicsButtonsBar(mouseX, mouseY)) {
+        Hud.handleMagicButtons(
+          mouseX,
+          mouseY,
+          magicIceballImage,
+          magicFireballImage,
+          magicUFOImage,
+          initialEnemiesPosition,
+          orders,
+        )
+      }
       return
     }
 
