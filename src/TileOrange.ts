@@ -1,9 +1,11 @@
 import { TowerType, Position } from './types'
-import { TowerGenerator } from './TowerGenerator'
 import { Image } from 'p5'
 import { Enemy } from './Enemy'
 import { Const } from './Const'
 import { Tile } from './Tile'
+import { TowerGreen } from './TowerGreen'
+import { TowerRed } from './TowerRed'
+import { TowerYellow } from './TowerYellow'
 
 export class TileOrange extends Tile {
   #img: Image
@@ -26,7 +28,17 @@ export class TileOrange extends Tile {
 
   buyTower(towerId: number) {
     if (this.#tower === null) {
-      this.#tower = TowerGenerator.newTower(towerId, this.position)
+      switch (towerId) {
+        case TowerGreen.ID:
+          this.#tower = TowerGreen.instantiate(this.position)
+          break
+        case TowerRed.ID:
+          this.#tower = TowerRed.instantiate(this.position)
+          break
+        case TowerYellow.ID:
+          this.#tower = TowerYellow.instantiate(this.position)
+          break
+      }
     } else {
       this.#tower.upgrade()
     }

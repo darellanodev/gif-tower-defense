@@ -12,11 +12,17 @@ export class TowerRed extends Tower {
   static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
   static INFLUENCE_AREA = 240
 
-  #images: Image[]
+  static images: Image[]
 
-  constructor(images: Image[], position: Position) {
-    super(position)
-    this.#images = images
+  static initialize(images: Image[]) {
+    TowerRed.images = images
+  }
+
+  static instantiate(position: Position) {
+    return new TowerRed({
+      x: position.x - Const.TOWER_OFFSET,
+      y: position.y - Const.TOWER_OFFSET,
+    })
   }
 
   upgrade() {
@@ -51,7 +57,11 @@ export class TowerRed extends Tower {
         this.progressBar.setProgress(0)
       }
     } else {
-      image(this.#images[this.upgradeLevel], this.position.x, this.position.y)
+      image(
+        TowerRed.images[this.upgradeLevel],
+        this.position.x,
+        this.position.y,
+      )
     }
   }
 

@@ -14,13 +14,19 @@ export class TowerGreen extends Tower {
   static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
   static INFLUENCE_AREA = 150
 
-  #images: Image[]
+  static images: Image[]
   #enemyTarget: Enemy = null
   #distanceToEnemyTarget: number = 0
 
-  constructor(images: Image[], position: Position) {
-    super(position)
-    this.#images = images
+  static initialize(images: Image[]) {
+    TowerGreen.images = images
+  }
+
+  static instantiate(position: Position) {
+    return new TowerGreen({
+      x: position.x - Const.TOWER_OFFSET,
+      y: position.y - Const.TOWER_OFFSET,
+    })
   }
 
   upgrade() {
@@ -96,12 +102,16 @@ export class TowerGreen extends Tower {
         this.#enemyTarget.addDamage(
           TowerGreen.DAMAGE_UPGRADE[this.upgradeLevel],
         )
-        image(this.#images[this.upgradeLevel], 0, 0)
+        image(TowerGreen.images[this.upgradeLevel], 0, 0)
 
         resetMatrix()
         imageMode(CORNER)
       } else {
-        image(this.#images[this.upgradeLevel], this.position.x, this.position.y)
+        image(
+          TowerGreen.images[this.upgradeLevel],
+          this.position.x,
+          this.position.y,
+        )
       }
     }
   }

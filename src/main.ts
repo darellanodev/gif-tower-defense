@@ -4,7 +4,6 @@ import { Path } from './Path'
 import { TileStart } from './TileStart'
 import { TileEnd } from './TileEnd'
 import { TileGenerator } from './TileGenerator'
-import { TowerGenerator } from './TowerGenerator'
 import { TileOrange } from './TileOrange'
 import { TowerGreen } from './TowerGreen'
 import { TowerRed } from './TowerRed'
@@ -42,7 +41,6 @@ let hudImages: Image[]
 let hudIconImages: Image[]
 let backgroundImage: Image
 let enemiesImages: Image[]
-let towerGenerator: TowerGenerator
 let influenceArea: InfluenceArea
 let gameStatus: number = 0
 let initialEnemiesPosition: Position
@@ -86,7 +84,9 @@ function setup() {
 
   const levelMap = levelDataProvider.getLevel(1)
 
-  TowerGenerator.initialize(greenTowerImages, redTowerImages, yellowTowerImages)
+  TowerGreen.initialize(greenTowerImages)
+  TowerRed.initialize(redTowerImages)
+  TowerYellow.initialize(yellowTowerImages)
 
   const tileGenerator = new TileGenerator(levelMap, tileImages)
   orangeTiles = tileGenerator.orangeTiles
