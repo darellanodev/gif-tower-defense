@@ -52,6 +52,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Level editor
 
 - [ ] Bug: when Game Over towers continue increasing damage bar of enemies.
+- [ ] Bug: when an Enemy is freezed and is near to move, if it collides with other magic ice ball the timer dont increment. Idea: make a balloon indicating the time in seconds over the enemy indicating the freezed time.
 
 - [ ] Improve code
   - [x] create parent Magic class
@@ -65,6 +66,8 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
   - [x] Use static property for store createdEnemies and then use it to generate ID with a getter when creating a new enemy.
   - [x] Remove unnecesary code (search for use of this.XXXXClass and call directly classes)
   - [x] Refactor to use Position interface in other parts of the code (for example, explosions)
+  - [x] Hud: Create tests for methods like isInsideTowersButtonsBar, isInsideMagicsButtonsBar
+  - [x] Hud: Reconvert Hud to be an static class with static methods because there is only one instance
   - [ ] Move from main.ts related code into their classes.
   - [ ] Class methods (static methods) to instantiate objects
   - [ ] Setters
