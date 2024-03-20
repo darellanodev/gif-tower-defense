@@ -26,7 +26,6 @@ import { MagicIceball } from './MagicIceball'
 import { MagicUFO } from './MagicUFO'
 import { Player } from './Player'
 
-let orders: number[]
 let createEnemyTime: number = 0
 let mouseTileOrangeOver: TileOrange
 let waveEnemies: number = 0
@@ -95,7 +94,7 @@ function setup() {
   const pathTiles = tileGenerator.pathTiles
 
   const path = new Path(startTile, endTile, pathTiles)
-  orders = path.makeOrders()
+  Path.orders = path.makeOrders()
   initialEnemiesPosition = path.getEnemiesInitialPosition()
 
   Player.money = tileGenerator.initialMoney
@@ -117,7 +116,7 @@ function mouseClicked() {
     magicFireballImage,
     magicUFOImage,
     initialEnemiesPosition,
-    orders,
+    Path.orders,
     mouseTileOrangeOver,
   )
 }
@@ -132,7 +131,7 @@ function handleNewEnemyCreation() {
         Enemy.instantiateNormalEnemy(
           enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemies)),
           waveEnemies,
-          orders,
+          Path.orders,
           initialEnemiesPosition,
           Player.wave,
         )
@@ -193,7 +192,7 @@ function draw() {
             Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES,
           ),
         ),
-        orders,
+        Path.orders,
         initialEnemiesPosition,
         Player.wave,
       )
