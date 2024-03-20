@@ -7,6 +7,8 @@ import { ConstDirection } from './ConstDirection'
 export class Path {
   static MAX_SEARCHES = 5000 // For testing purposes put a low value. For production put this value at 5000
   static orders: number[] = []
+  static startTile: TileStart
+  static endTile: TileEnd
 
   #startTile: TileStart
   #endTile: TileEnd

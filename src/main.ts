@@ -1,8 +1,6 @@
 import { Position } from './types'
 import { Const } from './Const'
 import { Path } from './Path'
-import { TileStart } from './TileStart'
-import { TileEnd } from './TileEnd'
 import { TileGenerator } from './TileGenerator'
 import { TileOrange } from './TileOrange'
 import { TowerGreen } from './TowerGreen'
@@ -33,8 +31,6 @@ let tileImages: Image[]
 let greenTowerImages: Image[]
 let redTowerImages: Image[]
 let yellowTowerImages: Image[]
-let startTile: TileStart
-let endTile: TileEnd
 let hudImages: Image[]
 let hudIconImages: Image[]
 let backgroundImage: Image
@@ -88,12 +84,12 @@ function setup() {
 
   const tileGenerator = new TileGenerator(levelMap, tileImages)
   TileOrange.instances = tileGenerator.orangeTiles
-  startTile = tileGenerator.startTile
+  Path.startTile = tileGenerator.startTile
 
-  endTile = tileGenerator.endTile
+  Path.endTile = tileGenerator.endTile
   const pathTiles = tileGenerator.pathTiles
 
-  const path = new Path(startTile, endTile, pathTiles)
+  const path = new Path(Path.startTile, Path.endTile, pathTiles)
   Path.orders = path.makeOrders()
   initialEnemiesPosition = path.getEnemiesInitialPosition()
 
@@ -210,8 +206,8 @@ function draw() {
 
   image(backgroundImage, 0, Hud.HEIGHT)
 
-  startTile.draw()
-  endTile.draw()
+  Path.startTile.draw()
+  Path.endTile.draw()
 
   TileOrange.instances.forEach((orangeTile) => {
     orangeTile.selectTarget(Enemy.instances)
