@@ -4,16 +4,22 @@ import { Enemy } from './Enemy'
 import { ConstColor } from './ConstColor'
 import { Const } from './Const'
 import { Tower } from './Tower'
+import { MathUtils } from './MathUtils'
+import { Missile } from './Missile'
 
 export class TowerRed extends Tower {
   static ID = 2
   static PROFIT_SELL_UPGRADE = [80, 110, 190, 420, 1200, 2880]
+  static DAMAGE_UPGRADE = [2, 4, 8, 16, 32, 64]
   static COST_UPGRADE = [100, 150, 250, 500, 1300, 3000]
   static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
   static INFLUENCE_AREA = 240
-
+  static MAXTIME_TO_RECHARGE = 50
   static images: Image[]
 
+  #enemyTarget: Enemy = null
+  #distanceToEnemyTarget: number = 0
+  #timeToRecharge = 0
   static setImages(images: Image[]) {
     TowerRed.images = images
   }
@@ -57,11 +63,46 @@ export class TowerRed extends Tower {
         this.progressBar.setProgress(0)
       }
     } else {
-      image(
-        TowerRed.images[this.upgradeLevel],
-        this.position.x,
-        this.position.y,
-      )
+      if (this.#enemyTarget) {
+        let r_dx = this.#enemyTarget.position.x - this.position.x
+        let r_dy = this.#enemyTarget.position.y - this.position.y
+        let angle = Math.atan2(r_dy, r_dx) + 1.55
+
+        let cos_a = cos(angle)
+        let sin_a = sin(angle)
+
+        imageMode(CENTER)
+        applyMatrix(
+          cos_a,
+          sin_a,
+          -sin_a,
+          cos_a,
+          this.position.x + 30,
+          this.position.y + 30,
+        )
+
+        if (Missile.instances.length < 50) {
+          if (this.#timeToRecharge < TowerRed.MAXTIME_TO_RECHARGE) {
+            this.#timeToRecharge++
+          } else {
+            this.#timeToRecharge = 0
+            Missile.instances.push(
+              new Missile(this.position, this.#enemyTarget),
+            )
+          }
+        }
+
+        image(TowerRed.images[this.upgradeLevel], 0, 0)
+
+        resetMatrix()
+        imageMode(CORNER)
+      } else {
+        image(
+          TowerRed.images[this.upgradeLevel],
+          this.position.x,
+          this.position.y,
+        )
+      }
     }
   }
 
@@ -84,7 +125,34 @@ export class TowerRed extends Tower {
     return TowerRed.ID
   }
 
+  _isDistanceIntoInfluenceArea(distance: number) {
+    return distance <= TowerRed.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65
+  }
+
   selectTarget(enemies: Enemy[]) {
-    //TODO
+    let minDistance = 99999
+    let enemyTarget = null
+
+    enemies.forEach((enemy) => {
+      const distance = MathUtils.distance(
+        { x: this.position.x, y: this.position.y },
+        {
+          x: enemy.position.x,
+          y: enemy.position.y,
+        },
+      )
+      if (distance < minDistance) {
+        minDistance = distance
+        enemyTarget = enemy
+      }
+    })
+
+    if (this._isDistanceIntoInfluenceArea(minDistance)) {
+      this.#enemyTarget = enemyTarget
+      this.#distanceToEnemyTarget = minDistance
+    } else {
+      this.#enemyTarget = null
+      this.#distanceToEnemyTarget = 0
+    }
   }
 }

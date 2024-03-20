@@ -21,6 +21,7 @@ import { MagicIceball } from './MagicIceball'
 import { MagicUFO } from './MagicUFO'
 import { Player } from './Player'
 import { Images } from './Images'
+import { Missile } from './Missile'
 
 let createEnemyTime: number = 0
 let waveEnemies: number = 0
@@ -178,6 +179,7 @@ function draw() {
     }
 
     updateMagics()
+    Missile.updateInstances()
   }
 
   background('skyblue')
@@ -256,6 +258,8 @@ function draw() {
     TextProperties.setForBigCenteredTitle()
     text('Game over', width / 2, height / 2)
   }
+
+  Missile.drawInstances()
 
   Debug.showMouseCoordinates({ x: mouseX, y: mouseY })
 }
