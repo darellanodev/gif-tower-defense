@@ -18,7 +18,7 @@ export class TowerGreen extends Tower {
   #enemyTarget: Enemy = null
   #distanceToEnemyTarget: number = 0
 
-  static initialize(images: Image[]) {
+  static setImages(images: Image[]) {
     TowerGreen.images = images
   }
 

@@ -39,11 +39,16 @@ export class Hud {
   static sellProfit: number = null
   static canUpgrade: boolean
 
-  static initialize(hudImages: Image[], hudIconImages: Image[]) {
+  static setImages(hudImages: Image[], hudIconImages: Image[]) {
     Hud.hudImages = hudImages
     Hud.hudIconImages = hudIconImages
+  }
 
+  static initializeWaveProgressBar() {
     Hud.waveProgressBar = new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 })
+  }
+
+  static initializeBossProgressBar() {
     Hud.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 })
   }
 

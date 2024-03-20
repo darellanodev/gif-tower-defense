@@ -14,7 +14,7 @@ export class TowerYellow extends Tower {
 
   static images: Image[]
 
-  static initialize(images: Image[]) {
+  static setImages(images: Image[]) {
     TowerYellow.images = images
   }
 

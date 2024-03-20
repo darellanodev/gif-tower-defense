@@ -78,9 +78,9 @@ function setup() {
 
   const levelMap = levelDataProvider.getLevel(1)
 
-  TowerGreen.initialize(greenTowerImages)
-  TowerRed.initialize(redTowerImages)
-  TowerYellow.initialize(yellowTowerImages)
+  TowerGreen.setImages(greenTowerImages)
+  TowerRed.setImages(redTowerImages)
+  TowerYellow.setImages(yellowTowerImages)
 
   const tileGenerator = new TileGenerator(levelMap, tileImages)
   TileOrange.instances = tileGenerator.orangeTiles
@@ -95,7 +95,9 @@ function setup() {
 
   Player.money = tileGenerator.initialMoney
 
-  Hud.initialize(hudImages, hudIconImages)
+  Hud.setImages(hudImages, hudIconImages)
+  Hud.initializeWaveProgressBar()
+  Hud.initializeBossProgressBar()
 
   influenceArea = new InfluenceArea()
 }
