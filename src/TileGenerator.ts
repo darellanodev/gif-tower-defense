@@ -5,6 +5,7 @@ import { TileOrange } from './TileOrange'
 import { TilePath } from './TilePath'
 import { Image } from 'p5'
 import { ConstDirection } from './ConstDirection'
+import { ConstMapTileSymbol } from './ConstMapTileSymbol'
 
 export class TileGenerator {
   static FLOOR_SIZE = 50
@@ -93,15 +94,15 @@ export class TileGenerator {
           TileGenerator.FLOOR_SIZE * rowCount + TileGenerator.MARGIN_TOP
         if (character === symbol) {
           switch (symbol) {
-            case '0':
+            case ConstMapTileSymbol.ORANGE:
               resultTiles.push(
                 new TileOrange(this.#orangeImage, { x: posX, y: posY }),
               )
               break
-            case '1':
+            case ConstMapTileSymbol.PATH:
               resultTiles.push(new TilePath({ x: posX, y: posY }))
               break
-            case 'x':
+            case ConstMapTileSymbol.START:
               resultTiles.push(
                 new TileStart(
                   this.#startImage,
@@ -110,7 +111,7 @@ export class TileGenerator {
                 ),
               )
               break
-            case 'y':
+            case ConstMapTileSymbol.END:
               resultTiles.push(
                 new TileEnd(this.#endImage, { x: posX, y: posY }),
               )
