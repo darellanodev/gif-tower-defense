@@ -16,10 +16,6 @@ export class TileStart extends Tile {
     image(this.#img, this.position.x, this.position.y)
   }
 
-  getPosition() {
-    return this.position
-  }
-
   getStartDirection() {
     return this.#startDirection
   }
