@@ -8,6 +8,8 @@ import { TowerRed } from './TowerRed'
 import { TowerYellow } from './TowerYellow'
 
 export class TileOrange extends Tile {
+  static instances: TileOrange[] = []
+
   #img: Image
   #tower: TowerType = null
 

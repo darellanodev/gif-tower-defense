@@ -28,7 +28,6 @@ import { Player } from './Player'
 
 let orders: number[]
 let createEnemyTime: number = 0
-let orangeTiles: TileOrange[]
 let mouseTileOrangeOver: TileOrange
 let waveEnemies: number = 0
 let tileImages: Image[]
@@ -89,7 +88,7 @@ function setup() {
   TowerYellow.initialize(yellowTowerImages)
 
   const tileGenerator = new TileGenerator(levelMap, tileImages)
-  orangeTiles = tileGenerator.orangeTiles
+  TileOrange.instances = tileGenerator.orangeTiles
   startTile = tileGenerator.startTile
 
   endTile = tileGenerator.endTile
@@ -156,7 +155,7 @@ function updateEnemies() {
 }
 
 function getMouseTileOrangeOver() {
-  const result = orangeTiles.find((orangeTile) =>
+  const result = TileOrange.instances.find((orangeTile) =>
     orangeTile.isInside(mouseX, mouseY),
   )
 
@@ -215,12 +214,12 @@ function draw() {
   startTile.draw()
   endTile.draw()
 
-  orangeTiles.forEach((orangeTile) => {
+  TileOrange.instances.forEach((orangeTile) => {
     orangeTile.selectTarget(Enemy.instances)
     orangeTile.drawTile()
   })
 
-  orangeTiles.forEach((orangeTile) => {
+  TileOrange.instances.forEach((orangeTile) => {
     orangeTile.drawTower()
   })
 
