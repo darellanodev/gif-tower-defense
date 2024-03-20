@@ -259,6 +259,7 @@ function draw() {
     text('Game over', width / 2, height / 2)
   }
 
+  Missile.removeDeadInstances()
   Missile.drawInstances()
 
   Debug.showMouseCoordinates({ x: mouseX, y: mouseY })

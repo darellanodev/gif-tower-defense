@@ -81,15 +81,19 @@ export class TowerRed extends Tower {
           this.position.y + 30,
         )
 
-        if (Missile.instances.length < 50) {
-          if (this.#timeToRecharge < TowerRed.MAXTIME_TO_RECHARGE) {
-            this.#timeToRecharge++
-          } else {
-            this.#timeToRecharge = 0
-            Missile.instances.push(
-              new Missile(this.position, this.#enemyTarget),
-            )
-          }
+        if (this.#timeToRecharge < TowerRed.MAXTIME_TO_RECHARGE) {
+          this.#timeToRecharge++
+        } else {
+          this.#timeToRecharge = 0
+          Missile.instances.push(
+            new Missile(
+              {
+                x: this.position.x + Const.TILE_SIZE / 2,
+                y: this.position.y + Const.TILE_SIZE / 2,
+              },
+              this.#enemyTarget,
+            ),
+          )
         }
 
         image(TowerRed.images[this.upgradeLevel], 0, 0)
