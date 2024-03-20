@@ -3,12 +3,14 @@ import { TileEnd } from './TileEnd'
 import { TilePath } from './TilePath'
 import { Const } from './Const'
 import { ConstDirection } from './ConstDirection'
+import { Position } from './types'
 
 export class Path {
   static MAX_SEARCHES = 5000 // For testing purposes put a low value. For production put this value at 5000
   static orders: number[] = []
   static startTile: TileStart
   static endTile: TileEnd
+  static initialEnemiesPosition: Position
 
   #startTile: TileStart
   #endTile: TileEnd

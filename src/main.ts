@@ -1,4 +1,3 @@
-import { Position } from './types'
 import { Const } from './Const'
 import { Path } from './Path'
 import { TileGenerator } from './TileGenerator'
@@ -28,7 +27,6 @@ let mouseTileOrangeOver: TileOrange
 let waveEnemies: number = 0
 let influenceArea: InfluenceArea
 let gameStatus: number = 0
-let initialEnemiesPosition: Position
 let allowCreateEnemies: boolean = true
 let levelDataProvider: LevelsDataProvider
 let instantiateBoss: boolean = false
@@ -69,7 +67,7 @@ function setup() {
 
   const path = new Path(Path.startTile, Path.endTile, pathTiles)
   Path.orders = path.makeOrders()
-  initialEnemiesPosition = path.getEnemiesInitialPosition()
+  Path.initialEnemiesPosition = path.getEnemiesInitialPosition()
 
   Player.money = tileGenerator.initialMoney
 
@@ -91,7 +89,7 @@ function mouseClicked() {
     Images.magicIceballImage,
     Images.magicFireballImage,
     Images.magicUFOImage,
-    initialEnemiesPosition,
+    Path.initialEnemiesPosition,
     Path.orders,
     mouseTileOrangeOver,
   )
@@ -110,7 +108,7 @@ function handleNewEnemyCreation() {
           ),
           waveEnemies,
           Path.orders,
-          initialEnemiesPosition,
+          Path.initialEnemiesPosition,
           Player.wave,
         )
 
@@ -171,7 +169,7 @@ function draw() {
           ),
         ),
         Path.orders,
-        initialEnemiesPosition,
+        Path.initialEnemiesPosition,
         Player.wave,
       )
     }
