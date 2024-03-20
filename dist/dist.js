@@ -40,6 +40,12 @@ ConstDirection.LEFT = 1;
 ConstDirection.RIGHT = 2;
 ConstDirection.UP = 3;
 ConstDirection.DOWN = 4;
+class ConstMapTileSymbol {
+}
+ConstMapTileSymbol.PATH = '1';
+ConstMapTileSymbol.ORANGE = '0';
+ConstMapTileSymbol.START = 'x';
+ConstMapTileSymbol.END = 'y';
 class ConstTest {
 }
 ConstTest.ID_LEVEL_VALID_FOR_UNIT_TESTING = 1;
@@ -368,10 +374,14 @@ ExplosionMagicIceball.SIZE = 6;
 ExplosionMagicIceball.COLOR = [0, 65, 255];
 ExplosionMagicIceball.instances = [];
 class Hud {
-    static initialize(hudImages, hudIconImages) {
+    static setImages(hudImages, hudIconImages) {
         Hud.hudImages = hudImages;
         Hud.hudIconImages = hudIconImages;
+    }
+    static initializeWaveProgressBar() {
         Hud.waveProgressBar = new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 });
+    }
+    static initializeBossProgressBar() {
         Hud.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 });
     }
     static updateWaveProgressBar() {
@@ -667,6 +677,21 @@ Hud.canBuyTowerRed = false;
 Hud.canBuyTowerYellow = false;
 Hud.upgradeCost = null;
 Hud.sellProfit = null;
+class Images {
+    static loadAll() {
+        Images.greenTowerImages = Resources.greenTower();
+        Images.redTowerImages = Resources.redTower();
+        Images.yellowTowerImages = Resources.yellowTower();
+        Images.enemiesImages = Resources.enemies();
+        Images.tileImages = Resources.tileImages();
+        Images.hudImages = Resources.hudImages();
+        Images.hudIconImages = Resources.hudIconImages();
+        Images.backgroundImage = Resources.backgroundImage();
+        Images.magicFireballImage = Resources.magicFireball();
+        Images.magicIceballImage = Resources.magicIceball();
+        Images.magicUFOImage = Resources.magicUFO();
+    }
+}
 class InfluenceArea {
     constructor() { }
     _setGrayInfluenceAreaColor() {
@@ -1021,6 +1046,83 @@ class MathUtils {
         return [number * 4, (number + 1) * 4];
     }
 }
+var _Missile_instances, _Missile_position, _Missile_enemyTarget, _Missile_status, _Missile_checkCollision;
+class Missile {
+    constructor(position, enemyTarget) {
+        _Missile_instances.add(this);
+        _Missile_position.set(this, void 0);
+        _Missile_enemyTarget.set(this, null);
+        _Missile_status.set(this, 0);
+        __classPrivateFieldSet(this, _Missile_position, Object.assign({}, position), "f");
+        __classPrivateFieldSet(this, _Missile_enemyTarget, enemyTarget, "f");
+    }
+    setTarget(enemy) {
+        __classPrivateFieldSet(this, _Missile_enemyTarget, enemy, "f");
+    }
+    update() {
+        if (__classPrivateFieldGet(this, _Missile_enemyTarget, "f")) {
+            if (__classPrivateFieldGet(this, _Missile_position, "f").x <
+                __classPrivateFieldGet(this, _Missile_enemyTarget, "f").position.x + Const.TILE_SIZE / 2) {
+                __classPrivateFieldGet(this, _Missile_position, "f").x += Missile.VELOCITY;
+            }
+            else {
+                __classPrivateFieldGet(this, _Missile_position, "f").x -= Missile.VELOCITY;
+            }
+            if (__classPrivateFieldGet(this, _Missile_position, "f").y <
+                __classPrivateFieldGet(this, _Missile_enemyTarget, "f").position.y + Const.TILE_SIZE / 2) {
+                __classPrivateFieldGet(this, _Missile_position, "f").y += Missile.VELOCITY;
+            }
+            else {
+                __classPrivateFieldGet(this, _Missile_position, "f").y -= Missile.VELOCITY;
+            }
+            if (__classPrivateFieldGet(this, _Missile_instances, "m", _Missile_checkCollision).call(this)) {
+                __classPrivateFieldSet(this, _Missile_status, Missile.STATUS_DEAD, "f");
+            }
+        }
+    }
+    static updateInstances() {
+        Missile.instances.forEach((m) => {
+            m.update();
+        });
+    }
+    static drawInstances() {
+        Missile.instances.forEach((m) => {
+            m.draw();
+        });
+    }
+    static removeDeadInstances() {
+        Missile.instances = Missile.instances.filter((missile) => missile.alive);
+    }
+    get alive() {
+        return __classPrivateFieldGet(this, _Missile_status, "f") == Missile.STATUS_ALIVE;
+    }
+    draw() {
+        noStroke();
+        fill(...ConstColor.RED);
+        circle(__classPrivateFieldGet(this, _Missile_position, "f").x, __classPrivateFieldGet(this, _Missile_position, "f").y, Missile.OUTER_DIAMETER);
+        fill(...ConstColor.YELLOW);
+        circle(__classPrivateFieldGet(this, _Missile_position, "f").x, __classPrivateFieldGet(this, _Missile_position, "f").y, Missile.INNER_DIAMETER);
+    }
+}
+_Missile_position = new WeakMap(), _Missile_enemyTarget = new WeakMap(), _Missile_status = new WeakMap(), _Missile_instances = new WeakSet(), _Missile_checkCollision = function _Missile_checkCollision() {
+    let isInsideX = false;
+    let isInsideY = false;
+    if (__classPrivateFieldGet(this, _Missile_position, "f").x > __classPrivateFieldGet(this, _Missile_enemyTarget, "f").position.x &&
+        __classPrivateFieldGet(this, _Missile_position, "f").x < __classPrivateFieldGet(this, _Missile_enemyTarget, "f").position.x + Const.TILE_SIZE) {
+        isInsideX = true;
+    }
+    if (__classPrivateFieldGet(this, _Missile_position, "f").y > __classPrivateFieldGet(this, _Missile_enemyTarget, "f").position.y &&
+        __classPrivateFieldGet(this, _Missile_position, "f").y < __classPrivateFieldGet(this, _Missile_enemyTarget, "f").position.y + Const.TILE_SIZE) {
+        isInsideY = true;
+    }
+    return isInsideX && isInsideY;
+};
+Missile.OUTER_DIAMETER = 11;
+Missile.INNER_DIAMETER = 6;
+Missile.VELOCITY = 1.5;
+Missile.STATUS_ALIVE = 0;
+Missile.STATUS_DEAD = 1;
+Missile.instances = [];
 var _Particle_position, _Particle_size, _Particle_color, _Particle_velocity, _Particle_lifespan;
 class Particle {
     constructor(position, size, color) {
@@ -1229,6 +1331,7 @@ class Path {
 }
 _Path_startTile = new WeakMap(), _Path_endTile = new WeakMap(), _Path_pathTiles = new WeakMap();
 Path.MAX_SEARCHES = 5000;
+Path.orders = [];
 class Player {
     static increaseScore(score) {
         Player.score += score;
@@ -1538,16 +1641,16 @@ class TileGenerator {
                 const posY = TileGenerator.FLOOR_SIZE * rowCount + TileGenerator.MARGIN_TOP;
                 if (character === symbol) {
                     switch (symbol) {
-                        case '0':
+                        case ConstMapTileSymbol.ORANGE:
                             resultTiles.push(new TileOrange(__classPrivateFieldGet(this, _TileGenerator_orangeImage, "f"), { x: posX, y: posY }));
                             break;
-                        case '1':
+                        case ConstMapTileSymbol.PATH:
                             resultTiles.push(new TilePath({ x: posX, y: posY }));
                             break;
-                        case 'x':
+                        case ConstMapTileSymbol.START:
                             resultTiles.push(new TileStart(__classPrivateFieldGet(this, _TileGenerator_startImage, "f"), { x: posX, y: posY }, __classPrivateFieldGet(this, _TileGenerator_startDirection, "f")));
                             break;
-                        case 'y':
+                        case ConstMapTileSymbol.END:
                             resultTiles.push(new TileEnd(__classPrivateFieldGet(this, _TileGenerator_endImage, "f"), { x: posX, y: posY }));
                             break;
                     }
@@ -1689,6 +1792,7 @@ class TileOrange extends Tile {
     }
 }
 _TileOrange_img = new WeakMap(), _TileOrange_tower = new WeakMap();
+TileOrange.instances = [];
 class TilePath extends Tile {
     constructor(position) {
         super(position);
@@ -1705,9 +1809,6 @@ class TileStart extends Tile {
     }
     draw() {
         image(__classPrivateFieldGet(this, _TileStart_img, "f"), this.position.x, this.position.y);
-    }
-    getPosition() {
-        return this.position;
     }
     getStartDirection() {
         return __classPrivateFieldGet(this, _TileStart_startDirection, "f");
@@ -1754,7 +1855,7 @@ class TowerGreen extends Tower {
         _TowerGreen_enemyTarget.set(this, null);
         _TowerGreen_distanceToEnemyTarget.set(this, 0);
     }
-    static initialize(images) {
+    static setImages(images) {
         TowerGreen.images = images;
     }
     static instantiate(position) {
@@ -1869,8 +1970,15 @@ TowerGreen.DAMAGE_UPGRADE = [1, 2, 4, 6, 12, 24];
 TowerGreen.COST_UPGRADE = [50, 75, 125, 300, 1000, 2000];
 TowerGreen.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
 TowerGreen.INFLUENCE_AREA = 150;
+var _TowerRed_enemyTarget, _TowerRed_distanceToEnemyTarget, _TowerRed_timeToRecharge;
 class TowerRed extends Tower {
-    static initialize(images) {
+    constructor() {
+        super(...arguments);
+        _TowerRed_enemyTarget.set(this, null);
+        _TowerRed_distanceToEnemyTarget.set(this, 0);
+        _TowerRed_timeToRecharge.set(this, 0);
+    }
+    static setImages(images) {
         TowerRed.images = images;
     }
     static instantiate(position) {
@@ -1892,6 +2000,7 @@ class TowerRed extends Tower {
         rect(this.position.x + 4, this.position.y + 4, Const.TILE_SIZE, Const.TILE_SIZE);
     }
     draw() {
+        var _a;
         if (this.upgrading) {
             this._drawUpgradeBackground();
             if (!this.progressBar.isFullOfProgress()) {
@@ -1906,7 +2015,31 @@ class TowerRed extends Tower {
             }
         }
         else {
-            image(TowerRed.images[this.upgradeLevel], this.position.x, this.position.y);
+            if (__classPrivateFieldGet(this, _TowerRed_enemyTarget, "f")) {
+                let r_dx = __classPrivateFieldGet(this, _TowerRed_enemyTarget, "f").position.x - this.position.x;
+                let r_dy = __classPrivateFieldGet(this, _TowerRed_enemyTarget, "f").position.y - this.position.y;
+                let angle = Math.atan2(r_dy, r_dx) + 1.55;
+                let cos_a = cos(angle);
+                let sin_a = sin(angle);
+                imageMode(CENTER);
+                applyMatrix(cos_a, sin_a, -sin_a, cos_a, this.position.x + 30, this.position.y + 30);
+                if (__classPrivateFieldGet(this, _TowerRed_timeToRecharge, "f") < TowerRed.MAXTIME_TO_RECHARGE) {
+                    __classPrivateFieldSet(this, _TowerRed_timeToRecharge, (_a = __classPrivateFieldGet(this, _TowerRed_timeToRecharge, "f"), _a++, _a), "f");
+                }
+                else {
+                    __classPrivateFieldSet(this, _TowerRed_timeToRecharge, 0, "f");
+                    Missile.instances.push(new Missile({
+                        x: this.position.x + Const.TILE_SIZE / 2,
+                        y: this.position.y + Const.TILE_SIZE / 2,
+                    }, __classPrivateFieldGet(this, _TowerRed_enemyTarget, "f")));
+                }
+                image(TowerRed.images[this.upgradeLevel], 0, 0);
+                resetMatrix();
+                imageMode(CORNER);
+            }
+            else {
+                image(TowerRed.images[this.upgradeLevel], this.position.x, this.position.y);
+            }
         }
     }
     get influenceArea() {
@@ -1924,16 +2057,42 @@ class TowerRed extends Tower {
     get type() {
         return TowerRed.ID;
     }
+    _isDistanceIntoInfluenceArea(distance) {
+        return distance <= TowerRed.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65;
+    }
     selectTarget(enemies) {
+        let minDistance = 99999;
+        let enemyTarget = null;
+        enemies.forEach((enemy) => {
+            const distance = MathUtils.distance({ x: this.position.x, y: this.position.y }, {
+                x: enemy.position.x,
+                y: enemy.position.y,
+            });
+            if (distance < minDistance) {
+                minDistance = distance;
+                enemyTarget = enemy;
+            }
+        });
+        if (this._isDistanceIntoInfluenceArea(minDistance)) {
+            __classPrivateFieldSet(this, _TowerRed_enemyTarget, enemyTarget, "f");
+            __classPrivateFieldSet(this, _TowerRed_distanceToEnemyTarget, minDistance, "f");
+        }
+        else {
+            __classPrivateFieldSet(this, _TowerRed_enemyTarget, null, "f");
+            __classPrivateFieldSet(this, _TowerRed_distanceToEnemyTarget, 0, "f");
+        }
     }
 }
+_TowerRed_enemyTarget = new WeakMap(), _TowerRed_distanceToEnemyTarget = new WeakMap(), _TowerRed_timeToRecharge = new WeakMap();
 TowerRed.ID = 2;
 TowerRed.PROFIT_SELL_UPGRADE = [80, 110, 190, 420, 1200, 2880];
+TowerRed.DAMAGE_UPGRADE = [2, 4, 8, 16, 32, 64];
 TowerRed.COST_UPGRADE = [100, 150, 250, 500, 1300, 3000];
 TowerRed.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
 TowerRed.INFLUENCE_AREA = 240;
+TowerRed.MAXTIME_TO_RECHARGE = 50;
 class TowerYellow extends Tower {
-    static initialize(images) {
+    static setImages(images) {
         TowerYellow.images = images;
     }
     static instantiate(position) {
@@ -1995,43 +2154,16 @@ TowerYellow.PROFIT_SELL_UPGRADE = [680, 2460, 7440, 21920, 66900, 199880];
 TowerYellow.COST_UPGRADE = [700, 2500, 7500, 22000, 67000, 200000];
 TowerYellow.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
 TowerYellow.INFLUENCE_AREA = 290;
-let orders;
 let createEnemyTime = 0;
-let orangeTiles;
-let mouseTileOrangeOver;
 let waveEnemies = 0;
-let tileImages;
-let greenTowerImages;
-let redTowerImages;
-let yellowTowerImages;
-let startTile;
-let endTile;
-let hudImages;
-let hudIconImages;
-let backgroundImage;
-let enemiesImages;
 let influenceArea;
 let gameStatus = 0;
-let initialEnemiesPosition;
 let allowCreateEnemies = true;
 let levelDataProvider;
-let magicFireballImage;
-let magicIceballImage;
-let magicUFOImage;
 let instantiateBoss = false;
 let instantiateEnemies = false;
 function preload() {
-    greenTowerImages = Resources.greenTower();
-    redTowerImages = Resources.redTower();
-    yellowTowerImages = Resources.yellowTower();
-    enemiesImages = Resources.enemies();
-    tileImages = Resources.tileImages();
-    hudImages = Resources.hudImages();
-    hudIconImages = Resources.hudIconImages();
-    backgroundImage = Resources.backgroundImage();
-    magicFireballImage = Resources.magicFireball();
-    magicIceballImage = Resources.magicIceball();
-    magicUFOImage = Resources.magicUFO();
+    Images.loadAll();
 }
 function disableContextualMenu() {
     for (let element of document.getElementsByClassName('p5Canvas')) {
@@ -2046,26 +2178,28 @@ function setup() {
     createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT);
     levelDataProvider = new LevelsDataProvider(LevelsData.data);
     const levelMap = levelDataProvider.getLevel(1);
-    TowerGreen.initialize(greenTowerImages);
-    TowerRed.initialize(redTowerImages);
-    TowerYellow.initialize(yellowTowerImages);
-    const tileGenerator = new TileGenerator(levelMap, tileImages);
-    orangeTiles = tileGenerator.orangeTiles;
-    startTile = tileGenerator.startTile;
-    endTile = tileGenerator.endTile;
+    TowerGreen.setImages(Images.greenTowerImages);
+    TowerRed.setImages(Images.redTowerImages);
+    TowerYellow.setImages(Images.yellowTowerImages);
+    const tileGenerator = new TileGenerator(levelMap, Images.tileImages);
+    TileOrange.instances = tileGenerator.orangeTiles;
+    Path.startTile = tileGenerator.startTile;
+    Path.endTile = tileGenerator.endTile;
     const pathTiles = tileGenerator.pathTiles;
-    const path = new Path(startTile, endTile, pathTiles);
-    orders = path.makeOrders();
-    initialEnemiesPosition = path.getEnemiesInitialPosition();
+    const path = new Path(Path.startTile, Path.endTile, pathTiles);
+    Path.orders = path.makeOrders();
+    Path.initialEnemiesPosition = path.getEnemiesInitialPosition();
     Player.money = tileGenerator.initialMoney;
-    Hud.initialize(hudImages, hudIconImages);
+    Hud.setImages(Images.hudImages, Images.hudIconImages);
+    Hud.initializeWaveProgressBar();
+    Hud.initializeBossProgressBar();
     influenceArea = new InfluenceArea();
 }
 function keyPressed() {
     Player.keyPressed();
 }
 function mouseClicked() {
-    Player.mouseClicked(mouseX, mouseY, magicIceballImage, magicFireballImage, magicUFOImage, initialEnemiesPosition, orders, mouseTileOrangeOver);
+    Player.mouseClicked(mouseX, mouseY, Images.magicIceballImage, Images.magicFireballImage, Images.magicUFOImage, Path.initialEnemiesPosition, Path.orders, Player.mouseTileOrangeOver);
 }
 function handleNewEnemyCreation() {
     if (allowCreateEnemies) {
@@ -2073,7 +2207,7 @@ function handleNewEnemyCreation() {
             createEnemyTime++;
             if (createEnemyTime === Enemy.CREATION_MAX_TIME) {
                 createEnemyTime = 0;
-                Enemy.instantiateNormalEnemy(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemies)), waveEnemies, orders, initialEnemiesPosition, Player.wave);
+                Enemy.instantiateNormalEnemy(Images.enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemies)), waveEnemies, Path.orders, Path.initialEnemiesPosition, Player.wave);
                 waveEnemies++;
             }
         }
@@ -2091,7 +2225,7 @@ function updateEnemies() {
     gameStatus = Enemy.handleWinners();
 }
 function getMouseTileOrangeOver() {
-    const result = orangeTiles.find((orangeTile) => orangeTile.isInside(mouseX, mouseY));
+    const result = TileOrange.instances.find((orangeTile) => orangeTile.isInside(mouseX, mouseY));
     return result ? result : null;
 }
 function updateMagics() {
@@ -2110,27 +2244,28 @@ function drawMagics() {
 function draw() {
     if (gameStatus === Const.GAME_STATUS_PLAYING) {
         updateEnemies();
-        mouseTileOrangeOver = getMouseTileOrangeOver();
+        Player.mouseTileOrangeOver = getMouseTileOrangeOver();
         instantiateEnemies = Hud.updateWaveProgressBar();
         instantiateBoss = Hud.updateBossProgressBar();
         if (instantiateBoss) {
-            Enemy.instantiateBoss(enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES)), orders, initialEnemiesPosition, Player.wave);
+            Enemy.instantiateBoss(Images.enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES)), Path.orders, Path.initialEnemiesPosition, Player.wave);
         }
         if (instantiateEnemies) {
             allowCreateEnemies = true;
         }
         updateMagics();
+        Missile.updateInstances();
     }
     background('skyblue');
     rectMode(CORNER);
-    image(backgroundImage, 0, Hud.HEIGHT);
-    startTile.draw();
-    endTile.draw();
-    orangeTiles.forEach((orangeTile) => {
+    image(Images.backgroundImage, 0, Hud.HEIGHT);
+    Path.startTile.draw();
+    Path.endTile.draw();
+    TileOrange.instances.forEach((orangeTile) => {
         orangeTile.selectTarget(Enemy.instances);
         orangeTile.drawTile();
     });
-    orangeTiles.forEach((orangeTile) => {
+    TileOrange.instances.forEach((orangeTile) => {
         orangeTile.drawTower();
     });
     Hud.draw();
@@ -2138,9 +2273,9 @@ function draw() {
     const canBuyTowerGreen = Player.canBuyNewTower(TowerGreen.ID);
     const canBuyTowerRed = Player.canBuyNewTower(TowerRed.ID);
     const canBuyTowerYellow = Player.canBuyNewTower(TowerYellow.ID);
-    if (mouseTileOrangeOver !== null) {
-        if (mouseTileOrangeOver.hasTower()) {
-            const tileTower = mouseTileOrangeOver.getTower();
+    if (Player.mouseTileOrangeOver !== null) {
+        if (Player.mouseTileOrangeOver.hasTower()) {
+            const tileTower = Player.mouseTileOrangeOver.getTower();
             Hud.selectHudMode(tileTower);
             if (!tileTower.maxUpgraded) {
                 const canUpgrade = Player.haveMoneyToBuy(tileTower.type, tileTower.upgradeLevel + 1);
@@ -2150,7 +2285,7 @@ function draw() {
             Hud.viewSellProfit(tileTower);
         }
         else {
-            influenceArea.drawHudTowerInfluenceArea(Hud.getSelectedTower(), mouseTileOrangeOver.getPosition(), canBuySelectedTower);
+            influenceArea.drawHudTowerInfluenceArea(Hud.getSelectedTower(), Player.mouseTileOrangeOver.getPosition(), canBuySelectedTower);
             Hud.mode = Hud.NORMAL;
             Hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow);
             Hud.hideUpgradeCost();
@@ -2177,6 +2312,8 @@ function draw() {
         TextProperties.setForBigCenteredTitle();
         text('Game over', width / 2, height / 2);
     }
+    Missile.removeDeadInstances();
+    Missile.drawInstances();
     Debug.showMouseCoordinates({ x: mouseX, y: mouseY });
 }
 //# sourceMappingURL=dist.js.map
