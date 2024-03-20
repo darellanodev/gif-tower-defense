@@ -23,7 +23,6 @@ import { Player } from './Player'
 import { Images } from './Images'
 
 let createEnemyTime: number = 0
-let mouseTileOrangeOver: TileOrange
 let waveEnemies: number = 0
 let influenceArea: InfluenceArea
 let gameStatus: number = 0
@@ -91,7 +90,7 @@ function mouseClicked() {
     Images.magicUFOImage,
     Path.initialEnemiesPosition,
     Path.orders,
-    mouseTileOrangeOver,
+    Player.mouseTileOrangeOver,
   )
 }
 
@@ -157,7 +156,7 @@ function drawMagics() {
 function draw() {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
     updateEnemies()
-    mouseTileOrangeOver = getMouseTileOrangeOver()
+    Player.mouseTileOrangeOver = getMouseTileOrangeOver()
     instantiateEnemies = Hud.updateWaveProgressBar()
     instantiateBoss = Hud.updateBossProgressBar()
 
@@ -205,9 +204,9 @@ function draw() {
   const canBuyTowerRed = Player.canBuyNewTower(TowerRed.ID)
   const canBuyTowerYellow = Player.canBuyNewTower(TowerYellow.ID)
 
-  if (mouseTileOrangeOver !== null) {
-    if (mouseTileOrangeOver.hasTower()) {
-      const tileTower = mouseTileOrangeOver.getTower()
+  if (Player.mouseTileOrangeOver !== null) {
+    if (Player.mouseTileOrangeOver.hasTower()) {
+      const tileTower = Player.mouseTileOrangeOver.getTower()
 
       Hud.selectHudMode(tileTower)
       if (!tileTower.maxUpgraded) {
@@ -223,7 +222,7 @@ function draw() {
     } else {
       influenceArea.drawHudTowerInfluenceArea(
         Hud.getSelectedTower(),
-        mouseTileOrangeOver.getPosition(),
+        Player.mouseTileOrangeOver.getPosition(),
         canBuySelectedTower,
       )
 

@@ -13,6 +13,7 @@ export class Player {
   static score: number = 0
   static money: number = 0
   static wave: number = 1
+  static mouseTileOrangeOver: TileOrange
 
   static increaseScore(score: number) {
     Player.score += score
