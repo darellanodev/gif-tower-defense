@@ -15,49 +15,27 @@ import { ExplosionEnemy } from './ExplosionEnemy'
 import { ExplosionMagicFireball } from './ExplosionMagicFireball'
 import { ExplosionMagicIceball } from './ExplosionMagicIceball'
 import { TextProperties } from './TextProperties'
-import { Image } from 'p5'
-import { Resources } from './Resources'
 import { LevelsDataProvider } from './LevelsDataProvider'
 import { LevelsData } from './LevelsData'
 import { MagicFireball } from './MagicFireball'
 import { MagicIceball } from './MagicIceball'
 import { MagicUFO } from './MagicUFO'
 import { Player } from './Player'
+import { Images } from './Images'
 
 let createEnemyTime: number = 0
 let mouseTileOrangeOver: TileOrange
 let waveEnemies: number = 0
-let tileImages: Image[]
-let greenTowerImages: Image[]
-let redTowerImages: Image[]
-let yellowTowerImages: Image[]
-let hudImages: Image[]
-let hudIconImages: Image[]
-let backgroundImage: Image
-let enemiesImages: Image[]
 let influenceArea: InfluenceArea
 let gameStatus: number = 0
 let initialEnemiesPosition: Position
 let allowCreateEnemies: boolean = true
 let levelDataProvider: LevelsDataProvider
-let magicFireballImage: Image
-let magicIceballImage: Image
-let magicUFOImage: Image
 let instantiateBoss: boolean = false
 let instantiateEnemies: boolean = false
 
 function preload() {
-  greenTowerImages = Resources.greenTower()
-  redTowerImages = Resources.redTower()
-  yellowTowerImages = Resources.yellowTower()
-  enemiesImages = Resources.enemies()
-  tileImages = Resources.tileImages()
-  hudImages = Resources.hudImages()
-  hudIconImages = Resources.hudIconImages()
-  backgroundImage = Resources.backgroundImage()
-  magicFireballImage = Resources.magicFireball()
-  magicIceballImage = Resources.magicIceball()
-  magicUFOImage = Resources.magicUFO()
+  Images.loadAll()
 }
 
 function disableContextualMenu() {
@@ -78,11 +56,11 @@ function setup() {
 
   const levelMap = levelDataProvider.getLevel(1)
 
-  TowerGreen.setImages(greenTowerImages)
-  TowerRed.setImages(redTowerImages)
-  TowerYellow.setImages(yellowTowerImages)
+  TowerGreen.setImages(Images.greenTowerImages)
+  TowerRed.setImages(Images.redTowerImages)
+  TowerYellow.setImages(Images.yellowTowerImages)
 
-  const tileGenerator = new TileGenerator(levelMap, tileImages)
+  const tileGenerator = new TileGenerator(levelMap, Images.tileImages)
   TileOrange.instances = tileGenerator.orangeTiles
   Path.startTile = tileGenerator.startTile
 
@@ -95,7 +73,7 @@ function setup() {
 
   Player.money = tileGenerator.initialMoney
 
-  Hud.setImages(hudImages, hudIconImages)
+  Hud.setImages(Images.hudImages, Images.hudIconImages)
   Hud.initializeWaveProgressBar()
   Hud.initializeBossProgressBar()
 
@@ -110,9 +88,9 @@ function mouseClicked() {
   Player.mouseClicked(
     mouseX,
     mouseY,
-    magicIceballImage,
-    magicFireballImage,
-    magicUFOImage,
+    Images.magicIceballImage,
+    Images.magicFireballImage,
+    Images.magicUFOImage,
     initialEnemiesPosition,
     Path.orders,
     mouseTileOrangeOver,
@@ -127,7 +105,9 @@ function handleNewEnemyCreation() {
         createEnemyTime = 0
 
         Enemy.instantiateNormalEnemy(
-          enemiesImages.slice(...MathUtils.getTwoNumbersFourTimes(waveEnemies)),
+          Images.enemiesImages.slice(
+            ...MathUtils.getTwoNumbersFourTimes(waveEnemies),
+          ),
           waveEnemies,
           Path.orders,
           initialEnemiesPosition,
@@ -185,7 +165,7 @@ function draw() {
 
     if (instantiateBoss) {
       Enemy.instantiateBoss(
-        enemiesImages.slice(
+        Images.enemiesImages.slice(
           ...MathUtils.getTwoNumbersFourTimes(
             Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES,
           ),
@@ -206,7 +186,7 @@ function draw() {
   background('skyblue')
   rectMode(CORNER)
 
-  image(backgroundImage, 0, Hud.HEIGHT)
+  image(Images.backgroundImage, 0, Hud.HEIGHT)
 
   Path.startTile.draw()
   Path.endTile.draw()
