@@ -10,7 +10,7 @@ import { Missile } from './Missile'
 export class TowerRed extends Tower {
   static ID = 2
   static PROFIT_SELL_UPGRADE = [80, 110, 190, 420, 1200, 2880]
-  static DAMAGE_UPGRADE = [80, 120, 170, 230, 300, 400]
+  static DAMAGE_UPGRADE = [100, 140, 190, 250, 320, 450]
   static COST_UPGRADE = [100, 150, 250, 500, 1300, 3000]
   static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
   static INFLUENCE_AREA = 240
