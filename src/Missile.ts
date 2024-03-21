@@ -47,6 +47,8 @@ export class Missile {
         this.#status = Missile.STATUS_DEAD
         this.#enemyTarget.addDamage(this.#damage)
       }
+    } else {
+      this.#status = Missile.STATUS_DEAD
     }
   }
 
