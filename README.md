@@ -33,10 +33,11 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [x] Set particles color to red when an fireball touch an enemy
 - [x] Magic ball of ice freezes the enemies
 - [x] Blue small particles when an iceball touch an enemy
-- [ ] Magic UFO go to the enemy closest to the end tile
-- [ ] Make the red tower target and shot to an enemy
+- [x] Make the red tower target and shot to an enemy
+- [x] Missile: when the target is destroyed before the missile collides, set to status to DEAD.
 - [ ] Yellow tower absorbs the yellow faces and fill its indicator
 - [ ] When Yellow tower is full the player get lives depending on the upgrade level of the yellow tower
+- [ ] Magic UFO go to the enemy closest to the end tile
 - [ ] Make the explosion balls with a face. The captured faces show a diferent icon with the mouth opened
 - [ ] Upload the build web version into my portfolio to allow play in web browser
 - [ ] Put the start tile and the end tile on top of the enemies
