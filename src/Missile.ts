@@ -15,36 +15,37 @@ export class Missile {
   #position: Position
   #enemyTarget: Enemy = null
   #status: number = 0
+  #damage: number = 0
 
-  constructor(position: Position, enemyTarget: Enemy) {
+  constructor(position: Position, enemyTarget: Enemy, damage: number) {
     this.#position = { ...position }
     this.#enemyTarget = enemyTarget
+    this.#damage = damage
   }
 
   setTarget(enemy: Enemy) {
     this.#enemyTarget = enemy
   }
 
+  _moveToTarget() {
+    if (this.#position.x < this.#enemyTarget.position.x + Const.TILE_SIZE / 2) {
+      this.#position.x += Missile.VELOCITY
+    } else {
+      this.#position.x -= Missile.VELOCITY
+    }
+    if (this.#position.y < this.#enemyTarget.position.y + Const.TILE_SIZE / 2) {
+      this.#position.y += Missile.VELOCITY
+    } else {
+      this.#position.y -= Missile.VELOCITY
+    }
+  }
+
   update() {
     if (this.#enemyTarget) {
-      if (
-        this.#position.x <
-        this.#enemyTarget.position.x + Const.TILE_SIZE / 2
-      ) {
-        this.#position.x += Missile.VELOCITY
-      } else {
-        this.#position.x -= Missile.VELOCITY
-      }
-      if (
-        this.#position.y <
-        this.#enemyTarget.position.y + Const.TILE_SIZE / 2
-      ) {
-        this.#position.y += Missile.VELOCITY
-      } else {
-        this.#position.y -= Missile.VELOCITY
-      }
+      this._moveToTarget()
       if (this.#checkCollision()) {
         this.#status = Missile.STATUS_DEAD
+        this.#enemyTarget.addDamage(this.#damage)
       }
     }
   }
