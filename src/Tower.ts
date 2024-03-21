@@ -1,6 +1,8 @@
 import { Position } from './types'
 import { Const } from './Const'
 import { ProgressBar } from './ProgressBar'
+import { Enemy } from './Enemy'
+import { MathUtils } from './MathUtils'
 
 export class Tower {
   position: Position
@@ -9,6 +11,9 @@ export class Tower {
   progressBar: ProgressBar
   upgradeProgress: number = 0
   delayUpgradeProgress: number
+
+  enemyTarget: Enemy = null
+  distanceToEnemyTarget: number
 
   constructor(position: Position) {
     this.position = { ...position }
@@ -44,6 +49,38 @@ export class Tower {
       return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1)
     } else {
       return this.getCostWhenUpgradeLevelIs(this.upgradeLevel + 1)
+    }
+  }
+
+  isDistanceIntoInfluenceArea(minDistance: number): boolean {
+    // to implement in child export classes
+    return null
+  }
+
+  selectTarget(enemies: Enemy[]) {
+    let minDistance = 99999
+    let enemyTarget = null
+
+    enemies.forEach((enemy) => {
+      const distance = MathUtils.distance(
+        { x: this.position.x, y: this.position.y },
+        {
+          x: enemy.position.x,
+          y: enemy.position.y,
+        },
+      )
+      if (distance < minDistance) {
+        minDistance = distance
+        enemyTarget = enemy
+      }
+    })
+
+    if (this.isDistanceIntoInfluenceArea(minDistance)) {
+      this.enemyTarget = enemyTarget
+      this.distanceToEnemyTarget = minDistance
+    } else {
+      this.enemyTarget = null
+      this.distanceToEnemyTarget = 0
     }
   }
 }

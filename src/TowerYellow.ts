@@ -1,6 +1,5 @@
 import { Position } from './types'
 import { Image } from 'p5'
-import { Enemy } from './Enemy'
 import { ConstColor } from './ConstColor'
 import { Const } from './Const'
 import { Tower } from './Tower'
@@ -79,7 +78,9 @@ export class TowerYellow extends Tower {
     return TowerYellow.ID
   }
 
-  selectTarget(enemies: Enemy[]) {
-    //TODO
+  isDistanceIntoInfluenceArea(distance: number) {
+    return (
+      distance <= TowerYellow.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65
+    )
   }
 }

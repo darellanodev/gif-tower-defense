@@ -1,10 +1,8 @@
 import { Position } from './types'
 import { Image } from 'p5'
-import { Enemy } from './Enemy'
 import { ConstColor } from './ConstColor'
 import { Const } from './Const'
 import { Tower } from './Tower'
-import { MathUtils } from './MathUtils'
 import { Missile } from './Missile'
 
 export class TowerRed extends Tower {
@@ -17,8 +15,6 @@ export class TowerRed extends Tower {
   static MAXTIME_TO_RECHARGE = 50
   static images: Image[]
 
-  #enemyTarget: Enemy = null
-  #distanceToEnemyTarget: number = 0
   #timeToRecharge = 0
   static setImages(images: Image[]) {
     TowerRed.images = images
@@ -63,9 +59,9 @@ export class TowerRed extends Tower {
         this.progressBar.setProgress(0)
       }
     } else {
-      if (this.#enemyTarget) {
-        let r_dx = this.#enemyTarget.position.x - this.position.x
-        let r_dy = this.#enemyTarget.position.y - this.position.y
+      if (this.enemyTarget) {
+        let r_dx = this.enemyTarget.position.x - this.position.x
+        let r_dy = this.enemyTarget.position.y - this.position.y
         let angle = Math.atan2(r_dy, r_dx) + 1.55
 
         let cos_a = cos(angle)
@@ -91,7 +87,7 @@ export class TowerRed extends Tower {
                 x: this.position.x + Const.TILE_SIZE / 2,
                 y: this.position.y + Const.TILE_SIZE / 2,
               },
-              this.#enemyTarget,
+              this.enemyTarget,
               TowerRed.DAMAGE_UPGRADE[this.upgradeLevel],
             ),
           )
@@ -130,34 +126,7 @@ export class TowerRed extends Tower {
     return TowerRed.ID
   }
 
-  _isDistanceIntoInfluenceArea(distance: number) {
+  isDistanceIntoInfluenceArea(distance: number) {
     return distance <= TowerRed.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65
-  }
-
-  selectTarget(enemies: Enemy[]) {
-    let minDistance = 99999
-    let enemyTarget = null
-
-    enemies.forEach((enemy) => {
-      const distance = MathUtils.distance(
-        { x: this.position.x, y: this.position.y },
-        {
-          x: enemy.position.x,
-          y: enemy.position.y,
-        },
-      )
-      if (distance < minDistance) {
-        minDistance = distance
-        enemyTarget = enemy
-      }
-    })
-
-    if (this._isDistanceIntoInfluenceArea(minDistance)) {
-      this.#enemyTarget = enemyTarget
-      this.#distanceToEnemyTarget = minDistance
-    } else {
-      this.#enemyTarget = null
-      this.#distanceToEnemyTarget = 0
-    }
   }
 }
