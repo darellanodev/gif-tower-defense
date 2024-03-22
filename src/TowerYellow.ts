@@ -3,6 +3,8 @@ import { Image } from 'p5'
 import { ConstColor } from './ConstColor'
 import { Const } from './Const'
 import { Tower } from './Tower'
+import { ExplosionEnemy } from './ExplosionEnemy'
+import { MathUtils } from './MathUtils'
 
 export class TowerYellow extends Tower {
   static ID = 3
@@ -79,8 +81,28 @@ export class TowerYellow extends Tower {
   }
 
   isDistanceIntoInfluenceArea(distance: number) {
-    return (
-      distance <= TowerYellow.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65
-    )
+    return distance <= TowerYellow.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 2
+  }
+
+  selectAllExplosionsTargets() {
+    ExplosionEnemy.instances.forEach((xp) => {
+      const particles = xp.particleSystem.particles
+
+      particles.forEach((p) => {
+        if (!p.towerYellowTarget) {
+          const distance = MathUtils.distance(
+            {
+              x: this.position.x + Const.TILE_SIZE / 2,
+              y: this.position.y + Const.TILE_SIZE / 2,
+            },
+            p.position,
+          )
+
+          if (this.isDistanceIntoInfluenceArea(distance)) {
+            p.towerYellowTarget = this
+          }
+        }
+      })
+    })
   }
 }

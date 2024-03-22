@@ -65,6 +65,11 @@ export class TileOrange extends Tile {
 
   selectTarget(enemies: Enemy[]) {
     if (this.#tower) {
+      if (this.#tower.type === TowerYellow.ID) {
+        if ('selectAllExplosionsTargets' in this.#tower) {
+          this.#tower.selectAllExplosionsTargets()
+        }
+      }
       this.#tower.selectTarget(enemies)
     }
   }

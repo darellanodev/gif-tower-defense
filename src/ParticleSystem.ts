@@ -15,6 +15,10 @@ export class ParticleSystem {
     this.#particlesColor = particlesColor
   }
 
+  get particles() {
+    return this.#particles
+  }
+
   addParticle() {
     this.#particles.push(
       new Particle(this.#origin, this.#particlesSize, this.#particlesColor),

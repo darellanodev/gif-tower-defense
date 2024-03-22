@@ -1,16 +1,21 @@
 import { Vector } from 'p5'
-import { RGBType } from './types'
+import { Position, RGBType } from './types'
+import { TowerYellow } from './TowerYellow'
 
 export class Particle {
-  #position: Vector
+  static COLOR_CAPTURED: RGBType = [12, 222, 42]
+
+  #vec: Vector
   #size: number
   #color: RGBType
 
   #velocity: Vector
   #lifespan: number = 255
+  #captured: boolean = false
+  #towerYellowTarget: TowerYellow = null
 
-  constructor(position: Vector, size: number, color: RGBType) {
-    this.#position = position.copy()
+  constructor(vec: Vector, size: number, color: RGBType) {
+    this.#vec = vec.copy()
     this.#size = size
     this.#color = color
 
@@ -23,18 +28,35 @@ export class Particle {
   }
 
   update() {
-    this.#position.add(this.#velocity)
-    this.#lifespan -= 2
+    if (!this.#captured) {
+      this.#vec.add(this.#velocity)
+      this.#lifespan -= 2
+    }
   }
 
   display() {
     stroke(...this.#color, this.#lifespan)
     strokeWeight(2)
     fill(127, this.#lifespan)
-    ellipse(this.#position.x, this.#position.y, this.#size, this.#size)
+    ellipse(this.#vec.x, this.#vec.y, this.#size, this.#size)
   }
 
   isDead() {
     return this.#lifespan < 0
+  }
+
+  set towerYellowTarget(towerYellow: TowerYellow) {
+    this.#towerYellowTarget = towerYellow
+    this.#color = Particle.COLOR_CAPTURED
+    this.#captured = true
+    this.#lifespan = 255
+  }
+
+  get towerYellowTarget() {
+    return this.#towerYellowTarget
+  }
+
+  get position(): Position {
+    return { x: this.#vec.x, y: this.#vec.y }
   }
 }
