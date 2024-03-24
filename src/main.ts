@@ -70,6 +70,7 @@ function setup() {
   Path.initialEnemiesPosition = path.getEnemiesInitialPosition()
 
   Player.money = tileGenerator.initialMoney
+  Player.money = 100000
 
   Hud.setImages(Images.hudImages, Images.hudIconImages)
   Hud.initializeWaveProgressBar()
