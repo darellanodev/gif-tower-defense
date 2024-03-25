@@ -103,8 +103,8 @@ export class TowerGreen extends Tower {
       } else {
         image(
           TowerGreen.images[this.upgradeLevel],
-          this.position.x,
-          this.position.y,
+          this.position.x + Tower.OFFSET_X,
+          this.position.y + Tower.OFFSET_Y,
         )
       }
     }

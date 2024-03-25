@@ -100,8 +100,8 @@ export class TowerRed extends Tower {
       } else {
         image(
           TowerRed.images[this.upgradeLevel],
-          this.position.x,
-          this.position.y,
+          this.position.x + Tower.OFFSET_X,
+          this.position.y + Tower.OFFSET_Y,
         )
       }
     }
