@@ -2,20 +2,20 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="210mm"
    height="297mm"
    viewBox="0 0 210 297"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="towers.svg">
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="towers.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs2">
     <inkscape:perspective
@@ -55,16 +55,20 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="172.57411"
-     inkscape:cy="597.13193"
+     inkscape:cx="172.85714"
+     inkscape:cy="596.42857"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
+     inkscape:window-height="1057"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:export-bgcolor="#ffffff00" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -73,7 +77,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -81,842 +85,829 @@
      inkscape:label="Capa 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <rect
+       inkscape:export-ydpi="33.257511"
+       inkscape:export-xdpi="33.257511"
+       inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1_u2.png"
+       style="fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       id="rect3643"
+       width="24.776871"
+       height="24.776871"
+       x="80.1735"
+       y="21.538103" />
+    <rect
+       inkscape:export-ydpi="51.257481"
+       inkscape:export-xdpi="51.257481"
+       inkscape:export-filename="..\..\img\towers\green_tower_upgrade_1.png"
+       y="21.538103"
+       x="52.142246"
+       height="24.776871"
+       width="24.776871"
+       id="rect3670"
+       style="fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:0.264583" />
+    <rect
+       inkscape:export-ydpi="51.257481"
+       inkscape:export-xdpi="51.257481"
+       inkscape:export-filename="..\..\img\towers\green_tower_upgrade_0.png"
+       y="21.538103"
+       x="24.43663"
+       height="24.776871"
+       width="24.776871"
+       id="rect2820"
+       style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:0.264583" />
+    <rect
+       inkscape:export-ydpi="33.257511"
+       inkscape:export-xdpi="33.257511"
+       inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower2.png"
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       id="rect3664"
+       width="24.776871"
+       height="24.776871"
+       x="24.052195"
+       y="53.424118" />
+    <rect
+       inkscape:export-ydpi="33.257511"
+       inkscape:export-xdpi="33.257511"
+       inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower2_u1.png"
+       y="53.424118"
+       x="51.867821"
+       height="24.776871"
+       width="24.776871"
+       id="rect3697"
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583" />
+    <rect
+       inkscape:export-ydpi="33.257511"
+       inkscape:export-xdpi="33.257511"
+       inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower2_u3.png"
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       id="rect3736"
+       width="24.776871"
+       height="24.776871"
+       x="107.6301"
+       y="53.424118" />
+    <rect
+       inkscape:export-ydpi="33.257511"
+       inkscape:export-xdpi="33.257511"
+       inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower2_u2.png"
+       y="53.424118"
+       x="79.57563"
+       height="24.776871"
+       width="24.776871"
+       id="rect3763"
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583" />
+    <rect
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       id="rect2969"
+       width="24.776871"
+       height="24.776871"
+       x="135.1584"
+       y="53.424118"
+       inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower2_u4.png"
+       inkscape:export-xdpi="55.742512"
+       inkscape:export-ydpi="55.742512" />
+    <rect
+       y="53.424118"
+       x="162.83762"
+       height="24.776871"
+       width="24.776871"
+       id="rect3000"
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower2_u5.png"
+       inkscape:export-xdpi="55.742512"
+       inkscape:export-ydpi="55.742512" />
+    <rect
+       inkscape:export-ydpi="33.257511"
+       inkscape:export-xdpi="33.257511"
+       inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1_u3.png"
+       style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       id="rect3683"
+       width="24.776871"
+       height="24.776871"
+       x="107.55788"
+       y="21.538103" />
+    <rect
+       y="21.538103"
+       x="134.98093"
+       height="24.776871"
+       width="24.776871"
+       id="rect2887"
+       style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1_u4.png"
+       inkscape:export-xdpi="55.742512"
+       inkscape:export-ydpi="55.742512" />
+    <rect
+       inkscape:export-ydpi="55.742493"
+       inkscape:export-xdpi="55.742493"
+       inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1_u5.png"
+       style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       id="rect2921"
+       width="24.776871"
+       height="24.776871"
+       x="162.80922"
+       y="21.538103" />
     <g
-       id="g4799"
+       id="g2952"
+       transform="matrix(0.26458333,0,0,0.26458333,20.008118,-89.366213)"
+       inkscape:export-filename="..\..\img\towers\yellow_tower_upgrade_0.png"
+       inkscape:export-xdpi="51.257481"
+       inkscape:export-ydpi="51.257481">
+      <path
+         style="display:inline;fill:#ffcc00;fill-opacity:1;stroke:none"
+         d="m 15.989796,666.73505 v 93.645 H 109.6348 v -93.645 z m 31.381039,18.18108 c 6.76595,0 12.492879,3.94974 15.192408,9.71317 2.69945,-5.76343 8.430762,-9.71317 15.192407,-9.71317 9.331827,0 16.935801,7.58636 16.935801,16.93579 0,18.40081 -19.782128,23.91989 -32.128208,42.58855 -13.048934,-18.78965 -32.128208,-23.57422 -32.128208,-42.58855 0,-9.34943 7.599669,-16.93579 16.9358,-16.93579 z"
+         id="rect3666"
+         inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u0.png"
+         inkscape:export-xdpi="46.131672"
+         inkscape:export-ydpi="46.131672"
+         inkscape:connector-curvature="0" />
+      <g
+         transform="matrix(8.1289492,0,0,8.1289492,-1870.462,-1131.7539)"
+         id="g3678">
+        <path
+           style="opacity:0.391837;fill:#d45500;fill-opacity:1;stroke:#552200;stroke-width:0.544624"
+           d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
+           sodipodi:nodetypes="ccccccc"
+           id="path3680"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:none;stroke:#803300;stroke-width:0.544624"
+           d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
+           sodipodi:nodetypes="ccccccc"
+           id="path3682"
+           inkscape:connector-curvature="0" />
+      </g>
+    </g>
+    <g
+       inkscape:export-ydpi="51.257397"
+       inkscape:export-xdpi="51.257397"
+       inkscape:export-filename="..\..\img\towers\yellow_tower_upgrade_5.png"
+       id="g3949"
+       transform="matrix(0.26458333,0,0,0.26458333,20.008118,-89.366213)">
+      <path
+         inkscape:export-ydpi="46.131672"
+         inkscape:export-xdpi="46.131672"
+         inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u0.png"
+         id="path3774"
+         d="m 537.79737,666.73505 v 93.645 h 93.645 v -93.645 z m 31.38104,18.18108 c 6.76595,0 12.49287,3.94974 15.1924,9.71317 2.69945,-5.76343 8.43077,-9.71317 15.19241,-9.71317 9.33183,0 16.9358,7.58636 16.9358,16.93579 0,18.40081 -19.78213,23.91989 -32.12821,42.58855 -13.04893,-18.78965 -32.1282,-23.57422 -32.1282,-42.58855 0,-9.34943 7.59966,-16.93579 16.9358,-16.93579 z"
+         style="display:inline;fill:#ffcc00;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#ffe6d5;stroke:#803300;stroke-width:4"
+         d="m 569.21875,676.15625 c -1.18867,0.0352 -2.15809,0.14916 -2.90625,0.15625 -10.94087,0.50694 -21.0625,10.22501 -21.0625,22.84375 0,25.66325 23.82592,32.10875 40.0625,57.46875 15.36203,-25.19672 40.0625,-32.63355 40.0625,-57.46875 0,-12.61874 -9.41981,-21.99885 -21.03125,-22.84375 -2.90817,-0.0283 -10.23048,-1.55779 -19.03125,5.84375 -7.04987,-5.60126 -12.52773,-6.10556 -16.09375,-6 z m 0.5,7.125 c 6.90107,0 12.84031,4.09022 15.59375,9.96875 2.75336,-5.87853 8.69707,-9.96875 15.59375,-9.96875 9.51819,0 17.25,7.7451 17.25,17.28125 0,18.76828 -20.25111,24.61476 -32.84375,43.65625 C 572.00297,725.05386 552.5,719.95655 552.5,700.5625 c 0,-9.53615 7.69617,-17.28125 17.21875,-17.28125 z"
+         id="path3831"
+         inkscape:connector-curvature="0" />
+      <g
+         id="g3776"
+         transform="matrix(8.1289492,0,0,8.1289492,-1348.6544,-1131.7539)">
+        <path
+           id="path3778"
+           sodipodi:nodetypes="ccccccc"
+           d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
+           style="opacity:0.391837;fill:#d45500;fill-opacity:1;stroke:#552200;stroke-width:0.544624"
+           inkscape:connector-curvature="0" />
+        <path
+           id="path3780"
+           sodipodi:nodetypes="ccccccc"
+           d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
+           style="fill:none;stroke:#803300;stroke-width:0.544624"
+           inkscape:connector-curvature="0" />
+      </g>
+    </g>
+    <g
+       transform="matrix(0.15785769,0,0,0.15785769,21.639387,-31.69296)"
+       id="g3817">
+      <path
+         style="fill:#008000;fill-opacity:1;stroke:none"
+         d="m 95.539055,364.34447 -36.406845,65.45001 21.269235,28.79345 h 30.275225 l 21.26922,-28.79345 z"
+         id="path3673"
+         sodipodi:nodetypes="cccccc"
+         inkscape:export-xdpi="18.203581"
+         inkscape:export-ydpi="18.203581"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="18.203581"
+         inkscape:export-xdpi="18.203581"
+         sodipodi:nodetypes="cccccc"
+         id="path2822"
+         d="m 95.539055,381.57578 -25.85511,46.48074 15.104805,20.4483 h 21.50061 l 15.1048,-20.4483 z"
+         style="fill:#00c200;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       transform="matrix(0.09403321,0,0,0.09403321,18.430552,1.2841078)"
+       id="g3672">
+      <g
+         style="display:inline"
+         id="g3618"
+         transform="matrix(1,0,0,0.88700332,924.24348,231.62514)">
+        <g
+           id="g3625"
+           transform="translate(0,8.0680807)">
+          <circle
+             transform="matrix(0.86986504,0,0,0.86986504,-95.376243,67.505987)"
+             style="fill:#aa0000;fill-opacity:1;stroke:none"
+             id="path3614"
+             cx="-732.90253"
+             cy="518.73828"
+             r="61.997795" />
+          <rect
+             style="fill:#aa0000;fill-opacity:1;stroke:none"
+             id="rect3616"
+             width="39.855724"
+             height="147.60727"
+             x="-753.04462"
+             y="415.41501" />
+        </g>
+      </g>
+      <circle
+         id="path3633"
+         style="fill:#ff5555;fill-opacity:1;stroke:none"
+         transform="matrix(0.63920391,0,0,0.56697599,659.81511,404.60749)"
+         cx="-732.90253"
+         cy="518.73828"
+         r="61.997795" />
+      <rect
+         y="-695.55359"
+         x="183.57103"
+         height="77.439423"
+         width="15.082373"
+         id="rect3635"
+         style="fill:#ff5555;fill-opacity:1;stroke:none"
+         transform="scale(1,-1)" />
+    </g>
+    <g
+       transform="matrix(0.15785769,0,0,0.15785769,21.639387,-31.69296)"
+       id="g3803">
+      <path
+         inkscape:export-ydpi="18.203581"
+         inkscape:export-xdpi="18.203581"
+         sodipodi:nodetypes="cccccc"
+         id="path3645"
+         d="m 448.6221,364.34447 -36.40685,65.45001 21.26924,28.79345 h 30.27522 l 21.26923,-28.79345 z"
+         style="fill:#008000;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#00c200;fill-opacity:1;stroke:none"
+         d="m 448.6221,381.57578 -25.85511,46.48074 15.1048,20.44829 h 21.50061 l 15.1048,-20.44829 z"
+         id="path3647"
+         sodipodi:nodetypes="cccccc"
+         inkscape:export-xdpi="18.203581"
+         inkscape:export-ydpi="18.203581"
+         inkscape:connector-curvature="0" />
+      <path
+         sodipodi:nodetypes="cccccc"
+         id="path3649"
+         d="m 408.26074,435.90862 21.8634,29.91832 h -11.21938 l -21.37471,-29.96921 10.73069,0.0509 v 2e-5 z"
+         style="fill:#008000;stroke:none"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#008000;stroke:none"
+         d="m 489.01109,435.90862 -21.8634,29.91832 h 11.21937 l 21.37471,-29.96921 -10.73068,0.0509 v 2e-5 z"
+         id="path3651"
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       transform="matrix(0.15785769,0,0,0.15785769,21.639387,-31.69296)"
+       id="g3809">
+      <path
+         style="fill:#008000;fill-opacity:1;stroke:none"
+         d="m 271.04918,364.34447 -36.40685,65.45001 21.26924,28.79345 h 30.27522 l 21.26923,-28.79345 z"
+         id="path3672"
+         sodipodi:nodetypes="cccccc"
+         inkscape:export-xdpi="18.203581"
+         inkscape:export-ydpi="18.203581"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="18.203581"
+         inkscape:export-xdpi="18.203581"
+         sodipodi:nodetypes="cccccc"
+         id="path3674"
+         d="m 271.04918,381.57578 -25.85511,46.48074 15.1048,20.44829 h 21.50061 l 15.1048,-20.44829 z"
+         style="fill:#00c200;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#008000;fill-opacity:1;stroke:none"
+         d="m 255.71391,467.2868 h 30.66635 v 8.20989 h -30.66635 z"
+         id="rect3680"
+         inkscape:connector-curvature="0" />
+    </g>
+    <path
+       style="fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       d="m 119.84221,25.821616 -5.7471,10.331786 3.35751,4.545269 h 4.77918 l 3.35751,-4.545269 z"
+       id="path3685"
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-xdpi="18.203581"
+       inkscape:export-ydpi="18.203581"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:export-ydpi="18.203581"
+       inkscape:export-xdpi="18.203581"
+       sodipodi:nodetypes="cccccc"
+       id="path3687"
+       d="m 119.84221,28.54171 -4.08143,7.337343 2.38441,3.227919 h 3.39404 l 2.38441,-3.227919 z"
+       style="fill:#00c200;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#008000;stroke:none;stroke-width:0.264583"
+       d="m 113.47086,37.118568 3.45131,4.722836 h -1.77107 l -3.37416,-4.730872 1.69392,0.008 v 2e-6 z"
+       id="path3689"
+       sodipodi:nodetypes="cccccc"
+       inkscape:connector-curvature="0" />
+    <path
+       sodipodi:nodetypes="cccccc"
+       id="path3691"
+       d="m 126.21792,37.118568 -3.4513,4.722836 h 1.77106 l 3.37416,-4.730872 -1.69392,0.008 v 2e-6 z"
+       style="fill:#008000;stroke:none;stroke-width:0.264583"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       d="m 117.42142,42.071853 h 4.84092 v 1.295996 h -4.84092 z"
+       id="path3693"
+       inkscape:connector-curvature="0" />
+    <g
+       transform="matrix(0.09403321,0,0,0.08340778,133.15576,23.737506)"
+       id="g3703">
+      <circle
+         id="path3705"
+         style="fill:#aa0000;fill-opacity:1;stroke:none"
+         transform="matrix(0.86986504,0,0,0.86986504,-95.376243,67.505987)"
+         cx="-732.90253"
+         cy="518.73828"
+         r="61.997795" />
+      <rect
+         y="415.41501"
+         x="-753.04462"
+         height="147.60727"
+         width="39.855724"
+         id="rect3707"
+         style="fill:#aa0000;fill-opacity:1;stroke:none" />
+    </g>
+    <ellipse
+       id="path3709"
+       style="fill:#ff5555;fill-opacity:1;stroke:none;stroke-width:0.0566087"
+       cx="64.238579"
+       cy="66.986961"
+       rx="3.7264643"
+       ry="3.3053863" />
+    <rect
+       y="-66.689247"
+       x="63.50795"
+       height="7.281878"
+       width="1.4182439"
+       id="rect3711"
+       style="fill:#ff5555;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       transform="scale(1,-1)" />
+    <path
+       id="path3713"
+       d="m 67.24546,71.935678 c -0.892608,0.47503 -1.922682,0.749824 -3.019028,0.749824 -1.084249,0 -2.103688,-0.269698 -2.989431,-0.735023 L 60.45758,73.2972 c 1.116251,0.58637 2.402309,0.917549 3.768852,0.917549 1.382417,0 2.678123,-0.33818 3.803383,-0.937279 z"
+       style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g3738"
+       transform="matrix(0.09403321,0,0,0.08340778,188.91804,23.737506)">
+      <circle
+         transform="matrix(0.86986504,0,0,0.86986504,-95.376243,67.505987)"
+         style="fill:#aa0000;fill-opacity:1;stroke:none"
+         id="path3740"
+         cx="-732.90253"
+         cy="518.73828"
+         r="61.997795" />
+      <rect
+         style="fill:#aa0000;fill-opacity:1;stroke:none"
+         id="rect3742"
+         width="39.855724"
+         height="147.60727"
+         x="-753.04462"
+         y="415.41501" />
+    </g>
+    <ellipse
+       style="fill:#ff5555;fill-opacity:1;stroke:none;stroke-width:0.0566087"
+       id="path3744"
+       cx="120.00085"
+       cy="66.986961"
+       rx="3.7264643"
+       ry="3.3053863" />
+    <rect
+       transform="scale(1,-1)"
+       style="fill:#ff5555;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       id="rect3746"
+       width="1.4182439"
+       height="7.281878"
+       x="119.27023"
+       y="-66.689247" />
+    <path
+       id="path3748"
+       d="m 112.49635,64.812351 c -0.19182,0.641332 -0.29598,1.31794 -0.29598,2.017617 0,2.028736 0.86214,3.869127 2.25934,5.20437 l 1.12473,-1.100068 c -1.09668,-1.056476 -1.77096,-2.505509 -1.77096,-4.104302 0,-0.556566 0.0836,-1.093173 0.23678,-1.603242 z"
+       style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path3789"
+       d="m 116.96077,71.930746 -0.77943,1.346724 c 1.12526,0.599099 2.4259,0.937279 3.80832,0.937279 1.3244,0 2.56854,-0.310166 3.66033,-0.863283 l -0.76463,-1.351658 c -0.86439,0.436372 -1.84819,0.685694 -2.8957,0.685694 -1.10038,0 -2.13401,-0.276474 -3.02889,-0.754756 z"
+       style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path3791"
+       d="M 127.45337,64.733421 125.89946,65.133 c 0.17135,0.53698 0.26638,1.107056 0.26638,1.696968 0,1.636721 -0.71187,3.115977 -1.85482,4.178298 l 1.10993,1.109935 c 1.45118,-1.341768 2.35307,-3.215368 2.35307,-5.288233 0,-0.728659 -0.11322,-1.431739 -0.32065,-2.096547 z"
+       style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       inkscape:connector-curvature="0" />
+    <g
+       transform="matrix(0.09403321,0,0,0.08340778,160.86358,23.737506)"
+       id="g3765">
+      <circle
+         id="path3767"
+         style="fill:#aa0000;fill-opacity:1;stroke:none"
+         transform="matrix(0.86986504,0,0,0.86986504,-95.376243,67.505987)"
+         cx="-732.90253"
+         cy="518.73828"
+         r="61.997795" />
+      <rect
+         y="415.41501"
+         x="-753.04462"
+         height="147.60727"
+         width="39.855724"
+         id="rect3769"
+         style="fill:#aa0000;fill-opacity:1;stroke:none" />
+    </g>
+    <ellipse
+       id="path3771"
+       style="fill:#ff5555;fill-opacity:1;stroke:none;stroke-width:0.0566087"
+       cx="91.946396"
+       cy="66.986961"
+       rx="3.7264643"
+       ry="3.3053863" />
+    <rect
+       y="-66.689247"
+       x="91.215759"
+       height="7.281878"
+       width="1.4182439"
+       id="rect3773"
+       style="fill:#ff5555;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       transform="scale(1,-1)" />
+    <path
+       id="path3775"
+       d="m 86.267311,69.163302 -1.470049,0.626499 c 1.065509,2.308262 3.338391,3.99964 6.062721,4.355886 l 0.197324,-1.51938 C 88.904085,72.33613 87.106792,70.9916 86.267311,69.163302 Z"
+       style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path3783"
+       d="m 97.633065,69.089306 c -0.83139,1.882185 -2.671646,3.263808 -4.87879,3.541932 l 0.217054,1.519381 c 2.774484,-0.350809 5.084625,-2.086256 6.136719,-4.449614 z"
+       style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:export-ydpi="18.203581"
+       inkscape:export-xdpi="18.203581"
+       sodipodi:nodetypes="cccccc"
+       id="path2891"
+       d="m 147.26525,25.821616 -5.7471,10.331786 3.35751,4.545269 h 4.77918 l 3.35751,-4.545269 z"
+       style="fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#00c200;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       d="m 147.26525,28.54171 -4.08142,7.337343 2.3844,3.227919 h 3.39404 l 2.38441,-3.227919 z"
+       id="path2893"
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-xdpi="18.203581"
+       inkscape:export-ydpi="18.203581"
+       inkscape:connector-curvature="0" />
+    <path
+       sodipodi:nodetypes="cccccc"
+       id="path2895"
+       d="m 140.8939,37.118568 3.45131,4.722836 h -1.77107 l -3.37416,-4.730872 1.69392,0.008 v 2e-6 z"
+       style="fill:#008000;stroke:none;stroke-width:0.264583"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#008000;stroke:none;stroke-width:0.264583"
+       d="m 153.64097,37.118568 -3.45131,4.722836 h 1.77106 l 3.37417,-4.730872 -1.69392,0.008 v 2e-6 z"
+       id="path2897"
+       sodipodi:nodetypes="cccccc"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#008000;stroke:none;stroke-width:0.264583"
+       d="m 140.87454,35.245061 2.66658,-4.722836 h -1.77106 l -2.58945,4.730871 1.69393,-0.008 v -3e-6 z"
+       id="path2913"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:connector-curvature="0" />
+    <path
+       sodipodi:nodetypes="ccccccc"
+       id="path3070"
+       d="m 169.79546,31.407663 -2.6474,4.860343 4.85133,6.35979 h 6.37828 l 4.61756,-6.364002 -2.56652,-4.701889 z"
+       style="fill:#98ff98;fill-opacity:1;stroke:#008000;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:connector-curvature="0" />
+    <g
+       transform="matrix(0.26458333,0,0,0.26458333,19.241459,-89.366213)"
+       id="g3046">
+      <path
+         inkscape:export-ydpi="18.203581"
+         inkscape:export-xdpi="18.203581"
+         sodipodi:nodetypes="cccccc"
+         id="path2923"
+         d="m 589.04728,435.35558 -21.72133,39.04927 12.68981,17.17897 h 18.06303 l 12.68981,-17.17897 z"
+         style="fill:#008000;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#00c200;fill-opacity:1;stroke:none"
+         d="m 589.04728,445.63625 -15.42587,27.73169 9.01193,12.20001 h 12.82786 l 9.01194,-12.20001 z"
+         id="path2925"
+         sodipodi:nodetypes="cccccc"
+         inkscape:export-xdpi="18.203581"
+         inkscape:export-ydpi="18.203581"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       id="g2973"
+       transform="matrix(0.09403321,0,0,0.08340778,216.44634,23.737506)">
+      <circle
+         transform="matrix(0.86986504,0,0,0.86986504,-95.376243,67.505987)"
+         style="fill:#aa0000;fill-opacity:1;stroke:none"
+         id="path2975"
+         cx="-732.90253"
+         cy="518.73828"
+         r="61.997795" />
+      <rect
+         style="fill:#aa0000;fill-opacity:1;stroke:none"
+         id="rect2977"
+         width="39.855724"
+         height="147.60727"
+         x="-753.04462"
+         y="415.41501" />
+    </g>
+    <ellipse
+       style="fill:#ff5555;fill-opacity:1;stroke:none;stroke-width:0.0566087"
+       id="path2979"
+       cx="147.52916"
+       cy="66.986961"
+       rx="3.7264643"
+       ry="3.3053863" />
+    <rect
+       transform="scale(1,-1)"
+       style="fill:#ff5555;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       id="rect2981"
+       width="1.4182439"
+       height="7.281878"
+       x="146.79852"
+       y="-66.689247" />
+    <path
+       inkscape:transform-center-y="17.868584"
+       inkscape:transform-center-x="14.970975"
+       style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       d="m 141.85007,69.163302 -1.47005,0.626499 c 1.06551,2.308262 3.33839,3.99964 6.06272,4.355886 l 0.19733,-1.51938 c -2.15322,-0.290177 -3.95052,-1.634707 -4.79,-3.463005 z"
+       id="path2983"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       d="m 153.21583,69.089306 c -0.83139,1.882185 -2.67165,3.263808 -4.87879,3.541932 l 0.21705,1.519381 c 2.77448,-0.350809 5.08463,-2.086256 6.13672,-4.449614 z"
+       id="path2985"
+       inkscape:connector-curvature="0" />
+    <ellipse
+       id="path3857"
+       style="fill:#ffa6a6;fill-opacity:1;stroke:none;stroke-width:0.282228"
+       cx="175.23485"
+       cy="67.006248"
+       rx="7.3685856"
+       ry="6.4061418" />
+    <g
+       transform="matrix(0.09403321,0,0,0.08340778,244.12553,23.737506)"
+       id="g3004">
+      <circle
+         id="path3006"
+         style="fill:#aa0000;fill-opacity:1;stroke:none"
+         transform="matrix(0.86986504,0,0,0.86986504,-95.376243,67.505987)"
+         cx="-732.90253"
+         cy="518.73828"
+         r="61.997795" />
+      <rect
+         y="415.41501"
+         x="-753.04462"
+         height="147.60727"
+         width="39.855724"
+         id="rect3008"
+         style="fill:#aa0000;fill-opacity:1;stroke:none" />
+    </g>
+    <ellipse
+       id="path3010"
+       style="fill:#ff5555;fill-opacity:1;stroke:none;stroke-width:0.0566087"
+       cx="175.20834"
+       cy="66.986961"
+       rx="3.7264643"
+       ry="3.3053863" />
+    <path
+       id="path3043"
+       d="m 175.23215,59.688629 c -4.55801,0 -8.25169,3.277859 -8.25169,7.31978 0,4.041918 3.69368,7.319777 8.25169,7.319777 4.55802,0 8.2517,-3.277859 8.2517,-7.319777 0,-4.041921 -3.69368,-7.31978 -8.2517,-7.31978 z m 0,1.552202 c 3.59279,0 6.5071,2.581592 6.5071,5.767578 0,3.185983 -2.91431,5.767575 -6.5071,5.767575 -3.59278,0 -6.49882,-2.581592 -6.49882,-5.767575 0,-3.185986 2.90604,-5.767578 6.49882,-5.767578 z"
+       style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       inkscape:connector-curvature="0" />
+    <rect
+       y="-66.689247"
+       x="174.47772"
+       height="7.281878"
+       width="1.4182439"
+       id="rect3012"
+       style="fill:#ff5555;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       transform="scale(1,-1)" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       d="m 141.38208,67.249322 c 0.0538,-2.056921 1.23098,-4.034202 3.16687,-5.130178 l -0.77813,-1.322927 c -2.43306,1.378799 -3.91044,3.861917 -3.98553,6.447787 z"
+       id="path3020"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path3039"
+       d="m 153.65883,67.249322 c -0.0538,-2.056921 -1.23098,-4.034202 -3.16688,-5.130178 l 0.77814,-1.322927 c 2.43305,1.378799 3.91043,3.861917 3.98553,6.447787 z"
+       style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0" />
+    <g
+       transform="matrix(0.26458333,0,0,0.26458333,16.833118,-87.778713)"
+       id="g3056" />
+    <path
+       sodipodi:nodetypes="ccccccc"
+       id="path3859"
+       d="m 153.60264,35.245061 -2.66659,-4.722836 h 1.77107 l 2.58944,4.730871 -1.69392,-0.008 v -3e-6 z"
+       style="fill:#008000;stroke:none;stroke-width:0.264583"
+       inkscape:connector-curvature="0" />
+    <g
+       inkscape:export-ydpi="51.257416"
+       inkscape:export-xdpi="51.257416"
+       inkscape:export-filename="..\..\img\towers\yellow_tower_upgrade_1.png"
+       id="g3903"
+       transform="matrix(0.26458333,0,0,0.26458333,20.008118,-89.366213)">
+      <path
+         inkscape:export-ydpi="46.131672"
+         inkscape:export-xdpi="46.131672"
+         inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u0.png"
+         id="path3732"
+         d="m 120.08095,666.73505 v 93.645 h 93.645 v -93.645 z m 31.38103,18.18108 c 6.76595,0 12.49288,3.94974 15.19241,9.71317 2.69945,-5.76343 8.43076,-9.71317 15.19241,-9.71317 9.33183,0 16.9358,7.58636 16.9358,16.93579 0,18.40081 -19.78213,23.91989 -32.12821,42.58855 -13.04893,-18.78965 -32.12821,-23.57422 -32.12821,-42.58855 0,-9.34943 7.59967,-16.93579 16.9358,-16.93579 z"
+         style="display:inline;fill:#ffcc00;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+      <path
+         style="display:inline;opacity:0.391837;fill:#d45500;fill-opacity:1;stroke:#552200;stroke-width:4.42722"
+         d="m 152.00965,683.29308 c -9.52257,0 -17.24174,7.7338 -17.24174,17.26995 0,19.39405 19.52013,24.47944 32.82966,43.64433 12.59263,-19.0415 32.82965,-24.87605 32.82965,-43.64433 0,-9.53615 -7.72356,-17.26995 -17.24174,-17.26995 -6.89669,0 -12.83456,4.08065 -15.58791,9.95918 -2.75344,-5.87853 -8.68684,-9.95918 -15.58792,-9.95918 z"
+         sodipodi:nodetypes="ccccccc"
+         id="path3736"
+         inkscape:connector-curvature="0" />
+      <path
+         style="display:inline;fill:none;stroke:#803300;stroke-width:4.42722"
+         d="m 152.00965,683.29308 c -9.52257,0 -17.24174,7.7338 -17.24174,17.26995 0,19.39405 19.52013,24.47944 32.82966,43.64433 12.59263,-19.0415 32.82965,-24.87605 32.82965,-43.64433 0,-9.53615 -7.72356,-17.26995 -17.24174,-17.26995 -6.89669,0 -12.83456,4.08065 -15.58791,9.95918 -2.75344,-5.87853 -8.68684,-9.95918 -15.58792,-9.95918 z"
+         sodipodi:nodetypes="ccccccc"
+         id="path3738"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path3788"
+         d="m 178.53484,746.18009 c -3.37364,1.79539 -7.26683,2.83398 -11.4105,2.83398 -4.09795,0 -7.95095,-1.01933 -11.29864,-2.77804 l -2.94584,5.08997 c 4.2189,2.2162 9.07959,3.4679 14.24448,3.4679 5.22488,0 10.12204,-1.27816 14.37499,-3.54247 z"
+         style="fill:#6b2b00;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       inkscape:export-ydpi="51.257397"
+       inkscape:export-xdpi="51.257397"
+       inkscape:export-filename="..\..\img\towers\yellow_tower_upgrade_2.png"
+       id="g3914"
        transform="matrix(0.26458333,0,0,0.26458333,20.008118,-89.366213)">
       <g
          style="display:inline"
-         inkscape:label="Capa#1"
-         id="layer3">
-        <rect
-           inkscape:export-ydpi="33.257511"
-           inkscape:export-xdpi="33.257511"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1_u2.png"
-           style="fill:#00ff00;fill-opacity:1;stroke:none"
-           id="rect3643"
-           width="93.644867"
-           height="93.644867"
-           x="227.39671"
-           y="419.16592" />
-        <rect
-           inkscape:export-ydpi="33.257511"
-           inkscape:export-xdpi="33.257511"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1_u1.png"
-           y="419.16592"
-           x="121.45183"
-           height="93.644867"
-           width="93.644867"
-           id="rect3670"
-           style="fill:#00ff00;fill-opacity:1;stroke:none" />
-        <rect
-           inkscape:export-ydpi="33.257523"
-           inkscape:export-xdpi="33.257523"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1.png"
-           y="419.16592"
-           x="16.737684"
-           height="93.644867"
-           width="93.644867"
-           id="rect2820"
-           style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none" />
-        <rect
-           inkscape:export-ydpi="33.257511"
-           inkscape:export-xdpi="33.257511"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower2.png"
-           style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none"
-           id="rect3664"
-           width="93.644867"
-           height="93.644867"
-           x="15.284698"
-           y="539.67999" />
-        <rect
-           inkscape:export-ydpi="33.257511"
-           inkscape:export-xdpi="33.257511"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower2_u1.png"
-           y="539.67999"
-           x="120.41463"
-           height="93.644867"
-           width="93.644867"
-           id="rect3697"
-           style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none" />
-        <rect
-           inkscape:export-ydpi="33.257511"
-           inkscape:export-xdpi="33.257511"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower2_u3.png"
-           style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none"
-           id="rect3736"
-           width="93.644867"
-           height="93.644867"
-           x="331.16971"
-           y="539.67999" />
-        <rect
-           inkscape:export-ydpi="33.257511"
-           inkscape:export-xdpi="33.257511"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower2_u2.png"
-           y="539.67999"
-           x="225.13707"
-           height="93.644867"
-           width="93.644867"
-           id="rect3763"
-           style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none" />
-        <rect
-           style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none"
-           id="rect2969"
-           width="93.644867"
-           height="93.644867"
-           x="435.21365"
-           y="539.67999"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower2_u4.png"
-           inkscape:export-xdpi="55.742512"
-           inkscape:export-ydpi="55.742512" />
-        <rect
-           y="539.67999"
-           x="539.828"
-           height="93.644867"
-           width="93.644867"
-           id="rect3000"
-           style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower2_u5.png"
-           inkscape:export-xdpi="55.742512"
-           inkscape:export-ydpi="55.742512" />
-        <rect
-           inkscape:export-ydpi="33.257511"
-           inkscape:export-xdpi="33.257511"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1_u3.png"
-           style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none"
-           id="rect3683"
-           width="93.644867"
-           height="93.644867"
-           x="330.89673"
-           y="419.16592" />
-        <rect
-           y="419.16592"
-           x="434.54288"
-           height="93.644867"
-           width="93.644867"
-           id="rect2887"
-           style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1_u4.png"
-           inkscape:export-xdpi="55.742512"
-           inkscape:export-ydpi="55.742512" />
-        <rect
-           inkscape:export-ydpi="55.742493"
-           inkscape:export-xdpi="55.742493"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower1_u5.png"
-           style="display:inline;fill:#00ff00;fill-opacity:1;stroke:none"
-           id="rect2921"
-           width="93.644867"
-           height="93.644867"
-           x="539.7207"
-           y="419.16592" />
-        <rect
-           y="832.07385"
-           x="26.498701"
-           height="67.711792"
-           width="79.508743"
-           id="rect2849"
-           style="fill:#ff0000;fill-opacity:1;stroke:#550000;stroke-width:3.22389889" />
+         transform="translate(209.53413)"
+         id="g3740">
+        <path
+           inkscape:export-ydpi="46.131672"
+           inkscape:export-xdpi="46.131672"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u0.png"
+           id="path3742"
+           d="m 15.989796,666.73505 v 93.645 H 109.6348 v -93.645 z m 31.381039,18.18108 c 6.76595,0 12.492879,3.94974 15.192408,9.71317 2.69945,-5.76343 8.430762,-9.71317 15.192407,-9.71317 9.331827,0 16.935801,7.58636 16.935801,16.93579 0,18.40081 -19.782128,23.91989 -32.128208,42.58855 -13.048934,-18.78965 -32.128208,-23.57422 -32.128208,-42.58855 0,-9.34943 7.599669,-16.93579 16.9358,-16.93579 z"
+           style="display:inline;fill:#ffcc00;fill-opacity:1;stroke:none"
+           inkscape:connector-curvature="0" />
         <g
-           id="g2952">
+           id="g3744"
+           transform="matrix(8.1289492,0,0,8.1289492,-1870.462,-1131.7539)">
           <path
-             style="display:inline;fill:#ffcc00;fill-opacity:1;stroke:none"
-             d="m 15.989796,666.73505 v 93.645 H 109.6348 v -93.645 z m 31.381039,18.18108 c 6.76595,0 12.492879,3.94974 15.192408,9.71317 2.69945,-5.76343 8.430762,-9.71317 15.192407,-9.71317 9.331827,0 16.935801,7.58636 16.935801,16.93579 0,18.40081 -19.782128,23.91989 -32.128208,42.58855 -13.048934,-18.78965 -32.128208,-23.57422 -32.128208,-42.58855 0,-9.34943 7.599669,-16.93579 16.9358,-16.93579 z"
-             id="rect3666"
-             inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u0.png"
-             inkscape:export-xdpi="46.131672"
-             inkscape:export-ydpi="46.131672"
-             inkscape:connector-curvature="0" />
-          <g
-             transform="matrix(8.1289492,0,0,8.1289492,-1870.462,-1131.7539)"
-             id="g3678">
-            <path
-               style="opacity:0.39183673;fill:#d45500;fill-opacity:1;stroke:#552200;stroke-width:0.54462361"
-               d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
-               sodipodi:nodetypes="ccccccc"
-               id="path3680"
-               inkscape:connector-curvature="0" />
-            <path
-               style="fill:none;stroke:#803300;stroke-width:0.54462361"
-               d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
-               sodipodi:nodetypes="ccccccc"
-               id="path3682"
-               inkscape:connector-curvature="0" />
-          </g>
-        </g>
-        <g
-           inkscape:export-ydpi="46"
-           inkscape:export-xdpi="46"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u5.png"
-           id="g3949">
-          <path
-             inkscape:export-ydpi="46.131672"
-             inkscape:export-xdpi="46.131672"
-             inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u0.png"
-             id="path3774"
-             d="m 537.79737,666.73505 v 93.645 h 93.645 v -93.645 z m 31.38104,18.18108 c 6.76595,0 12.49287,3.94974 15.1924,9.71317 2.69945,-5.76343 8.43077,-9.71317 15.19241,-9.71317 9.33183,0 16.9358,7.58636 16.9358,16.93579 0,18.40081 -19.78213,23.91989 -32.12821,42.58855 -13.04893,-18.78965 -32.1282,-23.57422 -32.1282,-42.58855 0,-9.34943 7.59966,-16.93579 16.9358,-16.93579 z"
-             style="display:inline;fill:#ffcc00;fill-opacity:1;stroke:none"
+             id="path3746"
+             sodipodi:nodetypes="ccccccc"
+             d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
+             style="opacity:0.391837;fill:#d45500;fill-opacity:1;stroke:#552200;stroke-width:0.544624"
              inkscape:connector-curvature="0" />
           <path
-             style="fill:#ffe6d5;stroke:#803300;stroke-width:4"
-             d="m 569.21875,676.15625 c -1.18867,0.0352 -2.15809,0.14916 -2.90625,0.15625 -10.94087,0.50694 -21.0625,10.22501 -21.0625,22.84375 0,25.66325 23.82592,32.10875 40.0625,57.46875 15.36203,-25.19672 40.0625,-32.63355 40.0625,-57.46875 0,-12.61874 -9.41981,-21.99885 -21.03125,-22.84375 -2.90817,-0.0283 -10.23048,-1.55779 -19.03125,5.84375 -7.04987,-5.60126 -12.52773,-6.10556 -16.09375,-6 z m 0.5,7.125 c 6.90107,0 12.84031,4.09022 15.59375,9.96875 2.75336,-5.87853 8.69707,-9.96875 15.59375,-9.96875 9.51819,0 17.25,7.7451 17.25,17.28125 0,18.76828 -20.25111,24.61476 -32.84375,43.65625 C 572.00297,725.05386 552.5,719.95655 552.5,700.5625 c 0,-9.53615 7.69617,-17.28125 17.21875,-17.28125 z"
-             id="path3831"
+             id="path3749"
+             sodipodi:nodetypes="ccccccc"
+             d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
+             style="fill:none;stroke:#803300;stroke-width:0.544624"
              inkscape:connector-curvature="0" />
-          <g
-             id="g3776"
-             transform="matrix(8.1289492,0,0,8.1289492,-1348.6544,-1131.7539)">
-            <path
-               id="path3778"
-               sodipodi:nodetypes="ccccccc"
-               d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
-               style="opacity:0.39183673;fill:#d45500;fill-opacity:1;stroke:#552200;stroke-width:0.54462361"
-               inkscape:connector-curvature="0" />
-            <path
-               id="path3780"
-               sodipodi:nodetypes="ccccccc"
-               d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
-               style="fill:none;stroke:#803300;stroke-width:0.54462361"
-               inkscape:connector-curvature="0" />
-          </g>
         </g>
       </g>
+      <path
+         id="path3797"
+         d="m 251.7223,735.70182 -5.55609,2.36787 c 4.02712,8.72414 12.61754,15.11675 22.91422,16.46319 l 0.74579,-5.74254 c -8.13816,-1.09673 -14.93108,-6.17842 -18.10392,-13.08852 z"
+         style="fill:#6b2b00;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path3799"
+         d="m 294.67948,735.42215 c -3.14226,7.11377 -10.09756,12.33565 -18.43952,13.38683 l 0.82036,5.74254 c 10.48624,-1.32589 19.21748,-7.88506 23.1939,-16.81744 z"
+         style="fill:#6b2b00;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       inkscape:export-ydpi="51.257397"
+       inkscape:export-xdpi="51.257397"
+       inkscape:export-filename="..\..\img\towers\yellow_tower_upgrade_3.png"
+       id="g3928"
+       transform="matrix(0.26458333,0,0,0.26458333,20.008118,-89.366213)">
       <g
          style="display:inline"
-         inkscape:label="Capa"
-         id="layer2">
-        <g
-           transform="matrix(0.59662749,0,0,0.59662749,6.1654268,217.97765)"
-           id="g3817">
-          <path
-             style="fill:#008000;fill-opacity:1;stroke:none"
-             d="m 95.539055,364.34447 -36.406845,65.45001 21.269235,28.79345 h 30.275225 l 21.26922,-28.79345 z"
-             id="path3673"
-             sodipodi:nodetypes="cccccc"
-             inkscape:export-xdpi="18.203581"
-             inkscape:export-ydpi="18.203581"
-             inkscape:connector-curvature="0" />
-          <path
-             inkscape:export-ydpi="18.203581"
-             inkscape:export-xdpi="18.203581"
-             sodipodi:nodetypes="cccccc"
-             id="path2822"
-             d="m 95.539055,381.57578 -25.85511,46.48074 15.104805,20.4483 h 21.50061 l 15.1048,-20.4483 z"
-             style="fill:#00c200;fill-opacity:1;stroke:none"
-             inkscape:connector-curvature="0" />
-        </g>
-        <g
-           transform="matrix(0.35540113,0,0,0.35540113,-5.9624558,342.61539)"
-           id="g3672">
-          <g
-             style="display:inline"
-             id="g3618"
-             transform="matrix(1,0,0,0.88700332,924.24348,231.62514)">
-            <g
-               id="g3625"
-               transform="translate(0,8.0680807)">
-              <circle
-                 transform="matrix(0.86986504,0,0,0.86986504,-95.376243,67.505987)"
-                 style="fill:#aa0000;fill-opacity:1;stroke:none"
-                 id="path3614"
-                 cx="-732.90253"
-                 cy="518.73828"
-                 r="61.997795" />
-              <rect
-                 style="fill:#aa0000;fill-opacity:1;stroke:none"
-                 id="rect3616"
-                 width="39.855724"
-                 height="147.60727"
-                 x="-753.04462"
-                 y="415.41501" />
-            </g>
-          </g>
-          <circle
-             id="path3633"
-             style="fill:#ff5555;fill-opacity:1;stroke:none"
-             transform="matrix(0.63920391,0,0,0.56697599,659.81511,404.60749)"
-             cx="-732.90253"
-             cy="518.73828"
-             r="61.997795" />
-          <rect
-             y="-695.55359"
-             x="183.57103"
-             height="77.439423"
-             width="15.082373"
-             id="rect3635"
-             style="fill:#ff5555;fill-opacity:1;stroke:none"
-             transform="scale(1,-1)" />
-        </g>
-        <g
-           transform="matrix(0.59662749,0,0,0.59662749,6.1654268,217.97765)"
-           id="g3803">
-          <path
-             inkscape:export-ydpi="18.203581"
-             inkscape:export-xdpi="18.203581"
-             sodipodi:nodetypes="cccccc"
-             id="path3645"
-             d="m 448.6221,364.34447 -36.40685,65.45001 21.26924,28.79345 h 30.27522 l 21.26923,-28.79345 z"
-             style="fill:#008000;fill-opacity:1;stroke:none"
-             inkscape:connector-curvature="0" />
-          <path
-             style="fill:#00c200;fill-opacity:1;stroke:none"
-             d="m 448.6221,381.57578 -25.85511,46.48074 15.1048,20.44829 h 21.50061 l 15.1048,-20.44829 z"
-             id="path3647"
-             sodipodi:nodetypes="cccccc"
-             inkscape:export-xdpi="18.203581"
-             inkscape:export-ydpi="18.203581"
-             inkscape:connector-curvature="0" />
-          <path
-             sodipodi:nodetypes="cccccc"
-             id="path3649"
-             d="m 408.26074,435.90862 21.8634,29.91832 h -11.21938 l -21.37471,-29.96921 10.73069,0.0509 v 2e-5 z"
-             style="fill:#008000;stroke:none"
-             inkscape:connector-curvature="0" />
-          <path
-             style="fill:#008000;stroke:none"
-             d="m 489.01109,435.90862 -21.8634,29.91832 h 11.21937 l 21.37471,-29.96921 -10.73068,0.0509 v 2e-5 z"
-             id="path3651"
-             sodipodi:nodetypes="cccccc"
-             inkscape:connector-curvature="0" />
-        </g>
-        <g
-           transform="matrix(0.59662749,0,0,0.59662749,6.1654268,217.97765)"
-           id="g3809">
-          <path
-             style="fill:#008000;fill-opacity:1;stroke:none"
-             d="m 271.04918,364.34447 -36.40685,65.45001 21.26924,28.79345 h 30.27522 l 21.26923,-28.79345 z"
-             id="path3672"
-             sodipodi:nodetypes="cccccc"
-             inkscape:export-xdpi="18.203581"
-             inkscape:export-ydpi="18.203581"
-             inkscape:connector-curvature="0" />
-          <path
-             inkscape:export-ydpi="18.203581"
-             inkscape:export-xdpi="18.203581"
-             sodipodi:nodetypes="cccccc"
-             id="path3674"
-             d="m 271.04918,381.57578 -25.85511,46.48074 15.1048,20.44829 h 21.50061 l 15.1048,-20.44829 z"
-             style="fill:#00c200;fill-opacity:1;stroke:none"
-             inkscape:connector-curvature="0" />
-          <path
-             style="fill:#008000;fill-opacity:1;stroke:none"
-             d="m 255.71391,467.2868 h 30.66635 v 8.20989 h -30.66635 z"
-             id="rect3680"
-             inkscape:connector-curvature="0" />
-        </g>
+         id="g3751"
+         transform="translate(313.62528)">
         <path
-           style="fill:#008000;fill-opacity:1;stroke:none"
-           d="m 377.32571,435.35558 -21.72133,39.04927 12.68982,17.17897 h 18.06303 l 12.6898,-17.17897 z"
-           id="path3685"
-           sodipodi:nodetypes="cccccc"
-           inkscape:export-xdpi="18.203581"
-           inkscape:export-ydpi="18.203581"
-           inkscape:connector-curvature="0" />
-        <path
-           inkscape:export-ydpi="18.203581"
-           inkscape:export-xdpi="18.203581"
-           sodipodi:nodetypes="cccccc"
-           id="path3687"
-           d="m 377.32571,445.63625 -15.42587,27.73169 9.01194,12.20001 h 12.82786 l 9.01194,-12.20001 z"
-           style="fill:#00c200;fill-opacity:1;stroke:none"
-           inkscape:connector-curvature="0" />
-        <path
-           style="fill:#008000;stroke:none"
-           d="m 353.24501,478.05272 13.04431,17.85009 h -6.69379 l -12.75274,-17.88046 6.40222,0.0304 v 10e-6 z"
-           id="path3689"
-           sodipodi:nodetypes="cccccc"
-           inkscape:connector-curvature="0" />
-        <path
-           sodipodi:nodetypes="cccccc"
-           id="path3691"
-           d="m 401.42289,478.05272 -13.0443,17.85009 h 6.69378 l 12.75274,-17.88046 -6.40222,0.0304 v 10e-6 z"
-           style="fill:#008000;stroke:none"
-           inkscape:connector-curvature="0" />
-        <path
-           style="fill:#008000;fill-opacity:1;stroke:none"
-           d="m 368.17627,496.7738 h 18.29639 v 4.89825 h -18.29639 z"
-           id="path3693"
+           style="display:inline;fill:#ffcc00;fill-opacity:1;stroke:none"
+           d="m 15.989796,666.73505 v 93.645 H 109.6348 v -93.645 z m 31.381039,18.18108 c 6.76595,0 12.492879,3.94974 15.192408,9.71317 2.69945,-5.76343 8.430762,-9.71317 15.192407,-9.71317 9.331827,0 16.935801,7.58636 16.935801,16.93579 0,18.40081 -19.782128,23.91989 -32.128208,42.58855 -13.048934,-18.78965 -32.128208,-23.57422 -32.128208,-42.58855 0,-9.34943 7.599669,-16.93579 16.9358,-16.93579 z"
+           id="path3753"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u0.png"
+           inkscape:export-xdpi="46.131672"
+           inkscape:export-ydpi="46.131672"
            inkscape:connector-curvature="0" />
         <g
-           transform="matrix(0.35540113,0,0,0.31524199,427.64465,427.47863)"
-           id="g3703">
-          <circle
-             id="path3705"
-             style="fill:#aa0000;fill-opacity:1;stroke:none"
-             transform="matrix(0.86986504,0,0,0.86986504,-95.376243,67.505987)"
-             cx="-732.90253"
-             cy="518.73828"
-             r="61.997795" />
-          <rect
-             y="415.41501"
-             x="-753.04462"
-             height="147.60727"
-             width="39.855724"
-             id="rect3707"
-             style="fill:#aa0000;fill-opacity:1;stroke:none" />
-        </g>
-        <circle
-           id="path3709"
-           style="fill:#ff5555;fill-opacity:1;stroke:none"
-           transform="matrix(0.22717379,0,0,0.20150391,333.6665,486.41335)"
-           cx="-732.90253"
-           cy="518.73828"
-           r="61.997795" />
-        <rect
-           y="-589.81592"
-           x="164.40881"
-           height="27.522058"
-           width="5.360292"
-           id="rect3711"
-           style="fill:#ff5555;fill-opacity:1;stroke:none"
-           transform="scale(1,-1)" />
-        <path
-           id="path3713"
-           d="m 178.53484,609.64495 c -3.37364,1.79539 -7.26683,2.83398 -11.4105,2.83398 -4.09795,0 -7.95095,-1.01933 -11.29864,-2.77804 l -2.94584,5.08997 c 4.2189,2.2162 9.07959,3.4679 14.24448,3.4679 5.22488,0 10.12204,-1.27816 14.37499,-3.54247 z"
-           style="fill:#aa0000;fill-opacity:1;stroke:none"
-           inkscape:connector-curvature="0" />
-        <g
-           id="g3738"
-           transform="matrix(0.35540113,0,0,0.31524199,638.39971,427.47863)">
-          <circle
-             transform="matrix(0.86986504,0,0,0.86986504,-95.376243,67.505987)"
-             style="fill:#aa0000;fill-opacity:1;stroke:none"
-             id="path3740"
-             cx="-732.90253"
-             cy="518.73828"
-             r="61.997795" />
-          <rect
-             style="fill:#aa0000;fill-opacity:1;stroke:none"
-             id="rect3742"
-             width="39.855724"
-             height="147.60727"
-             x="-753.04462"
-             y="415.41501" />
-        </g>
-        <circle
-           transform="matrix(0.22717379,0,0,0.20150391,544.42156,486.41335)"
-           style="fill:#ff5555;fill-opacity:1;stroke:none"
-           id="path3744"
-           cx="-732.90253"
-           cy="518.73828"
-           r="61.997795" />
-        <rect
-           transform="scale(1,-1)"
-           style="fill:#ff5555;fill-opacity:1;stroke:none"
-           id="rect3746"
-           width="5.360292"
-           height="27.522058"
-           x="375.16388"
-           y="-589.81592" />
-        <path
-           id="path3748"
-           d="m 349.56184,582.72214 c -0.72499,2.42393 -1.11868,4.98119 -1.11868,7.62564 0,7.66766 3.25848,14.62347 8.53923,19.67006 l 4.25097,-4.15774 c -4.14495,-3.99298 -6.69341,-9.46964 -6.69341,-15.51232 0,-2.10356 0.31598,-4.13168 0.89494,-6.0595 z"
-           style="fill:#aa0000;fill-opacity:1;stroke:none"
-           inkscape:connector-curvature="0" />
-        <path
-           id="path3789"
-           d="m 366.43521,609.62631 -2.94585,5.08998 c 4.25295,2.26431 9.16876,3.54247 14.39364,3.54247 5.00561,0 9.70785,-1.17228 13.8343,-3.2628 l -2.88992,-5.10863 c -3.26698,1.64928 -6.98527,2.5916 -10.94438,2.5916 -4.15891,0 -8.06557,-1.04494 -11.44779,-2.85262 z"
-           style="fill:#aa0000;fill-opacity:1;stroke:none"
-           inkscape:connector-curvature="0" />
-        <path
-           id="path3791"
-           d="m 406.09229,582.42382 -5.87305,1.51022 c 0.64765,2.02953 1.00681,4.18415 1.00681,6.41374 0,6.18603 -2.69055,11.77692 -7.01037,15.79199 l 4.19503,4.19503 c 5.48477,-5.07125 8.89348,-12.15257 8.89348,-19.98702 0,-2.75399 -0.42789,-5.4113 -1.2119,-7.92396 z"
-           style="fill:#aa0000;fill-opacity:1;stroke:none"
-           inkscape:connector-curvature="0" />
-        <g
-           transform="matrix(0.35540113,0,0,0.31524199,532.36709,427.47863)"
-           id="g3765">
-          <circle
-             id="path3767"
-             style="fill:#aa0000;fill-opacity:1;stroke:none"
-             transform="matrix(0.86986504,0,0,0.86986504,-95.376243,67.505987)"
-             cx="-732.90253"
-             cy="518.73828"
-             r="61.997795" />
-          <rect
-             y="415.41501"
-             x="-753.04462"
-             height="147.60727"
-             width="39.855724"
-             id="rect3769"
-             style="fill:#aa0000;fill-opacity:1;stroke:none" />
-        </g>
-        <circle
-           id="path3771"
-           style="fill:#ff5555;fill-opacity:1;stroke:none"
-           transform="matrix(0.22717379,0,0,0.20150391,438.38895,486.41335)"
-           cx="-732.90253"
-           cy="518.73828"
-           r="61.997795" />
-        <rect
-           y="-589.81592"
-           x="269.13126"
-           height="27.522058"
-           width="5.360292"
-           id="rect3773"
-           style="fill:#ff5555;fill-opacity:1;stroke:none"
-           transform="scale(1,-1)" />
-        <path
-           id="path3775"
-           d="m 250.42845,599.16668 -5.55609,2.36787 c 4.02712,8.72414 12.61754,15.11675 22.91422,16.46319 l 0.74579,-5.74254 c -8.13816,-1.09673 -14.93108,-6.17842 -18.10392,-13.08852 z"
-           style="fill:#aa0000;fill-opacity:1;stroke:none"
-           inkscape:connector-curvature="0" />
-        <path
-           id="path3783"
-           d="m 293.38563,598.88701 c -3.14226,7.11377 -10.09756,12.33565 -18.43952,13.38683 l 0.82036,5.74254 c 10.48624,-1.32589 19.21748,-7.88506 23.1939,-16.81744 z"
-           style="fill:#aa0000;fill-opacity:1;stroke:none"
-           inkscape:connector-curvature="0" />
-        <path
-           inkscape:export-ydpi="18.203581"
-           inkscape:export-xdpi="18.203581"
-           sodipodi:nodetypes="cccccc"
-           id="path2891"
-           d="m 480.97186,435.35558 -21.72133,39.04927 12.68981,17.17897 h 18.06303 l 12.68981,-17.17897 z"
-           style="fill:#008000;fill-opacity:1;stroke:none"
-           inkscape:connector-curvature="0" />
-        <path
-           style="fill:#00c200;fill-opacity:1;stroke:none"
-           d="m 480.97186,445.63625 -15.42587,27.73169 9.01193,12.20001 h 12.82786 l 9.01194,-12.20001 z"
-           id="path2893"
-           sodipodi:nodetypes="cccccc"
-           inkscape:export-xdpi="18.203581"
-           inkscape:export-ydpi="18.203581"
-           inkscape:connector-curvature="0" />
-        <path
-           sodipodi:nodetypes="cccccc"
-           id="path2895"
-           d="m 456.89116,478.05272 13.0443,17.85009 h -6.69379 l -12.75274,-17.88046 6.40223,0.0304 v 10e-6 z"
-           style="fill:#008000;stroke:none"
-           inkscape:connector-curvature="0" />
-        <path
-           style="fill:#008000;stroke:none"
-           d="m 505.06904,478.05272 -13.04431,17.85009 h 6.69379 l 12.75274,-17.88046 -6.40222,0.0304 v 10e-6 z"
-           id="path2897"
-           sodipodi:nodetypes="cccccc"
-           inkscape:connector-curvature="0" />
-        <path
-           style="fill:#008000;stroke:none"
-           d="m 456.81797,470.97175 10.07843,-17.85009 h -6.69379 l -9.78687,17.88046 6.40223,-0.0304 v -1e-5 z"
-           id="path2913"
-           sodipodi:nodetypes="ccccccc"
-           inkscape:connector-curvature="0" />
-        <path
-           sodipodi:nodetypes="ccccccc"
-           id="path3070"
-           d="m 566.1254,456.4682 -10.00594,18.3698 18.33573,24.037 h 24.1069 l 17.4522,-24.05292 -9.70023,-17.77092 z"
-           style="fill:#98ff98;fill-opacity:1;stroke:#008000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           inkscape:connector-curvature="0" />
-        <g
-           transform="translate(-2.8976081)"
-           id="g3046">
+           transform="matrix(8.1289492,0,0,8.1289492,-1870.462,-1131.7539)"
+           id="g3755">
           <path
-             inkscape:export-ydpi="18.203581"
-             inkscape:export-xdpi="18.203581"
-             sodipodi:nodetypes="cccccc"
-             id="path2923"
-             d="m 589.04728,435.35558 -21.72133,39.04927 12.68981,17.17897 h 18.06303 l 12.68981,-17.17897 z"
-             style="fill:#008000;fill-opacity:1;stroke:none"
-             inkscape:connector-curvature="0" />
-          <path
-             style="fill:#00c200;fill-opacity:1;stroke:none"
-             d="m 589.04728,445.63625 -15.42587,27.73169 9.01193,12.20001 h 12.82786 l 9.01194,-12.20001 z"
-             id="path2925"
-             sodipodi:nodetypes="cccccc"
-             inkscape:export-xdpi="18.203581"
-             inkscape:export-ydpi="18.203581"
-             inkscape:connector-curvature="0" />
-        </g>
-        <g
-           id="g2973"
-           transform="matrix(0.35540113,0,0,0.31524199,742.44367,427.47863)">
-          <circle
-             transform="matrix(0.86986504,0,0,0.86986504,-95.376243,67.505987)"
-             style="fill:#aa0000;fill-opacity:1;stroke:none"
-             id="path2975"
-             cx="-732.90253"
-             cy="518.73828"
-             r="61.997795" />
-          <rect
-             style="fill:#aa0000;fill-opacity:1;stroke:none"
-             id="rect2977"
-             width="39.855724"
-             height="147.60727"
-             x="-753.04462"
-             y="415.41501" />
-        </g>
-        <circle
-           transform="matrix(0.22717379,0,0,0.20150391,648.46553,486.41335)"
-           style="fill:#ff5555;fill-opacity:1;stroke:none"
-           id="path2979"
-           cx="-732.90253"
-           cy="518.73828"
-           r="61.997795" />
-        <rect
-           transform="scale(1,-1)"
-           style="fill:#ff5555;fill-opacity:1;stroke:none"
-           id="rect2981"
-           width="5.360292"
-           height="27.522058"
-           x="479.20782"
-           y="-589.81592" />
-        <path
-           inkscape:transform-center-y="17.868584"
-           inkscape:transform-center-x="14.970975"
-           style="fill:#aa0000;fill-opacity:1;stroke:none"
-           d="m 460.50503,599.16668 -5.55609,2.36787 c 4.02713,8.72414 12.61754,15.11675 22.91422,16.46319 l 0.74579,-5.74254 c -8.13816,-1.09673 -14.93108,-6.17842 -18.10392,-13.08852 z"
-           id="path2983"
-           inkscape:connector-curvature="0" />
-        <path
-           style="fill:#aa0000;fill-opacity:1;stroke:none"
-           d="m 503.46221,598.88701 c -3.14226,7.11377 -10.09755,12.33565 -18.43952,13.38683 l 0.82037,5.74254 c 10.48623,-1.32589 19.21748,-7.88506 23.19389,-16.81744 z"
-           id="path2985"
-           inkscape:connector-curvature="0" />
-        <ellipse
-           transform="matrix(1.0591501,0,0,1.0742781,-40.840383,-44.266277)"
-           id="path3857"
-           style="fill:#ffa6a6;fill-opacity:1;stroke:none"
-           cx="592.47888"
-           cy="591.35553"
-           rx="26.294453"
-           ry="22.538101" />
-        <g
-           transform="matrix(0.35540113,0,0,0.31524199,847.05794,427.47863)"
-           id="g3004">
-          <circle
-             id="path3006"
-             style="fill:#aa0000;fill-opacity:1;stroke:none"
-             transform="matrix(0.86986504,0,0,0.86986504,-95.376243,67.505987)"
-             cx="-732.90253"
-             cy="518.73828"
-             r="61.997795" />
-          <rect
-             y="415.41501"
-             x="-753.04462"
-             height="147.60727"
-             width="39.855724"
-             id="rect3008"
-             style="fill:#aa0000;fill-opacity:1;stroke:none" />
-        </g>
-        <circle
-           id="path3010"
-           style="fill:#ff5555;fill-opacity:1;stroke:none"
-           transform="matrix(0.22717379,0,0,0.20150391,753.0798,486.41335)"
-           cx="-732.90253"
-           cy="518.73828"
-           r="61.997795" />
-        <path
-           id="path3043"
-           d="m 586.67353,563.35689 c -17.22714,0 -31.1875,12.38876 -31.1875,27.66531 0,15.27654 13.96036,27.6653 31.1875,27.6653 17.22714,0 31.1875,-12.38876 31.1875,-27.6653 0,-15.27655 -13.96036,-27.66531 -31.1875,-27.66531 z m 0,5.86659 c 13.57904,0 24.59375,9.7572 24.59375,21.79872 0,12.04151 -11.01471,21.79871 -24.59375,21.79871 -13.57904,0 -24.5625,-9.7572 -24.5625,-21.79871 0,-12.04152 10.98346,-21.79872 24.5625,-21.79872 z"
-           style="fill:#aa0000;fill-opacity:1;stroke:none"
-           inkscape:connector-curvature="0" />
-        <rect
-           y="-589.81592"
-           x="583.82214"
-           height="27.522058"
-           width="5.360292"
-           id="rect3012"
-           style="fill:#ff5555;fill-opacity:1;stroke:none"
-           transform="scale(1,-1)" />
-        <path
-           sodipodi:nodetypes="ccccc"
-           style="fill:#aa0000;fill-opacity:1;stroke:none"
-           d="m 458.73623,591.93274 c 0.20336,-7.77419 4.65254,-15.24738 11.9693,-19.38965 l -2.94099,-5.00004 c -9.19579,5.21121 -14.77959,14.59622 -15.06341,24.36959 z"
-           id="path3020"
-           inkscape:connector-curvature="0" />
-        <path
-           id="path3039"
-           d="m 505.13656,591.93274 c -0.20336,-7.77419 -4.65254,-15.24738 -11.9693,-19.38965 l 2.94099,-5.00004 c 9.19579,5.21121 14.77959,14.59622 15.06341,24.36959 z"
-           style="fill:#aa0000;fill-opacity:1;stroke:none"
-           sodipodi:nodetypes="ccccc"
-           inkscape:connector-curvature="0" />
-        <g
-           transform="translate(-12,6)"
-           id="g3056" />
-        <path
-           sodipodi:nodetypes="ccccccc"
-           id="path3859"
-           d="m 504.92417,470.97175 -10.07843,-17.85009 h 6.69379 l 9.78687,17.88046 -6.40223,-0.0304 v -1e-5 z"
-           style="fill:#008000;stroke:none"
-           inkscape:connector-curvature="0" />
-        <g
-           inkscape:export-ydpi="46"
-           inkscape:export-xdpi="46"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u1.png"
-           id="g3903">
-          <path
-             inkscape:export-ydpi="46.131672"
-             inkscape:export-xdpi="46.131672"
-             inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u0.png"
-             id="path3732"
-             d="m 120.08095,666.73505 v 93.645 h 93.645 v -93.645 z m 31.38103,18.18108 c 6.76595,0 12.49288,3.94974 15.19241,9.71317 2.69945,-5.76343 8.43076,-9.71317 15.19241,-9.71317 9.33183,0 16.9358,7.58636 16.9358,16.93579 0,18.40081 -19.78213,23.91989 -32.12821,42.58855 -13.04893,-18.78965 -32.12821,-23.57422 -32.12821,-42.58855 0,-9.34943 7.59967,-16.93579 16.9358,-16.93579 z"
-             style="display:inline;fill:#ffcc00;fill-opacity:1;stroke:none"
-             inkscape:connector-curvature="0" />
-          <path
-             style="display:inline;opacity:0.39183673;fill:#d45500;fill-opacity:1;stroke:#552200;stroke-width:4.42721748"
-             d="m 152.00965,683.29308 c -9.52257,0 -17.24174,7.7338 -17.24174,17.26995 0,19.39405 19.52013,24.47944 32.82966,43.64433 12.59263,-19.0415 32.82965,-24.87605 32.82965,-43.64433 0,-9.53615 -7.72356,-17.26995 -17.24174,-17.26995 -6.89669,0 -12.83456,4.08065 -15.58791,9.95918 -2.75344,-5.87853 -8.68684,-9.95918 -15.58792,-9.95918 z"
+             style="opacity:0.391837;fill:#d45500;fill-opacity:1;stroke:#552200;stroke-width:0.544624"
+             d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
              sodipodi:nodetypes="ccccccc"
-             id="path3736"
+             id="path3757"
              inkscape:connector-curvature="0" />
           <path
-             style="display:inline;fill:none;stroke:#803300;stroke-width:4.42721748"
-             d="m 152.00965,683.29308 c -9.52257,0 -17.24174,7.7338 -17.24174,17.26995 0,19.39405 19.52013,24.47944 32.82966,43.64433 12.59263,-19.0415 32.82965,-24.87605 32.82965,-43.64433 0,-9.53615 -7.72356,-17.26995 -17.24174,-17.26995 -6.89669,0 -12.83456,4.08065 -15.58791,9.95918 -2.75344,-5.87853 -8.68684,-9.95918 -15.58792,-9.95918 z"
+             style="fill:none;stroke:#803300;stroke-width:0.544624"
+             d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
              sodipodi:nodetypes="ccccccc"
-             id="path3738"
-             inkscape:connector-curvature="0" />
-          <path
-             id="path3788"
-             d="m 178.53484,746.18009 c -3.37364,1.79539 -7.26683,2.83398 -11.4105,2.83398 -4.09795,0 -7.95095,-1.01933 -11.29864,-2.77804 l -2.94584,5.08997 c 4.2189,2.2162 9.07959,3.4679 14.24448,3.4679 5.22488,0 10.12204,-1.27816 14.37499,-3.54247 z"
-             style="fill:#6b2b00;fill-opacity:1;stroke:none"
-             inkscape:connector-curvature="0" />
-        </g>
-        <g
-           inkscape:export-ydpi="46"
-           inkscape:export-xdpi="46"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u2_png.png"
-           id="g3914">
-          <g
-             style="display:inline"
-             transform="translate(209.53413)"
-             id="g3740">
-            <path
-               inkscape:export-ydpi="46.131672"
-               inkscape:export-xdpi="46.131672"
-               inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u0.png"
-               id="path3742"
-               d="m 15.989796,666.73505 v 93.645 H 109.6348 v -93.645 z m 31.381039,18.18108 c 6.76595,0 12.492879,3.94974 15.192408,9.71317 2.69945,-5.76343 8.430762,-9.71317 15.192407,-9.71317 9.331827,0 16.935801,7.58636 16.935801,16.93579 0,18.40081 -19.782128,23.91989 -32.128208,42.58855 -13.048934,-18.78965 -32.128208,-23.57422 -32.128208,-42.58855 0,-9.34943 7.599669,-16.93579 16.9358,-16.93579 z"
-               style="display:inline;fill:#ffcc00;fill-opacity:1;stroke:none"
-               inkscape:connector-curvature="0" />
-            <g
-               id="g3744"
-               transform="matrix(8.1289492,0,0,8.1289492,-1870.462,-1131.7539)">
-              <path
-                 id="path3746"
-                 sodipodi:nodetypes="ccccccc"
-                 d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
-                 style="opacity:0.39183673;fill:#d45500;fill-opacity:1;stroke:#552200;stroke-width:0.54462361"
-                 inkscape:connector-curvature="0" />
-              <path
-                 id="path3749"
-                 sodipodi:nodetypes="ccccccc"
-                 d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
-                 style="fill:none;stroke:#803300;stroke-width:0.54462361"
-                 inkscape:connector-curvature="0" />
-            </g>
-          </g>
-          <path
-             id="path3797"
-             d="m 251.7223,735.70182 -5.55609,2.36787 c 4.02712,8.72414 12.61754,15.11675 22.91422,16.46319 l 0.74579,-5.74254 c -8.13816,-1.09673 -14.93108,-6.17842 -18.10392,-13.08852 z"
-             style="fill:#6b2b00;fill-opacity:1;stroke:none"
-             inkscape:connector-curvature="0" />
-          <path
-             id="path3799"
-             d="m 294.67948,735.42215 c -3.14226,7.11377 -10.09756,12.33565 -18.43952,13.38683 l 0.82036,5.74254 c 10.48624,-1.32589 19.21748,-7.88506 23.1939,-16.81744 z"
-             style="fill:#6b2b00;fill-opacity:1;stroke:none"
-             inkscape:connector-curvature="0" />
-        </g>
-        <g
-           inkscape:export-ydpi="46"
-           inkscape:export-xdpi="46"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u3.png"
-           id="g3928">
-          <g
-             style="display:inline"
-             id="g3751"
-             transform="translate(313.62528)">
-            <path
-               style="display:inline;fill:#ffcc00;fill-opacity:1;stroke:none"
-               d="m 15.989796,666.73505 v 93.645 H 109.6348 v -93.645 z m 31.381039,18.18108 c 6.76595,0 12.492879,3.94974 15.192408,9.71317 2.69945,-5.76343 8.430762,-9.71317 15.192407,-9.71317 9.331827,0 16.935801,7.58636 16.935801,16.93579 0,18.40081 -19.782128,23.91989 -32.128208,42.58855 -13.048934,-18.78965 -32.128208,-23.57422 -32.128208,-42.58855 0,-9.34943 7.599669,-16.93579 16.9358,-16.93579 z"
-               id="path3753"
-               inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u0.png"
-               inkscape:export-xdpi="46.131672"
-               inkscape:export-ydpi="46.131672"
-               inkscape:connector-curvature="0" />
-            <g
-               transform="matrix(8.1289492,0,0,8.1289492,-1870.462,-1131.7539)"
-               id="g3755">
-              <path
-                 style="opacity:0.39183673;fill:#d45500;fill-opacity:1;stroke:#552200;stroke-width:0.54462361"
-                 d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
-                 sodipodi:nodetypes="ccccccc"
-                 id="path3757"
-                 inkscape:connector-curvature="0" />
-              <path
-                 style="fill:none;stroke:#803300;stroke-width:0.54462361"
-                 d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
-                 sodipodi:nodetypes="ccccccc"
-                 id="path3759"
-                 inkscape:connector-curvature="0" />
-            </g>
-          </g>
-          <path
-             id="path3809"
-             d="m 337.53339,722.4398 c -0.0729,2.52898 0.20866,5.10099 0.8931,7.65534 1.98453,7.40639 6.93228,13.28183 13.33924,16.7897 l 3.03002,-5.1163 c -5.03717,-2.78413 -8.91626,-7.41459 -10.48022,-13.25137 -0.54444,-2.03188 -0.76414,-4.07268 -0.70387,-6.08465 l -6.07827,0.007 z"
-             style="fill:#6b2b00;fill-opacity:1;stroke:none"
-             inkscape:connector-curvature="0" />
-          <path
-             id="path3811"
-             d="m 365.75929,747.51329 -2.94585,5.08998 c 4.25295,2.26431 9.16876,3.54247 14.39364,3.54247 5.00561,0 9.70785,-1.17228 13.8343,-3.2628 l -2.88992,-5.10863 c -3.26698,1.64928 -6.98527,2.5916 -10.94438,2.5916 -4.15891,0 -8.06557,-1.04494 -11.44779,-2.85262 z"
-             style="fill:#6b2b00;fill-opacity:1;stroke:none"
-             inkscape:connector-curvature="0" />
-          <path
-             id="path3813"
-             d="m 416.84662,722.16644 -6.0638,-0.0613 c 0.1003,2.128 -0.11044,4.30216 -0.6875,6.45578 -1.60106,5.97524 -5.64696,10.67926 -10.85876,13.43947 l 2.96633,5.13784 c 6.61042,-3.47888 11.73576,-9.43668 13.76346,-17.00417 0.71279,-2.66015 0.98724,-5.33766 0.88027,-7.96762 z"
-             style="fill:#6b2b00;fill-opacity:1;stroke:none"
-             inkscape:connector-curvature="0" />
-        </g>
-        <g
-           inkscape:export-ydpi="46"
-           inkscape:export-xdpi="46"
-           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u4.png"
-           id="g3938">
-          <g
-             style="display:inline"
-             transform="translate(417.71643)"
-             id="g3844">
-            <path
-               inkscape:export-ydpi="46.131672"
-               inkscape:export-xdpi="46.131672"
-               inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u0.png"
-               id="path3846"
-               d="m 15.989796,666.73505 v 93.645 H 109.6348 v -93.645 z m 31.381039,18.18108 c 6.76595,0 12.492879,3.94974 15.192408,9.71317 2.69945,-5.76343 8.430762,-9.71317 15.192407,-9.71317 9.331827,0 16.935801,7.58636 16.935801,16.93579 0,18.40081 -19.782128,23.91989 -32.128208,42.58855 -13.048934,-18.78965 -32.128208,-23.57422 -32.128208,-42.58855 0,-9.34943 7.599669,-16.93579 16.9358,-16.93579 z"
-               style="display:inline;fill:#ffcc00;fill-opacity:1;stroke:none"
-               inkscape:connector-curvature="0" />
-            <g
-               id="g3848"
-               transform="matrix(8.1289492,0,0,8.1289492,-1870.462,-1131.7539)">
-              <path
-                 id="path3850"
-                 sodipodi:nodetypes="ccccccc"
-                 d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
-                 style="opacity:0.39183673;fill:#d45500;fill-opacity:1;stroke:#552200;stroke-width:0.54462361"
-                 inkscape:connector-curvature="0" />
-              <path
-                 id="path3852"
-                 sodipodi:nodetypes="ccccccc"
-                 d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
-                 style="fill:none;stroke:#803300;stroke-width:0.54462361"
-                 inkscape:connector-curvature="0" />
-            </g>
-          </g>
-          <path
-             style="fill:#6b2b00;fill-opacity:1;stroke:none"
-             d="m 441.62454,722.4398 c -0.0729,2.52898 0.20866,5.10099 0.8931,7.65534 1.98453,7.40639 6.93228,13.28183 13.33924,16.7897 l 3.03002,-5.1163 c -5.03717,-2.78413 -8.91626,-7.41459 -10.48022,-13.25137 -0.54444,-2.03188 -0.76414,-4.07268 -0.70387,-6.08465 l -6.07827,0.007 z"
-             id="path3854"
-             inkscape:connector-curvature="0" />
-          <path
-             style="fill:#6b2b00;fill-opacity:1;stroke:none"
-             d="m 469.85044,747.51329 -2.94585,5.08998 c 4.25295,2.26431 9.16876,3.54247 14.39364,3.54247 5.00561,0 9.70785,-1.17228 13.8343,-3.2628 l -2.88992,-5.10863 c -3.26698,1.64928 -6.98527,2.5916 -10.94438,2.5916 -4.15891,0 -8.06557,-1.04494 -11.44779,-2.85262 z"
-             id="path3856"
-             inkscape:connector-curvature="0" />
-          <path
-             style="fill:#6b2b00;fill-opacity:1;stroke:none"
-             d="m 520.93777,722.16644 -6.0638,-0.0613 c 0.1003,2.128 -0.11044,4.30216 -0.6875,6.45578 -1.60106,5.97524 -5.64696,10.67926 -10.85876,13.43947 l 2.96633,5.13784 c 6.61042,-3.47888 11.73576,-9.43668 13.76346,-17.00417 0.71279,-2.66015 0.98724,-5.33766 0.88027,-7.96762 z"
-             id="path3858"
-             inkscape:connector-curvature="0" />
-          <path
-             id="path3860"
-             d="m 492.18668,679.0635 2.94585,-5.08998 c -4.25295,-2.26431 -9.16876,-3.54247 -14.39364,-3.54247 -5.00561,0 -9.70785,1.17228 -13.8343,3.2628 l 2.88992,5.10863 c 3.26698,-1.64928 6.98527,-2.5916 10.94438,-2.5916 4.15891,0 8.06557,1.04494 11.44779,2.85262 z"
-             style="fill:#6b2b00;fill-opacity:1;stroke:none"
+             id="path3759"
              inkscape:connector-curvature="0" />
         </g>
       </g>
+      <path
+         id="path3809"
+         d="m 337.53339,722.4398 c -0.0729,2.52898 0.20866,5.10099 0.8931,7.65534 1.98453,7.40639 6.93228,13.28183 13.33924,16.7897 l 3.03002,-5.1163 c -5.03717,-2.78413 -8.91626,-7.41459 -10.48022,-13.25137 -0.54444,-2.03188 -0.76414,-4.07268 -0.70387,-6.08465 l -6.07827,0.007 z"
+         style="fill:#6b2b00;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path3811"
+         d="m 365.75929,747.51329 -2.94585,5.08998 c 4.25295,2.26431 9.16876,3.54247 14.39364,3.54247 5.00561,0 9.70785,-1.17228 13.8343,-3.2628 l -2.88992,-5.10863 c -3.26698,1.64928 -6.98527,2.5916 -10.94438,2.5916 -4.15891,0 -8.06557,-1.04494 -11.44779,-2.85262 z"
+         style="fill:#6b2b00;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path3813"
+         d="m 416.84662,722.16644 -6.0638,-0.0613 c 0.1003,2.128 -0.11044,4.30216 -0.6875,6.45578 -1.60106,5.97524 -5.64696,10.67926 -10.85876,13.43947 l 2.96633,5.13784 c 6.61042,-3.47888 11.73576,-9.43668 13.76346,-17.00417 0.71279,-2.66015 0.98724,-5.33766 0.88027,-7.96762 z"
+         style="fill:#6b2b00;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       inkscape:export-ydpi="51.257397"
+       inkscape:export-xdpi="51.257397"
+       inkscape:export-filename="..\..\img\towers\yellow_tower_upgrade_4.png"
+       id="g3938"
+       transform="matrix(0.26458333,0,0,0.26458333,20.008118,-89.366213)">
+      <g
+         style="display:inline"
+         transform="translate(417.71643)"
+         id="g3844">
+        <path
+           inkscape:export-ydpi="46.131672"
+           inkscape:export-xdpi="46.131672"
+           inkscape:export-filename="D:\www\giftowerdefense\_diseño\panel_juego_y_torres\tower3_u0.png"
+           id="path3846"
+           d="m 15.989796,666.73505 v 93.645 H 109.6348 v -93.645 z m 31.381039,18.18108 c 6.76595,0 12.492879,3.94974 15.192408,9.71317 2.69945,-5.76343 8.430762,-9.71317 15.192407,-9.71317 9.331827,0 16.935801,7.58636 16.935801,16.93579 0,18.40081 -19.782128,23.91989 -32.128208,42.58855 -13.048934,-18.78965 -32.128208,-23.57422 -32.128208,-42.58855 0,-9.34943 7.599669,-16.93579 16.9358,-16.93579 z"
+           style="display:inline;fill:#ffcc00;fill-opacity:1;stroke:none"
+           inkscape:connector-curvature="0" />
+        <g
+           id="g3848"
+           transform="matrix(8.1289492,0,0,8.1289492,-1870.462,-1131.7539)">
+          <path
+             id="path3850"
+             sodipodi:nodetypes="ccccccc"
+             d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
+             style="opacity:0.391837;fill:#d45500;fill-opacity:1;stroke:#552200;stroke-width:0.544624"
+             inkscape:connector-curvature="0" />
+          <path
+             id="path3852"
+             sodipodi:nodetypes="ccccccc"
+             d="m 235.99367,223.28187 c -1.17144,0 -2.12103,0.95139 -2.12103,2.1245 0,2.3858 2.40131,3.01139 4.03861,5.369 1.54911,-2.34243 4.03861,-3.06018 4.03861,-5.369 0,-1.17311 -0.95013,-2.1245 -2.12103,-2.1245 -0.84841,0 -1.57887,0.50199 -1.91758,1.22515 -0.33872,-0.72316 -1.06863,-1.22515 -1.91758,-1.22515 z"
+             style="fill:none;stroke:#803300;stroke-width:0.544624"
+             inkscape:connector-curvature="0" />
+        </g>
+      </g>
+      <path
+         style="fill:#6b2b00;fill-opacity:1;stroke:none"
+         d="m 441.62454,722.4398 c -0.0729,2.52898 0.20866,5.10099 0.8931,7.65534 1.98453,7.40639 6.93228,13.28183 13.33924,16.7897 l 3.03002,-5.1163 c -5.03717,-2.78413 -8.91626,-7.41459 -10.48022,-13.25137 -0.54444,-2.03188 -0.76414,-4.07268 -0.70387,-6.08465 l -6.07827,0.007 z"
+         id="path3854"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#6b2b00;fill-opacity:1;stroke:none"
+         d="m 469.85044,747.51329 -2.94585,5.08998 c 4.25295,2.26431 9.16876,3.54247 14.39364,3.54247 5.00561,0 9.70785,-1.17228 13.8343,-3.2628 l -2.88992,-5.10863 c -3.26698,1.64928 -6.98527,2.5916 -10.94438,2.5916 -4.15891,0 -8.06557,-1.04494 -11.44779,-2.85262 z"
+         id="path3856"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#6b2b00;fill-opacity:1;stroke:none"
+         d="m 520.93777,722.16644 -6.0638,-0.0613 c 0.1003,2.128 -0.11044,4.30216 -0.6875,6.45578 -1.60106,5.97524 -5.64696,10.67926 -10.85876,13.43947 l 2.96633,5.13784 c 6.61042,-3.47888 11.73576,-9.43668 13.76346,-17.00417 0.71279,-2.66015 0.98724,-5.33766 0.88027,-7.96762 z"
+         id="path3858"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path3860"
+         d="m 492.18668,679.0635 2.94585,-5.08998 c -4.25295,-2.26431 -9.16876,-3.54247 -14.39364,-3.54247 -5.00561,0 -9.70785,1.17228 -13.8343,3.2628 l 2.88992,5.10863 c 3.26698,-1.64928 6.98527,-2.5916 10.94438,-2.5916 4.15891,0 8.06557,1.04494 11.44779,2.85262 z"
+         style="fill:#6b2b00;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
     </g>
   </g>
 </svg>
