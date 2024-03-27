@@ -7,6 +7,9 @@ import { Const } from './Const'
 import { ConstDirection } from './ConstDirection'
 import { Player } from './Player'
 import { ExplosionEnemy } from './ExplosionEnemy'
+import { Images } from './Images'
+import { Path } from './Path'
+import { MathUtils } from './MathUtils'
 
 export class Enemy {
   static VELOCITY = 1 // must be multiple of "this.#Const.TILE_SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
@@ -26,6 +29,9 @@ export class Enemy {
   static CREATION_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
   static numberOfEnemies = 0 // for generating IDs
   static instances: Enemy[] = []
+  static waveEnemies: number = 0
+  static allowCreateEnemies: boolean = true
+  static createEnemyTime: number = 0
 
   #images: Image[]
   #startPosition: Position
@@ -310,5 +316,40 @@ export class Enemy {
       Player.increaseMoney($increasedMoney)
       Player.increaseScore($increasedMoney * 2)
     })
+  }
+
+  static handleNewEnemyCreation() {
+    if (Enemy.allowCreateEnemies) {
+      if (Enemy.waveEnemies < Enemy.TOTAL_ENEMIES) {
+        Enemy.createEnemyTime++
+        if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
+          Enemy.createEnemyTime = 0
+
+          Enemy.instantiateNormalEnemy(
+            Images.enemiesImages.slice(
+              ...MathUtils.getTwoNumbersFourTimes(Enemy.waveEnemies),
+            ),
+            Enemy.waveEnemies,
+            Path.orders,
+            Path.initialEnemiesPosition,
+            Player.wave,
+          )
+
+          Enemy.waveEnemies++
+        }
+      } else {
+        Enemy.allowCreateEnemies = false
+        Enemy.waveEnemies = 0
+      }
+    }
+  }
+
+  static updateEnemies() {
+    Enemy.handleNewEnemyCreation()
+    Enemy.handleExplosionEnemys()
+    Enemy.removeDeadInstances()
+    Enemy.updateInstances()
+
+    return Enemy.handleWinners()
   }
 }

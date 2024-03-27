@@ -23,11 +23,8 @@ import { Player } from './Player'
 import { Images } from './Images'
 import { Missile } from './Missile'
 
-let createEnemyTime: number = 0
-let waveEnemies: number = 0
 let influenceArea: InfluenceArea
 let gameStatus: number = 0
-let allowCreateEnemies: boolean = true
 let levelDataProvider: LevelsDataProvider
 let instantiateBoss: boolean = false
 let instantiateEnemies: boolean = false
@@ -96,40 +93,6 @@ function mouseClicked() {
   )
 }
 
-function handleNewEnemyCreation() {
-  if (allowCreateEnemies) {
-    if (waveEnemies < Enemy.TOTAL_ENEMIES) {
-      createEnemyTime++
-      if (createEnemyTime === Enemy.CREATION_MAX_TIME) {
-        createEnemyTime = 0
-
-        Enemy.instantiateNormalEnemy(
-          Images.enemiesImages.slice(
-            ...MathUtils.getTwoNumbersFourTimes(waveEnemies),
-          ),
-          waveEnemies,
-          Path.orders,
-          Path.initialEnemiesPosition,
-          Player.wave,
-        )
-
-        waveEnemies++
-      }
-    } else {
-      allowCreateEnemies = false
-      waveEnemies = 0
-    }
-  }
-}
-
-function updateEnemies() {
-  handleNewEnemyCreation()
-  Enemy.handleExplosionEnemys()
-  Enemy.removeDeadInstances()
-  Enemy.updateInstances()
-  gameStatus = Enemy.handleWinners()
-}
-
 function getMouseTileOrangeOver() {
   const result = TileOrange.instances.find((orangeTile) =>
     orangeTile.isInside(mouseX, mouseY),
@@ -157,7 +120,7 @@ function drawMagics() {
 
 function draw() {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
-    updateEnemies()
+    gameStatus = Enemy.updateEnemies()
     Player.mouseTileOrangeOver = getMouseTileOrangeOver()
     instantiateEnemies = Hud.updateWaveProgressBar()
     instantiateBoss = Hud.updateBossProgressBar()
@@ -176,7 +139,7 @@ function draw() {
     }
 
     if (instantiateEnemies) {
-      allowCreateEnemies = true
+      Enemy.allowCreateEnemies = true
     }
 
     updateMagics()
