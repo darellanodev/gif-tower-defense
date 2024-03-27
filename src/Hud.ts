@@ -10,6 +10,7 @@ import { MagicIceball } from './MagicIceball'
 import { MagicUFO } from './MagicUFO'
 import { Const } from './Const'
 import { Player } from './Player'
+import { InfluenceArea } from './InfluenceArea'
 
 export class Hud {
   static NORMAL = 0
@@ -400,5 +401,50 @@ export class Hud {
         orders,
       )
     }
+  }
+
+  static drawOrangeTileWithTower() {
+    const tileTower = Player.mouseTileOrangeOver.getTower()
+
+    Hud.selectHudMode(tileTower)
+    if (!tileTower.maxUpgraded) {
+      const canUpgrade = Player.haveMoneyToBuy(
+        tileTower.type,
+        tileTower.upgradeLevel + 1,
+      )
+      Hud.viewUpgradeCost(tileTower, canUpgrade)
+      InfluenceArea.drawTowerInfluenceArea(tileTower, canUpgrade)
+    }
+
+    Hud.viewSellProfit(tileTower)
+  }
+
+  static drawOrangeTileWithoutTower() {
+    const canBuySelectedTower = Player.canBuyNewTower(Hud.getSelectedTower())
+    const canBuyTowerGreen = Player.canBuyNewTower(TowerGreen.ID)
+    const canBuyTowerRed = Player.canBuyNewTower(TowerRed.ID)
+    const canBuyTowerYellow = Player.canBuyNewTower(TowerYellow.ID)
+
+    InfluenceArea.drawHudTowerInfluenceArea(
+      Hud.getSelectedTower(),
+      Player.mouseTileOrangeOver.getPosition(),
+      canBuySelectedTower,
+    )
+
+    Hud.mode = Hud.NORMAL
+    Hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)
+    Hud.hideUpgradeCost()
+    Hud.hideSellProfit()
+  }
+
+  static drawNoOrangeTile() {
+    const canBuyTowerGreen = Player.canBuyNewTower(TowerGreen.ID)
+    const canBuyTowerRed = Player.canBuyNewTower(TowerRed.ID)
+    const canBuyTowerYellow = Player.canBuyNewTower(TowerYellow.ID)
+
+    Hud.mode = Hud.NORMAL
+    Hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)
+    Hud.hideUpgradeCost()
+    Hud.hideSellProfit()
   }
 }

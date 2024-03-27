@@ -162,43 +162,14 @@ function draw() {
 
   Hud.draw()
 
-  const canBuySelectedTower = Player.canBuyNewTower(Hud.getSelectedTower())
-  const canBuyTowerGreen = Player.canBuyNewTower(TowerGreen.ID)
-  const canBuyTowerRed = Player.canBuyNewTower(TowerRed.ID)
-  const canBuyTowerYellow = Player.canBuyNewTower(TowerYellow.ID)
-
   if (Player.mouseTileOrangeOver !== null) {
     if (Player.mouseTileOrangeOver.hasTower()) {
-      const tileTower = Player.mouseTileOrangeOver.getTower()
-
-      Hud.selectHudMode(tileTower)
-      if (!tileTower.maxUpgraded) {
-        const canUpgrade = Player.haveMoneyToBuy(
-          tileTower.type,
-          tileTower.upgradeLevel + 1,
-        )
-        Hud.viewUpgradeCost(tileTower, canUpgrade)
-        InfluenceArea.drawTowerInfluenceArea(tileTower, canUpgrade)
-      }
-
-      Hud.viewSellProfit(tileTower)
+      Hud.drawOrangeTileWithTower()
     } else {
-      InfluenceArea.drawHudTowerInfluenceArea(
-        Hud.getSelectedTower(),
-        Player.mouseTileOrangeOver.getPosition(),
-        canBuySelectedTower,
-      )
-
-      Hud.mode = Hud.NORMAL
-      Hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)
-      Hud.hideUpgradeCost()
-      Hud.hideSellProfit()
+      Hud.drawOrangeTileWithoutTower()
     }
   } else {
-    Hud.mode = Hud.NORMAL
-    Hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)
-    Hud.hideUpgradeCost()
-    Hud.hideSellProfit()
+    Hud.drawNoOrangeTile()
   }
 
   Enemy.instances.forEach((enemy) => {
