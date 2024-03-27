@@ -23,7 +23,6 @@ import { Player } from './Player'
 import { Images } from './Images'
 import { Missile } from './Missile'
 
-let influenceArea: InfluenceArea
 let gameStatus: number = 0
 let levelDataProvider: LevelsDataProvider
 let instantiateBoss: boolean = false
@@ -72,8 +71,6 @@ function setup() {
   Hud.setImages(Images.hudImages, Images.hudIconImages)
   Hud.initializeWaveProgressBar()
   Hud.initializeBossProgressBar()
-
-  influenceArea = new InfluenceArea()
 }
 
 function keyPressed() {
@@ -181,12 +178,12 @@ function draw() {
           tileTower.upgradeLevel + 1,
         )
         Hud.viewUpgradeCost(tileTower, canUpgrade)
-        influenceArea.drawTowerInfluenceArea(tileTower, canUpgrade)
+        InfluenceArea.drawTowerInfluenceArea(tileTower, canUpgrade)
       }
 
       Hud.viewSellProfit(tileTower)
     } else {
-      influenceArea.drawHudTowerInfluenceArea(
+      InfluenceArea.drawHudTowerInfluenceArea(
         Hud.getSelectedTower(),
         Player.mouseTileOrangeOver.getPosition(),
         canBuySelectedTower,

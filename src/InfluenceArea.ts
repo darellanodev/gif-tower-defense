@@ -9,14 +9,12 @@ export class InfluenceArea {
   static ALPHA_FILL = 50
   static ALPHA_STROKE = 120
 
-  constructor() {}
-
-  _setGrayInfluenceAreaColor() {
+  static _setGrayInfluenceAreaColor() {
     stroke(...ConstColor.GRAY, InfluenceArea.ALPHA_STROKE)
     fill(...ConstColor.GRAY, InfluenceArea.ALPHA_FILL)
   }
 
-  _setInfluenceAreaColor(towerId: number) {
+  static _setInfluenceAreaColor(towerId: number) {
     switch (towerId) {
       case TowerGreen.ID:
         stroke(...ConstColor.GREEN, InfluenceArea.ALPHA_STROKE)
@@ -33,7 +31,7 @@ export class InfluenceArea {
     }
   }
 
-  _getInfluenceAreaFor(towerSelected: number) {
+  static _getInfluenceAreaFor(towerSelected: number) {
     let influenceArea: number = TowerGreen.INFLUENCE_AREA
     switch (towerSelected) {
       case TowerGreen.ID:
@@ -51,7 +49,7 @@ export class InfluenceArea {
     return influenceArea
   }
 
-  drawHudTowerInfluenceArea(
+  static drawHudTowerInfluenceArea(
     hudTowerSelected: any,
     position: Position,
     canBuy: boolean,
@@ -59,18 +57,18 @@ export class InfluenceArea {
     strokeWeight(2)
 
     if (canBuy) {
-      this._setInfluenceAreaColor(hudTowerSelected)
+      InfluenceArea._setInfluenceAreaColor(hudTowerSelected)
     } else {
-      this._setGrayInfluenceAreaColor()
+      InfluenceArea._setGrayInfluenceAreaColor()
     }
-    this._drawCircle(
+    InfluenceArea._drawCircle(
       position.x,
       position.y,
-      this._getInfluenceAreaFor(hudTowerSelected),
+      InfluenceArea._getInfluenceAreaFor(hudTowerSelected),
     )
   }
 
-  drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {
+  static drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {
     strokeWeight(2)
 
     const towerPosition = tower.position
@@ -90,7 +88,7 @@ export class InfluenceArea {
     this._drawCircle(x, y, tower.influenceArea)
   }
 
-  _drawCircle(x: number, y: number, diameter: number) {
+  static _drawCircle(x: number, y: number, diameter: number) {
     circle(x + Const.TILE_SIZE / 2, y + Const.TILE_SIZE / 2, diameter)
   }
 }
