@@ -37,6 +37,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [x] Missile: when the target is destroyed before the missile collides, set to status to DEAD.
 - [ ] Yellow tower absorbs the yellow faces and fill its indicator
 - [ ] When Yellow tower is full the player get lives depending on the upgrade level of the yellow tower
+- [ ] When the player sells a Yellow tower with enemy explosions particles captured the particles get free again
 - [ ] Magic UFO go to the enemy closest to the end tile
 - [ ] Make the explosion balls with a face. The captured faces show a diferent icon with the mouth opened
 - [ ] Upload the build web version into my portfolio to allow play in web browser
@@ -54,6 +55,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - [ ] Bug: when Game Over towers continue increasing damage bar of enemies.
 - [ ] Bug: when an Enemy is freezed and is near to move, if it collides with other magic ice ball the timer dont increment. Idea: make a balloon indicating the time in seconds over the enemy indicating the freezed time.
+- [ ] Bug: explosion enemy particles never goes down
 
 - [ ] Improve code
   - [x] create parent Magic class
