@@ -5,6 +5,7 @@ import { Const } from './Const'
 import { Tower } from './Tower'
 import { ExplosionEnemy } from './ExplosionEnemy'
 import { MathUtils } from './MathUtils'
+import { ProgressBar } from './ProgressBar'
 
 export class TowerYellow extends Tower {
   static ID = 3
@@ -15,6 +16,8 @@ export class TowerYellow extends Tower {
 
   static images: Image[]
 
+  #progressCoreBar: ProgressBar
+
   static setImages(images: Image[]) {
     TowerYellow.images = images
   }
@@ -24,6 +27,17 @@ export class TowerYellow extends Tower {
       x: position.x - Const.TOWER_OFFSET,
       y: position.y - Const.TOWER_OFFSET,
     })
+  }
+
+  constructor(position: Position) {
+    super(position)
+    this.#progressCoreBar = new ProgressBar(
+      {
+        x: this.position.x,
+        y: this.position.y - 11,
+      },
+      { w: Const.TILE_SIZE - 13, h: Const.TILE_SIZE - 10 },
+    )
   }
 
   upgrade() {
@@ -53,6 +67,8 @@ export class TowerYellow extends Tower {
         this.progressBar.setProgress(0)
       }
     } else {
+      this.#progressCoreBar.draw()
+
       image(
         TowerYellow.images[this.upgradeLevel],
         this.position.x + Tower.OFFSET_X,
