@@ -7,6 +7,7 @@ import { ExplosionEnemy } from './ExplosionEnemy'
 import { MathUtils } from './MathUtils'
 import { ProgressBar } from './ProgressBar'
 import { Player } from './Player'
+import { TileOrange } from './TileOrange'
 
 export class TowerYellow extends Tower {
   static ID = 3
@@ -18,19 +19,23 @@ export class TowerYellow extends Tower {
   static images: Image[]
 
   #progressCoreBar: ProgressBar
+  tileOrange: TileOrange
 
   static setImages(images: Image[]) {
     TowerYellow.images = images
   }
 
-  static instantiate(position: Position) {
-    return new TowerYellow({
-      x: position.x - Const.TOWER_OFFSET,
-      y: position.y - Const.TOWER_OFFSET,
-    })
+  static instantiate(position: Position, tileOrange: TileOrange) {
+    return new TowerYellow(
+      {
+        x: position.x - Const.TOWER_OFFSET,
+        y: position.y - Const.TOWER_OFFSET,
+      },
+      tileOrange,
+    )
   }
 
-  constructor(position: Position) {
+  constructor(position: Position, tileOrange: TileOrange) {
     super(position)
     this.#progressCoreBar = new ProgressBar(
       {
@@ -39,6 +44,7 @@ export class TowerYellow extends Tower {
       },
       { w: Const.TILE_SIZE - 13, h: Const.TILE_SIZE - 10 },
     )
+    this.tileOrange = tileOrange
   }
 
   upgrade() {

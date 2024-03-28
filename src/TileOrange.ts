@@ -38,7 +38,7 @@ export class TileOrange extends Tile {
           this.#tower = TowerRed.instantiate(this.position)
           break
         case TowerYellow.ID:
-          this.#tower = TowerYellow.instantiate(this.position)
+          this.#tower = TowerYellow.instantiate(this.position, this)
           break
       }
     } else {

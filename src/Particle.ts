@@ -12,6 +12,7 @@ export class Particle {
   #vec: Vector
   #size: number
   #color: RGBType
+  #initialColor: RGBType
 
   #velocity: Vector
   #lifespan: number = 255
@@ -23,6 +24,7 @@ export class Particle {
     this.#vec = vec.copy()
     this.#size = size
     this.#color = color
+    this.#initialColor = color
 
     this.#velocity = createVector(random(-3, 3), random(-3, 0))
   }
@@ -37,6 +39,11 @@ export class Particle {
       this.#vec.add(this.#velocity)
       this.#lifespan -= 2
     } else {
+      // free the particle when the player sells the yellow tower
+      if (!this.#towerYellowTarget.tileOrange.hasTower()) {
+        this.#captured = false
+        this.#color = this.#initialColor
+      }
       if (this.#capturedTime < Particle.CAPTURED_MAX_TIME) {
         this.#capturedTime++
       } else {
