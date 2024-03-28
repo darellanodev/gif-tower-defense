@@ -24,17 +24,6 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ### Next tasks
 
-- [x] When upgrading a tower, make the progress bar slowest depending on the upgrading level
-- [x] Magic ball of fire movement
-- [x] Magic ball of ice movement
-- [x] Magic UFO movement
-- [x] Magic ball of fire rest vitality to the enemies
-- [x] Small particles when an fireball touch an enemy
-- [x] Set particles color to red when an fireball touch an enemy
-- [x] Magic ball of ice freezes the enemies
-- [x] Blue small particles when an iceball touch an enemy
-- [x] Make the red tower target and shot to an enemy
-- [x] Missile: when the target is destroyed before the missile collides, set to status to DEAD.
 - [ ] Yellow tower absorbs the yellow faces and fill its indicator
 - [ ] When Yellow tower is full the player get lives depending on the upgrade level of the yellow tower
 - [ ] When the player sells a Yellow tower with enemy explosions particles captured the particles get free again
@@ -58,21 +47,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Bug: explosion enemy particles never goes down
 
 - [ ] Improve code
-  - [x] create parent Magic class
-    - [x] instead of three types of speed, due that are equal, use magicspeed in the Magic parent class. And I will can move the update method to the Magic parent class
-  - [x] rename xxxxxxxExplosion to Explosionxxxxxxx, and then create an Explosion parent class.
-  - [x] Interfaces for enemies positions
-  - [x] Instead this.Const, use Const directly to access to their constants
-  - [x] Classes inheritance
-  - [x] Getters
-  - [x] Class properties (static properties) to put constants related to their classes
-  - [x] Use static property for store createdEnemies and then use it to generate ID with a getter when creating a new enemy.
-  - [x] Remove unnecesary code (search for use of this.XXXXClass and call directly classes)
-  - [x] Refactor to use Position interface in other parts of the code (for example, explosions)
-  - [x] Hud: Create tests for methods like isInsideTowersButtonsBar, isInsideMagicsButtonsBar
-  - [x] Hud: Reconvert Hud to be an static class with static methods because there is only one instance
-  - [ ] Move from main.ts related code into their classes.
-  - [ ] Class methods (static methods) to instantiate objects
+  - [ ] apply when its possible SLA (single level of abstraction)
   - [ ] Setters
   - [ ] Private methods
   - [ ] Public/Private properties
