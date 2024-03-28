@@ -27,6 +27,10 @@ export class Player {
     Player.money += profit
   }
 
+  static increaseLives(increment: number) {
+    Player.lives += increment
+  }
+
   static decreaseMoney(cost: number) {
     Player.money -= cost
   }

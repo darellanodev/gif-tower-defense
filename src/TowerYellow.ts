@@ -6,6 +6,7 @@ import { Tower } from './Tower'
 import { ExplosionEnemy } from './ExplosionEnemy'
 import { MathUtils } from './MathUtils'
 import { ProgressBar } from './ProgressBar'
+import { Player } from './Player'
 
 export class TowerYellow extends Tower {
   static ID = 3
@@ -58,7 +59,8 @@ export class TowerYellow extends Tower {
     if (!this.#progressCoreBar.isFullOfProgress()) {
       this.#progressCoreBar.increaseProgress(increment)
     } else {
-      // TODO: increase player lives depending on Yellow Tower upgrade level
+      Player.increaseLives(this.upgradeLevel + 1)
+      this.#progressCoreBar.setProgress(0)
     }
   }
 
