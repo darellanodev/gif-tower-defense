@@ -29,8 +29,11 @@ export class ProgressBar {
     return this.#progress
   }
 
-  increaseProgress() {
-    this.#progress++
+  increaseProgress(increment: number = 1) {
+    this.#progress += increment
+    if (this.#progress > 100) {
+      this.#progress = 100
+    }
   }
 
   isFullOfProgress() {

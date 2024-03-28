@@ -54,6 +54,14 @@ export class TowerYellow extends Tower {
     rect(this.position.x, this.position.y, Const.TILE_SIZE, Const.TILE_SIZE)
   }
 
+  increaseCoreProgress(increment: number) {
+    if (!this.#progressCoreBar.isFullOfProgress()) {
+      this.#progressCoreBar.increaseProgress(increment)
+    } else {
+      // TODO: increase player lives depending on Yellow Tower upgrade level
+    }
+  }
+
   draw() {
     if (this.upgrading) {
       this._drawUpgradeBackground()

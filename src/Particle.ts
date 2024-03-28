@@ -5,6 +5,9 @@ import { Const } from './Const'
 
 export class Particle {
   static COLOR_CAPTURED: RGBType = [12, 222, 42]
+  static CAPTURED_MAX_TIME: number = 300
+  static CAPTURED_REDUCE_FACTOR: number = 0.25
+  static INCREMENT_YELLOW_TOWER_PROGRESS = 10
 
   #vec: Vector
   #size: number
@@ -14,6 +17,7 @@ export class Particle {
   #lifespan: number = 255
   #captured: boolean = false
   #towerYellowTarget: TowerYellow = null
+  #capturedTime: number = 0
 
   constructor(vec: Vector, size: number, color: RGBType) {
     this.#vec = vec.copy()
@@ -33,6 +37,19 @@ export class Particle {
       this.#vec.add(this.#velocity)
       this.#lifespan -= 2
     } else {
+      if (this.#capturedTime < Particle.CAPTURED_MAX_TIME) {
+        this.#capturedTime++
+      } else {
+        if (this.#size > 0) {
+          this.#size -= Particle.CAPTURED_REDUCE_FACTOR
+        } else {
+          this.#towerYellowTarget.increaseCoreProgress(
+            Particle.INCREMENT_YELLOW_TOWER_PROGRESS,
+          )
+          this.#lifespan = 0
+        }
+      }
+
       let aux_x: number
       let aux_y: number
 
@@ -66,7 +83,7 @@ export class Particle {
   }
 
   isDead() {
-    return this.#lifespan < 0
+    return this.#lifespan <= 0
   }
 
   set towerYellowTarget(towerYellow: TowerYellow) {
