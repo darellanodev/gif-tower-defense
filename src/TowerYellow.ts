@@ -58,7 +58,12 @@ export class TowerYellow extends Tower {
     strokeWeight(1)
     stroke('black')
     fill(ConstColor.YELLOW)
-    rect(this.position.x, this.position.y, Const.TILE_SIZE, Const.TILE_SIZE)
+    rect(
+      this.position.x + 5,
+      this.position.y + 5,
+      Const.TILE_SIZE,
+      Const.TILE_SIZE,
+    )
   }
 
   increaseCoreProgress(increment: number) {
