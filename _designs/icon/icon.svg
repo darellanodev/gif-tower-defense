@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.76702441"
+     inkscape:cx="396.3368"
+     inkscape:cy="561.25984"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4439"
+       id="linearGradient4437"
+       x1="-1604.7079"
+       y1="1557.3643"
+       x2="-1605.0895"
+       y2="1591.1455"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient4439">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop4441" />
+      <stop
+         style="stop-color:#bec8b7;stop-opacity:1"
+         offset="1"
+         id="stop4443" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g2"
+       transform="matrix(0.97871898,0,0,0.97871898,1687.3925,-1446.6255)"
+       style="display:inline">
+      <rect
+         style="display:inline;fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+         id="rect4376"
+         width="48"
+         height="48"
+         x="-1629.7354"
+         y="1551.6121"
+         rx="5"
+         ry="5"
+         inkscape:export-filename="D:\www\giftowerdefense\_diseño\mobile_android_icon\icon512.png"
+         inkscape:export-xdpi="960"
+         inkscape:export-ydpi="960" />
+      <rect
+         ry="3"
+         rx="3"
+         y="1554.718"
+         x="-1626.6294"
+         height="41.78804"
+         width="41.78804"
+         id="rect4395"
+         style="fill:url(#linearGradient4437);fill-opacity:1;fill-rule:evenodd;stroke:none" />
+      <g
+         style="display:inline"
+         id="g3803"
+         transform="matrix(0.31924526,0,0,0.31924526,-1748.9602,1443.0979)">
+        <path
+           style="fill:#008000;fill-opacity:1;stroke:none"
+           d="m 448.6221,364.34447 -36.40685,65.45001 21.26924,28.79345 h 30.27522 l 21.26923,-28.79345 z"
+           id="path3645"
+           sodipodi:nodetypes="cccccc"
+           inkscape:export-xdpi="18.203581"
+           inkscape:export-ydpi="18.203581" />
+        <path
+           inkscape:export-ydpi="18.203581"
+           inkscape:export-xdpi="18.203581"
+           sodipodi:nodetypes="cccccc"
+           id="path3647"
+           d="m 448.6221,381.57578 -25.85511,46.48074 15.1048,20.44829 h 21.50061 l 15.1048,-20.44829 z"
+           style="fill:#00c200;fill-opacity:1;stroke:none" />
+        <path
+           style="fill:#008000;stroke:none"
+           d="m 408.26074,435.90862 21.8634,29.91832 h -11.21938 l -21.37471,-29.96921 10.73069,0.0509 v 2e-5 z"
+           id="path3649"
+           sodipodi:nodetypes="cccccc" />
+        <path
+           sodipodi:nodetypes="cccccc"
+           id="path3651"
+           d="m 489.01109,435.90862 -21.8634,29.91832 h 11.21937 l 21.37471,-29.96921 -10.73068,0.0509 v 2e-5 z"
+           style="fill:#008000;stroke:none" />
+      </g>
+    </g>
+  </g>
+</svg>
