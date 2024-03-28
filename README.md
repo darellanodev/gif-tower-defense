@@ -24,9 +24,13 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ### Next tasks
 
-- [ ] Yellow tower absorbs the yellow faces and fill its indicator
-- [ ] When Yellow tower is full the player get lives depending on the upgrade level of the yellow tower
-- [ ] When the player sells a Yellow tower with enemy explosions particles captured the particles get free again
+- [x] When captured particle passes a time then goes into the yellow tower and the yellow tower fills its indicator
+- [x] When Yellow tower is full the player get lives depending on the upgrade level of the yellow tower
+- [x] Fix upgrade image position for yellow tower
+- [x] When the player sells a Yellow tower with enemy explosions particles captured the particles get free again
+- [ ] When the player upgrades a Yellow tower with enemy explosions particles captured the particles get free again
+- [ ] Lives animation (+1 core icon, +2 core icon, ...)
+- [ ] Fix Hud selection tower position (may be making two icons, one for tower icon off and other for tower icon on)
 - [ ] Magic UFO go to the enemy closest to the end tile
 - [ ] Make the explosion balls with a face. The captured faces show a diferent icon with the mouth opened
 - [ ] Upload the build web version into my portfolio to allow play in web browser
