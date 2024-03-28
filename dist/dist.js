@@ -1185,19 +1185,22 @@ Missile.VELOCITY = 1.5;
 Missile.STATUS_ALIVE = 0;
 Missile.STATUS_DEAD = 1;
 Missile.instances = [];
-var _Particle_vec, _Particle_size, _Particle_color, _Particle_velocity, _Particle_lifespan, _Particle_captured, _Particle_towerYellowTarget;
+var _Particle_vec, _Particle_size, _Particle_color, _Particle_initialColor, _Particle_velocity, _Particle_lifespan, _Particle_captured, _Particle_towerYellowTarget, _Particle_capturedTime;
 class Particle {
     constructor(vec, size, color) {
         _Particle_vec.set(this, void 0);
         _Particle_size.set(this, void 0);
         _Particle_color.set(this, void 0);
+        _Particle_initialColor.set(this, void 0);
         _Particle_velocity.set(this, void 0);
         _Particle_lifespan.set(this, 255);
         _Particle_captured.set(this, false);
         _Particle_towerYellowTarget.set(this, null);
+        _Particle_capturedTime.set(this, 0);
         __classPrivateFieldSet(this, _Particle_vec, vec.copy(), "f");
         __classPrivateFieldSet(this, _Particle_size, size, "f");
         __classPrivateFieldSet(this, _Particle_color, color, "f");
+        __classPrivateFieldSet(this, _Particle_initialColor, color, "f");
         __classPrivateFieldSet(this, _Particle_velocity, createVector(random(-3, 3), random(-3, 0)), "f");
     }
     run() {
@@ -1205,11 +1208,28 @@ class Particle {
         this.display();
     }
     update() {
+        var _a;
         if (!__classPrivateFieldGet(this, _Particle_captured, "f")) {
             __classPrivateFieldGet(this, _Particle_vec, "f").add(__classPrivateFieldGet(this, _Particle_velocity, "f"));
             __classPrivateFieldSet(this, _Particle_lifespan, __classPrivateFieldGet(this, _Particle_lifespan, "f") - 2, "f");
         }
         else {
+            if (!__classPrivateFieldGet(this, _Particle_towerYellowTarget, "f").tileOrange.hasTower()) {
+                __classPrivateFieldSet(this, _Particle_captured, false, "f");
+                __classPrivateFieldSet(this, _Particle_color, __classPrivateFieldGet(this, _Particle_initialColor, "f"), "f");
+            }
+            if (__classPrivateFieldGet(this, _Particle_capturedTime, "f") < Particle.CAPTURED_MAX_TIME) {
+                __classPrivateFieldSet(this, _Particle_capturedTime, (_a = __classPrivateFieldGet(this, _Particle_capturedTime, "f"), _a++, _a), "f");
+            }
+            else {
+                if (__classPrivateFieldGet(this, _Particle_size, "f") > 0) {
+                    __classPrivateFieldSet(this, _Particle_size, __classPrivateFieldGet(this, _Particle_size, "f") - Particle.CAPTURED_REDUCE_FACTOR, "f");
+                }
+                else {
+                    __classPrivateFieldGet(this, _Particle_towerYellowTarget, "f").increaseCoreProgress(Particle.INCREMENT_YELLOW_TOWER_PROGRESS);
+                    __classPrivateFieldSet(this, _Particle_lifespan, 0, "f");
+                }
+            }
             let aux_x;
             let aux_y;
             const towerYellowPosX = __classPrivateFieldGet(this, _Particle_towerYellowTarget, "f").position.x + Const.TILE_SIZE / 2;
@@ -1236,7 +1256,7 @@ class Particle {
         ellipse(__classPrivateFieldGet(this, _Particle_vec, "f").x, __classPrivateFieldGet(this, _Particle_vec, "f").y, __classPrivateFieldGet(this, _Particle_size, "f"), __classPrivateFieldGet(this, _Particle_size, "f"));
     }
     isDead() {
-        return __classPrivateFieldGet(this, _Particle_lifespan, "f") < 0;
+        return __classPrivateFieldGet(this, _Particle_lifespan, "f") <= 0;
     }
     set towerYellowTarget(towerYellow) {
         __classPrivateFieldSet(this, _Particle_towerYellowTarget, towerYellow, "f");
@@ -1251,8 +1271,11 @@ class Particle {
         return { x: __classPrivateFieldGet(this, _Particle_vec, "f").x, y: __classPrivateFieldGet(this, _Particle_vec, "f").y };
     }
 }
-_Particle_vec = new WeakMap(), _Particle_size = new WeakMap(), _Particle_color = new WeakMap(), _Particle_velocity = new WeakMap(), _Particle_lifespan = new WeakMap(), _Particle_captured = new WeakMap(), _Particle_towerYellowTarget = new WeakMap();
+_Particle_vec = new WeakMap(), _Particle_size = new WeakMap(), _Particle_color = new WeakMap(), _Particle_initialColor = new WeakMap(), _Particle_velocity = new WeakMap(), _Particle_lifespan = new WeakMap(), _Particle_captured = new WeakMap(), _Particle_towerYellowTarget = new WeakMap(), _Particle_capturedTime = new WeakMap();
 Particle.COLOR_CAPTURED = [12, 222, 42];
+Particle.CAPTURED_MAX_TIME = 300;
+Particle.CAPTURED_REDUCE_FACTOR = 0.25;
+Particle.INCREMENT_YELLOW_TOWER_PROGRESS = 10;
 var _ParticleSystem_origin, _ParticleSystem_particlesSize, _ParticleSystem_particlesColor, _ParticleSystem_particles;
 class ParticleSystem {
     constructor(origin, particlesSize, particlesColor) {
@@ -1443,6 +1466,9 @@ class Player {
     static increaseMoney(profit) {
         Player.money += profit;
     }
+    static increaseLives(increment) {
+        Player.lives += increment;
+    }
     static decreaseMoney(cost) {
         Player.money -= cost;
     }
@@ -1559,9 +1585,11 @@ class ProgressBar {
     getProgress() {
         return __classPrivateFieldGet(this, _ProgressBar_progress, "f");
     }
-    increaseProgress() {
-        var _a;
-        __classPrivateFieldSet(this, _ProgressBar_progress, (_a = __classPrivateFieldGet(this, _ProgressBar_progress, "f"), _a++, _a), "f");
+    increaseProgress(increment = 1) {
+        __classPrivateFieldSet(this, _ProgressBar_progress, __classPrivateFieldGet(this, _ProgressBar_progress, "f") + increment, "f");
+        if (__classPrivateFieldGet(this, _ProgressBar_progress, "f") > 100) {
+            __classPrivateFieldSet(this, _ProgressBar_progress, 100, "f");
+        }
     }
     isFullOfProgress() {
         return __classPrivateFieldGet(this, _ProgressBar_progress, "f") >= 100;
@@ -1839,7 +1867,7 @@ class TileOrange extends Tile {
                     __classPrivateFieldSet(this, _TileOrange_tower, TowerRed.instantiate(this.position), "f");
                     break;
                 case TowerYellow.ID:
-                    __classPrivateFieldSet(this, _TileOrange_tower, TowerYellow.instantiate(this.position), "f");
+                    __classPrivateFieldSet(this, _TileOrange_tower, TowerYellow.instantiate(this.position, this), "f");
                     break;
             }
         }
@@ -2177,15 +2205,25 @@ TowerRed.COST_UPGRADE = [100, 150, 250, 500, 1300, 3000];
 TowerRed.UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550];
 TowerRed.INFLUENCE_AREA = 240;
 TowerRed.MAXTIME_TO_RECHARGE = 50;
+var _TowerYellow_progressCoreBar;
 class TowerYellow extends Tower {
     static setImages(images) {
         TowerYellow.images = images;
     }
-    static instantiate(position) {
+    static instantiate(position, tileOrange) {
         return new TowerYellow({
             x: position.x - Const.TOWER_OFFSET,
             y: position.y - Const.TOWER_OFFSET,
-        });
+        }, tileOrange);
+    }
+    constructor(position, tileOrange) {
+        super(position);
+        _TowerYellow_progressCoreBar.set(this, void 0);
+        __classPrivateFieldSet(this, _TowerYellow_progressCoreBar, new ProgressBar({
+            x: this.position.x,
+            y: this.position.y - 11,
+        }, { w: Const.TILE_SIZE - 13, h: Const.TILE_SIZE - 10 }), "f");
+        this.tileOrange = tileOrange;
     }
     upgrade() {
         if (!this.upgrading) {
@@ -2197,7 +2235,16 @@ class TowerYellow extends Tower {
         strokeWeight(1);
         stroke('black');
         fill(ConstColor.YELLOW);
-        rect(this.position.x, this.position.y, Const.TILE_SIZE, Const.TILE_SIZE);
+        rect(this.position.x + 5, this.position.y + 5, Const.TILE_SIZE, Const.TILE_SIZE);
+    }
+    increaseCoreProgress(increment) {
+        if (!__classPrivateFieldGet(this, _TowerYellow_progressCoreBar, "f").isFullOfProgress()) {
+            __classPrivateFieldGet(this, _TowerYellow_progressCoreBar, "f").increaseProgress(increment);
+        }
+        else {
+            Player.increaseLives(this.upgradeLevel + 1);
+            __classPrivateFieldGet(this, _TowerYellow_progressCoreBar, "f").setProgress(0);
+        }
     }
     draw() {
         if (this.upgrading) {
@@ -2214,6 +2261,7 @@ class TowerYellow extends Tower {
             }
         }
         else {
+            __classPrivateFieldGet(this, _TowerYellow_progressCoreBar, "f").draw();
             image(TowerYellow.images[this.upgradeLevel], this.position.x + Tower.OFFSET_X, this.position.y + Tower.OFFSET_Y);
         }
     }
@@ -2252,6 +2300,7 @@ class TowerYellow extends Tower {
         });
     }
 }
+_TowerYellow_progressCoreBar = new WeakMap();
 TowerYellow.ID = 3;
 TowerYellow.PROFIT_SELL_UPGRADE = [680, 2460, 7440, 21920, 66900, 199880];
 TowerYellow.COST_UPGRADE = [700, 2500, 7500, 22000, 67000, 200000];
