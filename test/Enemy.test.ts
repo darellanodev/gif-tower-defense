@@ -10,6 +10,7 @@ const commonConstants = {
 
 const instantiateNormalEnemy = () => {
   Enemy.instances = []
+  Enemy.numberOfEnemies = 17
   const { images, orders, initialEnemiesPosition, wave } = commonConstants
   const waveEnemies: number = 3
 
@@ -24,6 +25,7 @@ const instantiateNormalEnemy = () => {
 
 const instantiateBossEnemy = () => {
   Enemy.instances = []
+  Enemy.numberOfEnemies = 17
   const { images, orders, initialEnemiesPosition, wave } = commonConstants
 
   Enemy.instantiateBoss(images, orders, initialEnemiesPosition, wave)
@@ -45,6 +47,31 @@ describe('instantiateNormalEnemy', () => {
       instantiateNormalEnemy()
       const result = Enemy.instances[0].endurance
       expect(result).toBe(9)
+    })
+    test('alive is true', () => {
+      instantiateNormalEnemy()
+      const result = Enemy.instances[0].alive
+      expect(result).toBeTruthy()
+    })
+    test('dead is false', () => {
+      instantiateNormalEnemy()
+      const result = Enemy.instances[0].dead
+      expect(result).toBeFalsy()
+    })
+    test('id is 18', () => {
+      instantiateNormalEnemy()
+      const result = Enemy.instances[0].id
+      expect(result).toBe(18)
+    })
+    test('position is the same as the initial position', () => {
+      instantiateNormalEnemy()
+      const result = Enemy.instances[0].position
+      expect(result).toStrictEqual({ x: 100, y: 200 })
+    })
+    test('winner is false', () => {
+      instantiateNormalEnemy()
+      const result = Enemy.instances[0].winner
+      expect(result).toBeFalsy()
     })
   })
 })
