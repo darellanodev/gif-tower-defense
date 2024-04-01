@@ -1,14 +1,16 @@
 import { Enemy } from '../src/Enemy'
 import { Position } from '../src/types'
 
+const commonConstants = {
+  images: [null, null, null] as any,
+  orders: [0, 1, 2, 3],
+  initialEnemiesPosition: { x: 100, y: 200 },
+  wave: 1,
+}
+
 const instantiateNormalEnemy = () => {
   Enemy.instances = []
-
-  const images: any[] = [null, null, null]
-  const orders: number[] = [0, 1, 2, 3]
-  const initialEnemiesPosition: Position = { x: 100, y: 200 }
-  const wave: number = 1
-
+  const { images, orders, initialEnemiesPosition, wave } = commonConstants
   const waveEnemies: number = 3
 
   Enemy.instantiateNormalEnemy(
@@ -22,11 +24,7 @@ const instantiateNormalEnemy = () => {
 
 const instantiateBossEnemy = () => {
   Enemy.instances = []
-
-  const images: any[] = [null, null, null]
-  const orders: number[] = [0, 1, 2, 3]
-  const initialEnemiesPosition: Position = { x: 100, y: 200 }
-  const wave: number = 1
+  const { images, orders, initialEnemiesPosition, wave } = commonConstants
 
   Enemy.instantiateBoss(images, orders, initialEnemiesPosition, wave)
 }
