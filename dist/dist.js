@@ -59,7 +59,7 @@ class Debug {
         text(`x:${mousePosX}, y:${mousePosY}`, 260, 18);
     }
 }
-var _Enemy_instances, _a, _Enemy_images, _Enemy_startPosition, _Enemy_orders, _Enemy_endurance, _Enemy_isBoss, _Enemy_id, _Enemy_imgIndex, _Enemy_imgIndexBeforeEyesClosed, _Enemy_eyesSequence, _Enemy_healthBar, _Enemy_status, _Enemy_damage, _Enemy_position, _Enemy_currentDirection, _Enemy_moveCount, _Enemy_indexOrder, _Enemy_changeEyesTime, _Enemy_indexEyesSecuence, _Enemy_closeEyesTime, _Enemy_extendClosedEyesTime, _Enemy_randomCloseEyes, _Enemy_winned, _Enemy_freezed, _Enemy_freezedTime, _Enemy_reinitEnemy, _Enemy_hasOpenEyes, _Enemy_moveEyesInSequence, _Enemy_setRandomTimeMaxForClosingEyes, _Enemy_changeEyes;
+var _Enemy_instances, _a, _Enemy_images, _Enemy_startPosition, _Enemy_orders, _Enemy_endurance, _Enemy_isBoss, _Enemy_id, _Enemy_imgIndex, _Enemy_imgIndexBeforeEyesClosed, _Enemy_eyesSequence, _Enemy_healthBar, _Enemy_status, _Enemy_damage, _Enemy_position, _Enemy_currentDirection, _Enemy_moveCount, _Enemy_indexOrder, _Enemy_changeEyesTime, _Enemy_indexEyesSecuence, _Enemy_closeEyesTime, _Enemy_extendClosedEyesTime, _Enemy_randomCloseEyes, _Enemy_winned, _Enemy_freezed, _Enemy_freezedTime, _Enemy_reinitEnemy, _Enemy_move, _Enemy_hasOpenEyes, _Enemy_moveEyesInSequence, _Enemy_setRandomTimeMaxForClosingEyes, _Enemy_changeEyes;
 class Enemy {
     constructor(images, startPosition, orders, endurance, isBoss) {
         _Enemy_instances.add(this);
@@ -107,6 +107,9 @@ class Enemy {
         __classPrivateFieldSet(this, _Enemy_imgIndexBeforeEyesClosed, _a.EYES_CENTER, "f");
         __classPrivateFieldSet(this, _Enemy_status, _a.STATUS_ALIVE, "f");
     }
+    isBoss() {
+        return __classPrivateFieldGet(this, _Enemy_isBoss, "f");
+    }
     static instantiateNormalEnemy(images, waveEnemies, orders, initialEnemiesPosition, wave) {
         const endurance = wave * 3 + waveEnemies * 2;
         const isBoss = false;
@@ -116,6 +119,9 @@ class Enemy {
         const endurance = wave * 25;
         const isBoss = true;
         _a.instances.push(new _a(images, initialEnemiesPosition, orders, endurance, isBoss));
+    }
+    get currentDirection() {
+        return __classPrivateFieldGet(this, _Enemy_currentDirection, "f");
     }
     get endurance() {
         return __classPrivateFieldGet(this, _Enemy_endurance, "f");
@@ -163,22 +169,7 @@ class Enemy {
             }
             return;
         }
-        const velocity = __classPrivateFieldGet(this, _Enemy_isBoss, "f") ? _a.BOSS_VELOCITY : _a.VELOCITY;
-        switch (__classPrivateFieldGet(this, _Enemy_currentDirection, "f")) {
-            case ConstDirection.LEFT:
-                __classPrivateFieldGet(this, _Enemy_position, "f").x = __classPrivateFieldGet(this, _Enemy_position, "f").x - velocity;
-                break;
-            case ConstDirection.RIGHT:
-                __classPrivateFieldGet(this, _Enemy_position, "f").x = __classPrivateFieldGet(this, _Enemy_position, "f").x + velocity;
-                break;
-            case ConstDirection.UP:
-                __classPrivateFieldGet(this, _Enemy_position, "f").y = __classPrivateFieldGet(this, _Enemy_position, "f").y - velocity;
-                break;
-            case ConstDirection.DOWN:
-                __classPrivateFieldGet(this, _Enemy_position, "f").y = __classPrivateFieldGet(this, _Enemy_position, "f").y + velocity;
-                break;
-        }
-        __classPrivateFieldSet(this, _Enemy_moveCount, __classPrivateFieldGet(this, _Enemy_moveCount, "f") + velocity, "f");
+        __classPrivateFieldGet(this, _Enemy_instances, "m", _Enemy_move).call(this);
         if (__classPrivateFieldGet(this, _Enemy_moveCount, "f") === Const.TILE_SIZE) {
             __classPrivateFieldSet(this, _Enemy_moveCount, 0, "f");
             __classPrivateFieldSet(this, _Enemy_indexOrder, (_c = __classPrivateFieldGet(this, _Enemy_indexOrder, "f"), _c++, _c), "f");
@@ -263,6 +254,23 @@ _a = Enemy, _Enemy_images = new WeakMap(), _Enemy_startPosition = new WeakMap(),
     __classPrivateFieldSet(this, _Enemy_currentDirection, __classPrivateFieldGet(this, _Enemy_orders, "f")[__classPrivateFieldGet(this, _Enemy_indexOrder, "f")], "f");
     __classPrivateFieldSet(this, _Enemy_position, Object.assign({}, __classPrivateFieldGet(this, _Enemy_startPosition, "f")), "f");
     __classPrivateFieldGet(this, _Enemy_instances, "m", _Enemy_setRandomTimeMaxForClosingEyes).call(this);
+}, _Enemy_move = function _Enemy_move() {
+    const velocity = __classPrivateFieldGet(this, _Enemy_isBoss, "f") ? _a.BOSS_VELOCITY : _a.VELOCITY;
+    switch (__classPrivateFieldGet(this, _Enemy_currentDirection, "f")) {
+        case ConstDirection.LEFT:
+            __classPrivateFieldGet(this, _Enemy_position, "f").x = __classPrivateFieldGet(this, _Enemy_position, "f").x - velocity;
+            break;
+        case ConstDirection.RIGHT:
+            __classPrivateFieldGet(this, _Enemy_position, "f").x = __classPrivateFieldGet(this, _Enemy_position, "f").x + velocity;
+            break;
+        case ConstDirection.UP:
+            __classPrivateFieldGet(this, _Enemy_position, "f").y = __classPrivateFieldGet(this, _Enemy_position, "f").y - velocity;
+            break;
+        case ConstDirection.DOWN:
+            __classPrivateFieldGet(this, _Enemy_position, "f").y = __classPrivateFieldGet(this, _Enemy_position, "f").y + velocity;
+            break;
+    }
+    __classPrivateFieldSet(this, _Enemy_moveCount, __classPrivateFieldGet(this, _Enemy_moveCount, "f") + velocity, "f");
 }, _Enemy_hasOpenEyes = function _Enemy_hasOpenEyes() {
     return __classPrivateFieldGet(this, _Enemy_imgIndex, "f") != _a.EYES_CLOSED;
 }, _Enemy_moveEyesInSequence = function _Enemy_moveEyesInSequence() {
