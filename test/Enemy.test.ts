@@ -44,64 +44,56 @@ const instantiateBossEnemy = () => {
 
 describe('instantiateNormalEnemy', () => {
   describe('when there are not enemy instances and the instance is recently created', () => {
-    test('the enemy instances are one', () => {
+    beforeEach(() => {
       instantiateNormalEnemy()
+    })
+    test('the enemy instances are one', () => {
       const result = Enemy.instances.length
       expect(result).toBe(1)
     })
     test('the instanced enemy is not a boss', () => {
-      instantiateNormalEnemy()
       const result = Enemy.instances[0].isBoss()
       expect(result).toBeFalsy()
     })
     test('endurance is: wave*3 + waveEnemies*2 = 1*3 + 3*2 = 9', () => {
-      instantiateNormalEnemy()
       const result = Enemy.instances[0].endurance
       expect(result).toBe(9)
     })
     test('alive is true', () => {
-      instantiateNormalEnemy()
       const result = Enemy.instances[0].alive
       expect(result).toBeTruthy()
     })
     test('dead is false', () => {
-      instantiateNormalEnemy()
       const result = Enemy.instances[0].dead
       expect(result).toBeFalsy()
     })
     test('id is 18', () => {
-      instantiateNormalEnemy()
       const result = Enemy.instances[0].id
       expect(result).toBe(18)
     })
     test('position is the same as the initial position', () => {
-      instantiateNormalEnemy()
       const result = Enemy.instances[0].position
       expect(result).toStrictEqual({ x: 100, y: 200 })
     })
     test('winner is false', () => {
-      instantiateNormalEnemy()
       const result = Enemy.instances[0].winner
       expect(result).toBeFalsy()
     })
     test('current direction is LEFT', () => {
-      instantiateNormalEnemy()
       const result = Enemy.instances[0].currentDirection
       expect(result).toBe(ConstDirection.LEFT)
     })
   })
   describe('when there are not enemy instances and the instance is recently created and updating 55 times', () => {
-    test('current direction is DOWN, because velocity = 1 it needs 50 (tile width) updates to complete the first LEFT order, and the next order is DOWN', () => {
+    beforeEach(() => {
       instantiateNormalEnemy()
       updateInstancesTimes(55)
-
+    })
+    test('current direction is DOWN, because velocity = 1 it needs 50 (tile width) updates to complete the first LEFT order, and the next order is DOWN', () => {
       const result = Enemy.instances[0].currentDirection
       expect(result).toBe(ConstDirection.DOWN)
     })
     test('current position is x: 50, y: 205, because velocity = 1 it needs 50 (tile width) updates to complete the first LEFT order, next order DOWN, 5 DOWN', () => {
-      instantiateNormalEnemy()
-      updateInstancesTimes(55)
-
       const result = Enemy.instances[0].position
       expect(result).toStrictEqual({ x: 50, y: 205 })
     })
@@ -109,34 +101,32 @@ describe('instantiateNormalEnemy', () => {
 })
 describe('instantiateBossEnemy', () => {
   describe('when there are not enemy instances and the instance is recently created', () => {
-    test('the enemy instances are one', () => {
+    beforeEach(() => {
       instantiateBossEnemy()
+    })
+    test('the enemy instances are one', () => {
       const result = Enemy.instances.length
       expect(result).toBe(1)
     })
     test('the instanced enemy is a boss', () => {
-      instantiateBossEnemy()
       const result = Enemy.instances[0].isBoss()
       expect(result).toBeTruthy()
     })
     test('endurance is: wave*25 = 1*25 = 75', () => {
-      instantiateBossEnemy()
       const result = Enemy.instances[0].endurance
       expect(result).toBe(25)
     })
   })
   describe('when there are not enemy instances and the instance is recently created and updating 55 times', () => {
-    test('current direction is LEFT, because velocity is 0.5 and it needs 100 updates to complete a 50 tile width order', () => {
+    beforeEach(() => {
       instantiateBossEnemy()
       updateInstancesTimes(55)
-
+    })
+    test('current direction is LEFT, because velocity is 0.5 and it needs 100 updates to complete a 50 tile width order', () => {
       const result = Enemy.instances[0].currentDirection
       expect(result).toBe(ConstDirection.LEFT)
     })
     test('current position is x: 72.5, y: 200, because velocity is 0.5 so every update it moves 0.5', () => {
-      instantiateBossEnemy()
-      updateInstancesTimes(55)
-
       const result = Enemy.instances[0].position
       expect(result).toStrictEqual({ x: 72.5, y: 200 })
     })
