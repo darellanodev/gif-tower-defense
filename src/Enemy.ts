@@ -96,6 +96,10 @@ export class Enemy {
     this.#status = Enemy.STATUS_ALIVE
   }
 
+  isBoss() {
+    return this.#isBoss
+  }
+
   static instantiateNormalEnemy(
     images: Image[],
     waveEnemies: number,
