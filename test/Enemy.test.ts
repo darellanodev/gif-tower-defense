@@ -91,16 +91,16 @@ describe('instantiateNormalEnemy', () => {
     })
   })
   describe('when there are not enemy instances and the instance is recently created and updating 55 times', () => {
-    test('current direction is DOWN', () => {
+    test('current direction is DOWN, because velocity = 1 it needs 50 (tile width) updates to complete the first LEFT order, and the next order is DOWN', () => {
       instantiateNormalEnemy()
       updateInstancesTimes(55)
 
       const result = Enemy.instances[0].currentDirection
       expect(result).toBe(ConstDirection.DOWN)
     })
-    test('current position is x: 50, y: 205', () => {
+    test('current position is x: 50, y: 205, because velocity = 1 it needs 50 (tile width) updates to complete the first LEFT order, next order DOWN, 5 DOWN', () => {
       instantiateNormalEnemy()
-      updateInstancesTimes(55) // 50 to the LEFT, next order DOWN, 5 DOWN
+      updateInstancesTimes(55)
 
       const result = Enemy.instances[0].position
       expect(result).toStrictEqual({ x: 50, y: 205 })
@@ -123,6 +123,22 @@ describe('instantiateBossEnemy', () => {
       instantiateBossEnemy()
       const result = Enemy.instances[0].endurance
       expect(result).toBe(25)
+    })
+  })
+  describe('when there are not enemy instances and the instance is recently created and updating 55 times', () => {
+    test('current direction is LEFT, because velocity is 0.5 and it needs 100 updates to complete a 50 tile width order', () => {
+      instantiateBossEnemy()
+      updateInstancesTimes(55)
+
+      const result = Enemy.instances[0].currentDirection
+      expect(result).toBe(ConstDirection.LEFT)
+    })
+    test('current position is x: 72.5, y: 200, because velocity is 0.5 so every update it moves 0.5', () => {
+      instantiateBossEnemy()
+      updateInstancesTimes(55)
+
+      const result = Enemy.instances[0].position
+      expect(result).toStrictEqual({ x: 72.5, y: 200 })
     })
   })
 })
