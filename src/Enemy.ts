@@ -129,6 +129,10 @@ export class Enemy {
     )
   }
 
+  get currentDirection() {
+    return this.#currentDirection
+  }
+
   get endurance() {
     return this.#endurance
   }
@@ -187,17 +191,7 @@ export class Enemy {
     this.#setRandomTimeMaxForClosingEyes()
   }
 
-  update() {
-    if (this.#freezed) {
-      if (this.#freezedTime < MagicIceball.FREEZE_ENEMY_MAX_TIME) {
-        this.#freezedTime++
-      } else {
-        this.#freezed = false
-        this.#freezedTime = 0
-      }
-      return
-    }
-
+  #move() {
     const velocity = this.#isBoss ? Enemy.BOSS_VELOCITY : Enemy.VELOCITY
 
     switch (this.#currentDirection) {
@@ -219,6 +213,20 @@ export class Enemy {
     }
 
     this.#moveCount = this.#moveCount + velocity
+  }
+
+  update() {
+    if (this.#freezed) {
+      if (this.#freezedTime < MagicIceball.FREEZE_ENEMY_MAX_TIME) {
+        this.#freezedTime++
+      } else {
+        this.#freezed = false
+        this.#freezedTime = 0
+      }
+      return
+    }
+
+    this.#move()
 
     if (this.#moveCount === Const.TILE_SIZE) {
       this.#moveCount = 0

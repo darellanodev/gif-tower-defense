@@ -1,9 +1,20 @@
 import { Enemy } from '../src/Enemy'
-import { Position } from '../src/types'
+import { ConstDirection } from '../src/ConstDirection'
+
+const updateInstancesTimes = (times: number) => {
+  for (let i = 0; i < times; i++) {
+    Enemy.updateInstances()
+  }
+}
 
 const commonConstants = {
   images: [null, null, null] as any,
-  orders: [0, 1, 2, 3],
+  orders: [
+    ConstDirection.LEFT,
+    ConstDirection.DOWN,
+    ConstDirection.RIGHT,
+    ConstDirection.UP,
+  ],
   initialEnemiesPosition: { x: 100, y: 200 },
   wave: 1,
 }
@@ -32,7 +43,7 @@ const instantiateBossEnemy = () => {
 }
 
 describe('instantiateNormalEnemy', () => {
-  describe('when there are not enemy instances', () => {
+  describe('when there are not enemy instances and the instance is recently created', () => {
     test('the enemy instances are one', () => {
       instantiateNormalEnemy()
       const result = Enemy.instances.length
@@ -73,10 +84,31 @@ describe('instantiateNormalEnemy', () => {
       const result = Enemy.instances[0].winner
       expect(result).toBeFalsy()
     })
+    test('current direction is LEFT', () => {
+      instantiateNormalEnemy()
+      const result = Enemy.instances[0].currentDirection
+      expect(result).toBe(ConstDirection.LEFT)
+    })
+  })
+  describe('when there are not enemy instances and the instance is recently created and updating 55 times', () => {
+    test('current direction is DOWN', () => {
+      instantiateNormalEnemy()
+      updateInstancesTimes(55)
+
+      const result = Enemy.instances[0].currentDirection
+      expect(result).toBe(ConstDirection.DOWN)
+    })
+    test('current position is x: 50, y: 205', () => {
+      instantiateNormalEnemy()
+      updateInstancesTimes(55) // 50 to the LEFT, next order DOWN, 5 DOWN
+
+      const result = Enemy.instances[0].position
+      expect(result).toStrictEqual({ x: 50, y: 205 })
+    })
   })
 })
 describe('instantiateBossEnemy', () => {
-  describe('when there are not enemy instances', () => {
+  describe('when there are not enemy instances and the instance is recently created', () => {
     test('the enemy instances are one', () => {
       instantiateBossEnemy()
       const result = Enemy.instances.length
