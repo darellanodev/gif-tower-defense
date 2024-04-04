@@ -2,6 +2,8 @@ import { Vector } from 'p5'
 import { Position, RGBType } from './types'
 import { TowerYellow } from './TowerYellow'
 import { Const } from './Const'
+import { Random } from './Random'
+import { P5 } from './P5'
 
 export class Particle {
   static COLOR_CAPTURED: RGBType = [12, 222, 42]
@@ -17,7 +19,7 @@ export class Particle {
   #velocity: Vector
   #lifespan: number = 255
   #captured: boolean = false
-  #towerYellowTarget: TowerYellow = null
+  #towerYellowTarget: TowerYellow | null = null
   #capturedTime: number = 0
 
   constructor(vec: Vector, size: number, color: RGBType) {
@@ -26,7 +28,10 @@ export class Particle {
     this.#color = color
     this.#initialColor = color
 
-    this.#velocity = createVector(random(-3, 3), random(-3, 0))
+    this.#velocity = new Vector(
+      Random.integerBetween(-3, 3),
+      Random.integerBetween(-3, 0),
+    )
   }
 
   run() {
@@ -39,6 +44,9 @@ export class Particle {
       this.#vec.add(this.#velocity)
       this.#lifespan -= 2
     } else {
+      if (!this.#towerYellowTarget) {
+        return
+      }
       // free the particle when the player sells the yellow tower
       if (!this.#towerYellowTarget.tileOrange.hasTower()) {
         this.#captured = false
@@ -73,20 +81,20 @@ export class Particle {
         aux_x = (towerYellowPosX - this.position.x) / 300
       else aux_x = -(this.position.x - towerYellowPosX) / 300
 
-      const aux = createVector(aux_x, aux_y, 0)
+      const aux = new Vector(aux_x, aux_y, 0)
       this.#vec.add(this.#velocity)
       this.#velocity.add(aux)
 
-      const attract = createVector(-aux_x * 3, -aux_y * 3, 0)
+      const attract = new Vector(-aux_x * 3, -aux_y * 3, 0)
       this.#vec.sub(attract)
     }
   }
 
   display() {
-    stroke(...this.#color, this.#lifespan)
-    strokeWeight(2)
-    fill(127, this.#lifespan)
-    ellipse(this.#vec.x, this.#vec.y, this.#size, this.#size)
+    P5.p5.stroke(...this.#color, this.#lifespan)
+    P5.p5.strokeWeight(2)
+    P5.p5.fill(127, this.#lifespan)
+    P5.p5.ellipse(this.#vec.x, this.#vec.y, this.#size, this.#size)
   }
 
   isDead() {
@@ -100,7 +108,7 @@ export class Particle {
     this.#lifespan = 255
   }
 
-  get towerYellowTarget() {
+  get towerYellowTarget(): TowerYellow | null {
     return this.#towerYellowTarget
   }
 

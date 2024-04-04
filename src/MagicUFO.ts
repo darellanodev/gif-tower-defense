@@ -1,6 +1,7 @@
 import { Image } from 'p5'
 import { Magic } from './Magic'
 import { Position } from './types'
+import { P5 } from './P5'
 
 export class MagicUFO extends Magic {
   static instances: MagicUFO[] = []
@@ -20,7 +21,7 @@ export class MagicUFO extends Magic {
   }
 
   draw() {
-    image(this.#img, this.position.x, this.position.y)
+    P5.p5.image(this.#img, this.position.x, this.position.y)
   }
 
   static drawInstances() {

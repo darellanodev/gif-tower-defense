@@ -9,9 +9,10 @@ export class Explosion {
   #emisionTime: number = 0
   #finished: boolean = false
 
-  particleSystem: ParticleSystem
+  particleSystem: ParticleSystem | null
   constructor(position: Position) {
     this.position = { ...position }
+    this.particleSystem = null
   }
 
   isActive() {
@@ -19,6 +20,9 @@ export class Explosion {
   }
 
   update() {
+    if (!this.particleSystem) {
+      return
+    }
     if (this.#emisionTime < Explosion.MAX_EMIT_TIME) {
       this.#emisionTime++
       this.particleSystem.addParticle()

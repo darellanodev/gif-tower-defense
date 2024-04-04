@@ -6,12 +6,13 @@ import { Tile } from './Tile'
 import { TowerGreen } from './TowerGreen'
 import { TowerRed } from './TowerRed'
 import { TowerYellow } from './TowerYellow'
+import { P5 } from './P5'
 
 export class TileOrange extends Tile {
   static instances: TileOrange[] = []
 
   #img: Image
-  #tower: TowerType = null
+  #tower: TowerType | null = null
 
   constructor(img: Image, position: Position) {
     super(position)
@@ -44,7 +45,10 @@ export class TileOrange extends Tile {
     } else {
       this.#tower.upgrade()
     }
-    return this.#tower.cost
+    if (this.#tower !== null) {
+      return this.#tower.cost
+    }
+    return null
   }
 
   _upgradeTower() {
@@ -54,7 +58,7 @@ export class TileOrange extends Tile {
   }
 
   drawTile() {
-    image(this.#img, this.position.x, this.position.y)
+    P5.p5.image(this.#img, this.position.x, this.position.y)
   }
 
   drawTower() {
@@ -101,7 +105,7 @@ export class TileOrange extends Tile {
     return this.#tower !== null
   }
 
-  getTower() {
+  getTower(): TowerType | null {
     if (this.hasTower()) {
       return this.#tower
     }

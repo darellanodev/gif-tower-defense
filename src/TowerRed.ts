@@ -4,6 +4,7 @@ import { ConstColor } from './ConstColor'
 import { Const } from './Const'
 import { Tower } from './Tower'
 import { Missile } from './Missile'
+import { P5 } from './P5'
 
 export class TowerRed extends Tower {
   static ID = 2
@@ -35,10 +36,10 @@ export class TowerRed extends Tower {
   }
 
   _drawUpgradeBackground() {
-    strokeWeight(1)
-    stroke('black')
-    fill(ConstColor.RED)
-    rect(
+    P5.p5.strokeWeight(1)
+    P5.p5.stroke('black')
+    P5.p5.fill(ConstColor.RED)
+    P5.p5.rect(
       this.position.x + 4,
       this.position.y + 4,
       Const.TILE_SIZE,
@@ -64,11 +65,11 @@ export class TowerRed extends Tower {
         let r_dy = this.enemyTarget.position.y - this.position.y
         let angle = Math.atan2(r_dy, r_dx) + 1.55
 
-        let cos_a = cos(angle)
-        let sin_a = sin(angle)
+        let cos_a = P5.p5.cos(angle)
+        let sin_a = P5.p5.sin(angle)
 
-        imageMode(CENTER)
-        applyMatrix(
+        P5.p5.imageMode(P5.p5.CENTER)
+        P5.p5.applyMatrix(
           cos_a,
           sin_a,
           -sin_a,
@@ -93,12 +94,12 @@ export class TowerRed extends Tower {
           )
         }
 
-        image(TowerRed.images[this.upgradeLevel], 0, 0)
+        P5.p5.image(TowerRed.images[this.upgradeLevel], 0, 0)
 
-        resetMatrix()
-        imageMode(CORNER)
+        P5.p5.resetMatrix()
+        P5.p5.imageMode(P5.p5.CORNER)
       } else {
-        image(
+        P5.p5.image(
           TowerRed.images[this.upgradeLevel],
           this.position.x + Tower.OFFSET_X,
           this.position.y + Tower.OFFSET_Y,

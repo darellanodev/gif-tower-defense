@@ -3,6 +3,7 @@ import { Enemy } from './Enemy'
 import { Magic } from './Magic'
 import { Position } from './types'
 import { ExplosionMagicIceball } from './ExplosionMagicIceball'
+import { P5 } from './P5'
 
 export class MagicIceball extends Magic {
   static FREEZE_ENEMY_MAX_TIME = 500
@@ -28,7 +29,7 @@ export class MagicIceball extends Magic {
   }
 
   draw() {
-    image(this.#img, this.position.x, this.position.y)
+    P5.p5.image(this.#img, this.position.x, this.position.y)
   }
 
   static drawInstances() {

@@ -8,6 +8,7 @@ import { MathUtils } from './MathUtils'
 import { ProgressBar } from './ProgressBar'
 import { Player } from './Player'
 import { TileOrange } from './TileOrange'
+import { P5 } from './P5'
 
 export class TowerYellow extends Tower {
   static ID = 3
@@ -55,10 +56,10 @@ export class TowerYellow extends Tower {
   }
 
   _drawUpgradeBackground() {
-    strokeWeight(1)
-    stroke('black')
-    fill(ConstColor.YELLOW)
-    rect(
+    P5.p5.strokeWeight(1)
+    P5.p5.stroke('black')
+    P5.p5.fill(ConstColor.YELLOW)
+    P5.p5.rect(
       this.position.x + 5,
       this.position.y + 5,
       Const.TILE_SIZE,
@@ -90,7 +91,7 @@ export class TowerYellow extends Tower {
     } else {
       this.#progressCoreBar.draw()
 
-      image(
+      P5.p5.image(
         TowerYellow.images[this.upgradeLevel],
         this.position.x + Tower.OFFSET_X,
         this.position.y + Tower.OFFSET_Y,
@@ -123,23 +124,25 @@ export class TowerYellow extends Tower {
 
   selectAllExplosionsTargets() {
     ExplosionEnemy.instances.forEach((xp) => {
-      const particles = xp.particleSystem.particles
+      if (xp.particleSystem) {
+        const particles = xp.particleSystem.particles
 
-      particles.forEach((p) => {
-        if (!p.towerYellowTarget) {
-          const distance = MathUtils.distance(
-            {
-              x: this.position.x + Const.TILE_SIZE / 2,
-              y: this.position.y + Const.TILE_SIZE / 2,
-            },
-            p.position,
-          )
+        particles.forEach((p) => {
+          if (!p.towerYellowTarget) {
+            const distance = MathUtils.distance(
+              {
+                x: this.position.x + Const.TILE_SIZE / 2,
+                y: this.position.y + Const.TILE_SIZE / 2,
+              },
+              p.position,
+            )
 
-          if (this.isDistanceIntoInfluenceArea(distance)) {
-            p.towerYellowTarget = this
+            if (this.isDistanceIntoInfluenceArea(distance)) {
+              p.towerYellowTarget = this
+            }
           }
-        }
-      })
+        })
+      }
     })
   }
 }

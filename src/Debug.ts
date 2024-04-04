@@ -1,5 +1,6 @@
 import { Position } from './types'
 import { TextProperties } from './TextProperties'
+import { P5 } from './P5'
 
 export class Debug {
   static showMouseCoordinates(position: Position) {
@@ -7,6 +8,6 @@ export class Debug {
     const mousePosY = Math.round(position.y)
 
     TextProperties.setForHudData()
-    text(`x:${mousePosX}, y:${mousePosY}`, 260, 18)
+    P5.p5.text(`x:${mousePosX}, y:${mousePosY}`, 260, 18)
   }
 }

@@ -3,6 +3,7 @@ import { Image } from 'p5'
 import { ConstColor } from './ConstColor'
 import { Const } from './Const'
 import { Tower } from './Tower'
+import { P5 } from './P5'
 
 export class TowerGreen extends Tower {
   static ID = 1
@@ -35,9 +36,9 @@ export class TowerGreen extends Tower {
   }
 
   #drawShotToEnemy() {
-    strokeWeight(3)
-    stroke(ConstColor.RED)
-    line(
+    P5.p5.strokeWeight(3)
+    P5.p5.stroke(ConstColor.RED)
+    P5.p5.line(
       -1,
       -18,
       7 - this.distanceToEnemyTarget / 7,
@@ -46,10 +47,10 @@ export class TowerGreen extends Tower {
   }
 
   #drawUpgradeBackground() {
-    strokeWeight(1)
-    stroke('black')
-    fill(ConstColor.GREEN)
-    rect(
+    P5.p5.strokeWeight(1)
+    P5.p5.stroke('black')
+    P5.p5.fill(ConstColor.GREEN)
+    P5.p5.rect(
       this.position.x + 4,
       this.position.y + 4,
       Const.TILE_SIZE,
@@ -81,11 +82,11 @@ export class TowerGreen extends Tower {
         let r_dy = this.enemyTarget.position.y - this.position.y
         let angle = Math.atan2(r_dy, r_dx) + 1.55
 
-        let cos_a = cos(angle)
-        let sin_a = sin(angle)
+        let cos_a = P5.p5.cos(angle)
+        let sin_a = P5.p5.sin(angle)
 
-        imageMode(CENTER)
-        applyMatrix(
+        P5.p5.imageMode(P5.p5.CENTER)
+        P5.p5.applyMatrix(
           cos_a,
           sin_a,
           -sin_a,
@@ -96,12 +97,12 @@ export class TowerGreen extends Tower {
 
         this.#drawShotToEnemy()
         this.enemyTarget.addDamage(TowerGreen.DAMAGE_UPGRADE[this.upgradeLevel])
-        image(TowerGreen.images[this.upgradeLevel], 0, 0)
+        P5.p5.image(TowerGreen.images[this.upgradeLevel], 0, 0)
 
-        resetMatrix()
-        imageMode(CORNER)
+        P5.p5.resetMatrix()
+        P5.p5.imageMode(P5.p5.CORNER)
       } else {
-        image(
+        P5.p5.image(
           TowerGreen.images[this.upgradeLevel],
           this.position.x + Tower.OFFSET_X,
           this.position.y + Tower.OFFSET_Y,

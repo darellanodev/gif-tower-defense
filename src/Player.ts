@@ -7,13 +7,14 @@ import { Hud } from './Hud'
 import { Image } from 'p5'
 import { Position } from './types'
 import { TileOrange } from './TileOrange'
+import { P5 } from './P5'
 
 export class Player {
   static lives: number = 7
   static score: number = 0
   static money: number = 0
   static wave: number = 1
-  static mouseTileOrangeOver: TileOrange
+  static mouseTileOrangeOver: TileOrange | null
 
   static increaseScore(score: number) {
     Player.score += score
@@ -86,7 +87,7 @@ export class Player {
   }
 
   static keyPressed() {
-    switch (keyCode) {
+    switch (P5.p5.keyCode) {
       case Const.KEY_1:
         Hud.selectTower(TowerGreen.ID)
         break
@@ -107,7 +108,7 @@ export class Player {
     magicUFOImage: Image,
     initialEnemiesPosition: Position,
     orders: number[],
-    mouseTileOrangeOver: TileOrange,
+    mouseTileOrangeOver: TileOrange | null,
   ) {
     if (Hud.isInsideButtonsBar(mouseX, mouseY)) {
       if (Hud.isInsideTowersButtonsBar(mouseX, mouseY)) {
@@ -128,13 +129,16 @@ export class Player {
     }
 
     if (mouseTileOrangeOver !== null) {
-      if (mouseButton === RIGHT && mouseTileOrangeOver.hasTower()) {
-        if (mouseTileOrangeOver.getTower().notUpgrading) {
-          Player.sellTower(mouseTileOrangeOver)
+      if (P5.p5.mouseButton === P5.p5.RIGHT && mouseTileOrangeOver.hasTower()) {
+        const tower = mouseTileOrangeOver.getTower()
+        if (tower) {
+          if (tower.notUpgrading) {
+            Player.sellTower(mouseTileOrangeOver)
+          }
         }
       }
 
-      if (mouseButton === LEFT) {
+      if (P5.p5.mouseButton === P5.p5.LEFT) {
         Player.buyTower(mouseTileOrangeOver)
       }
     }
@@ -146,9 +150,15 @@ export class Player {
   }
 
   static buyTower(mouseTileOrangeOver: TileOrange) {
-    if (Player.canBuyTower(mouseTileOrangeOver.getTower())) {
-      const cost = mouseTileOrangeOver.buyTower(Hud.getSelectedTower())
-      Player.decreaseMoney(cost)
+    const tower = mouseTileOrangeOver.getTower()
+
+    if (tower) {
+      if (Player.canBuyTower(tower)) {
+        const cost = mouseTileOrangeOver.buyTower(Hud.getSelectedTower())
+        if (cost) {
+          Player.decreaseMoney(cost)
+        }
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 import { Position, Size } from './types'
+import { P5 } from './P5'
 
 export class ProgressBar {
   static WIDTH = 27
@@ -41,10 +42,10 @@ export class ProgressBar {
   }
 
   _drawBackgroundBar() {
-    strokeWeight(1)
-    stroke('black')
-    fill('green')
-    rect(
+    P5.p5.strokeWeight(1)
+    P5.p5.stroke('black')
+    P5.p5.fill('green')
+    P5.p5.rect(
       this.#position.x + 10,
       this.#position.y + 20,
       this.#size.w,
@@ -53,10 +54,10 @@ export class ProgressBar {
   }
 
   _drawProgressBar() {
-    strokeWeight(0)
-    fill('red')
+    P5.p5.strokeWeight(0)
+    P5.p5.fill('red')
     const progressLevel = (this.#progress * this.#maxProgress) / 100
-    rect(
+    P5.p5.rect(
       this.#position.x + 11,
       this.#position.y + 21,
       progressLevel,

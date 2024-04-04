@@ -2,6 +2,7 @@ import { Const } from './Const'
 import { ConstColor } from './ConstColor'
 import { Enemy } from './Enemy'
 import { Position } from './types'
+import { P5 } from './P5'
 
 export class Missile {
   static OUTER_DIAMETER = 11
@@ -13,7 +14,7 @@ export class Missile {
   static instances: Missile[] = []
 
   #position: Position
-  #enemyTarget: Enemy = null
+  #enemyTarget: Enemy | null = null
   #status: number = 0
   #damage: number = 0
 
@@ -28,6 +29,9 @@ export class Missile {
   }
 
   _moveToTarget() {
+    if (!this.#enemyTarget) {
+      return
+    }
     if (this.#position.x < this.#enemyTarget.position.x + Const.TILE_SIZE / 2) {
       this.#position.x += Missile.VELOCITY
     } else {
@@ -53,6 +57,9 @@ export class Missile {
   }
 
   #checkCollision() {
+    if (!this.#enemyTarget) {
+      return
+    }
     let isInsideX = false
     let isInsideY = false
     if (
@@ -91,10 +98,10 @@ export class Missile {
   }
 
   draw() {
-    noStroke()
-    fill(...ConstColor.RED)
-    circle(this.#position.x, this.#position.y, Missile.OUTER_DIAMETER)
-    fill(...ConstColor.YELLOW)
-    circle(this.#position.x, this.#position.y, Missile.INNER_DIAMETER)
+    P5.p5.noStroke()
+    P5.p5.fill(...ConstColor.RED)
+    P5.p5.circle(this.#position.x, this.#position.y, Missile.OUTER_DIAMETER)
+    P5.p5.fill(...ConstColor.YELLOW)
+    P5.p5.circle(this.#position.x, this.#position.y, Missile.INNER_DIAMETER)
   }
 }

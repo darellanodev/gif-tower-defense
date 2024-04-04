@@ -7,7 +7,7 @@ export class LevelsDataProvider {
     this.#levels = levels
   }
 
-  getLevel(id: number): MapDataType {
+  getLevel(id: number): MapDataType | undefined {
     return this.#levels.find((level: MapDataType) => level.id == id)
   }
 }

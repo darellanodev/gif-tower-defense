@@ -1,17 +1,20 @@
 import { Image } from 'p5'
 import { Position } from './types'
 import { Tile } from './Tile'
+import { P5 } from './P5'
 
 export class TileEnd extends Tile {
-  #img: Image
+  #img: Image | null
 
-  constructor(img: Image, position: Position) {
+  constructor(img: Image | null, position: Position) {
     super(position)
     this.#img = img
     this.position = { ...position }
   }
 
   draw() {
-    image(this.#img, this.position.x, this.position.y)
+    if (this.#img) {
+      P5.p5.image(this.#img, this.position.x, this.position.y)
+    }
   }
 }

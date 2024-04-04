@@ -16,8 +16,8 @@ export class TileGenerator {
 
   #orangeImage: Image
   #blackImage: Image
-  #startImage: Image
-  #endImage: Image
+  #startImage: Image | null = null
+  #endImage: Image | null = null
   #startDirection: number
 
   constructor(levelMap: MapDataType, mapImages: Image[]) {

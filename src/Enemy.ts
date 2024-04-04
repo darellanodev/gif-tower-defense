@@ -10,6 +10,7 @@ import { ExplosionEnemy } from './ExplosionEnemy'
 import { Images } from './Images'
 import { Path } from './Path'
 import { MathUtils } from './MathUtils'
+import { P5 } from './P5'
 
 export class Enemy {
   static VELOCITY = 1 // must be multiple of "this.#Const.TILE_SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
@@ -288,7 +289,11 @@ export class Enemy {
 
   draw() {
     this.#changeEyes()
-    image(this.#images[this.#imgIndex], this.#position.x, this.#position.y)
+    P5.p5.image(
+      this.#images[this.#imgIndex],
+      this.#position.x,
+      this.#position.y,
+    )
     this.#healthBar.setPosition({
       x: this.#position.x,
       y: this.#position.y - 20,

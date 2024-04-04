@@ -4,29 +4,30 @@ import { TowerRed } from './TowerRed'
 import { TowerYellow } from './TowerYellow'
 import { ConstColor } from './ConstColor'
 import { Const } from './Const'
+import { P5 } from './P5'
 
 export class InfluenceArea {
   static ALPHA_FILL = 50
   static ALPHA_STROKE = 120
 
   static _setGrayInfluenceAreaColor() {
-    stroke(...ConstColor.GRAY, InfluenceArea.ALPHA_STROKE)
-    fill(...ConstColor.GRAY, InfluenceArea.ALPHA_FILL)
+    P5.p5.stroke(...ConstColor.GRAY, InfluenceArea.ALPHA_STROKE)
+    P5.p5.fill(...ConstColor.GRAY, InfluenceArea.ALPHA_FILL)
   }
 
   static _setInfluenceAreaColor(towerId: number) {
     switch (towerId) {
       case TowerGreen.ID:
-        stroke(...ConstColor.GREEN, InfluenceArea.ALPHA_STROKE)
-        fill(...ConstColor.GREEN, InfluenceArea.ALPHA_FILL)
+        P5.p5.stroke(...ConstColor.GREEN, InfluenceArea.ALPHA_STROKE)
+        P5.p5.fill(...ConstColor.GREEN, InfluenceArea.ALPHA_FILL)
         break
       case TowerRed.ID:
-        stroke(...ConstColor.RED, InfluenceArea.ALPHA_STROKE)
-        fill(...ConstColor.RED, InfluenceArea.ALPHA_FILL)
+        P5.p5.stroke(...ConstColor.RED, InfluenceArea.ALPHA_STROKE)
+        P5.p5.fill(...ConstColor.RED, InfluenceArea.ALPHA_FILL)
         break
       case TowerYellow.ID:
-        stroke(...ConstColor.YELLOW, InfluenceArea.ALPHA_STROKE)
-        fill(...ConstColor.YELLOW, InfluenceArea.ALPHA_FILL)
+        P5.p5.stroke(...ConstColor.YELLOW, InfluenceArea.ALPHA_STROKE)
+        P5.p5.fill(...ConstColor.YELLOW, InfluenceArea.ALPHA_FILL)
         break
     }
   }
@@ -54,7 +55,7 @@ export class InfluenceArea {
     position: Position,
     canBuy: boolean,
   ) {
-    strokeWeight(2)
+    P5.p5.strokeWeight(2)
 
     if (canBuy) {
       InfluenceArea._setInfluenceAreaColor(hudTowerSelected)
@@ -69,7 +70,7 @@ export class InfluenceArea {
   }
 
   static drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {
-    strokeWeight(2)
+    P5.p5.strokeWeight(2)
 
     const towerPosition = tower.position
 
@@ -89,6 +90,6 @@ export class InfluenceArea {
   }
 
   static _drawCircle(x: number, y: number, diameter: number) {
-    circle(x + Const.TILE_SIZE / 2, y + Const.TILE_SIZE / 2, diameter)
+    P5.p5.circle(x + Const.TILE_SIZE / 2, y + Const.TILE_SIZE / 2, diameter)
   }
 }

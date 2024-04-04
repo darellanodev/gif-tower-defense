@@ -1,3 +1,4 @@
+import * as p5 from 'p5'
 import { Const } from './Const'
 import { Path } from './Path'
 import { TileGenerator } from './TileGenerator'
@@ -9,7 +10,6 @@ import { MathUtils } from './MathUtils'
 import { Hud } from './Hud'
 import { Enemy } from './Enemy'
 import { Debug } from './Debug'
-import { InfluenceArea } from './InfluenceArea'
 import { ExplosionEnemy } from './ExplosionEnemy'
 import { ExplosionMagicFireball } from './ExplosionMagicFireball'
 import { ExplosionMagicIceball } from './ExplosionMagicIceball'
@@ -22,7 +22,9 @@ import { MagicUFO } from './MagicUFO'
 import { Player } from './Player'
 import { Images } from './Images'
 import { Missile } from './Missile'
+import { P5 } from './P5'
 
+let _p5: p5
 let gameStatus: number = 0
 let levelDataProvider: LevelsDataProvider
 let instantiateBoss: boolean = false
@@ -44,11 +46,17 @@ function disableContextualMenu() {
 function setup() {
   disableContextualMenu()
 
-  createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT)
+  P5.init(_p5)
+
+  _p5.createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT)
 
   levelDataProvider = new LevelsDataProvider(LevelsData.data)
 
   const levelMap = levelDataProvider.getLevel(1)
+
+  if (levelMap === undefined) {
+    throw new Error('No se puede dividir por cero')
+  }
 
   TowerGreen.setImages(Images.greenTowerImages)
   TowerRed.setImages(Images.redTowerImages)
@@ -79,8 +87,8 @@ function keyPressed() {
 
 function mouseClicked() {
   Player.mouseClicked(
-    mouseX,
-    mouseY,
+    _p5.mouseX,
+    _p5.mouseY,
     Images.magicIceballImage,
     Images.magicFireballImage,
     Images.magicUFOImage,
@@ -92,7 +100,7 @@ function mouseClicked() {
 
 function getMouseTileOrangeOver() {
   const result = TileOrange.instances.find((orangeTile) =>
-    orangeTile.isInside(mouseX, mouseY),
+    orangeTile.isInside(_p5.mouseX, _p5.mouseY),
   )
 
   return result ? result : null
@@ -143,10 +151,10 @@ function draw() {
     Missile.updateInstances()
   }
 
-  background('skyblue')
-  rectMode(CORNER)
+  _p5.background('skyblue')
+  _p5.rectMode(_p5.CORNER)
 
-  image(Images.backgroundImage, 0, Hud.HEIGHT)
+  _p5.image(Images.backgroundImage, 0, Hud.HEIGHT)
 
   Path.startTile.draw()
   Path.endTile.draw()
@@ -188,11 +196,11 @@ function draw() {
 
   if (gameStatus === Const.GAME_STATUS_GAME_OVER) {
     TextProperties.setForBigCenteredTitle()
-    text('Game over', width / 2, height / 2)
+    _p5.text('Game over', _p5.width / 2, _p5.height / 2)
   }
 
   Missile.removeDeadInstances()
   Missile.drawInstances()
 
-  Debug.showMouseCoordinates({ x: mouseX, y: mouseY })
+  Debug.showMouseCoordinates({ x: _p5.mouseX, y: _p5.mouseY })
 }

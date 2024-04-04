@@ -11,6 +11,7 @@ import { MagicUFO } from './MagicUFO'
 import { Const } from './Const'
 import { Player } from './Player'
 import { InfluenceArea } from './InfluenceArea'
+import { P5 } from './P5'
 
 export class Hud {
   static NORMAL = 0
@@ -36,8 +37,8 @@ export class Hud {
 
   static hudImages: Image[]
   static hudIconImages: Image[]
-  static upgradeCost: number = null
-  static sellProfit: number = null
+  static upgradeCost: number | null = null
+  static sellProfit: number | null = null
   static canUpgrade: boolean
 
   static setImages(hudImages: Image[], hudIconImages: Image[]) {
@@ -172,17 +173,17 @@ export class Hud {
   static draw() {
     switch (Hud.mode) {
       case Hud.NORMAL:
-        image(Hud.hudImages[Hud.NORMAL], 0, 0)
+        P5.p5.image(Hud.hudImages[Hud.NORMAL], 0, 0)
         Hud._drawTowerIcons()
         Hud._drawSelectedItem()
         break
 
       case Hud.UPGRADING:
-        image(Hud.hudImages[Hud.UPGRADING], 0, 0)
+        P5.p5.image(Hud.hudImages[Hud.UPGRADING], 0, 0)
         break
 
       case Hud.UPGRADING_MAX:
-        image(Hud.hudImages[Hud.UPGRADING_MAX], 0, 0)
+        P5.p5.image(Hud.hudImages[Hud.UPGRADING_MAX], 0, 0)
         break
     }
 
@@ -223,83 +224,83 @@ export class Hud {
       yellowIconImgPos = Hud.ICON_YELLOW_TOWER_ON
     }
 
-    image(Hud.hudIconImages[greenIconImgPos], 60, 38)
-    image(Hud.hudIconImages[redIconImgPos], 142, 38)
-    image(Hud.hudIconImages[yellowIconImgPos], 226, 38)
+    P5.p5.image(Hud.hudIconImages[greenIconImgPos], 60, 38)
+    P5.p5.image(Hud.hudIconImages[redIconImgPos], 142, 38)
+    P5.p5.image(Hud.hudIconImages[yellowIconImgPos], 226, 38)
   }
 
   static _drawMoney() {
-    text(Player.money, 445, 48)
+    P5.p5.text(Player.money, 445, 48)
   }
 
   static _drawUpgradeCost() {
     if (Hud.upgradeCost !== null) {
       if (!Hud.canUpgrade) {
-        fill('gray')
+        P5.p5.fill('gray')
       }
-      text(Hud.upgradeCost, 33, 72)
+      P5.p5.text(Hud.upgradeCost, 33, 72)
       // restore color
-      fill('white')
+      P5.p5.fill('white')
     }
   }
 
   static _drawMagicUFO() {
-    text(MagicUFO.total, 592, 74)
+    P5.p5.text(MagicUFO.total, 592, 74)
   }
 
   static _drawMagicFireball() {
-    text(MagicFireball.total, 680, 74)
+    P5.p5.text(MagicFireball.total, 680, 74)
   }
 
   static _drawMagicIceball() {
-    text(MagicIceball.total, 769, 74)
+    P5.p5.text(MagicIceball.total, 769, 74)
   }
 
   static _drawSellProfit() {
     if (Hud.sellProfit !== null) {
-      text(Hud.sellProfit, 182, 72)
+      P5.p5.text(Hud.sellProfit, 182, 72)
     }
   }
 
   static _drawLives() {
-    text(Player.lives, 390, 48)
+    P5.p5.text(Player.lives, 390, 48)
   }
 
   static _drawScore() {
-    text(Player.getPrintScore(), 404, 73)
+    P5.p5.text(Player.getPrintScore(), 404, 73)
   }
 
   static _drawLevelTitle() {
-    text('Serpent by Ocliboy', 130, 18)
+    P5.p5.text('Serpent by Ocliboy', 130, 18)
   }
 
   static _drawWave() {
-    text(`wave ${Player.wave}`, 403, 13)
+    P5.p5.text(`wave ${Player.wave}`, 403, 13)
   }
 
   static _drawTowerGreenPrice() {
     if (!Hud.canBuyTowerGreen) {
-      fill('gray')
+      P5.p5.fill('gray')
     }
-    text(TowerGreen.COST_UPGRADE[0], 40, 72)
+    P5.p5.text(TowerGreen.COST_UPGRADE[0], 40, 72)
     // restore
-    fill('white')
+    P5.p5.fill('white')
   }
   static _drawTowerRedPrice() {
     if (!Hud.canBuyTowerRed) {
-      fill('gray')
+      P5.p5.fill('gray')
     }
-    text(TowerRed.COST_UPGRADE[0], 118, 72)
+    P5.p5.text(TowerRed.COST_UPGRADE[0], 118, 72)
     // restore
-    fill('white')
+    P5.p5.fill('white')
   }
   static _drawTowerYellowPrice() {
     if (!Hud.canBuyTowerYellow) {
-      fill('gray')
+      P5.p5.fill('gray')
     }
-    text(TowerYellow.COST_UPGRADE[0], 202, 72)
+    P5.p5.text(TowerYellow.COST_UPGRADE[0], 202, 72)
     // restore
-    fill('white')
+    P5.p5.fill('white')
   }
 
   static _drawNewTowerPrices() {
@@ -309,26 +310,30 @@ export class Hud {
   }
 
   static _drawSelectedItem() {
-    strokeWeight(3)
-    stroke(255, 204, 0)
-    noFill()
+    P5.p5.strokeWeight(3)
+    P5.p5.stroke(255, 204, 0)
+    P5.p5.noFill()
 
     switch (Hud.selectedItem) {
       case TowerGreen.ID:
-        square(57, 36, 37)
+        P5.p5.square(57, 36, 37)
         break
 
       case TowerRed.ID:
-        square(140, 36, 37)
+        P5.p5.square(140, 36, 37)
         break
 
       case TowerYellow.ID:
-        square(225, 36, 37)
+        P5.p5.square(225, 36, 37)
         break
     }
   }
 
-  static selectHudMode(tower: TowerType) {
+  static selectHudMode(tower: TowerType | null) {
+    if (!tower) {
+      return
+    }
+
     if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
       Hud.mode = Hud.UPGRADING
     } else {
@@ -404,9 +409,20 @@ export class Hud {
   }
 
   static drawOrangeTileWithTower() {
-    const tileTower = Player.mouseTileOrangeOver.getTower()
+    const playerMouseTileOrangeOver = Player.mouseTileOrangeOver
+
+    if (!playerMouseTileOrangeOver) {
+      return
+    }
+
+    const tileTower = playerMouseTileOrangeOver.getTower()
 
     Hud.selectHudMode(tileTower)
+
+    if (!tileTower) {
+      return
+    }
+
     if (!tileTower.maxUpgraded) {
       const canUpgrade = Player.haveMoneyToBuy(
         tileTower.type,
@@ -425,11 +441,14 @@ export class Hud {
     const canBuyTowerRed = Player.canBuyNewTower(TowerRed.ID)
     const canBuyTowerYellow = Player.canBuyNewTower(TowerYellow.ID)
 
-    InfluenceArea.drawHudTowerInfluenceArea(
-      Hud.getSelectedTower(),
-      Player.mouseTileOrangeOver.getPosition(),
-      canBuySelectedTower,
-    )
+    const playerMouseTileOrangeOver = Player.mouseTileOrangeOver
+    if (playerMouseTileOrangeOver) {
+      InfluenceArea.drawHudTowerInfluenceArea(
+        Hud.getSelectedTower(),
+        playerMouseTileOrangeOver.getPosition(),
+        canBuySelectedTower,
+      )
+    }
 
     Hud.mode = Hud.NORMAL
     Hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)

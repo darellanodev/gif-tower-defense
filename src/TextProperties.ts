@@ -1,16 +1,18 @@
+import { P5 } from './P5'
+
 export class TextProperties {
   static setForBigCenteredTitle() {
-    fill('white')
-    stroke('black')
-    strokeWeight(2)
-    textSize(30)
-    textAlign(CENTER)
+    P5.p5.fill('white')
+    P5.p5.stroke('black')
+    P5.p5.strokeWeight(2)
+    P5.p5.textSize(30)
+    P5.p5.textAlign(P5.p5.CENTER)
   }
   static setForHudData() {
-    textSize(12)
-    fill('white')
-    stroke('black')
-    strokeWeight(2)
-    textAlign(LEFT)
+    P5.p5.textSize(12)
+    P5.p5.fill('white')
+    P5.p5.stroke('black')
+    P5.p5.strokeWeight(2)
+    P5.p5.textAlign(P5.p5.LEFT)
   }
 }

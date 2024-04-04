@@ -13,10 +13,10 @@ export class Tower {
   upgradeLevel: number = 0
   progressBar: ProgressBar
   upgradeProgress: number = 0
-  delayUpgradeProgress: number
+  delayUpgradeProgress: number = 0
 
-  enemyTarget: Enemy = null
-  distanceToEnemyTarget: number
+  enemyTarget: Enemy | null = null
+  distanceToEnemyTarget: number = 0
 
   constructor(position: Position) {
     this.position = { ...position }
@@ -38,7 +38,7 @@ export class Tower {
     return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1
   }
 
-  getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number): number {
+  getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number): number | null {
     // To implement in child export classes
     return null
   }
@@ -55,7 +55,7 @@ export class Tower {
     }
   }
 
-  isDistanceIntoInfluenceArea(minDistance: number): boolean {
+  isDistanceIntoInfluenceArea(minDistance: number): boolean | null {
     // to implement in child export classes
     return null
   }
