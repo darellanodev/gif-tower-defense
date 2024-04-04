@@ -1,17 +1,15 @@
 {
   "compilerOptions": {
-    "module": "UMD",
-    "noImplicitAny": true,
-    "preserveConstEnums": true,
-    "removeComments": true,
-    "outDir": "./dist/",
-    "rootDir": "./src/",
-    "sourceMap": true,
     "target": "es6",
-    "moduleResolution": "node"
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist",
   },
-  "exclude": [
-    "node_modules",
-    "test"
+  "include": [
+    "src/**/*.ts"
   ]
 }
