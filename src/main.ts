@@ -55,7 +55,7 @@ function setup() {
   const levelMap = levelDataProvider.getLevel(1)
 
   if (levelMap === undefined) {
-    throw new Error('No se puede dividir por cero')
+    throw new Error('Map invalid')
   }
 
   TowerGreen.setImages(Images.greenTowerImages)

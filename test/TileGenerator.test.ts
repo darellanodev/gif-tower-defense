@@ -9,12 +9,20 @@ const levelMap = levelsDataProvider.getLevel(
   ConstTest.ID_LEVEL_VALID_FOR_UNIT_TESTING,
 )
 
+if (levelMap === undefined) {
+  throw new Error('Map not valid')
+}
+
 const mapimages: any[] = [null, null, null]
 
 test('Constructor, when passing an invalid map without rows map, throws "No rows map found" exception', () => {
   const invalidLevelMap = levelsDataProvider.getLevel(
     ConstTest.ID_LEVEL_INVALID_WITHOUT_ROWSMAP_FOR_UNIT_TESTING,
   )
+
+  if (invalidLevelMap === undefined) {
+    throw new Error('Map not valid')
+  }
 
   expect(() => new TileGenerator(invalidLevelMap, mapimages)).toThrow(
     'No rows map found',

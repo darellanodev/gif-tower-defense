@@ -15,6 +15,10 @@ const levelMap = levelsDataProvider.getLevel(
   ConstTest.ID_LEVEL_VALID_FOR_UNIT_TESTING,
 )
 
+if (levelMap === undefined) {
+  throw new Error('Map invalid')
+}
+
 const mapimages: any[] = [null, null, null]
 
 const tileGenerator = new TileGenerator(levelMap, mapimages)
@@ -254,6 +258,10 @@ describe('makeOrders when map is invalid', () => {
     const levelMap = levelsDataProvider.getLevel(
       ConstTest.ID_LEVEL_INVALID_FOR_UNIT_TESTING,
     )
+
+    if (levelMap === undefined) {
+      throw new Error('Map invalid')
+    }
     const mapimages: any[] = [null, null, null]
     const tileGenerator = new TileGenerator(levelMap, mapimages)
     const pathTiles = tileGenerator.pathTiles
