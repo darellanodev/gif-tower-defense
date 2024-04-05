@@ -1,4 +1,4 @@
-import * as p5 from 'p5'
+import p5 from 'p5'
 import { Const } from './Const'
 import { Path } from './Path'
 import { TileGenerator } from './TileGenerator'
@@ -30,7 +30,16 @@ let levelDataProvider: LevelsDataProvider
 let instantiateBoss: boolean = false
 let instantiateEnemies: boolean = false
 
-function preload() {
+declare global {
+  interface Window {
+    setup: () => void
+    draw: () => void
+    preload: () => void
+    keyPressed: () => void
+  }
+}
+
+window.preload = () => {
   Images.loadAll()
 }
 
@@ -41,49 +50,6 @@ function disableContextualMenu() {
       mouseClicked()
     })
   }
-}
-
-function setup() {
-  disableContextualMenu()
-
-  P5.init(_p5)
-
-  _p5.createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT)
-  console.log('hey')
-
-  levelDataProvider = new LevelsDataProvider(LevelsData.data)
-
-  const levelMap = levelDataProvider.getLevel(1)
-
-  if (levelMap === undefined) {
-    throw new Error('Map invalid')
-  }
-
-  TowerGreen.setImages(Images.greenTowerImages)
-  TowerRed.setImages(Images.redTowerImages)
-  TowerYellow.setImages(Images.yellowTowerImages)
-
-  const tileGenerator = new TileGenerator(levelMap, Images.tileImages)
-  TileOrange.instances = tileGenerator.orangeTiles
-  Path.startTile = tileGenerator.startTile
-
-  Path.endTile = tileGenerator.endTile
-  const pathTiles = tileGenerator.pathTiles
-
-  const path = new Path(Path.startTile, Path.endTile, pathTiles)
-  Path.orders = path.makeOrders()
-  Path.initialEnemiesPosition = path.getEnemiesInitialPosition()
-
-  Player.money = tileGenerator.initialMoney
-  Player.money = 100000
-
-  Hud.setImages(Images.hudImages, Images.hudIconImages)
-  Hud.initializeWaveProgressBar()
-  Hud.initializeBossProgressBar()
-}
-
-function keyPressed() {
-  Player.keyPressed()
 }
 
 function mouseClicked() {
@@ -124,7 +90,50 @@ function drawMagics() {
   MagicUFO.drawInstances()
 }
 
-function draw() {
+window.setup = () => {
+  console.log('hey')
+  disableContextualMenu()
+
+  P5.init(_p5)
+
+  _p5.createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT)
+
+  levelDataProvider = new LevelsDataProvider(LevelsData.data)
+
+  const levelMap = levelDataProvider.getLevel(1)
+
+  if (levelMap === undefined) {
+    throw new Error('Map invalid')
+  }
+
+  TowerGreen.setImages(Images.greenTowerImages)
+  TowerRed.setImages(Images.redTowerImages)
+  TowerYellow.setImages(Images.yellowTowerImages)
+
+  const tileGenerator = new TileGenerator(levelMap, Images.tileImages)
+  TileOrange.instances = tileGenerator.orangeTiles
+  Path.startTile = tileGenerator.startTile
+
+  Path.endTile = tileGenerator.endTile
+  const pathTiles = tileGenerator.pathTiles
+
+  const path = new Path(Path.startTile, Path.endTile, pathTiles)
+  Path.orders = path.makeOrders()
+  Path.initialEnemiesPosition = path.getEnemiesInitialPosition()
+
+  Player.money = tileGenerator.initialMoney
+  Player.money = 100000
+
+  Hud.setImages(Images.hudImages, Images.hudIconImages)
+  Hud.initializeWaveProgressBar()
+  Hud.initializeBossProgressBar()
+}
+
+window.keyPressed = () => {
+  Player.keyPressed()
+}
+
+window.draw = () => {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
     gameStatus = Enemy.updateEnemies()
     Player.mouseTileOrangeOver = getMouseTileOrangeOver()
