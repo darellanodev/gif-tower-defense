@@ -49,6 +49,7 @@ function setup() {
   P5.init(_p5)
 
   _p5.createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT)
+  console.log('hey')
 
   levelDataProvider = new LevelsDataProvider(LevelsData.data)
 

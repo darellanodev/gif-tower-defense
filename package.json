@@ -2,11 +2,11 @@
   "name": "gif-tower-defense",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest",
     "testw": "jest --watch",
-    "build": "tsc && parcel build ./src/index.html --out-dir ./dist"
+    "build": "tsc && parcel build ./src/index.html --out-dir ./dist --public-url ./"
   },
   "devDependencies": {
     "@types/jest": "^29.5.11",
