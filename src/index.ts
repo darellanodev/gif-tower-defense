@@ -30,6 +30,14 @@ let levelDataProvider: LevelsDataProvider
 let instantiateBoss: boolean = false
 let instantiateEnemies: boolean = false
 
+// ugly hack: remove the extra canvas created
+window.addEventListener('load', () => {
+  const defaultCanvas1 = document.getElementById('defaultCanvas1')
+  if (defaultCanvas1) {
+    defaultCanvas1.remove()
+  }
+})
+
 declare global {
   interface Window {
     setup: () => void
@@ -43,9 +51,7 @@ declare global {
 window.preload = () => {
   _p5 = new p5((p: p5) => {})
   P5.init(_p5)
-  console.log('preloading init')
   Images.loadAll()
-  console.log('preloading done')
 }
 
 function getMouseTileOrangeOver() {
@@ -98,7 +104,6 @@ window.mouseClicked = () => {
 window.setup = () => {
   _p5.createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT)
 
-  console.log('setup init')
   disableContextualMenu()
 
   levelDataProvider = new LevelsDataProvider(LevelsData.data)
@@ -130,7 +135,6 @@ window.setup = () => {
   Hud.setImages(Images.hudImages, Images.hudIconImages)
   Hud.initializeWaveProgressBar()
   Hud.initializeBossProgressBar()
-  console.log('setup done')
 }
 
 window.keyPressed = () => {
