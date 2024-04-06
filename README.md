@@ -24,12 +24,9 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ### Next tasks
 
-- [x] When captured particle passes a time then goes into the yellow tower and the yellow tower fills its indicator
-- [x] When Yellow tower is full the player get lives depending on the upgrade level of the yellow tower
-- [x] Fix upgrade image position for yellow tower
-- [x] When the player sells a Yellow tower with enemy explosions particles captured the particles get free again
+- [x] Use Parcel as bundler
 - [ ] When the player upgrades a Yellow tower with enemy explosions particles captured the particles get free again
-- [ ] Upgrade time depending on the upgrade level for red tower and yellow tower
+- [ ] Upgrade time depending on the upgrade level for red tower and yellow towerç
 - [ ] Lives animation (+1 core icon, +2 core icon, ...)
 - [ ] Fix Hud selection tower position (may be making two icons, one for tower icon off and other for tower icon on)
 - [ ] Magic UFO go to the enemy closest to the end tile
