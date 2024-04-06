@@ -66,7 +66,7 @@ export class Player {
     return canBuy
   }
 
-  static canBuyTower(tower: TowerType) {
+  static canBuyTower(tower: TowerType | null) {
     let result = false
     if (tower) {
       result = Player.canUpgradeTower(tower)
@@ -152,12 +152,10 @@ export class Player {
   static buyTower(mouseTileOrangeOver: TileOrange) {
     const tower = mouseTileOrangeOver.getTower()
 
-    if (tower) {
-      if (Player.canBuyTower(tower)) {
-        const cost = mouseTileOrangeOver.buyTower(Hud.getSelectedTower())
-        if (cost) {
-          Player.decreaseMoney(cost)
-        }
+    if (Player.canBuyTower(tower)) {
+      const cost = mouseTileOrangeOver.buyTower(Hud.getSelectedTower())
+      if (cost) {
+        Player.decreaseMoney(cost)
       }
     }
   }
