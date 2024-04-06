@@ -56,7 +56,7 @@ window.preload = () => {
 
 function getMouseTileOrangeOver() {
   const result = TileOrange.instances.find((orangeTile) =>
-    orangeTile.isInside(_p5.mouseX, _p5.mouseY),
+    orangeTile.isInside(P5.p5.mouseX, P5.p5.mouseY),
   )
 
   return result ? result : null
@@ -90,8 +90,8 @@ function disableContextualMenu() {
 
 window.mouseClicked = () => {
   Player.mouseClicked(
-    _p5.mouseX,
-    _p5.mouseY,
+    P5.p5.mouseX,
+    P5.p5.mouseY,
     Images.magicIceballImage,
     Images.magicFireballImage,
     Images.magicUFOImage,
@@ -102,7 +102,7 @@ window.mouseClicked = () => {
 }
 
 window.setup = () => {
-  _p5.createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT)
+  P5.p5.createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT)
 
   disableContextualMenu()
 
@@ -169,10 +169,10 @@ window.draw = () => {
     Missile.updateInstances()
   }
 
-  _p5.background('skyblue')
-  _p5.rectMode(_p5.CORNER)
+  P5.p5.background('skyblue')
+  P5.p5.rectMode(P5.p5.CORNER)
 
-  _p5.image(Images.backgroundImage, 0, Hud.HEIGHT)
+  P5.p5.image(Images.backgroundImage, 0, Hud.HEIGHT)
 
   Path.startTile.draw()
   Path.endTile.draw()
@@ -214,11 +214,11 @@ window.draw = () => {
 
   if (gameStatus === Const.GAME_STATUS_GAME_OVER) {
     TextProperties.setForBigCenteredTitle()
-    _p5.text('Game over', _p5.width / 2, _p5.height / 2)
+    P5.p5.text('Game over', P5.p5.width / 2, P5.p5.height / 2)
   }
 
   Missile.removeDeadInstances()
   Missile.drawInstances()
 
-  Debug.showMouseCoordinates({ x: _p5.mouseX, y: _p5.mouseY })
+  Debug.showMouseCoordinates({ x: P5.p5.mouseX, y: P5.p5.mouseY })
 }
