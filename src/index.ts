@@ -36,33 +36,16 @@ declare global {
     draw: () => void
     preload: () => void
     keyPressed: () => void
+    mouseClicked: () => void
   }
 }
 
 window.preload = () => {
+  _p5 = new p5((p: p5) => {})
+  P5.init(_p5)
+  console.log('preloading init')
   Images.loadAll()
-}
-
-function disableContextualMenu() {
-  for (let element of <any>document.getElementsByClassName('p5Canvas')) {
-    element.addEventListener('contextmenu', (e: any) => {
-      e.preventDefault()
-      mouseClicked()
-    })
-  }
-}
-
-function mouseClicked() {
-  Player.mouseClicked(
-    _p5.mouseX,
-    _p5.mouseY,
-    Images.magicIceballImage,
-    Images.magicFireballImage,
-    Images.magicUFOImage,
-    Path.initialEnemiesPosition,
-    Path.orders,
-    Player.mouseTileOrangeOver,
-  )
+  console.log('preloading done')
 }
 
 function getMouseTileOrangeOver() {
@@ -90,13 +73,33 @@ function drawMagics() {
   MagicUFO.drawInstances()
 }
 
+function disableContextualMenu() {
+  for (let element of <any>document.getElementsByClassName('p5Canvas')) {
+    element.addEventListener('contextmenu', (e: any) => {
+      e.preventDefault()
+      window.mouseClicked()
+    })
+  }
+}
+
+window.mouseClicked = () => {
+  Player.mouseClicked(
+    _p5.mouseX,
+    _p5.mouseY,
+    Images.magicIceballImage,
+    Images.magicFireballImage,
+    Images.magicUFOImage,
+    Path.initialEnemiesPosition,
+    Path.orders,
+    Player.mouseTileOrangeOver,
+  )
+}
+
 window.setup = () => {
-  console.log('hey')
-  disableContextualMenu()
-
-  P5.init(_p5)
-
   _p5.createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT)
+
+  console.log('setup init')
+  disableContextualMenu()
 
   levelDataProvider = new LevelsDataProvider(LevelsData.data)
 
@@ -127,6 +130,7 @@ window.setup = () => {
   Hud.setImages(Images.hudImages, Images.hudIconImages)
   Hud.initializeWaveProgressBar()
   Hud.initializeBossProgressBar()
+  console.log('setup done')
 }
 
 window.keyPressed = () => {
