@@ -15,9 +15,9 @@ export class Player {
   static MONEY_IN_TESTING_MODE = 999999
 
   static _mode = 0
+  static _money: number = 0
   static lives: number = 7
   static score: number = 0
-  static money: number = 0
   static wave: number = 1
   static mouseTileOrangeOver: TileOrange | null
 
@@ -34,8 +34,12 @@ export class Player {
       throw new Error('Money must be a positive number')
     }
     if (Player._mode === this.GAME_TESTING_MODE) {
-      Player.money = Player.MONEY_IN_TESTING_MODE
+      Player._money = Player.MONEY_IN_TESTING_MODE
     }
+  }
+
+  static get money() {
+    return Player._money
   }
 
   static increaseScore(score: number) {
@@ -47,7 +51,7 @@ export class Player {
   }
 
   static increaseMoney(profit: number) {
-    Player.money += profit
+    Player._money += profit
   }
 
   static increaseLives(increment: number) {
@@ -55,7 +59,7 @@ export class Player {
   }
 
   static decreaseMoney(cost: number) {
-    Player.money -= cost
+    Player._money -= cost
   }
 
   static haveMoneyToBuy(towerId: number, upgradeLevel: number) {
@@ -63,13 +67,13 @@ export class Player {
 
     switch (towerId) {
       case TowerGreen.ID:
-        canBuy = TowerGreen.COST_UPGRADE[upgradeLevel] <= Player.money
+        canBuy = TowerGreen.COST_UPGRADE[upgradeLevel] <= Player._money
         break
       case TowerRed.ID:
-        canBuy = TowerRed.COST_UPGRADE[upgradeLevel] <= Player.money
+        canBuy = TowerRed.COST_UPGRADE[upgradeLevel] <= Player._money
         break
       case TowerYellow.ID:
-        canBuy = TowerYellow.COST_UPGRADE[upgradeLevel] <= Player.money
+        canBuy = TowerYellow.COST_UPGRADE[upgradeLevel] <= Player._money
         break
 
       default:

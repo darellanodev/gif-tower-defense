@@ -30,21 +30,21 @@ describe('increaseScore', () => {
 
 describe('haveMoneyToBuy', () => {
   test('when player has 150 of money and wants to buy a new green tower (cost 50), return true', () => {
-    Player.money = 150
+    Player.initialMoney = 150
 
     const result = Player.haveMoneyToBuy(TowerGreen.ID, 0)
 
     expect(result).toBeTruthy
   })
   test('when player has 30 of money and wants to buy a new green tower (cost 50), return false', () => {
-    Player.money = 30
+    Player.initialMoney = 30
 
     const result = Player.haveMoneyToBuy(TowerGreen.ID, 0)
 
     expect(result).toBeTruthy
   })
   test('when player has 150 of money and wants to upgrade a tower to level 1 (cost 75), return true', () => {
-    Player.money = 150
+    Player.initialMoney = 150
 
     const result = Player.haveMoneyToBuy(TowerGreen.ID, 1)
 
