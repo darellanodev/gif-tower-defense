@@ -53,7 +53,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
   - [ ] Setters
   - [ ] Private methods
   - [ ] Public/Private properties
-  - [ ] Subdirectories: towers, constants, tiles
+  - [x] Subdirectories: towers, constants, tiles
 
 ## Resources
 
