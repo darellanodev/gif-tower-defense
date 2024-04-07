@@ -12,7 +12,7 @@ import { P5 } from './utils/P5'
 export class Player {
   static GAME_NORMAL_MODE = 0
   static GAME_TESTING_MODE = 1
-  static MONEY_IN_TESTING_MODE = 100000
+  static MONEY_IN_TESTING_MODE = 999999
 
   static _mode = 0
   static lives: number = 7

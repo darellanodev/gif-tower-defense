@@ -57,7 +57,7 @@ describe('set initialMoney', () => {
       Player.initialMoney = -150
     }).toThrow('Money must be a positive number')
   })
-  test('when game mode is GAME_TESTING_MODE if we set the intial money to 150, money still sets in 100000 (MONEY_IN_TESTING_MODE)', () => {
+  test('when game mode is GAME_TESTING_MODE if we set the intial money to 150, money still sets to MONEY_IN_TESTING_MODE', () => {
     Player.gameMode = Player.GAME_TESTING_MODE
     Player.initialMoney = 150
     const result = Player.money
