@@ -67,3 +67,9 @@ describe('set initialMoney', () => {
     Player.gameMode = Player.GAME_NORMAL_MODE
   })
 })
+
+describe('isGameInTestingMode', () => {
+  test('by default game is in normal mode, return false', () => {
+    expect(Player.isGameInTestingMode).toBeTruthy
+  })
+})

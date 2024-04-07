@@ -220,5 +220,8 @@ window.draw = () => {
   Missile.removeDeadInstances()
   Missile.drawInstances()
 
-  Debug.showMouseCoordinates({ x: P5.p5.mouseX, y: P5.p5.mouseY })
+  if (Player.isGameInTestingMode()) {
+    Debug.showMouseCoordinates({ x: P5.p5.mouseX, y: P5.p5.mouseY })
+    Debug.showLabelTestingMode()
+  }
 }

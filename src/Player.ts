@@ -25,6 +25,10 @@ export class Player {
     Player._mode = mode
   }
 
+  static isGameInTestingMode() {
+    return Player._mode === Player.GAME_TESTING_MODE
+  }
+
   static set initialMoney(money: number) {
     if (money < 0) {
       throw new Error('Money must be a positive number')

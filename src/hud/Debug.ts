@@ -10,4 +10,8 @@ export class Debug {
     TextProperties.setForHudData()
     P5.p5.text(`x:${mousePosX}, y:${mousePosY}`, 260, 18)
   }
+  static showLabelTestingMode() {
+    TextProperties.setForHudData()
+    P5.p5.text('The game is in testing mode', 8, 100)
+  }
 }
