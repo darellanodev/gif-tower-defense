@@ -10,14 +10,27 @@ import { TileOrange } from './tiles/TileOrange'
 import { P5 } from './utils/P5'
 
 export class Player {
+  static GAME_NORMAL_MODE = 0
+  static GAME_TESTING_MODE = 1
+  static MONEY_IN_TESTING_MODE = 100000
+
+  static _mode = 0
   static lives: number = 7
   static score: number = 0
   static money: number = 0
   static wave: number = 1
   static mouseTileOrangeOver: TileOrange | null
+
+  static set gameMode(mode: number) {
+    Player._mode = mode
+  }
+
   static set initialMoney(money: number) {
     if (money < 0) {
       throw new Error('Money must be a positive number')
+    }
+    if (Player._mode === this.GAME_TESTING_MODE) {
+      Player.money = Player.MONEY_IN_TESTING_MODE
     }
   }
 
