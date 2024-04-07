@@ -1,5 +1,5 @@
 import { Player } from '../src/Player'
-import { TowerGreen } from '../src/TowerGreen'
+import { TowerGreen } from '../src/towers/TowerGreen'
 
 describe('getPrintScore', () => {
   test('when initialy there is no score, print 0000000000', () => {

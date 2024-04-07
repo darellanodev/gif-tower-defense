@@ -1,7 +1,7 @@
-import { ConstDirection } from '../src/ConstDirection'
-import { ConstTest } from '../src/ConstTest'
-import { LevelsDataProvider } from '../src/LevelsDataProvider'
-import { LevelsData } from '../src/LevelsData'
+import { ConstDirection } from '../src/constants/ConstDirection'
+import { ConstTest } from '../src/constants/ConstTest'
+import { LevelsDataProvider } from '../src/levels/LevelsDataProvider'
+import { LevelsData } from '../src/levels/LevelsData'
 
 describe('getLevel', () => {
   test('when request the id of a testing level, return data of the corresponding level', () => {

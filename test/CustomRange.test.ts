@@ -1,4 +1,4 @@
-import { MathUtils } from '../src/MathUtils'
+import { MathUtils } from '../src/utils/MathUtils'
 
 describe('range', () => {
   test('when arguments are 1 and 5, return [1, 2, 3, 4, 5]', () => {

@@ -1,5 +1,5 @@
-import { Enemy } from '../src/Enemy'
-import { ConstDirection } from '../src/ConstDirection'
+import { Enemy } from '../src/enemies/Enemy'
+import { ConstDirection } from '../src/constants/ConstDirection'
 
 const updateInstancesTimes = (times: number) => {
   for (let i = 0; i < times; i++) {

@@ -1,4 +1,4 @@
-import { Hud } from '../src/Hud'
+import { Hud } from '../src/hud/Hud'
 
 describe('isInsideTowersButtonsBar', () => {
   test('when mouse is inside, return true', () => {

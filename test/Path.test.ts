@@ -1,13 +1,13 @@
-import { ConstTest } from '../src/ConstTest'
-import { ConstDirection } from '../src/ConstDirection'
-import { Path } from '../src/Path'
-import { TilePath } from '../src/TilePath'
-import { TileStart } from '../src/TileStart'
-import { TileEnd } from '../src/TileEnd'
-import { TileGenerator } from '../src/TileGenerator'
-import { LevelsData } from '../src/LevelsData'
-import { LevelsDataProvider } from '../src/LevelsDataProvider'
-import { Position } from '../src/types'
+import { ConstTest } from '../src/constants/ConstTest'
+import { ConstDirection } from '../src/constants/ConstDirection'
+import { Path } from '../src/enemies/Path'
+import { TilePath } from '../src/tiles/TilePath'
+import { TileStart } from '../src/tiles/TileStart'
+import { TileEnd } from '../src/tiles/TileEnd'
+import { TileGenerator } from '../src/tiles/TileGenerator'
+import { LevelsData } from '../src/levels/LevelsData'
+import { LevelsDataProvider } from '../src/levels/LevelsDataProvider'
+import { Position } from '../src/utils/types'
 
 const levelsDataProvider = new LevelsDataProvider(LevelsData.data)
 

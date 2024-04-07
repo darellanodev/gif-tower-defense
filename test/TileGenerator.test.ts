@@ -1,7 +1,7 @@
-import { TileGenerator } from '../src/TileGenerator'
-import { ConstTest } from '../src/ConstTest'
-import { LevelsData } from '../src/LevelsData'
-import { LevelsDataProvider } from '../src/LevelsDataProvider'
+import { TileGenerator } from '../src/tiles/TileGenerator'
+import { ConstTest } from '../src/constants/ConstTest'
+import { LevelsData } from '../src/levels/LevelsData'
+import { LevelsDataProvider } from '../src/levels/LevelsDataProvider'
 
 const levelsDataProvider = new LevelsDataProvider(LevelsData.data)
 

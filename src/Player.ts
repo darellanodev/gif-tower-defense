@@ -1,13 +1,13 @@
-import { TowerGreen } from './TowerGreen'
-import { TowerRed } from './TowerRed'
-import { TowerYellow } from './TowerYellow'
-import { TowerType } from './types'
-import { Const } from './Const'
-import { Hud } from './Hud'
+import { TowerGreen } from './towers/TowerGreen'
+import { TowerRed } from './towers/TowerRed'
+import { TowerYellow } from './towers/TowerYellow'
+import { TowerType } from './utils/types'
+import { Const } from './constants/Const'
+import { Hud } from './hud/Hud'
 import { Image } from 'p5'
-import { Position } from './types'
-import { TileOrange } from './TileOrange'
-import { P5 } from './P5'
+import { Position } from './utils/types'
+import { TileOrange } from './tiles/TileOrange'
+import { P5 } from './utils/P5'
 
 export class Player {
   static lives: number = 7

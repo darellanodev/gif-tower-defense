@@ -1,6 +1,6 @@
-import { TileOrange } from '../src/TileOrange'
-import { TowerGreen } from '../src/TowerGreen'
-import { Position } from '../src/types'
+import { TileOrange } from '../src/tiles/TileOrange'
+import { TowerGreen } from '../src/towers/TowerGreen'
+import { Position } from '../src/utils/types'
 
 describe('isInside', () => {
   test('If mouse is inside, return true', () => {
