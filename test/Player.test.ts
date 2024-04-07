@@ -51,3 +51,10 @@ describe('haveMoneyToBuy', () => {
     expect(result).toBeTruthy
   })
 })
+describe('set initialMoney', () => {
+  test('when set money to a negative number, launch an exception ', () => {
+    expect(() => {
+      Player.initialMoney = -150
+    }).toThrow('Money must be a positive number')
+  })
+})

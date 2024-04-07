@@ -129,8 +129,8 @@ window.setup = () => {
   Path.orders = path.makeOrders()
   Path.initialEnemiesPosition = path.getEnemiesInitialPosition()
 
-  Player.money = tileGenerator.initialMoney
-  Player.money = 100000
+  Player.initialMoney = tileGenerator.initialMoney
+  Player.initialMoney = 100000
 
   Hud.setImages(Images.hudImages, Images.hudIconImages)
   Hud.initializeWaveProgressBar()

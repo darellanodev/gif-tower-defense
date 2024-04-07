@@ -15,6 +15,11 @@ export class Player {
   static money: number = 0
   static wave: number = 1
   static mouseTileOrangeOver: TileOrange | null
+  static set initialMoney(money: number) {
+    if (money < 0) {
+      throw new Error('Money must be a positive number')
+    }
+  }
 
   static increaseScore(score: number) {
     Player.score += score
