@@ -51,7 +51,7 @@ export class TowerRed extends Tower {
     if (this.upgrading) {
       this._drawUpgradeBackground()
       if (!this.progressBar.isFullOfProgress()) {
-        this.progressBar.increaseProgress(Tower.UPGRADE_INCREMENT)
+        this.progressBar.increaseProgress(this.upgradeIncrement)
         this.progressBar.draw()
       } else {
         this.upgrading = false

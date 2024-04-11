@@ -30,8 +30,6 @@ export class TowerGreen extends Tower {
     if (!this.upgrading) {
       this.upgrading = true
       this.upgradeLevel++
-      this.delayUpgradeProgress =
-        Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel
     }
   }
 
@@ -62,13 +60,7 @@ export class TowerGreen extends Tower {
     if (this.upgrading) {
       this.#drawUpgradeBackground()
       if (!this.progressBar.isFullOfProgress()) {
-        if (this.delayUpgradeProgress == 0) {
-          this.progressBar.increaseProgress(Tower.UPGRADE_INCREMENT)
-          this.delayUpgradeProgress =
-            Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel
-        } else {
-          this.delayUpgradeProgress--
-        }
+        this.progressBar.increaseProgress(this.upgradeIncrement)
         this.progressBar.draw()
       } else {
         this.upgrading = false

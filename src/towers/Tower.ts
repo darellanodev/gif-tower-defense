@@ -87,4 +87,7 @@ export class Tower {
       this.distanceToEnemyTarget = 0
     }
   }
+  get upgradeIncrement() {
+    return Tower.UPGRADE_INCREMENT / (this.upgradeLevel + 1)
+  }
 }
