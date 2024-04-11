@@ -22,12 +22,12 @@ export class ProgressBar {
     this.#position = { ...position }
   }
 
-  setProgress(progress: number) {
-    this.#progress = progress
+  get progress(): number {
+    return this.#progress
   }
 
-  getProgress(): number {
-    return this.#progress
+  reinitProgress() {
+    this.#progress = 0
   }
 
   increaseProgress(increment: number = 1) {

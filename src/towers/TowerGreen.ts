@@ -63,8 +63,7 @@ export class TowerGreen extends Tower {
       this.#drawUpgradeBackground()
       if (!this.progressBar.isFullOfProgress()) {
         if (this.delayUpgradeProgress == 0) {
-          this.upgradeProgress++
-          this.progressBar.setProgress(this.upgradeProgress)
+          this.progressBar.increaseProgress(Tower.UPGRADE_INCREMENT)
           this.delayUpgradeProgress =
             Const.DELAY_UPGRADE_MULTIPLIER * this.upgradeLevel
         } else {
@@ -73,8 +72,7 @@ export class TowerGreen extends Tower {
         this.progressBar.draw()
       } else {
         this.upgrading = false
-        this.upgradeProgress = 0
-        this.progressBar.setProgress(0)
+        this.progressBar.reinitProgress()
       }
     } else {
       if (this.enemyTarget) {

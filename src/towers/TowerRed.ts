@@ -51,13 +51,11 @@ export class TowerRed extends Tower {
     if (this.upgrading) {
       this._drawUpgradeBackground()
       if (!this.progressBar.isFullOfProgress()) {
-        this.upgradeProgress++
-        this.progressBar.setProgress(this.upgradeProgress)
+        this.progressBar.increaseProgress(Tower.UPGRADE_INCREMENT)
         this.progressBar.draw()
       } else {
         this.upgrading = false
-        this.upgradeProgress = 0
-        this.progressBar.setProgress(0)
+        this.progressBar.reinitProgress()
       }
     } else {
       if (this.enemyTarget) {

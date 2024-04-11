@@ -72,7 +72,7 @@ export class TowerYellow extends Tower {
       this.#progressCoreBar.increaseProgress(increment)
     } else {
       Player.increaseLives(this.upgradeLevel + 1)
-      this.#progressCoreBar.setProgress(0)
+      this.#progressCoreBar.reinitProgress()
     }
   }
 
@@ -80,13 +80,11 @@ export class TowerYellow extends Tower {
     if (this.upgrading) {
       this._drawUpgradeBackground()
       if (!this.progressBar.isFullOfProgress()) {
-        this.upgradeProgress++
-        this.progressBar.setProgress(this.upgradeProgress)
+        this.progressBar.increaseProgress(Tower.UPGRADE_INCREMENT)
         this.progressBar.draw()
       } else {
         this.upgrading = false
-        this.upgradeProgress = 0
-        this.progressBar.setProgress(0)
+        this.progressBar.reinitProgress()
       }
     } else {
       this.#progressCoreBar.draw()

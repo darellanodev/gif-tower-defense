@@ -7,6 +7,7 @@ import { MathUtils } from '../utils/MathUtils'
 export class Tower {
   static OFFSET_X: number = 3
   static OFFSET_Y: number = 4
+  static UPGRADE_INCREMENT: number = 1
 
   position: Position
   upgrading: boolean = false

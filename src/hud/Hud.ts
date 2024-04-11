@@ -64,7 +64,7 @@ export class Hud {
 
       if (Hud.waveProgressBar.isFullOfProgress()) {
         // next wave
-        Hud.waveProgressBar.setProgress(0)
+        Hud.waveProgressBar.reinitProgress()
         Player.wave++
         instantiateEnemies = true
       }
@@ -82,7 +82,7 @@ export class Hud {
 
       if (Hud.bossProgressBar.isFullOfProgress()) {
         // next boss
-        Hud.bossProgressBar.setProgress(0)
+        Hud.bossProgressBar.reinitProgress()
         instantiateBoss = true
       }
     }

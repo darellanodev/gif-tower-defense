@@ -46,7 +46,6 @@ export class Enemy {
   #eyesSequence: number[]
   #healthBar: ProgressBar
   #status: number
-  #damage: number = 0
   #position: Position
   #currentDirection: number
   #moveCount: number = 0
@@ -163,8 +162,9 @@ export class Enemy {
   }
 
   addDamage(shotDamage: number) {
-    this.#damage += shotDamage / this.#endurance
-    this.#healthBar.setProgress(this.#damage)
+    const damageIncrement = shotDamage / this.#endurance
+
+    this.#healthBar.increaseProgress(damageIncrement)
 
     if (this.#healthBar.isFullOfProgress()) {
       this.#status = Enemy.STATUS_DEAD
