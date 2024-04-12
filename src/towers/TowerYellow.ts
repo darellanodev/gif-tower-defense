@@ -54,18 +54,6 @@ export class TowerYellow extends Tower {
     }
   }
 
-  _drawUpgradeBackground() {
-    P5.p5.strokeWeight(1)
-    P5.p5.stroke('black')
-    P5.p5.fill(ConstColor.YELLOW)
-    P5.p5.rect(
-      this.position.x + 5,
-      this.position.y + 5,
-      Const.TILE_SIZE,
-      Const.TILE_SIZE,
-    )
-  }
-
   increaseCoreProgress(increment: number) {
     if (!this.#progressCoreBar.isFullOfProgress()) {
       this.#progressCoreBar.increaseProgress(increment)
@@ -75,12 +63,16 @@ export class TowerYellow extends Tower {
     }
   }
 
+  #drawUpgrading() {
+    this._drawUpgradeBackground(ConstColor.YELLOW, 5)
+    if (!this.progressBar.isFullOfProgress()) {
+      this.progressBar.draw()
+    }
+  }
+
   draw() {
     if (this.upgrading) {
-      this._drawUpgradeBackground()
-      if (!this.progressBar.isFullOfProgress()) {
-        this.progressBar.draw()
-      }
+      this.#drawUpgrading()
     } else {
       this.#progressCoreBar.draw()
 

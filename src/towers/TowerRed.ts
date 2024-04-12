@@ -34,69 +34,73 @@ export class TowerRed extends Tower {
     }
   }
 
-  _drawUpgradeBackground() {
-    P5.p5.strokeWeight(1)
-    P5.p5.stroke('black')
-    P5.p5.fill(ConstColor.RED)
-    P5.p5.rect(
-      this.position.x + 4,
-      this.position.y + 4,
-      Const.TILE_SIZE,
-      Const.TILE_SIZE,
+  #drawUpgrading() {
+    this._drawUpgradeBackground(ConstColor.RED, 4)
+    if (!this.progressBar.isFullOfProgress()) {
+      this.progressBar.draw()
+    }
+  }
+
+  #drawWhenEnemyTarget() {
+    if (!this.enemyTarget) {
+      return
+    }
+
+    let r_dx = this.enemyTarget.position.x - this.position.x
+    let r_dy = this.enemyTarget.position.y - this.position.y
+    let angle = Math.atan2(r_dy, r_dx) + 1.55
+
+    let cos_a = P5.p5.cos(angle)
+    let sin_a = P5.p5.sin(angle)
+
+    P5.p5.imageMode(P5.p5.CENTER)
+    P5.p5.applyMatrix(
+      cos_a,
+      sin_a,
+      -sin_a,
+      cos_a,
+      this.position.x + 30,
+      this.position.y + 30,
+    )
+
+    if (this.#timeToRecharge < TowerRed.MAXTIME_TO_RECHARGE) {
+      this.#timeToRecharge++
+    } else {
+      this.#timeToRecharge = 0
+      Missile.instances.push(
+        new Missile(
+          {
+            x: this.position.x + Const.TILE_SIZE / 2,
+            y: this.position.y + Const.TILE_SIZE / 2,
+          },
+          this.enemyTarget,
+          TowerRed.DAMAGE_UPGRADE[this.upgradeLevel],
+        ),
+      )
+    }
+
+    P5.p5.image(TowerRed.images[this.upgradeLevel], 0, 0)
+
+    P5.p5.resetMatrix()
+    P5.p5.imageMode(P5.p5.CORNER)
+  }
+
+  #drawWhenNoEnemyTarget() {
+    P5.p5.image(
+      TowerRed.images[this.upgradeLevel],
+      this.position.x + Tower.OFFSET_X,
+      this.position.y + Tower.OFFSET_Y,
     )
   }
 
   draw() {
     if (this.upgrading) {
-      this._drawUpgradeBackground()
-      if (!this.progressBar.isFullOfProgress()) {
-        this.progressBar.draw()
-      }
+      this.#drawUpgrading()
     } else {
       if (this.enemyTarget) {
-        let r_dx = this.enemyTarget.position.x - this.position.x
-        let r_dy = this.enemyTarget.position.y - this.position.y
-        let angle = Math.atan2(r_dy, r_dx) + 1.55
-
-        let cos_a = P5.p5.cos(angle)
-        let sin_a = P5.p5.sin(angle)
-
-        P5.p5.imageMode(P5.p5.CENTER)
-        P5.p5.applyMatrix(
-          cos_a,
-          sin_a,
-          -sin_a,
-          cos_a,
-          this.position.x + 30,
-          this.position.y + 30,
-        )
-
-        if (this.#timeToRecharge < TowerRed.MAXTIME_TO_RECHARGE) {
-          this.#timeToRecharge++
-        } else {
-          this.#timeToRecharge = 0
-          Missile.instances.push(
-            new Missile(
-              {
-                x: this.position.x + Const.TILE_SIZE / 2,
-                y: this.position.y + Const.TILE_SIZE / 2,
-              },
-              this.enemyTarget,
-              TowerRed.DAMAGE_UPGRADE[this.upgradeLevel],
-            ),
-          )
-        }
-
-        P5.p5.image(TowerRed.images[this.upgradeLevel], 0, 0)
-
-        P5.p5.resetMatrix()
-        P5.p5.imageMode(P5.p5.CORNER)
+        this.#drawWhenEnemyTarget()
       } else {
-        P5.p5.image(
-          TowerRed.images[this.upgradeLevel],
-          this.position.x + Tower.OFFSET_X,
-          this.position.y + Tower.OFFSET_Y,
-        )
+        this.#drawWhenNoEnemyTarget()
       }
     }
   }

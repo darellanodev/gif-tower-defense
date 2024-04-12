@@ -1,8 +1,9 @@
-import { Position } from '../utils/types'
+import { Position, RGBType } from '../utils/types'
 import { Const } from '../constants/Const'
 import { ProgressBar } from '../hud/ProgressBar'
 import { Enemy } from '../enemies/Enemy'
 import { MathUtils } from '../utils/MathUtils'
+import { P5 } from '../utils/P5'
 
 export class Tower {
   static OFFSET_X: number = 3
@@ -109,5 +110,17 @@ export class Tower {
         }
       }
     }
+  }
+
+  _drawUpgradeBackground(color: RGBType, offset: number) {
+    P5.p5.strokeWeight(1)
+    P5.p5.stroke('black')
+    P5.p5.fill(color)
+    P5.p5.rect(
+      this.position.x + offset,
+      this.position.y + offset,
+      Const.TILE_SIZE,
+      Const.TILE_SIZE,
+    )
   }
 }
