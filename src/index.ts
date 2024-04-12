@@ -183,6 +183,7 @@ window.draw = () => {
   })
 
   TileOrange.instances.forEach((orangeTile) => {
+    orangeTile.updateTower()
     orangeTile.drawTower()
   })
 

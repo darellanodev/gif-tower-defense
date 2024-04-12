@@ -8,6 +8,7 @@ export class Tower {
   static OFFSET_X: number = 3
   static OFFSET_Y: number = 4
   static UPGRADE_INCREMENT: number = 1
+  static INSTANT_UPGRADING: boolean = false // for testing purposes is set to true
 
   position: Position
   upgrading: boolean = false
@@ -35,8 +36,8 @@ export class Tower {
     return !this.upgrading
   }
 
-  get maxUpgraded() {
-    return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL - 1
+  get isMaxUpgraded() {
+    return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number): number | null {
@@ -49,7 +50,7 @@ export class Tower {
   }
 
   get nextLevelUpgradeCost() {
-    if (this.maxUpgraded) {
+    if (this.isMaxUpgraded) {
       return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1)
     } else {
       return this.getCostWhenUpgradeLevelIs(this.upgradeLevel + 1)
@@ -89,5 +90,24 @@ export class Tower {
   }
   get upgradeIncrement() {
     return Tower.UPGRADE_INCREMENT / (this.upgradeLevel + 1)
+  }
+
+  #reinitUpgrading() {
+    this.upgrading = false
+    this.progressBar.reinitProgress()
+  }
+
+  update() {
+    if (this.upgrading) {
+      if (Tower.INSTANT_UPGRADING) {
+        this.#reinitUpgrading()
+      } else {
+        if (!this.progressBar.isFullOfProgress()) {
+          this.progressBar.increaseProgress(this.upgradeIncrement)
+        } else {
+          this.#reinitUpgrading()
+        }
+      }
+    }
   }
 }

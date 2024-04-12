@@ -61,6 +61,11 @@ export class TileOrange extends Tile {
     P5.p5.image(this.#img, this.position.x, this.position.y)
   }
 
+  updateTower() {
+    if (this.#tower) {
+      this.#tower.update()
+    }
+  }
   drawTower() {
     if (this.#tower) {
       this.#tower.draw()

@@ -11,7 +11,6 @@ export class TowerGreen extends Tower {
   static DAMAGE_UPGRADE = [1, 2, 4, 6, 12, 24]
   static COST_UPGRADE = [50, 75, 125, 300, 1000, 2000]
   static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
-  static INFLUENCE_AREA = 150
 
   static images: Image[]
 
@@ -60,11 +59,7 @@ export class TowerGreen extends Tower {
     if (this.upgrading) {
       this.#drawUpgradeBackground()
       if (!this.progressBar.isFullOfProgress()) {
-        this.progressBar.increaseProgress(this.upgradeIncrement)
         this.progressBar.draw()
-      } else {
-        this.upgrading = false
-        this.progressBar.reinitProgress()
       }
     } else {
       if (this.enemyTarget) {

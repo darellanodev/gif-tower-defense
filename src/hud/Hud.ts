@@ -423,13 +423,15 @@ export class Hud {
       return
     }
 
-    if (!tileTower.maxUpgraded) {
+    if (!tileTower.isMaxUpgraded) {
       const canUpgrade = Player.haveMoneyToBuy(
         tileTower.type,
         tileTower.upgradeLevel + 1,
       )
       Hud.viewUpgradeCost(tileTower, canUpgrade)
       InfluenceArea.drawTowerInfluenceArea(tileTower, canUpgrade)
+    } else {
+      InfluenceArea.drawTowerInfluenceArea(tileTower, false)
     }
 
     Hud.viewSellProfit(tileTower)
@@ -443,7 +445,7 @@ export class Hud {
 
     const playerMouseTileOrangeOver = Player.mouseTileOrangeOver
     if (playerMouseTileOrangeOver) {
-      InfluenceArea.drawHudTowerInfluenceArea(
+      InfluenceArea.drawNoTowerInfluenceArea(
         Hud.getSelectedTower(),
         playerMouseTileOrangeOver.getPosition(),
         canBuySelectedTower,

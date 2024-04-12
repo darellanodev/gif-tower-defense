@@ -33,24 +33,24 @@ export class InfluenceArea {
   }
 
   static _getInfluenceAreaFor(towerSelected: number) {
-    let influenceArea: number = TowerGreen.INFLUENCE_AREA
+    let influenceArea: number = 0
     switch (towerSelected) {
       case TowerGreen.ID:
-        influenceArea = TowerGreen.INFLUENCE_AREA
+        influenceArea = TowerGreen.UPGRADE_INFLUENCE_AREA[0]
         break
 
       case TowerRed.ID:
-        influenceArea = TowerRed.INFLUENCE_AREA
+        influenceArea = TowerRed.UPGRADE_INFLUENCE_AREA[0]
         break
 
       case TowerYellow.ID:
-        influenceArea = TowerYellow.INFLUENCE_AREA
+        influenceArea = TowerYellow.UPGRADE_INFLUENCE_AREA[0]
         break
     }
     return influenceArea
   }
 
-  static drawHudTowerInfluenceArea(
+  static drawNoTowerInfluenceArea(
     hudTowerSelected: any,
     position: Position,
     canBuy: boolean,

@@ -15,7 +15,6 @@ export class TowerYellow extends Tower {
   static PROFIT_SELL_UPGRADE = [680, 2460, 7440, 21920, 66900, 199880]
   static COST_UPGRADE = [700, 2500, 7500, 22000, 67000, 200000]
   static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
-  static INFLUENCE_AREA = 290
 
   static images: Image[]
 
@@ -80,11 +79,7 @@ export class TowerYellow extends Tower {
     if (this.upgrading) {
       this._drawUpgradeBackground()
       if (!this.progressBar.isFullOfProgress()) {
-        this.progressBar.increaseProgress(this.upgradeIncrement)
         this.progressBar.draw()
-      } else {
-        this.upgrading = false
-        this.progressBar.reinitProgress()
       }
     } else {
       this.#progressCoreBar.draw()
