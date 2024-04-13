@@ -2,9 +2,13 @@ import { Tower } from '../src/towers/Tower'
 import { TowerGreen } from '../src/towers/TowerGreen'
 import { Position, TowerType } from '../src/utils/types'
 
-test('upgradeIncrement, when the instance is recently created, return the expected value', () => {
+const instantiateGreenTower = () => {
   const position: Position = { x: 10, y: 20 }
-  const towerGreen = TowerGreen.instantiate(position)
+  return TowerGreen.instantiate(position)
+}
+
+test('upgradeIncrement, when the instance is recently created, return the expected value', () => {
+  const towerGreen = instantiateGreenTower()
 
   const result = towerGreen.upgradeIncrement
 
@@ -13,8 +17,7 @@ test('upgradeIncrement, when the instance is recently created, return the expect
 })
 
 test('get influenceArea, when the instance is recently created, return the first upgrading influence area', () => {
-  const position: Position = { x: 10, y: 20 }
-  const towerGreen = TowerGreen.instantiate(position)
+  const towerGreen = instantiateGreenTower()
 
   const result = towerGreen.influenceArea
 
@@ -32,8 +35,7 @@ const upgradeTowerNTimes = (tower: TowerType, nTimes: number) => {
 }
 
 test('get upgradeLevel, when the tower is upgraded 3 times, return 3', () => {
-  const position: Position = { x: 10, y: 20 }
-  const towerGreen = TowerGreen.instantiate(position)
+  const towerGreen = instantiateGreenTower()
 
   upgradeTowerNTimes(towerGreen, 3)
 
@@ -42,8 +44,7 @@ test('get upgradeLevel, when the tower is upgraded 3 times, return 3', () => {
 })
 
 test('get upgradeLevel, when the tower is upgraded 5 times, return 5', () => {
-  const position: Position = { x: 10, y: 20 }
-  const towerGreen = TowerGreen.instantiate(position)
+  const towerGreen = instantiateGreenTower()
 
   upgradeTowerNTimes(towerGreen, 5)
 
@@ -52,8 +53,7 @@ test('get upgradeLevel, when the tower is upgraded 5 times, return 5', () => {
 })
 
 test('get isMaxUpgraded, when the tower is upgraded 3 times, return false', () => {
-  const position: Position = { x: 10, y: 20 }
-  const towerGreen = TowerGreen.instantiate(position)
+  const towerGreen = instantiateGreenTower()
 
   upgradeTowerNTimes(towerGreen, 3)
 
@@ -62,8 +62,7 @@ test('get isMaxUpgraded, when the tower is upgraded 3 times, return false', () =
 })
 
 test('get isMaxUpgraded, when the tower is upgraded 5 times, return true', () => {
-  const position: Position = { x: 10, y: 20 }
-  const towerGreen = TowerGreen.instantiate(position)
+  const towerGreen = instantiateGreenTower()
 
   upgradeTowerNTimes(towerGreen, 5)
 
