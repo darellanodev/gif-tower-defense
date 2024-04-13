@@ -136,11 +136,13 @@ export class Player {
     orders: number[],
     mouseTileOrangeOver: TileOrange | null,
   ) {
-    if (Hud.isInsideButtonsBar(mouseX, mouseY)) {
-      if (Hud.isInsideTowersButtonsBar(mouseX, mouseY)) {
-        Hud.handleTowerButtons(mouseX, mouseY)
+    const mousePosition: Position = { x: mouseX, y: mouseY }
+
+    if (Hud.isInsideButtonsBar(mousePosition)) {
+      if (Hud.isInsideTowersButtonsBar(mousePosition)) {
+        Hud.handleTowerButtons(mousePosition)
       }
-      if (Hud.isInsideMagicsButtonsBar(mouseX, mouseY)) {
+      if (Hud.isInsideMagicsButtonsBar(mousePosition)) {
         Hud.handleMagicButtons(
           mouseX,
           mouseY,

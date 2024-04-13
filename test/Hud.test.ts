@@ -1,19 +1,18 @@
 import { Hud } from '../src/hud/Hud'
+import { Position } from '../src/utils/types'
 
 describe('isInsideTowersButtonsBar', () => {
   test('when mouse is inside, return true', () => {
-    const posMouseX = 235
-    const posMouseY = 56
+    const mousePosition: Position = { x: 235, y: 56 }
 
-    const result = Hud.isInsideTowersButtonsBar(posMouseX, posMouseY)
+    const result = Hud.isInsideTowersButtonsBar(mousePosition)
 
     expect(result).toBeTruthy
   })
   test('when mouse is outside, return false', () => {
-    const posMouseX = 560
-    const posMouseY = 56
+    const mousePosition: Position = { x: 560, y: 56 }
 
-    const result = Hud.isInsideTowersButtonsBar(posMouseX, posMouseY)
+    const result = Hud.isInsideTowersButtonsBar(mousePosition)
 
     expect(result).toBeFalsy
   })
@@ -21,18 +20,16 @@ describe('isInsideTowersButtonsBar', () => {
 
 describe('isInsideMagicsButtonsBar', () => {
   test('when mouse is inside, return true', () => {
-    const posMouseX = 560
-    const posMouseY = 56
+    const mousePosition: Position = { x: 560, y: 56 }
 
-    const result = Hud.isInsideTowersButtonsBar(posMouseX, posMouseY)
+    const result = Hud.isInsideTowersButtonsBar(mousePosition)
 
     expect(result).toBeTruthy
   })
   test('when mouse is outside, return false', () => {
-    const posMouseX = 235
-    const posMouseY = 56
+    const mousePosition: Position = { x: 235, y: 56 }
 
-    const result = Hud.isInsideTowersButtonsBar(posMouseX, posMouseY)
+    const result = Hud.isInsideTowersButtonsBar(mousePosition)
 
     expect(result).toBeFalsy
   })

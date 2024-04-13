@@ -1,4 +1,4 @@
-import { Position, TowerType } from '../utils/types'
+import { Position, Size, TowerType } from '../utils/types'
 import { TextProperties } from './TextProperties'
 import { ProgressBar } from './ProgressBar'
 import { Image } from 'p5'
@@ -12,6 +12,7 @@ import { Const } from '../constants/Const'
 import { Player } from '../Player'
 import { InfluenceArea } from '../towers/InfluenceArea'
 import { P5 } from '../utils/P5'
+import { ButtonCheck } from '../buttons/ButtonCheck'
 
 export class Hud {
   static NORMAL = 0
@@ -29,7 +30,6 @@ export class Hud {
   static waveProgressDelay: number = Const.WAVE_PROGRESS_DELAY
   static bossProgressBar: ProgressBar
   static bossProgressDelay: number = Const.BOSS_PROGRESS_DELAY
-  static selectedItem: number = 1
   static mode: number = 0
   static canBuyTowerGreen: boolean = false
   static canBuyTowerRed: boolean = false
@@ -40,6 +40,9 @@ export class Hud {
   static upgradeCost: number | null = null
   static sellProfit: number | null = null
   static canUpgrade: boolean
+  static greenTowerButton: ButtonCheck
+  static redTowerButton: ButtonCheck
+  static yellowTowerButton: ButtonCheck
 
   static setImages(hudImages: Image[], hudIconImages: Image[]) {
     Hud.hudImages = hudImages
@@ -52,6 +55,33 @@ export class Hud {
 
   static initializeBossProgressBar() {
     Hud.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 })
+  }
+
+  static _initializeGreenTowerButton() {
+    const position: Position = { x: 0, y: 28 }
+    const size: Size = { w: 98, h: 50 }
+
+    Hud.greenTowerButton = new ButtonCheck(position, size)
+  }
+  static _initializeRedTowerButton() {
+    const position: Position = { x: 98, y: 28 }
+    const size: Size = { w: 82, h: 50 }
+    Hud.redTowerButton = new ButtonCheck(position, size)
+  }
+  static _initializeYellowTowerButton() {
+    const position: Position = { x: 180, y: 28 }
+    const size: Size = { w: 83, h: 50 }
+    Hud.yellowTowerButton = new ButtonCheck(position, size)
+  }
+
+  static initializeButtons() {
+    // tower buttons
+    Hud._initializeGreenTowerButton()
+    Hud._initializeRedTowerButton()
+    Hud._initializeYellowTowerButton()
+    //set green tower button as the default button selected
+    Hud.uncheckAllTowerButtons()
+    Hud.greenTowerButton.check()
   }
 
   static updateWaveProgressBar() {
@@ -89,43 +119,27 @@ export class Hud {
     return instantiateBoss
   }
 
-  static isInsideButtonsBar(px: number, py: number) {
-    if (px > 0 && px < 800 && py > 28 && py < 78) {
+  static isInsideButtonsBar(position: Position) {
+    if (
+      position.x > 0 &&
+      position.x < 800 &&
+      position.y > 28 &&
+      position.y < 78
+    ) {
       return true
     }
     return false
   }
 
-  static isInsideTowersButtonsBar(px: number, py: number) {
-    if (this.isInsideButtonsBar(px, py) && px < 265) {
+  static isInsideTowersButtonsBar(position: Position) {
+    if (this.isInsideButtonsBar(position) && position.x < 265) {
       return true
     }
     return false
   }
 
-  static isInsideMagicsButtonsBar(px: number, py: number) {
-    if (this.isInsideButtonsBar(px, py) && px > 495) {
-      return true
-    }
-    return false
-  }
-
-  static isInsideTowerGreenButton(px: number, py: number) {
-    if (px > 0 && px < 98 && py > 28 && py < 78) {
-      return true
-    }
-    return false
-  }
-
-  static isInsideTowerRedButton(px: number, py: number) {
-    if (px > 98 && px < 180 && py > 28 && py < 78) {
-      return true
-    }
-    return false
-  }
-
-  static isInsideTowerYellowButton(px: number, py: number) {
-    if (px > 180 && px < 263 && py > 28 && py < 78) {
+  static isInsideMagicsButtonsBar(position: Position) {
+    if (this.isInsideButtonsBar(position) && position.x > 495) {
       return true
     }
     return false
@@ -152,12 +166,36 @@ export class Hud {
     return false
   }
 
+  static uncheckAllTowerButtons() {
+    Hud.greenTowerButton.uncheck()
+    Hud.redTowerButton.uncheck()
+    Hud.yellowTowerButton.uncheck()
+  }
+
   static selectTower(towerId: number) {
-    Hud.selectedItem = towerId
+    Hud.uncheckAllTowerButtons()
+    switch (towerId) {
+      case TowerGreen.ID:
+        Hud.greenTowerButton.check()
+        break
+
+      case TowerRed.ID:
+        Hud.redTowerButton.check()
+        break
+
+      case TowerYellow.ID:
+        Hud.yellowTowerButton.check()
+        break
+    }
   }
 
   static getSelectedTower() {
-    return Hud.selectedItem
+    if (Hud.greenTowerButton.isChecked) {
+      return TowerGreen.ID
+    } else if (Hud.redTowerButton.isChecked) {
+      return TowerRed.ID
+    }
+    return TowerYellow.ID
   }
 
   static setCanBuy(
@@ -314,7 +352,7 @@ export class Hud {
     P5.p5.stroke(255, 204, 0)
     P5.p5.noFill()
 
-    switch (Hud.selectedItem) {
+    switch (Hud.getSelectedTower()) {
       case TowerGreen.ID:
         P5.p5.square(57, 36, 37)
         break
@@ -364,14 +402,14 @@ export class Hud {
     Hud.sellProfit = null
   }
 
-  static handleTowerButtons(mouseX: number, mouseY: number) {
-    if (Hud.isInsideTowerGreenButton(mouseX, mouseY)) {
+  static handleTowerButtons(mousePosition: Position) {
+    if (Hud.greenTowerButton.isMouseOver(mousePosition)) {
       Hud.selectTower(TowerGreen.ID)
     }
-    if (Hud.isInsideTowerRedButton(mouseX, mouseY)) {
+    if (Hud.redTowerButton.isMouseOver(mousePosition)) {
       Hud.selectTower(TowerRed.ID)
     }
-    if (Hud.isInsideTowerYellowButton(mouseX, mouseY)) {
+    if (Hud.yellowTowerButton.isMouseOver(mousePosition)) {
       Hud.selectTower(TowerYellow.ID)
     }
   }
