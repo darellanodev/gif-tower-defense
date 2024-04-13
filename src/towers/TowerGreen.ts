@@ -11,6 +11,7 @@ export class TowerGreen extends Tower {
   static DAMAGE_UPGRADE = [1, 2, 4, 6, 12, 24]
   static COST_UPGRADE = [50, 75, 125, 300, 1000, 2000]
   static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
+  static INFLUENCE_AREA_FACTOR = 1.65
 
   static images: Image[]
 
@@ -121,7 +122,9 @@ export class TowerGreen extends Tower {
 
   isDistanceIntoInfluenceArea(distance: number) {
     return (
-      distance <= TowerGreen.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] / 1.65
+      distance <=
+      TowerGreen.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] /
+        TowerGreen.INFLUENCE_AREA_FACTOR
     )
   }
 }
