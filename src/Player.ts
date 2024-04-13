@@ -144,8 +144,7 @@ export class Player {
       }
       if (Hud.isInsideMagicsButtonsBar(mousePosition)) {
         Hud.handleMagicButtons(
-          mouseX,
-          mouseY,
+          mousePosition,
           magicIceballImage,
           magicFireballImage,
           magicUFOImage,

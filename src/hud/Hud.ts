@@ -13,6 +13,7 @@ import { Player } from '../Player'
 import { InfluenceArea } from '../towers/InfluenceArea'
 import { P5 } from '../utils/P5'
 import { ButtonCheck } from '../buttons/ButtonCheck'
+import { Button } from '../buttons/Button'
 
 export class Hud {
   static NORMAL = 0
@@ -43,6 +44,9 @@ export class Hud {
   static greenTowerButton: ButtonCheck
   static redTowerButton: ButtonCheck
   static yellowTowerButton: ButtonCheck
+  static magicFireballButton: Button
+  static magicIceballButton: Button
+  static magicUFOButton: Button
 
   static setImages(hudImages: Image[], hudIconImages: Image[]) {
     Hud.hudImages = hudImages
@@ -74,14 +78,42 @@ export class Hud {
     Hud.yellowTowerButton = new ButtonCheck(position, size)
   }
 
-  static initializeButtons() {
-    // tower buttons
+  static _initializeTowerButtons() {
     Hud._initializeGreenTowerButton()
     Hud._initializeRedTowerButton()
     Hud._initializeYellowTowerButton()
-    //set green tower button as the default button selected
+
     Hud.uncheckAllTowerButtons()
     Hud.greenTowerButton.check()
+  }
+
+  static _initializeMagicUFOButton() {
+    const position: Position = { x: 498, y: 28 }
+    const size: Size = { w: 118, h: 50 }
+    Hud.magicUFOButton = new Button(position, size)
+  }
+
+  static _initializeMagicFireballButton() {
+    const position: Position = { x: 616, y: 28 }
+    const size: Size = { w: 78, h: 50 }
+    Hud.magicFireballButton = new Button(position, size)
+  }
+
+  static _initializeMagicIceballButton() {
+    const position: Position = { x: 692, y: 28 }
+    const size: Size = { w: 103, h: 50 }
+    Hud.magicIceballButton = new Button(position, size)
+  }
+
+  static _initializeMagicButtons() {
+    Hud._initializeMagicUFOButton()
+    Hud._initializeMagicFireballButton()
+    Hud._initializeMagicIceballButton()
+  }
+
+  static initializeButtons() {
+    Hud._initializeTowerButtons()
+    Hud._initializeMagicButtons()
   }
 
   static updateWaveProgressBar() {
@@ -140,27 +172,6 @@ export class Hud {
 
   static isInsideMagicsButtonsBar(position: Position) {
     if (this.isInsideButtonsBar(position) && position.x > 495) {
-      return true
-    }
-    return false
-  }
-
-  static isInsideMagicFireball(px: number, py: number) {
-    if (px > 616 && px < 692 && py > 28 && py < 78) {
-      return true
-    }
-    return false
-  }
-
-  static isInsideMagicIceball(px: number, py: number) {
-    if (px > 692 && px < 795 && py > 28 && py < 78) {
-      return true
-    }
-    return false
-  }
-
-  static isInsideMagicUFO(px: number, py: number) {
-    if (px > 498 && px < 616 && py > 28 && py < 78) {
       return true
     }
     return false
@@ -415,29 +426,28 @@ export class Hud {
   }
 
   static handleMagicButtons(
-    mouseX: number,
-    mouseY: number,
+    mousePosition: Position,
     magicIceballImage: Image,
     magicFireballImage: Image,
     magicUFOImage: Image,
     initialEnemiesPosition: Position,
     orders: number[],
   ) {
-    if (Hud.isInsideMagicFireball(mouseX, mouseY)) {
+    if (Hud.magicFireballButton.isMouseOver(mousePosition)) {
       MagicFireball.instantiate(
         magicFireballImage,
         initialEnemiesPosition,
         orders,
       )
     }
-    if (Hud.isInsideMagicIceball(mouseX, mouseY)) {
+    if (Hud.magicIceballButton.isMouseOver(mousePosition)) {
       MagicIceball.instantiate(
         magicIceballImage,
         { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
         orders,
       )
     }
-    if (Hud.isInsideMagicUFO(mouseX, mouseY)) {
+    if (Hud.magicUFOButton.isMouseOver(mousePosition)) {
       MagicUFO.instantiate(
         magicUFOImage,
         { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
