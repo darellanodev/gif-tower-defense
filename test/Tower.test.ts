@@ -1,10 +1,25 @@
+import { TileOrange } from '../src/tiles/TileOrange'
 import { Tower } from '../src/towers/Tower'
 import { TowerGreen } from '../src/towers/TowerGreen'
+import { TowerRed } from '../src/towers/TowerRed'
+import { TowerYellow } from '../src/towers/TowerYellow'
 import { Position, TowerType } from '../src/utils/types'
 
 const instantiateGreenTower = () => {
   const position: Position = { x: 10, y: 20 }
   return TowerGreen.instantiate(position)
+}
+const instantiateRedTower = () => {
+  const position: Position = { x: 10, y: 20 }
+  return TowerRed.instantiate(position)
+}
+const instantiateYellowTower = () => {
+  const img: any = null
+  const OrangeTilePosition: Position = { x: 100, y: 200 }
+  const orangeTile = new TileOrange(img, OrangeTilePosition)
+
+  const towerYellowPosition: Position = { x: 10, y: 20 }
+  return TowerYellow.instantiate(towerYellowPosition, orangeTile)
 }
 
 test('upgradeIncrement, when the instance is recently created, return the expected value', () => {
@@ -68,4 +83,24 @@ test('get isMaxUpgraded, when the tower is upgraded 5 times, return true', () =>
 
   const result = towerGreen.isMaxUpgraded
   expect(result).toBeTruthy()
+})
+
+describe('get type', () => {
+  test('when is a green tower, returns TowerGreen.ID', () => {
+    const towerGreen = instantiateGreenTower()
+    const result = towerGreen.type
+    expect(result).toBe(TowerGreen.ID)
+  })
+
+  test('when is a red tower, returns TowerRed.ID', () => {
+    const towerRed = instantiateRedTower()
+    const result = towerRed.type
+    expect(result).toBe(TowerRed.ID)
+  })
+
+  test('when is a yellow tower, returns TowerYellow.ID', () => {
+    const towerYellow = instantiateYellowTower()
+    const result = towerYellow.type
+    expect(result).toBe(TowerYellow.ID)
+  })
 })
