@@ -32,6 +32,8 @@ const instantiateNormalEnemy = () => {
     initialEnemiesPosition,
     wave,
   )
+
+  Enemy.waveEnemies = waveEnemies + 1
 }
 
 const instantiateBossEnemy = () => {
@@ -95,15 +97,23 @@ describe('isBoss', () => {
 })
 
 describe('endurance', () => {
-  test('when is a Boss enemy, return wave*25 = 1*25 = 75', () => {
+  test('when is a Boss enemy, return wave * 25', () => {
+    const { images, orders, initialEnemiesPosition, wave } = commonConstants
     instantiateBossEnemy()
+
     const result = Enemy.instances[0].endurance
-    expect(result).toBe(25)
+
+    const expected = wave * 25
+    expect(result).toBe(expected)
   })
-  test('when is a normal enemy, return: wave*3 + waveEnemies*2 = 1*3 + 3*2 = 9', () => {
+  test('when is a normal enemy, return wave * 3 + waveEnemies * 2', () => {
+    const { images, orders, initialEnemiesPosition, wave } = commonConstants
     instantiateNormalEnemy()
+
     const result = Enemy.instances[0].endurance
-    expect(result).toBe(9)
+
+    const expected = wave * 3 + (Enemy.waveEnemies - 1) * 2 // it is (Enemy.waveEnemies - 1) because when an enemy is created Enemy.waveEnemies increments by 1
+    expect(result).toBe(expected)
   })
 })
 
