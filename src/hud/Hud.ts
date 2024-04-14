@@ -1,4 +1,4 @@
-import { Position, Size, TowerType } from '../utils/types'
+import { Position, TowerType } from '../utils/types'
 import { TextProperties } from './TextProperties'
 import { ProgressBar } from './ProgressBar'
 import { Image } from 'p5'
@@ -12,8 +12,8 @@ import { Const } from '../constants/Const'
 import { Player } from '../Player'
 import { InfluenceArea } from '../towers/InfluenceArea'
 import { P5 } from '../utils/P5'
-import { ButtonCheck } from '../buttons/ButtonCheck'
-import { Button } from '../buttons/Button'
+import { ButtonTower } from '../buttons/ButtonTower'
+import { ButtonMagic } from '../buttons/ButtonMagic'
 
 export class Hud {
   static NORMAL = 0
@@ -121,26 +121,26 @@ export class Hud {
   }
 
   static selectTower(towerId: number) {
-    ButtonCheck.uncheckAllTowerButtons()
+    ButtonTower.unTowerAllTowerButtons()
     switch (towerId) {
       case TowerGreen.ID:
-        ButtonCheck.greenTowerButton.check()
+        ButtonTower.greenTowerButton.check()
         break
 
       case TowerRed.ID:
-        ButtonCheck.redTowerButton.check()
+        ButtonTower.redTowerButton.check()
         break
 
       case TowerYellow.ID:
-        ButtonCheck.yellowTowerButton.check()
+        ButtonTower.yellowTowerButton.check()
         break
     }
   }
 
   static getSelectedTower() {
-    if (ButtonCheck.greenTowerButton.isChecked) {
+    if (ButtonTower.greenTowerButton.isChecked) {
       return TowerGreen.ID
-    } else if (ButtonCheck.redTowerButton.isChecked) {
+    } else if (ButtonTower.redTowerButton.isChecked) {
       return TowerRed.ID
     }
     return TowerYellow.ID
@@ -199,37 +199,37 @@ export class Hud {
 
   static _drawTowerIcons() {
     if (Hud.canBuyTowerGreen) {
-      ButtonCheck.greenTowerButton.drawON()
+      ButtonTower.greenTowerButton.drawON()
     } else {
-      ButtonCheck.greenTowerButton.drawOFF()
+      ButtonTower.greenTowerButton.drawOFF()
     }
     if (Hud.canBuyTowerRed) {
-      ButtonCheck.redTowerButton.drawON()
+      ButtonTower.redTowerButton.drawON()
     } else {
-      ButtonCheck.redTowerButton.drawOFF()
+      ButtonTower.redTowerButton.drawOFF()
     }
     if (Hud.canBuyTowerYellow) {
-      ButtonCheck.yellowTowerButton.drawON()
+      ButtonTower.yellowTowerButton.drawON()
     } else {
-      ButtonCheck.yellowTowerButton.drawOFF()
+      ButtonTower.yellowTowerButton.drawOFF()
     }
   }
 
   static _drawMagicButtons() {
     if (MagicUFO.total > 0) {
-      Button.magicUFOButton.drawON()
+      ButtonMagic.magicUFOButton.drawON()
     } else {
-      Button.magicUFOButton.drawOFF()
+      ButtonMagic.magicUFOButton.drawOFF()
     }
     if (MagicFireball.total > 0) {
-      Button.magicFireballButton.drawON()
+      ButtonMagic.magicFireballButton.drawON()
     } else {
-      Button.magicFireballButton.drawOFF()
+      ButtonMagic.magicFireballButton.drawOFF()
     }
     if (MagicIceball.total > 0) {
-      Button.magicIceballButton.drawON()
+      ButtonMagic.magicIceballButton.drawON()
     } else {
-      Button.magicIceballButton.drawOFF()
+      ButtonMagic.magicIceballButton.drawOFF()
     }
   }
 
@@ -369,13 +369,13 @@ export class Hud {
   }
 
   static handleTowerButtons(mousePosition: Position) {
-    if (ButtonCheck.greenTowerButton.isMouseOver(mousePosition)) {
+    if (ButtonTower.greenTowerButton.isMouseOver(mousePosition)) {
       Hud.selectTower(TowerGreen.ID)
     }
-    if (ButtonCheck.redTowerButton.isMouseOver(mousePosition)) {
+    if (ButtonTower.redTowerButton.isMouseOver(mousePosition)) {
       Hud.selectTower(TowerRed.ID)
     }
-    if (ButtonCheck.yellowTowerButton.isMouseOver(mousePosition)) {
+    if (ButtonTower.yellowTowerButton.isMouseOver(mousePosition)) {
       Hud.selectTower(TowerYellow.ID)
     }
   }
@@ -388,21 +388,21 @@ export class Hud {
     initialEnemiesPosition: Position,
     orders: number[],
   ) {
-    if (Button.magicFireballButton.isMouseOver(mousePosition)) {
+    if (ButtonMagic.magicFireballButton.isMouseOver(mousePosition)) {
       MagicFireball.instantiate(
         magicFireballImage,
         initialEnemiesPosition,
         orders,
       )
     }
-    if (Button.magicIceballButton.isMouseOver(mousePosition)) {
+    if (ButtonMagic.magicIceballButton.isMouseOver(mousePosition)) {
       MagicIceball.instantiate(
         magicIceballImage,
         { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
         orders,
       )
     }
-    if (Button.magicUFOButton.isMouseOver(mousePosition)) {
+    if (ButtonMagic.magicUFOButton.isMouseOver(mousePosition)) {
       MagicUFO.instantiate(
         magicUFOImage,
         { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },

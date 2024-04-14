@@ -2,10 +2,10 @@ import { Image } from 'p5'
 import { Button } from './Button'
 import { Position, Size } from '../utils/types'
 
-export class ButtonCheck extends Button {
-  static greenTowerButton: ButtonCheck
-  static redTowerButton: ButtonCheck
-  static yellowTowerButton: ButtonCheck
+export class ButtonTower extends Button {
+  static greenTowerButton: ButtonTower
+  static redTowerButton: ButtonTower
+  static yellowTowerButton: ButtonTower
 
   static towerGreenButtonImages: Image[]
   static towerRedButtonImages: Image[]
@@ -26,9 +26,9 @@ export class ButtonCheck extends Button {
     towerRedButtonImages: Image[],
     towerYellowButtonImages: Image[],
   ) {
-    ButtonCheck.towerGreenButtonImages = towerGreenButtonImages
-    ButtonCheck.towerRedButtonImages = towerRedButtonImages
-    ButtonCheck.towerYellowButtonImages = towerYellowButtonImages
+    ButtonTower.towerGreenButtonImages = towerGreenButtonImages
+    ButtonTower.towerRedButtonImages = towerRedButtonImages
+    ButtonTower.towerYellowButtonImages = towerYellowButtonImages
   }
 
   static _initializeGreenTowerButton() {
@@ -36,10 +36,10 @@ export class ButtonCheck extends Button {
     const size: Size = { w: 98, h: 50 }
     const offsetImages: Position = { x: 60, y: 10 }
 
-    ButtonCheck.greenTowerButton = new ButtonCheck(
+    ButtonTower.greenTowerButton = new ButtonTower(
       position,
       size,
-      ButtonCheck.towerGreenButtonImages,
+      ButtonTower.towerGreenButtonImages,
       offsetImages,
     )
   }
@@ -47,10 +47,10 @@ export class ButtonCheck extends Button {
     const position: Position = { x: 98, y: 28 }
     const size: Size = { w: 82, h: 50 }
     const offsetImages: Position = { x: 42, y: 10 }
-    ButtonCheck.redTowerButton = new ButtonCheck(
+    ButtonTower.redTowerButton = new ButtonTower(
       position,
       size,
-      ButtonCheck.towerRedButtonImages,
+      ButtonTower.towerRedButtonImages,
       offsetImages,
     )
   }
@@ -58,30 +58,30 @@ export class ButtonCheck extends Button {
     const position: Position = { x: 180, y: 28 }
     const size: Size = { w: 83, h: 50 }
     const offsetImages: Position = { x: 45, y: 10 }
-    ButtonCheck.yellowTowerButton = new ButtonCheck(
+    ButtonTower.yellowTowerButton = new ButtonTower(
       position,
       size,
-      ButtonCheck.towerYellowButtonImages,
+      ButtonTower.towerYellowButtonImages,
       offsetImages,
     )
   }
 
   static initializeButtons() {
-    ButtonCheck._initializeTowerButtons()
+    ButtonTower._initializeTowerButtons()
   }
 
-  static uncheckAllTowerButtons() {
-    ButtonCheck.greenTowerButton.uncheck()
-    ButtonCheck.redTowerButton.uncheck()
-    ButtonCheck.yellowTowerButton.uncheck()
+  static unTowerAllTowerButtons() {
+    ButtonTower.greenTowerButton.uncheck()
+    ButtonTower.redTowerButton.uncheck()
+    ButtonTower.yellowTowerButton.uncheck()
   }
 
   static _initializeTowerButtons() {
-    ButtonCheck._initializeGreenTowerButton()
-    ButtonCheck._initializeRedTowerButton()
-    ButtonCheck._initializeYellowTowerButton()
+    ButtonTower._initializeGreenTowerButton()
+    ButtonTower._initializeRedTowerButton()
+    ButtonTower._initializeYellowTowerButton()
 
-    ButtonCheck.uncheckAllTowerButtons()
-    ButtonCheck.greenTowerButton.check()
+    ButtonTower.unTowerAllTowerButtons()
+    ButtonTower.greenTowerButton.check()
   }
 }
