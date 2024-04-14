@@ -9,7 +9,6 @@ export class MagicIceball extends Magic {
   static FREEZE_ENEMY_MAX_TIME = 500
 
   static instances: MagicIceball[] = []
-  static total: number = 3
 
   #img: Image
   constructor(img: Image, startPosition: Position, orders: number[]) {
@@ -18,10 +17,7 @@ export class MagicIceball extends Magic {
   }
 
   static instantiate(images: Image, position: Position, orders: number[]) {
-    if (MagicIceball.total > 0) {
-      MagicIceball.instances.push(new MagicIceball(images, position, orders))
-      MagicIceball.total--
-    }
+    MagicIceball.instances.push(new MagicIceball(images, position, orders))
   }
 
   freeze(enemy: Enemy) {

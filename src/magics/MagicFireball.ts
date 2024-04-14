@@ -9,7 +9,6 @@ export class MagicFireball extends Magic {
   static DAMAGE = 500
 
   static instances: MagicFireball[] = []
-  static total: number = 3
 
   #img: Image
   constructor(img: Image, startPosition: Position, orders: number[]) {
@@ -18,10 +17,7 @@ export class MagicFireball extends Magic {
   }
 
   static instantiate(images: Image, position: Position, orders: number[]) {
-    if (MagicFireball.total > 0) {
-      MagicFireball.instances.push(new MagicFireball(images, position, orders))
-      MagicFireball.total--
-    }
+    MagicFireball.instances.push(new MagicFireball(images, position, orders))
   }
 
   addDamage(enemy: Enemy) {

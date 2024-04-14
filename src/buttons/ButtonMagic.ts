@@ -1,25 +1,67 @@
 import { Image } from 'p5'
 import { Button } from './Button'
 import { Position, Size } from '../utils/types'
+import { P5 } from '../utils/P5'
 
 export class ButtonMagic extends Button {
   static magicUFOButtonImages: Image[]
   static magicFireballButtonImages: Image[]
   static magicIceballButtonImages: Image[]
 
-  static magicFireballButton: Button
-  static magicIceballButton: Button
-  static magicUFOButton: Button
+  static magicFireballButton: ButtonMagic
+  static magicIceballButton: ButtonMagic
+  static magicUFOButton: ButtonMagic
 
-  #isTowered: boolean = false
-  Tower() {
-    this.#isTowered = true
+  static magicTotalUFOItems: number = 3
+  static magicTotalFireballItems: number = 2
+  static magicTotalIceballItems: number = 2
+
+  #isChecked: boolean = false
+  #items: number
+  #offsetItems: Position
+
+  constructor(
+    position: Position,
+    size: Size,
+    images: Image[],
+    offsetImages: Position,
+    items: number,
+    offsetItems: Position = { x: 0, y: 0 },
+  ) {
+    super(position, size, images, offsetImages)
+    this.#items = items
+    this.#offsetItems = offsetItems
   }
-  unCheck() {
-    this.#isTowered = false
+
+  removeItem() {
+    this.#items--
+  }
+
+  get items() {
+    return this.#items
+  }
+
+  check() {
+    this.#isChecked = true
+  }
+  uncheck() {
+    this.#isChecked = false
   }
   get isChecked() {
-    return this.#isTowered
+    return this.#isChecked
+  }
+
+  draw() {
+    if (this.#items > 0) {
+      this.drawON()
+    } else {
+      this.drawOFF()
+    }
+    P5.p5.text(
+      this.#items,
+      this.position.x + this.#offsetItems.x,
+      this.position.y + this.#offsetItems.y,
+    )
   }
 
   static setImages(
@@ -36,11 +78,14 @@ export class ButtonMagic extends Button {
     const position: Position = { x: 498, y: 28 }
     const size: Size = { w: 118, h: 50 }
     const offsetImages: Position = { x: 44, y: 3 }
-    ButtonMagic.magicUFOButton = new Button(
+    const offsetItems: Position = { x: 93, y: 47 }
+    ButtonMagic.magicUFOButton = new ButtonMagic(
       position,
       size,
       ButtonMagic.magicUFOButtonImages,
       offsetImages,
+      ButtonMagic.magicTotalUFOItems,
+      offsetItems,
     )
   }
 
@@ -48,11 +93,14 @@ export class ButtonMagic extends Button {
     const position: Position = { x: 616, y: 28 }
     const size: Size = { w: 78, h: 50 }
     const offsetImages: Position = { x: 20, y: 3 }
-    ButtonMagic.magicFireballButton = new Button(
+    const offsetItems: Position = { x: 64, y: 47 }
+    ButtonMagic.magicFireballButton = new ButtonMagic(
       position,
       size,
       ButtonMagic.magicFireballButtonImages,
       offsetImages,
+      ButtonMagic.magicTotalFireballItems,
+      offsetItems,
     )
   }
 
@@ -60,11 +108,14 @@ export class ButtonMagic extends Button {
     const position: Position = { x: 692, y: 28 }
     const size: Size = { w: 103, h: 50 }
     const offsetImages: Position = { x: 33, y: 3 }
-    ButtonMagic.magicIceballButton = new Button(
+    const offsetItems: Position = { x: 77, y: 47 }
+    ButtonMagic.magicIceballButton = new ButtonMagic(
       position,
       size,
       ButtonMagic.magicIceballButtonImages,
       offsetImages,
+      ButtonMagic.magicTotalIceballItems,
+      offsetItems,
     )
   }
 

@@ -5,7 +5,6 @@ import { P5 } from '../utils/P5'
 
 export class MagicUFO extends Magic {
   static instances: MagicUFO[] = []
-  static total: number = 3
 
   #img: Image
   constructor(img: Image, startPosition: Position, orders: number[]) {
@@ -14,10 +13,7 @@ export class MagicUFO extends Magic {
   }
 
   static instantiate(images: Image, position: Position, orders: number[]) {
-    if (MagicUFO.total > 0) {
-      MagicUFO.instances.push(new MagicUFO(images, position, orders))
-      MagicUFO.total--
-    }
+    MagicUFO.instances.push(new MagicUFO(images, position, orders))
   }
 
   draw() {

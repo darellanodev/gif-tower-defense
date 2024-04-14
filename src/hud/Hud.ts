@@ -188,9 +188,7 @@ export class Hud {
     Hud._drawWave()
     Hud._drawUpgradeCost()
     Hud._drawSellProfit()
-    Hud._drawMagicUFO()
-    Hud._drawMagicFireball()
-    Hud._drawMagicIceball()
+    Hud._drawMagicButtons()
 
     if (Hud.mode === Hud.NORMAL) {
       Hud._drawNewTowerPrices()
@@ -216,21 +214,9 @@ export class Hud {
   }
 
   static _drawMagicButtons() {
-    if (MagicUFO.total > 0) {
-      ButtonMagic.magicUFOButton.drawON()
-    } else {
-      ButtonMagic.magicUFOButton.drawOFF()
-    }
-    if (MagicFireball.total > 0) {
-      ButtonMagic.magicFireballButton.drawON()
-    } else {
-      ButtonMagic.magicFireballButton.drawOFF()
-    }
-    if (MagicIceball.total > 0) {
-      ButtonMagic.magicIceballButton.drawON()
-    } else {
-      ButtonMagic.magicIceballButton.drawOFF()
-    }
+    ButtonMagic.magicUFOButton.draw()
+    ButtonMagic.magicFireballButton.draw()
+    ButtonMagic.magicIceballButton.draw()
   }
 
   static _drawMoney() {
@@ -246,18 +232,6 @@ export class Hud {
       // restore color
       P5.p5.fill('white')
     }
-  }
-
-  static _drawMagicUFO() {
-    P5.p5.text(MagicUFO.total, 592, 74)
-  }
-
-  static _drawMagicFireball() {
-    P5.p5.text(MagicFireball.total, 680, 74)
-  }
-
-  static _drawMagicIceball() {
-    P5.p5.text(MagicIceball.total, 769, 74)
   }
 
   static _drawSellProfit() {
@@ -389,6 +363,10 @@ export class Hud {
     orders: number[],
   ) {
     if (ButtonMagic.magicFireballButton.isMouseOver(mousePosition)) {
+      if (ButtonMagic.magicFireballButton.items === 0) {
+        return
+      }
+      ButtonMagic.magicFireballButton.removeItem()
       MagicFireball.instantiate(
         magicFireballImage,
         initialEnemiesPosition,
@@ -396,6 +374,10 @@ export class Hud {
       )
     }
     if (ButtonMagic.magicIceballButton.isMouseOver(mousePosition)) {
+      if (ButtonMagic.magicIceballButton.items === 0) {
+        return
+      }
+      ButtonMagic.magicIceballButton.removeItem()
       MagicIceball.instantiate(
         magicIceballImage,
         { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
@@ -403,6 +385,10 @@ export class Hud {
       )
     }
     if (ButtonMagic.magicUFOButton.isMouseOver(mousePosition)) {
+      if (ButtonMagic.magicUFOButton.items === 0) {
+        return
+      }
+      ButtonMagic.magicUFOButton.removeItem()
       MagicUFO.instantiate(
         magicUFOImage,
         { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
