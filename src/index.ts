@@ -23,6 +23,8 @@ import { Player } from './Player'
 import { Images } from './resources/Images'
 import { Missile } from './towers/Missile'
 import { P5 } from './utils/P5'
+import { ButtonCheck } from './buttons/ButtonCheck'
+import { Button } from './buttons/Button'
 
 let _p5: p5
 let gameStatus: number = 0
@@ -132,18 +134,23 @@ window.setup = () => {
   Player.gameMode = Player.GAME_TESTING_MODE
   Player.initialMoney = tileGenerator.initialMoney
 
-  Hud.setImages(
-    Images.hudImages,
-    Images.towerGreenButtonImages,
-    Images.towerRedButtonImages,
-    Images.towerYellowButtonImages,
+  Button.setImages(
     Images.magicUFOButtonImages,
     Images.magicFireballButtonImages,
     Images.magicIceballButtonImages,
   )
+  Button.initializeButtons()
+
+  ButtonCheck.setImages(
+    Images.towerGreenButtonImages,
+    Images.towerRedButtonImages,
+    Images.towerYellowButtonImages,
+  )
+  ButtonCheck.initializeButtons()
+
+  Hud.setImages(Images.hudImages)
   Hud.initializeWaveProgressBar()
   Hud.initializeBossProgressBar()
-  Hud.initializeButtons()
 }
 
 window.keyPressed = () => {

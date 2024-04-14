@@ -6,6 +6,14 @@ export class Button {
   static INDEX_IMAGE_ON = 0
   static INDEX_IMAGE_OFF = 1
 
+  static magicUFOButtonImages: Image[]
+  static magicFireballButtonImages: Image[]
+  static magicIceballButtonImages: Image[]
+
+  static magicFireballButton: Button
+  static magicIceballButton: Button
+  static magicUFOButton: Button
+
   position: Position
   size: Size
   images: Image[]
@@ -20,6 +28,62 @@ export class Button {
     this.size = { ...size }
     this.images = images
     this.offsetImages = { ...offsetImages }
+  }
+
+  static setImages(
+    magicUFOButtonImages: Image[],
+    magicFireballButtonImages: Image[],
+    magicIceballButtonImages: Image[],
+  ) {
+    Button.magicUFOButtonImages = magicUFOButtonImages
+    Button.magicFireballButtonImages = magicFireballButtonImages
+    Button.magicIceballButtonImages = magicIceballButtonImages
+  }
+
+  static _initializeMagicUFOButton() {
+    const position: Position = { x: 498, y: 28 }
+    const size: Size = { w: 118, h: 50 }
+    const offsetImages: Position = { x: 44, y: 3 }
+    Button.magicUFOButton = new Button(
+      position,
+      size,
+      Button.magicUFOButtonImages,
+      offsetImages,
+    )
+  }
+
+  static _initializeMagicFireballButton() {
+    const position: Position = { x: 616, y: 28 }
+    const size: Size = { w: 78, h: 50 }
+    const offsetImages: Position = { x: 20, y: 3 }
+    Button.magicFireballButton = new Button(
+      position,
+      size,
+      Button.magicFireballButtonImages,
+      offsetImages,
+    )
+  }
+
+  static _initializeMagicIceballButton() {
+    const position: Position = { x: 692, y: 28 }
+    const size: Size = { w: 103, h: 50 }
+    const offsetImages: Position = { x: 33, y: 3 }
+    Button.magicIceballButton = new Button(
+      position,
+      size,
+      Button.magicIceballButtonImages,
+      offsetImages,
+    )
+  }
+
+  static _initializeMagicButtons() {
+    Button._initializeMagicUFOButton()
+    Button._initializeMagicFireballButton()
+    Button._initializeMagicIceballButton()
+  }
+
+  static initializeButtons() {
+    Button._initializeMagicButtons()
   }
 
   drawON() {

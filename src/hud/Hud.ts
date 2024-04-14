@@ -46,29 +46,9 @@ export class Hud {
   static upgradeCost: number | null = null
   static sellProfit: number | null = null
   static canUpgrade: boolean
-  static greenTowerButton: ButtonCheck
-  static redTowerButton: ButtonCheck
-  static yellowTowerButton: ButtonCheck
-  static magicFireballButton: Button
-  static magicIceballButton: Button
-  static magicUFOButton: Button
 
-  static setImages(
-    hudImages: Image[],
-    towerGreenButtonImages: Image[],
-    towerRedButtonImages: Image[],
-    towerYellowButtonImages: Image[],
-    magicUFOButtonImages: Image[],
-    magicFireballButtonImages: Image[],
-    magicIceballButtonImages: Image[],
-  ) {
+  static setImages(hudImages: Image[]) {
     Hud.hudImages = hudImages
-    Hud.towerGreenButtonImages = towerGreenButtonImages
-    Hud.towerRedButtonImages = towerRedButtonImages
-    Hud.towerYellowButtonImages = towerYellowButtonImages
-    Hud.magicUFOButtonImages = magicUFOButtonImages
-    Hud.magicFireballButtonImages = magicFireballButtonImages
-    Hud.magicIceballButtonImages = magicIceballButtonImages
   }
 
   static initializeWaveProgressBar() {
@@ -77,97 +57,6 @@ export class Hud {
 
   static initializeBossProgressBar() {
     Hud.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 })
-  }
-
-  static _initializeGreenTowerButton() {
-    const position: Position = { x: 0, y: 28 }
-    const size: Size = { w: 98, h: 50 }
-    const offsetImages: Position = { x: 60, y: 10 }
-
-    Hud.greenTowerButton = new ButtonCheck(
-      position,
-      size,
-      Hud.towerGreenButtonImages,
-      offsetImages,
-    )
-  }
-  static _initializeRedTowerButton() {
-    const position: Position = { x: 98, y: 28 }
-    const size: Size = { w: 82, h: 50 }
-    const offsetImages: Position = { x: 42, y: 10 }
-    Hud.redTowerButton = new ButtonCheck(
-      position,
-      size,
-      Hud.towerRedButtonImages,
-      offsetImages,
-    )
-  }
-  static _initializeYellowTowerButton() {
-    const position: Position = { x: 180, y: 28 }
-    const size: Size = { w: 83, h: 50 }
-    const offsetImages: Position = { x: 45, y: 10 }
-    Hud.yellowTowerButton = new ButtonCheck(
-      position,
-      size,
-      Hud.towerYellowButtonImages,
-      offsetImages,
-    )
-  }
-
-  static _initializeTowerButtons() {
-    Hud._initializeGreenTowerButton()
-    Hud._initializeRedTowerButton()
-    Hud._initializeYellowTowerButton()
-
-    Hud.uncheckAllTowerButtons()
-    Hud.greenTowerButton.check()
-  }
-
-  static _initializeMagicUFOButton() {
-    const position: Position = { x: 498, y: 28 }
-    const size: Size = { w: 118, h: 50 }
-    const offsetImages: Position = { x: 44, y: 3 }
-    Hud.magicUFOButton = new Button(
-      position,
-      size,
-      Hud.magicUFOButtonImages,
-      offsetImages,
-    )
-  }
-
-  static _initializeMagicFireballButton() {
-    const position: Position = { x: 616, y: 28 }
-    const size: Size = { w: 78, h: 50 }
-    const offsetImages: Position = { x: 20, y: 3 }
-    Hud.magicFireballButton = new Button(
-      position,
-      size,
-      Hud.magicFireballButtonImages,
-      offsetImages,
-    )
-  }
-
-  static _initializeMagicIceballButton() {
-    const position: Position = { x: 692, y: 28 }
-    const size: Size = { w: 103, h: 50 }
-    const offsetImages: Position = { x: 33, y: 3 }
-    Hud.magicIceballButton = new Button(
-      position,
-      size,
-      Hud.magicIceballButtonImages,
-      offsetImages,
-    )
-  }
-
-  static _initializeMagicButtons() {
-    Hud._initializeMagicUFOButton()
-    Hud._initializeMagicFireballButton()
-    Hud._initializeMagicIceballButton()
-  }
-
-  static initializeButtons() {
-    Hud._initializeTowerButtons()
-    Hud._initializeMagicButtons()
   }
 
   static updateWaveProgressBar() {
@@ -231,33 +120,27 @@ export class Hud {
     return false
   }
 
-  static uncheckAllTowerButtons() {
-    Hud.greenTowerButton.uncheck()
-    Hud.redTowerButton.uncheck()
-    Hud.yellowTowerButton.uncheck()
-  }
-
   static selectTower(towerId: number) {
-    Hud.uncheckAllTowerButtons()
+    ButtonCheck.uncheckAllTowerButtons()
     switch (towerId) {
       case TowerGreen.ID:
-        Hud.greenTowerButton.check()
+        ButtonCheck.greenTowerButton.check()
         break
 
       case TowerRed.ID:
-        Hud.redTowerButton.check()
+        ButtonCheck.redTowerButton.check()
         break
 
       case TowerYellow.ID:
-        Hud.yellowTowerButton.check()
+        ButtonCheck.yellowTowerButton.check()
         break
     }
   }
 
   static getSelectedTower() {
-    if (Hud.greenTowerButton.isChecked) {
+    if (ButtonCheck.greenTowerButton.isChecked) {
       return TowerGreen.ID
-    } else if (Hud.redTowerButton.isChecked) {
+    } else if (ButtonCheck.redTowerButton.isChecked) {
       return TowerRed.ID
     }
     return TowerYellow.ID
@@ -316,26 +199,26 @@ export class Hud {
 
   static _drawTowerIcons() {
     if (Hud.canBuyTowerGreen) {
-      Hud.greenTowerButton.drawON()
+      ButtonCheck.greenTowerButton.drawON()
     } else {
-      Hud.greenTowerButton.drawOFF()
+      ButtonCheck.greenTowerButton.drawOFF()
     }
     if (Hud.canBuyTowerRed) {
-      Hud.redTowerButton.drawON()
+      ButtonCheck.redTowerButton.drawON()
     } else {
-      Hud.redTowerButton.drawOFF()
+      ButtonCheck.redTowerButton.drawOFF()
     }
     if (Hud.canBuyTowerYellow) {
-      Hud.yellowTowerButton.drawON()
+      ButtonCheck.yellowTowerButton.drawON()
     } else {
-      Hud.yellowTowerButton.drawOFF()
+      ButtonCheck.yellowTowerButton.drawOFF()
     }
   }
 
   static _drawMagicButtons() {
-    Hud.magicUFOButton.drawON()
-    Hud.magicFireballButton.drawON()
-    Hud.magicIceballButton.drawON()
+    Button.magicUFOButton.drawON()
+    Button.magicFireballButton.drawON()
+    Button.magicIceballButton.drawON()
   }
 
   static _drawMoney() {
@@ -474,13 +357,13 @@ export class Hud {
   }
 
   static handleTowerButtons(mousePosition: Position) {
-    if (Hud.greenTowerButton.isMouseOver(mousePosition)) {
+    if (ButtonCheck.greenTowerButton.isMouseOver(mousePosition)) {
       Hud.selectTower(TowerGreen.ID)
     }
-    if (Hud.redTowerButton.isMouseOver(mousePosition)) {
+    if (ButtonCheck.redTowerButton.isMouseOver(mousePosition)) {
       Hud.selectTower(TowerRed.ID)
     }
-    if (Hud.yellowTowerButton.isMouseOver(mousePosition)) {
+    if (ButtonCheck.yellowTowerButton.isMouseOver(mousePosition)) {
       Hud.selectTower(TowerYellow.ID)
     }
   }
@@ -493,21 +376,21 @@ export class Hud {
     initialEnemiesPosition: Position,
     orders: number[],
   ) {
-    if (Hud.magicFireballButton.isMouseOver(mousePosition)) {
+    if (Button.magicFireballButton.isMouseOver(mousePosition)) {
       MagicFireball.instantiate(
         magicFireballImage,
         initialEnemiesPosition,
         orders,
       )
     }
-    if (Hud.magicIceballButton.isMouseOver(mousePosition)) {
+    if (Button.magicIceballButton.isMouseOver(mousePosition)) {
       MagicIceball.instantiate(
         magicIceballImage,
         { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
         orders,
       )
     }
-    if (Hud.magicUFOButton.isMouseOver(mousePosition)) {
+    if (Button.magicUFOButton.isMouseOver(mousePosition)) {
       MagicUFO.instantiate(
         magicUFOImage,
         { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
