@@ -70,14 +70,45 @@ export class Resources {
     ]
   }
 
-  static hudIconImages() {
+  static towerGreenButtonImages() {
     return [
-      P5.p5.loadImage('../img/hud/icon_green_tower_on.png'),
-      P5.p5.loadImage('../img/hud/icon_green_tower_off.png'),
-      P5.p5.loadImage('../img/hud/icon_red_tower_on.png'),
-      P5.p5.loadImage('../img/hud/icon_red_tower_off.png'),
-      P5.p5.loadImage('../img/hud/icon_yellow_tower_on.png'),
-      P5.p5.loadImage('../img/hud/icon_yellow_tower_off.png'),
+      P5.p5.loadImage('../img/hud/btn_tower_green_on.png'),
+      P5.p5.loadImage('../img/hud/btn_tower_green_off.png'),
+    ]
+  }
+
+  static towerRedButtonImages() {
+    return [
+      P5.p5.loadImage('../img/hud/btn_tower_red_on.png'),
+      P5.p5.loadImage('../img/hud/btn_tower_red_off.png'),
+    ]
+  }
+
+  static towerYellowButtonImages() {
+    return [
+      P5.p5.loadImage('../img/hud/btn_tower_yellow_on.png'),
+      P5.p5.loadImage('../img/hud/btn_tower_yellow_off.png'),
+    ]
+  }
+
+  static magicUFOButtonImages() {
+    return [
+      P5.p5.loadImage('../img/hud/btn_magic_ufo_on.png'),
+      P5.p5.loadImage('../img/hud/btn_magic_ufo_off.png'),
+    ]
+  }
+
+  static magicFireballButtonImages() {
+    return [
+      P5.p5.loadImage('../img/hud/btn_magic_fireball_on.png'),
+      P5.p5.loadImage('../img/hud/btn_magic_fireball_off.png'),
+    ]
+  }
+
+  static magicIceballButtonImages() {
+    return [
+      P5.p5.loadImage('../img/hud/btn_magic_iceball_on.png'),
+      P5.p5.loadImage('../img/hud/btn_magic_iceball_off.png'),
     ]
   }
 

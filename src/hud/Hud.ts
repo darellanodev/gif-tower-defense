@@ -22,10 +22,10 @@ export class Hud {
   static HEIGHT = 84
   static ICON_GREEN_TOWER_ON = 0
   static ICON_GREEN_TOWER_OFF = 1
-  static ICON_RED_TOWER_ON = 2
-  static ICON_RED_TOWER_OFF = 3
-  static ICON_YELLOW_TOWER_ON = 4
-  static ICON_YELLOW_TOWER_OFF = 5
+  static ICON_RED_TOWER_ON = 0
+  static ICON_RED_TOWER_OFF = 1
+  static ICON_YELLOW_TOWER_ON = 0
+  static ICON_YELLOW_TOWER_OFF = 1
 
   static waveProgressBar: ProgressBar
   static waveProgressDelay: number = Const.WAVE_PROGRESS_DELAY
@@ -37,7 +37,12 @@ export class Hud {
   static canBuyTowerYellow: boolean = false
 
   static hudImages: Image[]
-  static hudIconImages: Image[]
+  static towerGreenButtonImages: Image[]
+  static towerRedButtonImages: Image[]
+  static towerYellowButtonImages: Image[]
+  static magicUFOButtonImages: Image[]
+  static magicFireballButtonImages: Image[]
+  static magicIceballButtonImages: Image[]
   static upgradeCost: number | null = null
   static sellProfit: number | null = null
   static canUpgrade: boolean
@@ -48,9 +53,22 @@ export class Hud {
   static magicIceballButton: Button
   static magicUFOButton: Button
 
-  static setImages(hudImages: Image[], hudIconImages: Image[]) {
+  static setImages(
+    hudImages: Image[],
+    towerGreenButtonImages: Image[],
+    towerRedButtonImages: Image[],
+    towerYellowButtonImages: Image[],
+    magicUFOButtonImages: Image[],
+    magicFireballButtonImages: Image[],
+    magicIceballButtonImages: Image[],
+  ) {
     Hud.hudImages = hudImages
-    Hud.hudIconImages = hudIconImages
+    Hud.towerGreenButtonImages = towerGreenButtonImages
+    Hud.towerRedButtonImages = towerRedButtonImages
+    Hud.towerYellowButtonImages = towerYellowButtonImages
+    Hud.magicUFOButtonImages = magicUFOButtonImages
+    Hud.magicFireballButtonImages = magicFireballButtonImages
+    Hud.magicIceballButtonImages = magicIceballButtonImages
   }
 
   static initializeWaveProgressBar() {
@@ -64,18 +82,36 @@ export class Hud {
   static _initializeGreenTowerButton() {
     const position: Position = { x: 0, y: 28 }
     const size: Size = { w: 98, h: 50 }
+    const offsetImages: Position = { x: 60, y: 10 }
 
-    Hud.greenTowerButton = new ButtonCheck(position, size)
+    Hud.greenTowerButton = new ButtonCheck(
+      position,
+      size,
+      Hud.towerGreenButtonImages,
+      offsetImages,
+    )
   }
   static _initializeRedTowerButton() {
     const position: Position = { x: 98, y: 28 }
     const size: Size = { w: 82, h: 50 }
-    Hud.redTowerButton = new ButtonCheck(position, size)
+    const offsetImages: Position = { x: 42, y: 10 }
+    Hud.redTowerButton = new ButtonCheck(
+      position,
+      size,
+      Hud.towerRedButtonImages,
+      offsetImages,
+    )
   }
   static _initializeYellowTowerButton() {
     const position: Position = { x: 180, y: 28 }
     const size: Size = { w: 83, h: 50 }
-    Hud.yellowTowerButton = new ButtonCheck(position, size)
+    const offsetImages: Position = { x: 45, y: 10 }
+    Hud.yellowTowerButton = new ButtonCheck(
+      position,
+      size,
+      Hud.towerYellowButtonImages,
+      offsetImages,
+    )
   }
 
   static _initializeTowerButtons() {
@@ -90,19 +126,37 @@ export class Hud {
   static _initializeMagicUFOButton() {
     const position: Position = { x: 498, y: 28 }
     const size: Size = { w: 118, h: 50 }
-    Hud.magicUFOButton = new Button(position, size)
+    const offsetImages: Position = { x: 44, y: 3 }
+    Hud.magicUFOButton = new Button(
+      position,
+      size,
+      Hud.magicUFOButtonImages,
+      offsetImages,
+    )
   }
 
   static _initializeMagicFireballButton() {
     const position: Position = { x: 616, y: 28 }
     const size: Size = { w: 78, h: 50 }
-    Hud.magicFireballButton = new Button(position, size)
+    const offsetImages: Position = { x: 20, y: 3 }
+    Hud.magicFireballButton = new Button(
+      position,
+      size,
+      Hud.magicFireballButtonImages,
+      offsetImages,
+    )
   }
 
   static _initializeMagicIceballButton() {
     const position: Position = { x: 692, y: 28 }
     const size: Size = { w: 103, h: 50 }
-    Hud.magicIceballButton = new Button(position, size)
+    const offsetImages: Position = { x: 33, y: 3 }
+    Hud.magicIceballButton = new Button(
+      position,
+      size,
+      Hud.magicIceballButtonImages,
+      offsetImages,
+    )
   }
 
   static _initializeMagicButtons() {
@@ -236,6 +290,8 @@ export class Hud {
         break
     }
 
+    Hud._drawMagicButtons()
+
     Hud.waveProgressBar.draw()
     Hud.bossProgressBar.draw()
 
@@ -259,23 +315,27 @@ export class Hud {
   }
 
   static _drawTowerIcons() {
-    let greenIconImgPos = Hud.ICON_GREEN_TOWER_OFF
-    let redIconImgPos = Hud.ICON_RED_TOWER_OFF
-    let yellowIconImgPos = Hud.ICON_YELLOW_TOWER_OFF
-
     if (Hud.canBuyTowerGreen) {
-      greenIconImgPos = Hud.ICON_GREEN_TOWER_ON
+      Hud.greenTowerButton.drawON()
+    } else {
+      Hud.greenTowerButton.drawOFF()
     }
     if (Hud.canBuyTowerRed) {
-      redIconImgPos = Hud.ICON_RED_TOWER_ON
+      Hud.redTowerButton.drawON()
+    } else {
+      Hud.redTowerButton.drawOFF()
     }
     if (Hud.canBuyTowerYellow) {
-      yellowIconImgPos = Hud.ICON_YELLOW_TOWER_ON
+      Hud.yellowTowerButton.drawON()
+    } else {
+      Hud.yellowTowerButton.drawOFF()
     }
+  }
 
-    P5.p5.image(Hud.hudIconImages[greenIconImgPos], 60, 38)
-    P5.p5.image(Hud.hudIconImages[redIconImgPos], 142, 38)
-    P5.p5.image(Hud.hudIconImages[yellowIconImgPos], 226, 38)
+  static _drawMagicButtons() {
+    Hud.magicUFOButton.drawON()
+    Hud.magicFireballButton.drawON()
+    Hud.magicIceballButton.drawON()
   }
 
   static _drawMoney() {

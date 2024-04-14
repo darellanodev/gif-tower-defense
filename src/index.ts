@@ -132,10 +132,18 @@ window.setup = () => {
   Player.gameMode = Player.GAME_TESTING_MODE
   Player.initialMoney = tileGenerator.initialMoney
 
-  Hud.initializeButtons()
-  Hud.setImages(Images.hudImages, Images.hudIconImages)
+  Hud.setImages(
+    Images.hudImages,
+    Images.towerGreenButtonImages,
+    Images.towerRedButtonImages,
+    Images.towerYellowButtonImages,
+    Images.magicUFOButtonImages,
+    Images.magicFireballButtonImages,
+    Images.magicIceballButtonImages,
+  )
   Hud.initializeWaveProgressBar()
   Hud.initializeBossProgressBar()
+  Hud.initializeButtons()
 }
 
 window.keyPressed = () => {
