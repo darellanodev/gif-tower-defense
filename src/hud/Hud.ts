@@ -216,9 +216,21 @@ export class Hud {
   }
 
   static _drawMagicButtons() {
-    Button.magicUFOButton.drawON()
-    Button.magicFireballButton.drawON()
-    Button.magicIceballButton.drawON()
+    if (MagicUFO.total > 0) {
+      Button.magicUFOButton.drawON()
+    } else {
+      Button.magicUFOButton.drawOFF()
+    }
+    if (MagicFireball.total > 0) {
+      Button.magicFireballButton.drawON()
+    } else {
+      Button.magicFireballButton.drawOFF()
+    }
+    if (MagicIceball.total > 0) {
+      Button.magicIceballButton.drawON()
+    } else {
+      Button.magicIceballButton.drawOFF()
+    }
   }
 
   static _drawMoney() {
