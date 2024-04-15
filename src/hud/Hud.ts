@@ -160,7 +160,7 @@ export class Hud {
     switch (Hud.mode) {
       case Hud.NORMAL:
         P5.p5.image(Hud.hudImages[Hud.NORMAL], 0, 0)
-        Hud._drawTowerIcons()
+        Hud._drawTowerButtons()
         Hud._drawSelectedItem()
         break
 
@@ -195,22 +195,10 @@ export class Hud {
     }
   }
 
-  static _drawTowerIcons() {
-    if (Hud.canBuyTowerGreen) {
-      ButtonTower.greenTowerButton.drawON()
-    } else {
-      ButtonTower.greenTowerButton.drawOFF()
-    }
-    if (Hud.canBuyTowerRed) {
-      ButtonTower.redTowerButton.drawON()
-    } else {
-      ButtonTower.redTowerButton.drawOFF()
-    }
-    if (Hud.canBuyTowerYellow) {
-      ButtonTower.yellowTowerButton.drawON()
-    } else {
-      ButtonTower.yellowTowerButton.drawOFF()
-    }
+  static _drawTowerButtons() {
+    ButtonTower.greenTowerButton.drawActive(Hud.canBuyTowerGreen)
+    ButtonTower.redTowerButton.drawActive(Hud.canBuyTowerRed)
+    ButtonTower.yellowTowerButton.drawActive(Hud.canBuyTowerYellow)
   }
 
   static _drawMagicButtons() {

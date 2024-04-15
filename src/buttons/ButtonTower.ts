@@ -21,6 +21,15 @@ export class ButtonTower extends Button {
   get isChecked() {
     return this.#isChecked
   }
+
+  drawActive(isActive: boolean) {
+    if (isActive) {
+      this.drawON()
+    } else {
+      this.drawOFF()
+    }
+  }
+
   static setImages(
     towerGreenButtonImages: Image[],
     towerRedButtonImages: Image[],
