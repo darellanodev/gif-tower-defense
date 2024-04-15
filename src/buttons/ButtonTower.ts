@@ -1,6 +1,7 @@
 import { Image } from 'p5'
 import { Button } from './Button'
 import { Position, Size } from '../utils/types'
+import { P5 } from '../utils/P5'
 
 export class ButtonTower extends Button {
   static greenTowerButton: ButtonTower
@@ -21,6 +22,16 @@ export class ButtonTower extends Button {
   get isChecked() {
     return this.#isChecked
   }
+  drawCheckRectangle() {
+    P5.p5.strokeWeight(3)
+    P5.p5.stroke(255, 204, 0)
+    P5.p5.noFill()
+    P5.p5.square(
+      this.position.x + this.offsetImages.x - 2,
+      this.position.y + this.offsetImages.y - 2,
+      36,
+    )
+  }
 
   drawActive(isActive: boolean) {
     if (isActive) {
@@ -28,8 +39,10 @@ export class ButtonTower extends Button {
     } else {
       this.drawOFF()
     }
+    if (this.#isChecked) {
+      this.drawCheckRectangle()
+    }
   }
-
   static setImages(
     towerGreenButtonImages: Image[],
     towerRedButtonImages: Image[],
@@ -55,7 +68,7 @@ export class ButtonTower extends Button {
   static _initializeRedTowerButton() {
     const position: Position = { x: 98, y: 28 }
     const size: Size = { w: 82, h: 50 }
-    const offsetImages: Position = { x: 42, y: 10 }
+    const offsetImages: Position = { x: 45, y: 10 }
     ButtonTower.redTowerButton = new ButtonTower(
       position,
       size,
@@ -66,7 +79,7 @@ export class ButtonTower extends Button {
   static _initializeYellowTowerButton() {
     const position: Position = { x: 180, y: 28 }
     const size: Size = { w: 83, h: 50 }
-    const offsetImages: Position = { x: 45, y: 10 }
+    const offsetImages: Position = { x: 47, y: 10 }
     ButtonTower.yellowTowerButton = new ButtonTower(
       position,
       size,
@@ -79,7 +92,7 @@ export class ButtonTower extends Button {
     ButtonTower._initializeTowerButtons()
   }
 
-  static unTowerAllTowerButtons() {
+  static uncheckAllTowerButtons() {
     ButtonTower.greenTowerButton.uncheck()
     ButtonTower.redTowerButton.uncheck()
     ButtonTower.yellowTowerButton.uncheck()
@@ -90,7 +103,7 @@ export class ButtonTower extends Button {
     ButtonTower._initializeRedTowerButton()
     ButtonTower._initializeYellowTowerButton()
 
-    ButtonTower.unTowerAllTowerButtons()
+    ButtonTower.uncheckAllTowerButtons()
     ButtonTower.greenTowerButton.check()
   }
 }

@@ -121,7 +121,7 @@ export class Hud {
   }
 
   static selectTower(towerId: number) {
-    ButtonTower.unTowerAllTowerButtons()
+    ButtonTower.uncheckAllTowerButtons()
     switch (towerId) {
       case TowerGreen.ID:
         ButtonTower.greenTowerButton.check()
@@ -161,7 +161,6 @@ export class Hud {
       case Hud.NORMAL:
         P5.p5.image(Hud.hudImages[Hud.NORMAL], 0, 0)
         Hud._drawTowerButtons()
-        Hud._drawSelectedItem()
         break
 
       case Hud.UPGRADING:
@@ -273,26 +272,6 @@ export class Hud {
     this._drawTowerGreenPrice()
     this._drawTowerRedPrice()
     this._drawTowerYellowPrice()
-  }
-
-  static _drawSelectedItem() {
-    P5.p5.strokeWeight(3)
-    P5.p5.stroke(255, 204, 0)
-    P5.p5.noFill()
-
-    switch (Hud.getSelectedTower()) {
-      case TowerGreen.ID:
-        P5.p5.square(57, 36, 37)
-        break
-
-      case TowerRed.ID:
-        P5.p5.square(140, 36, 37)
-        break
-
-      case TowerYellow.ID:
-        P5.p5.square(225, 36, 37)
-        break
-    }
   }
 
   static selectHudMode(tower: TowerType | null) {
