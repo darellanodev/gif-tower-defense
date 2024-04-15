@@ -354,6 +354,54 @@ export class Hud {
     }
   }
 
+  static _instantiateMagicFireball(
+    magicFireballImage: Image,
+    initialEnemiesPosition: Position,
+    orders: number[],
+  ) {
+    if (ButtonMagic.magicFireballButton.items === 0) {
+      return
+    }
+    ButtonMagic.magicFireballButton.removeItem()
+    MagicFireball.instantiate(
+      magicFireballImage,
+      initialEnemiesPosition,
+      orders,
+    )
+  }
+
+  static _instantiateMagicIceBall(
+    magicIceballImage: Image,
+    initialEnemiesPosition: Position,
+    orders: number[],
+  ) {
+    if (ButtonMagic.magicIceballButton.items === 0) {
+      return
+    }
+    ButtonMagic.magicIceballButton.removeItem()
+    MagicIceball.instantiate(
+      magicIceballImage,
+      { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
+      orders,
+    )
+  }
+
+  static _instantiateMagicUFO(
+    magicUFOImage: Image,
+    initialEnemiesPosition: Position,
+    orders: number[],
+  ) {
+    if (ButtonMagic.magicUFOButton.items === 0) {
+      return
+    }
+    ButtonMagic.magicUFOButton.removeItem()
+    MagicUFO.instantiate(
+      magicUFOImage,
+      { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
+      orders,
+    )
+  }
+
   static handleMagicButtons(
     mousePosition: Position,
     magicIceballImage: Image,
@@ -363,37 +411,21 @@ export class Hud {
     orders: number[],
   ) {
     if (ButtonMagic.magicFireballButton.isMouseOver(mousePosition)) {
-      if (ButtonMagic.magicFireballButton.items === 0) {
-        return
-      }
-      ButtonMagic.magicFireballButton.removeItem()
-      MagicFireball.instantiate(
+      Hud._instantiateMagicFireball(
         magicFireballImage,
         initialEnemiesPosition,
         orders,
       )
     }
     if (ButtonMagic.magicIceballButton.isMouseOver(mousePosition)) {
-      if (ButtonMagic.magicIceballButton.items === 0) {
-        return
-      }
-      ButtonMagic.magicIceballButton.removeItem()
-      MagicIceball.instantiate(
+      Hud._instantiateMagicIceBall(
         magicIceballImage,
-        { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
+        initialEnemiesPosition,
         orders,
       )
     }
     if (ButtonMagic.magicUFOButton.isMouseOver(mousePosition)) {
-      if (ButtonMagic.magicUFOButton.items === 0) {
-        return
-      }
-      ButtonMagic.magicUFOButton.removeItem()
-      MagicUFO.instantiate(
-        magicUFOImage,
-        { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
-        orders,
-      )
+      Hud._instantiateMagicUFO(magicUFOImage, initialEnemiesPosition, orders)
     }
   }
 

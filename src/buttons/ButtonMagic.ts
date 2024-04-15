@@ -16,7 +16,6 @@ export class ButtonMagic extends Button {
   static magicTotalFireballItems: number = 2
   static magicTotalIceballItems: number = 2
 
-  #isChecked: boolean = false
   #items: number
   #offsetItems: Position
 
@@ -39,16 +38,6 @@ export class ButtonMagic extends Button {
 
   get items() {
     return this.#items
-  }
-
-  check() {
-    this.#isChecked = true
-  }
-  uncheck() {
-    this.#isChecked = false
-  }
-  get isChecked() {
-    return this.#isChecked
   }
 
   draw() {
