@@ -33,6 +33,7 @@ export class Player {
     if (money < 0) {
       throw new Error('Money must be a positive number')
     }
+    Player._money = money
     if (Player._mode === this.GAME_TESTING_MODE) {
       Player._money = Player.MONEY_IN_TESTING_MODE
     }
@@ -67,13 +68,13 @@ export class Player {
 
     switch (towerId) {
       case TowerGreen.ID:
-        canBuy = TowerGreen.COST_UPGRADE[upgradeLevel] <= Player._money
+        canBuy = Player.money >= TowerGreen.COST_UPGRADE[upgradeLevel]
         break
       case TowerRed.ID:
-        canBuy = TowerRed.COST_UPGRADE[upgradeLevel] <= Player._money
+        canBuy = Player.money >= TowerRed.COST_UPGRADE[upgradeLevel]
         break
       case TowerYellow.ID:
-        canBuy = TowerYellow.COST_UPGRADE[upgradeLevel] <= Player._money
+        canBuy = Player.money >= TowerYellow.COST_UPGRADE[upgradeLevel]
         break
 
       default:

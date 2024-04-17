@@ -34,21 +34,21 @@ describe('haveMoneyToBuy', () => {
 
     const result = Player.haveMoneyToBuy(TowerGreen.ID, 0)
 
-    expect(result).toBeTruthy
+    expect(result).toBeTruthy()
   })
   test('when player has 30 of money and wants to buy a new green tower (cost 50), return false', () => {
     Player.initialMoney = 30
 
     const result = Player.haveMoneyToBuy(TowerGreen.ID, 0)
 
-    expect(result).toBeTruthy
+    expect(result).toBeFalsy()
   })
   test('when player has 150 of money and wants to upgrade a tower to level 1 (cost 75), return true', () => {
     Player.initialMoney = 150
 
     const result = Player.haveMoneyToBuy(TowerGreen.ID, 1)
 
-    expect(result).toBeTruthy
+    expect(result).toBeTruthy()
   })
 })
 describe('set initialMoney', () => {
@@ -70,6 +70,6 @@ describe('set initialMoney', () => {
 
 describe('isGameInTestingMode', () => {
   test('by default game is in normal mode, return false', () => {
-    expect(Player.isGameInTestingMode).toBeTruthy
+    expect(Player.isGameInTestingMode).toBeTruthy()
   })
 })
