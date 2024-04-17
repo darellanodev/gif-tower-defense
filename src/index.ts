@@ -23,8 +23,8 @@ import { Player } from './Player'
 import { Images } from './resources/Images'
 import { Missile } from './towers/Missile'
 import { P5 } from './utils/P5'
-import { ButtonTower } from './buttons/ButtonTower'
-import { ButtonMagic } from './buttons/ButtonMagic'
+import { ButtonTower } from './hud/ButtonTower'
+import { ButtonMagic } from './hud/ButtonMagic'
 
 let _p5: p5
 let gameStatus: number = 0

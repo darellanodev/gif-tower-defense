@@ -1,4 +1,4 @@
-import { ButtonMagic } from '../src/buttons/ButtonMagic'
+import { ButtonMagic } from '../src/hud/ButtonMagic'
 import { Hud } from '../src/hud/Hud'
 import { MagicUFO } from '../src/magics/MagicUFO'
 import { Position, Size } from '../src/utils/types'

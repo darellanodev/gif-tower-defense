@@ -1,4 +1,4 @@
-import { ButtonTower } from '../src/buttons/ButtonTower'
+import { ButtonTower } from '../src/hud/ButtonTower'
 import { Position, Size } from '../src/utils/types'
 
 test('isChecked, if clicked and the last status was unchecked, return true', () => {

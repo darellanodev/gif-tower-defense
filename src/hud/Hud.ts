@@ -12,8 +12,8 @@ import { Const } from '../constants/Const'
 import { Player } from '../Player'
 import { InfluenceArea } from '../towers/InfluenceArea'
 import { P5 } from '../utils/P5'
-import { ButtonTower } from '../buttons/ButtonTower'
-import { ButtonMagic } from '../buttons/ButtonMagic'
+import { ButtonTower } from './ButtonTower'
+import { ButtonMagic } from './ButtonMagic'
 
 export class Hud {
   static NORMAL = 0
