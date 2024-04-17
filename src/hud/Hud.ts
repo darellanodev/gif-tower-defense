@@ -1,4 +1,4 @@
-import { Position, TowerType } from '../utils/types'
+import { Position, Size, TowerType } from '../utils/types'
 import { TextProperties } from './TextProperties'
 import { ProgressBar } from './ProgressBar'
 import { Image } from 'p5'
@@ -14,6 +14,7 @@ import { InfluenceArea } from '../towers/InfluenceArea'
 import { P5 } from '../utils/P5'
 import { ButtonTower } from './ButtonTower'
 import { ButtonMagic } from './ButtonMagic'
+import { MathUtils } from '../utils/MathUtils'
 
 export class Hud {
   static NORMAL = 0
@@ -52,11 +53,15 @@ export class Hud {
   }
 
   static initializeWaveProgressBar() {
-    Hud.waveProgressBar = new ProgressBar({ x: 335, y: -19 }, { w: 150, h: 16 })
+    const position: Position = { x: 335, y: -19 }
+    const size: Size = { w: 150, h: 16 }
+    Hud.waveProgressBar = new ProgressBar(position, size)
   }
 
   static initializeBossProgressBar() {
-    Hud.bossProgressBar = new ProgressBar({ x: 335, y: -2 }, { w: 150, h: 10 })
+    const position: Position = { x: 335, y: -2 }
+    const size: Size = { w: 150, h: 10 }
+    Hud.bossProgressBar = new ProgressBar(position, size)
   }
 
   static updateWaveProgressBar() {
@@ -95,15 +100,14 @@ export class Hud {
   }
 
   static isInsideButtonsBar(position: Position) {
-    if (
-      position.x > 0 &&
-      position.x < 800 &&
-      position.y > 28 &&
-      position.y < 78
-    ) {
-      return true
-    }
-    return false
+    const ButtonsBarRectanglePosition = { x: 0, y: 28 }
+    const ButtonsBarRectangleSize = { w: 800, h: 50 }
+
+    return MathUtils.isPositionInsideRectangle(
+      position,
+      ButtonsBarRectanglePosition,
+      ButtonsBarRectangleSize,
+    )
   }
 
   static isInsideTowersButtonsBar(position: Position) {
@@ -216,8 +220,7 @@ export class Hud {
         P5.p5.fill('gray')
       }
       P5.p5.text(Hud.upgradeCost, 33, 72)
-      // restore color
-      P5.p5.fill('white')
+      Hud._restoreFill()
     }
   }
 
@@ -248,23 +251,24 @@ export class Hud {
       P5.p5.fill('gray')
     }
     P5.p5.text(TowerGreen.COST_UPGRADE[0], 40, 72)
-    // restore
-    P5.p5.fill('white')
+    Hud._restoreFill()
   }
   static _drawTowerRedPrice() {
     if (!Hud.canBuyTowerRed) {
       P5.p5.fill('gray')
     }
     P5.p5.text(TowerRed.COST_UPGRADE[0], 118, 72)
-    // restore
-    P5.p5.fill('white')
+    Hud._restoreFill()
   }
   static _drawTowerYellowPrice() {
     if (!Hud.canBuyTowerYellow) {
       P5.p5.fill('gray')
     }
     P5.p5.text(TowerYellow.COST_UPGRADE[0], 202, 72)
-    // restore
+    Hud._restoreFill()
+  }
+
+  static _restoreFill() {
     P5.p5.fill('white')
   }
 
