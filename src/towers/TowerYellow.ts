@@ -113,6 +113,9 @@ export class TowerYellow extends Tower {
   }
 
   selectAllExplosionsTargets() {
+    if (this.upgrading) {
+      return
+    }
     ExplosionEnemy.instances.forEach((xp) => {
       if (xp.particleSystem) {
         const particles = xp.particleSystem.particles

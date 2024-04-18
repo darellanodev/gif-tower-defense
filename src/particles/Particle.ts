@@ -39,6 +39,12 @@ export class Particle {
     this.display()
   }
 
+  #free() {
+    this.#captured = false
+    this.#color = this.#initialColor
+    this.#towerYellowTarget = null
+  }
+
   update() {
     if (!this.#captured) {
       this.#vec.add(this.#velocity)
@@ -47,11 +53,13 @@ export class Particle {
       if (!this.#towerYellowTarget) {
         return
       }
-      // free the particle when the player sells the yellow tower
-      if (!this.#towerYellowTarget.tileOrange.hasTower()) {
-        this.#captured = false
-        this.#color = this.#initialColor
+      const tower = this.#towerYellowTarget.tileOrange.getTower()
+      // free the particle when the player sells or upgrades the yellow tower
+      if (!tower || tower.upgrading) {
+        this.#free()
+        return
       }
+
       if (this.#capturedTime < Particle.CAPTURED_MAX_TIME) {
         this.#capturedTime++
       } else {
