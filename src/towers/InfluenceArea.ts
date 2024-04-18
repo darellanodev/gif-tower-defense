@@ -5,6 +5,8 @@ import { TowerYellow } from './TowerYellow'
 import { ConstColor } from '../constants/ConstColor'
 import { Const } from '../constants/Const'
 import { P5 } from '../utils/P5'
+import { Hud } from '../hud/Hud'
+import { Player } from '../Player'
 
 export class InfluenceArea {
   static ALPHA_FILL = 50
@@ -50,28 +52,20 @@ export class InfluenceArea {
     return influenceArea
   }
 
-  static drawNoTowerInfluenceArea(
-    hudTowerSelected: any,
-    position: Position,
-    canBuy: boolean,
-  ) {
-    P5.p5.strokeWeight(2)
-
-    if (canBuy) {
-      InfluenceArea._setInfluenceAreaColor(hudTowerSelected)
+  static drawNoTowerInfluenceArea(position: Position) {
+    if (Player.canBuyHudSelectedTower()) {
+      InfluenceArea._setInfluenceAreaColor(Hud.getSelectedTower())
     } else {
       InfluenceArea._setGrayInfluenceAreaColor()
     }
     InfluenceArea._drawCircle(
       position.x,
       position.y,
-      InfluenceArea._getInfluenceAreaFor(hudTowerSelected),
+      InfluenceArea._getInfluenceAreaFor(Hud.getSelectedTower()),
     )
   }
 
   static drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {
-    P5.p5.strokeWeight(2)
-
     const towerPosition = tower.position
 
     let x = towerPosition.x
@@ -90,6 +84,7 @@ export class InfluenceArea {
   }
 
   static _drawCircle(x: number, y: number, diameter: number) {
+    P5.p5.strokeWeight(2)
     P5.p5.circle(x + Const.TILE_SIZE / 2, y + Const.TILE_SIZE / 2, diameter)
   }
 }

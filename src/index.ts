@@ -207,12 +207,12 @@ window.draw = () => {
 
   if (Player.mouseTileOrangeOver !== null) {
     if (Player.mouseTileOrangeOver.hasTower()) {
-      Hud.drawOrangeTileWithTower()
+      Hud.drawMouseIsOverOrangeTileWithTower()
     } else {
-      Hud.drawOrangeTileWithoutTower()
+      Hud.drawMouseIsOverOrangeTileWithoutTower()
     }
   } else {
-    Hud.drawNoOrangeTile()
+    Hud.drawNormalHud()
   }
 
   Enemy.instances.forEach((enemy) => {

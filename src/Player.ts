@@ -113,6 +113,10 @@ export class Player {
     return canUpgrade
   }
 
+  static canBuyHudSelectedTower() {
+    return Player.canBuyNewTower(Hud.getSelectedTower())
+  }
+
   static keyPressed() {
     switch (P5.p5.keyCode) {
       case Const.KEY_1:

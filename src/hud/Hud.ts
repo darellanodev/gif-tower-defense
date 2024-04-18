@@ -400,7 +400,7 @@ export class Hud {
     }
   }
 
-  static drawOrangeTileWithTower() {
+  static drawMouseIsOverOrangeTileWithTower() {
     const playerMouseTileOrangeOver = Player.mouseTileOrangeOver
 
     if (!playerMouseTileOrangeOver) {
@@ -429,28 +429,17 @@ export class Hud {
     Hud.viewSellProfit(tileTower)
   }
 
-  static drawOrangeTileWithoutTower() {
-    const canBuySelectedTower = Player.canBuyNewTower(Hud.getSelectedTower())
-    const canBuyTowerGreen = Player.canBuyNewTower(TowerGreen.ID)
-    const canBuyTowerRed = Player.canBuyNewTower(TowerRed.ID)
-    const canBuyTowerYellow = Player.canBuyNewTower(TowerYellow.ID)
-
-    const playerMouseTileOrangeOver = Player.mouseTileOrangeOver
-    if (playerMouseTileOrangeOver) {
+  static drawMouseIsOverOrangeTileWithoutTower() {
+    if (Player.mouseTileOrangeOver) {
       InfluenceArea.drawNoTowerInfluenceArea(
-        Hud.getSelectedTower(),
-        playerMouseTileOrangeOver.getPosition(),
-        canBuySelectedTower,
+        Player.mouseTileOrangeOver.getPosition(),
       )
     }
 
-    Hud.mode = Hud.NORMAL
-    Hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)
-    Hud.hideUpgradeCost()
-    Hud.hideSellProfit()
+    Hud.drawNormalHud()
   }
 
-  static drawNoOrangeTile() {
+  static drawNormalHud() {
     const canBuyTowerGreen = Player.canBuyNewTower(TowerGreen.ID)
     const canBuyTowerRed = Player.canBuyNewTower(TowerRed.ID)
     const canBuyTowerYellow = Player.canBuyNewTower(TowerYellow.ID)
