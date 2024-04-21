@@ -27,22 +27,21 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [x] Use Parcel as bundler
 - [x] When the player upgrades a Yellow tower with enemy explosions particles captured the particles get free again
 - [x] Upgrade time depending on the upgrade level for red tower and yellow tower
-- [ ] When the player upgrades a yellow tower reset the progress bar of the yellow tower
-- [ ] Button hover effect
+- [x] When the player upgrades a yellow tower reset the progress bar of the yellow tower
+- [ ] Button hover effect in all buttons
 - [ ] Lives animation (+1 core icon, +2 core icon, ...)
-- [ ] Magic UFO go to the enemy closest to the end tile
+- [ ] The Magic UFO goes to the enemy that is closest to the end tile, captures the enemy, and goes to the start tile and drop the enemy.
 - [ ] Make the explosion balls with a face. The captured faces show a diferent icon with the mouth opened
+- [ ] Pause button
+- [ ] Speed button
+- [ ] Put the draw of the start tile and the end tile on top of the enemies (the red and the green gradiente effect)
 - [ ] Upload the build web version into my portfolio to allow play in web browser
-- [ ] Put the start tile and the end tile on top of the enemies
 
-- [ ] Tint freezed enemies with a white color and show ice particles
+- [ ] Tint freezed enemies with a white/blue color and show ice particles
 - [ ] Test other maps with different end tiles positions to implement (with tests) the remaining endings
 - [ ] Extract variables and functions from main.ts to Game class
 - [ ] Menu to allow the user to select a desired level to play. Replace old player names for other names
-- [ ] Simplify Typescript assignment params (this.zzz = zzz, <--- use the signature simplification using private in params)
 - [ ] HeatMap
-- [ ] Pause button
-- [ ] Speed button
 - [ ] Level editor
 
 - [ ] Bug: when Game Over towers continue increasing damage bar of enemies.
@@ -50,11 +49,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Bug: explosion enemy particles never goes down
 
 - [ ] Improve code
-  - [ ] apply when its possible SLA (single level of abstraction)
-  - [ ] Setters
-  - [ ] Private methods
-  - [ ] Public/Private properties
-  - [x] Subdirectories: towers, constants, tiles
+  - [ ] Apply SLA (single level of abstraction)
 
 ## Resources
 
