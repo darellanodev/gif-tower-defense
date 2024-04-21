@@ -19,7 +19,7 @@ export class TowerYellow extends Tower {
 
   static images: Image[]
 
-  #progressCoreBar: ProgressBar
+  #coreProgressBar: ProgressBar
   tileOrange: TileOrange
 
   static setImages(images: Image[]) {
@@ -38,7 +38,7 @@ export class TowerYellow extends Tower {
 
   constructor(position: Position, tileOrange: TileOrange) {
     super(position)
-    this.#progressCoreBar = new ProgressBar(
+    this.#coreProgressBar = new ProgressBar(
       {
         x: this.position.x,
         y: this.position.y - 11,
@@ -52,16 +52,16 @@ export class TowerYellow extends Tower {
     if (!this.upgrading) {
       this.upgrading = true
       this.upgradeLevel++
-      this.#progressCoreBar.reinitProgress()
+      this.#coreProgressBar.reinitProgress()
     }
   }
 
   increaseCoreProgress(increment: number) {
-    if (!this.#progressCoreBar.isFullOfProgress()) {
-      this.#progressCoreBar.increaseProgress(increment)
+    if (!this.#coreProgressBar.isFullOfProgress()) {
+      this.#coreProgressBar.increaseProgress(increment)
     } else {
       Player.increaseLives(this.upgradeLevel + 1)
-      this.#progressCoreBar.reinitProgress()
+      this.#coreProgressBar.reinitProgress()
     }
   }
 
@@ -73,14 +73,14 @@ export class TowerYellow extends Tower {
   }
 
   get coreProgressBarValue(): number {
-    return this.#progressCoreBar.progress
+    return this.#coreProgressBar.progress
   }
 
   draw() {
     if (this.upgrading) {
       this.#drawUpgrading()
     } else {
-      this.#progressCoreBar.draw()
+      this.#coreProgressBar.draw()
 
       P5.p5.image(
         TowerYellow.images[this.upgradeLevel],
