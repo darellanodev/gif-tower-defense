@@ -52,6 +52,7 @@ export class TowerYellow extends Tower {
     if (!this.upgrading) {
       this.upgrading = true
       this.upgradeLevel++
+      this.#progressCoreBar.reinitProgress()
     }
   }
 
@@ -69,6 +70,10 @@ export class TowerYellow extends Tower {
     if (!this.progressBar.isFullOfProgress()) {
       this.progressBar.draw()
     }
+  }
+
+  get coreProgressBarValue(): number {
+    return this.#progressCoreBar.progress
   }
 
   draw() {
