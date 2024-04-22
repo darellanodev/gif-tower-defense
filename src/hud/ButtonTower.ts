@@ -35,7 +35,14 @@ export class ButtonTower extends Button {
 
   drawActive(isActive: boolean) {
     if (isActive) {
-      this.drawON()
+      if (
+        this.isMouseOver({ x: P5.p5.mouseX, y: P5.p5.mouseY }) &&
+        !this.#isChecked
+      ) {
+        this.drawHover()
+      } else {
+        this.drawON()
+      }
     } else {
       this.drawOFF()
     }

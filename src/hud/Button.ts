@@ -6,6 +6,7 @@ import { MathUtils } from '../utils/MathUtils'
 export class Button {
   static INDEX_IMAGE_ON = 0
   static INDEX_IMAGE_OFF = 1
+  static INDEX_IMAGE_HOVER = 2
 
   position: Position
   size: Size
@@ -41,6 +42,13 @@ export class Button {
   drawOFF() {
     P5.p5.image(
       this.images[Button.INDEX_IMAGE_OFF],
+      this.position.x + this.offsetImages.x,
+      this.position.y + this.offsetImages.y,
+    )
+  }
+  drawHover() {
+    P5.p5.image(
+      this.images[Button.INDEX_IMAGE_HOVER],
       this.position.x + this.offsetImages.x,
       this.position.y + this.offsetImages.y,
     )
