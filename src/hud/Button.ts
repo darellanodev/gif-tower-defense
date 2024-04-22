@@ -1,6 +1,7 @@
 import { Image } from 'p5'
 import { Position, Size } from '../utils/types'
 import { P5 } from '../utils/P5'
+import { MathUtils } from '../utils/MathUtils'
 
 export class Button {
   static INDEX_IMAGE_ON = 0
@@ -46,23 +47,10 @@ export class Button {
   }
 
   isMouseOver(mousePosition: Position): boolean {
-    let insideX = false
-    let insideY = false
-    if (
-      mousePosition.x >= this.position.x &&
-      mousePosition.x <= this.position.x + this.size.w
-    ) {
-      insideX = true
-    }
-    if (
-      mousePosition.y >= this.position.y &&
-      mousePosition.y <= this.position.y + this.size.h
-    ) {
-      insideY = true
-    }
-    if (insideX && insideY) {
-      return true
-    }
-    return false
+    return MathUtils.isPositionInsideRectangle(
+      mousePosition,
+      this.position,
+      this.size,
+    )
   }
 }
