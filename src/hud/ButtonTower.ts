@@ -35,7 +35,7 @@ export class ButtonTower extends Button {
     )
   }
 
-  drawOFFHover() {
+  drawOffHover() {
     P5.p5.image(
       this.images[ButtonTower.INDEX_IMAGE_OFF_HOVER],
       this.position.x + this.offsetImages.x,
@@ -51,16 +51,16 @@ export class ButtonTower extends Button {
       ) {
         this.drawHover()
       } else {
-        this.drawON()
+        this.drawOn()
       }
     } else {
       if (
         this.isMouseOver({ x: P5.p5.mouseX, y: P5.p5.mouseY }) &&
         !this.#isChecked
       ) {
-        this.drawOFFHover()
+        this.drawOffHover()
       } else {
-        this.drawOFF()
+        this.drawOff()
       }
     }
     if (this.#isChecked) {

@@ -32,14 +32,14 @@ export class Button {
     )
   }
 
-  drawON() {
+  drawOn() {
     P5.p5.image(
       this.images[Button.INDEX_IMAGE_ON],
       this.position.x + this.offsetImages.x,
       this.position.y + this.offsetImages.y,
     )
   }
-  drawOFF() {
+  drawOff() {
     P5.p5.image(
       this.images[Button.INDEX_IMAGE_OFF],
       this.position.x + this.offsetImages.x,

@@ -45,10 +45,10 @@ export class ButtonMagic extends Button {
       if (this.isMouseOver({ x: P5.p5.mouseX, y: P5.p5.mouseY })) {
         this.drawHover()
       } else {
-        this.drawON()
+        this.drawOn()
       }
     } else {
-      this.drawOFF()
+      this.drawOff()
     }
     P5.p5.text(
       this.#items,
