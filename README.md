@@ -28,15 +28,18 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [x] When the player upgrades a Yellow tower with enemy explosions particles captured the particles get free again
 - [x] Upgrade time depending on the upgrade level for red tower and yellow tower
 - [x] When the player upgrades a yellow tower reset the progress bar of the yellow tower
-- [ ] Button hover effect in all buttons
+- [x] Button hover effect in tower buttons
+- [x] Button hover effect in magic buttons
+- [x] Button hover effect in gray tower buttons because the player can select a gray (off) tower
+- [ ] Sell tower and buy tower money animation badge
 - [ ] Lives animation (+1 core icon, +2 core icon, ...)
 - [ ] The Magic UFO goes to the enemy that is closest to the end tile, captures the enemy, and goes to the start tile and drop the enemy.
-- [ ] Make the explosion balls with a face. The captured faces show a diferent icon with the mouth opened
 - [ ] Pause button
 - [ ] Speed button
 - [ ] Put the draw of the start tile and the end tile on top of the enemies (the red and the green gradiente effect)
 - [ ] Upload the build web version into my portfolio to allow play in web browser
 
+- [ ] Make the explosion balls with a face. The captured faces show a diferent icon with the mouth opened
 - [ ] Tint freezed enemies with a white/blue color and show ice particles
 - [ ] Test other maps with different end tiles positions to implement (with tests) the remaining endings
 - [ ] Extract variables and functions from main.ts to Game class
