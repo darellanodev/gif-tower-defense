@@ -15,6 +15,8 @@ export class ButtonTower extends Button {
   static INDEX_IMAGE_OFF_HOVER = 3
 
   #isChecked: boolean = false
+  #isOn: boolean = false
+
   check() {
     this.#isChecked = true
   }
@@ -43,25 +45,36 @@ export class ButtonTower extends Button {
     )
   }
 
-  drawActive(isActive: boolean) {
-    if (isActive) {
-      if (
-        this.isMouseOver({ x: P5.p5.mouseX, y: P5.p5.mouseY }) &&
-        !this.#isChecked
-      ) {
-        this.drawHover()
-      } else {
-        this.drawOn()
-      }
+  set on(isOn: boolean) {
+    this.#isOn = isOn
+  }
+
+  get isMouseInsideAndNotChecked(): boolean {
+    return (
+      this.isMouseOver({ x: P5.p5.mouseX, y: P5.p5.mouseY }) && !this.#isChecked
+    )
+  }
+
+  _drawOn() {
+    if (this.isMouseInsideAndNotChecked) {
+      this.drawHover()
     } else {
-      if (
-        this.isMouseOver({ x: P5.p5.mouseX, y: P5.p5.mouseY }) &&
-        !this.#isChecked
-      ) {
-        this.drawOffHover()
-      } else {
-        this.drawOff()
-      }
+      this.drawOn()
+    }
+  }
+  _drawOff() {
+    if (this.isMouseInsideAndNotChecked) {
+      this.drawOffHover()
+    } else {
+      this.drawOff()
+    }
+  }
+
+  draw() {
+    if (this.#isOn) {
+      this._drawOn()
+    } else {
+      this._drawOff()
     }
     if (this.#isChecked) {
       this.drawCheckRectangle()

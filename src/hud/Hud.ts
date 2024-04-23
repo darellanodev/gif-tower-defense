@@ -199,9 +199,13 @@ export class Hud {
   }
 
   static _drawTowerButtons() {
-    ButtonTower.greenTowerButton.drawActive(Hud.canBuyTowerGreen)
-    ButtonTower.redTowerButton.drawActive(Hud.canBuyTowerRed)
-    ButtonTower.yellowTowerButton.drawActive(Hud.canBuyTowerYellow)
+    ButtonTower.greenTowerButton.on = Hud.canBuyTowerGreen
+    ButtonTower.redTowerButton.on = Hud.canBuyTowerRed
+    ButtonTower.yellowTowerButton.on = Hud.canBuyTowerYellow
+
+    ButtonTower.greenTowerButton.draw()
+    ButtonTower.redTowerButton.draw()
+    ButtonTower.yellowTowerButton.draw()
   }
 
   static _drawMagicButtons() {
