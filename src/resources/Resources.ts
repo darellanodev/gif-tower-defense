@@ -75,6 +75,7 @@ export class Resources {
       P5.p5.loadImage('../img/hud/btn_tower_green_on.png'),
       P5.p5.loadImage('../img/hud/btn_tower_green_off.png'),
       P5.p5.loadImage('../img/hud/btn_tower_green_hover.png'),
+      P5.p5.loadImage('../img/hud/btn_tower_green_off_hover.png'),
     ]
   }
 
@@ -83,6 +84,7 @@ export class Resources {
       P5.p5.loadImage('../img/hud/btn_tower_red_on.png'),
       P5.p5.loadImage('../img/hud/btn_tower_red_off.png'),
       P5.p5.loadImage('../img/hud/btn_tower_red_hover.png'),
+      P5.p5.loadImage('../img/hud/btn_tower_red_off_hover.png'),
     ]
   }
 
@@ -91,6 +93,7 @@ export class Resources {
       P5.p5.loadImage('../img/hud/btn_tower_yellow_on.png'),
       P5.p5.loadImage('../img/hud/btn_tower_yellow_off.png'),
       P5.p5.loadImage('../img/hud/btn_tower_yellow_hover.png'),
+      P5.p5.loadImage('../img/hud/btn_tower_yellow_off_hover.png'),
     ]
   }
 
