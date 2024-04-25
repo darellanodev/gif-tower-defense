@@ -7,6 +7,7 @@ import { TowerGreen } from '../towers/TowerGreen'
 import { TowerRed } from '../towers/TowerRed'
 import { TowerYellow } from '../towers/TowerYellow'
 import { P5 } from '../utils/P5'
+import { FlyIndicator } from '../hud/FlyIndicator'
 
 export class TileOrange extends Tile {
   static instances: TileOrange[] = []
@@ -24,6 +25,10 @@ export class TileOrange extends Tile {
 
     if (this.#tower) {
       profit = this.#tower.sellProfit
+
+      const profitText = `+${profit} $`
+      FlyIndicator.instantiateFlyIndicator(this.#tower.position, profitText)
+
       this.#tower = null
     }
     return profit
@@ -46,6 +51,8 @@ export class TileOrange extends Tile {
       this.#tower.upgrade()
     }
     if (this.#tower !== null) {
+      const costText = `-${this.#tower.cost} $`
+      FlyIndicator.instantiateFlyIndicator(this.#tower.position, costText)
       return this.#tower.cost
     }
     return null

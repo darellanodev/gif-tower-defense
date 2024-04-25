@@ -1,5 +1,6 @@
 import { P5 } from '../utils/P5'
 import { Position } from '../utils/types'
+import { TextProperties } from './TextProperties'
 
 export class FlyIndicator {
   static MAX_TIME_ALIVE: number = 100
@@ -27,8 +28,23 @@ export class FlyIndicator {
     return this.#position
   }
 
+  #setTextStyle() {
+    if (this.#text.charAt(0) == '-') {
+      TextProperties.setForBuyingFlyIndicator()
+    } else {
+      TextProperties.setForSellingFlyIndicator()
+    }
+  }
+
   draw() {
+    this.#setTextStyle()
     P5.p5.text(this.#text, this.#position.x, this.#position.y)
+  }
+
+  static drawInstances() {
+    FlyIndicator.instances.forEach((f) => {
+      f.draw()
+    })
   }
 
   update() {

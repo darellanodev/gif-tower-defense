@@ -25,6 +25,7 @@ import { Missile } from './towers/Missile'
 import { P5 } from './utils/P5'
 import { ButtonTower } from './hud/ButtonTower'
 import { ButtonMagic } from './hud/ButtonMagic'
+import { FlyIndicator } from './hud/FlyIndicator'
 
 let _p5: p5
 let gameStatus: number = 0
@@ -224,10 +225,12 @@ window.draw = () => {
   ExplosionEnemy.removeDeadInstances()
   ExplosionMagicFireball.removeDeadInstances()
   ExplosionMagicIceball.removeDeadInstances()
+  FlyIndicator.removeDeadInstances()
 
   ExplosionEnemy.updateInstances()
   ExplosionMagicFireball.updateInstances()
   ExplosionMagicIceball.updateInstances()
+  FlyIndicator.updateInstances()
 
   if (gameStatus === Const.GAME_STATUS_GAME_OVER) {
     TextProperties.setForBigCenteredTitle()
@@ -236,6 +239,7 @@ window.draw = () => {
 
   Missile.removeDeadInstances()
   Missile.drawInstances()
+  FlyIndicator.drawInstances()
 
   if (Player.isGameInTestingMode()) {
     Debug.showMouseCoordinates({ x: P5.p5.mouseX, y: P5.p5.mouseY })
