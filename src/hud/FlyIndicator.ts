@@ -7,7 +7,7 @@ export class FlyIndicator {
   static instances: FlyIndicator[] = []
 
   #position: Position
-  #isActive: boolean = true
+  #alive: boolean = true
   #aliveTime: number = 0
   #text: string = ''
   constructor(position: Position, text: string) {
@@ -15,14 +15,12 @@ export class FlyIndicator {
     this.#text = text
   }
 
-  static instantiateFlyIndicator(position: Position, text: string){
-    FlyIndicator.instances.push(
-      new FlyIndicator(position, text)
-    )
+  static instantiateFlyIndicator(position: Position, text: string) {
+    FlyIndicator.instances.push(new FlyIndicator(position, text))
   }
 
-  get isActive() {
-    return this.#isActive
+  get alive() {
+    return this.#alive
   }
 
   get position(): Position {
@@ -36,10 +34,22 @@ export class FlyIndicator {
   update() {
     this.#aliveTime++
     if (this.#aliveTime > FlyIndicator.MAX_TIME_ALIVE) {
-      this.#isActive = false
+      this.#alive = false
     } else {
       const newY = this.#position.y - FlyIndicator.MOVE_INCREMENT
       this.#position = { x: this.#position.x, y: newY }
     }
+  }
+
+  static removeDeadInstances() {
+    FlyIndicator.instances = FlyIndicator.instances.filter(
+      (flyIndicator) => flyIndicator.alive,
+    )
+  }
+
+  static updateInstances() {
+    FlyIndicator.instances.forEach((flyIndicator) => {
+      flyIndicator.update()
+    })
   }
 }
