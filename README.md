@@ -24,14 +24,6 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ### Next tasks
 
-- [x] Use Parcel as bundler
-- [x] When the player upgrades a Yellow tower with enemy explosions particles captured the particles get free again
-- [x] Upgrade time depending on the upgrade level for red tower and yellow tower
-- [x] When the player upgrades a yellow tower reset the progress bar of the yellow tower
-- [x] Button hover effect in tower buttons
-- [x] Button hover effect in magic buttons
-- [x] Button hover effect in gray tower buttons because the player can select a gray (off) tower
-- [ ] Sell tower and buy tower money animation badge
 - [ ] Lives animation (+1 core icon, +2 core icon, ...)
 - [ ] The Magic UFO goes to the enemy that is closest to the end tile, captures the enemy, and goes to the start tile and drop the enemy.
 - [ ] Pause button
