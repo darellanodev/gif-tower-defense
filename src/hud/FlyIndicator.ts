@@ -3,7 +3,8 @@ import { Position } from '../utils/types'
 
 export class FlyIndicator {
   static MAX_TIME_ALIVE: number = 100
-  static MOVE_INCREMENT: number = 1
+  static MOVE_INCREMENT: number = 0.5
+  static instances: FlyIndicator[] = []
 
   #position: Position
   #isActive: boolean = true
@@ -12,6 +13,12 @@ export class FlyIndicator {
   constructor(position: Position, text: string) {
     this.#position = { ...position }
     this.#text = text
+  }
+
+  static instantiateFlyIndicator(position: Position, text: string){
+    FlyIndicator.instances.push(
+      new FlyIndicator(position, text)
+    )
   }
 
   get isActive() {

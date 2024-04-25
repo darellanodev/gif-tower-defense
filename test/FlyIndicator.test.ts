@@ -1,40 +1,41 @@
 import { FlyIndicator } from '../src/hud/FlyIndicator'
 import { Position } from '../src/utils/types'
 
-const flyIndicatorText: string = ''
+const instantiateFlyIndicator = () => {
+  const position: Position = { x: 100, y: 200 }
+  const text: string = ''
+
+  FlyIndicator.instances = []
+  FlyIndicator.instantiateFlyIndicator(position, text)
+}
 
 describe('isActive', () => {
   test('when FlyIndicator is recently created, return true', () => {
-    const initialPosition: Position = { x: 100, y: 200 }
+    instantiateFlyIndicator()
 
-    const flyIndicator = new FlyIndicator(initialPosition, flyIndicatorText)
-
-    const result = flyIndicator.isActive
+    const result = FlyIndicator.instances[0].isActive
 
     expect(result).toBeTruthy()
   })
   test('when FlyIndicator is recently created and updated MAX_TIME_ALIVE + 1 times, return false', () => {
-    const initialPosition: Position = { x: 100, y: 200 }
-
-    const flyIndicator = new FlyIndicator(initialPosition, flyIndicatorText)
+    instantiateFlyIndicator()
     const updateTimes = FlyIndicator.MAX_TIME_ALIVE + 1
     for (let i = 0; i < updateTimes; i++) {
-      flyIndicator.update()
+      FlyIndicator.instances[0].update()
     }
 
-    const result = flyIndicator.isActive
+    const result = FlyIndicator.instances[0].isActive
     expect(result).toBeFalsy()
   })
 })
 
 test('get position, when FlyIndicator is recently created and updated one time, position.y is < than initial position.y', () => {
-  const initialPosition: Position = { x: 100, y: 200 }
+  instantiateFlyIndicator()
+  const initialPosition = FlyIndicator.instances[0].position
+  FlyIndicator.instances[0].update()
 
-  const flyIndicator = new FlyIndicator(initialPosition, flyIndicatorText)
-  flyIndicator.update()
+  const newPosition = FlyIndicator.instances[0].position
 
-  const position = flyIndicator.position
-
-  const result = position.y < initialPosition.y
+  const result = initialPosition.y > newPosition.y
   expect(result).toBeTruthy()
 })
