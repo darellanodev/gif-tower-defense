@@ -24,7 +24,8 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ### Next tasks
 
-- [ ] Lives animation (+1 core icon, +2 core icon, ...)
+- [x] Lives animation (+1 core icon, +2 core icon, ...)
+- [x] Bug: when a tower is upgrading do not allow buy a tower
 - [ ] The Magic UFO goes to the enemy that is closest to the end tile, captures the enemy, and goes to the start tile and drop the enemy.
 - [ ] Pause button
 - [ ] Speed button
