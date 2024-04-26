@@ -34,23 +34,36 @@ export class TileOrange extends Tile {
     return profit
   }
 
-  buyTower(towerId: number) {
-    if (this.#tower === null) {
-      switch (towerId) {
-        case TowerGreen.ID:
-          this.#tower = TowerGreen.instantiate(this.position)
-          break
-        case TowerRed.ID:
-          this.#tower = TowerRed.instantiate(this.position)
-          break
-        case TowerYellow.ID:
-          this.#tower = TowerYellow.instantiate(this.position, this)
-          break
-      }
-    } else {
-      this.#tower.upgrade()
+  _instantiateNewTower(towerId: number) {
+    switch (towerId) {
+      case TowerGreen.ID:
+        this.#tower = TowerGreen.instantiate(this.position)
+        break
+      case TowerRed.ID:
+        this.#tower = TowerRed.instantiate(this.position)
+        break
+      case TowerYellow.ID:
+        this.#tower = TowerYellow.instantiate(this.position, this)
+        break
     }
-    if (this.#tower !== null) {
+  }
+
+  _instantiateOrUpgradeTower(towerId: number): boolean {
+    if (this.#tower === null) {
+      this._instantiateNewTower(towerId)
+      return true
+    } else {
+      if (this.#tower.notUpgrading) {
+        this.#tower.upgrade()
+        return true
+      }
+    }
+    return false
+  }
+
+  buyTower(towerId: number) {
+    const buyTowerSuccess = this._instantiateOrUpgradeTower(towerId)
+    if (buyTowerSuccess && this.#tower) {
       const costText = `-${this.#tower.cost} $`
       FlyIndicator.instantiateFlyIndicator(this.#tower.position, costText)
       return this.#tower.cost

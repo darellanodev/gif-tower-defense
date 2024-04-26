@@ -27,10 +27,8 @@ export class TowerGreen extends Tower {
   }
 
   upgrade() {
-    if (!this.upgrading) {
-      this.upgrading = true
-      this.upgradeLevel++
-    }
+    this.upgrading = true
+    this.upgradeLevel++
   }
 
   #drawShotToEnemy() {
