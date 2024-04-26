@@ -125,6 +125,10 @@ export class Resources {
     return P5.p5.loadImage('../img/backgrounds/ground.jpg')
   }
 
+  static coreImage() {
+    return P5.p5.loadImage('../img/hud/core.png')
+  }
+
   static magicFireball() {
     return P5.p5.loadImage('../img/magics/fireball.png')
   }

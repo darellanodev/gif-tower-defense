@@ -9,6 +9,8 @@ import { ProgressBar } from '../hud/ProgressBar'
 import { Player } from '../Player'
 import { TileOrange } from '../tiles/TileOrange'
 import { P5 } from '../utils/P5'
+import { FlyIndicator } from '../hud/FlyIndicator'
+import { Images } from '../resources/Images'
 
 export class TowerYellow extends Tower {
   static ID = 3
@@ -60,8 +62,16 @@ export class TowerYellow extends Tower {
     if (!this.#coreProgressBar.isFullOfProgress()) {
       this.#coreProgressBar.increaseProgress(increment)
     } else {
-      Player.increaseLives(this.upgradeLevel + 1)
+      const incrementLives = this.upgradeLevel + 1
+      Player.increaseLives(incrementLives)
       this.#coreProgressBar.reinitProgress()
+
+      const flyIndicatorText = `+ ${incrementLives}`
+      FlyIndicator.instantiateFlyIndicator(
+        this.position,
+        flyIndicatorText,
+        Images.coreImage,
+      )
     }
   }
 
