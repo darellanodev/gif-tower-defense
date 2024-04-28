@@ -189,7 +189,9 @@ export class Hud {
     Hud._drawScore()
     Hud._drawLevelTitle()
     Hud._drawWave()
-    Hud._drawUpgradeCost()
+    if (Hud.mode != Hud.UPGRADING_MAX) {
+      Hud._drawUpgradeCost()
+    }
     Hud._drawSellProfit()
     Hud._drawMagicButtons()
 
