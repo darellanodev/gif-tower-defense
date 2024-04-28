@@ -4,6 +4,7 @@ import { ConstColor } from '../constants/ConstColor'
 import { Const } from '../constants/Const'
 import { Tower } from './Tower'
 import { P5 } from '../utils/P5'
+import { TileOrange } from '../tiles/TileOrange'
 
 export class TowerGreen extends Tower {
   static ID = 1
@@ -19,16 +20,14 @@ export class TowerGreen extends Tower {
     TowerGreen.images = images
   }
 
-  static instantiate(position: Position) {
-    return new TowerGreen({
-      x: position.x - Const.TOWER_OFFSET,
-      y: position.y - Const.TOWER_OFFSET,
-    })
-  }
-
-  upgrade() {
-    this.upgrading = true
-    this.upgradeLevel++
+  static instantiate(position: Position, tileOrange: TileOrange) {
+    return new TowerGreen(
+      {
+        x: position.x - Const.TOWER_OFFSET,
+        y: position.y - Const.TOWER_OFFSET,
+      },
+      tileOrange,
+    )
   }
 
   #drawShotToEnemy() {

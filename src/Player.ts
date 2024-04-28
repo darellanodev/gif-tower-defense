@@ -1,13 +1,14 @@
 import { TowerGreen } from './towers/TowerGreen'
 import { TowerRed } from './towers/TowerRed'
 import { TowerYellow } from './towers/TowerYellow'
-import { TowerType } from './utils/types'
 import { Const } from './constants/Const'
 import { Hud } from './hud/Hud'
 import { Image } from 'p5'
 import { Position } from './utils/types'
 import { TileOrange } from './tiles/TileOrange'
 import { P5 } from './utils/P5'
+import { Tower } from './towers/Tower'
+import { FlyIndicator } from './hud/FlyIndicator'
 
 export class Player {
   static GAME_NORMAL_MODE = 0
@@ -63,7 +64,7 @@ export class Player {
     Player._money -= cost
   }
 
-  static haveMoneyToBuy(towerId: number, upgradeLevel: number) {
+  static haveMoneyToUpgradeTower(towerId: number, upgradeLevel: number) {
     let canBuy = false
 
     switch (towerId) {
@@ -84,37 +85,9 @@ export class Player {
     return canBuy
   }
 
-  static canBuyNewTower(hudSelectedTower: number) {
-    let canBuy = false
-    const zeroUpgradeLevel = 0
-    if (Player.haveMoneyToBuy(hudSelectedTower, zeroUpgradeLevel)) {
-      canBuy = true
-    }
-    return canBuy
-  }
-
-  static canBuyTower(tower: TowerType | null) {
-    let result = false
-    if (tower) {
-      result = Player.canUpgradeTower(tower)
-    } else {
-      result = Player.canBuyNewTower(Hud.getSelectedTower())
-    }
-    return result
-  }
-
-  static canUpgradeTower(tower: TowerType) {
-    let canUpgrade = false
-    if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
-      if (Player.haveMoneyToBuy(tower.type, tower.upgradeLevel + 1)) {
-        canUpgrade = true
-      }
-    }
-    return canUpgrade
-  }
-
-  static canBuyHudSelectedTower() {
-    return Player.canBuyNewTower(Hud.getSelectedTower())
+  static haveMoneyToBuyNewTower(towerId: number) {
+    const upgradeLevel = 0
+    return Player.haveMoneyToUpgradeTower(towerId, upgradeLevel)
   }
 
   static keyPressed() {
@@ -161,34 +134,73 @@ export class Player {
     }
 
     if (mouseTileOrangeOver !== null) {
-      if (P5.p5.mouseButton === P5.p5.RIGHT && mouseTileOrangeOver.hasTower()) {
-        const tower = mouseTileOrangeOver.getTower()
-        if (tower) {
-          if (tower.notUpgrading) {
-            Player.sellTower(mouseTileOrangeOver)
-          }
-        }
-      }
+      Player.clicOrangeTile(mouseTileOrangeOver)
+    }
+  }
 
-      if (P5.p5.mouseButton === P5.p5.LEFT) {
+  static clicOrangeTile(mouseTileOrangeOver: TileOrange) {
+    const tower = mouseTileOrangeOver.getTower()
+
+    if (P5.p5.mouseButton === P5.p5.RIGHT && tower) {
+      Player.sellTower(tower)
+    }
+
+    if (P5.p5.mouseButton === P5.p5.LEFT) {
+      if (tower) {
+        Player.upgradeTower(tower)
+      } else {
         Player.buyTower(mouseTileOrangeOver)
       }
     }
   }
 
-  static sellTower(mouseTileOrangeOver: TileOrange) {
-    const profit = mouseTileOrangeOver.sellTower()
+  static sellTower(tower: Tower) {
+    if (tower.upgrading) {
+      return
+    }
+    const profit = tower.sellProfit
     Player.increaseMoney(profit)
+
+    const profitText = `+${profit} $`
+    FlyIndicator.instantiateFlyIndicator(tower.position, profitText)
+
+    tower.tileOrange.removeTower()
+  }
+
+  static upgradeTower(tower: Tower) {
+    if (tower.isMaxUpgraded) {
+      return
+    }
+    if (!Player.haveMoneyToUpgradeTower(tower.type, tower.upgradeLevel + 1)) {
+      return
+    }
+    if (tower.upgrading) {
+      return
+    }
+
+    tower.upgrade()
+
+    const cost = tower.cost
+    const costText = `-${cost} $`
+    FlyIndicator.instantiateFlyIndicator(tower.position, costText)
   }
 
   static buyTower(mouseTileOrangeOver: TileOrange) {
+    if (!Player.haveMoneyToBuyNewTower(Hud.getSelectedTower())) {
+      return
+    }
+
+    mouseTileOrangeOver.instantiateNewTower(Hud.getSelectedTower())
     const tower = mouseTileOrangeOver.getTower()
 
-    if (Player.canBuyTower(tower)) {
-      const cost = mouseTileOrangeOver.buyTower(Hud.getSelectedTower())
-      if (cost) {
-        Player.decreaseMoney(cost)
-      }
+    if (!tower) {
+      return
     }
+
+    const cost = tower.cost
+    Player.decreaseMoney(cost)
+
+    const costText = `-${cost} $`
+    FlyIndicator.instantiateFlyIndicator(tower.position, costText)
   }
 }

@@ -5,19 +5,24 @@ import { TowerRed } from '../src/towers/TowerRed'
 import { TowerYellow } from '../src/towers/TowerYellow'
 import { Position, TowerType } from '../src/utils/types'
 
-const instantiateGreenTower = () => {
-  const position: Position = { x: 10, y: 20 }
-  return TowerGreen.instantiate(position)
-}
-const instantiateRedTower = () => {
-  const position: Position = { x: 10, y: 20 }
-  return TowerRed.instantiate(position)
-}
-const instantiateYellowTower = () => {
+const instantiateOrangeTile = () => {
   const img: any = null
   const OrangeTilePosition: Position = { x: 100, y: 200 }
-  const orangeTile = new TileOrange(img, OrangeTilePosition)
+  return new TileOrange(img, OrangeTilePosition)
+}
 
+const instantiateGreenTower = () => {
+  const orangeTile = instantiateOrangeTile()
+  const position: Position = { x: 10, y: 20 }
+  return TowerGreen.instantiate(position, orangeTile)
+}
+const instantiateRedTower = () => {
+  const orangeTile = instantiateOrangeTile()
+  const position: Position = { x: 10, y: 20 }
+  return TowerRed.instantiate(position, orangeTile)
+}
+const instantiateYellowTower = () => {
+  const orangeTile = instantiateOrangeTile()
   const towerYellowPosition: Position = { x: 10, y: 20 }
   return TowerYellow.instantiate(towerYellowPosition, orangeTile)
 }

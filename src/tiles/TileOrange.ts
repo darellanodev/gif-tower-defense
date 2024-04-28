@@ -20,27 +20,17 @@ export class TileOrange extends Tile {
     this.#img = img
   }
 
-  sellTower() {
-    let profit = 0
-
-    if (this.#tower) {
-      profit = this.#tower.sellProfit
-
-      const profitText = `+${profit} $`
-      FlyIndicator.instantiateFlyIndicator(this.#tower.position, profitText)
-
-      this.#tower = null
-    }
-    return profit
+  removeTower() {
+    this.#tower = null
   }
 
-  _instantiateNewTower(towerId: number) {
+  instantiateNewTower(towerId: number) {
     switch (towerId) {
       case TowerGreen.ID:
-        this.#tower = TowerGreen.instantiate(this.position)
+        this.#tower = TowerGreen.instantiate(this.position, this)
         break
       case TowerRed.ID:
-        this.#tower = TowerRed.instantiate(this.position)
+        this.#tower = TowerRed.instantiate(this.position, this)
         break
       case TowerYellow.ID:
         this.#tower = TowerYellow.instantiate(this.position, this)
@@ -48,47 +38,19 @@ export class TileOrange extends Tile {
     }
   }
 
-  _instantiateOrUpgradeTower(towerId: number): boolean {
-    if (this.#tower === null) {
-      this._instantiateNewTower(towerId)
-      return true
-    } else {
-      if (this.#tower.notUpgrading) {
-        this.#tower.upgrade()
-        return true
-      }
-    }
-    return false
-  }
-
-  buyTower(towerId: number) {
-    const buyTowerSuccess = this._instantiateOrUpgradeTower(towerId)
-    if (buyTowerSuccess && this.#tower) {
-      const costText = `-${this.#tower.cost} $`
-      FlyIndicator.instantiateFlyIndicator(this.#tower.position, costText)
-      return this.#tower.cost
-    }
-    return null
-  }
-
-  _upgradeTower() {
-    if (this.#tower) {
-      this.#tower.upgrade()
-    }
-  }
-
   drawTile() {
     P5.p5.image(this.#img, this.position.x, this.position.y)
+  }
+
+  drawTower() {
+    if (this.#tower) {
+      this.#tower.draw()
+    }
   }
 
   updateTower() {
     if (this.#tower) {
       this.#tower.update()
-    }
-  }
-  drawTower() {
-    if (this.#tower) {
-      this.#tower.draw()
     }
   }
 

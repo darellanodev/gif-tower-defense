@@ -4,6 +4,7 @@ import { ProgressBar } from '../hud/ProgressBar'
 import { Enemy } from '../enemies/Enemy'
 import { MathUtils } from '../utils/MathUtils'
 import { P5 } from '../utils/P5'
+import { TileOrange } from '../tiles/TileOrange'
 
 export class Tower {
   static OFFSET_X: number = 3
@@ -17,11 +18,12 @@ export class Tower {
   progressBar: ProgressBar
   upgradeProgress: number = 0
   delayUpgradeProgress: number = 0
+  tileOrange: TileOrange
 
   enemyTarget: Enemy | null = null
   distanceToEnemyTarget: number = 0
 
-  constructor(position: Position) {
+  constructor(position: Position, tileOrange: TileOrange) {
     this.position = { ...position }
 
     this.progressBar = new ProgressBar(
@@ -31,22 +33,33 @@ export class Tower {
       },
       { w: ProgressBar.WIDTH, h: ProgressBar.HEIGHT },
     )
+    this.tileOrange = tileOrange
+  }
+
+  upgrade() {
+    this.upgrading = true
+    this.upgradeLevel++
   }
 
   get notUpgrading() {
     return !this.upgrading
   }
 
+  get sellProfit() {
+    // this method is overriden by child classes
+    return 0
+  }
+
   get isMaxUpgraded() {
     return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL
   }
 
-  getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number): number | null {
+  getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number): number {
     // To implement in child export classes
-    return null
+    return 0
   }
 
-  get cost() {
+  get cost(): number {
     return this.getCostWhenUpgradeLevelIs(this.upgradeLevel)
   }
 
@@ -110,6 +123,11 @@ export class Tower {
         }
       }
     }
+  }
+
+  get type() {
+    // this method is overriden by child classes
+    return 0
   }
 
   _drawUpgradeBackground(color: RGBType, offset: number) {

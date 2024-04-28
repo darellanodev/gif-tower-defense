@@ -22,7 +22,6 @@ export class TowerYellow extends Tower {
   static images: Image[]
 
   #coreProgressBar: ProgressBar
-  tileOrange: TileOrange
 
   static setImages(images: Image[]) {
     TowerYellow.images = images
@@ -39,7 +38,7 @@ export class TowerYellow extends Tower {
   }
 
   constructor(position: Position, tileOrange: TileOrange) {
-    super(position)
+    super(position, tileOrange)
     this.#coreProgressBar = new ProgressBar(
       {
         x: this.position.x,
@@ -47,7 +46,6 @@ export class TowerYellow extends Tower {
       },
       { w: Const.TILE_SIZE - 13, h: Const.TILE_SIZE - 10 },
     )
-    this.tileOrange = tileOrange
   }
 
   upgrade() {

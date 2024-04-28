@@ -53,7 +53,7 @@ export class InfluenceArea {
   }
 
   static drawNoTowerInfluenceArea(position: Position) {
-    if (Player.canBuyHudSelectedTower()) {
+    if (Player.haveMoneyToBuyNewTower(Hud.getSelectedTower())) {
       InfluenceArea._setInfluenceAreaColor(Hud.getSelectedTower())
     } else {
       InfluenceArea._setGrayInfluenceAreaColor()

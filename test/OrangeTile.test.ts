@@ -1,6 +1,35 @@
+import { Player } from '../src/Player'
+import { ButtonTower } from '../src/hud/ButtonTower'
+import { Hud } from '../src/hud/Hud'
 import { TileOrange } from '../src/tiles/TileOrange'
+import { Tower } from '../src/towers/Tower'
 import { TowerGreen } from '../src/towers/TowerGreen'
-import { Position } from '../src/utils/types'
+import { Position, TowerType } from '../src/utils/types'
+
+const initializeButtonTower = () => {
+  const BtnTowerGreenImages: any[] = [null, null, null]
+  const BtnTowerRedImages: any[] = [null, null, null]
+  const BtnTowerYellowImages: any[] = [null, null, null]
+  ButtonTower.setImages(
+    BtnTowerGreenImages,
+    BtnTowerRedImages,
+    BtnTowerYellowImages,
+  )
+  ButtonTower.initializeButtons()
+}
+
+const initializeOrangeTile = () => {
+  const img: any = null
+  const position: Position = { x: 100, y: 100 }
+  return new TileOrange(img, position)
+}
+
+const buyGreenTower = (orangeTile: TileOrange) => {
+  initializeButtonTower()
+  Hud.selectTower(TowerGreen.ID)
+  Player.buyTower(orangeTile)
+  return orangeTile.getTower()
+}
 
 describe('isInside', () => {
   test('If mouse is inside, return true', () => {
@@ -26,28 +55,25 @@ describe('isInside', () => {
 
 describe('hasTower', () => {
   test('after buy a tower, return true', () => {
-    const img: any = null
-    const position: Position = { x: 100, y: 100 }
-    const orangeTile = new TileOrange(img, position)
+    Player.initialMoney = 100
+    const orangeTile = initializeOrangeTile()
+    const tower = buyGreenTower(orangeTile)
 
-    const cost = orangeTile.buyTower(TowerGreen.ID)
-    const result = orangeTile.hasTower()
-
-    expect(result).toBeTruthy()
+    expect(orangeTile.hasTower()).toBeTruthy()
   })
 })
 
 describe('sell tower', () => {
-  test('after buy a new tower, return selling profit (30)', () => {
-    const expected = 30
+  test('when player has 100 of money after buy a new tower of cost of 50 , return selling profit 30 so player has 80 of money', () => {
+    Player.initialMoney = 100
+    const orangeTile = initializeOrangeTile()
+    const tower = buyGreenTower(orangeTile)
 
-    const img: any = null
-    const position: Position = { x: 100, y: 100 }
-    const orangeTile = new TileOrange(img, position)
+    if (tower) {
+      Player.sellTower(tower)
+    }
 
-    const cost = orangeTile.buyTower(TowerGreen.ID)
-    const result = orangeTile.sellTower()
-
-    expect(result).toBe(expected)
+    const expected = 80
+    expect(Player.money).toBe(expected)
   })
 })

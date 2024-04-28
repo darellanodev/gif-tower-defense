@@ -420,7 +420,7 @@ export class Hud {
     }
 
     if (!tileTower.isMaxUpgraded) {
-      const canUpgrade = Player.haveMoneyToBuy(
+      const canUpgrade = Player.haveMoneyToUpgradeTower(
         tileTower.type,
         tileTower.upgradeLevel + 1,
       )
@@ -444,9 +444,9 @@ export class Hud {
   }
 
   static drawNormalHud() {
-    const canBuyTowerGreen = Player.canBuyNewTower(TowerGreen.ID)
-    const canBuyTowerRed = Player.canBuyNewTower(TowerRed.ID)
-    const canBuyTowerYellow = Player.canBuyNewTower(TowerYellow.ID)
+    const canBuyTowerGreen = Player.haveMoneyToBuyNewTower(TowerGreen.ID)
+    const canBuyTowerRed = Player.haveMoneyToBuyNewTower(TowerRed.ID)
+    const canBuyTowerYellow = Player.haveMoneyToBuyNewTower(TowerYellow.ID)
 
     Hud.mode = Hud.NORMAL
     Hud.setCanBuy(canBuyTowerGreen, canBuyTowerRed, canBuyTowerYellow)

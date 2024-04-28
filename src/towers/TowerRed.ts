@@ -5,6 +5,7 @@ import { Const } from '../constants/Const'
 import { Tower } from './Tower'
 import { Missile } from './Missile'
 import { P5 } from '../utils/P5'
+import { TileOrange } from '../tiles/TileOrange'
 
 export class TowerRed extends Tower {
   static ID = 2
@@ -21,18 +22,14 @@ export class TowerRed extends Tower {
     TowerRed.images = images
   }
 
-  static instantiate(position: Position) {
-    return new TowerRed({
-      x: position.x - Const.TOWER_OFFSET,
-      y: position.y - Const.TOWER_OFFSET,
-    })
-  }
-
-  upgrade() {
-    if (!this.upgrading) {
-      this.upgrading = true
-      this.upgradeLevel++
-    }
+  static instantiate(position: Position, tileOrange: TileOrange) {
+    return new TowerRed(
+      {
+        x: position.x - Const.TOWER_OFFSET,
+        y: position.y - Const.TOWER_OFFSET,
+      },
+      tileOrange,
+    )
   }
 
   #drawUpgrading() {
