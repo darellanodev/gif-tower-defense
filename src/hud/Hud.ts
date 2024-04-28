@@ -306,7 +306,7 @@ export class Hud {
 
   static viewSellProfit(tower: TowerType) {
     Hud.sellProfit = null
-    if (Hud.mode === Hud.UPGRADING) {
+    if (Hud.mode === Hud.UPGRADING || Hud.mode === Hud.UPGRADING_MAX) {
       Hud.sellProfit = tower.sellProfit
     }
   }
