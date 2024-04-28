@@ -289,10 +289,10 @@ export class Hud {
       return
     }
 
-    if (tower.upgradeLevel < Const.UPGRADE_MAX_LEVEL) {
-      Hud.mode = Hud.UPGRADING
-    } else {
+    if (tower.isMaxUpgraded) {
       Hud.mode = Hud.UPGRADING_MAX
+    } else {
+      Hud.mode = Hud.UPGRADING
     }
   }
 
