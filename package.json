@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "testw": "jest --watch",
+    "test:coverage": "jest --coverage",
     "build": "tsc && parcel build ./src/index.html --out-dir ./dist --public-url ./"
   },
   "devDependencies": {
