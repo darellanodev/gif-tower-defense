@@ -28,7 +28,7 @@ export class Magic {
     this.#status = Const.MAGIC_STATUS_ALIVE
   }
 
-  update() {
+  _updatePosition() {
     switch (this.#currentDirection) {
       case ConstDirection.LEFT:
         this.position.x = this.position.x - Magic.SPEED
@@ -46,19 +46,41 @@ export class Magic {
         this.position.y = this.position.y + Magic.SPEED
         break
     }
+  }
 
+  _updateMoveCount() {
     this.#moveCount = this.#moveCount + Magic.SPEED
+  }
 
+  _updateOrders() {
     if (this.#moveCount === Const.TILE_SIZE) {
       this.#moveCount = 0
-      this.#indexOrder++
-      if (this.#indexOrder == this.#orders.length) {
-        // reach the end tile
-        this.#status = Const.MAGIC_STATUS_DEAD
+      if (this.endReached) {
+        this._reachTheEndTile()
       } else {
-        this.#currentDirection = this.#orders[this.#indexOrder]
+        this.#currentDirection = this.nextOrderDirection
       }
     }
+  }
+
+  get nextOrderDirection() {
+    this.#indexOrder++
+    return this.#orders[this.#indexOrder]
+  }
+
+  get endReached() {
+    return this.#indexOrder == this.#orders.length
+  }
+
+  _reachTheEndTile() {
+    this.#indexOrder++
+    this.#status = Const.MAGIC_STATUS_DEAD
+  }
+
+  update() {
+    this._updatePosition()
+    this._updateMoveCount()
+    this._updateOrders()
   }
 
   checkCollision(enemy: Enemy) {

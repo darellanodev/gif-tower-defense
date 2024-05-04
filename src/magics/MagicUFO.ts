@@ -12,8 +12,8 @@ export class MagicUFO extends Magic {
     this.#img = img
   }
 
-  static instantiate(images: Image, position: Position, orders: number[]) {
-    MagicUFO.instances.push(new MagicUFO(images, position, orders))
+  static instantiate(image: Image, position: Position, orders: number[]) {
+    MagicUFO.instances.push(new MagicUFO(image, position, orders))
   }
 
   draw() {
