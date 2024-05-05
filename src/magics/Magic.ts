@@ -7,7 +7,7 @@ export class Magic {
   static SPEED = 10
 
   startPosition: Position
-  position: Position
+  #position: Position
   #orders: number[]
 
   #currentDirection: number
@@ -20,7 +20,7 @@ export class Magic {
     this.startPosition = { ...startPosition }
     this.#orders = orders
 
-    this.position = { ...startPosition }
+    this.#position = { ...startPosition }
 
     this.#currentDirection = this.#orders[this.#indexOrder]
 
@@ -31,19 +31,19 @@ export class Magic {
   _updatePosition() {
     switch (this.#currentDirection) {
       case ConstDirection.LEFT:
-        this.position.x = this.position.x - Magic.SPEED
+        this.#position.x = this.#position.x - Magic.SPEED
         break
 
       case ConstDirection.RIGHT:
-        this.position.x = this.position.x + Magic.SPEED
+        this.#position.x = this.#position.x + Magic.SPEED
         break
 
       case ConstDirection.UP:
-        this.position.y = this.position.y - Magic.SPEED
+        this.#position.y = this.#position.y - Magic.SPEED
         break
 
       case ConstDirection.DOWN:
-        this.position.y = this.position.y + Magic.SPEED
+        this.#position.y = this.#position.y + Magic.SPEED
         break
     }
   }
@@ -112,11 +112,7 @@ export class Magic {
     return this.#status == Const.MAGIC_STATUS_ALIVE
   }
 
-  getX() {
-    return this.position.x
-  }
-
-  getY() {
-    return this.position.y
+  get position() {
+    return this.#position
   }
 }

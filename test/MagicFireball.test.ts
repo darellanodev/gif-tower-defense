@@ -52,17 +52,11 @@ test('position, when the magicfireball is recently created and update instances,
   const orders = path.makeOrders()
   instantiateMagicFireball(orders)
 
-  const initialPosition = {
-    x: MagicFireball.instances[0].getX(),
-    y: MagicFireball.instances[0].getY(),
-  }
+  const initialPosition = { ...MagicFireball.instances[0].position }
 
   MagicFireball.updateInstances()
 
-  const newPosition = {
-    x: MagicFireball.instances[0].getX(),
-    y: MagicFireball.instances[0].getY(),
-  }
+  const newPosition = { ...MagicFireball.instances[0].position }
 
   expect(newPosition).not.toBe(initialPosition)
 })
