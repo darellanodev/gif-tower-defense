@@ -1,13 +1,13 @@
+import { Obj } from '../Obj'
 import { Const } from '../constants/Const'
 import { ConstDirection } from '../constants/ConstDirection'
 import { Enemy } from '../enemies/Enemy'
 import { Position } from '../utils/types'
 
-export class Magic {
+export class Magic extends Obj {
   static SPEED = 10
 
   startPosition: Position
-  #position: Position
   #orders: number[]
 
   #currentDirection: number
@@ -17,10 +17,9 @@ export class Magic {
   #status: number
 
   constructor(startPosition: Position, orders: number[]) {
+    super(startPosition)
     this.startPosition = { ...startPosition }
     this.#orders = orders
-
-    this.#position = { ...startPosition }
 
     this.#currentDirection = this.#orders[this.#indexOrder]
 
@@ -31,19 +30,19 @@ export class Magic {
   _updatePosition() {
     switch (this.#currentDirection) {
       case ConstDirection.LEFT:
-        this.#position.x = this.#position.x - Magic.SPEED
+        this.position.x = this.position.x - Magic.SPEED
         break
 
       case ConstDirection.RIGHT:
-        this.#position.x = this.#position.x + Magic.SPEED
+        this.position.x = this.position.x + Magic.SPEED
         break
 
       case ConstDirection.UP:
-        this.#position.y = this.#position.y - Magic.SPEED
+        this.position.y = this.position.y - Magic.SPEED
         break
 
       case ConstDirection.DOWN:
-        this.#position.y = this.#position.y + Magic.SPEED
+        this.position.y = this.position.y + Magic.SPEED
         break
     }
   }
@@ -110,9 +109,5 @@ export class Magic {
 
   isAlive() {
     return this.#status == Const.MAGIC_STATUS_ALIVE
-  }
-
-  get position() {
-    return this.#position
   }
 }

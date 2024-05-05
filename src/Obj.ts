@@ -9,4 +9,8 @@ export class Obj {
   get position() {
     return this.#position
   }
+
+  set position(position: Position) {
+    this.#position = { ...position }
+  }
 }

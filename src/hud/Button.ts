@@ -2,13 +2,13 @@ import { Image } from 'p5'
 import { Position, Size } from '../utils/types'
 import { P5 } from '../utils/P5'
 import { MathUtils } from '../utils/MathUtils'
+import { Obj } from '../Obj'
 
-export class Button {
+export class Button extends Obj {
   static INDEX_IMAGE_ON = 0
   static INDEX_IMAGE_OFF = 1
   static INDEX_IMAGE_HOVER = 2
 
-  position: Position
   size: Size
   images: Image[]
   offsetImages: Position
@@ -18,7 +18,8 @@ export class Button {
     images: Image[],
     offsetImages: Position = { x: 0, y: 0 },
   ) {
-    this.position = { ...position }
+    super(position)
+
     this.size = { ...size }
     this.images = images
     this.offsetImages = { ...offsetImages }

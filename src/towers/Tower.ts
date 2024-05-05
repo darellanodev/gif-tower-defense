@@ -5,14 +5,14 @@ import { Enemy } from '../enemies/Enemy'
 import { MathUtils } from '../utils/MathUtils'
 import { P5 } from '../utils/P5'
 import { TileOrange } from '../tiles/TileOrange'
+import { Obj } from '../Obj'
 
-export class Tower {
+export class Tower extends Obj {
   static OFFSET_X: number = 3
   static OFFSET_Y: number = 4
   static UPGRADE_INCREMENT: number = 1
   static INSTANT_UPGRADING: boolean = false // for testing purposes is set to true
 
-  position: Position
   upgrading: boolean = false
   upgradeLevel: number = 0
   progressBar: ProgressBar
@@ -24,7 +24,7 @@ export class Tower {
   distanceToEnemyTarget: number = 0
 
   constructor(position: Position, tileOrange: TileOrange) {
-    this.position = { ...position }
+    super(position)
 
     this.progressBar = new ProgressBar(
       {

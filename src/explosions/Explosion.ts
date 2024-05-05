@@ -1,17 +1,16 @@
+import { Obj } from '../Obj'
 import { ParticleSystem } from '../particles/ParticleSystem'
 import { Position } from '../utils/types'
 
-export class Explosion {
+export class Explosion extends Obj {
   static MAX_EMIT_TIME = 5
-
-  position: Position
 
   #emisionTime: number = 0
   #finished: boolean = false
 
   particleSystem: ParticleSystem | null
   constructor(position: Position) {
-    this.position = { ...position }
+    super(position)
     this.particleSystem = null
   }
 

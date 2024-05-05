@@ -294,10 +294,10 @@ export class Enemy {
       this.#position.x,
       this.#position.y,
     )
-    this.#healthBar.setPosition({
+    this.#healthBar.position = {
       x: this.#position.x,
       y: this.#position.y - 20,
-    })
+    }
     this.#healthBar.draw()
   }
 

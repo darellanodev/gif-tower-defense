@@ -1,25 +1,20 @@
 import { Position, Size } from '../utils/types'
 import { P5 } from '../utils/P5'
+import { Obj } from '../Obj'
 
-export class ProgressBar {
+export class ProgressBar extends Obj {
   static WIDTH = 27
   static HEIGHT = 7
 
-  #position: Position
   #size: Size
 
   #progress: number = 0
   #maxProgress: number
 
   constructor(position: Position, size: Size) {
-    this.#position = { ...position }
+    super(position)
     this.#size = { ...size }
-
     this.#maxProgress = this.#size.w - 1
-  }
-
-  setPosition(position: Position) {
-    this.#position = { ...position }
   }
 
   get progress(): number {
@@ -46,8 +41,8 @@ export class ProgressBar {
     P5.p5.stroke('black')
     P5.p5.fill('green')
     P5.p5.rect(
-      this.#position.x + 10,
-      this.#position.y + 20,
+      this.position.x + 10,
+      this.position.y + 20,
       this.#size.w,
       this.#size.h,
     )
@@ -58,8 +53,8 @@ export class ProgressBar {
     P5.p5.fill('red')
     const progressLevel = (this.#progress * this.#maxProgress) / 100
     P5.p5.rect(
-      this.#position.x + 11,
-      this.#position.y + 21,
+      this.position.x + 11,
+      this.position.y + 21,
       progressLevel,
       this.#size.h - 2,
     )

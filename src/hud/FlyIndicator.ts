@@ -2,21 +2,22 @@ import { Image } from 'p5'
 import { P5 } from '../utils/P5'
 import { Position } from '../utils/types'
 import { TextProperties } from './TextProperties'
+import { Obj } from '../Obj'
 
-export class FlyIndicator {
+export class FlyIndicator extends Obj {
   static MAX_TIME_ALIVE: number = 100
   static MOVE_INCREMENT: number = 0.5
   static OFFSET_POS_X_ICON: number = 22
   static OFFSET_POS_Y_ICON: number = -10
   static instances: FlyIndicator[] = []
 
-  #position: Position
   #alive: boolean = true
   #aliveTime: number = 0
   #text: string = ''
   #icon: Image | undefined = undefined
   constructor(position: Position, text: string, icon?: Image) {
-    this.#position = { ...position }
+    super(position)
+
     this.#text = text
     this.#icon = icon
   }
@@ -33,10 +34,6 @@ export class FlyIndicator {
     return this.#alive
   }
 
-  get position(): Position {
-    return this.#position
-  }
-
   #setTextStyle() {
     if (this.#text.charAt(0) == '-') {
       TextProperties.setForBuyingFlyIndicator()
@@ -50,11 +47,11 @@ export class FlyIndicator {
     if (this.#icon) {
       P5.p5.image(
         this.#icon,
-        this.#position.x + FlyIndicator.OFFSET_POS_X_ICON,
-        this.#position.y + FlyIndicator.OFFSET_POS_Y_ICON,
+        this.position.x + FlyIndicator.OFFSET_POS_X_ICON,
+        this.position.y + FlyIndicator.OFFSET_POS_Y_ICON,
       )
     }
-    P5.p5.text(this.#text, this.#position.x, this.#position.y)
+    P5.p5.text(this.#text, this.position.x, this.position.y)
   }
 
   static drawInstances() {
@@ -68,8 +65,8 @@ export class FlyIndicator {
     if (this.#aliveTime > FlyIndicator.MAX_TIME_ALIVE) {
       this.#alive = false
     } else {
-      const newY = this.#position.y - FlyIndicator.MOVE_INCREMENT
-      this.#position = { x: this.#position.x, y: newY }
+      const newY = this.position.y - FlyIndicator.MOVE_INCREMENT
+      this.position = { x: this.position.x, y: newY }
     }
   }
 

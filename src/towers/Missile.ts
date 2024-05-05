@@ -3,8 +3,9 @@ import { ConstColor } from '../constants/ConstColor'
 import { Enemy } from '../enemies/Enemy'
 import { Position } from '../utils/types'
 import { P5 } from '../utils/P5'
+import { Obj } from '../Obj'
 
-export class Missile {
+export class Missile extends Obj {
   static OUTER_DIAMETER = 11
   static INNER_DIAMETER = 6
   static VELOCITY = 1.5
@@ -13,13 +14,13 @@ export class Missile {
 
   static instances: Missile[] = []
 
-  #position: Position
   #enemyTarget: Enemy | null = null
   #status: number = 0
   #damage: number = 0
 
   constructor(position: Position, enemyTarget: Enemy, damage: number) {
-    this.#position = { ...position }
+    super(position)
+
     this.#enemyTarget = enemyTarget
     this.#damage = damage
   }
@@ -32,15 +33,15 @@ export class Missile {
     if (!this.#enemyTarget) {
       return
     }
-    if (this.#position.x < this.#enemyTarget.position.x + Const.TILE_SIZE / 2) {
-      this.#position.x += Missile.VELOCITY
+    if (this.position.x < this.#enemyTarget.position.x + Const.TILE_SIZE / 2) {
+      this.position.x += Missile.VELOCITY
     } else {
-      this.#position.x -= Missile.VELOCITY
+      this.position.x -= Missile.VELOCITY
     }
-    if (this.#position.y < this.#enemyTarget.position.y + Const.TILE_SIZE / 2) {
-      this.#position.y += Missile.VELOCITY
+    if (this.position.y < this.#enemyTarget.position.y + Const.TILE_SIZE / 2) {
+      this.position.y += Missile.VELOCITY
     } else {
-      this.#position.y -= Missile.VELOCITY
+      this.position.y -= Missile.VELOCITY
     }
   }
 
@@ -63,14 +64,14 @@ export class Missile {
     let isInsideX = false
     let isInsideY = false
     if (
-      this.#position.x > this.#enemyTarget.position.x &&
-      this.#position.x < this.#enemyTarget.position.x + Const.TILE_SIZE
+      this.position.x > this.#enemyTarget.position.x &&
+      this.position.x < this.#enemyTarget.position.x + Const.TILE_SIZE
     ) {
       isInsideX = true
     }
     if (
-      this.#position.y > this.#enemyTarget.position.y &&
-      this.#position.y < this.#enemyTarget.position.y + Const.TILE_SIZE
+      this.position.y > this.#enemyTarget.position.y &&
+      this.position.y < this.#enemyTarget.position.y + Const.TILE_SIZE
     ) {
       isInsideY = true
     }
@@ -100,8 +101,8 @@ export class Missile {
   draw() {
     P5.p5.noStroke()
     P5.p5.fill(...ConstColor.RED)
-    P5.p5.circle(this.#position.x, this.#position.y, Missile.OUTER_DIAMETER)
+    P5.p5.circle(this.position.x, this.position.y, Missile.OUTER_DIAMETER)
     P5.p5.fill(...ConstColor.YELLOW)
-    P5.p5.circle(this.#position.x, this.#position.y, Missile.INNER_DIAMETER)
+    P5.p5.circle(this.position.x, this.position.y, Missile.INNER_DIAMETER)
   }
 }

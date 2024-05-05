@@ -1,11 +1,12 @@
 import { Vector } from 'p5'
-import { Position, RGBType } from '../utils/types'
+import { RGBType } from '../utils/types'
 import { TowerYellow } from '../towers/TowerYellow'
 import { Const } from '../constants/Const'
 import { Random } from '../utils/Random'
 import { P5 } from '../utils/P5'
+import { Obj } from '../Obj'
 
-export class Particle {
+export class Particle extends Obj {
   static COLOR_CAPTURED: RGBType = [12, 222, 42]
   static CAPTURED_MAX_TIME: number = 300
   static CAPTURED_REDUCE_FACTOR: number = 0.25
@@ -23,7 +24,10 @@ export class Particle {
   #capturedTime: number = 0
 
   constructor(vec: Vector, size: number, color: RGBType) {
-    this.#vec = vec.copy()
+    const vecCopy = vec.copy()
+    super({ x: vecCopy.x, y: vecCopy.y })
+
+    this.#vec = vecCopy
     this.#size = size
     this.#color = color
     this.#initialColor = color
@@ -46,6 +50,7 @@ export class Particle {
   }
 
   update() {
+    this.position = { x: this.#vec.x, y: this.#vec.y }
     if (!this.#captured) {
       this.#vec.add(this.#velocity)
       this.#lifespan -= 2
@@ -118,9 +123,5 @@ export class Particle {
 
   get towerYellowTarget(): TowerYellow | null {
     return this.#towerYellowTarget
-  }
-
-  get position(): Position {
-    return { x: this.#vec.x, y: this.#vec.y }
   }
 }
