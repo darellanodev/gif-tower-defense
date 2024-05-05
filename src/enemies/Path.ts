@@ -27,7 +27,7 @@ export class Path {
     let finalY = 0
 
     if (this.#startTile.getStartDirection() === ConstDirection.LEFT) {
-      const finalPosition = this.#startTile.getPosition()
+      const finalPosition = this.#startTile.position
       finalX = finalPosition.x + Const.TILE_SIZE
       finalY = finalPosition.y
     }
@@ -37,40 +37,39 @@ export class Path {
 
   getTileInPosition(tx: number, ty: number) {
     const pathTile = this.#pathTiles.find(
-      (pathTile) =>
-        tx === pathTile.getPosition().x && ty === pathTile.getPosition().y,
+      (pathTile) => tx === pathTile.position.x && ty === pathTile.position.y,
     )
 
     return pathTile ? pathTile : null
   }
 
   _searchLeftTile(currentTile: any) {
-    const searchPx = currentTile.getPosition().x - Const.TILE_SIZE
-    const searchPy = currentTile.getPosition().y
+    const searchPx = currentTile.position.x - Const.TILE_SIZE
+    const searchPy = currentTile.position.y
     return this.getTileInPosition(searchPx, searchPy)
   }
 
   _searchDownTile(currentTile: any) {
-    const searchPx = currentTile.getPosition().x
-    const searchPy = currentTile.getPosition().y + Const.TILE_SIZE
+    const searchPx = currentTile.position.x
+    const searchPy = currentTile.position.y + Const.TILE_SIZE
     return this.getTileInPosition(searchPx, searchPy)
   }
 
   _searchRightTile(currentTile: any) {
-    const searchPx = currentTile.getPosition().x + Const.TILE_SIZE
-    const searchPy = currentTile.getPosition().y
+    const searchPx = currentTile.position.x + Const.TILE_SIZE
+    const searchPy = currentTile.position.y
     return this.getTileInPosition(searchPx, searchPy)
   }
 
   _searchUpTile(currentTile: any) {
-    const searchPx = currentTile.getPosition().x
-    const searchPy = currentTile.getPosition().y - Const.TILE_SIZE
+    const searchPx = currentTile.position.x
+    const searchPy = currentTile.position.y - Const.TILE_SIZE
     return this.getTileInPosition(searchPx, searchPy)
   }
 
   _isLeftTileEnd(currentTile: any) {
-    const searchPx = currentTile.getPosition().x - Const.TILE_SIZE
-    const searchPy = currentTile.getPosition().y
+    const searchPx = currentTile.position.x - Const.TILE_SIZE
+    const searchPy = currentTile.position.y
 
     const endPosition = this.#endTile.position
 
@@ -86,7 +85,7 @@ export class Path {
   makeOrders() {
     const orders = []
 
-    const startTilePosition = this.#startTile.getPosition()
+    const startTilePosition = this.#startTile.position
 
     let currentTile: TilePath = new TilePath({
       x: startTilePosition.x,

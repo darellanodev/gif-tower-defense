@@ -438,7 +438,7 @@ export class Hud {
   static drawMouseIsOverOrangeTileWithoutTower() {
     if (Player.mouseTileOrangeOver) {
       InfluenceArea.drawNoTowerInfluenceArea(
-        Player.mouseTileOrangeOver.getPosition(),
+        Player.mouseTileOrangeOver.position,
       )
     }
 

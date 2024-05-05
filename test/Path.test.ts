@@ -55,7 +55,7 @@ const isIncluded = (
 
 describe('getEnemiesInitialPosition', () => {
   test('when start direction is LEFT and start tile is at {x:750, y:80}, return x+=50 ({x:800, y:80})', () => {
-    const startTilePosition = startTile.getPosition()
+    const startTilePosition = startTile.position
     const expected = { x: startTilePosition.x + 50, y: startTilePosition.y }
     const path = new Path(startTile, endTile, pathTiles)
 

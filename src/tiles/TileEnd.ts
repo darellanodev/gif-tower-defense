@@ -1,15 +1,15 @@
 import { Image } from 'p5'
 import { Position } from '../utils/types'
-import { Tile } from './Tile'
-import { P5 } from '../utils/P5'
 
-export class TileEnd extends Tile {
+import { P5 } from '../utils/P5'
+import { Obj } from '../Obj'
+
+export class TileEnd extends Obj {
   #img: Image | null
 
   constructor(img: Image | null, position: Position) {
     super(position)
     this.#img = img
-    this.position = { ...position }
   }
 
   draw() {

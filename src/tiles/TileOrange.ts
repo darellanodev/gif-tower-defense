@@ -2,14 +2,13 @@ import { TowerType, Position } from '../utils/types'
 import { Image } from 'p5'
 import { Enemy } from '../enemies/Enemy'
 import { Const } from '../constants/Const'
-import { Tile } from './Tile'
 import { TowerGreen } from '../towers/TowerGreen'
 import { TowerRed } from '../towers/TowerRed'
 import { TowerYellow } from '../towers/TowerYellow'
 import { P5 } from '../utils/P5'
-import { FlyIndicator } from '../hud/FlyIndicator'
+import { Obj } from '../Obj'
 
-export class TileOrange extends Tile {
+export class TileOrange extends Obj {
   static instances: TileOrange[] = []
 
   #img: Image

@@ -1,9 +1,9 @@
 import { Image } from 'p5'
 import { Position } from '../utils/types'
-import { Tile } from './Tile'
+import { Obj } from '../Obj'
 import { P5 } from '../utils/P5'
 
-export class TileStart extends Tile {
+export class TileStart extends Obj {
   #img: Image | null
   #startDirection: number
 
