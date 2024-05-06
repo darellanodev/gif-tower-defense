@@ -97,7 +97,7 @@ window.mouseClicked = () => {
     P5.p5.mouseY,
     Images.magicIceballImage,
     Images.magicFireballImage,
-    Images.magicUFOImage,
+    Images.magicUFOImages,
     Path.initialEnemiesPosition,
     Path.orders,
     Player.mouseTileOrangeOver,

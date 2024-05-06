@@ -109,7 +109,7 @@ export class Player {
     mouseY: number,
     magicIceballImage: Image,
     magicFireballImage: Image,
-    magicUFOImage: Image,
+    magicUFOImages: Image[],
     initialEnemiesPosition: Position,
     orders: number[],
     mouseTileOrangeOver: TileOrange | null,
@@ -125,7 +125,7 @@ export class Player {
           mousePosition,
           magicIceballImage,
           magicFireballImage,
-          magicUFOImage,
+          magicUFOImages,
           initialEnemiesPosition,
           orders,
         )

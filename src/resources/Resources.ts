@@ -138,6 +138,9 @@ export class Resources {
   }
 
   static magicUFO() {
-    return P5.p5.loadImage('../img/magics/ufo.png')
+    return [
+      P5.p5.loadImage('../img/magics/ufo.png'),
+      P5.p5.loadImage('../img/magics/ufo_ray.png'),
+    ]
   }
 }

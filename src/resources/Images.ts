@@ -17,7 +17,7 @@ export class Images {
   static enemiesImages: Image[]
   static magicFireballImage: Image
   static magicIceballImage: Image
-  static magicUFOImage: Image
+  static magicUFOImages: Image[]
   static coreImage: Image
 
   static _loadButtons() {
@@ -31,7 +31,7 @@ export class Images {
   static _loadMagics() {
     Images.magicFireballImage = Resources.magicFireball()
     Images.magicIceballImage = Resources.magicIceball()
-    Images.magicUFOImage = Resources.magicUFO()
+    Images.magicUFOImages = Resources.magicUFO()
   }
   static _loadTowers() {
     Images.greenTowerImages = Resources.greenTower()

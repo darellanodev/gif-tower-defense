@@ -4,27 +4,52 @@ import { Position } from '../utils/types'
 import { P5 } from '../utils/P5'
 import { Enemy } from '../enemies/Enemy'
 import { Const } from '../constants/Const'
+import { MathUtils } from '../utils/MathUtils'
 
 export class MagicUFO extends Magic {
-  static instances: MagicUFO[] = []
   static SPEED = 2
-  static OFFSET_Y = 30
+  static OFFSET_COLLISION_Y = 50
+  static OFFSET_Y = 25
+  static UFO_IMG_INDEX = 0
+  static UFO_RAY_IMG_INDEX = 1
+  static UFO_RAY_IMG_OFFSET_X = 2
+  static UFO_RAY_IMG_OFFSET_Y = 30
 
-  #img: Image
+  static instances: MagicUFO[] = []
+  #images: Image[]
   #enemyTarget: Enemy | null = null
   #timeToSearchEnemy: number = 0
+  #showRay: boolean = false
 
-  constructor(img: Image, startPosition: Position, orders: number[]) {
+  constructor(images: Image[], startPosition: Position, orders: number[]) {
     super(startPosition, orders)
-    this.#img = img
+    this.#images = images
   }
 
-  static instantiate(image: Image, position: Position, orders: number[]) {
-    MagicUFO.instances.push(new MagicUFO(image, position, orders))
+  static instantiate(images: Image[], position: Position, orders: number[]) {
+    MagicUFO.instances.push(new MagicUFO(images, position, orders))
+  }
+
+  _drawUFO() {
+    P5.p5.image(
+      this.#images[MagicUFO.UFO_IMG_INDEX],
+      this.position.x,
+      this.position.y,
+    )
+  }
+  _drawUFORay() {
+    if (this.#showRay) {
+      P5.p5.image(
+        this.#images[MagicUFO.UFO_RAY_IMG_INDEX],
+        this.position.x + MagicUFO.UFO_RAY_IMG_OFFSET_X,
+        this.position.y + MagicUFO.UFO_RAY_IMG_OFFSET_Y,
+      )
+    }
   }
 
   draw() {
-    P5.p5.image(this.#img, this.position.x, this.position.y)
+    this._drawUFORay()
+    this._drawUFO()
   }
 
   static drawInstances() {
@@ -62,6 +87,30 @@ export class MagicUFO extends Magic {
     }
   }
 
+  _checkCollision() {
+    if (!this.#enemyTarget) {
+      return
+    }
+    if (
+      MathUtils.isPositionInsideRectangle(
+        {
+          x: this.position.x + Const.TILE_SIZE / 2,
+          y:
+            this.position.y + Const.TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
+        },
+        {
+          x: this.#enemyTarget.position.x,
+          y: this.#enemyTarget.position.y,
+        },
+        { w: Const.TILE_SIZE, h: Const.TILE_SIZE },
+      )
+    ) {
+      this.#showRay = true
+    } else {
+      this.#showRay = false
+    }
+  }
+
   update() {
     if (this.#enemyTarget) {
       if (this.#enemyTarget.moveCount == 0) {
@@ -69,6 +118,7 @@ export class MagicUFO extends Magic {
         return
       }
       this._updatePosition()
+      this._checkCollision()
     } else {
       if (this.#timeToSearchEnemy === Const.TILE_SIZE) {
         this.selectTarget()
@@ -91,7 +141,6 @@ export class MagicUFO extends Magic {
         enemyTarget = enemy
       }
     })
-    console.log(enemyTarget)
     this.#enemyTarget = enemyTarget
   }
 }

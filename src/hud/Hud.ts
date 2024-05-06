@@ -364,7 +364,7 @@ export class Hud {
   }
 
   static _instantiateMagicUFO(
-    magicUFOImage: Image,
+    magicUFOImages: Image[],
     initialEnemiesPosition: Position,
     orders: number[],
   ) {
@@ -373,7 +373,7 @@ export class Hud {
     }
     ButtonMagic.magicUFOButton.removeItem()
     MagicUFO.instantiate(
-      magicUFOImage,
+      magicUFOImages,
       { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
       orders,
     )
@@ -383,7 +383,7 @@ export class Hud {
     mousePosition: Position,
     magicIceballImage: Image,
     magicFireballImage: Image,
-    magicUFOImage: Image,
+    magicUFOImages: Image[],
     initialEnemiesPosition: Position,
     orders: number[],
   ) {
@@ -402,7 +402,7 @@ export class Hud {
       )
     }
     if (ButtonMagic.magicUFOButton.isMouseOver(mousePosition)) {
-      Hud._instantiateMagicUFO(magicUFOImage, initialEnemiesPosition, orders)
+      Hud._instantiateMagicUFO(magicUFOImages, initialEnemiesPosition, orders)
     }
   }
 
