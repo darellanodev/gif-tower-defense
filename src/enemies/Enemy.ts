@@ -216,6 +216,10 @@ export class Enemy {
     this.#moveCount = this.#moveCount + velocity
   }
 
+  get moveCount() {
+    return this.#moveCount
+  }
+
   update() {
     if (this.#freezed) {
       if (this.#freezedTime < MagicIceball.FREEZE_ENEMY_MAX_TIME) {
