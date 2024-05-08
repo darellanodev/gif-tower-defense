@@ -81,16 +81,18 @@ export class Tower extends Obj {
     let enemyTarget = null
 
     enemies.forEach((enemy) => {
-      const distance = MathUtils.distance(
-        { x: this.position.x, y: this.position.y },
-        {
-          x: enemy.position.x,
-          y: enemy.position.y,
-        },
-      )
-      if (distance < minDistance) {
-        minDistance = distance
-        enemyTarget = enemy
+      if (!enemy.isAbducted) {
+        const distance = MathUtils.distance(
+          { x: this.position.x, y: this.position.y },
+          {
+            x: enemy.position.x,
+            y: enemy.position.y,
+          },
+        )
+        if (distance < minDistance) {
+          minDistance = distance
+          enemyTarget = enemy
+        }
       }
     })
 
