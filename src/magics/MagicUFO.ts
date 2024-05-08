@@ -87,24 +87,25 @@ export class MagicUFO extends Magic {
     }
   }
 
-  _checkCollision() {
+  _isColliding() {
     if (!this.#enemyTarget) {
-      return
+      return false
     }
-    if (
-      MathUtils.isPositionInsideRectangle(
-        {
-          x: this.position.x + Const.TILE_SIZE / 2,
-          y:
-            this.position.y + Const.TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
-        },
-        {
-          x: this.#enemyTarget.position.x,
-          y: this.#enemyTarget.position.y,
-        },
-        { w: Const.TILE_SIZE, h: Const.TILE_SIZE },
-      )
-    ) {
+    return MathUtils.isPositionInsideRectangle(
+      {
+        x: this.position.x + Const.TILE_SIZE / 2,
+        y: this.position.y + Const.TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
+      },
+      {
+        x: this.#enemyTarget.position.x,
+        y: this.#enemyTarget.position.y,
+      },
+      { w: Const.TILE_SIZE, h: Const.TILE_SIZE },
+    )
+  }
+
+  _checkCollision() {
+    if (this._isColliding()) {
       this.#showRay = true
     } else {
       this.#showRay = false
