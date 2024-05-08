@@ -28,6 +28,9 @@ export class Enemy {
   static STATUS_DEAD = 1
   static TOTAL_ENEMIES = 5
   static CREATION_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
+  static SIZE = 50
+  static REDUCTION_FACTOR = 0.6
+
   static numberOfEnemies = 0 // for generating IDs
   static instances: Enemy[] = []
   static waveEnemies: number = 0
@@ -58,6 +61,9 @@ export class Enemy {
   #winned: boolean = false
   #freezed: boolean = false
   #freezedTime: number = 0
+  #reduction: number = 0
+  #width: number = 50
+  #height: number = 50
 
   constructor(
     images: Image[],
@@ -220,7 +226,18 @@ export class Enemy {
     return this.#moveCount
   }
 
+  #updateHealthBarPosition() {
+    this.#healthBar.position = {
+      x: this.#position.x,
+      y: this.#position.y - 20,
+    }
+  }
+
   update() {
+    if (this.isAbducted) {
+      return
+    }
+
     if (this.#freezed) {
       if (this.#freezedTime < MagicIceball.FREEZE_ENEMY_MAX_TIME) {
         this.#freezedTime++
@@ -242,6 +259,9 @@ export class Enemy {
         this.#currentDirection = this.#orders[this.#indexOrder]
       }
     }
+
+    this.#changeEyes()
+    this.#updateHealthBarPosition()
   }
 
   #hasOpenEyes() {
@@ -291,17 +311,23 @@ export class Enemy {
     }
   }
 
+  get isAbducted() {
+    return this.#reduction >= Enemy.SIZE
+  }
+
   draw() {
-    this.#changeEyes()
+    if (this.isAbducted) {
+      return
+    }
+
     P5.p5.image(
       this.#images[this.#imgIndex],
-      this.#position.x,
+      this.#position.x + this.#reduction / 2,
       this.#position.y,
+      this.#width - this.#reduction,
+      this.#height - this.#reduction,
     )
-    this.#healthBar.position = {
-      x: this.#position.x,
-      y: this.#position.y - 20,
-    }
+
     this.#healthBar.draw()
   }
 
@@ -372,5 +398,11 @@ export class Enemy {
     Enemy.updateInstances()
 
     return Enemy.handleWinners()
+  }
+
+  decrementSize() {
+    if (this.#reduction < Enemy.SIZE) {
+      this.#reduction += Enemy.REDUCTION_FACTOR
+    }
   }
 }

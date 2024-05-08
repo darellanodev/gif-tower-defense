@@ -14,11 +14,13 @@ export class MagicUFO extends Magic {
   static UFO_RAY_IMG_INDEX = 1
   static UFO_RAY_IMG_OFFSET_X = 2
   static UFO_RAY_IMG_OFFSET_Y = 30
+  static MAX_TIME_TO_START_ABDUCTION = 30
 
   static instances: MagicUFO[] = []
   #images: Image[]
   #enemyTarget: Enemy | null = null
   #timeToSearchEnemy: number = 0
+  #timeToStartAbduction: number = 0
   #showRay: boolean = false
 
   constructor(images: Image[], startPosition: Position, orders: number[]) {
@@ -112,6 +114,23 @@ export class MagicUFO extends Magic {
     }
   }
 
+  _isAbducting() {
+    return this.#showRay && this.#enemyTarget
+  }
+  _abduct() {
+    if (!this.#enemyTarget) {
+      return
+    }
+
+    if (this._isAbducting()) {
+      if (this.#timeToStartAbduction < MagicUFO.MAX_TIME_TO_START_ABDUCTION) {
+        this.#timeToStartAbduction++
+      } else {
+        this.#enemyTarget.decrementSize()
+      }
+    }
+  }
+
   update() {
     if (this.#enemyTarget) {
       if (this.#enemyTarget.moveCount == 0) {
@@ -120,6 +139,7 @@ export class MagicUFO extends Magic {
       }
       this._updatePosition()
       this._checkCollision()
+      this._abduct()
     } else {
       if (this.#timeToSearchEnemy === Const.TILE_SIZE) {
         this.selectTarget()
