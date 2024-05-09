@@ -186,7 +186,6 @@ export class Enemy {
   }
 
   #reinitEnemy() {
-    this.#winned = true
     this.#moveCount = 0
     this.#indexOrder = 0
     this.#changeEyesTime = 0
@@ -196,6 +195,16 @@ export class Enemy {
     this.#currentDirection = this.#orders[this.#indexOrder]
     this.#position = { ...this.#startPosition }
     this.#setRandomTimeMaxForClosingEyes()
+  }
+
+  dropFromUFO() {
+    this.#reduction = 0
+    this.#reinitEnemy()
+  }
+
+  #reinitWinnerEnemy() {
+    this.#winned = true
+    this.#reinitEnemy()
   }
 
   #move() {
@@ -254,7 +263,7 @@ export class Enemy {
       this.#moveCount = 0
       this.#indexOrder++
       if (this.#indexOrder == this.#orders.length) {
-        this.#reinitEnemy()
+        this.#reinitWinnerEnemy()
       } else {
         this.#currentDirection = this.#orders[this.#indexOrder]
       }

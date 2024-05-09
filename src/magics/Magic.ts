@@ -71,9 +71,13 @@ export class Magic extends Obj {
     return this.#indexOrder == this.#orders.length
   }
 
+  die() {
+    this.#status = Const.MAGIC_STATUS_DEAD
+  }
+
   _reachTheEndTile() {
     this.#indexOrder++
-    this.#status = Const.MAGIC_STATUS_DEAD
+    this.die()
   }
 
   update() {

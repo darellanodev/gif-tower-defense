@@ -15,6 +15,7 @@ export class MagicUFO extends Magic {
   static UFO_RAY_IMG_OFFSET_X = 2
   static UFO_RAY_IMG_OFFSET_Y = 30
   static MAX_TIME_TO_START_ABDUCTION = 30
+  static OUT_OF_SCREEN_Y = -50
 
   static instances: MagicUFO[] = []
   #images: Image[]
@@ -22,6 +23,7 @@ export class MagicUFO extends Magic {
   #timeToSearchEnemy: number = 0
   #timeToStartAbduction: number = 0
   #showRay: boolean = false
+  #goOut: boolean = false
 
   constructor(images: Image[], startPosition: Position, orders: number[]) {
     super(startPosition, orders)
@@ -39,6 +41,7 @@ export class MagicUFO extends Magic {
       this.position.y,
     )
   }
+
   _drawUFORay() {
     if (this.#showRay) {
       P5.p5.image(
@@ -70,7 +73,105 @@ export class MagicUFO extends Magic {
     MagicUFO.instances = MagicUFO.instances.filter((ufo) => ufo.isAlive())
   }
 
-  _updatePosition() {
+  _carryEnemyToStartTile() {
+    if (!this.#enemyTarget) {
+      return
+    }
+    // if (this.#enemyTarget.isAbducted) {
+    //   return
+    // }
+    if (this.position.x < this.startPosition.x) {
+      this.position.x = this.position.x + MagicUFO.SPEED
+    }
+    if (this.position.x > this.startPosition.x) {
+      this.position.x = this.position.x - MagicUFO.SPEED
+    }
+    if (this.position.y < this.startPosition.y - MagicUFO.OFFSET_Y) {
+      this.position.y = this.position.y + MagicUFO.SPEED
+    }
+    if (this.position.y > this.startPosition.y - MagicUFO.OFFSET_Y) {
+      this.position.y = this.position.y - MagicUFO.SPEED
+    }
+  }
+
+  _updatePositionGoOut() {
+    if (this.position.y > MagicUFO.OUT_OF_SCREEN_Y) {
+      this.position.y = this.position.y - MagicUFO.SPEED
+    } else {
+      this.die()
+    }
+  }
+
+  _isCollidingWithEnemy() {
+    if (!this.#enemyTarget) {
+      return false
+    }
+    return MathUtils.isPositionInsideRectangle(
+      {
+        x: this.position.x + Const.TILE_SIZE / 2,
+        y: this.position.y + Const.TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
+      },
+      {
+        x: this.#enemyTarget.position.x,
+        y: this.#enemyTarget.position.y,
+      },
+      { w: Const.TILE_SIZE, h: Const.TILE_SIZE },
+    )
+  }
+  _isCollidingWithStartPosition() {
+    return MathUtils.isPositionInsideRectangle(
+      {
+        x: this.position.x + Const.TILE_SIZE / 2,
+        y: this.position.y + Const.TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
+      },
+      {
+        x: this.startPosition.x,
+        y: this.startPosition.y,
+      },
+      { w: Const.TILE_SIZE, h: Const.TILE_SIZE },
+    )
+  }
+
+  _checkCollisionWithEnemy() {
+    if (this._isCollidingWithEnemy()) {
+      this.#showRay = true
+    } else {
+      this.#showRay = false
+    }
+  }
+
+  _checkCollisionWithStartPosition() {
+    if (this._isCollidingWithStartPosition()) {
+      if (!this.#enemyTarget) {
+        return
+      }
+      this.#enemyTarget.dropFromUFO()
+      this.#enemyTarget = null
+      this.#goOut = true
+    }
+  }
+
+  _isAbducting() {
+    return this.#showRay && this.#enemyTarget
+  }
+  _abduct() {
+    if (!this.#enemyTarget) {
+      return
+    }
+
+    if (this._isAbducting()) {
+      if (this.#timeToStartAbduction < MagicUFO.MAX_TIME_TO_START_ABDUCTION) {
+        this.#timeToStartAbduction++
+      } else {
+        this.#enemyTarget.decrementSize()
+        if (this.#enemyTarget.isAbducted) {
+          this.#showRay = false
+        }
+      }
+    }
+  }
+
+  _updatePositionToGetEnemy() {
     if (!this.#enemyTarget) {
       return
     }
@@ -89,63 +190,30 @@ export class MagicUFO extends Magic {
     }
   }
 
-  _isColliding() {
-    if (!this.#enemyTarget) {
-      return false
-    }
-    return MathUtils.isPositionInsideRectangle(
-      {
-        x: this.position.x + Const.TILE_SIZE / 2,
-        y: this.position.y + Const.TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
-      },
-      {
-        x: this.#enemyTarget.position.x,
-        y: this.#enemyTarget.position.y,
-      },
-      { w: Const.TILE_SIZE, h: Const.TILE_SIZE },
-    )
-  }
-
-  _checkCollision() {
-    if (this._isColliding()) {
-      this.#showRay = true
-    } else {
-      this.#showRay = false
-    }
-  }
-
-  _isAbducting() {
-    return this.#showRay && this.#enemyTarget
-  }
-  _abduct() {
-    if (!this.#enemyTarget) {
-      return
-    }
-
-    if (this._isAbducting()) {
-      if (this.#timeToStartAbduction < MagicUFO.MAX_TIME_TO_START_ABDUCTION) {
-        this.#timeToStartAbduction++
-      } else {
-        this.#enemyTarget.decrementSize()
-      }
-    }
-  }
-
   update() {
     if (this.#enemyTarget) {
       if (this.#enemyTarget.moveCount == 0) {
         this.selectTarget()
         return
       }
-      this._updatePosition()
-      this._checkCollision()
-      this._abduct()
-    } else {
-      if (this.#timeToSearchEnemy === Const.TILE_SIZE) {
-        this.selectTarget()
-        this.#timeToSearchEnemy = 0
+      if (this.#enemyTarget.isAbducted) {
+        this._carryEnemyToStartTile()
+        this._checkCollisionWithStartPosition()
       } else {
-        this.#timeToSearchEnemy++
+        this._updatePositionToGetEnemy()
+        this._checkCollisionWithEnemy()
+        this._abduct()
+      }
+    } else {
+      if (this.#goOut) {
+        this._updatePositionGoOut()
+      } else {
+        if (this.#timeToSearchEnemy === Const.TILE_SIZE) {
+          this.selectTarget()
+          this.#timeToSearchEnemy = 0
+        } else {
+          this.#timeToSearchEnemy++
+        }
       }
     }
   }
