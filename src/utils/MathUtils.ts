@@ -9,7 +9,10 @@ export class MathUtils {
   }
 
   static range(start: number, stop: number) {
-    return new Array(stop - start + 1).fill(0).map((v, i) => start + i)
+    return Array.from(
+      { length: stop - start + 1 },
+      (value, index) => index + start,
+    )
   }
 
   static getTwoNumbersFourTimes(number: number) {
