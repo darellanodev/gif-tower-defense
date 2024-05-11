@@ -190,6 +190,15 @@ export class MagicUFO extends Magic {
     }
   }
 
+  _searchTarget() {
+    if (this.#timeToSearchEnemy === Const.TILE_SIZE) {
+      this.selectTarget()
+      this.#timeToSearchEnemy = 0
+    } else {
+      this.#timeToSearchEnemy++
+    }
+  }
+
   update() {
     if (this.#enemyTarget) {
       if (this.#enemyTarget.moveCount == 0) {
@@ -208,12 +217,7 @@ export class MagicUFO extends Magic {
       if (this.#goOut) {
         this._updatePositionGoOut()
       } else {
-        if (this.#timeToSearchEnemy === Const.TILE_SIZE) {
-          this.selectTarget()
-          this.#timeToSearchEnemy = 0
-        } else {
-          this.#timeToSearchEnemy++
-        }
+        this._searchTarget()
       }
     }
   }
