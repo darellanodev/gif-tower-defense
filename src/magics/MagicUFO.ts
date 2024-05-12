@@ -209,6 +209,10 @@ export class MagicUFO extends Magic {
     }
   }
 
+  get enemyTarget(): Enemy | null {
+    return this.#enemyTarget
+  }
+
   update() {
     if (this.#enemyTarget) {
       if (this.#enemyTarget.moveCount == 0) {
@@ -239,7 +243,7 @@ export class MagicUFO extends Magic {
     Enemy.instances.forEach((enemy: Enemy) => {
       const indexOder = enemy.orderPosition
 
-      // if other ufo has targeted the enemy then continue
+      // if other UFO has targeted the enemy then continue
 
       if (indexOder > maxIndexOrder) {
         maxIndexOrder = indexOder
