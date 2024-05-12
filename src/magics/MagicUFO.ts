@@ -236,6 +236,20 @@ export class MagicUFO extends Magic {
     }
   }
 
+  #isTargetedByOtherUFO(enemy: Enemy): boolean {
+    let result = false
+    MagicUFO.instances.forEach((ufo) => {
+      if (ufo.id !== this.id) {
+        if (ufo.#enemyTarget) {
+          if (ufo.#enemyTarget.id === enemy.id) {
+            result = true
+          }
+        }
+      }
+    })
+    return result
+  }
+
   selectTarget() {
     let maxIndexOrder = 0
     let enemyTarget = null
@@ -243,9 +257,7 @@ export class MagicUFO extends Magic {
     Enemy.instances.forEach((enemy: Enemy) => {
       const indexOder = enemy.orderPosition
 
-      // if other UFO has targeted the enemy then continue
-
-      if (indexOder > maxIndexOrder) {
+      if (indexOder > maxIndexOrder && !this.#isTargetedByOtherUFO(enemy)) {
         maxIndexOrder = indexOder
         enemyTarget = enemy
       }

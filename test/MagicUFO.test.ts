@@ -29,8 +29,9 @@ test('id, when three Magic UFOs are created, last UFO has id = 3', () => {
   expect(result).toBe(3)
 })
 
-test('id, when an Enemy is created and then a magic UFO is created, MagicUFO targets the enemy', () => {
+test('enemyTarget id, when an Enemy is created and then a magic UFO is created, MagicUFO targets the enemy', () => {
   clearEnemyInstances()
+  const expected = Enemy.numberOfEnemies + 1
   instantiateNormalEnemy()
 
   clearMagicUFOInstances()
@@ -42,8 +43,44 @@ test('id, when an Enemy is created and then a magic UFO is created, MagicUFO tar
     MagicUFO.updateInstances()
   }
 
-  const result = MagicUFO.instances[0].enemyTarget
+  const enemyTarget = MagicUFO.instances[0].enemyTarget
+  let result: number | null = null
+  if (enemyTarget) {
+    result = enemyTarget.id
+  }
 
-  const expected = Enemy.instances[0]
+  expect(result).toBe(expected)
+})
+
+test('enemyTarget, when a first Enemy and a first UFO are instantiated the first MagicUFO targets the first enemy and then when we instantiate a second enemy and a second UFO, the second UFO returns the second enemy as target', () => {
+  clearEnemyInstances()
+  const expected = Enemy.numberOfEnemies + 2
+  instantiateNormalEnemy()
+
+  clearMagicUFOInstances()
+  instantiateMagicUFO()
+
+  // The enemy needs to walk a minimum of a one tile size and then the MagicUFO can target it
+  for (let i = 0; i < Const.TILE_SIZE + 1; i++) {
+    Enemy.updateInstances()
+    MagicUFO.updateInstances()
+  }
+
+  instantiateNormalEnemy()
+  instantiateMagicUFO()
+  // The enemy needs to walk a minimum of a one tile size and then the MagicUFO can target it
+  for (let i = 0; i < Const.TILE_SIZE + 1; i++) {
+    Enemy.updateInstances()
+    MagicUFO.updateInstances()
+  }
+
+  //the second enemy targets the second UFO
+  const enemyTarget = MagicUFO.instances[1].enemyTarget
+
+  let result: number | null = null
+  if (enemyTarget) {
+    result = enemyTarget.id
+  }
+
   expect(result).toEqual(expected)
 })
