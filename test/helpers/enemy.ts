@@ -1,11 +1,20 @@
 import { Enemy } from '../../src/enemies/Enemy'
-import { ConstDirection } from '../../src/constants/ConstDirection'
+import { getPathFromMap } from './map'
 
-export const instantiateNormalEnemy = () => {
+export const clearEnemyInstances = () => {
   Enemy.instances = []
   Enemy.numberOfEnemies = 17
-  const { images, orders, initialEnemiesPosition, wave } = commonConstants
+}
+
+export const instantiateNormalEnemy = (orders?: number[] | null) => {
   const waveEnemies: number = 3
+  const images = [null, null, null] as any
+  const initialEnemiesPosition = { x: 100, y: 200 }
+  const wave = 1
+  if (!orders) {
+    const path = getPathFromMap()
+    orders = path.makeOrders()
+  }
 
   Enemy.instantiateNormalEnemy(
     images,
@@ -18,14 +27,15 @@ export const instantiateNormalEnemy = () => {
   Enemy.waveEnemies = waveEnemies + 1
 }
 
-export const commonConstants = {
-  images: [null, null, null] as any,
-  orders: [
-    ConstDirection.LEFT,
-    ConstDirection.DOWN,
-    ConstDirection.RIGHT,
-    ConstDirection.UP,
-  ],
-  initialEnemiesPosition: { x: 100, y: 200 },
-  wave: 1,
+export const instantiateBossEnemy = (orders?: number[] | null) => {
+  if (!orders) {
+    const path = getPathFromMap()
+    orders = path.makeOrders()
+  }
+
+  const images = [null, null, null] as any
+  const initialEnemiesPosition = { x: 100, y: 200 }
+  const wave = 1
+
+  Enemy.instantiateBoss(images, orders, initialEnemiesPosition, wave)
 }
