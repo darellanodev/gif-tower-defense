@@ -14,7 +14,7 @@ export class MagicUFO extends Magic {
   static UFO_RAY_IMG_INDEX = 1
   static UFO_RAY_IMG_OFFSET_X = 2
   static UFO_RAY_IMG_OFFSET_Y = 30
-  static MAX_TIME_TO_START_ABDUCTION = 30
+  static MAX_TIME_TO_ABDUCT = 30
   static OUT_OF_SCREEN_Y = -50
   static instances: MagicUFO[] = []
   static numberOfUFOs: number = 0 // for generating IDs
@@ -22,7 +22,7 @@ export class MagicUFO extends Magic {
   #images: Image[]
   #enemyTarget: Enemy | null = null
   #timeToSearchEnemy: number = 0
-  #timeToStartAbduction: number = 0
+  #timeToAbduct: number = 0
   #showRay: boolean = false
   #goOut: boolean = false
   #id: number = 0
@@ -140,12 +140,21 @@ export class MagicUFO extends Magic {
     )
   }
 
+  #startedAbduct(): boolean {
+    return this.#timeToAbduct > 0
+  }
+
   #checkCollisionToAbductEnemy() {
     if (this.#isCollidingWithEnemy()) {
       this.#showRay = true
       this.#abduct()
     } else {
       this.#showRay = false
+      if (this.#startedAbduct()) {
+        // loses the enemy
+        this.#enemyTarget = null
+        this.#timeToAbduct = 0
+      }
     }
   }
 
@@ -156,6 +165,7 @@ export class MagicUFO extends Magic {
       }
       this.#enemyTarget.dropFromUFO()
       this.#enemyTarget = null
+      this.#timeToAbduct = 0
       this.#goOut = true
     }
   }
@@ -170,8 +180,8 @@ export class MagicUFO extends Magic {
     }
 
     if (this.#isAbducting()) {
-      if (this.#timeToStartAbduction < MagicUFO.MAX_TIME_TO_START_ABDUCTION) {
-        this.#timeToStartAbduction++
+      if (this.#timeToAbduct < MagicUFO.MAX_TIME_TO_ABDUCT) {
+        this.#timeToAbduct++
       } else {
         this.#enemyTarget.decrementSize()
         if (this.#enemyTarget.isAbducted) {
@@ -213,18 +223,26 @@ export class MagicUFO extends Magic {
     return this.#enemyTarget
   }
 
+  #reSearchEnemyEveryTile() {
+    if (!this.#enemyTarget) {
+      return
+    }
+    if (this.#enemyTarget.moveCount === 0 && !this.#enemyTarget.isAbducted) {
+      this.selectTarget()
+    }
+  }
+
   update() {
     if (this.#enemyTarget) {
-      if (this.#enemyTarget.moveCount == 0) {
-        this.selectTarget()
-        return
-      }
       if (this.#enemyTarget.isAbducted) {
         this.#carryEnemyToStartTile()
         this.#checkCollisionWithStartPosition()
       } else {
         this.#updatePositionToGetEnemy()
         this.#checkCollisionToAbductEnemy()
+        if (!this.#startedAbduct) {
+          this.#reSearchEnemyEveryTile()
+        }
       }
     } else {
       if (this.#goOut) {
