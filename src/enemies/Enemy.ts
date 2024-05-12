@@ -195,10 +195,10 @@ export class Enemy {
     this.#currentDirection = this.#orders[this.#indexOrder]
     this.#position = { ...this.#startPosition }
     this.#setRandomTimeMaxForClosingEyes()
+    this.#reduction = 0
   }
 
   dropFromUFO() {
-    this.#reduction = 0
     this.#reinitEnemy()
   }
 
