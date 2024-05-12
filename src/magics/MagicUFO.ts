@@ -16,18 +16,24 @@ export class MagicUFO extends Magic {
   static UFO_RAY_IMG_OFFSET_Y = 30
   static MAX_TIME_TO_START_ABDUCTION = 30
   static OUT_OF_SCREEN_Y = -50
-
   static instances: MagicUFO[] = []
+  static numberOfUFOs: number = 0 // for generating IDs
+
   #images: Image[]
   #enemyTarget: Enemy | null = null
   #timeToSearchEnemy: number = 0
   #timeToStartAbduction: number = 0
   #showRay: boolean = false
   #goOut: boolean = false
+  #id: number = 0
 
   constructor(images: Image[], startPosition: Position, orders: number[]) {
     super(startPosition, orders)
     this.#images = images
+
+    // generate id
+    MagicUFO.numberOfUFOs++
+    this.#id = MagicUFO.numberOfUFOs
   }
 
   static instantiate(images: Image[], position: Position, orders: number[]) {
@@ -40,6 +46,10 @@ export class MagicUFO extends Magic {
       this.position.x,
       this.position.y,
     )
+  }
+
+  get id() {
+    return this.#id
   }
 
   _drawUFORay() {
@@ -226,8 +236,10 @@ export class MagicUFO extends Magic {
     let maxIndexOrder = 0
     let enemyTarget = null
 
-    Enemy.instances.forEach((enemy) => {
+    Enemy.instances.forEach((enemy: Enemy) => {
       const indexOder = enemy.orderPosition
+
+      // if other ufo has targeted the enemy then continue
 
       if (indexOder > maxIndexOrder) {
         maxIndexOrder = indexOder
