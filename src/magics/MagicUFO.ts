@@ -227,7 +227,7 @@ export class MagicUFO extends Magic {
     if (!this.#enemyTarget) {
       return
     }
-    if (this.#enemyTarget.moveCount === 0 && !this.#enemyTarget.isAbducted) {
+    if (this.#enemyTarget.moveCount === 0) {
       this.selectTarget()
     }
   }
@@ -240,9 +240,7 @@ export class MagicUFO extends Magic {
       } else {
         this.#updatePositionToGetEnemy()
         this.#checkCollisionToAbductEnemy()
-        if (!this.#startedAbduct) {
-          this.#reSearchEnemyEveryTile()
-        }
+        this.#reSearchEnemyEveryTile()
       }
     } else {
       if (this.#goOut) {
