@@ -14,7 +14,7 @@ export class MagicUFO extends Magic {
   static UFO_RAY_IMG_INDEX = 1
   static UFO_RAY_IMG_OFFSET_X = 2
   static UFO_RAY_IMG_OFFSET_Y = 30
-  static MAX_TIME_TO_ABDUCT = 30
+  static MAX_TIME_ABDUCT = 20
   static OUT_OF_SCREEN_Y = -50
   static instances: MagicUFO[] = []
   static numberOfUFOs: number = 0 // for generating IDs
@@ -180,7 +180,7 @@ export class MagicUFO extends Magic {
     }
 
     if (this.#isAbducting()) {
-      if (this.#timeToAbduct < MagicUFO.MAX_TIME_TO_ABDUCT) {
+      if (this.#timeToAbduct < MagicUFO.MAX_TIME_ABDUCT) {
         this.#timeToAbduct++
       } else {
         this.#enemyTarget.decrementSize()
