@@ -24,14 +24,6 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ### Next tasks
 
-- [x] Lives animation (+1 core icon, +2 core icon, ...)
-- [x] Bug: when a tower is upgrading do not allow buy a tower
-- [x] Extract position functionality to Obj class and then the other classes that uses position extends the new Obj class.
-- [ ] The Magic UFO:
-  - [x] goes to the enemy that is closest to the end tile
-  - [x] shows the ray when collides with the target enemy
-  - [ ] captures the enemy and goes to the start tile and drop the enemy.
-  - [ ] when there is two Magic UFO, the second one not target the same enemy that the first one.
 - [ ] Pause button
 - [ ] Speed button
 - [ ] Put the draw of the start tile and the end tile on top of the enemies (the red and the green gradiente effect)
@@ -39,6 +31,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - [ ] Use increment, decrement methods passing a number in Obj class. For example in Magic.ts instead of `this.position.x = this.position.x - Magic.SPEED` it would be `this.position.incrementX(Magic.SPEED)`.
 - [ ] The enemy tilt when it is freezed
+- [ ] Change "Magic" title in hud for "Magics"
 - [ ] Make the explosion balls with a face. The captured faces show a diferent icon with the mouth opened
 - [ ] Tint freezed enemies with a white/blue color and show ice particles
 - [ ] Test other maps with different end tiles positions to implement (with tests) the remaining endings
@@ -51,7 +44,10 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - [ ] Bug: when an Enemy is freezed and is near to move, if it collides with other magic ice ball the timer dont increment. Idea: make a balloon indicating the time in seconds over the enemy indicating the freezed time.
 - [ ] Bug: explosion enemy particles never goes down
 
-- [ ] Improve code
+- [ ] Improve the code:
+  - [ ] Refactor the code to use non-static methods by passing dependencies to the constructors. The dependencies will be interfaces. The classes should depend on abstractions, not concrete implementations (Dependency Inversion Principle).
+  - [ ] Refactor code not to use setters, instead pass them to the constructors.
+  - [ ] Refactor the code to reduce the size of the classes. It is best to have only one public method.
   - [ ] Apply SLA (single level of abstraction)
 
 ## Resources
