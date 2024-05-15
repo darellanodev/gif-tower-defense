@@ -10,40 +10,29 @@ export class HudPanel {
   static HEIGHT = 84
 
   static mode: number = 0
-  static hudImages: Image[]
+  #hudImages: Image[]
 
-  static setImages(hudImages: Image[]) {
-    HudPanel.hudImages = hudImages
+  constructor(hudImages: Image[]) {
+    this.#hudImages = hudImages
   }
 
-  static isInsideButtonsBar(position: Position) {
-    const ButtonsBarRectanglePosition = { x: 0, y: 28 }
-    const ButtonsBarRectangleSize = { w: 800, h: 50 }
-
-    return MathUtils.isPositionInsideRectangle(
-      position,
-      ButtonsBarRectanglePosition,
-      ButtonsBarRectangleSize,
-    )
-  }
-
-  static draw() {
+  draw() {
     switch (HudPanel.mode) {
       case HudPanel.NORMAL:
-        P5.p5.image(HudPanel.hudImages[HudPanel.NORMAL], 0, 0)
+        P5.p5.image(this.#hudImages[HudPanel.NORMAL], 0, 0)
         break
 
       case HudPanel.UPGRADING:
-        P5.p5.image(HudPanel.hudImages[HudPanel.UPGRADING], 0, 0)
+        P5.p5.image(this.#hudImages[HudPanel.UPGRADING], 0, 0)
         break
 
       case HudPanel.UPGRADING_MAX:
-        P5.p5.image(HudPanel.hudImages[HudPanel.UPGRADING_MAX], 0, 0)
+        P5.p5.image(this.#hudImages[HudPanel.UPGRADING_MAX], 0, 0)
         break
     }
   }
 
-  static selectHudMode(tower: TowerType | null) {
+  selectHudMode(tower: TowerType | null) {
     if (!tower) {
       return
     }
@@ -55,7 +44,7 @@ export class HudPanel {
     }
   }
 
-  static drawNormalHud() {
+  drawNormalHud() {
     HudPanel.mode = HudPanel.NORMAL
   }
 }

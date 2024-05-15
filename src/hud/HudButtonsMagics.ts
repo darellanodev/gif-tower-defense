@@ -4,27 +4,48 @@ import { MagicFireball } from '../magics/MagicFireball'
 import { MagicIceball } from '../magics/MagicIceball'
 import { MagicUFO } from '../magics/MagicUFO'
 import { ButtonMagic } from './ButtonMagic'
-import { HudPanel } from './HudPanel'
+import { MathUtils } from '../utils/MathUtils'
 
 export class HudButtonsMagics {
-  static magicUFOButtonImages: Image[]
-  static magicFireballButtonImages: Image[]
-  static magicIceballButtonImages: Image[]
+  #magicUFOButtonImages: Image[]
+  #magicFireballButtonImages: Image[]
+  #magicIceballButtonImages: Image[]
 
-  static isInsideMagicsButtonsBar(position: Position) {
-    if (HudPanel.isInsideButtonsBar(position) && position.x > 495) {
+  constructor(
+    magicUFOButtonImages: Image[],
+    magicFireballButtonImages: Image[],
+    magicIceballButtonImages: Image[],
+  ) {
+    this.#magicUFOButtonImages = magicUFOButtonImages
+    this.#magicFireballButtonImages = magicFireballButtonImages
+    this.#magicIceballButtonImages = magicIceballButtonImages
+  }
+
+  #isInsideButtonsBar(position: Position) {
+    const ButtonsBarRectanglePosition = { x: 0, y: 28 }
+    const ButtonsBarRectangleSize = { w: 800, h: 50 }
+
+    return MathUtils.isPositionInsideRectangle(
+      position,
+      ButtonsBarRectanglePosition,
+      ButtonsBarRectangleSize,
+    )
+  }
+
+  isInsideMagicsButtonsBar(position: Position) {
+    if (this.#isInsideButtonsBar(position) && position.x > 495) {
       return true
     }
     return false
   }
 
-  static draw() {
+  draw() {
     ButtonMagic.magicUFOButton.draw()
     ButtonMagic.magicFireballButton.draw()
     ButtonMagic.magicIceballButton.draw()
   }
 
-  static _instantiateMagicFireball(
+  _instantiateMagicFireball(
     magicFireballImage: Image,
     initialEnemiesPosition: Position,
     orders: number[],
@@ -40,7 +61,7 @@ export class HudButtonsMagics {
     )
   }
 
-  static _instantiateMagicIceBall(
+  _instantiateMagicIceBall(
     magicIceballImage: Image,
     initialEnemiesPosition: Position,
     orders: number[],
@@ -56,7 +77,7 @@ export class HudButtonsMagics {
     )
   }
 
-  static _instantiateMagicUFO(
+  _instantiateMagicUFO(
     magicUFOImages: Image[],
     initialEnemiesPosition: Position,
     orders: number[],
@@ -72,7 +93,7 @@ export class HudButtonsMagics {
     )
   }
 
-  static handleMagicButtons(
+  handleMagicButtons(
     mousePosition: Position,
     magicIceballImage: Image,
     magicFireballImage: Image,
@@ -81,25 +102,21 @@ export class HudButtonsMagics {
     orders: number[],
   ) {
     if (ButtonMagic.magicFireballButton.isMouseOver(mousePosition)) {
-      HudButtonsMagics._instantiateMagicFireball(
+      this._instantiateMagicFireball(
         magicFireballImage,
         initialEnemiesPosition,
         orders,
       )
     }
     if (ButtonMagic.magicIceballButton.isMouseOver(mousePosition)) {
-      HudButtonsMagics._instantiateMagicIceBall(
+      this._instantiateMagicIceBall(
         magicIceballImage,
         initialEnemiesPosition,
         orders,
       )
     }
     if (ButtonMagic.magicUFOButton.isMouseOver(mousePosition)) {
-      HudButtonsMagics._instantiateMagicUFO(
-        magicUFOImages,
-        initialEnemiesPosition,
-        orders,
-      )
+      this._instantiateMagicUFO(magicUFOImages, initialEnemiesPosition, orders)
     }
   }
 }

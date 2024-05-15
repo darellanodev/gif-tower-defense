@@ -9,12 +9,9 @@ import { InfluenceArea } from '../towers/InfluenceArea'
 import { P5 } from '../utils/P5'
 import { ButtonTower } from './ButtonTower'
 import { HudPanel } from './HudPanel'
+import { MathUtils } from '../utils/MathUtils'
 
 export class HudButtonsTowers {
-  static NORMAL = 0
-  static UPGRADING = 1
-  static UPGRADING_MAX = 2
-  static HEIGHT = 84
   static ICON_GREEN_TOWER_ON = 0
   static ICON_GREEN_TOWER_OFF = 1
   static ICON_RED_TOWER_ON = 0
@@ -22,31 +19,49 @@ export class HudButtonsTowers {
   static ICON_YELLOW_TOWER_ON = 0
   static ICON_YELLOW_TOWER_OFF = 1
 
-  static mode: number = 0
-  static canBuyTowerGreen: boolean = false
-  static canBuyTowerRed: boolean = false
-  static canBuyTowerYellow: boolean = false
+  #canBuyTowerGreen: boolean = false
+  #canBuyTowerRed: boolean = false
+  #canBuyTowerYellow: boolean = false
 
-  static hudImages: Image[]
-  static towerGreenButtonImages: Image[]
-  static towerRedButtonImages: Image[]
-  static towerYellowButtonImages: Image[]
-  static upgradeCost: number | null = null
-  static sellProfit: number | null = null
-  static canUpgrade: boolean
+  #towerGreenButtonImages: Image[]
+  #towerRedButtonImages: Image[]
+  #towerYellowButtonImages: Image[]
 
-  static setImages(hudImages: Image[]) {
-    HudPanel.hudImages = hudImages
+  #upgradeCost: number | null = null
+  #sellProfit: number | null = null
+  #canUpgrade: boolean
+
+  constructor(
+    towerGreenButtonImages: Image[],
+    towerRedButtonImages: Image[],
+    towerYellowButtonImages: Image[],
+  ) {
+    this.#towerGreenButtonImages = towerGreenButtonImages
+    this.#towerRedButtonImages = towerRedButtonImages
+    this.#towerYellowButtonImages = towerYellowButtonImages
+
+    this.#canUpgrade = false
   }
 
-  static isInsideTowersButtonsBar(position: Position) {
-    if (HudPanel.isInsideButtonsBar(position) && position.x < 265) {
+  #isInsideButtonsBar(position: Position) {
+    const ButtonsBarRectanglePosition = { x: 0, y: 28 }
+    const ButtonsBarRectangleSize = { w: 800, h: 50 }
+
+    return MathUtils.isPositionInsideRectangle(
+      position,
+      ButtonsBarRectanglePosition,
+      ButtonsBarRectangleSize,
+    )
+  }
+
+  isInsideTowersButtonsBar(position: Position) {
+    if (this.#isInsideButtonsBar(position) && position.x < 265) {
       return true
     }
     return false
   }
 
-  static selectTower(towerId: number) {
+  selectTower(towerId: number) {
     ButtonTower.uncheckAllTowerButtons()
     switch (towerId) {
       case TowerGreen.ID:
@@ -63,7 +78,7 @@ export class HudButtonsTowers {
     }
   }
 
-  static getSelectedTower() {
+  getSelectedTower() {
     if (ButtonTower.greenTowerButton.isChecked) {
       return TowerGreen.ID
     } else if (ButtonTower.redTowerButton.isChecked) {
@@ -72,130 +87,130 @@ export class HudButtonsTowers {
     return TowerYellow.ID
   }
 
-  static setCanBuy(
+  setCanBuy(
     canBuyTowerGreen: boolean,
     canBuyTowerRed: boolean,
     canBuyTowerYellow: boolean,
   ) {
-    HudButtonsTowers.canBuyTowerGreen = canBuyTowerGreen
-    HudButtonsTowers.canBuyTowerRed = canBuyTowerRed
-    HudButtonsTowers.canBuyTowerYellow = canBuyTowerYellow
+    this.#canBuyTowerGreen = canBuyTowerGreen
+    this.#canBuyTowerRed = canBuyTowerRed
+    this.#canBuyTowerYellow = canBuyTowerYellow
   }
 
-  static draw() {
+  draw() {
     if (HudPanel.mode === HudPanel.NORMAL) {
-      HudButtonsTowers._drawTowerButtons()
+      this._drawTowerButtons()
     }
 
     TextProperties.setForHudData()
 
     if (HudPanel.mode != HudPanel.UPGRADING_MAX) {
-      HudButtonsTowers._drawUpgradeCost()
+      this._drawUpgradeCost()
     }
-    HudButtonsTowers._drawSellProfit()
+    this._drawSellProfit()
 
     if (HudPanel.mode === HudPanel.NORMAL) {
-      HudButtonsTowers._drawNewTowerPrices()
+      this._drawNewTowerPrices()
     }
   }
 
-  static _drawTowerButtons() {
-    ButtonTower.greenTowerButton.on = HudButtonsTowers.canBuyTowerGreen
-    ButtonTower.redTowerButton.on = HudButtonsTowers.canBuyTowerRed
-    ButtonTower.yellowTowerButton.on = HudButtonsTowers.canBuyTowerYellow
+  _drawTowerButtons() {
+    ButtonTower.greenTowerButton.on = this.#canBuyTowerGreen
+    ButtonTower.redTowerButton.on = this.#canBuyTowerRed
+    ButtonTower.yellowTowerButton.on = this.#canBuyTowerYellow
 
     ButtonTower.greenTowerButton.draw()
     ButtonTower.redTowerButton.draw()
     ButtonTower.yellowTowerButton.draw()
   }
 
-  static _drawUpgradeCost() {
-    if (HudButtonsTowers.upgradeCost !== null) {
-      if (!HudButtonsTowers.canUpgrade) {
+  _drawUpgradeCost() {
+    if (this.#upgradeCost !== null) {
+      if (!this.#canUpgrade) {
         P5.p5.fill('gray')
       }
-      P5.p5.text(HudButtonsTowers.upgradeCost, 33, 72)
-      HudButtonsTowers._restoreFill()
+      P5.p5.text(this.#upgradeCost, 33, 72)
+      this._restoreFill()
     }
   }
 
-  static _drawSellProfit() {
-    if (HudButtonsTowers.sellProfit !== null) {
-      P5.p5.text(HudButtonsTowers.sellProfit, 182, 72)
+  _drawSellProfit() {
+    if (this.#sellProfit !== null) {
+      P5.p5.text(this.#sellProfit, 182, 72)
     }
   }
 
-  static _drawTowerGreenPrice() {
-    if (!HudButtonsTowers.canBuyTowerGreen) {
+  _drawTowerGreenPrice() {
+    if (!this.#canBuyTowerGreen) {
       P5.p5.fill('gray')
     }
     P5.p5.text(TowerGreen.COST_UPGRADE[0], 40, 72)
-    HudButtonsTowers._restoreFill()
+    this._restoreFill()
   }
-  static _drawTowerRedPrice() {
-    if (!HudButtonsTowers.canBuyTowerRed) {
+  _drawTowerRedPrice() {
+    if (!this.#canBuyTowerRed) {
       P5.p5.fill('gray')
     }
     P5.p5.text(TowerRed.COST_UPGRADE[0], 118, 72)
-    HudButtonsTowers._restoreFill()
+    this._restoreFill()
   }
-  static _drawTowerYellowPrice() {
-    if (!HudButtonsTowers.canBuyTowerYellow) {
+  _drawTowerYellowPrice() {
+    if (!this.#canBuyTowerYellow) {
       P5.p5.fill('gray')
     }
     P5.p5.text(TowerYellow.COST_UPGRADE[0], 202, 72)
-    HudButtonsTowers._restoreFill()
+    this._restoreFill()
   }
 
-  static _restoreFill() {
+  _restoreFill() {
     P5.p5.fill('white')
   }
 
-  static _drawNewTowerPrices() {
+  _drawNewTowerPrices() {
     this._drawTowerGreenPrice()
     this._drawTowerRedPrice()
     this._drawTowerYellowPrice()
   }
 
-  static viewUpgradeCost(tower: TowerType, canUpgrade: boolean) {
-    HudButtonsTowers.upgradeCost = null
+  viewUpgradeCost(tower: TowerType, canUpgrade: boolean) {
+    this.#upgradeCost = null
     if (HudPanel.mode === HudPanel.UPGRADING) {
-      HudButtonsTowers.upgradeCost = tower.nextLevelUpgradeCost
+      this.#upgradeCost = tower.nextLevelUpgradeCost
     }
-    HudButtonsTowers.canUpgrade = canUpgrade
+    this.#canUpgrade = canUpgrade
   }
 
-  static viewSellProfit(tower: TowerType) {
-    HudButtonsTowers.sellProfit = null
+  viewSellProfit(tower: TowerType) {
+    this.#sellProfit = null
     if (
       HudPanel.mode === HudPanel.UPGRADING ||
       HudPanel.mode === HudPanel.UPGRADING_MAX
     ) {
-      HudButtonsTowers.sellProfit = tower.sellProfit
+      this.#sellProfit = tower.sellProfit
     }
   }
 
-  static hideUpgradeCost() {
-    HudButtonsTowers.upgradeCost = null
+  hideUpgradeCost() {
+    this.#upgradeCost = null
   }
 
-  static hideSellProfit() {
-    HudButtonsTowers.sellProfit = null
+  hideSellProfit() {
+    this.#sellProfit = null
   }
 
-  static handleTowerButtons(mousePosition: Position) {
+  handleTowerButtons(mousePosition: Position) {
     if (ButtonTower.greenTowerButton.isMouseOver(mousePosition)) {
-      HudButtonsTowers.selectTower(TowerGreen.ID)
+      this.selectTower(TowerGreen.ID)
     }
     if (ButtonTower.redTowerButton.isMouseOver(mousePosition)) {
-      HudButtonsTowers.selectTower(TowerRed.ID)
+      this.selectTower(TowerRed.ID)
     }
     if (ButtonTower.yellowTowerButton.isMouseOver(mousePosition)) {
-      HudButtonsTowers.selectTower(TowerYellow.ID)
+      this.selectTower(TowerYellow.ID)
     }
   }
 
-  static drawMouseIsOverOrangeTileWithTower() {
+  drawMouseIsOverOrangeTileWithTower() {
     const playerMouseTileOrangeOver = Player.mouseTileOrangeOver
 
     if (!playerMouseTileOrangeOver) {
@@ -203,8 +218,6 @@ export class HudButtonsTowers {
     }
 
     const tower = playerMouseTileOrangeOver.getTower()
-
-    HudPanel.selectHudMode(tower)
 
     if (!tower) {
       return
@@ -215,22 +228,20 @@ export class HudButtonsTowers {
         tower.type,
         tower.upgradeLevel + 1,
       )
-      HudButtonsTowers.viewUpgradeCost(tower, canUpgrade)
+      this.viewUpgradeCost(tower, canUpgrade)
       InfluenceArea.drawTowerInfluenceArea(tower, canUpgrade)
     } else {
       InfluenceArea.drawTowerInfluenceArea(tower, false)
     }
 
-    HudButtonsTowers.viewSellProfit(tower)
+    this.viewSellProfit(tower)
   }
 
-  static drawMouseIsOverOrangeTileWithoutTower() {
+  drawMouseIsOverOrangeTileWithoutTower() {
     if (Player.mouseTileOrangeOver) {
       InfluenceArea.drawNoTowerInfluenceArea(
         Player.mouseTileOrangeOver.position,
       )
     }
-
-    HudPanel.drawNormalHud()
   }
 }

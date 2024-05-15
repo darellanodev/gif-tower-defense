@@ -3,33 +3,33 @@ import { ProgressBar } from './ProgressBar'
 import { Const } from '../constants/Const'
 
 export class HudProgressBarBoss {
-  static bossProgressBar: ProgressBar
-  static bossProgressDelay: number = Const.BOSS_PROGRESS_DELAY
+  #bossProgressBar: ProgressBar
+  #bossProgressDelay: number = Const.BOSS_PROGRESS_DELAY
 
-  static initializeBossProgressBar() {
+  constructor() {
     const position: Position = { x: 335, y: -2 }
     const size: Size = { w: 150, h: 10 }
-    HudProgressBarBoss.bossProgressBar = new ProgressBar(position, size)
+    this.#bossProgressBar = new ProgressBar(position, size)
   }
 
-  static updateBossProgressBar() {
+  updateBossProgressBar() {
     let instantiateBoss = false
-    if (HudProgressBarBoss.bossProgressDelay > 0) {
-      HudProgressBarBoss.bossProgressDelay--
+    if (this.#bossProgressDelay > 0) {
+      this.#bossProgressDelay--
     } else {
-      HudProgressBarBoss.bossProgressDelay = Const.BOSS_PROGRESS_DELAY
-      HudProgressBarBoss.bossProgressBar.increaseProgress()
+      this.#bossProgressDelay = Const.BOSS_PROGRESS_DELAY
+      this.#bossProgressBar.increaseProgress()
 
-      if (HudProgressBarBoss.bossProgressBar.isFullOfProgress()) {
+      if (this.#bossProgressBar.isFullOfProgress()) {
         // next boss
-        HudProgressBarBoss.bossProgressBar.reinitProgress()
+        this.#bossProgressBar.reinitProgress()
         instantiateBoss = true
       }
     }
     return instantiateBoss
   }
 
-  static draw() {
-    HudProgressBarBoss.bossProgressBar.draw()
+  draw() {
+    this.#bossProgressBar.draw()
   }
 }
