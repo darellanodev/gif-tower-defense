@@ -51,17 +51,21 @@ export class InfluenceArea {
     return influenceArea
   }
 
-  static drawNoTowerInfluenceArea(position: Position) {
-    // if (Player.haveMoneyToBuyNewTower(Hud.getSelectedTower())) {
-    //   InfluenceArea._setInfluenceAreaColor(Hud.getSelectedTower())
-    // } else {
-    //   InfluenceArea._setGrayInfluenceAreaColor()
-    // }
-    // InfluenceArea._drawCircle(
-    //   position.x,
-    //   position.y,
-    //   InfluenceArea._getInfluenceAreaFor(Hud.getSelectedTower()),
-    // )
+  static drawNoTowerInfluenceArea(
+    position: Position,
+    towerSelected: number,
+    haveMoneyToBuySelectedTower: boolean,
+  ) {
+    if (haveMoneyToBuySelectedTower) {
+      InfluenceArea._setInfluenceAreaColor(towerSelected)
+    } else {
+      InfluenceArea._setGrayInfluenceAreaColor()
+    }
+    InfluenceArea._drawCircle(
+      position.x,
+      position.y,
+      InfluenceArea._getInfluenceAreaFor(towerSelected),
+    )
   }
 
   static drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {

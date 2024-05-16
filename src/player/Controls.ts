@@ -129,7 +129,13 @@ export class Controls {
 
   drawMouseIsOverOrangeTileWithoutTower() {
     if (this.mouseTileOrangeOver) {
-      InfluenceArea.drawNoTowerInfluenceArea(this.mouseTileOrangeOver.position)
+      const towerSelected = this.#hudButtonsTowers.getSelectedTower()
+
+      InfluenceArea.drawNoTowerInfluenceArea(
+        this.mouseTileOrangeOver.position,
+        towerSelected,
+        this.#wallet.haveMoneyToBuyNewTower(towerSelected),
+      )
     }
   }
 }
