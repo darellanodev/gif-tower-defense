@@ -1,6 +1,7 @@
 import { Player } from '../player/Player'
 import { Wallet } from '../player/Wallet'
 import { P5 } from '../utils/P5'
+import { TextProperties } from './TextProperties'
 
 export class HudOtherIndicators {
   #wallet: Wallet
@@ -11,10 +12,12 @@ export class HudOtherIndicators {
   }
 
   draw() {
+    TextProperties.setForHudData()
     this.#drawMoney()
     this.#drawLives()
     this.#drawScore()
     this.#drawLevelTitle()
+    this.#drawWave()
   }
 
   #drawMoney() {

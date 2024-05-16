@@ -310,6 +310,8 @@ window.draw = () => {
   }
   hudButtonsTowers.draw()
   hudButtonsMagic.draw()
+  hudProgressBarWave.draw()
+  hudProgressBarBoss.draw()
   hudOtherIndicators.draw()
 
   Enemy.instances.forEach((enemy) => {

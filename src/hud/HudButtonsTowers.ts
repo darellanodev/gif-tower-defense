@@ -92,34 +92,25 @@ export class HudButtonsTowers {
     return TowerYellow.ID
   }
 
-  setCanBuy(
-    canBuyTowerGreen: boolean,
-    canBuyTowerRed: boolean,
-    canBuyTowerYellow: boolean,
-  ) {
-    this.#canBuyTowerGreen = canBuyTowerGreen
-    this.#canBuyTowerRed = canBuyTowerRed
-    this.#canBuyTowerYellow = canBuyTowerYellow
-  }
-
   draw() {
     if (HudPanel.mode === HudPanel.NORMAL) {
-      this._drawTowerButtons()
+      this.#setCanBuy()
+      this.#drawTowerButtons()
     }
 
     TextProperties.setForHudData()
 
     if (HudPanel.mode != HudPanel.UPGRADING_MAX) {
-      this._drawUpgradeCost()
+      this.#drawUpgradeCost()
     }
-    this._drawSellProfit()
+    this.#drawSellProfit()
 
     if (HudPanel.mode === HudPanel.NORMAL) {
-      this._drawNewTowerPrices()
+      this.#drawNewTowerPrices()
     }
   }
 
-  _drawTowerButtons() {
+  #drawTowerButtons() {
     ButtonTower.greenTowerButton.on = this.#canBuyTowerGreen
     ButtonTower.redTowerButton.on = this.#canBuyTowerRed
     ButtonTower.yellowTowerButton.on = this.#canBuyTowerYellow
@@ -129,52 +120,62 @@ export class HudButtonsTowers {
     ButtonTower.yellowTowerButton.draw()
   }
 
-  _drawUpgradeCost() {
+  #drawUpgradeCost() {
     if (this.#upgradeCost !== null) {
       if (!this.#canUpgrade) {
         P5.p5.fill('gray')
       }
       P5.p5.text(this.#upgradeCost, 33, 72)
-      this._restoreFill()
+      this.#restoreFill()
     }
   }
 
-  _drawSellProfit() {
+  #drawSellProfit() {
     if (this.#sellProfit !== null) {
       P5.p5.text(this.#sellProfit, 182, 72)
     }
   }
 
-  _drawTowerGreenPrice() {
+  #drawTowerGreenPrice() {
     if (!this.#canBuyTowerGreen) {
       P5.p5.fill('gray')
     }
     P5.p5.text(TowerGreen.COST_UPGRADE[0], 40, 72)
-    this._restoreFill()
+    this.#restoreFill()
   }
-  _drawTowerRedPrice() {
+
+  #drawTowerRedPrice() {
     if (!this.#canBuyTowerRed) {
       P5.p5.fill('gray')
     }
     P5.p5.text(TowerRed.COST_UPGRADE[0], 118, 72)
-    this._restoreFill()
+    this.#restoreFill()
   }
-  _drawTowerYellowPrice() {
+
+  #drawTowerYellowPrice() {
     if (!this.#canBuyTowerYellow) {
       P5.p5.fill('gray')
     }
     P5.p5.text(TowerYellow.COST_UPGRADE[0], 202, 72)
-    this._restoreFill()
+    this.#restoreFill()
   }
 
-  _restoreFill() {
+  #restoreFill() {
     P5.p5.fill('white')
   }
 
-  _drawNewTowerPrices() {
-    this._drawTowerGreenPrice()
-    this._drawTowerRedPrice()
-    this._drawTowerYellowPrice()
+  #drawNewTowerPrices() {
+    this.#drawTowerGreenPrice()
+    this.#drawTowerRedPrice()
+    this.#drawTowerYellowPrice()
+  }
+
+  #setCanBuy() {
+    this.#canBuyTowerGreen = this.#wallet.haveMoneyToBuyNewTower(TowerGreen.ID)
+    this.#canBuyTowerRed = this.#wallet.haveMoneyToBuyNewTower(TowerRed.ID)
+    this.#canBuyTowerYellow = this.#wallet.haveMoneyToBuyNewTower(
+      TowerYellow.ID,
+    )
   }
 
   viewUpgradeCost(tower: TowerType, canUpgrade: boolean) {
