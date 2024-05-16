@@ -6,6 +6,7 @@ import { TilePath } from './TilePath'
 import { Image } from 'p5'
 import { ConstDirection } from '../constants/ConstDirection'
 import { ConstMapTileSymbol } from '../constants/ConstMapTileSymbol'
+import { Player } from '../player/Player'
 
 export class TileGenerator {
   static FLOOR_SIZE = 50
@@ -19,10 +20,12 @@ export class TileGenerator {
   #startImage: Image | null = null
   #endImage: Image | null = null
   #startDirection: number
+  #player: Player
 
-  constructor(levelMap: MapDataType, mapImages: Image[]) {
+  constructor(levelMap: MapDataType, mapImages: Image[], player: Player) {
     this.#levelMap = levelMap
     this.#mapImages = mapImages
+    this.#player = player
 
     if (this.#levelMap.rowsMap.length === 0) {
       throw new Error('No rows map found')
@@ -96,7 +99,11 @@ export class TileGenerator {
           switch (symbol) {
             case ConstMapTileSymbol.ORANGE:
               resultTiles.push(
-                new TileOrange(this.#orangeImage, { x: posX, y: posY }),
+                new TileOrange(
+                  this.#orangeImage,
+                  { x: posX, y: posY },
+                  this.#player,
+                ),
               )
               break
             case ConstMapTileSymbol.PATH:

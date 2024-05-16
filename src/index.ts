@@ -7,7 +7,6 @@ import { TowerGreen } from './towers/TowerGreen'
 import { TowerRed } from './towers/TowerRed'
 import { TowerYellow } from './towers/TowerYellow'
 import { MathUtils } from './utils/MathUtils'
-import { Hud } from './hud/Hud'
 import { Enemy } from './enemies/Enemy'
 import { Debug } from './hud/Debug'
 import { ExplosionEnemy } from './explosions/ExplosionEnemy'
@@ -19,19 +18,36 @@ import { LevelsData } from './levels/LevelsData'
 import { MagicFireball } from './magics/MagicFireball'
 import { MagicIceball } from './magics/MagicIceball'
 import { MagicUFO } from './magics/MagicUFO'
-import { Player } from './Player'
+import { Player } from './player/Player'
 import { Images } from './resources/Images'
 import { Missile } from './towers/Missile'
 import { P5 } from './utils/P5'
 import { ButtonTower } from './hud/ButtonTower'
 import { ButtonMagic } from './hud/ButtonMagic'
 import { FlyIndicator } from './hud/FlyIndicator'
+import { HudPanel } from './hud/HudPanel'
+import { HudButtonsMagics } from './hud/HudButtonsMagics'
+import { HudButtonsTowers } from './hud/HudButtonsTowers'
+import { HudProgressBarBoss } from './hud/HudProgressBarBoss'
+import { HudProgressBarWave } from './hud/HudProgressBarWave'
+import { HudOtherIndicators } from './hud/HudOtherIndicators'
+import { Wallet } from './player/Wallet'
+import { Controls } from './player/Controls'
 
 let _p5: p5
 let gameStatus: number = 0
 let levelDataProvider: LevelsDataProvider
 let instantiateBoss: boolean = false
 let instantiateEnemies: boolean = false
+let hudPanel: HudPanel
+let hudButtonsMagic: HudButtonsMagics
+let hudButtonsTowers: HudButtonsTowers
+let hudProgressBarBoss: HudProgressBarBoss
+let hudProgressBarWave: HudProgressBarWave
+let hudOtherIndicators: HudOtherIndicators
+let player: Player
+let wallet: Wallet
+let controls: Controls
 
 // ugly hack: remove the extra canvas created
 window.addEventListener('load', () => {
@@ -57,7 +73,7 @@ window.preload = () => {
   Images.loadAll()
 }
 
-function getMouseTileOrangeOver() {
+function getMouseTileOrangeOver(): TileOrange | null {
   const result = TileOrange.instances.find((orangeTile) =>
     orangeTile.isInside(P5.p5.mouseX, P5.p5.mouseY),
   )
@@ -92,7 +108,7 @@ function disableContextualMenu() {
 }
 
 window.mouseClicked = () => {
-  Player.mouseClicked(
+  controls.mouseClicked(
     P5.p5.mouseX,
     P5.p5.mouseY,
     Images.magicIceballImage,
@@ -100,7 +116,7 @@ window.mouseClicked = () => {
     Images.magicUFOImages,
     Path.initialEnemiesPosition,
     Path.orders,
-    Player.mouseTileOrangeOver,
+    controls.mouseTileOrangeOver,
   )
 }
 
@@ -121,7 +137,9 @@ window.setup = () => {
   TowerRed.setImages(Images.redTowerImages)
   TowerYellow.setImages(Images.yellowTowerImages)
 
-  const tileGenerator = new TileGenerator(levelMap, Images.tileImages)
+  player = new Player()
+
+  const tileGenerator = new TileGenerator(levelMap, Images.tileImages, player)
   TileOrange.instances = tileGenerator.orangeTiles
   Path.startTile = tileGenerator.startTile
 
@@ -131,9 +149,6 @@ window.setup = () => {
   const path = new Path(Path.startTile, Path.endTile, pathTiles)
   Path.orders = path.makeOrders()
   Path.initialEnemiesPosition = path.getEnemiesInitialPosition()
-
-  Player.gameMode = Player.GAME_TESTING_MODE
-  Player.initialMoney = tileGenerator.initialMoney
 
   ButtonMagic.setImages(
     Images.magicUFOButtonImages,
@@ -149,21 +164,98 @@ window.setup = () => {
   )
   ButtonTower.initializeButtons()
 
-  Hud.setImages(Images.hudImages)
-  Hud.initializeWaveProgressBar()
-  Hud.initializeBossProgressBar()
+  hudPanel = new HudPanel(Images.hudImages)
+  hudButtonsMagic = new HudButtonsMagics(
+    Images.magicUFOButtonImages,
+    Images.magicFireballButtonImages,
+    Images.magicIceballButtonImages,
+  )
+
+  wallet = new Wallet(Wallet.GAME_TESTING_MODE, tileGenerator.initialMoney)
+  hudButtonsTowers = new HudButtonsTowers(
+    Images.towerGreenButtonImages,
+    Images.towerRedButtonImages,
+    Images.yellowTowerImages,
+    wallet,
+  )
+
+  controls = new Controls(hudButtonsMagic, hudButtonsTowers, wallet)
+
+  hudProgressBarBoss = new HudProgressBarBoss()
+  hudProgressBarWave = new HudProgressBarWave(player)
+  hudOtherIndicators = new HudOtherIndicators(wallet, player)
 }
 
 window.keyPressed = () => {
-  Player.keyPressed()
+  controls.keyPressed()
+}
+
+const handleNewEnemyCreation = () => {
+  if (Enemy.allowCreateEnemies) {
+    if (Enemy.waveEnemies < Enemy.TOTAL_ENEMIES) {
+      Enemy.createEnemyTime++
+      if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
+        Enemy.createEnemyTime = 0
+
+        Enemy.instantiateNormalEnemy(
+          Images.enemiesImages.slice(
+            ...MathUtils.getTwoNumbersFourTimes(Enemy.waveEnemies),
+          ),
+          Enemy.waveEnemies,
+          Path.orders,
+          Path.initialEnemiesPosition,
+          player.wave,
+          player,
+        )
+
+        Enemy.waveEnemies++
+      }
+    } else {
+      Enemy.allowCreateEnemies = false
+      Enemy.waveEnemies = 0
+    }
+  }
+}
+
+const handleWinners = () => {
+  let gameStatus = Const.GAME_STATUS_PLAYING
+  const winnerEnemies = Enemy.instances.filter((enemy) => enemy.winner)
+  winnerEnemies.forEach((enemy) => {
+    player.decreaseLives()
+    if (player.lives <= 0) {
+      gameStatus = Const.GAME_STATUS_GAME_OVER
+    }
+    enemy.resetWinner()
+  })
+  return gameStatus
+}
+
+const handleExplosionEnemys = () => {
+  const deadEnemies: Enemy[] = Enemy.instances.filter((enemy) => enemy.dead)
+  deadEnemies.forEach((enemy) => {
+    ExplosionEnemy.instantiate(enemy.position)
+
+    const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR
+    wallet.increaseMoney($increasedMoney)
+    player.increaseScore($increasedMoney * 2)
+  })
+}
+
+const updateEnemies = () => {
+  handleNewEnemyCreation()
+  handleExplosionEnemys()
+  Enemy.removeDeadInstances()
+  Enemy.updateInstances()
+
+  return handleWinners()
 }
 
 window.draw = () => {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
-    gameStatus = Enemy.updateEnemies()
-    Player.mouseTileOrangeOver = getMouseTileOrangeOver()
-    instantiateEnemies = Hud.updateWaveProgressBar()
-    instantiateBoss = Hud.updateBossProgressBar()
+    gameStatus = updateEnemies()
+    controls.mouseTileOrangeOver = getMouseTileOrangeOver()
+    instantiateEnemies = hudProgressBarWave.updateWaveProgressBar()
+    instantiateBoss = hudProgressBarBoss.updateBossProgressBar()
 
     if (instantiateBoss) {
       Enemy.instantiateBoss(
@@ -174,7 +266,8 @@ window.draw = () => {
         ),
         Path.orders,
         Path.initialEnemiesPosition,
-        Player.wave,
+        player.wave,
+        player,
       )
     }
 
@@ -189,7 +282,7 @@ window.draw = () => {
   P5.p5.background('skyblue')
   P5.p5.rectMode(P5.p5.CORNER)
 
-  P5.p5.image(Images.backgroundImage, 0, Hud.HEIGHT)
+  P5.p5.image(Images.backgroundImage, 0, HudPanel.HEIGHT)
 
   Path.startTile.draw()
   Path.endTile.draw()
@@ -204,17 +297,20 @@ window.draw = () => {
     orangeTile.drawTower()
   })
 
-  Hud.draw()
+  hudPanel.draw()
 
-  if (Player.mouseTileOrangeOver !== null) {
-    if (Player.mouseTileOrangeOver.hasTower()) {
-      Hud.drawMouseIsOverOrangeTileWithTower()
+  if (controls.mouseTileOrangeOver !== null) {
+    if (controls.mouseTileOrangeOver.hasTower()) {
+      controls.drawMouseIsOverOrangeTileWithTower(controls.mouseTileOrangeOver)
     } else {
-      Hud.drawMouseIsOverOrangeTileWithoutTower()
+      controls.drawMouseIsOverOrangeTileWithoutTower()
     }
   } else {
-    Hud.drawNormalHud()
+    hudPanel.drawNormalHud()
   }
+  hudButtonsTowers.draw()
+  hudButtonsMagic.draw()
+  hudOtherIndicators.draw()
 
   Enemy.instances.forEach((enemy) => {
     enemy.draw()
@@ -241,7 +337,7 @@ window.draw = () => {
   Missile.drawInstances()
   FlyIndicator.drawInstances()
 
-  if (Player.isGameInTestingMode()) {
+  if (wallet.isGameInTestingMode()) {
     Debug.showMouseCoordinates({ x: P5.p5.mouseX, y: P5.p5.mouseY })
     Debug.showLabelTestingMode()
   }

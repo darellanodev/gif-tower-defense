@@ -4,12 +4,14 @@ import { Image } from 'p5'
 import { TowerGreen } from '../towers/TowerGreen'
 import { TowerRed } from '../towers/TowerRed'
 import { TowerYellow } from '../towers/TowerYellow'
-import { Player } from '../Player'
+import { Player } from '../player/Player'
 import { InfluenceArea } from '../towers/InfluenceArea'
 import { P5 } from '../utils/P5'
 import { ButtonTower } from './ButtonTower'
 import { HudPanel } from './HudPanel'
 import { MathUtils } from '../utils/MathUtils'
+import { TileOrange } from '../tiles/TileOrange'
+import { Wallet } from '../player/Wallet'
 
 export class HudButtonsTowers {
   static ICON_GREEN_TOWER_ON = 0
@@ -26,6 +28,7 @@ export class HudButtonsTowers {
   #towerGreenButtonImages: Image[]
   #towerRedButtonImages: Image[]
   #towerYellowButtonImages: Image[]
+  #wallet: Wallet
 
   #upgradeCost: number | null = null
   #sellProfit: number | null = null
@@ -35,10 +38,12 @@ export class HudButtonsTowers {
     towerGreenButtonImages: Image[],
     towerRedButtonImages: Image[],
     towerYellowButtonImages: Image[],
+    wallet: Wallet,
   ) {
     this.#towerGreenButtonImages = towerGreenButtonImages
     this.#towerRedButtonImages = towerRedButtonImages
     this.#towerYellowButtonImages = towerYellowButtonImages
+    this.#wallet = wallet
 
     this.#canUpgrade = false
   }
@@ -207,41 +212,6 @@ export class HudButtonsTowers {
     }
     if (ButtonTower.yellowTowerButton.isMouseOver(mousePosition)) {
       this.selectTower(TowerYellow.ID)
-    }
-  }
-
-  drawMouseIsOverOrangeTileWithTower() {
-    const playerMouseTileOrangeOver = Player.mouseTileOrangeOver
-
-    if (!playerMouseTileOrangeOver) {
-      return
-    }
-
-    const tower = playerMouseTileOrangeOver.getTower()
-
-    if (!tower) {
-      return
-    }
-
-    if (!tower.isMaxUpgraded) {
-      const canUpgrade = Player.haveMoneyToUpgradeTower(
-        tower.type,
-        tower.upgradeLevel + 1,
-      )
-      this.viewUpgradeCost(tower, canUpgrade)
-      InfluenceArea.drawTowerInfluenceArea(tower, canUpgrade)
-    } else {
-      InfluenceArea.drawTowerInfluenceArea(tower, false)
-    }
-
-    this.viewSellProfit(tower)
-  }
-
-  drawMouseIsOverOrangeTileWithoutTower() {
-    if (Player.mouseTileOrangeOver) {
-      InfluenceArea.drawNoTowerInfluenceArea(
-        Player.mouseTileOrangeOver.position,
-      )
     }
   }
 }

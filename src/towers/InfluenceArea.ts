@@ -5,8 +5,7 @@ import { TowerYellow } from './TowerYellow'
 import { ConstColor } from '../constants/ConstColor'
 import { Const } from '../constants/Const'
 import { P5 } from '../utils/P5'
-import { Hud } from '../hud/Hud'
-import { Player } from '../Player'
+import { Player } from '../player/Player'
 
 export class InfluenceArea {
   static ALPHA_FILL = 50
@@ -53,16 +52,16 @@ export class InfluenceArea {
   }
 
   static drawNoTowerInfluenceArea(position: Position) {
-    if (Player.haveMoneyToBuyNewTower(Hud.getSelectedTower())) {
-      InfluenceArea._setInfluenceAreaColor(Hud.getSelectedTower())
-    } else {
-      InfluenceArea._setGrayInfluenceAreaColor()
-    }
-    InfluenceArea._drawCircle(
-      position.x,
-      position.y,
-      InfluenceArea._getInfluenceAreaFor(Hud.getSelectedTower()),
-    )
+    // if (Player.haveMoneyToBuyNewTower(Hud.getSelectedTower())) {
+    //   InfluenceArea._setInfluenceAreaColor(Hud.getSelectedTower())
+    // } else {
+    //   InfluenceArea._setGrayInfluenceAreaColor()
+    // }
+    // InfluenceArea._drawCircle(
+    //   position.x,
+    //   position.y,
+    //   InfluenceArea._getInfluenceAreaFor(Hud.getSelectedTower()),
+    // )
   }
 
   static drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {

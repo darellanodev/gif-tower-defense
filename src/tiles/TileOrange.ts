@@ -7,16 +7,19 @@ import { TowerRed } from '../towers/TowerRed'
 import { TowerYellow } from '../towers/TowerYellow'
 import { P5 } from '../utils/P5'
 import { Obj } from '../Obj'
+import { Player } from '../player/Player'
 
 export class TileOrange extends Obj {
   static instances: TileOrange[] = []
 
   #img: Image
   #tower: TowerType | null = null
+  #player: Player
 
-  constructor(img: Image, position: Position) {
+  constructor(img: Image, position: Position, player: Player) {
     super(position)
     this.#img = img
+    this.#player = player
   }
 
   removeTower() {
@@ -32,7 +35,7 @@ export class TileOrange extends Obj {
         this.#tower = TowerRed.instantiate(this.position, this)
         break
       case TowerYellow.ID:
-        this.#tower = TowerYellow.instantiate(this.position, this)
+        this.#tower = TowerYellow.instantiate(this.position, this, this.#player)
         break
     }
   }

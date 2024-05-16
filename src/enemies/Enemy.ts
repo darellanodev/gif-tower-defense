@@ -5,7 +5,7 @@ import { Image } from 'p5'
 import { MagicIceball } from '../magics/MagicIceball'
 import { Const } from '../constants/Const'
 import { ConstDirection } from '../constants/ConstDirection'
-import { Player } from '../Player'
+import { Player } from '../player/Player'
 import { ExplosionEnemy } from '../explosions/ExplosionEnemy'
 import { Images } from '../resources/Images'
 import { Path } from './Path'
@@ -42,6 +42,7 @@ export class Enemy {
   #orders: number[]
   #endurance: number
   #isBoss: boolean
+  #player: Player
 
   #id: number
   #imgIndex: number
@@ -71,12 +72,14 @@ export class Enemy {
     orders: number[],
     endurance: number,
     isBoss: boolean,
+    player: Player,
   ) {
     this.#images = images
     this.#startPosition = { ...startPosition }
     this.#orders = orders
     this.#endurance = endurance
     this.#isBoss = isBoss
+    this.#player = player
 
     // generate Id
     Enemy.numberOfEnemies++
@@ -112,12 +115,20 @@ export class Enemy {
     orders: number[],
     initialEnemiesPosition: Position,
     wave: number,
+    player: Player,
   ) {
     const endurance = wave * 3 + waveEnemies * 2
     const isBoss = false
 
     Enemy.instances.push(
-      new Enemy(images, initialEnemiesPosition, orders, endurance, isBoss),
+      new Enemy(
+        images,
+        initialEnemiesPosition,
+        orders,
+        endurance,
+        isBoss,
+        player,
+      ),
     )
   }
 
@@ -126,12 +137,20 @@ export class Enemy {
     orders: number[],
     initialEnemiesPosition: Position,
     wave: number,
+    player: Player,
   ) {
     const endurance = wave * 25
     const isBoss = true
 
     Enemy.instances.push(
-      new Enemy(images, initialEnemiesPosition, orders, endurance, isBoss),
+      new Enemy(
+        images,
+        initialEnemiesPosition,
+        orders,
+        endurance,
+        isBoss,
+        player,
+      ),
     )
   }
 
@@ -348,65 +367,6 @@ export class Enemy {
     Enemy.instances.forEach((enemy) => {
       enemy.update()
     })
-  }
-
-  static handleWinners() {
-    let gameStatus = Const.GAME_STATUS_PLAYING
-    const winnerEnemies = Enemy.instances.filter((enemy) => enemy.winner)
-    winnerEnemies.forEach((enemy) => {
-      Player.lives--
-      if (Player.lives <= 0) {
-        gameStatus = Const.GAME_STATUS_GAME_OVER
-      }
-      enemy.resetWinner()
-    })
-    return gameStatus
-  }
-
-  static handleExplosionEnemys() {
-    const deadEnemies: Enemy[] = Enemy.instances.filter((enemy) => enemy.dead)
-    deadEnemies.forEach((enemy) => {
-      ExplosionEnemy.instantiate(enemy.position)
-
-      const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR
-      Player.increaseMoney($increasedMoney)
-      Player.increaseScore($increasedMoney * 2)
-    })
-  }
-
-  static handleNewEnemyCreation() {
-    if (Enemy.allowCreateEnemies) {
-      if (Enemy.waveEnemies < Enemy.TOTAL_ENEMIES) {
-        Enemy.createEnemyTime++
-        if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
-          Enemy.createEnemyTime = 0
-
-          Enemy.instantiateNormalEnemy(
-            Images.enemiesImages.slice(
-              ...MathUtils.getTwoNumbersFourTimes(Enemy.waveEnemies),
-            ),
-            Enemy.waveEnemies,
-            Path.orders,
-            Path.initialEnemiesPosition,
-            Player.wave,
-          )
-
-          Enemy.waveEnemies++
-        }
-      } else {
-        Enemy.allowCreateEnemies = false
-        Enemy.waveEnemies = 0
-      }
-    }
-  }
-
-  static updateEnemies() {
-    Enemy.handleNewEnemyCreation()
-    Enemy.handleExplosionEnemys()
-    Enemy.removeDeadInstances()
-    Enemy.updateInstances()
-
-    return Enemy.handleWinners()
   }
 
   decrementSize() {

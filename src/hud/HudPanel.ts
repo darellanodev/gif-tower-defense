@@ -1,7 +1,6 @@
-import { Position, TowerType } from '../utils/types'
+import { TowerType } from '../utils/types'
 import { Image } from 'p5'
 import { P5 } from '../utils/P5'
-import { MathUtils } from '../utils/MathUtils'
 
 export class HudPanel {
   static NORMAL = 0

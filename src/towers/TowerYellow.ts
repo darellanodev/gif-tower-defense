@@ -6,7 +6,7 @@ import { Tower } from './Tower'
 import { ExplosionEnemy } from '../explosions/ExplosionEnemy'
 import { MathUtils } from '../utils/MathUtils'
 import { ProgressBar } from '../hud/ProgressBar'
-import { Player } from '../Player'
+import { Player } from '../player/Player'
 import { TileOrange } from '../tiles/TileOrange'
 import { P5 } from '../utils/P5'
 import { FlyIndicator } from '../hud/FlyIndicator'
@@ -22,22 +22,28 @@ export class TowerYellow extends Tower {
   static images: Image[]
 
   #coreProgressBar: ProgressBar
+  #player: Player
 
   static setImages(images: Image[]) {
     TowerYellow.images = images
   }
 
-  static instantiate(position: Position, tileOrange: TileOrange) {
+  static instantiate(
+    position: Position,
+    tileOrange: TileOrange,
+    player: Player,
+  ) {
     return new TowerYellow(
       {
         x: position.x - Const.TOWER_OFFSET,
         y: position.y - Const.TOWER_OFFSET,
       },
       tileOrange,
+      player,
     )
   }
 
-  constructor(position: Position, tileOrange: TileOrange) {
+  constructor(position: Position, tileOrange: TileOrange, player: Player) {
     super(position, tileOrange)
     this.#coreProgressBar = new ProgressBar(
       {
@@ -46,6 +52,7 @@ export class TowerYellow extends Tower {
       },
       { w: Const.TILE_SIZE - 13, h: Const.TILE_SIZE - 10 },
     )
+    this.#player = player
   }
 
   upgrade() {
@@ -61,7 +68,7 @@ export class TowerYellow extends Tower {
       this.#coreProgressBar.increaseProgress(increment)
     } else {
       const incrementLives = this.upgradeLevel + 1
-      Player.increaseLives(incrementLives)
+      this.#player.increaseLives(incrementLives)
       this.#coreProgressBar.reinitProgress()
 
       const flyIndicatorText = `+ ${incrementLives}`
