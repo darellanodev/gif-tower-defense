@@ -12,6 +12,14 @@ export class Player {
     return this.#wave
   }
 
+  get score() {
+    return this.#score
+  }
+
+  set score(value) {
+    this.#score = value
+  }
+
   increaseWave() {
     this.#wave++
   }

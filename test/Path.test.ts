@@ -8,6 +8,7 @@ import { TileGenerator } from '../src/tiles/TileGenerator'
 import { LevelsData } from '../src/levels/LevelsData'
 import { LevelsDataProvider } from '../src/levels/LevelsDataProvider'
 import { Position } from '../src/utils/types'
+import { Player } from '../src/player/Player'
 
 const levelsDataProvider = new LevelsDataProvider(LevelsData.data)
 
@@ -21,7 +22,8 @@ if (levelMap === undefined) {
 
 const mapimages: any[] = [null, null, null]
 
-const tileGenerator = new TileGenerator(levelMap, mapimages)
+const player = new Player()
+const tileGenerator = new TileGenerator(levelMap, mapimages, player)
 const pathTiles = tileGenerator.pathTiles
 const startTile = tileGenerator.startTile
 const endTile = tileGenerator.endTile
@@ -263,7 +265,7 @@ describe('makeOrders when map is invalid', () => {
       throw new Error('Map invalid')
     }
     const mapimages: any[] = [null, null, null]
-    const tileGenerator = new TileGenerator(levelMap, mapimages)
+    const tileGenerator = new TileGenerator(levelMap, mapimages, player)
     const pathTiles = tileGenerator.pathTiles
     const startTile = tileGenerator.startTile
     const endTile = tileGenerator.endTile

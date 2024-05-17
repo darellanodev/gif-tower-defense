@@ -1,5 +1,5 @@
 import { ButtonMagic } from '../src/hud/ButtonMagic'
-import { Hud } from '../src/hud/Hud'
+import { HudButtonsMagics } from '../src/hud/HudButtonsMagics'
 import { MagicUFO } from '../src/magics/MagicUFO'
 import { Position, Size } from '../src/utils/types'
 
@@ -43,7 +43,16 @@ const clickMagicUFO = () => {
   const initialEnemiesPosition: Position = { x: 0, y: 0 }
   const orders: number[] = [1, 1, 1, 1]
 
-  Hud.handleMagicButtons(
+  const magicUFOButtonImages: any[] = [null]
+  const magicFireballButtonImages: any[] = [null]
+  const magicIceballButtonImages: any[] = [null]
+  const hudButtonsMagics = new HudButtonsMagics(
+    magicUFOButtonImages,
+    magicFireballButtonImages,
+    magicIceballButtonImages,
+  )
+
+  hudButtonsMagics.handleMagicButtons(
     mousePositionInsideMagicUFO,
     magicIceballImage,
     magicFireballImage,

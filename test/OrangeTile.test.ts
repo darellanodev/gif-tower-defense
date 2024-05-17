@@ -1,10 +1,9 @@
-import { Player } from '../src/Player'
+import { Player } from '../src/player/Player'
 import { ButtonTower } from '../src/hud/ButtonTower'
-import { Hud } from '../src/hud/Hud'
 import { TileOrange } from '../src/tiles/TileOrange'
-import { Tower } from '../src/towers/Tower'
 import { TowerGreen } from '../src/towers/TowerGreen'
-import { Position, TowerType } from '../src/utils/types'
+import { Position } from '../src/utils/types'
+import { Wallet } from '../src/player/Wallet'
 
 const initializeButtonTower = () => {
   const BtnTowerGreenImages: any[] = [null, null, null]
@@ -21,13 +20,13 @@ const initializeButtonTower = () => {
 const initializeOrangeTile = () => {
   const img: any = null
   const position: Position = { x: 100, y: 100 }
-  return new TileOrange(img, position)
+  const player = new Player()
+  return new TileOrange(img, position, player)
 }
 
-const buyGreenTower = (orangeTile: TileOrange) => {
+const buyGreenTower = (orangeTile: TileOrange, wallet: Wallet) => {
   initializeButtonTower()
-  Hud.selectTower(TowerGreen.ID)
-  Player.buyTower(orangeTile)
+  wallet.buyTower(orangeTile, TowerGreen.ID)
   return orangeTile.getTower()
 }
 
@@ -35,7 +34,8 @@ describe('isInside', () => {
   test('If mouse is inside, return true', () => {
     const img: any = null
     const position: Position = { x: 100, y: 200 }
-    const orangeTile = new TileOrange(img, position)
+    const player = new Player()
+    const orangeTile = new TileOrange(img, position, player)
 
     const result = orangeTile.isInside(120, 220)
 
@@ -45,7 +45,8 @@ describe('isInside', () => {
   test('If mouse is outside, return false', () => {
     const img: any = null
     const position: Position = { x: 100, y: 200 }
-    const orangeTile = new TileOrange(img, position)
+    const player = new Player()
+    const orangeTile = new TileOrange(img, position, player)
 
     const result = orangeTile.isInside(90, 220)
 
@@ -55,9 +56,10 @@ describe('isInside', () => {
 
 describe('hasTower', () => {
   test('after buy a tower, return true', () => {
-    Player.initialMoney = 100
+    const money = 100
+    const wallet = new Wallet(Wallet.GAME_NORMAL_MODE, money)
     const orangeTile = initializeOrangeTile()
-    const tower = buyGreenTower(orangeTile)
+    const tower = buyGreenTower(orangeTile, wallet)
 
     expect(orangeTile.hasTower()).toBeTruthy()
   })
@@ -65,15 +67,16 @@ describe('hasTower', () => {
 
 describe('sell tower', () => {
   test('when player has 100 of money after buy a new tower of cost of 50 , return selling profit 30 so player has 80 of money', () => {
-    Player.initialMoney = 100
+    const money = 100
+    const wallet = new Wallet(Wallet.GAME_NORMAL_MODE, money)
     const orangeTile = initializeOrangeTile()
-    const tower = buyGreenTower(orangeTile)
+    const tower = buyGreenTower(orangeTile, wallet)
 
     if (tower) {
-      Player.sellTower(tower)
+      wallet.sellTower(tower)
     }
 
     const expected = 80
-    expect(Player.money).toBe(expected)
+    expect(wallet.money).toBe(expected)
   })
 })

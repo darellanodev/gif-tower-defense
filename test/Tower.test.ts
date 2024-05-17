@@ -1,3 +1,4 @@
+import { Player } from '../src/player/Player'
 import { TileOrange } from '../src/tiles/TileOrange'
 import { Tower } from '../src/towers/Tower'
 import { TowerGreen } from '../src/towers/TowerGreen'
@@ -8,7 +9,8 @@ import { Position, TowerType } from '../src/utils/types'
 const instantiateOrangeTile = () => {
   const img: any = null
   const OrangeTilePosition: Position = { x: 100, y: 200 }
-  return new TileOrange(img, OrangeTilePosition)
+  const player = new Player()
+  return new TileOrange(img, OrangeTilePosition, player)
 }
 
 const instantiateGreenTower = () => {
@@ -24,7 +26,8 @@ const instantiateRedTower = () => {
 const instantiateYellowTower = () => {
   const orangeTile = instantiateOrangeTile()
   const towerYellowPosition: Position = { x: 10, y: 20 }
-  return TowerYellow.instantiate(towerYellowPosition, orangeTile)
+  const player = new Player()
+  return TowerYellow.instantiate(towerYellowPosition, orangeTile, player)
 }
 
 test('upgradeIncrement, when the instance is recently created, return the expected value', () => {

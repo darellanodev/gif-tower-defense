@@ -2,6 +2,7 @@ import { ConstTest } from '../../src/constants/ConstTest'
 import { Path } from '../../src/enemies/Path'
 import { LevelsData } from '../../src/levels/LevelsData'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
+import { Player } from '../../src/player/Player'
 import { TileGenerator } from '../../src/tiles/TileGenerator'
 
 export const getTileGeneratorFromMap = () => {
@@ -16,8 +17,8 @@ export const getTileGeneratorFromMap = () => {
   }
 
   const mapimages: any[] = [null, null, null]
-
-  return new TileGenerator(levelMap, mapimages)
+  const player = new Player()
+  return new TileGenerator(levelMap, mapimages, player)
 }
 
 export const getPathFromMap = () => {

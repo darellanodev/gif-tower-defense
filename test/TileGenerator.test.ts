@@ -2,6 +2,7 @@ import { TileGenerator } from '../src/tiles/TileGenerator'
 import { ConstTest } from '../src/constants/ConstTest'
 import { LevelsData } from '../src/levels/LevelsData'
 import { LevelsDataProvider } from '../src/levels/LevelsDataProvider'
+import { Player } from '../src/player/Player'
 
 const levelsDataProvider = new LevelsDataProvider(LevelsData.data)
 
@@ -24,13 +25,15 @@ test('Constructor, when passing an invalid map without rows map, throws "No rows
     throw new Error('Map not valid')
   }
 
-  expect(() => new TileGenerator(invalidLevelMap, mapimages)).toThrow(
+  const player = new Player()
+  expect(() => new TileGenerator(invalidLevelMap, mapimages, player)).toThrow(
     'No rows map found',
   )
 })
 
 test('orangeTiles getter, when valid map is passed, return the orange tiles', () => {
-  const tileGenerator = new TileGenerator(levelMap, mapimages)
+  const player = new Player()
+  const tileGenerator = new TileGenerator(levelMap, mapimages, player)
 
   const result = tileGenerator.orangeTiles
 
@@ -39,7 +42,8 @@ test('orangeTiles getter, when valid map is passed, return the orange tiles', ()
 
 test('pathTiles getter, when valid map is passed, return the path tiles', () => {
   const mapimages: any[] = [null, null, null]
-  const tileGenerator = new TileGenerator(levelMap, mapimages)
+  const player = new Player()
+  const tileGenerator = new TileGenerator(levelMap, mapimages, player)
 
   const result = tileGenerator.pathTiles
 
@@ -48,7 +52,8 @@ test('pathTiles getter, when valid map is passed, return the path tiles', () => 
 
 test('startTile getter, when valid map is passed, return the start tile', () => {
   const mapimages: any[] = [null, null, null]
-  const tileGenerator = new TileGenerator(levelMap, mapimages)
+  const player = new Player()
+  const tileGenerator = new TileGenerator(levelMap, mapimages, player)
 
   const result = tileGenerator.startTile
 
@@ -57,7 +62,8 @@ test('startTile getter, when valid map is passed, return the start tile', () => 
 
 test('endTile getter, when valid map is passed, return the end tile', () => {
   const mapimages: any[] = [null, null, null]
-  const tileGenerator = new TileGenerator(levelMap, mapimages)
+  const player = new Player()
+  const tileGenerator = new TileGenerator(levelMap, mapimages, player)
 
   const result = tileGenerator.endTile
 
@@ -67,7 +73,8 @@ test('endTile getter, when valid map is passed, return the end tile', () => {
 test('initialMoney getter, when valid map is passed, return the initial money', () => {
   const expected = 150
   const mapimages: any[] = [null, null, null]
-  const tileGenerator = new TileGenerator(levelMap, mapimages)
+  const player = new Player()
+  const tileGenerator = new TileGenerator(levelMap, mapimages, player)
 
   const result = tileGenerator.initialMoney
 
