@@ -97,6 +97,7 @@ export class Wallet {
     tower.upgrade()
 
     const cost = tower.cost
+    this.decreaseMoney(cost)
     const costText = `-${cost} $`
     FlyIndicator.instantiateFlyIndicator(tower.position, costText)
   }
