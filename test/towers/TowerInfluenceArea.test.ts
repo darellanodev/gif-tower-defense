@@ -1,5 +1,5 @@
-import { TowerGreen } from '../src/towers/TowerGreen'
-import { instantiateGreenTower } from './helpers/towers'
+import { TowerGreen } from '../../src/towers/TowerGreen'
+import { instantiateGreenTower } from '../helpers/towers'
 
 test('get influenceArea, when the instance is recently created, return the first upgrading influence area', () => {
   const towerGreen = instantiateGreenTower()

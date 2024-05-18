@@ -1,11 +1,11 @@
-import { TowerGreen } from '../src/towers/TowerGreen'
-import { TowerRed } from '../src/towers/TowerRed'
-import { TowerYellow } from '../src/towers/TowerYellow'
+import { TowerGreen } from '../../src/towers/TowerGreen'
+import { TowerRed } from '../../src/towers/TowerRed'
+import { TowerYellow } from '../../src/towers/TowerYellow'
 import {
   instantiateGreenTower,
   instantiateRedTower,
   instantiateYellowTower,
-} from './helpers/towers'
+} from '../helpers/towers'
 
 describe('get type', () => {
   test('when is a green tower, returns TowerGreen.ID', () => {

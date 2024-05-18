@@ -1,4 +1,4 @@
-import { instantiateYellowTower } from './helpers/towers'
+import { instantiateYellowTower } from '../helpers/towers'
 
 describe('get coreProgressBarValue', () => {
   test('when a yellow tower increases its coreProgressBar by 10, return 10', () => {

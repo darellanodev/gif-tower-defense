@@ -1,5 +1,5 @@
-import { Tower } from '../src/towers/Tower'
-import { instantiateGreenTower, upgradeTowerNTimes } from './helpers/towers'
+import { Tower } from '../../src/towers/Tower'
+import { instantiateGreenTower, upgradeTowerNTimes } from '../helpers/towers'
 
 test('get upgradeIncrement, when the instance is recently created, return the expected value', () => {
   const towerGreen = instantiateGreenTower()
