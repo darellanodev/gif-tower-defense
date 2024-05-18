@@ -4,7 +4,7 @@ import { getPathFromMap, getValidLevelMap } from './levelMap'
 
 export const clearEnemyInstances = () => {
   Enemy.instances = []
-  Enemy.numberOfEnemies = 17
+  Enemy.numberOfEnemies = 0
 }
 
 export const instantiateNormalEnemy = (orders?: number[] | null) => {

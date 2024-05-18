@@ -31,11 +31,11 @@ test('dead, when the instance is recently created, return false', () => {
   const result = Enemy.instances[0].dead
   expect(result).toBeFalsy()
 })
-test('id, when the instance is recently created and last id=17 (Enemy.numberOfEnemies = 17), return 18', () => {
+test('id, when the instance is recently created and last id=0 (Enemy.numberOfEnemies = 0), return 1', () => {
   clearEnemyInstances()
   instantiateNormalEnemy()
   const result = Enemy.instances[0].id
-  expect(result).toBe(18)
+  expect(result).toBe(1)
 })
 test('position, when the instance is recently created, return the same as the initial position', () => {
   clearEnemyInstances()
