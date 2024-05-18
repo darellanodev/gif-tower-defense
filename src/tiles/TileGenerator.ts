@@ -22,7 +22,15 @@ export class TileGenerator {
   #startDirection: number
   #player: Player
 
-  constructor(levelMap: MapDataType, mapImages: Image[], player: Player) {
+  constructor(
+    levelMap: MapDataType | undefined,
+    mapImages: Image[],
+    player: Player,
+  ) {
+    if (!levelMap) {
+      throw new Error('Map is undefined')
+    }
+
     this.#levelMap = levelMap
     this.#mapImages = mapImages
     this.#player = player
