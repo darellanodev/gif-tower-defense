@@ -18,14 +18,12 @@ describe('getPrintScore', () => {
   })
 })
 
-describe('increaseScore', () => {
-  test('when initialy there is no score and it increases 10 and 15, score is 25', () => {
-    const player = new Player()
-    player.score = 0
+test('increaseScore, when initialy there is no score and it increases 10 and 15, score is 25', () => {
+  const player = new Player()
+  player.score = 0
 
-    player.increaseScore(10)
-    player.increaseScore(15)
+  player.increaseScore(10)
+  player.increaseScore(15)
 
-    expect(player.score).toBe(25)
-  })
+  expect(player.score).toBe(25)
 })
