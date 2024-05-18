@@ -2,7 +2,7 @@ import { Const } from '../src/constants/Const'
 import { Enemy } from '../src/enemies/Enemy'
 import { MagicUFO } from '../src/magics/MagicUFO'
 import { clearEnemyInstances, instantiateNormalEnemy } from './helpers/enemy'
-import { getPathFromMap } from './helpers/map'
+import { getPathFromMap, getValidLevelMap } from './helpers/levelMap'
 
 const clearMagicUFOInstances = () => {
   MagicUFO.instances = []
@@ -12,7 +12,8 @@ const instantiateMagicUFO = (orders?: number[]) => {
   const initialPosition = { x: 100, y: 200 }
 
   if (!orders) {
-    const path = getPathFromMap()
+    const levelMap = getValidLevelMap()
+    const path = getPathFromMap(levelMap)
     orders = path.makeOrders()
   }
 

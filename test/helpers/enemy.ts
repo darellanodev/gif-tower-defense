@@ -1,6 +1,6 @@
 import { Enemy } from '../../src/enemies/Enemy'
 import { Player } from '../../src/player/Player'
-import { getPathFromMap } from './map'
+import { getPathFromMap, getValidLevelMap } from './levelMap'
 
 export const clearEnemyInstances = () => {
   Enemy.instances = []
@@ -8,14 +8,13 @@ export const clearEnemyInstances = () => {
 }
 
 export const instantiateNormalEnemy = (orders?: number[] | null) => {
+  if (!orders) {
+    orders = getOrders()
+  }
   const waveEnemies: number = 3
   const images = [null, null, null] as any
   const initialEnemiesPosition = { x: 100, y: 200 }
   const wave = 1
-  if (!orders) {
-    const path = getPathFromMap()
-    orders = path.makeOrders()
-  }
   const player = new Player()
   Enemy.instantiateNormalEnemy(
     images,
@@ -25,19 +24,22 @@ export const instantiateNormalEnemy = (orders?: number[] | null) => {
     wave,
     player,
   )
-
   Enemy.waveEnemies = waveEnemies + 1
 }
 
 export const instantiateBossEnemy = (orders?: number[] | null) => {
   if (!orders) {
-    const path = getPathFromMap()
-    orders = path.makeOrders()
+    orders = getOrders()
   }
-
   const images = [null, null, null] as any
   const initialEnemiesPosition = { x: 100, y: 200 }
   const wave = 1
   const player = new Player()
   Enemy.instantiateBoss(images, orders, initialEnemiesPosition, wave, player)
+}
+
+const getOrders = () => {
+  const levelMap = getValidLevelMap()
+  const path = getPathFromMap(levelMap)
+  return path.makeOrders()
 }
