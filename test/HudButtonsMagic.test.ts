@@ -1,17 +1,5 @@
-import { HudButtonsMagics } from '../src/hud/HudButtonsMagics'
 import { Position } from '../src/utils/types'
-
-const instantiateHudButtonsMagics = () => {
-  const magicUFOButtonImages: any[] = [null, null, null]
-  const magicFireballButtonImages: any[] = [null, null, null]
-  const magicIceballTowerButtonImages: any[] = [null, null, null]
-
-  return new HudButtonsMagics(
-    magicUFOButtonImages,
-    magicFireballButtonImages,
-    magicIceballTowerButtonImages,
-  )
-}
+import { instantiateHudButtonsMagics } from './helpers/buttonsMagics'
 
 describe('isInsideMagicsButtonsBar', () => {
   test('when mouse is inside, return true', () => {

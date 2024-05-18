@@ -6,25 +6,22 @@ import {
   getTileGeneratorFromMap,
   getValidLevelMap,
 } from './helpers/levelMap'
+import { images } from './helpers/imagesResources'
 
 test('Constructor, when passing an invalid map without rows map, throws "No rows map found" exception', () => {
   const player = new Player()
-  const mapimages: any[] = [null, null, null]
   const noValidMap = getNoValidLevelMapWithoutRows()
 
-  console.log('++++++++++++++++++', noValidMap)
-
-  expect(() => new TileGenerator(noValidMap, mapimages, player)).toThrow(
+  expect(() => new TileGenerator(noValidMap, images, player)).toThrow(
     'No rows map found',
   )
 })
 
 test('Constructor, when passing a non existing map, throws "Map is undefined" exception', () => {
   const player = new Player()
-  const mapimages: any[] = [null, null, null]
   const noExistingMap = getNoExistingLevelMap()
 
-  expect(() => new TileGenerator(noExistingMap, mapimages, player)).toThrow(
+  expect(() => new TileGenerator(noExistingMap, images, player)).toThrow(
     'Map is undefined',
   )
 })

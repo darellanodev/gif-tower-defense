@@ -4,10 +4,10 @@ import { Position } from '../src/utils/types'
 import { Wallet } from '../src/player/Wallet'
 import { instantiateOrangeTile } from './helpers/orangeTile'
 import { buyGreenTower } from './helpers/wallet'
+import { img } from './helpers/imagesResources'
 
 describe('isInside', () => {
   test('If mouse is inside, return true', () => {
-    const img: any = null
     const position: Position = { x: 100, y: 200 }
     const player = new Player()
     const orangeTile = new TileOrange(img, position, player)
@@ -18,7 +18,6 @@ describe('isInside', () => {
   })
 
   test('If mouse is outside, return false', () => {
-    const img: any = null
     const position: Position = { x: 100, y: 200 }
     const player = new Player()
     const orangeTile = new TileOrange(img, position, player)

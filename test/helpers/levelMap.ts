@@ -5,11 +5,11 @@ import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
 import { Player } from '../../src/player/Player'
 import { TileGenerator } from '../../src/tiles/TileGenerator'
 import { MapDataType } from '../../src/utils/types'
+import { images } from './imagesResources'
 
 export const getTileGeneratorFromMap = (levelMap: MapDataType | undefined) => {
-  const mapimages: any[] = [null, null, null]
   const player = new Player()
-  return new TileGenerator(levelMap, mapimages, player)
+  return new TileGenerator(levelMap, images, player)
 }
 
 export const getPathFromMap = (levelMap: MapDataType | undefined) => {

@@ -1,13 +1,29 @@
 import { ButtonTower } from '../../src/hud/ButtonTower'
+import { HudButtonsTowers } from '../../src/hud/HudButtonsTowers'
+import { Wallet } from '../../src/player/Wallet'
+import {
+  greenTowerButtonImages,
+  redTowerButtonImages,
+  yellowTowerButtonImages,
+} from './imagesResources'
 
 export const initializeButtonTower = () => {
-  const BtnTowerGreenImages: any[] = [null, null, null]
-  const BtnTowerRedImages: any[] = [null, null, null]
-  const BtnTowerYellowImages: any[] = [null, null, null]
   ButtonTower.setImages(
-    BtnTowerGreenImages,
-    BtnTowerRedImages,
-    BtnTowerYellowImages,
+    greenTowerButtonImages,
+    redTowerButtonImages,
+    yellowTowerButtonImages,
   )
   ButtonTower.initializeButtons()
+}
+
+export const instantiateHudButtonsTowers = () => {
+  const money = 10000
+  const wallet = new Wallet(Wallet.GAME_NORMAL_MODE, money)
+
+  return new HudButtonsTowers(
+    greenTowerButtonImages,
+    redTowerButtonImages,
+    yellowTowerButtonImages,
+    wallet,
+  )
 }

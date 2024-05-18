@@ -5,6 +5,7 @@ import { TileStart } from '../src/tiles/TileStart'
 import { TileEnd } from '../src/tiles/TileEnd'
 import { Position } from '../src/utils/types'
 import { getTileGeneratorFromMap, getValidLevelMap } from './helpers/levelMap'
+import { img } from './helpers/imagesResources'
 
 test('getEnemiesInitialPosition, when start direction is LEFT and start tile is at {x:750, y:80}, return x+=50 ({x:800, y:80})', () => {
   const levelMap = getValidLevelMap()
@@ -22,7 +23,6 @@ test('getEnemiesInitialPosition, when start direction is LEFT and start tile is 
 })
 
 test('getTileInPosition, when passing an existing pathtile coordinates, return the pathtile', () => {
-  const img: any = null
   const positionTileStart: Position = { x: 300, y: 300 }
   const positionTileEnd: Position = { x: 0, y: 300 }
   const startTile = new TileStart(img, positionTileStart, ConstDirection.LEFT)

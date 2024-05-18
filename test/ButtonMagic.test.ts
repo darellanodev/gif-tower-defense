@@ -2,13 +2,19 @@ import { ButtonMagic } from '../src/hud/ButtonMagic'
 import { HudButtonsMagics } from '../src/hud/HudButtonsMagics'
 import { MagicUFO } from '../src/magics/MagicUFO'
 import { Position, Size } from '../src/utils/types'
+import {
+  images,
+  img,
+  magicFireballButtonImages,
+  magicIceballButtonImages,
+  magicUFOButtonImages,
+} from './helpers/imagesResources'
 
 const initializeMagicInstances = () => {
   MagicUFO.instances = []
 }
 
 const createMagicButton = () => {
-  const images: any[] = [null, null]
   const buttonPosition: Position = { x: 100, y: 100 }
   const buttonSize: Size = { w: 100, h: 200 }
   const offsetImages: Position = { x: 0, y: 0 }
@@ -23,9 +29,6 @@ const createMagicButton = () => {
 }
 
 const initializeAllMagicButtons = () => {
-  const magicUFOButtonImages: any[] = [null, null]
-  const magicFireballButtonImages: any[] = [null, null]
-  const magicIceballButtonImages: any[] = [null, null]
   ButtonMagic.setImages(
     magicUFOButtonImages,
     magicFireballButtonImages,
@@ -37,15 +40,9 @@ const initializeAllMagicButtons = () => {
 
 const clickMagicUFO = () => {
   const mousePositionInsideMagicUFO: Position = { x: 560, y: 60 }
-  const magicIceballImage: any = null
-  const magicFireballImage: any = null
-  const magicUFOImage: any = null
   const initialEnemiesPosition: Position = { x: 0, y: 0 }
   const orders: number[] = [1, 1, 1, 1]
 
-  const magicUFOButtonImages: any[] = [null]
-  const magicFireballButtonImages: any[] = [null]
-  const magicIceballButtonImages: any[] = [null]
   const hudButtonsMagics = new HudButtonsMagics(
     magicUFOButtonImages,
     magicFireballButtonImages,
@@ -54,9 +51,9 @@ const clickMagicUFO = () => {
 
   hudButtonsMagics.handleMagicButtons(
     mousePositionInsideMagicUFO,
-    magicIceballImage,
-    magicFireballImage,
-    magicUFOImage,
+    img,
+    img,
+    images,
     initialEnemiesPosition,
     orders,
   )
