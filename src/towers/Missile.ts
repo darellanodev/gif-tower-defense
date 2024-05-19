@@ -1,7 +1,7 @@
 import { Const } from '../constants/Const'
 import { ConstColor } from '../constants/ConstColor'
 import { Enemy } from '../enemies/Enemy'
-import { Position } from '../utils/types'
+import { Position } from '../types/position'
 import { P5 } from '../utils/P5'
 import { Obj } from '../Obj'
 

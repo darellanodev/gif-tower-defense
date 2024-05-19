@@ -1,4 +1,5 @@
-import { Position, Size } from '../utils/types'
+import { Position } from '../types/position'
+import { Size } from '../types/size'
 import { ProgressBar } from './ProgressBar'
 import { Const } from '../constants/Const'
 import { Player } from '../player/Player'

@@ -1,5 +1,5 @@
 import { FlyIndicator } from '../../src/hud/FlyIndicator'
-import { Position } from '../../src/utils/types'
+import { Position } from '../../src/types/position'
 
 export const instantiateFlyIndicator = () => {
   const position: Position = { x: 100, y: 200 }

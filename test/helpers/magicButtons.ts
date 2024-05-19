@@ -1,6 +1,7 @@
 import { ButtonMagic } from '../../src/hud/ButtonMagic'
 import { HudButtonsMagics } from '../../src/hud/HudButtonsMagics'
-import { Position, Size } from '../../src/utils/types'
+import { Position } from '../../src/types/position'
+import { Size } from '../../src/types/size'
 import {
   images,
   img,

@@ -1,4 +1,4 @@
-import { RGBType } from '../utils/types'
+import { RGBType } from '../types/rgb'
 
 export class ConstColor {
   static GRAY = [50, 50, 50] as RGBType

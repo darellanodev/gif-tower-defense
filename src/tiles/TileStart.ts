@@ -1,5 +1,5 @@
 import { Image } from 'p5'
-import { Position } from '../utils/types'
+import { Position } from '../types/position'
 import { Obj } from '../Obj'
 import { P5 } from '../utils/P5'
 

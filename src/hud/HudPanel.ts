@@ -1,4 +1,4 @@
-import { TowerType } from '../utils/types'
+import { TowerType } from '../types/towerType'
 import { Image } from 'p5'
 import { P5 } from '../utils/P5'
 

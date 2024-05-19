@@ -1,11 +1,12 @@
-import { Position, RGBType } from '../utils/types'
+import { Position } from '../types/position'
+import { RGBType } from '../types/rgb'
 import { Const } from '../constants/Const'
 import { ProgressBar } from '../hud/ProgressBar'
 import { Enemy } from '../enemies/Enemy'
-import { MathUtils } from '../utils/MathUtils'
 import { P5 } from '../utils/P5'
 import { TileOrange } from '../tiles/TileOrange'
 import { Obj } from '../Obj'
+import { PositionUtils } from '../utils/PositionUtils'
 
 export class Tower extends Obj {
   static OFFSET_X: number = 3
@@ -82,7 +83,7 @@ export class Tower extends Obj {
 
     enemies.forEach((enemy) => {
       if (!enemy.isAbducted) {
-        const distance = MathUtils.distance(
+        const distance = PositionUtils.distance(
           { x: this.position.x, y: this.position.y },
           {
             x: enemy.position.x,

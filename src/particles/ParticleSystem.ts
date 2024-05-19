@@ -1,6 +1,6 @@
 import { Particle } from './Particle'
 import { Vector } from 'p5'
-import { RGBType } from '../utils/types'
+import { RGBType } from '../types/rgb'
 
 export class ParticleSystem {
   #origin: Vector

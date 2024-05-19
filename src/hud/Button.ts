@@ -1,8 +1,9 @@
 import { Image } from 'p5'
-import { Position, Size } from '../utils/types'
+import { Position } from '../types/position'
+import { Size } from '../types/size'
 import { P5 } from '../utils/P5'
-import { MathUtils } from '../utils/MathUtils'
 import { Obj } from '../Obj'
+import { PositionUtils } from '../utils/PositionUtils'
 
 export class Button extends Obj {
   static INDEX_IMAGE_ON = 0
@@ -56,7 +57,7 @@ export class Button extends Obj {
   }
 
   isMouseOver(mousePosition: Position): boolean {
-    return MathUtils.isPositionInsideRectangle(
+    return PositionUtils.isInsideRectangle(
       mousePosition,
       this.position,
       this.size,

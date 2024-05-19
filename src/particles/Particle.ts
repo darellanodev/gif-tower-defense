@@ -1,5 +1,5 @@
 import { Vector } from 'p5'
-import { RGBType } from '../utils/types'
+import { RGBType } from '../types/rgb'
 import { TowerYellow } from '../towers/TowerYellow'
 import { Const } from '../constants/Const'
 import { Random } from '../utils/Random'

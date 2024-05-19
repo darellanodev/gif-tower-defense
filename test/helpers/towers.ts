@@ -3,7 +3,8 @@ import { Tower } from '../../src/towers/Tower'
 import { TowerGreen } from '../../src/towers/TowerGreen'
 import { TowerRed } from '../../src/towers/TowerRed'
 import { TowerYellow } from '../../src/towers/TowerYellow'
-import { Position, TowerType } from '../../src/utils/types'
+import { Position } from '../../src/types/position'
+import { TowerType } from '../../src/types/towerType'
 import { instantiateOrangeTile } from './orangeTile'
 
 export const instantiateGreenTower = () => {

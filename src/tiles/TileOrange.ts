@@ -1,4 +1,5 @@
-import { TowerType, Position } from '../utils/types'
+import { TowerType } from '../types/towerType'
+import { Position } from '../types/position'
 import { Image } from 'p5'
 import { Enemy } from '../enemies/Enemy'
 import { Const } from '../constants/Const'

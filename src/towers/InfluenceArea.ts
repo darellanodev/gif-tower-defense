@@ -1,11 +1,10 @@
-import { Position } from '../utils/types'
+import { Position } from '../types/position'
 import { TowerGreen } from './TowerGreen'
 import { TowerRed } from './TowerRed'
 import { TowerYellow } from './TowerYellow'
 import { ConstColor } from '../constants/ConstColor'
 import { Const } from '../constants/Const'
 import { P5 } from '../utils/P5'
-import { Player } from '../player/Player'
 
 export class InfluenceArea {
   static ALPHA_FILL = 50

@@ -1,10 +1,10 @@
 import { Image } from 'p5'
 import { Magic } from './Magic'
-import { Position } from '../utils/types'
+import { Position } from '../types/position'
 import { P5 } from '../utils/P5'
 import { Enemy } from '../enemies/Enemy'
 import { Const } from '../constants/Const'
-import { MathUtils } from '../utils/MathUtils'
+import { PositionUtils } from '../utils/PositionUtils'
 
 export class MagicUFO extends Magic {
   static SPEED = 2
@@ -113,7 +113,7 @@ export class MagicUFO extends Magic {
     if (!this.#enemyTarget) {
       return false
     }
-    return MathUtils.isPositionInsideRectangle(
+    return PositionUtils.isInsideRectangle(
       {
         x: this.position.x + Const.TILE_SIZE / 2,
         y: this.position.y + Const.TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
@@ -127,7 +127,7 @@ export class MagicUFO extends Magic {
   }
 
   #isCollidingWithStartPosition() {
-    return MathUtils.isPositionInsideRectangle(
+    return PositionUtils.isInsideRectangle(
       {
         x: this.position.x + Const.TILE_SIZE / 2,
         y: this.position.y + Const.TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,

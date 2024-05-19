@@ -1,7 +1,7 @@
 import { Image } from 'p5'
 import { Enemy } from '../enemies/Enemy'
 import { Magic } from './Magic'
-import { Position } from '../utils/types'
+import { Position } from '../types/position'
 import { ExplosionMagicFireball } from '../explosions/ExplosionMagicFireball'
 import { P5 } from '../utils/P5'
 

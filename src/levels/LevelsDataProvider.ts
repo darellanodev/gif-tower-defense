@@ -1,4 +1,4 @@
-import { MapDataType } from '../utils/types'
+import { MapDataType } from '../types/mapDataType'
 
 export class LevelsDataProvider {
   #levels: MapDataType[]

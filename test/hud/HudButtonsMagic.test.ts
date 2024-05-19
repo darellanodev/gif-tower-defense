@@ -1,4 +1,4 @@
-import { Position } from '../../src/utils/types'
+import { Position } from '../../src/types/position'
 import { instantiateHudButtonsMagics } from '../helpers/buttonsMagics'
 
 describe('isInsideMagicsButtonsBar', () => {

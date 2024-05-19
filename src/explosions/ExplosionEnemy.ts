@@ -1,5 +1,6 @@
 import { ParticleSystem } from '../particles/ParticleSystem'
-import { Position, RGBType } from '../utils/types'
+import { Position } from '../types/position'
+import { RGBType } from '../types/rgb'
 import { Const } from '../constants/Const'
 import { Explosion } from './Explosion'
 import { P5 } from '../utils/P5'

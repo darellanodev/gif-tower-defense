@@ -2,7 +2,7 @@ import { Obj } from '../Obj'
 import { Const } from '../constants/Const'
 import { ConstDirection } from '../constants/ConstDirection'
 import { Enemy } from '../enemies/Enemy'
-import { Position } from '../utils/types'
+import { Position } from '../types/position'
 
 export class Magic extends Obj {
   static SPEED = 10

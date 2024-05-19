@@ -1,4 +1,4 @@
-import { Position } from '../utils/types'
+import { Position } from '../types/position'
 import { Image } from 'p5'
 import { ConstColor } from '../constants/ConstColor'
 import { Const } from '../constants/Const'

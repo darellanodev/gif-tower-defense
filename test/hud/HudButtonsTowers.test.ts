@@ -1,4 +1,4 @@
-import { Position } from '../../src/utils/types'
+import { Position } from '../../src/types/position'
 import { instantiateHudButtonsTowers } from '../helpers/buttonsTowers'
 
 describe('isInsideTowersButtonsBar', () => {

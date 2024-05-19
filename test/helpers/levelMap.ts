@@ -5,7 +5,7 @@ import { LevelsData } from '../../src/levels/LevelsData'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
 import { Player } from '../../src/player/Player'
 import { TileGenerator } from '../../src/tiles/TileGenerator'
-import { MapDataType } from '../../src/utils/types'
+import { MapDataType } from '../../src/types/mapDataType'
 import { images } from './imagesResources'
 
 export const getTileGeneratorFromMap = (levelMap: MapDataType | undefined) => {

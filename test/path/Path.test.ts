@@ -3,7 +3,7 @@ import { Path } from '../../src/enemies/Path'
 import { TilePath } from '../../src/tiles/TilePath'
 import { TileStart } from '../../src/tiles/TileStart'
 import { TileEnd } from '../../src/tiles/TileEnd'
-import { Position } from '../../src/utils/types'
+import { Position } from '../../src/types/position'
 import { getTileGeneratorFromMap, getValidLevelMap } from '../helpers/levelMap'
 import { img } from '../helpers/imagesResources'
 

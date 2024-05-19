@@ -1,16 +1,16 @@
-import { Position } from '../utils/types'
+import { Position } from '../types/position'
 import { Image } from 'p5'
 import { ConstColor } from '../constants/ConstColor'
 import { Const } from '../constants/Const'
 import { Tower } from './Tower'
 import { ExplosionEnemy } from '../explosions/ExplosionEnemy'
-import { MathUtils } from '../utils/MathUtils'
 import { ProgressBar } from '../hud/ProgressBar'
 import { Player } from '../player/Player'
 import { TileOrange } from '../tiles/TileOrange'
 import { P5 } from '../utils/P5'
 import { FlyIndicator } from '../hud/FlyIndicator'
 import { Images } from '../resources/Images'
+import { PositionUtils } from '../utils/PositionUtils'
 
 export class TowerYellow extends Tower {
   static ID = 3
@@ -142,7 +142,7 @@ export class TowerYellow extends Tower {
 
         particles.forEach((p) => {
           if (!p.towerYellowTarget) {
-            const distance = MathUtils.distance(
+            const distance = PositionUtils.distance(
               {
                 x: this.position.x + Const.TILE_SIZE / 2,
                 y: this.position.y + Const.TILE_SIZE / 2,

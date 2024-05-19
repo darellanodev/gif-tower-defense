@@ -1,15 +1,11 @@
 import { ProgressBar } from '../hud/ProgressBar'
-import { Position } from '../utils/types'
+import { Position } from '../types/position'
 import { Random } from '../utils/Random'
 import { Image } from 'p5'
 import { MagicIceball } from '../magics/MagicIceball'
 import { Const } from '../constants/Const'
 import { ConstDirection } from '../constants/ConstDirection'
 import { Player } from '../player/Player'
-import { ExplosionEnemy } from '../explosions/ExplosionEnemy'
-import { Images } from '../resources/Images'
-import { Path } from './Path'
-import { MathUtils } from '../utils/MathUtils'
 import { P5 } from '../utils/P5'
 
 export class Enemy {

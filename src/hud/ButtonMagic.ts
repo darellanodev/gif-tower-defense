@@ -1,6 +1,7 @@
 import { Image } from 'p5'
 import { Button } from './Button'
-import { Position, Size } from '../utils/types'
+import { Position } from '../types/position'
+import { Size } from '../types/size'
 import { P5 } from '../utils/P5'
 
 export class ButtonMagic extends Button {

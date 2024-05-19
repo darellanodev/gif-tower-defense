@@ -1,17 +1,15 @@
-import { Position, TowerType } from '../utils/types'
+import { Position } from '../types/position'
+import { TowerType } from '../types/towerType'
 import { TextProperties } from './TextProperties'
 import { Image } from 'p5'
 import { TowerGreen } from '../towers/TowerGreen'
 import { TowerRed } from '../towers/TowerRed'
 import { TowerYellow } from '../towers/TowerYellow'
-import { Player } from '../player/Player'
-import { InfluenceArea } from '../towers/InfluenceArea'
 import { P5 } from '../utils/P5'
 import { ButtonTower } from './ButtonTower'
 import { HudPanel } from './HudPanel'
-import { MathUtils } from '../utils/MathUtils'
-import { TileOrange } from '../tiles/TileOrange'
 import { Wallet } from '../player/Wallet'
+import { PositionUtils } from '../utils/PositionUtils'
 
 export class HudButtonsTowers {
   static ICON_GREEN_TOWER_ON = 0
@@ -52,7 +50,7 @@ export class HudButtonsTowers {
     const ButtonsBarRectanglePosition = { x: 0, y: 28 }
     const ButtonsBarRectangleSize = { w: 800, h: 50 }
 
-    return MathUtils.isPositionInsideRectangle(
+    return PositionUtils.isInsideRectangle(
       position,
       ButtonsBarRectanglePosition,
       ButtonsBarRectangleSize,

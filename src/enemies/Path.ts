@@ -3,7 +3,7 @@ import { TileEnd } from '../tiles/TileEnd'
 import { TilePath } from '../tiles/TilePath'
 import { Const } from '../constants/Const'
 import { ConstDirection } from '../constants/ConstDirection'
-import { Position } from '../utils/types'
+import { Position } from '../types/position'
 
 export class Path {
   static MAX_SEARCHES = 5000 // For testing purposes put a low value. For production put this value at 5000

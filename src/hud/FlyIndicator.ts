@@ -1,6 +1,6 @@
 import { Image } from 'p5'
 import { P5 } from '../utils/P5'
-import { Position } from '../utils/types'
+import { Position } from '../types/position'
 import { TextProperties } from './TextProperties'
 import { Obj } from '../Obj'
 

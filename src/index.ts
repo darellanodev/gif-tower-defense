@@ -6,7 +6,7 @@ import { TileOrange } from './tiles/TileOrange'
 import { TowerGreen } from './towers/TowerGreen'
 import { TowerRed } from './towers/TowerRed'
 import { TowerYellow } from './towers/TowerYellow'
-import { MathUtils } from './utils/MathUtils'
+import { Arrays } from './utils/Arrays'
 import { Enemy } from './enemies/Enemy'
 import { Debug } from './hud/Debug'
 import { ExplosionEnemy } from './explosions/ExplosionEnemy'
@@ -199,7 +199,7 @@ const handleNewEnemyCreation = () => {
 
         Enemy.instantiateNormalEnemy(
           Images.enemiesImages.slice(
-            ...MathUtils.getTwoNumbersFourTimes(Enemy.waveEnemies),
+            ...Arrays.getTwoNumbersFourTimes(Enemy.waveEnemies),
           ),
           Enemy.waveEnemies,
           Path.orders,
@@ -260,9 +260,7 @@ window.draw = () => {
     if (instantiateBoss) {
       Enemy.instantiateBoss(
         Images.enemiesImages.slice(
-          ...MathUtils.getTwoNumbersFourTimes(
-            Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES,
-          ),
+          ...Arrays.getTwoNumbersFourTimes(Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES),
         ),
         Path.orders,
         Path.initialEnemiesPosition,

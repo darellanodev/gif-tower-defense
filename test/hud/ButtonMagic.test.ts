@@ -1,6 +1,6 @@
 import { ButtonMagic } from '../../src/hud/ButtonMagic'
 import { MagicUFO } from '../../src/magics/MagicUFO'
-import { Position } from '../../src/utils/types'
+import { Position } from '../../src/types/position'
 import {
   clickMagicUFO,
   createMagicButton,

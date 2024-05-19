@@ -1,6 +1,6 @@
 import { Obj } from '../Obj'
 import { ParticleSystem } from '../particles/ParticleSystem'
-import { Position } from '../utils/types'
+import { Position } from '../types/position'
 
 export class Explosion extends Obj {
   static MAX_EMIT_TIME = 5

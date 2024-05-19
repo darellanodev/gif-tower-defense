@@ -1,5 +1,5 @@
 import { Obj } from '../Obj'
-import { Position } from '../utils/types'
+import { Position } from '../types/position'
 
 export class TilePath extends Obj {
   constructor(position: Position) {

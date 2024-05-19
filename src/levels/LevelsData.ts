@@ -1,4 +1,4 @@
-import { MapDataType } from '../utils/types'
+import { MapDataType } from '../types/mapDataType'
 import { ConstDirection } from '../constants/ConstDirection'
 
 export class LevelsData {

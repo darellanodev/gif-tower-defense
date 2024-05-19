@@ -1,4 +1,4 @@
-import { Position } from './utils/types'
+import { Position } from './types/position'
 
 export class Obj {
   #position: Position

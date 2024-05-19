@@ -1,10 +1,10 @@
-import { Position } from '../utils/types'
+import { Position } from '../types/position'
 import { Image } from 'p5'
 import { MagicFireball } from '../magics/MagicFireball'
 import { MagicIceball } from '../magics/MagicIceball'
 import { MagicUFO } from '../magics/MagicUFO'
 import { ButtonMagic } from './ButtonMagic'
-import { MathUtils } from '../utils/MathUtils'
+import { PositionUtils } from '../utils/PositionUtils'
 
 export class HudButtonsMagics {
   #magicUFOButtonImages: Image[]
@@ -25,7 +25,7 @@ export class HudButtonsMagics {
     const ButtonsBarRectanglePosition = { x: 0, y: 28 }
     const ButtonsBarRectangleSize = { w: 800, h: 50 }
 
-    return MathUtils.isPositionInsideRectangle(
+    return PositionUtils.isInsideRectangle(
       position,
       ButtonsBarRectanglePosition,
       ButtonsBarRectangleSize,

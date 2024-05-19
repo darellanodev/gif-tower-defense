@@ -1,6 +1,7 @@
-import { Position, Size } from './types'
+import { Position } from '../types/position'
+import { Size } from '../types/size'
 
-export class MathUtils {
+export class PositionUtils {
   static distance(posA: Position, posB: Position) {
     return Math.sqrt(
       (posA.x - posB.x) * (posA.x - posB.x) +
@@ -8,18 +9,7 @@ export class MathUtils {
     )
   }
 
-  static range(start: number, stop: number) {
-    return Array.from(
-      { length: stop - start + 1 },
-      (value, index) => index + start,
-    )
-  }
-
-  static getTwoNumbersFourTimes(number: number) {
-    return [number * 4, (number + 1) * 4]
-  }
-
-  static isPositionInsideRectangle(
+  static isInsideRectangle(
     position: Position,
     rectanglePosition: Position,
     rectangleSize: Size,
