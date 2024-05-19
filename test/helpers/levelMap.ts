@@ -1,3 +1,4 @@
+import { ConstDirection } from '../../src/constants/ConstDirection'
 import { ConstTest } from '../../src/constants/ConstTest'
 import { Path } from '../../src/enemies/Path'
 import { LevelsData } from '../../src/levels/LevelsData'
@@ -48,3 +49,10 @@ const getLevelMap = (idLevelMap: number) => {
 
   return levelMap
 }
+
+export const testTinyOrders = [
+  ConstDirection.LEFT,
+  ConstDirection.DOWN,
+  ConstDirection.RIGHT,
+  ConstDirection.UP,
+]

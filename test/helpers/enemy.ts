@@ -42,3 +42,9 @@ const getOrders = () => {
   const path = getPathFromMap(levelMap)
   return path.makeOrders()
 }
+
+export const updateEnemyInstancesTimes = (times: number) => {
+  for (let i = 0; i < times; i++) {
+    Enemy.updateInstances()
+  }
+}
