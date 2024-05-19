@@ -1,5 +1,5 @@
-import { Position } from '../src/utils/types'
-import { instantiateHudButtonsMagics } from './helpers/buttonsMagics'
+import { Position } from '../../src/utils/types'
+import { instantiateHudButtonsMagics } from '../helpers/buttonsMagics'
 
 describe('isInsideMagicsButtonsBar', () => {
   test('when mouse is inside, return true', () => {

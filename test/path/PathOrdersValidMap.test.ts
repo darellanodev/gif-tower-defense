@@ -1,6 +1,6 @@
-import { ConstDirection } from '../src/constants/ConstDirection'
-import { isIncluded } from './helpers/arrays'
-import { getPathFromMap, getValidLevelMap } from './helpers/levelMap'
+import { ConstDirection } from '../../src/constants/ConstDirection'
+import { isIncluded } from '../helpers/arrays'
+import { getPathFromMap, getValidLevelMap } from '../helpers/levelMap'
 
 const levelMap = getValidLevelMap()
 const path = getPathFromMap(levelMap)

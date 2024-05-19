@@ -1,4 +1,4 @@
-import { MathUtils } from '../src/utils/MathUtils'
+import { MathUtils } from '../../src/utils/MathUtils'
 
 describe('getTwoNumbersFourTimes', () => {
   test('for enemy 0, return [0, 4]', () => {

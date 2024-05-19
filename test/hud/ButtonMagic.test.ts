@@ -1,12 +1,12 @@
-import { ButtonMagic } from '../src/hud/ButtonMagic'
-import { MagicUFO } from '../src/magics/MagicUFO'
-import { Position } from '../src/utils/types'
+import { ButtonMagic } from '../../src/hud/ButtonMagic'
+import { MagicUFO } from '../../src/magics/MagicUFO'
+import { Position } from '../../src/utils/types'
 import {
   clickMagicUFO,
   createMagicButton,
   initializeAllMagicButtons,
-} from './helpers/magicButtons'
-import { clearMagicUFOInstances } from './helpers/magicUfo'
+} from '../helpers/magicButtons'
+import { clearMagicUFOInstances } from '../helpers/magicUfo'
 
 test('isMouseOver, if mouse is inside the button, return true', () => {
   const buttonMagic = createMagicButton()

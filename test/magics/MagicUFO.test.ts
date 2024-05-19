@@ -1,11 +1,11 @@
-import { MagicUFO } from '../src/magics/MagicUFO'
-import { clearEnemyInstances, instantiateNormalEnemy } from './helpers/enemy'
+import { MagicUFO } from '../../src/magics/MagicUFO'
+import { clearEnemyInstances, instantiateNormalEnemy } from '../helpers/enemy'
 import {
   clearMagicUFOInstances,
   getEnemyTargetIdForUFO,
   instantiateMagicUFO,
   updateInstancesOfEnemiesAndUFOsForATileSize,
-} from './helpers/magicUfo'
+} from '../helpers/magicUfo'
 
 test('id, when three Magic UFOs are created, last UFO has id = 3', () => {
   clearMagicUFOInstances()

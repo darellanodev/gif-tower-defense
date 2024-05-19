@@ -1,5 +1,5 @@
-import { Position } from '../src/utils/types'
-import { instantiateHudButtonsTowers } from './helpers/buttonsTowers'
+import { Position } from '../../src/utils/types'
+import { instantiateHudButtonsTowers } from '../helpers/buttonsTowers'
 
 describe('isInsideTowersButtonsBar', () => {
   test('when mouse is inside, return true', () => {

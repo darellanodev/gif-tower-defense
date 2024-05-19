@@ -1,5 +1,5 @@
-import { Wallet } from '../src/player/Wallet'
-import { TowerGreen } from '../src/towers/TowerGreen'
+import { Wallet } from '../../src/player/Wallet'
+import { TowerGreen } from '../../src/towers/TowerGreen'
 
 describe('haveMoneyToBuy', () => {
   test('when wallet has 150 of money and wants to buy a new green tower (cost 50), return true', () => {

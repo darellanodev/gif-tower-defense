@@ -1,4 +1,4 @@
-import { Random } from '../src/utils/Random'
+import { Random } from '../../src/utils/Random'
 
 test('integerBetween, when arguments are 1 and 5, a random number between 1 and 5', () => {
   const random = Random.integerBetween(1, 5)

@@ -1,8 +1,8 @@
-import { FlyIndicator } from '../src/hud/FlyIndicator'
+import { FlyIndicator } from '../../src/hud/FlyIndicator'
 import {
   instantiateFlyIndicator,
   updateMaxTimesPlusOne,
-} from './helpers/flyIndicator'
+} from '../helpers/flyIndicator'
 
 describe('isActive', () => {
   test('when FlyIndicator is recently created, return true', () => {

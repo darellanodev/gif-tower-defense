@@ -1,4 +1,4 @@
-import { instantiateProgressBar } from './helpers/progressBar'
+import { instantiateProgressBar } from '../helpers/progressBar'
 
 describe('get progress', () => {
   test('when it is initialy created, return zero', () => {

@@ -1,5 +1,5 @@
-import { Missile } from '../src/towers/Missile'
-import { instantiateMissile } from './helpers/missile'
+import { Missile } from '../../src/towers/Missile'
+import { instantiateMissile } from '../helpers/missile'
 
 test('alive, when the missile is recently created, return true', () => {
   instantiateMissile()

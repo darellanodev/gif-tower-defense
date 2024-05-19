@@ -1,12 +1,12 @@
-import { TileGenerator } from '../src/tiles/TileGenerator'
-import { Player } from '../src/player/Player'
+import { TileGenerator } from '../../src/tiles/TileGenerator'
+import { Player } from '../../src/player/Player'
 import {
   getNoExistingLevelMap,
   getNoValidLevelMapWithoutRows,
   getTileGeneratorFromMap,
   getValidLevelMap,
-} from './helpers/levelMap'
-import { images } from './helpers/imagesResources'
+} from '../helpers/levelMap'
+import { images } from '../helpers/imagesResources'
 
 test('Constructor, when passing an invalid map without rows map, throws "No rows map found" exception', () => {
   const player = new Player()

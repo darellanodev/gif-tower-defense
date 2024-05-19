@@ -1,9 +1,9 @@
-import { Enemy } from '../src/enemies/Enemy'
+import { Enemy } from '../../src/enemies/Enemy'
 import {
   instantiateNormalEnemy,
   instantiateBossEnemy,
   clearEnemyInstances,
-} from './helpers/enemy'
+} from '../helpers/enemy'
 
 test('alive, when the instance is recently created, return true', () => {
   clearEnemyInstances()

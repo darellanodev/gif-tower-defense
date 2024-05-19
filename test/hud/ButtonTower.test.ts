@@ -1,6 +1,6 @@
-import { ButtonTower } from '../src/hud/ButtonTower'
-import { Position, Size } from '../src/utils/types'
-import { images } from './helpers/imagesResources'
+import { ButtonTower } from '../../src/hud/ButtonTower'
+import { Position, Size } from '../../src/utils/types'
+import { images } from '../helpers/imagesResources'
 
 test('isChecked, if clicked and the last status was unchecked, return true', () => {
   const buttonPosition: Position = { x: 100, y: 100 }

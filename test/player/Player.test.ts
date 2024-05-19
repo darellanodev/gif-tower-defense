@@ -1,4 +1,4 @@
-import { Player } from '../src/player/Player'
+import { Player } from '../../src/player/Player'
 
 describe('getPrintScore', () => {
   test('when initialy there is no score, print 0000000000', () => {

@@ -1,12 +1,12 @@
-import { Enemy } from '../src/enemies/Enemy'
-import { ConstDirection } from '../src/constants/ConstDirection'
+import { Enemy } from '../../src/enemies/Enemy'
+import { ConstDirection } from '../../src/constants/ConstDirection'
 import {
   instantiateNormalEnemy,
   instantiateBossEnemy,
   clearEnemyInstances,
   updateEnemyInstancesTimes,
-} from './helpers/enemy'
-import { testTinyOrders } from './helpers/levelMap'
+} from '../helpers/enemy'
+import { testTinyOrders } from '../helpers/levelMap'
 
 describe('currentDirection', () => {
   test('when no updates, return direction LEFT', () => {

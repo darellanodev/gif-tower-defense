@@ -1,10 +1,10 @@
-import { Player } from '../src/player/Player'
-import { TileOrange } from '../src/tiles/TileOrange'
-import { Position } from '../src/utils/types'
-import { Wallet } from '../src/player/Wallet'
-import { instantiateOrangeTile } from './helpers/orangeTile'
-import { buyGreenTower } from './helpers/wallet'
-import { img } from './helpers/imagesResources'
+import { Player } from '../../src/player/Player'
+import { TileOrange } from '../../src/tiles/TileOrange'
+import { Position } from '../../src/utils/types'
+import { Wallet } from '../../src/player/Wallet'
+import { instantiateOrangeTile } from '../helpers/orangeTile'
+import { buyGreenTower } from '../helpers/wallet'
+import { img } from '../helpers/imagesResources'
 
 describe('isInside', () => {
   test('If mouse is inside, return true', () => {

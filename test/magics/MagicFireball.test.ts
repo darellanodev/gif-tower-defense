@@ -1,10 +1,10 @@
-import { MagicFireball } from '../src/magics/MagicFireball'
-import { getPathFromMap, getValidLevelMap } from './helpers/levelMap'
+import { MagicFireball } from '../../src/magics/MagicFireball'
+import { getPathFromMap, getValidLevelMap } from '../helpers/levelMap'
 import {
   clearMagicFireballInstances,
   instantiateMagicFireball,
   updateToReachTheEndOfTheMap,
-} from './helpers/magicFireball'
+} from '../helpers/magicFireball'
 
 test('position, when the magicfireball is recently created and update instances, new positions is different', () => {
   const levelMap = getValidLevelMap()

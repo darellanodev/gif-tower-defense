@@ -1,11 +1,11 @@
-import { ConstDirection } from '../src/constants/ConstDirection'
-import { Path } from '../src/enemies/Path'
-import { TilePath } from '../src/tiles/TilePath'
-import { TileStart } from '../src/tiles/TileStart'
-import { TileEnd } from '../src/tiles/TileEnd'
-import { Position } from '../src/utils/types'
-import { getTileGeneratorFromMap, getValidLevelMap } from './helpers/levelMap'
-import { img } from './helpers/imagesResources'
+import { ConstDirection } from '../../src/constants/ConstDirection'
+import { Path } from '../../src/enemies/Path'
+import { TilePath } from '../../src/tiles/TilePath'
+import { TileStart } from '../../src/tiles/TileStart'
+import { TileEnd } from '../../src/tiles/TileEnd'
+import { Position } from '../../src/utils/types'
+import { getTileGeneratorFromMap, getValidLevelMap } from '../helpers/levelMap'
+import { img } from '../helpers/imagesResources'
 
 test('getEnemiesInitialPosition, when start direction is LEFT and start tile is at {x:750, y:80}, return x+=50 ({x:800, y:80})', () => {
   const levelMap = getValidLevelMap()

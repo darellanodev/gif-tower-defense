@@ -1,5 +1,5 @@
-import { MathUtils } from '../src/utils/MathUtils'
-import { Position, Size } from '../src/utils/types'
+import { MathUtils } from '../../src/utils/MathUtils'
+import { Position, Size } from '../../src/utils/types'
 
 describe('range', () => {
   test('when arguments are 1 and 5, return [1, 2, 3, 4, 5]', () => {

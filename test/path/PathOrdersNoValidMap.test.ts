@@ -1,8 +1,8 @@
-import { Path } from '../src/enemies/Path'
-import { TileGenerator } from '../src/tiles/TileGenerator'
-import { Player } from '../src/player/Player'
-import { getNoValidLevelMapUnreachableEndTile } from './helpers/levelMap'
-import { images } from './helpers/imagesResources'
+import { Path } from '../../src/enemies/Path'
+import { TileGenerator } from '../../src/tiles/TileGenerator'
+import { Player } from '../../src/player/Player'
+import { getNoValidLevelMapUnreachableEndTile } from '../helpers/levelMap'
+import { images } from '../helpers/imagesResources'
 
 test('length orders of makeOrders, when map is invalid, returns zero', () => {
   const noValidMap = getNoValidLevelMapUnreachableEndTile()
