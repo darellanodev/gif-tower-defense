@@ -7,6 +7,7 @@ import { getPathFromMap, getValidLevelMap } from './levelMap'
 export const clearMagicUFOInstances = () => {
   MagicUFO.instances = []
 }
+
 export const instantiateMagicUFO = (orders?: number[]) => {
   const initialPosition = { x: 100, y: 200 }
 
