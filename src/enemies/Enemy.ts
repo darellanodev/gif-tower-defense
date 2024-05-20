@@ -7,8 +7,9 @@ import { Const } from '../constants/Const'
 import { ConstDirection } from '../constants/ConstDirection'
 import { Player } from '../player/Player'
 import { P5 } from '../utils/P5'
+import { Obj } from '../Obj'
 
-export class Enemy {
+export class Enemy extends Obj {
   static VELOCITY = 1 // must be multiple of "this.#Const.TILE_SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
   static BOSS_VELOCITY = 0.5
   static INDEX_BOSS_IN_ENEMIES_IMAGES = 5
@@ -40,7 +41,6 @@ export class Enemy {
   #eyesSequence: number[]
   #healthBar: ProgressBar
   #status: number
-  #position: Position
   #currentDirection: number
   #moveCount: number = 0
   #indexOrder: number = 0
@@ -65,6 +65,7 @@ export class Enemy {
     player: Player,
     id: number,
   ) {
+    super(startPosition)
     this.#images = images
     this.#startPosition = { ...startPosition }
     this.#orders = orders
@@ -85,7 +86,6 @@ export class Enemy {
       { w: ProgressBar.WIDTH, h: ProgressBar.HEIGHT },
     )
 
-    this.#position = { ...this.#startPosition }
     this.#currentDirection = this.#orders[this.#indexOrder]
 
     this.#imgIndex = Enemy.EYES_CENTER
@@ -109,10 +109,6 @@ export class Enemy {
     return this.#id
   }
 
-  get position() {
-    return this.#position
-  }
-
   get dead() {
     return this.#status == Enemy.STATUS_DEAD
   }
@@ -127,6 +123,14 @@ export class Enemy {
 
   get orderPosition() {
     return this.#indexOrder
+  }
+
+  get isAbducted() {
+    return this.#reduction >= Enemy.SIZE
+  }
+
+  get moveCount() {
+    return this.#moveCount
   }
 
   addDamage(shotDamage: number) {
@@ -155,7 +159,7 @@ export class Enemy {
     this.#closeEyesTime = 0
     this.#extendClosedEyesTime = 0
     this.#currentDirection = this.#orders[this.#indexOrder]
-    this.#position = { ...this.#startPosition }
+    this.position = { ...this.#startPosition }
     this.#setRandomTimeMaxForClosingEyes()
     this.#reduction = 0
   }
@@ -174,33 +178,29 @@ export class Enemy {
 
     switch (this.#currentDirection) {
       case ConstDirection.LEFT:
-        this.#position.x = this.#position.x - velocity
+        this.position.x = this.position.x - velocity
         break
 
       case ConstDirection.RIGHT:
-        this.#position.x = this.#position.x + velocity
+        this.position.x = this.position.x + velocity
         break
 
       case ConstDirection.UP:
-        this.#position.y = this.#position.y - velocity
+        this.position.y = this.position.y - velocity
         break
 
       case ConstDirection.DOWN:
-        this.#position.y = this.#position.y + velocity
+        this.position.y = this.position.y + velocity
         break
     }
 
     this.#moveCount = this.#moveCount + velocity
   }
 
-  get moveCount() {
-    return this.#moveCount
-  }
-
   #updateHealthBarPosition() {
     this.#healthBar.position = {
-      x: this.#position.x,
-      y: this.#position.y - 20,
+      x: this.position.x,
+      y: this.position.y - 20,
     }
   }
 
@@ -282,10 +282,6 @@ export class Enemy {
     }
   }
 
-  get isAbducted() {
-    return this.#reduction >= Enemy.SIZE
-  }
-
   draw() {
     if (this.isAbducted) {
       return
@@ -293,8 +289,8 @@ export class Enemy {
 
     P5.p5.image(
       this.#images[this.#imgIndex],
-      this.#position.x + this.#reduction / 2,
-      this.#position.y,
+      this.position.x + this.#reduction / 2,
+      this.position.y,
       this.#width - this.#reduction,
       this.#height - this.#reduction,
     )
