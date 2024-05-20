@@ -27,12 +27,6 @@ export class Enemy {
   static SIZE = 50
   static REDUCTION_FACTOR = 0.6
 
-  static numberOfEnemies = 0 // for generating IDs
-  static instances: Enemy[] = []
-  static waveEnemies: number = 0
-  static allowCreateEnemies: boolean = true
-  static createEnemyTime: number = 0
-
   #images: Image[]
   #startPosition: Position
   #orders: number[]
@@ -69,6 +63,7 @@ export class Enemy {
     endurance: number,
     isBoss: boolean,
     player: Player,
+    id: number,
   ) {
     this.#images = images
     this.#startPosition = { ...startPosition }
@@ -76,10 +71,7 @@ export class Enemy {
     this.#endurance = endurance
     this.#isBoss = isBoss
     this.#player = player
-
-    // generate Id
-    Enemy.numberOfEnemies++
-    this.#id = Enemy.numberOfEnemies
+    this.#id = id
 
     this.#eyesSequence = [
       Enemy.EYES_LEFT,
@@ -103,51 +95,6 @@ export class Enemy {
 
   isBoss() {
     return this.#isBoss
-  }
-
-  static instantiateNormalEnemy(
-    images: Image[],
-    waveEnemies: number,
-    orders: number[],
-    initialEnemiesPosition: Position,
-    wave: number,
-    player: Player,
-  ) {
-    const endurance = wave * 3 + waveEnemies * 2
-    const isBoss = false
-
-    Enemy.instances.push(
-      new Enemy(
-        images,
-        initialEnemiesPosition,
-        orders,
-        endurance,
-        isBoss,
-        player,
-      ),
-    )
-  }
-
-  static instantiateBoss(
-    images: Image[],
-    orders: number[],
-    initialEnemiesPosition: Position,
-    wave: number,
-    player: Player,
-  ) {
-    const endurance = wave * 25
-    const isBoss = true
-
-    Enemy.instances.push(
-      new Enemy(
-        images,
-        initialEnemiesPosition,
-        orders,
-        endurance,
-        isBoss,
-        player,
-      ),
-    )
   }
 
   get currentDirection() {
@@ -353,16 +300,6 @@ export class Enemy {
     )
 
     this.#healthBar.draw()
-  }
-
-  static removeDeadInstances() {
-    Enemy.instances = Enemy.instances.filter((enemy) => enemy.alive)
-  }
-
-  static updateInstances() {
-    Enemy.instances.forEach((enemy) => {
-      enemy.update()
-    })
   }
 
   decrementSize() {

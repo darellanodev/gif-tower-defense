@@ -5,6 +5,7 @@ import { P5 } from '../utils/P5'
 import { Enemy } from '../enemies/Enemy'
 import { Const } from '../constants/Const'
 import { PositionUtils } from '../utils/PositionUtils'
+import { EnemyInstances } from '../enemies/EnemyInstances'
 
 export class MagicUFO extends Magic {
   static SPEED = 2
@@ -269,7 +270,7 @@ export class MagicUFO extends Magic {
     let maxIndexOrder = 0
     let enemyTarget = null
 
-    Enemy.instances.forEach((enemy: Enemy) => {
+    EnemyInstances.instances.forEach((enemy: Enemy) => {
       const indexOder = enemy.orderPosition
 
       if (indexOder > maxIndexOrder && !this.#isTargetedByOtherUFO(enemy)) {

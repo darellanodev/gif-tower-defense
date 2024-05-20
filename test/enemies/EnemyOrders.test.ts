@@ -7,12 +7,13 @@ import {
   updateEnemyInstancesTimes,
 } from '../helpers/enemy'
 import { testTinyOrders } from '../helpers/levelMap'
+import { EnemyInstances } from '../../src/enemies/EnemyInstances'
 
 describe('currentDirection', () => {
   test('when no updates, return direction LEFT', () => {
     clearEnemyInstances()
     instantiateNormalEnemy(testTinyOrders)
-    const result = Enemy.instances[0].currentDirection
+    const result = EnemyInstances.instances[0].currentDirection
     expect(result).toBe(ConstDirection.LEFT)
   })
   test('when updating 55 times a Boss enemy, return direction LEFT because velocity is 0.5 and it needs 100 updates to complete a 50 tile width order', () => {
@@ -20,7 +21,7 @@ describe('currentDirection', () => {
     instantiateBossEnemy(testTinyOrders)
     updateEnemyInstancesTimes(55)
 
-    const result = Enemy.instances[0].currentDirection
+    const result = EnemyInstances.instances[0].currentDirection
     expect(result).toBe(ConstDirection.LEFT)
   })
   test('when updating 55 times a Normal enemy, return direction DOWN because velocity = 1 it needs 50 (tile width) updates to complete the first LEFT order and the next order is DOWN', () => {
@@ -28,7 +29,7 @@ describe('currentDirection', () => {
     instantiateNormalEnemy(testTinyOrders)
     updateEnemyInstancesTimes(55)
 
-    const result = Enemy.instances[0].currentDirection
+    const result = EnemyInstances.instances[0].currentDirection
     expect(result).toBe(ConstDirection.DOWN)
   })
 })
@@ -39,7 +40,7 @@ describe('position', () => {
     instantiateNormalEnemy(testTinyOrders)
     updateEnemyInstancesTimes(55)
 
-    const result = Enemy.instances[0].position
+    const result = EnemyInstances.instances[0].position
     expect(result).toStrictEqual({ x: 50, y: 205 })
   })
   test('when there are not enemy instances and the instance is recently created and updating 55 times, return position x: 72.5, y: 200 because velocity is 0.5 so every update it moves 0.5', () => {
@@ -47,7 +48,7 @@ describe('position', () => {
     instantiateBossEnemy(testTinyOrders)
     updateEnemyInstancesTimes(55)
 
-    const result = Enemy.instances[0].position
+    const result = EnemyInstances.instances[0].position
     expect(result).toStrictEqual({ x: 72.5, y: 200 })
   })
 })

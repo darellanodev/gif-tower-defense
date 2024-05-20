@@ -5,7 +5,7 @@ import {
   getEnemyTargetIdForUFO,
   instantiateMagicUFO,
   updateInstancesOfEnemiesAndUFOsForATileSize,
-} from '../helpers/magicUfo'
+} from '../helpers/magicUFO'
 
 test('id, when three Magic UFOs are created, last UFO has id = 3', () => {
   clearMagicUFOInstances()

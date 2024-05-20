@@ -6,7 +6,7 @@ import {
   createMagicButton,
   initializeAllMagicButtons,
 } from '../helpers/magicButtons'
-import { clearMagicUFOInstances } from '../helpers/magicUfo'
+import { clearMagicUFOInstances } from '../helpers/magicUFO'
 
 test('isMouseOver, if mouse is inside the button, return true', () => {
   const buttonMagic = createMagicButton()

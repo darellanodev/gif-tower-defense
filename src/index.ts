@@ -33,6 +33,7 @@ import { HudProgressBarWave } from './hud/HudProgressBarWave'
 import { HudOtherIndicators } from './hud/HudOtherIndicators'
 import { Wallet } from './player/Wallet'
 import { Controls } from './player/Controls'
+import { EnemyInstances } from './enemies/EnemyInstances'
 
 let _p5: p5
 let gameStatus: number = 0
@@ -191,35 +192,35 @@ window.keyPressed = () => {
 }
 
 const handleNewEnemyCreation = () => {
-  if (Enemy.allowCreateEnemies) {
-    if (Enemy.waveEnemies < Enemy.TOTAL_ENEMIES) {
-      Enemy.createEnemyTime++
-      if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
-        Enemy.createEnemyTime = 0
+  if (EnemyInstances.allowCreateEnemies) {
+    if (EnemyInstances.waveEnemies < Enemy.TOTAL_ENEMIES) {
+      EnemyInstances.createEnemyTime++
+      if (EnemyInstances.createEnemyTime === Enemy.CREATION_MAX_TIME) {
+        EnemyInstances.createEnemyTime = 0
 
-        Enemy.instantiateNormalEnemy(
+        EnemyInstances.instantiateNormalEnemy(
           Images.enemiesImages.slice(
-            ...Arrays.getTwoNumbersFourTimes(Enemy.waveEnemies),
+            ...Arrays.getTwoNumbersFourTimes(EnemyInstances.waveEnemies),
           ),
-          Enemy.waveEnemies,
+          EnemyInstances.waveEnemies,
           Path.orders,
           Path.initialEnemiesPosition,
           player.wave,
           player,
         )
 
-        Enemy.waveEnemies++
+        EnemyInstances.waveEnemies++
       }
     } else {
-      Enemy.allowCreateEnemies = false
-      Enemy.waveEnemies = 0
+      EnemyInstances.allowCreateEnemies = false
+      EnemyInstances.waveEnemies = 0
     }
   }
 }
 
 const handleWinners = () => {
   let gameStatus = Const.GAME_STATUS_PLAYING
-  const winnerEnemies = Enemy.instances.filter((enemy) => enemy.winner)
+  const winnerEnemies = EnemyInstances.instances.filter((enemy) => enemy.winner)
   winnerEnemies.forEach((enemy) => {
     player.decreaseLives()
     if (player.lives <= 0) {
@@ -231,7 +232,9 @@ const handleWinners = () => {
 }
 
 const handleExplosionEnemys = () => {
-  const deadEnemies: Enemy[] = Enemy.instances.filter((enemy) => enemy.dead)
+  const deadEnemies: Enemy[] = EnemyInstances.instances.filter(
+    (enemy) => enemy.dead,
+  )
   deadEnemies.forEach((enemy) => {
     ExplosionEnemy.instantiate(enemy.position)
 
@@ -244,8 +247,8 @@ const handleExplosionEnemys = () => {
 const updateEnemies = () => {
   handleNewEnemyCreation()
   handleExplosionEnemys()
-  Enemy.removeDeadInstances()
-  Enemy.updateInstances()
+  EnemyInstances.removeDeadInstances()
+  EnemyInstances.updateInstances()
 
   return handleWinners()
 }
@@ -258,7 +261,7 @@ window.draw = () => {
     instantiateBoss = hudProgressBarBoss.updateBossProgressBar()
 
     if (instantiateBoss) {
-      Enemy.instantiateBoss(
+      EnemyInstances.instantiateBoss(
         Images.enemiesImages.slice(
           ...Arrays.getTwoNumbersFourTimes(Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES),
         ),
@@ -270,7 +273,7 @@ window.draw = () => {
     }
 
     if (instantiateEnemies) {
-      Enemy.allowCreateEnemies = true
+      EnemyInstances.allowCreateEnemies = true
     }
 
     updateMagics()
@@ -286,7 +289,7 @@ window.draw = () => {
   Path.endTile.draw()
 
   TileOrange.instances.forEach((orangeTile) => {
-    orangeTile.selectTarget(Enemy.instances)
+    orangeTile.selectTarget(EnemyInstances.instances)
     orangeTile.drawTile()
   })
 
@@ -312,7 +315,7 @@ window.draw = () => {
   hudProgressBarBoss.draw()
   hudOtherIndicators.draw()
 
-  Enemy.instances.forEach((enemy) => {
+  EnemyInstances.instances.forEach((enemy) => {
     enemy.draw()
   })
 

@@ -4,6 +4,7 @@ import { Magic } from './Magic'
 import { Position } from '../types/position'
 import { ExplosionMagicIceball } from '../explosions/ExplosionMagicIceball'
 import { P5 } from '../utils/P5'
+import { EnemyInstances } from '../enemies/EnemyInstances'
 
 export class MagicIceball extends Magic {
   static FREEZE_ENEMY_MAX_TIME = 500
@@ -37,7 +38,7 @@ export class MagicIceball extends Magic {
   static updateInstances() {
     MagicIceball.instances.forEach((iceball) => {
       iceball.update()
-      MagicIceball.checkMagicIceballCollides(iceball, Enemy.instances)
+      MagicIceball.checkMagicIceballCollides(iceball, EnemyInstances.instances)
     })
   }
 
