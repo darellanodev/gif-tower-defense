@@ -178,19 +178,19 @@ export class Enemy extends Obj {
 
     switch (this.#currentDirection) {
       case ConstDirection.LEFT:
-        this.position.x = this.position.x - velocity
+        this.position.x -= velocity
         break
 
       case ConstDirection.RIGHT:
-        this.position.x = this.position.x + velocity
+        this.position.x += velocity
         break
 
       case ConstDirection.UP:
-        this.position.y = this.position.y - velocity
+        this.position.y -= velocity
         break
 
       case ConstDirection.DOWN:
-        this.position.y = this.position.y + velocity
+        this.position.y += velocity
         break
     }
 
