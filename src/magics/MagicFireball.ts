@@ -4,7 +4,6 @@ import { Magic } from './Magic'
 import { Position } from '../types/position'
 import { ExplosionMagicFireball } from '../explosions/ExplosionMagicFireball'
 import { P5 } from '../utils/P5'
-import { EnemyInstances } from '../enemies/EnemyInstances'
 
 export class MagicFireball extends Magic {
   static DAMAGE = 500
@@ -38,10 +37,7 @@ export class MagicFireball extends Magic {
   static updateInstances() {
     MagicFireball.instances.forEach((magicFireball) => {
       magicFireball.update()
-      MagicFireball.checkMagicFireballCollides(
-        magicFireball,
-        EnemyInstances.instances,
-      )
+      MagicFireball.checkMagicFireballCollides(magicFireball, Enemy.instances)
     })
   }
 
