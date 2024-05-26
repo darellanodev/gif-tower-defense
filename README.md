@@ -24,31 +24,54 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ### Next tasks
 
-- [ ] Pause button
-- [ ] Speed button
-- [ ] Put the draw of the start tile and the end tile on top of the enemies (the red and the green gradiente effect)
-- [ ] Upload the build web version into my portfolio to allow play in web browser
+- The player can:
 
-- [ ] Use increment, decrement methods passing a number in Obj class. For example in Magic.ts instead of `this.position.x = this.position.x - Magic.SPEED` it would be `this.position.incrementX(Magic.SPEED)`.
-- [ ] The enemy tilt when it is freezed
-- [ ] Change "Magic" title in hud for "Magics"
-- [ ] Make the explosion balls with a face. The captured faces show a diferent icon with the mouth opened
-- [ ] Tint freezed enemies with a white/blue color and show ice particles
+  - [ ] Pause the game and resume it with the pause button
+  - [ ] Speed the game and return to normal speed with the speed button
+  - [ ] Click on an enemy to select it as a target
+  - [ ] Click on other enemy to select it as a target. If an enemy was selected before it will be deselected
+  - [ ] Click on two or more enemies that are sharing the same position and then the target selection will change from one enemy to the next enemy.
+  - [ ] Click on the path to deselect the target enemy
+  - [ ] View the heatmap
+  - [ ] Can exit from the current playing level. (ask for confirmation). Then return to main menu.
+
+- The magic fireball and iceball:
+
+  - [ ] Do not damage the enemies that are abducted by UFOs
+
+- The enemy:
+
+  - If it is freezed with an iceball:
+    - [ ] it will tilt
+    - [ ] it will drop ice particles
+  - [ ] If it is burn with a fireball, during a time:
+    - [ ] it will be dark
+    - [ ] it will decrease its energy
+    - [ ] it will drop fire particles
+
+- In the hud:
+
+  - [ ] Change "Magic" title in hud for "Magics"
+  - [ ] Make a button in the hud for heatmap ("h" hotkey)
+  - [ ] Make a button in the hud for the exit ("esc" hotkey). Ask for confirmation.
+
+- The explosion balls:
+
+  - [ ] Make the explosion balls with a face.
+  - [ ] The captured faces show a diferent icon with the mouth opened
+
+- Others:
+
 - [ ] Test other maps with different end tiles positions to implement (with tests) the remaining endings
 - [ ] Extract variables and functions from main.ts to Game class
-- [ ] Menu to allow the user to select a desired level to play. Replace old player names for other names
-- [ ] HeatMap
+- [ ] Menu to allow the user to select a desired level to play. Replace old player names with other nicknames
 - [ ] Level editor
 
-- [ ] Bug: when Game Over towers continue increasing damage bar of enemies.
-- [ ] Bug: when an Enemy is freezed and is near to move, if it collides with other magic ice ball the timer dont increment. Idea: make a balloon indicating the time in seconds over the enemy indicating the freezed time.
-- [ ] Bug: explosion enemy particles never goes down
+- Detected bugs:
 
-- [ ] Improve the code:
-  - [ ] Refactor the code to use non-static methods by passing dependencies to the constructors. The dependencies will be interfaces. The classes should depend on abstractions, not concrete implementations (Dependency Inversion Principle).
-  - [ ] Refactor code not to use setters, instead pass them to the constructors.
-  - [ ] Refactor the code to reduce the size of the classes. It is best to have only one public method.
-  - [ ] Apply SLA (single level of abstraction)
+- [ ] When Game Over towers continue increasing damage bar of enemies.
+- [ ] When an Enemy is freezed and is near to move, if it collides with other magic ice ball the timer dont increment. Idea: make a balloon indicating the time in seconds over the enemy indicating the freezed time.
+- [ ] Explosion enemy particles never goes down
 
 ## Resources
 
