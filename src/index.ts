@@ -33,6 +33,7 @@ import { HudProgressBarWave } from './hud/HudProgressBarWave'
 import { HudOtherIndicators } from './hud/HudOtherIndicators'
 import { Wallet } from './player/Wallet'
 import { Controls } from './player/Controls'
+import { EnemyAnimator } from './enemies/EnemyAnimator'
 
 let _p5: p5
 let gameStatus: number = 0
@@ -171,7 +172,8 @@ window.setup = () => {
     Images.magicIceballButtonImages,
   )
 
-  wallet = new Wallet(Wallet.GAME_TESTING_MODE, tileGenerator.initialMoney)
+  // wallet = new Wallet(Wallet.GAME_TESTING_MODE, tileGenerator.initialMoney)
+  wallet = new Wallet(Wallet.GAME_NORMAL_MODE, tileGenerator.initialMoney)
   hudButtonsTowers = new HudButtonsTowers(
     Images.towerGreenButtonImages,
     Images.towerRedButtonImages,
@@ -196,16 +198,19 @@ const handleNewEnemyCreation = () => {
       Enemy.createEnemyTime++
       if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
         Enemy.createEnemyTime = 0
-
-        Enemy.instantiateNormalEnemy(
+        const enemyAnimator = new EnemyAnimator(
           Images.enemiesImages.slice(
             ...Arrays.getTwoNumbersFourTimes(Enemy.waveEnemies),
           ),
+        )
+
+        Enemy.instantiateNormalEnemy(
           Enemy.waveEnemies,
           Path.orders,
           Path.initialEnemiesPosition,
           player.wave,
           player,
+          enemyAnimator,
         )
 
         Enemy.waveEnemies++
@@ -258,14 +263,19 @@ window.draw = () => {
     instantiateBoss = hudProgressBarBoss.updateBossProgressBar()
 
     if (instantiateBoss) {
-      Enemy.instantiateBoss(
+      const enemyBossAnimator = new EnemyAnimator(
         Images.enemiesImages.slice(
-          ...Arrays.getTwoNumbersFourTimes(Enemy.INDEX_BOSS_IN_ENEMIES_IMAGES),
+          ...Arrays.getTwoNumbersFourTimes(
+            EnemyAnimator.INDEX_BOSS_IN_ENEMIES_IMAGES,
+          ),
         ),
+      )
+      Enemy.instantiateBoss(
         Path.orders,
         Path.initialEnemiesPosition,
         player.wave,
         player,
+        enemyBossAnimator,
       )
     }
 
