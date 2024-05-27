@@ -34,6 +34,8 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
   - [ ] Click on the path to deselect the target enemy
   - [ ] View the heatmap
   - [ ] Can exit from the current playing level. (ask for confirmation). Then return to main menu.
+  - [ ] Create a level with the level editor
+  - [ ] View the Main Menu and select a desired level to play. Replace old player names with other nicknames
 
 - The magic fireball and iceball:
 
@@ -51,7 +53,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - In the hud:
 
-  - [ ] Change "Magic" title in hud for "Magics"
+  - [x] Change "Magic" title in hud for "Magics"
   - [ ] Make a button in the hud for heatmap ("h" hotkey)
   - [ ] Make a button in the hud for the exit ("esc" hotkey). Ask for confirmation.
 
@@ -62,16 +64,16 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - Others:
 
-- [ ] Test other maps with different end tiles positions to implement (with tests) the remaining endings
-- [ ] Extract variables and functions from main.ts to Game class
-- [ ] Menu to allow the user to select a desired level to play. Replace old player names with other nicknames
-- [ ] Level editor
+  - [ ] Decrease Enemy class size extracting other classes from it.
+    - [x] EnemyAnimator
+  - [ ] Test other maps with different end tiles positions to implement (with tests) the remaining endings
+  - [ ] Extract variables and functions from main.ts to Game class
 
 - Detected bugs:
 
-- [ ] When Game Over towers continue increasing damage bar of enemies.
-- [ ] When an Enemy is freezed and is near to move, if it collides with other magic ice ball the timer dont increment. Idea: make a balloon indicating the time in seconds over the enemy indicating the freezed time.
-- [ ] Explosion enemy particles never goes down
+  - [ ] When Game Over towers continue increasing damage bar of enemies.
+  - [ ] When an Enemy is freezed and is near to move, if it collides with other magic ice ball the timer dont increment. Idea: make a balloon indicating the time in seconds over the enemy indicating the freezed time.
+  - [ ] Explosion enemy particles never goes down
 
 ## Resources
 
