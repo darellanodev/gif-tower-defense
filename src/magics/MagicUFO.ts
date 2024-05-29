@@ -28,7 +28,7 @@ export class MagicUFO extends Magic {
   #id: number = 0
 
   constructor(images: Image[], startPosition: Position, orders: number[]) {
-    super(startPosition, orders)
+    super(startPosition)
     this.#images = images
 
     // generate id

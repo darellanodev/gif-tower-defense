@@ -1,4 +1,4 @@
-import { Path } from '../../src/enemies/Path'
+import { Path } from '../../src/path/Path'
 import { TileGenerator } from '../../src/tiles/TileGenerator'
 import { Player } from '../../src/player/Player'
 import { getNoValidLevelMapUnreachableEndTile } from '../helpers/levelMap'

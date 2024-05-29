@@ -1,6 +1,6 @@
 import p5 from 'p5'
 import { Const } from './constants/Const'
-import { Path } from './enemies/Path'
+import { Path } from './path/Path'
 import { TileGenerator } from './tiles/TileGenerator'
 import { TileOrange } from './tiles/TileOrange'
 import { TowerGreen } from './towers/TowerGreen'

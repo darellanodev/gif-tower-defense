@@ -1,5 +1,5 @@
 import { ConstDirection } from '../../src/constants/ConstDirection'
-import { Path } from '../../src/enemies/Path'
+import { Path } from '../../src/path/Path'
 import { TilePath } from '../../src/tiles/TilePath'
 import { TileStart } from '../../src/tiles/TileStart'
 import { TileEnd } from '../../src/tiles/TileEnd'
