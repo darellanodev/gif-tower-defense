@@ -27,9 +27,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - Code improvements:
 
   - [ ] Use PathMovement in Enemy class
-  - [ ] Extract MagicUFO movement to other class like MagicUFOMovement
   - [ ] Extract class for collision for MagicFireball and MagicIceBall
-  - [ ] Extract class for abduction for MagicUFO
 
 - The player can:
 

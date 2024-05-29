@@ -1,5 +1,4 @@
 import { Const } from '../../src/constants/Const'
-import { Magic } from '../../src/magics/Magic'
 import { MagicFireball } from '../../src/magics/MagicFireball'
 import { PathMovement } from '../../src/path/PathMovement'
 import { img } from './imagesResources'
