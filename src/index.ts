@@ -34,6 +34,7 @@ import { HudOtherIndicators } from './hud/HudOtherIndicators'
 import { Wallet } from './player/Wallet'
 import { Controls } from './player/Controls'
 import { EnemyAnimator } from './enemies/EnemyAnimator'
+import { PathMovement } from './path/PathMovement'
 
 let _p5: p5
 let gameStatus: number = 0
@@ -204,13 +205,19 @@ const handleNewEnemyCreation = () => {
           ),
         )
 
+        const pathMovement = new PathMovement(
+          Path.initialEnemiesPosition,
+          Path.orders,
+          Enemy.VELOCITY,
+        )
+
         Enemy.instantiateNormalEnemy(
           Enemy.waveEnemies,
-          Path.orders,
           Path.initialEnemiesPosition,
           player.wave,
           player,
           enemyAnimator,
+          pathMovement,
         )
 
         Enemy.waveEnemies++
@@ -270,12 +277,19 @@ window.draw = () => {
           ),
         ),
       )
-      Enemy.instantiateBoss(
+
+      const pathMovement = new PathMovement(
+        Path.initialEnemiesPosition,
         Path.orders,
+        Enemy.BOSS_VELOCITY,
+      )
+
+      Enemy.instantiateBoss(
         Path.initialEnemiesPosition,
         player.wave,
         player,
         enemyBossAnimator,
+        pathMovement,
       )
     }
 

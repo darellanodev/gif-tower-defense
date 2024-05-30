@@ -1,14 +1,12 @@
 import { ProgressBar } from '../hud/ProgressBar'
 import { Position } from '../types/position'
-import { Random } from '../utils/Random'
-import { Image } from 'p5'
 import { MagicIceball } from '../magics/MagicIceball'
 import { Const } from '../constants/Const'
-import { ConstDirection } from '../constants/ConstDirection'
 import { Player } from '../player/Player'
 import { P5 } from '../utils/P5'
 import { Obj } from '../Obj'
 import { EnemyAnimator } from './EnemyAnimator'
+import { PathMovement } from '../path/PathMovement'
 
 export class Enemy extends Obj {
   static VELOCITY = 1 // must be multiple of "this.#Const.TILE_SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
@@ -27,18 +25,16 @@ export class Enemy extends Obj {
   static allowCreateEnemies: boolean = true
   static createEnemyTime: number = 0
 
-  #startPosition: Position
-  #orders: number[]
+  #position: Position
   #endurance: number
   #isBoss: boolean
   #player: Player
   #enemyAnimator: EnemyAnimator
+  #pathMovement: PathMovement
 
   #id: number
   #healthBar: ProgressBar
   #status: number
-  #currentDirection: number
-  #moveCount: number = 0
   #indexOrder: number = 0
   #winned: boolean = false
   #freezed: boolean = false
@@ -48,40 +44,34 @@ export class Enemy extends Obj {
   #height: number = 50
 
   constructor(
-    startPosition: Position,
-    orders: number[],
+    position: Position,
     endurance: number,
     isBoss: boolean,
     player: Player,
     id: number,
     enemyAnimator: EnemyAnimator,
+    pathMovement: PathMovement,
   ) {
-    super(startPosition)
+    super(position)
 
-    this.#startPosition = { ...startPosition }
-    this.#orders = orders
+    this.#position = { ...position }
     this.#endurance = endurance
     this.#isBoss = isBoss
     this.#player = player
     this.#id = id
     this.#enemyAnimator = enemyAnimator
+    this.#pathMovement = pathMovement
 
     this.#healthBar = new ProgressBar(
       { x: 200, y: 200 },
       { w: ProgressBar.WIDTH, h: ProgressBar.HEIGHT },
     )
 
-    this.#currentDirection = this.#orders[this.#indexOrder]
-
     this.#status = Enemy.STATUS_ALIVE
   }
 
   isBoss() {
     return this.#isBoss
-  }
-
-  get currentDirection() {
-    return this.#currentDirection
   }
 
   get endurance() {
@@ -104,16 +94,8 @@ export class Enemy extends Obj {
     return this.#winned
   }
 
-  get orderPosition() {
-    return this.#indexOrder
-  }
-
   get isAbducted() {
     return this.#reduction >= Enemy.SIZE
-  }
-
-  get moveCount() {
-    return this.#moveCount
   }
 
   addDamage(shotDamage: number) {
@@ -135,12 +117,9 @@ export class Enemy extends Obj {
   }
 
   #reinitEnemy() {
-    this.#moveCount = 0
-    this.#indexOrder = 0
     this.#enemyAnimator.restart()
-    this.#currentDirection = this.#orders[this.#indexOrder]
-    this.position = { ...this.#startPosition }
     this.#reduction = 0
+    this.#pathMovement.reinit()
   }
 
   dropFromUFO() {
@@ -152,35 +131,27 @@ export class Enemy extends Obj {
     this.#reinitEnemy()
   }
 
-  #move() {
-    const velocity = this.#isBoss ? Enemy.BOSS_VELOCITY : Enemy.VELOCITY
-
-    switch (this.#currentDirection) {
-      case ConstDirection.LEFT:
-        this.position.x -= velocity
-        break
-
-      case ConstDirection.RIGHT:
-        this.position.x += velocity
-        break
-
-      case ConstDirection.UP:
-        this.position.y -= velocity
-        break
-
-      case ConstDirection.DOWN:
-        this.position.y += velocity
-        break
-    }
-
-    this.#moveCount = this.#moveCount + velocity
-  }
-
   #updateHealthBarPosition() {
     this.#healthBar.position = {
       x: this.position.x,
       y: this.position.y - 20,
     }
+  }
+
+  get currentDirection() {
+    return this.#pathMovement.currentDirection
+  }
+
+  get orderPosition() {
+    return this.#pathMovement.indexOrder
+  }
+
+  get moveCount() {
+    return this.#pathMovement.moveCount
+  }
+
+  updatePosition() {
+    this.position = this.#pathMovement.position
   }
 
   update() {
@@ -198,15 +169,14 @@ export class Enemy extends Obj {
       return
     }
 
-    this.#move()
+    this.#pathMovement.update()
+    this.updatePosition()
 
-    if (this.#moveCount === Const.TILE_SIZE) {
-      this.#moveCount = 0
+    if (this.#pathMovement.moveCount === Const.TILE_SIZE) {
+      this.#pathMovement.moveCount = 0
       this.#indexOrder++
-      if (this.#indexOrder == this.#orders.length) {
+      if (this.#pathMovement.endReached) {
         this.#reinitWinnerEnemy()
-      } else {
-        this.#currentDirection = this.#orders[this.#indexOrder]
       }
     }
 
@@ -238,11 +208,11 @@ export class Enemy extends Obj {
 
   static instantiateNormalEnemy(
     waveEnemies: number,
-    orders: number[],
     initialEnemiesPosition: Position,
     wave: number,
     player: Player,
     enemyAnimator: EnemyAnimator,
+    pathMovement: PathMovement,
   ) {
     const endurance = wave * 3 + waveEnemies * 2
     const isBoss = false
@@ -252,12 +222,12 @@ export class Enemy extends Obj {
     Enemy.instances.push(
       new Enemy(
         initialEnemiesPosition,
-        orders,
         endurance,
         isBoss,
         player,
         id,
         enemyAnimator,
+        pathMovement,
       ),
     )
   }
@@ -268,11 +238,11 @@ export class Enemy extends Obj {
   }
 
   static instantiateBoss(
-    orders: number[],
     initialEnemiesPosition: Position,
     wave: number,
     player: Player,
     enemyAnimator: EnemyAnimator,
+    pathMovement: PathMovement,
   ) {
     const endurance = wave * 25
     const isBoss = true
@@ -282,12 +252,12 @@ export class Enemy extends Obj {
     Enemy.instances.push(
       new Enemy(
         initialEnemiesPosition,
-        orders,
         endurance,
         isBoss,
         player,
         id,
         enemyAnimator,
+        pathMovement,
       ),
     )
   }

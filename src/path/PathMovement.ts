@@ -10,8 +10,10 @@ export class PathMovement {
   #speed: number
   #moveCount: number = 0
   #isAlive: boolean
+  #startPosition: Position
 
   constructor(position: Position, orders: number[], speed: number) {
+    this.#startPosition = { ...position }
     this.#position = { ...position }
     this.#orders = orders
 
@@ -82,8 +84,27 @@ export class PathMovement {
     return this.#isAlive
   }
 
+  get moveCount() {
+    return this.#moveCount
+  }
+
+  get currentDirection() {
+    return this.#currentDirection
+  }
+
+  set moveCount(value: number) {
+    this.#moveCount = value
+  }
+
   #reachTheEndTile() {
     this.#indexOrder++
     this.#isAlive = false
+  }
+
+  reinit() {
+    this.#moveCount = 0
+    this.#indexOrder = 0
+    this.#currentDirection = this.#orders[this.#indexOrder]
+    this.#position = { ...this.#startPosition }
   }
 }

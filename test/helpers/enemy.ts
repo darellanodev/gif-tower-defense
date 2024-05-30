@@ -1,5 +1,6 @@
 import { Enemy } from '../../src/enemies/Enemy'
 import { EnemyAnimator } from '../../src/enemies/EnemyAnimator'
+import { PathMovement } from '../../src/path/PathMovement'
 import { Player } from '../../src/player/Player'
 import { images } from './imagesResources'
 import { getPathFromMap, getValidLevelMap } from './levelMap'
@@ -18,13 +19,20 @@ export const instantiateNormalEnemy = (orders?: number[] | null) => {
   const wave = 1
   const player = new Player()
   const enemyAnimator = new EnemyAnimator(images)
+
+  const pathMovement = new PathMovement(
+    initialEnemiesPosition,
+    orders,
+    Enemy.VELOCITY,
+  )
+
   Enemy.instantiateNormalEnemy(
     waveEnemies,
-    orders,
     initialEnemiesPosition,
     wave,
     player,
     enemyAnimator,
+    pathMovement,
   )
   Enemy.waveEnemies = waveEnemies + 1
 }
@@ -37,12 +45,19 @@ export const instantiateBossEnemy = (orders?: number[] | null) => {
   const wave = 1
   const player = new Player()
   const enemyAnimator = new EnemyAnimator(images)
-  Enemy.instantiateBoss(
+
+  const pathMovement = new PathMovement(
+    initialEnemiesPosition,
     orders,
+    Enemy.BOSS_VELOCITY,
+  )
+
+  Enemy.instantiateBoss(
     initialEnemiesPosition,
     wave,
     player,
     enemyAnimator,
+    pathMovement,
   )
 }
 
