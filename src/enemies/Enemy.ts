@@ -1,8 +1,6 @@
 import { ProgressBar } from '../hud/ProgressBar'
 import { Position } from '../types/position'
 import { MagicIceball } from '../magics/MagicIceball'
-import { Const } from '../constants/Const'
-import { Player } from '../player/Player'
 import { P5 } from '../utils/P5'
 import { Obj } from '../Obj'
 import { EnemyAnimator } from './EnemyAnimator'
@@ -28,7 +26,6 @@ export class Enemy extends Obj {
   #position: Position
   #endurance: number
   #isBoss: boolean
-  #player: Player
   #enemyAnimator: EnemyAnimator
   #pathMovement: PathMovement
 
@@ -46,7 +43,6 @@ export class Enemy extends Obj {
     position: Position,
     endurance: number,
     isBoss: boolean,
-    player: Player,
     id: number,
     enemyAnimator: EnemyAnimator,
     pathMovement: PathMovement,
@@ -56,7 +52,6 @@ export class Enemy extends Obj {
     this.#position = { ...position }
     this.#endurance = endurance
     this.#isBoss = isBoss
-    this.#player = player
     this.#id = id
     this.#enemyAnimator = enemyAnimator
     this.#pathMovement = pathMovement
@@ -204,7 +199,6 @@ export class Enemy extends Obj {
     waveEnemies: number,
     initialEnemiesPosition: Position,
     wave: number,
-    player: Player,
     enemyAnimator: EnemyAnimator,
     pathMovement: PathMovement,
   ) {
@@ -218,7 +212,6 @@ export class Enemy extends Obj {
         initialEnemiesPosition,
         endurance,
         isBoss,
-        player,
         id,
         enemyAnimator,
         pathMovement,
@@ -234,7 +227,6 @@ export class Enemy extends Obj {
   static instantiateBoss(
     initialEnemiesPosition: Position,
     wave: number,
-    player: Player,
     enemyAnimator: EnemyAnimator,
     pathMovement: PathMovement,
   ) {
@@ -248,7 +240,6 @@ export class Enemy extends Obj {
         initialEnemiesPosition,
         endurance,
         isBoss,
-        player,
         id,
         enemyAnimator,
         pathMovement,

@@ -215,7 +215,6 @@ const handleNewEnemyCreation = () => {
           Enemy.waveEnemies,
           Path.initialEnemiesPosition,
           player.wave,
-          player,
           enemyAnimator,
           pathMovement,
         )
@@ -287,7 +286,6 @@ window.draw = () => {
       Enemy.instantiateBoss(
         Path.initialEnemiesPosition,
         player.wave,
-        player,
         enemyBossAnimator,
         pathMovement,
       )
