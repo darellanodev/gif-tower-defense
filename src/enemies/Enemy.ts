@@ -35,7 +35,6 @@ export class Enemy extends Obj {
   #id: number
   #healthBar: ProgressBar
   #status: number
-  #indexOrder: number = 0
   #winned: boolean = false
   #freezed: boolean = false
   #freezedTime: number = 0
@@ -170,15 +169,10 @@ export class Enemy extends Obj {
     }
 
     this.#pathMovement.update()
-    this.updatePosition()
-
-    if (this.#pathMovement.moveCount === Const.TILE_SIZE) {
-      this.#pathMovement.moveCount = 0
-      this.#indexOrder++
-      if (this.#pathMovement.endReached) {
-        this.#reinitWinnerEnemy()
-      }
+    if (!this.#pathMovement.isAlive) {
+      this.#reinitWinnerEnemy()
     }
+    this.updatePosition()
 
     this.#enemyAnimator.update()
     this.#updateHealthBarPosition()

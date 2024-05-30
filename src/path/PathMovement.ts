@@ -106,5 +106,6 @@ export class PathMovement {
     this.#indexOrder = 0
     this.#currentDirection = this.#orders[this.#indexOrder]
     this.#position = { ...this.#startPosition }
+    this.#isAlive = true
   }
 }
