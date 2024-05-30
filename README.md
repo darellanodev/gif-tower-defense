@@ -26,7 +26,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - Code improvements:
 
-  - [ ] Use PathMovement in Enemy class
+  - [x] Use PathMovement in Enemy class
   - [ ] Extract class for collision for MagicFireball and MagicIceBall
 
 - The player can:
