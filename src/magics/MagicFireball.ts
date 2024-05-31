@@ -5,6 +5,7 @@ import { ExplosionMagicFireball } from '../explosions/ExplosionMagicFireball'
 import { P5 } from '../utils/P5'
 import { PathMovement } from '../path/PathMovement'
 import { Const } from '../constants/Const'
+import { MagicCollisionChecker } from './MagicCollisionChecker'
 
 export class MagicFireball extends Magic {
   static DAMAGE = 500
@@ -12,22 +13,30 @@ export class MagicFireball extends Magic {
 
   static instances: MagicFireball[] = []
   #touchedEnemiesIds: number[]
+  #magicCollisionChecker: MagicCollisionChecker
   #pathMovement: PathMovement
 
   #img: Image
-  constructor(img: Image, pathMovement: PathMovement) {
+  constructor(
+    img: Image,
+    pathMovement: PathMovement,
+    magicCollisionChecker: MagicCollisionChecker,
+  ) {
     super(pathMovement.position)
     this.#img = img
     this.#touchedEnemiesIds = []
     this.#pathMovement = pathMovement
+    this.#magicCollisionChecker = magicCollisionChecker
   }
 
-  setToIgnoreList(enemy: Enemy) {
-    this.#touchedEnemiesIds.push(enemy.id)
-  }
-
-  static instantiate(images: Image, pathMovement: PathMovement) {
-    MagicFireball.instances.push(new MagicFireball(images, pathMovement))
+  static instantiate(
+    images: Image,
+    pathMovement: PathMovement,
+    magicCollisionChecker: MagicCollisionChecker,
+  ) {
+    MagicFireball.instances.push(
+      new MagicFireball(images, pathMovement, magicCollisionChecker),
+    )
   }
 
   addDamage(enemy: Enemy) {
@@ -42,27 +51,6 @@ export class MagicFireball extends Magic {
     MagicFireball.instances.forEach((fireball) => {
       fireball.draw()
     })
-  }
-
-  checkCollision(enemy: Enemy) {
-    if (enemy.dead || enemy.winner) {
-      return false
-    }
-
-    const found = this.#touchedEnemiesIds.find((id) => id === enemy.id)
-    if (found !== undefined) {
-      return false
-    }
-
-    const fireballPos = this.#pathMovement.indexOrder
-    const enemyPos = enemy.orderPosition
-    const distanceBetween = Math.abs(fireballPos - enemyPos)
-
-    if (fireballPos >= enemyPos && distanceBetween < 1) {
-      return true
-    }
-
-    return false
   }
 
   updatePosition() {
@@ -97,7 +85,12 @@ export class MagicFireball extends Magic {
     enemies: Enemy[],
   ) {
     enemies.forEach((enemy) => {
-      if (magicFireball.checkCollision(enemy)) {
+      if (
+        magicFireball.#magicCollisionChecker.checkCollision(
+          enemy,
+          magicFireball.#pathMovement.indexOrder,
+        )
+      ) {
         MagicFireball.handleMagicFireballCollision(magicFireball, enemy)
       }
     })
@@ -108,7 +101,7 @@ export class MagicFireball extends Magic {
     enemy: Enemy,
   ) {
     magicFireball.addDamage(enemy)
-    magicFireball.setToIgnoreList(enemy)
+    magicFireball.#magicCollisionChecker.setToIgnoreList(enemy)
     ExplosionMagicFireball.instantiate(enemy.position)
   }
 }

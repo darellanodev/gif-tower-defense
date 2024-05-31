@@ -1,4 +1,5 @@
 import { Const } from '../../src/constants/Const'
+import { MagicCollisionChecker } from '../../src/magics/MagicCollisionChecker'
 import { MagicFireball } from '../../src/magics/MagicFireball'
 import { PathMovement } from '../../src/path/PathMovement'
 import { img } from './imagesResources'
@@ -16,7 +17,9 @@ export const instantiateMagicFireball = (orders: number[]) => {
     MagicFireball.SPEED,
   )
 
-  MagicFireball.instantiate(img, pathMovement)
+  const magicCollisionChecker = new MagicCollisionChecker()
+
+  MagicFireball.instantiate(img, pathMovement, magicCollisionChecker)
 }
 
 export const updateToReachTheEndOfTheMap = (orders: number[]) => {

@@ -5,6 +5,7 @@ import { ExplosionMagicIceball } from '../explosions/ExplosionMagicIceball'
 import { P5 } from '../utils/P5'
 import { PathMovement } from '../path/PathMovement'
 import { Const } from '../constants/Const'
+import { MagicCollisionChecker } from './MagicCollisionChecker'
 
 export class MagicIceball extends Magic {
   static FREEZE_ENEMY_MAX_TIME = 500
@@ -13,21 +14,29 @@ export class MagicIceball extends Magic {
   static instances: MagicIceball[] = []
   #touchedEnemiesIds: number[]
   #pathMovement: PathMovement
+  #magicCollisionChecker: MagicCollisionChecker
 
   #img: Image
-  constructor(img: Image, pathMovement: PathMovement) {
+  constructor(
+    img: Image,
+    pathMovement: PathMovement,
+    magicCollisionChecker: MagicCollisionChecker,
+  ) {
     super(pathMovement.position)
     this.#touchedEnemiesIds = []
     this.#img = img
     this.#pathMovement = pathMovement
+    this.#magicCollisionChecker = magicCollisionChecker
   }
 
-  setToIgnoreList(enemy: Enemy) {
-    this.#touchedEnemiesIds.push(enemy.id)
-  }
-
-  static instantiate(images: Image, pathMovement: PathMovement) {
-    MagicIceball.instances.push(new MagicIceball(images, pathMovement))
+  static instantiate(
+    images: Image,
+    pathMovement: PathMovement,
+    magicCollisionChecker: MagicCollisionChecker,
+  ) {
+    MagicIceball.instances.push(
+      new MagicIceball(images, pathMovement, magicCollisionChecker),
+    )
   }
 
   freeze(enemy: Enemy) {
@@ -65,27 +74,6 @@ export class MagicIceball extends Magic {
     })
   }
 
-  checkCollision(enemy: Enemy) {
-    if (enemy.dead || enemy.winner) {
-      return false
-    }
-
-    const found = this.#touchedEnemiesIds.find((id) => id === enemy.id)
-    if (found !== undefined) {
-      return false
-    }
-
-    const fireballPos = this.#pathMovement.indexOrder
-    const enemyPos = enemy.orderPosition
-    const distanceBetween = Math.abs(fireballPos - enemyPos)
-
-    if (fireballPos >= enemyPos && distanceBetween < 1) {
-      return true
-    }
-
-    return false
-  }
-
   static removeDeadInstances() {
     MagicIceball.instances = MagicIceball.instances.filter((iceball) =>
       iceball.isAlive(),
@@ -97,7 +85,12 @@ export class MagicIceball extends Magic {
     enemies: Enemy[],
   ) {
     enemies.forEach((enemy) => {
-      if (magicIceball.checkCollision(enemy)) {
+      if (
+        magicIceball.#magicCollisionChecker.checkCollision(
+          enemy,
+          magicIceball.#pathMovement.indexOrder,
+        )
+      ) {
         MagicIceball.handleMagicIceballCollision(magicIceball, enemy)
       }
     })
@@ -105,7 +98,7 @@ export class MagicIceball extends Magic {
 
   static handleMagicIceballCollision(magicIceball: MagicIceball, enemy: Enemy) {
     magicIceball.freeze(enemy)
-    magicIceball.setToIgnoreList(enemy)
+    magicIceball.#magicCollisionChecker.setToIgnoreList(enemy)
     ExplosionMagicIceball.instantiate(enemy.position)
   }
 }

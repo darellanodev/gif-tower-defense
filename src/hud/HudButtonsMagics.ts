@@ -6,6 +6,7 @@ import { MagicUFO } from '../magics/MagicUFO'
 import { ButtonMagic } from './ButtonMagic'
 import { PositionUtils } from '../utils/PositionUtils'
 import { PathMovement } from '../path/PathMovement'
+import { MagicCollisionChecker } from '../magics/MagicCollisionChecker'
 
 export class HudButtonsMagics {
   #magicUFOButtonImages: Image[]
@@ -60,7 +61,14 @@ export class HudButtonsMagics {
       MagicFireball.SPEED,
     )
     ButtonMagic.magicFireballButton.removeItem()
-    MagicFireball.instantiate(magicFireballImage, pathMovement)
+
+    const magicCollisionChecker = new MagicCollisionChecker()
+
+    MagicFireball.instantiate(
+      magicFireballImage,
+      pathMovement,
+      magicCollisionChecker,
+    )
   }
 
   _instantiateMagicIceBall(
@@ -77,7 +85,14 @@ export class HudButtonsMagics {
       MagicIceball.SPEED,
     )
     ButtonMagic.magicIceballButton.removeItem()
-    MagicIceball.instantiate(magicIceballImage, pathMovement)
+
+    const magicCollisionChecker = new MagicCollisionChecker()
+
+    MagicIceball.instantiate(
+      magicIceballImage,
+      pathMovement,
+      magicCollisionChecker,
+    )
   }
 
   _instantiateMagicUFO(
