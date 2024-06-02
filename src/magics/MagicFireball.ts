@@ -6,6 +6,7 @@ import { P5 } from '../utils/P5'
 import { PathMovement } from '../path/PathMovement'
 import { Const } from '../constants/Const'
 import { MagicCollisionChecker } from './MagicCollisionChecker'
+import { ConstTest } from '../constants/ConstTest'
 
 export class MagicFireball extends Magic {
   static DAMAGE = 500
@@ -102,6 +103,8 @@ export class MagicFireball extends Magic {
   ) {
     magicFireball.addDamage(enemy)
     magicFireball.#magicCollisionChecker.setToIgnoreList(enemy)
-    ExplosionMagicFireball.instantiate(enemy.position)
+    if (!ConstTest.DISABLE_EXPLOSION_FOR_UNIT_TESTING) {
+      ExplosionMagicFireball.instantiate(enemy.position)
+    }
   }
 }

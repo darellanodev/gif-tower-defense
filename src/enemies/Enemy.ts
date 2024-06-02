@@ -102,6 +102,10 @@ export class Enemy extends Obj {
     }
   }
 
+  get damage() {
+    return this.#healthBar.progress
+  }
+
   freeze() {
     this.#freezed = true
   }

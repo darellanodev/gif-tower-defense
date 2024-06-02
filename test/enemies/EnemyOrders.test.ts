@@ -11,7 +11,8 @@ import { Enemy } from '../../src/enemies/Enemy'
 describe('currentDirection', () => {
   test('when no updates, return direction LEFT', () => {
     clearEnemyInstances()
-    instantiateNormalEnemy(testTinyOrders)
+    const wave = 1
+    instantiateNormalEnemy(wave, testTinyOrders)
     const result = Enemy.instances[0].currentDirection
     expect(result).toBe(ConstDirection.LEFT)
   })
@@ -25,7 +26,8 @@ describe('currentDirection', () => {
   })
   test('when updating 55 times a Normal enemy, return direction DOWN because velocity = 1 it needs 50 (tile width) updates to complete the first LEFT order and the next order is DOWN', () => {
     clearEnemyInstances()
-    instantiateNormalEnemy(testTinyOrders)
+    const wave = 1
+    instantiateNormalEnemy(wave, testTinyOrders)
     updateEnemyInstancesTimes(55)
 
     const result = Enemy.instances[0].currentDirection
@@ -36,7 +38,8 @@ describe('currentDirection', () => {
 describe('position', () => {
   test('when there are not enemy instances and the instance is recently created and updating 55 times, return position x: 50, y: 205 because velocity = 1 it needs 50 (tile width) updates to complete the first LEFT order then next order is DOWN and goes 5 DOWN', () => {
     clearEnemyInstances()
-    instantiateNormalEnemy(testTinyOrders)
+    const wave = 1
+    instantiateNormalEnemy(wave, testTinyOrders)
     updateEnemyInstancesTimes(55)
 
     const result = Enemy.instances[0].position

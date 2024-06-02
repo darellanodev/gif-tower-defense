@@ -9,13 +9,19 @@ export const clearEnemyInstances = () => {
   Enemy.numberOfEnemies = 0
 }
 
-export const instantiateNormalEnemy = (orders?: number[] | null) => {
+export const instantiateNormalEnemy = (
+  wave?: number, // use wave param to make the Enemy stronger
+  orders?: number[] | null,
+) => {
+  if (!wave) {
+    wave = 1
+  }
   if (!orders) {
     orders = getOrders()
   }
   const waveEnemies: number = 3
   const initialEnemiesPosition = { x: 100, y: 200 }
-  const wave = 1
+
   const enemyAnimator = new EnemyAnimator(images)
 
   const pathMovement = new PathMovement(
