@@ -62,7 +62,7 @@ export const instantiateBossEnemy = (orders?: number[] | null) => {
   )
 }
 
-const getOrders = () => {
+export const getOrders = () => {
   const levelMap = getValidLevelMap()
   const path = getPathFromMap(levelMap)
   return path.makeOrders()
