@@ -27,6 +27,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - Code improvements:
 
   - [x] Use PathMovement in Enemy class
+  - [x] Extract enemy creation and instances manager to their own classes
   - [ ] Extract class for collision for MagicFireball and MagicIceBall
 
 - The player can:
@@ -40,6 +41,9 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
   - [ ] View the heatmap
   - [ ] Can exit from the current playing level. (ask for confirmation). Then return to main menu.
   - [ ] Create a level with the level editor
+    - [ ] ...
+  - [ ] Modify the difficult of the game with a visual graph (enemy endurances, profits, tower damages, ...)
+    - [ ] ...
   - [ ] View the Main Menu and select a desired level to play. Replace old player names with other nicknames
 
 - The magic fireball and iceball:
