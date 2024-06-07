@@ -35,6 +35,8 @@ import { Wallet } from './player/Wallet'
 import { Controls } from './player/Controls'
 import { EnemyAnimator } from './enemies/EnemyAnimator'
 import { PathMovement } from './path/PathMovement'
+import { EnemyInstancesManager } from './enemies/EnemyInstancesManager'
+import { EnemyCreator } from './enemies/EnemyCreator'
 
 let _p5: p5
 let gameStatus: number = 0
@@ -50,6 +52,8 @@ let hudOtherIndicators: HudOtherIndicators
 let player: Player
 let wallet: Wallet
 let controls: Controls
+let enemyInstancesManager: EnemyInstancesManager
+let enemyCreator: EnemyCreator
 
 // ugly hack: remove the extra canvas created
 window.addEventListener('load', () => {
@@ -84,10 +88,10 @@ function getMouseTileOrangeOver(): TileOrange | null {
 }
 
 function updateMagics() {
-  MagicFireball.updateInstances()
+  MagicFireball.updateInstances(enemyInstancesManager)
   MagicFireball.removeDeadInstances()
 
-  MagicIceball.updateInstances()
+  MagicIceball.updateInstances(enemyInstancesManager)
   MagicIceball.removeDeadInstances()
 
   MagicUFO.updateInstances()
@@ -126,6 +130,9 @@ window.setup = () => {
   P5.p5.createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT)
 
   disableContextualMenu()
+
+  enemyInstancesManager = new EnemyInstancesManager()
+  enemyCreator = new EnemyCreator(enemyInstancesManager)
 
   levelDataProvider = new LevelsDataProvider(LevelsData.data)
 
@@ -211,7 +218,7 @@ const handleNewEnemyCreation = () => {
           Enemy.VELOCITY,
         )
 
-        Enemy.instantiateNormalEnemy(
+        enemyCreator.instantiateNormalEnemy(
           Enemy.waveEnemies,
           Path.initialEnemiesPosition,
           player.wave,
@@ -230,7 +237,9 @@ const handleNewEnemyCreation = () => {
 
 const handleWinners = () => {
   let gameStatus = Const.GAME_STATUS_PLAYING
-  const winnerEnemies = Enemy.instances.filter((enemy) => enemy.winner)
+  const winnerEnemies = enemyInstancesManager
+    .getAll()
+    .filter((enemy) => enemy.winner)
   winnerEnemies.forEach((enemy) => {
     player.decreaseLives()
     if (player.lives <= 0) {
@@ -242,7 +251,9 @@ const handleWinners = () => {
 }
 
 const handleExplosionEnemys = () => {
-  const deadEnemies: Enemy[] = Enemy.instances.filter((enemy) => enemy.dead)
+  const deadEnemies: Enemy[] = enemyInstancesManager
+    .getAll()
+    .filter((enemy) => enemy.dead)
   deadEnemies.forEach((enemy) => {
     ExplosionEnemy.instantiate(enemy.position)
 
@@ -255,8 +266,8 @@ const handleExplosionEnemys = () => {
 const updateEnemies = () => {
   handleNewEnemyCreation()
   handleExplosionEnemys()
-  Enemy.removeDeadInstances()
-  Enemy.updateInstances()
+  enemyInstancesManager.removeDeadInstances()
+  enemyInstancesManager.updateInstances()
 
   return handleWinners()
 }
@@ -283,7 +294,7 @@ window.draw = () => {
         Enemy.BOSS_VELOCITY,
       )
 
-      Enemy.instantiateBoss(
+      enemyCreator.instantiateBoss(
         Path.initialEnemiesPosition,
         player.wave,
         enemyBossAnimator,
@@ -308,7 +319,7 @@ window.draw = () => {
   Path.endTile.draw()
 
   TileOrange.instances.forEach((orangeTile) => {
-    orangeTile.selectTarget(Enemy.instances)
+    orangeTile.selectTarget(enemyInstancesManager.getAll())
     orangeTile.drawTile()
   })
 
@@ -334,7 +345,7 @@ window.draw = () => {
   hudProgressBarBoss.draw()
   hudOtherIndicators.draw()
 
-  Enemy.instances.forEach((enemy) => {
+  enemyInstancesManager.getAll().forEach((enemy) => {
     enemy.draw()
   })
 

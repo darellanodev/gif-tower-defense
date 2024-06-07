@@ -1,5 +1,5 @@
 import { Const } from '../../src/constants/Const'
-import { Enemy } from '../../src/enemies/Enemy'
+import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicUFO } from '../../src/magics/MagicUFO'
 import { img } from './imagesResources'
 import { getPathFromMap, getValidLevelMap } from './levelMap'
@@ -8,7 +8,10 @@ export const clearMagicUFOInstances = () => {
   MagicUFO.instances = []
 }
 
-export const instantiateMagicUFO = (orders?: number[]) => {
+export const instantiateMagicUFO = (
+  orders?: number[] | null,
+  enemyInstancesManager?: EnemyInstancesManager | null,
+) => {
   const initialPosition = { x: 100, y: 200 }
 
   if (!orders) {
@@ -17,13 +20,19 @@ export const instantiateMagicUFO = (orders?: number[]) => {
     orders = path.makeOrders()
   }
 
-  MagicUFO.instantiate(img, initialPosition, orders)
+  if (!enemyInstancesManager) {
+    enemyInstancesManager = new EnemyInstancesManager()
+  }
+
+  MagicUFO.instantiate(img, initialPosition, orders, enemyInstancesManager)
 }
 
-export const updateInstancesOfEnemiesAndUFOsForATileSize = () => {
+export const updateInstancesOfEnemiesAndUFOsForATileSize = (
+  enemyInstancesManager: EnemyInstancesManager,
+) => {
   // The enemy needs to walk a minimum of a one tile size and then the MagicUFO can target it
   for (let i = 0; i < Const.TILE_SIZE + 1; i++) {
-    Enemy.updateInstances()
+    enemyInstancesManager.updateInstances()
     MagicUFO.updateInstances()
   }
 }

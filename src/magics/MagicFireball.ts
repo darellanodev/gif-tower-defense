@@ -7,6 +7,7 @@ import { PathMovement } from '../path/PathMovement'
 import { Const } from '../constants/Const'
 import { MagicCollisionChecker } from './MagicCollisionChecker'
 import { ConstTest } from '../constants/ConstTest'
+import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 
 export class MagicFireball extends Magic {
   static DAMAGE = 500
@@ -66,12 +67,15 @@ export class MagicFireball extends Magic {
     }
   }
 
-  static updateInstances() {
+  static updateInstances(enemyInstancesManager: EnemyInstancesManager) {
     MagicFireball.instances.forEach((fireball) => {
       fireball.#pathMovement.update()
       fireball.updatePosition()
       fireball.updateStatus()
-      MagicFireball.checkMagicFireballCollides(fireball, Enemy.instances)
+      MagicFireball.checkMagicFireballCollides(
+        fireball,
+        enemyInstancesManager.getAll(),
+      )
     })
   }
 

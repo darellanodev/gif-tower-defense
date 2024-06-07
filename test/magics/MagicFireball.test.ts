@@ -1,9 +1,13 @@
 import { Const } from '../../src/constants/Const'
 import { ConstTest } from '../../src/constants/ConstTest'
-import { Enemy } from '../../src/enemies/Enemy'
+import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicFireball } from '../../src/magics/MagicFireball'
-import { clearEnemyInstances, instantiateNormalEnemy } from '../helpers/enemy'
-import { getPathFromMap, getValidLevelMap } from '../helpers/levelMap'
+import { createNormalEnemy } from '../helpers/enemyCreator'
+import {
+  getPathFromMap,
+  getValidLevelMap,
+  testTinyOrders,
+} from '../helpers/levelMap'
 
 import {
   clearMagicFireballInstances,
@@ -18,8 +22,10 @@ test('position, when the magicfireball is recently created and update instances,
   clearMagicFireballInstances()
   instantiateMagicFireball(orders)
 
+  const enemyInstancesManager = new EnemyInstancesManager()
+
   const initialPosition = { ...MagicFireball.instances[0].position }
-  MagicFireball.updateInstances()
+  MagicFireball.updateInstances(enemyInstancesManager)
   const newPosition = { ...MagicFireball.instances[0].position }
 
   expect(newPosition).not.toBe(initialPosition)
@@ -56,8 +62,8 @@ test('damage of enemy, when enemy is enought strong and collides with a fireball
 
   // make an enemy instance
   const wave = 2 // to set an stronger enemy
-  clearEnemyInstances()
-  instantiateNormalEnemy(wave)
+  const enemyInstancesManager = new EnemyInstancesManager()
+  createNormalEnemy(enemyInstancesManager, testTinyOrders, wave)
 
   // make a magic fireball instance
   const levelMap = getValidLevelMap()
@@ -69,15 +75,16 @@ test('damage of enemy, when enemy is enought strong and collides with a fireball
   // update
   const timesToUpdate = Const.TILE_SIZE * 100
   for (let i = 0; i < timesToUpdate; i++) {
-    Enemy.updateInstances()
-    MagicFireball.updateInstances()
+    enemyInstancesManager.updateInstances()
+    MagicFireball.updateInstances(enemyInstancesManager)
   }
 
   // restore allow explosions
   ConstTest.DISABLE_EXPLOSION_FOR_UNIT_TESTING = false
 
   const result =
-    Enemy.instances[0].damage > 0 && Enemy.instances[0].damage < 100
+    enemyInstancesManager.getAll()[0].damage > 0 &&
+    enemyInstancesManager.getAll()[0].damage < 100
 
   expect(result).toBeTruthy()
 })

@@ -1,4 +1,5 @@
 import { Const } from '../../src/constants/Const'
+import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicCollisionChecker } from '../../src/magics/MagicCollisionChecker'
 import { MagicFireball } from '../../src/magics/MagicFireball'
 import { PathMovement } from '../../src/path/PathMovement'
@@ -23,9 +24,10 @@ export const instantiateMagicFireball = (orders: number[]) => {
 }
 
 export const updateToReachTheEndOfTheMap = (orders: number[]) => {
+  const enemyInstancesManager = new EnemyInstancesManager()
   const maxIterations =
     (Const.TILE_SIZE / MagicFireball.SPEED) * (orders.length + 1)
   for (let i = 0; i < maxIterations; i++) {
-    MagicFireball.updateInstances()
+    MagicFireball.updateInstances(enemyInstancesManager)
   }
 }

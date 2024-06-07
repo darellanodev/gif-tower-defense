@@ -5,6 +5,7 @@ import { P5 } from '../utils/P5'
 import { Enemy } from '../enemies/Enemy'
 import { Const } from '../constants/Const'
 import { PositionUtils } from '../utils/PositionUtils'
+import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 
 export class MagicUFO extends Magic {
   static SPEED = 2
@@ -26,18 +27,33 @@ export class MagicUFO extends Magic {
   #showRay: boolean = false
   #goOut: boolean = false
   #id: number = 0
+  #enemyInstancesManager: EnemyInstancesManager
 
-  constructor(images: Image[], startPosition: Position, orders: number[]) {
+  constructor(
+    images: Image[],
+    startPosition: Position,
+    orders: number[],
+    enemyInstanesManager: EnemyInstancesManager,
+  ) {
     super(startPosition)
     this.#images = images
 
     // generate id
     MagicUFO.numberOfUFOs++
     this.#id = MagicUFO.numberOfUFOs
+
+    this.#enemyInstancesManager = enemyInstanesManager
   }
 
-  static instantiate(images: Image[], position: Position, orders: number[]) {
-    MagicUFO.instances.push(new MagicUFO(images, position, orders))
+  static instantiate(
+    images: Image[],
+    position: Position,
+    orders: number[],
+    enemyInstancesManager: EnemyInstancesManager,
+  ) {
+    MagicUFO.instances.push(
+      new MagicUFO(images, position, orders, enemyInstancesManager),
+    )
   }
 
   #drawUFO() {
@@ -269,7 +285,7 @@ export class MagicUFO extends Magic {
     let maxIndexOrder = 0
     let enemyTarget = null
 
-    Enemy.instances.forEach((enemy: Enemy) => {
+    this.#enemyInstancesManager.getAll().forEach((enemy: Enemy) => {
       const indexOder = enemy.orderPosition
 
       if (indexOder > maxIndexOrder && !this.#isTargetedByOtherUFO(enemy)) {

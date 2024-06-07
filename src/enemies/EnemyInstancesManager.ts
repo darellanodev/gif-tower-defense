@@ -2,6 +2,7 @@ import { Enemy } from './Enemy'
 
 export class EnemyInstancesManager {
   #instances: Enemy[]
+  #lastId: number = 0
 
   constructor() {
     this.#instances = []
@@ -16,16 +17,16 @@ export class EnemyInstancesManager {
   }
 
   generateId() {
-    Enemy.numberOfEnemies++
-    return Enemy.numberOfEnemies
+    this.#lastId++
+    return this.#lastId
   }
 
   removeDeadInstances() {
-    Enemy.instances = Enemy.instances.filter((enemy) => enemy.alive)
+    this.#instances = this.#instances.filter((enemy) => enemy.alive)
   }
 
   updateInstances() {
-    Enemy.instances.forEach((enemy) => {
+    this.#instances.forEach((enemy) => {
       enemy.update()
     })
   }

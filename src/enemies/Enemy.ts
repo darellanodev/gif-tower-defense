@@ -17,8 +17,6 @@ export class Enemy extends Obj {
   static SIZE = 50
   static REDUCTION_FACTOR = 0.6
 
-  static numberOfEnemies = 0 // for generating IDs
-  static instances: Enemy[] = []
   static waveEnemies: number = 0
   static allowCreateEnemies: boolean = true
   static createEnemyTime: number = 0
@@ -197,67 +195,5 @@ export class Enemy extends Obj {
     if (this.#reduction < Enemy.SIZE) {
       this.#reduction += Enemy.REDUCTION_FACTOR
     }
-  }
-
-  static instantiateNormalEnemy(
-    waveEnemies: number,
-    initialEnemiesPosition: Position,
-    wave: number,
-    enemyAnimator: EnemyAnimator,
-    pathMovement: PathMovement,
-  ) {
-    const endurance = wave * 3 + waveEnemies * 2
-    const isBoss = false
-
-    const id = Enemy.#generateId()
-
-    Enemy.instances.push(
-      new Enemy(
-        initialEnemiesPosition,
-        endurance,
-        isBoss,
-        id,
-        enemyAnimator,
-        pathMovement,
-      ),
-    )
-  }
-
-  static #generateId() {
-    Enemy.numberOfEnemies++
-    return Enemy.numberOfEnemies
-  }
-
-  static instantiateBoss(
-    initialEnemiesPosition: Position,
-    wave: number,
-    enemyAnimator: EnemyAnimator,
-    pathMovement: PathMovement,
-  ) {
-    const endurance = wave * 25
-    const isBoss = true
-
-    const id = Enemy.#generateId()
-
-    Enemy.instances.push(
-      new Enemy(
-        initialEnemiesPosition,
-        endurance,
-        isBoss,
-        id,
-        enemyAnimator,
-        pathMovement,
-      ),
-    )
-  }
-
-  static removeDeadInstances() {
-    Enemy.instances = Enemy.instances.filter((enemy) => enemy.alive)
-  }
-
-  static updateInstances() {
-    Enemy.instances.forEach((enemy) => {
-      enemy.update()
-    })
   }
 }

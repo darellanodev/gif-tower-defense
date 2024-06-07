@@ -7,6 +7,7 @@ import { ButtonMagic } from './ButtonMagic'
 import { PositionUtils } from '../utils/PositionUtils'
 import { PathMovement } from '../path/PathMovement'
 import { MagicCollisionChecker } from '../magics/MagicCollisionChecker'
+import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 
 export class HudButtonsMagics {
   #magicUFOButtonImages: Image[]
@@ -104,10 +105,12 @@ export class HudButtonsMagics {
       return
     }
     ButtonMagic.magicUFOButton.removeItem()
+    const enemyInstancesManager = new EnemyInstancesManager()
     MagicUFO.instantiate(
       magicUFOImages,
       { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
       orders,
+      enemyInstancesManager,
     )
   }
 

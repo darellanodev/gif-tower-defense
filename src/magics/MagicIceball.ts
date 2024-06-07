@@ -6,6 +6,7 @@ import { P5 } from '../utils/P5'
 import { PathMovement } from '../path/PathMovement'
 import { Const } from '../constants/Const'
 import { MagicCollisionChecker } from './MagicCollisionChecker'
+import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 
 export class MagicIceball extends Magic {
   static FREEZE_ENEMY_MAX_TIME = 500
@@ -65,12 +66,15 @@ export class MagicIceball extends Magic {
     }
   }
 
-  static updateInstances() {
+  static updateInstances(enemyInstancesManager: EnemyInstancesManager) {
     MagicIceball.instances.forEach((iceball) => {
       iceball.#pathMovement.update()
       iceball.updatePosition()
       iceball.updateStatus()
-      MagicIceball.checkMagicIceballCollides(iceball, Enemy.instances)
+      MagicIceball.checkMagicIceballCollides(
+        iceball,
+        enemyInstancesManager.getAll(),
+      )
     })
   }
 
