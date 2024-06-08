@@ -1,3 +1,4 @@
+import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { ButtonMagic } from '../../src/hud/ButtonMagic'
 import { MagicUFO } from '../../src/magics/MagicUFO'
 import { Position } from '../../src/types/position'
@@ -18,8 +19,11 @@ test('isMouseOver, if mouse is inside the button, return true', () => {
 })
 
 test('get items, when there is 3 magic ufos and click, return 2', () => {
+  clearMagicUFOInstances()
   initializeAllMagicButtons()
-  clickMagicUFO()
+  const enemyInstancesManager = new EnemyInstancesManager()
+
+  clickMagicUFO(enemyInstancesManager)
 
   const actual = ButtonMagic.magicUFOButton.items
   expect(actual).toBe(2)
@@ -28,8 +32,9 @@ test('get items, when there is 3 magic ufos and click, return 2', () => {
 test('count instances, when there is 3 magic ufos and click 5 times, return 3', () => {
   clearMagicUFOInstances()
   initializeAllMagicButtons()
+  const enemyInstancesManager = new EnemyInstancesManager()
   for (let index = 0; index < 5; index++) {
-    clickMagicUFO()
+    clickMagicUFO(enemyInstancesManager)
   }
   const actual = MagicUFO.instances.length
 

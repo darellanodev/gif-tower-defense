@@ -10,6 +10,7 @@ import { HudButtonsTowers } from '../hud/HudButtonsTowers'
 import { HudButtonsMagics } from '../hud/HudButtonsMagics'
 import { Wallet } from './Wallet'
 import { InfluenceArea } from '../towers/InfluenceArea'
+import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 
 export class Controls {
   #mouseTileOrangeOver: TileOrange | null = null
@@ -58,6 +59,7 @@ export class Controls {
     initialEnemiesPosition: Position,
     orders: number[],
     mouseTileOrangeOver: TileOrange | null,
+    enemyInstancesManager: EnemyInstancesManager,
   ) {
     const mousePosition: Position = { x: mouseX, y: mouseY }
 
@@ -72,6 +74,7 @@ export class Controls {
         magicUFOImages,
         initialEnemiesPosition,
         orders,
+        enemyInstancesManager,
       )
       return
     }

@@ -100,12 +100,12 @@ export class HudButtonsMagics {
     magicUFOImages: Image[],
     initialEnemiesPosition: Position,
     orders: number[],
+    enemyInstancesManager: EnemyInstancesManager,
   ) {
     if (ButtonMagic.magicUFOButton.items === 0) {
       return
     }
     ButtonMagic.magicUFOButton.removeItem()
-    const enemyInstancesManager = new EnemyInstancesManager()
     MagicUFO.instantiate(
       magicUFOImages,
       { x: initialEnemiesPosition.x, y: initialEnemiesPosition.y },
@@ -121,6 +121,7 @@ export class HudButtonsMagics {
     magicUFOImages: Image[],
     initialEnemiesPosition: Position,
     orders: number[],
+    enemyInstancesManager: EnemyInstancesManager,
   ) {
     if (ButtonMagic.magicFireballButton.isMouseOver(mousePosition)) {
       this._instantiateMagicFireball(
@@ -137,7 +138,12 @@ export class HudButtonsMagics {
       )
     }
     if (ButtonMagic.magicUFOButton.isMouseOver(mousePosition)) {
-      this._instantiateMagicUFO(magicUFOImages, initialEnemiesPosition, orders)
+      this._instantiateMagicUFO(
+        magicUFOImages,
+        initialEnemiesPosition,
+        orders,
+        enemyInstancesManager,
+      )
     }
   }
 }

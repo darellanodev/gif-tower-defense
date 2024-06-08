@@ -1,3 +1,4 @@
+import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { ButtonMagic } from '../../src/hud/ButtonMagic'
 import { HudButtonsMagics } from '../../src/hud/HudButtonsMagics'
 import { Position } from '../../src/types/position'
@@ -34,7 +35,7 @@ export const initializeAllMagicButtons = () => {
   ButtonMagic.initializeButtons()
 }
 
-export const clickMagicUFO = () => {
+export const clickMagicUFO = (enemyInstancesManager: EnemyInstancesManager) => {
   const mousePositionInsideMagicUFO: Position = { x: 560, y: 60 }
   const initialEnemiesPosition: Position = { x: 0, y: 0 }
   const orders: number[] = [1, 1, 1, 1]
@@ -47,6 +48,7 @@ export const clickMagicUFO = () => {
     images,
     initialEnemiesPosition,
     orders,
+    enemyInstancesManager,
   )
 }
 

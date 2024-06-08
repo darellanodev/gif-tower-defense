@@ -33,7 +33,7 @@ export class MagicUFO extends Magic {
     images: Image[],
     startPosition: Position,
     orders: number[],
-    enemyInstanesManager: EnemyInstancesManager,
+    enemyInstancesManager: EnemyInstancesManager,
   ) {
     super(startPosition)
     this.#images = images
@@ -42,7 +42,7 @@ export class MagicUFO extends Magic {
     MagicUFO.numberOfUFOs++
     this.#id = MagicUFO.numberOfUFOs
 
-    this.#enemyInstancesManager = enemyInstanesManager
+    this.#enemyInstancesManager = enemyInstancesManager
   }
 
   static instantiate(

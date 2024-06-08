@@ -123,6 +123,7 @@ window.mouseClicked = () => {
     Path.initialEnemiesPosition,
     Path.orders,
     controls.mouseTileOrangeOver,
+    enemyInstancesManager,
   )
 }
 
