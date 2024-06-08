@@ -37,6 +37,7 @@ import { EnemyAnimator } from './enemies/EnemyAnimator'
 import { PathMovement } from './path/PathMovement'
 import { EnemyInstancesManager } from './enemies/EnemyInstancesManager'
 import { EnemyCreator } from './enemies/EnemyCreator'
+import { MagicFireballInstancesManager } from './magics/MagicFireballInstancesManager'
 
 let _p5: p5
 let gameStatus: number = 0
@@ -54,6 +55,7 @@ let wallet: Wallet
 let controls: Controls
 let enemyInstancesManager: EnemyInstancesManager
 let enemyCreator: EnemyCreator
+let magicFireballInstancesManager: MagicFireballInstancesManager
 
 // ugly hack: remove the extra canvas created
 window.addEventListener('load', () => {
@@ -88,8 +90,8 @@ function getMouseTileOrangeOver(): TileOrange | null {
 }
 
 function updateMagics() {
-  MagicFireball.updateInstances(enemyInstancesManager)
-  MagicFireball.removeDeadInstances()
+  magicFireballInstancesManager.updateInstances()
+  magicFireballInstancesManager.removeDeadInstances()
 
   MagicIceball.updateInstances(enemyInstancesManager)
   MagicIceball.removeDeadInstances()
@@ -99,7 +101,7 @@ function updateMagics() {
 }
 
 function drawMagics() {
-  MagicFireball.drawInstances()
+  magicFireballInstancesManager.drawInstances()
   MagicIceball.drawInstances()
   MagicUFO.drawInstances()
 }
@@ -124,6 +126,7 @@ window.mouseClicked = () => {
     Path.orders,
     controls.mouseTileOrangeOver,
     enemyInstancesManager,
+    magicFireballInstancesManager,
   )
 }
 
@@ -134,6 +137,10 @@ window.setup = () => {
 
   enemyInstancesManager = new EnemyInstancesManager()
   enemyCreator = new EnemyCreator(enemyInstancesManager)
+
+  magicFireballInstancesManager = new MagicFireballInstancesManager(
+    enemyInstancesManager,
+  )
 
   levelDataProvider = new LevelsDataProvider(LevelsData.data)
 
@@ -346,9 +353,7 @@ window.draw = () => {
   hudProgressBarBoss.draw()
   hudOtherIndicators.draw()
 
-  enemyInstancesManager.getAll().forEach((enemy) => {
-    enemy.draw()
-  })
+  enemyInstancesManager.drawInstances()
 
   drawMagics()
 

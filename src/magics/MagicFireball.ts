@@ -13,7 +13,6 @@ export class MagicFireball extends Magic {
   static DAMAGE = 500
   static SPEED = 10
 
-  static instances: MagicFireball[] = []
   #touchedEnemiesIds: number[]
   #magicCollisionChecker: MagicCollisionChecker
   #pathMovement: PathMovement
@@ -31,28 +30,12 @@ export class MagicFireball extends Magic {
     this.#magicCollisionChecker = magicCollisionChecker
   }
 
-  static instantiate(
-    images: Image,
-    pathMovement: PathMovement,
-    magicCollisionChecker: MagicCollisionChecker,
-  ) {
-    MagicFireball.instances.push(
-      new MagicFireball(images, pathMovement, magicCollisionChecker),
-    )
-  }
-
   addDamage(enemy: Enemy) {
     enemy.addDamage(MagicFireball.DAMAGE)
   }
 
   draw() {
     P5.p5.image(this.#img, this.position.x, this.position.y)
-  }
-
-  static drawInstances() {
-    MagicFireball.instances.forEach((fireball) => {
-      fireball.draw()
-    })
   }
 
   updatePosition() {
@@ -67,21 +50,13 @@ export class MagicFireball extends Magic {
     }
   }
 
-  static updateInstances(enemyInstancesManager: EnemyInstancesManager) {
-    MagicFireball.instances.forEach((fireball) => {
-      fireball.#pathMovement.update()
-      fireball.updatePosition()
-      fireball.updateStatus()
-      MagicFireball.checkMagicFireballCollides(
-        fireball,
-        enemyInstancesManager.getAll(),
-      )
-    })
-  }
-
-  static removeDeadInstances() {
-    MagicFireball.instances = MagicFireball.instances.filter((fireball) =>
-      fireball.isAlive(),
+  update(enemyInstancesManager: EnemyInstancesManager) {
+    this.#pathMovement.update()
+    this.updatePosition()
+    this.updateStatus()
+    MagicFireball.checkMagicFireballCollides(
+      this,
+      enemyInstancesManager.getAll(),
     )
   }
 

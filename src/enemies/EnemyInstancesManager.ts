@@ -25,6 +25,12 @@ export class EnemyInstancesManager {
     this.#instances = this.#instances.filter((enemy) => enemy.alive)
   }
 
+  drawInstances() {
+    this.#instances.forEach((enemy) => {
+      enemy.draw()
+    })
+  }
+
   updateInstances() {
     this.#instances.forEach((enemy) => {
       enemy.update()
