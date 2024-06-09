@@ -66,6 +66,18 @@ export class MagicIceball extends Magic {
     }
   }
 
+  update(enemyInstancesManager: EnemyInstancesManager) {
+    MagicIceball.instances.forEach((iceball) => {
+      this.#pathMovement.update()
+      this.updatePosition()
+      this.updateStatus()
+      MagicIceball.checkMagicIceballCollides(
+        this,
+        enemyInstancesManager.getAll(),
+      )
+    })
+  }
+
   static updateInstances(enemyInstancesManager: EnemyInstancesManager) {
     MagicIceball.instances.forEach((iceball) => {
       iceball.#pathMovement.update()
