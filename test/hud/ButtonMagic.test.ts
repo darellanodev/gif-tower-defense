@@ -1,6 +1,7 @@
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { ButtonMagic } from '../../src/hud/ButtonMagic'
 import { MagicFireballInstancesManager } from '../../src/magics/MagicFireballInstancesManager'
+import { MagicIceballInstancesManager } from '../../src/magics/MagicIceballInstancesManager'
 import { MagicUFO } from '../../src/magics/MagicUFO'
 import { Position } from '../../src/types/position'
 import {
@@ -27,7 +28,15 @@ test('get items, when there is 3 magic ufos and click, return 2', () => {
     enemyInstancesManager,
   )
 
-  clickMagicUFO(enemyInstancesManager, magicFireballInstancesManager)
+  const magicIceballInstancesManager = new MagicIceballInstancesManager(
+    enemyInstancesManager,
+  )
+
+  clickMagicUFO(
+    enemyInstancesManager,
+    magicFireballInstancesManager,
+    magicIceballInstancesManager,
+  )
 
   const actual = ButtonMagic.magicUFOButton.items
   expect(actual).toBe(2)
@@ -41,8 +50,16 @@ test('count instances, when there is 3 magic ufos and click 5 times, return 3', 
     enemyInstancesManager,
   )
 
+  const magicIceballInstancesManager = new MagicIceballInstancesManager(
+    enemyInstancesManager,
+  )
+
   for (let index = 0; index < 5; index++) {
-    clickMagicUFO(enemyInstancesManager, magicFireballInstancesManager)
+    clickMagicUFO(
+      enemyInstancesManager,
+      magicFireballInstancesManager,
+      magicIceballInstancesManager,
+    )
   }
   const actual = MagicUFO.instances.length
 

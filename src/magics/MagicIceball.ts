@@ -12,7 +12,6 @@ export class MagicIceball extends Magic {
   static FREEZE_ENEMY_MAX_TIME = 500
   static SPEED = 10
 
-  static instances: MagicIceball[] = []
   #touchedEnemiesIds: number[]
   #pathMovement: PathMovement
   #magicCollisionChecker: MagicCollisionChecker
@@ -30,28 +29,12 @@ export class MagicIceball extends Magic {
     this.#magicCollisionChecker = magicCollisionChecker
   }
 
-  static instantiate(
-    images: Image,
-    pathMovement: PathMovement,
-    magicCollisionChecker: MagicCollisionChecker,
-  ) {
-    MagicIceball.instances.push(
-      new MagicIceball(images, pathMovement, magicCollisionChecker),
-    )
-  }
-
   freeze(enemy: Enemy) {
     enemy.freeze()
   }
 
   draw() {
     P5.p5.image(this.#img, this.position.x, this.position.y)
-  }
-
-  static drawInstances() {
-    MagicIceball.instances.forEach((iceball) => {
-      iceball.draw()
-    })
   }
 
   updatePosition() {
@@ -67,33 +50,10 @@ export class MagicIceball extends Magic {
   }
 
   update(enemyInstancesManager: EnemyInstancesManager) {
-    MagicIceball.instances.forEach((iceball) => {
-      this.#pathMovement.update()
-      this.updatePosition()
-      this.updateStatus()
-      MagicIceball.checkMagicIceballCollides(
-        this,
-        enemyInstancesManager.getAll(),
-      )
-    })
-  }
-
-  static updateInstances(enemyInstancesManager: EnemyInstancesManager) {
-    MagicIceball.instances.forEach((iceball) => {
-      iceball.#pathMovement.update()
-      iceball.updatePosition()
-      iceball.updateStatus()
-      MagicIceball.checkMagicIceballCollides(
-        iceball,
-        enemyInstancesManager.getAll(),
-      )
-    })
-  }
-
-  static removeDeadInstances() {
-    MagicIceball.instances = MagicIceball.instances.filter((iceball) =>
-      iceball.isAlive(),
-    )
+    this.#pathMovement.update()
+    this.updatePosition()
+    this.updateStatus()
+    MagicIceball.checkMagicIceballCollides(this, enemyInstancesManager.getAll())
   }
 
   static checkMagicIceballCollides(

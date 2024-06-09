@@ -12,6 +12,7 @@ import { Wallet } from './Wallet'
 import { InfluenceArea } from '../towers/InfluenceArea'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 import { MagicFireballInstancesManager } from '../magics/MagicFireballInstancesManager'
+import { MagicIceballInstancesManager } from '../magics/MagicIceballInstancesManager'
 
 export class Controls {
   #mouseTileOrangeOver: TileOrange | null = null
@@ -62,6 +63,7 @@ export class Controls {
     mouseTileOrangeOver: TileOrange | null,
     enemyInstancesManager: EnemyInstancesManager,
     magicFireballInstancesManager: MagicFireballInstancesManager,
+    magicIceballInstancesManager: MagicIceballInstancesManager,
   ) {
     const mousePosition: Position = { x: mouseX, y: mouseY }
 
@@ -78,6 +80,7 @@ export class Controls {
         orders,
         enemyInstancesManager,
         magicFireballInstancesManager,
+        magicIceballInstancesManager,
       )
       return
     }

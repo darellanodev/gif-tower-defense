@@ -2,6 +2,7 @@ import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { ButtonMagic } from '../../src/hud/ButtonMagic'
 import { HudButtonsMagics } from '../../src/hud/HudButtonsMagics'
 import { MagicFireballInstancesManager } from '../../src/magics/MagicFireballInstancesManager'
+import { MagicIceballInstancesManager } from '../../src/magics/MagicIceballInstancesManager'
 import { Position } from '../../src/types/position'
 import { Size } from '../../src/types/size'
 import {
@@ -39,6 +40,7 @@ export const initializeAllMagicButtons = () => {
 export const clickMagicUFO = (
   enemyInstancesManager: EnemyInstancesManager,
   magicFireballInstancesManager: MagicFireballInstancesManager,
+  magicIceballInstancesManager: MagicIceballInstancesManager,
 ) => {
   const mousePositionInsideMagicUFO: Position = { x: 560, y: 60 }
   const initialEnemiesPosition: Position = { x: 0, y: 0 }
@@ -54,6 +56,7 @@ export const clickMagicUFO = (
     orders,
     enemyInstancesManager,
     magicFireballInstancesManager,
+    magicIceballInstancesManager,
   )
 }
 

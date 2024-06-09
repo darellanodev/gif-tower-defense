@@ -10,6 +10,8 @@ import { MagicCollisionChecker } from '../magics/MagicCollisionChecker'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 import { MagicFireballCreator } from '../magics/MagicFireballCreator'
 import { MagicFireballInstancesManager } from '../magics/MagicFireballInstancesManager'
+import { MagicIceballCreator } from '../magics/MagicIceballCreator'
+import { MagicIceballInstancesManager } from '../magics/MagicIceballInstancesManager'
 
 export class HudButtonsMagics {
   #magicUFOButtonImages: Image[]
@@ -81,6 +83,7 @@ export class HudButtonsMagics {
     magicIceballImage: Image,
     initialEnemiesPosition: Position,
     orders: number[],
+    magicIceballInstancesManager: MagicIceballInstancesManager,
   ) {
     if (ButtonMagic.magicIceballButton.items === 0) {
       return
@@ -94,11 +97,13 @@ export class HudButtonsMagics {
 
     const magicCollisionChecker = new MagicCollisionChecker()
 
-    MagicIceball.instantiate(
+    const magicIceballCreator = new MagicIceballCreator(
+      magicIceballInstancesManager,
       magicIceballImage,
       pathMovement,
       magicCollisionChecker,
     )
+    magicIceballCreator.createMagicIceball()
   }
 
   _instantiateMagicUFO(
@@ -128,6 +133,7 @@ export class HudButtonsMagics {
     orders: number[],
     enemyInstancesManager: EnemyInstancesManager,
     magicFireballInstancesManager: MagicFireballInstancesManager,
+    magicIceballInstancesManager: MagicIceballInstancesManager,
   ) {
     if (ButtonMagic.magicFireballButton.isMouseOver(mousePosition)) {
       this._instantiateMagicFireball(
@@ -142,6 +148,7 @@ export class HudButtonsMagics {
         magicIceballImage,
         initialEnemiesPosition,
         orders,
+        magicIceballInstancesManager,
       )
     }
     if (ButtonMagic.magicUFOButton.isMouseOver(mousePosition)) {

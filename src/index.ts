@@ -15,8 +15,6 @@ import { ExplosionMagicIceball } from './explosions/ExplosionMagicIceball'
 import { TextProperties } from './hud/TextProperties'
 import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { LevelsData } from './levels/LevelsData'
-import { MagicFireball } from './magics/MagicFireball'
-import { MagicIceball } from './magics/MagicIceball'
 import { MagicUFO } from './magics/MagicUFO'
 import { Player } from './player/Player'
 import { Images } from './resources/Images'
@@ -38,6 +36,7 @@ import { PathMovement } from './path/PathMovement'
 import { EnemyInstancesManager } from './enemies/EnemyInstancesManager'
 import { EnemyCreator } from './enemies/EnemyCreator'
 import { MagicFireballInstancesManager } from './magics/MagicFireballInstancesManager'
+import { MagicIceballInstancesManager } from './magics/MagicIceballInstancesManager'
 
 let _p5: p5
 let gameStatus: number = 0
@@ -56,6 +55,7 @@ let controls: Controls
 let enemyInstancesManager: EnemyInstancesManager
 let enemyCreator: EnemyCreator
 let magicFireballInstancesManager: MagicFireballInstancesManager
+let magicIceballInstancesManager: MagicIceballInstancesManager
 
 // ugly hack: remove the extra canvas created
 window.addEventListener('load', () => {
@@ -93,8 +93,8 @@ function updateMagics() {
   magicFireballInstancesManager.updateInstances()
   magicFireballInstancesManager.removeDeadInstances()
 
-  MagicIceball.updateInstances(enemyInstancesManager)
-  MagicIceball.removeDeadInstances()
+  magicIceballInstancesManager.updateInstances()
+  magicIceballInstancesManager.removeDeadInstances()
 
   MagicUFO.updateInstances()
   MagicUFO.removeDeadInstances()
@@ -102,7 +102,7 @@ function updateMagics() {
 
 function drawMagics() {
   magicFireballInstancesManager.drawInstances()
-  MagicIceball.drawInstances()
+  magicIceballInstancesManager.drawInstances()
   MagicUFO.drawInstances()
 }
 
@@ -127,6 +127,7 @@ window.mouseClicked = () => {
     controls.mouseTileOrangeOver,
     enemyInstancesManager,
     magicFireballInstancesManager,
+    magicIceballInstancesManager,
   )
 }
 
@@ -139,6 +140,9 @@ window.setup = () => {
   enemyCreator = new EnemyCreator(enemyInstancesManager)
 
   magicFireballInstancesManager = new MagicFireballInstancesManager(
+    enemyInstancesManager,
+  )
+  magicIceballInstancesManager = new MagicIceballInstancesManager(
     enemyInstancesManager,
   )
 
