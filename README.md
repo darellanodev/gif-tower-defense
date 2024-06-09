@@ -24,19 +24,9 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ### Next tasks
 
-- Fixes:
-
-  - [x] Fix the MagicUFO
-
 - Code improvements:
 
-  - [x] Use PathMovement in Enemy class
-  - [x] Extract enemy creation and instances manager to their own classes
-  - [x] Create an instance manager, like the Enemy class, for:
-    - [x] MagicFireball
-    - [x] MagicIceball
-    - [x] MagicUFO
-  - [ ] Extract class for collision for MagicFireball and MagicIceBall
+  - [ ] Extract class for collision from MagicFireball and MagicIceBall
 
 - The player can:
 
@@ -70,7 +60,6 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - In the hud:
 
-  - [x] Change "Magic" title in hud for "Magics"
   - [ ] Make a button in the hud for heatmap ("h" hotkey)
   - [ ] Make a button in the hud for the exit ("esc" hotkey). Ask for confirmation.
 
@@ -82,7 +71,6 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - Others:
 
   - [ ] Decrease Enemy class size extracting other classes from it.
-    - [x] EnemyAnimator
   - [ ] Test other maps with different end tiles positions to implement (with tests) the remaining endings
   - [ ] Extract variables and functions from main.ts to Game class
 
