@@ -34,7 +34,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
   - [x] Extract enemy creation and instances manager to their own classes
   - [ ] Create an instance manager, like the Enemy class, for:
     - [x] MagicFireball
-    - [ ] MagicIceball
+    - [x] MagicIceball
     - [ ] MagicUFO
   - [ ] Extract class for collision for MagicFireball and MagicIceBall
 
@@ -102,14 +102,14 @@ You can use this settings into VSCode `keybindings.json`:
 
 ```json
   {
-    "key": "ctrl+t",
+    "key": "ctrl+alt+t",
     "command": "workbench.action.terminal.sendSequence",
     "args": {
       "text": "./run_tests.sh\u000D"
     },
   },
   {
-    "key": "ctrl+r",
+    "key": "ctrl+alt+r",
     "command": "workbench.action.terminal.sendSequence",
     "args": {
       "text": "./run.sh\u000D"
