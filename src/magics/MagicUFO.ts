@@ -6,6 +6,7 @@ import { Enemy } from '../enemies/Enemy'
 import { Const } from '../constants/Const'
 import { PositionUtils } from '../utils/PositionUtils'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
+import { MagicUFOInstancesManager } from './MagicUFOInstancesManager'
 
 export class MagicUFO extends Magic {
   static SPEED = 2
@@ -17,7 +18,6 @@ export class MagicUFO extends Magic {
   static UFO_RAY_IMG_OFFSET_Y = 30
   static MAX_TIME_ABDUCT = 20
   static OUT_OF_SCREEN_Y = -50
-  static instances: MagicUFO[] = []
   static numberOfUFOs: number = 0 // for generating IDs
 
   #images: Image[]
@@ -28,12 +28,14 @@ export class MagicUFO extends Magic {
   #goOut: boolean = false
   #id: number = 0
   #enemyInstancesManager: EnemyInstancesManager
+  #magicUFOInstancesManager: MagicUFOInstancesManager // the UFO needs to see the other UFOs
 
   constructor(
     images: Image[],
     startPosition: Position,
     orders: number[],
     enemyInstancesManager: EnemyInstancesManager,
+    magicUFOInstancesManager: MagicUFOInstancesManager,
   ) {
     super(startPosition)
     this.#images = images
@@ -43,17 +45,7 @@ export class MagicUFO extends Magic {
     this.#id = MagicUFO.numberOfUFOs
 
     this.#enemyInstancesManager = enemyInstancesManager
-  }
-
-  static instantiate(
-    images: Image[],
-    position: Position,
-    orders: number[],
-    enemyInstancesManager: EnemyInstancesManager,
-  ) {
-    MagicUFO.instances.push(
-      new MagicUFO(images, position, orders, enemyInstancesManager),
-    )
+    this.#magicUFOInstancesManager = magicUFOInstancesManager
   }
 
   #drawUFO() {
@@ -81,22 +73,6 @@ export class MagicUFO extends Magic {
   draw() {
     this.#drawUFORay()
     this.#drawUFO()
-  }
-
-  static drawInstances() {
-    MagicUFO.instances.forEach((ufo) => {
-      ufo.draw()
-    })
-  }
-
-  static updateInstances() {
-    MagicUFO.instances.forEach((ufo) => {
-      ufo.update()
-    })
-  }
-
-  static removeDeadInstances() {
-    MagicUFO.instances = MagicUFO.instances.filter((ufo) => ufo.isAlive())
   }
 
   #carryEnemyToStartTile() {
@@ -269,7 +245,7 @@ export class MagicUFO extends Magic {
 
   #isTargetedByOtherUFO(enemy: Enemy): boolean {
     let result = false
-    MagicUFO.instances.forEach((ufo) => {
+    this.#magicUFOInstancesManager.getAll().forEach((ufo) => {
       if (ufo.id !== this.id) {
         if (ufo.#enemyTarget) {
           if (ufo.#enemyTarget.id === enemy.id) {

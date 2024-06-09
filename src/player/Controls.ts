@@ -13,6 +13,7 @@ import { InfluenceArea } from '../towers/InfluenceArea'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 import { MagicFireballInstancesManager } from '../magics/MagicFireballInstancesManager'
 import { MagicIceballInstancesManager } from '../magics/MagicIceballInstancesManager'
+import { MagicUFOInstancesManager } from '../magics/MagicUFOInstancesManager'
 
 export class Controls {
   #mouseTileOrangeOver: TileOrange | null = null
@@ -64,6 +65,7 @@ export class Controls {
     enemyInstancesManager: EnemyInstancesManager,
     magicFireballInstancesManager: MagicFireballInstancesManager,
     magicIceballInstancesManager: MagicIceballInstancesManager,
+    magicUFOInstancesManager: MagicUFOInstancesManager,
   ) {
     const mousePosition: Position = { x: mouseX, y: mouseY }
 
@@ -81,6 +83,7 @@ export class Controls {
         enemyInstancesManager,
         magicFireballInstancesManager,
         magicIceballInstancesManager,
+        magicUFOInstancesManager,
       )
       return
     }

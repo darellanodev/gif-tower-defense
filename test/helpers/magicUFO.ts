@@ -1,46 +1,45 @@
 import { Const } from '../../src/constants/Const'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
-import { MagicUFO } from '../../src/magics/MagicUFO'
-import { img } from './imagesResources'
+import { MagicUFOCreator } from '../../src/magics/MagicUFOCreator'
+import { MagicUFOInstancesManager } from '../../src/magics/MagicUFOInstancesManager'
+import { images } from './imagesResources'
 import { getPathFromMap, getValidLevelMap } from './levelMap'
 
-export const clearMagicUFOInstances = () => {
-  MagicUFO.instances = []
-}
-
-export const instantiateMagicUFO = (
-  orders?: number[] | null,
-  enemyInstancesManager?: EnemyInstancesManager | null,
+export const createMagicUFO = (
+  enemyInstancesManager: EnemyInstancesManager,
+  magicUFOInstancesManager: MagicUFOInstancesManager,
 ) => {
-  const initialPosition = { x: 100, y: 200 }
-
-  if (!orders) {
-    const levelMap = getValidLevelMap()
-    const path = getPathFromMap(levelMap)
-    orders = path.makeOrders()
-  }
-
-  if (!enemyInstancesManager) {
-    enemyInstancesManager = new EnemyInstancesManager()
-  }
-
-  MagicUFO.instantiate(img, initialPosition, orders, enemyInstancesManager)
+  const levelMap = getValidLevelMap()
+  const path = getPathFromMap(levelMap)
+  const orders = path.makeOrders()
+  const initialEnemiesPosition = { x: 100, y: 200 }
+  const magicUFOCreator = new MagicUFOCreator(
+    images,
+    initialEnemiesPosition,
+    orders,
+    enemyInstancesManager,
+    magicUFOInstancesManager,
+  )
+  magicUFOCreator.createMagicUFO()
 }
 
 export const updateInstancesOfEnemiesAndUFOsForATileSize = (
   enemyInstancesManager: EnemyInstancesManager,
+  magicUFOInstancesManager: MagicUFOInstancesManager,
 ) => {
   // The enemy needs to walk a minimum of a one tile size and then the MagicUFO can target it
   for (let i = 0; i < Const.TILE_SIZE + 1; i++) {
     enemyInstancesManager.updateInstances()
-    MagicUFO.updateInstances()
+    magicUFOInstancesManager.updateInstances()
   }
 }
 
 export const getEnemyTargetIdForUFO = (
   instanceNumber: number,
+  magicUFOInstancesManager: MagicUFOInstancesManager,
 ): number | null => {
-  const enemyTarget = MagicUFO.instances[instanceNumber].enemyTarget
+  const enemyTarget =
+    magicUFOInstancesManager.getAll()[instanceNumber].enemyTarget
   let result: number | null = null
   if (enemyTarget) {
     result = enemyTarget.id

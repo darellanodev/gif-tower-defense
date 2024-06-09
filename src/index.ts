@@ -37,6 +37,7 @@ import { EnemyInstancesManager } from './enemies/EnemyInstancesManager'
 import { EnemyCreator } from './enemies/EnemyCreator'
 import { MagicFireballInstancesManager } from './magics/MagicFireballInstancesManager'
 import { MagicIceballInstancesManager } from './magics/MagicIceballInstancesManager'
+import { MagicUFOInstancesManager } from './magics/MagicUFOInstancesManager'
 
 let _p5: p5
 let gameStatus: number = 0
@@ -56,6 +57,7 @@ let enemyInstancesManager: EnemyInstancesManager
 let enemyCreator: EnemyCreator
 let magicFireballInstancesManager: MagicFireballInstancesManager
 let magicIceballInstancesManager: MagicIceballInstancesManager
+let magicUFOInstancesManager: MagicUFOInstancesManager
 
 // ugly hack: remove the extra canvas created
 window.addEventListener('load', () => {
@@ -96,14 +98,14 @@ function updateMagics() {
   magicIceballInstancesManager.updateInstances()
   magicIceballInstancesManager.removeDeadInstances()
 
-  MagicUFO.updateInstances()
-  MagicUFO.removeDeadInstances()
+  magicUFOInstancesManager.updateInstances()
+  magicUFOInstancesManager.removeDeadInstances()
 }
 
 function drawMagics() {
   magicFireballInstancesManager.drawInstances()
   magicIceballInstancesManager.drawInstances()
-  MagicUFO.drawInstances()
+  magicUFOInstancesManager.drawInstances()
 }
 
 function disableContextualMenu() {
@@ -128,6 +130,7 @@ window.mouseClicked = () => {
     enemyInstancesManager,
     magicFireballInstancesManager,
     magicIceballInstancesManager,
+    magicUFOInstancesManager,
   )
 }
 
@@ -145,6 +148,7 @@ window.setup = () => {
   magicIceballInstancesManager = new MagicIceballInstancesManager(
     enemyInstancesManager,
   )
+  magicUFOInstancesManager = new MagicUFOInstancesManager(enemyInstancesManager)
 
   levelDataProvider = new LevelsDataProvider(LevelsData.data)
 

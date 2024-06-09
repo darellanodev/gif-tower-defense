@@ -32,10 +32,10 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
   - [x] Use PathMovement in Enemy class
   - [x] Extract enemy creation and instances manager to their own classes
-  - [ ] Create an instance manager, like the Enemy class, for:
+  - [x] Create an instance manager, like the Enemy class, for:
     - [x] MagicFireball
     - [x] MagicIceball
-    - [ ] MagicUFO
+    - [x] MagicUFO
   - [ ] Extract class for collision for MagicFireball and MagicIceBall
 
 - The player can:
