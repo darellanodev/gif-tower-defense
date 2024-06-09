@@ -3,21 +3,16 @@ import { ConstTest } from '../../src/constants/ConstTest'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicFireballInstancesManager } from '../../src/magics/MagicFireballInstancesManager'
 import { createNormalEnemy } from '../helpers/enemyCreator'
-import {
-  getPathFromMap,
-  getValidLevelMap,
-  testTinyOrders,
-} from '../helpers/levelMap'
+import { testTinyOrders } from '../helpers/levelMap'
 
 import {
   createMagicFireball,
   updateToReachTheEndOfTheMap,
 } from '../helpers/magicFireball'
+import { getOrdersFromValidMap } from '../helpers/orders'
 
 test('position, when the magicfireball is recently created and update instances, new positions is different', () => {
-  const levelMap = getValidLevelMap()
-  const path = getPathFromMap(levelMap)
-  const orders = path.makeOrders()
+  const orders = getOrdersFromValidMap()
 
   const enemyInstancesManager = new EnemyInstancesManager()
   const magicFireballInstancesManager = new MagicFireballInstancesManager(
@@ -35,9 +30,7 @@ test('position, when the magicfireball is recently created and update instances,
 })
 
 test('isAlive, when the magicfireball is recently created, return true', () => {
-  const levelMap = getValidLevelMap()
-  const path = getPathFromMap(levelMap)
-  const orders = path.makeOrders()
+  const orders = getOrdersFromValidMap()
 
   const enemyInstancesManager = new EnemyInstancesManager()
   const magicFireballInstancesManager = new MagicFireballInstancesManager(
@@ -51,9 +44,7 @@ test('isAlive, when the magicfireball is recently created, return true', () => {
 })
 
 test('reachEnd, when the magicfireball is recently created, return false', () => {
-  const levelMap = getValidLevelMap()
-  const path = getPathFromMap(levelMap)
-  const orders = path.makeOrders()
+  const orders = getOrdersFromValidMap()
 
   const enemyInstancesManager = new EnemyInstancesManager()
   const magicFireballInstancesManager = new MagicFireballInstancesManager(
@@ -78,9 +69,7 @@ test('damage of enemy, when enemy is enought strong and collides with a fireball
   createNormalEnemy(enemyInstancesManager, testTinyOrders, wave)
 
   // make a magic fireball instance
-  const levelMap = getValidLevelMap()
-  const path = getPathFromMap(levelMap)
-  const orders = path.makeOrders()
+  const orders = getOrdersFromValidMap()
   const magicFireballInstancesManager = new MagicFireballInstancesManager(
     enemyInstancesManager,
   )

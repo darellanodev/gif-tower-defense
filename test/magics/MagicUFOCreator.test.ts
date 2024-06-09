@@ -1,7 +1,4 @@
-import { images, img } from '../helpers/imagesResources'
-import { MagicCollisionChecker } from '../../src/magics/MagicCollisionChecker'
-import { PathMovement } from '../../src/path/PathMovement'
-import { Enemy } from '../../src/enemies/Enemy'
+import { images } from '../helpers/imagesResources'
 import { testTinyOrders } from '../helpers/levelMap'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicUFOInstancesManager } from '../../src/magics/MagicUFOInstancesManager'

@@ -3,15 +3,12 @@ import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicUFOCreator } from '../../src/magics/MagicUFOCreator'
 import { MagicUFOInstancesManager } from '../../src/magics/MagicUFOInstancesManager'
 import { images } from './imagesResources'
-import { getPathFromMap, getValidLevelMap } from './levelMap'
 
 export const createMagicUFO = (
+  orders: number[],
   enemyInstancesManager: EnemyInstancesManager,
   magicUFOInstancesManager: MagicUFOInstancesManager,
 ) => {
-  const levelMap = getValidLevelMap()
-  const path = getPathFromMap(levelMap)
-  const orders = path.makeOrders()
   const initialEnemiesPosition = { x: 100, y: 200 }
   const magicUFOCreator = new MagicUFOCreator(
     images,

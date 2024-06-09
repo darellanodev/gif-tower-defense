@@ -3,7 +3,7 @@ import { EnemyAnimator } from '../../src/enemies/EnemyAnimator'
 import { EnemyCreator } from '../../src/enemies/EnemyCreator'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { PathMovement } from '../../src/path/PathMovement'
-import { getOrders } from './orders'
+import { getOrdersFromValidMap } from './orders'
 import { images } from './imagesResources'
 
 export const createNormalEnemy = (
@@ -12,7 +12,7 @@ export const createNormalEnemy = (
   wave?: number | null,
 ) => {
   if (!orders) {
-    orders = getOrders()
+    orders = getOrdersFromValidMap()
   }
   if (!wave) {
     wave = 1
@@ -43,7 +43,7 @@ export const createBossEnemy = (
   orders?: number[] | null,
 ) => {
   if (!orders) {
-    orders = getOrders()
+    orders = getOrdersFromValidMap()
   }
 
   const enemyCreator = new EnemyCreator(enemyInstancesManager)

@@ -1,16 +1,13 @@
 import { ConstDirection } from '../../src/constants/ConstDirection'
 import { isIncluded } from '../helpers/arrays'
-import { getPathFromMap, getValidLevelMap } from '../helpers/levelMap'
-
-const levelMap = getValidLevelMap()
-const path = getPathFromMap(levelMap)
+import { getOrdersFromValidMap } from '../helpers/orders'
 
 describe('makeOrders', () => {
   test('if there are 15 tiles consecutively to the left, the enemy moves first 16 times to left (15 tiles to the left + 1 tile to left when the enemy starts before the startTile', () => {
     const expectedOrders: number[] = []
     expectedOrders.push(...Array(16).fill(ConstDirection.LEFT))
 
-    const orders = path.makeOrders()
+    const orders = getOrdersFromValidMap()
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
@@ -21,7 +18,7 @@ describe('makeOrders', () => {
     expectedOrders.push(...Array(16).fill(ConstDirection.LEFT))
     expectedOrders.push(...Array(7).fill(ConstDirection.DOWN))
 
-    const orders = path.makeOrders()
+    const orders = getOrdersFromValidMap()
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
@@ -33,7 +30,7 @@ describe('makeOrders', () => {
     expectedOrders.push(...Array(7).fill(ConstDirection.DOWN))
     expectedOrders.push(...Array(13).fill(ConstDirection.RIGHT))
 
-    const orders = path.makeOrders()
+    const orders = getOrdersFromValidMap()
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
@@ -46,7 +43,7 @@ describe('makeOrders', () => {
     expectedOrders.push(...Array(13).fill(ConstDirection.RIGHT))
     expectedOrders.push(...Array(3).fill(ConstDirection.UP))
 
-    const orders = path.makeOrders()
+    const orders = getOrdersFromValidMap()
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
@@ -60,7 +57,7 @@ describe('makeOrders', () => {
     expectedOrders.push(...Array(3).fill(ConstDirection.UP))
     expectedOrders.push(...Array(6).fill(ConstDirection.LEFT))
 
-    const orders = path.makeOrders()
+    const orders = getOrdersFromValidMap()
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
@@ -75,7 +72,7 @@ describe('makeOrders', () => {
     expectedOrders.push(...Array(6).fill(ConstDirection.LEFT))
     expectedOrders.push(...Array(1).fill(ConstDirection.DOWN))
 
-    const orders = path.makeOrders()
+    const orders = getOrdersFromValidMap()
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
@@ -91,7 +88,7 @@ describe('makeOrders', () => {
     expectedOrders.push(...Array(1).fill(ConstDirection.DOWN))
     expectedOrders.push(...Array(5).fill(ConstDirection.LEFT))
 
-    const orders = path.makeOrders()
+    const orders = getOrdersFromValidMap()
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
@@ -108,7 +105,7 @@ describe('makeOrders', () => {
     expectedOrders.push(...Array(5).fill(ConstDirection.LEFT))
     expectedOrders.push(...Array(3).fill(ConstDirection.UP))
 
-    const orders = path.makeOrders()
+    const orders = getOrdersFromValidMap()
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
@@ -126,7 +123,7 @@ describe('makeOrders', () => {
     expectedOrders.push(...Array(3).fill(ConstDirection.UP))
     expectedOrders.push(...Array(13).fill(ConstDirection.RIGHT))
 
-    const orders = path.makeOrders()
+    const orders = getOrdersFromValidMap()
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
@@ -145,7 +142,7 @@ describe('makeOrders', () => {
     expectedOrders.push(...Array(13).fill(ConstDirection.RIGHT))
     expectedOrders.push(...Array(7).fill(ConstDirection.DOWN))
 
-    const orders = path.makeOrders()
+    const orders = getOrdersFromValidMap()
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
@@ -165,7 +162,7 @@ describe('makeOrders', () => {
     expectedOrders.push(...Array(7).fill(ConstDirection.DOWN))
     expectedOrders.push(...Array(16).fill(ConstDirection.LEFT))
 
-    const orders = path.makeOrders()
+    const orders = getOrdersFromValidMap()
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
