@@ -6,7 +6,7 @@ import { MagicFireballInstancesManager } from '../../src/magics/MagicFireballIns
 import { PathMovement } from '../../src/path/PathMovement'
 import { img } from './imagesResources'
 
-export const instantiateMagicFireball = (
+export const createMagicFireball = (
   orders: number[],
   magicFireballInstancesManager: MagicFireballInstancesManager,
 ) => {

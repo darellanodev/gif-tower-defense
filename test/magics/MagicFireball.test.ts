@@ -10,7 +10,7 @@ import {
 } from '../helpers/levelMap'
 
 import {
-  instantiateMagicFireball,
+  createMagicFireball,
   updateToReachTheEndOfTheMap,
 } from '../helpers/magicFireball'
 
@@ -23,7 +23,7 @@ test('position, when the magicfireball is recently created and update instances,
   const magicFireballInstancesManager = new MagicFireballInstancesManager(
     enemyInstancesManager,
   )
-  instantiateMagicFireball(orders, magicFireballInstancesManager)
+  createMagicFireball(orders, magicFireballInstancesManager)
 
   const initialPosition = {
     ...magicFireballInstancesManager.getAll()[0].position,
@@ -43,7 +43,7 @@ test('isAlive, when the magicfireball is recently created, return true', () => {
   const magicFireballInstancesManager = new MagicFireballInstancesManager(
     enemyInstancesManager,
   )
-  instantiateMagicFireball(orders, magicFireballInstancesManager)
+  createMagicFireball(orders, magicFireballInstancesManager)
 
   const result = magicFireballInstancesManager.getAll()[0].isAlive
 
@@ -59,7 +59,7 @@ test('reachEnd, when the magicfireball is recently created, return false', () =>
   const magicFireballInstancesManager = new MagicFireballInstancesManager(
     enemyInstancesManager,
   )
-  instantiateMagicFireball(orders, magicFireballInstancesManager)
+  createMagicFireball(orders, magicFireballInstancesManager)
 
   updateToReachTheEndOfTheMap(orders, magicFireballInstancesManager)
 
@@ -84,7 +84,7 @@ test('damage of enemy, when enemy is enought strong and collides with a fireball
   const magicFireballInstancesManager = new MagicFireballInstancesManager(
     enemyInstancesManager,
   )
-  instantiateMagicFireball(orders, magicFireballInstancesManager)
+  createMagicFireball(orders, magicFireballInstancesManager)
 
   // update
   const timesToUpdate = Const.TILE_SIZE * 100
