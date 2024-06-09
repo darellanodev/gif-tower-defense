@@ -26,7 +26,7 @@ export const createMagicFireball = (
     pathMovement,
     magicCollisionChecker,
   )
-  magicFireballCreator.createMagicFireball()
+  magicFireballCreator.create()
 }
 
 export const updateToReachTheEndOfTheMap = (

@@ -17,7 +17,7 @@ export const createMagicUFO = (
     enemyInstancesManager,
     magicUFOInstancesManager,
   )
-  magicUFOCreator.createMagicUFO()
+  magicUFOCreator.create()
 }
 
 export const updateInstancesOfEnemiesAndUFOsForATileSize = (

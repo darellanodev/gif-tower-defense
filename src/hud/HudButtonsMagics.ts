@@ -78,7 +78,7 @@ export class HudButtonsMagics {
       pathMovement,
       magicCollisionChecker,
     )
-    magicFireballCreator.createMagicFireball()
+    magicFireballCreator.create()
   }
 
   _instantiateMagicIceBall(
@@ -105,7 +105,7 @@ export class HudButtonsMagics {
       pathMovement,
       magicCollisionChecker,
     )
-    magicIceballCreator.createMagicIceball()
+    magicIceballCreator.create()
   }
 
   _instantiateMagicUFO(
@@ -128,7 +128,7 @@ export class HudButtonsMagics {
       magicUFOInstancesManager,
     )
 
-    magicUFOCreator.createMagicUFO()
+    magicUFOCreator.create()
   }
 
   handleMagicButtons(

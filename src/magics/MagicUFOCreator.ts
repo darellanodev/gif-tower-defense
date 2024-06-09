@@ -25,7 +25,7 @@ export class MagicUFOCreator {
   }
 
   // this is the only magic that needs to pass in the instance creation the instances manager (magicUFOInstancesManager). The UFO needs to see if other UFOs has targeted the enemy to target it
-  createMagicUFO() {
+  create() {
     this.#magicUFOInstancesManager.add(
       new MagicUFO(
         this.#images,

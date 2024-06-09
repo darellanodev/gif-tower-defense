@@ -30,7 +30,7 @@ describe('Magic Fireball Instances length', () => {
       magicCollisionChecker,
     )
 
-    magicFireballCreator.createMagicFireball()
+    magicFireballCreator.create()
 
     const result = magicFireballInstancesManager.getAll().length
     expect(result).toBe(1)

@@ -21,7 +21,7 @@ describe('Magic UFO Instances length', () => {
       magicUFOInstancesManager,
     )
 
-    magicUFOCreator.createMagicUFO()
+    magicUFOCreator.create()
 
     const result = magicUFOInstancesManager.getAll().length
     expect(result).toBe(1)

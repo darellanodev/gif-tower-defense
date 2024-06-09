@@ -29,7 +29,7 @@ export const createNormalEnemy = (
     Enemy.VELOCITY,
   )
 
-  enemyCreator.instantiateNormalEnemy(
+  enemyCreator.createNormal(
     waveEnemies,
     initialEnemiesPosition,
     wave,
@@ -56,7 +56,7 @@ export const createBossEnemy = (
     Enemy.BOSS_VELOCITY,
   )
 
-  enemyCreator.instantiateBoss(
+  enemyCreator.createBoss(
     initialEnemiesPosition,
     wave,
     enemyAnimator,

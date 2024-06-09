@@ -25,9 +25,9 @@ test('id, when three Magic UFOs are created, last UFO has id = 3', () => {
     magicUFOInstancesManager,
   )
 
-  magicUFOCreator.createMagicUFO()
-  magicUFOCreator.createMagicUFO()
-  magicUFOCreator.createMagicUFO()
+  magicUFOCreator.create()
+  magicUFOCreator.create()
+  magicUFOCreator.create()
   const result = magicUFOInstancesManager.getAll()[2].id
 
   const idUFO = 3

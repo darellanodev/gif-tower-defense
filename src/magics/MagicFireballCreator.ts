@@ -21,7 +21,7 @@ export class MagicFireballCreator {
     this.#magicCollisionChecker = magicCollisionChecker
   }
 
-  createMagicFireball() {
+  create() {
     this.#magicFireballInstancesManager.add(
       new MagicFireball(
         this.#images,

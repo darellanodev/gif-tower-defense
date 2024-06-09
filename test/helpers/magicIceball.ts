@@ -26,5 +26,5 @@ export const createMagicIceball = (
     magicCollisionChecker,
   )
 
-  magicIceballCreator.createMagicIceball()
+  magicIceballCreator.create()
 }

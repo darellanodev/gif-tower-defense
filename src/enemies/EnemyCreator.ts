@@ -10,7 +10,7 @@ export class EnemyCreator {
     this.#enemyInstancesManager = enemyInstancesManager
   }
 
-  instantiateNormalEnemy(
+  createNormal(
     waveEnemies: number,
     initialEnemiesPosition: Position,
     wave: number,
@@ -34,7 +34,7 @@ export class EnemyCreator {
     )
   }
 
-  instantiateBoss(
+  createBoss(
     initialEnemiesPosition: Position,
     wave: number,
     enemyAnimator: EnemyAnimator,

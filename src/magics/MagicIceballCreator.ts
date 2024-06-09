@@ -21,7 +21,7 @@ export class MagicIceballCreator {
     this.#magicCollisionChecker = magicCollisionChecker
   }
 
-  createMagicIceball() {
+  create() {
     this.#magicIceballInstancesManager.add(
       new MagicIceball(
         this.#images,
