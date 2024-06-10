@@ -12,7 +12,6 @@ export class MagicIceball extends Magic {
   static FREEZE_ENEMY_MAX_TIME = 500
   static SPEED = 10
 
-  #touchedEnemiesIds: number[]
   #pathMovement: PathMovement
   #magicCollisionChecker: MagicCollisionChecker
 
@@ -23,7 +22,6 @@ export class MagicIceball extends Magic {
     magicCollisionChecker: MagicCollisionChecker,
   ) {
     super(pathMovement.position)
-    this.#touchedEnemiesIds = []
     this.#img = img
     this.#pathMovement = pathMovement
     this.#magicCollisionChecker = magicCollisionChecker

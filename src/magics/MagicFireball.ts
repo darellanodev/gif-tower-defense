@@ -13,7 +13,6 @@ export class MagicFireball extends Magic {
   static DAMAGE = 500
   static SPEED = 10
 
-  #touchedEnemiesIds: number[]
   #magicCollisionChecker: MagicCollisionChecker
   #pathMovement: PathMovement
 
@@ -25,7 +24,6 @@ export class MagicFireball extends Magic {
   ) {
     super(pathMovement.position)
     this.#img = img
-    this.#touchedEnemiesIds = []
     this.#pathMovement = pathMovement
     this.#magicCollisionChecker = magicCollisionChecker
   }
