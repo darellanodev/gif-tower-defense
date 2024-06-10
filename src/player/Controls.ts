@@ -10,7 +10,6 @@ import { HudButtonsTowers } from '../hud/HudButtonsTowers'
 import { HudButtonsMagics } from '../hud/HudButtonsMagics'
 import { Wallet } from './Wallet'
 import { InfluenceArea } from '../towers/InfluenceArea'
-import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 import { MagicFireballInstancesManager } from '../magics/MagicFireballInstancesManager'
 import { MagicIceballInstancesManager } from '../magics/MagicIceballInstancesManager'
 import { MagicUFOInstancesManager } from '../magics/MagicUFOInstancesManager'
@@ -62,7 +61,6 @@ export class Controls {
     initialEnemiesPosition: Position,
     orders: number[],
     mouseTileOrangeOver: TileOrange | null,
-    enemyInstancesManager: EnemyInstancesManager,
     magicFireballInstancesManager: MagicFireballInstancesManager,
     magicIceballInstancesManager: MagicIceballInstancesManager,
     magicUFOInstancesManager: MagicUFOInstancesManager,
@@ -80,7 +78,6 @@ export class Controls {
         magicUFOImages,
         initialEnemiesPosition,
         orders,
-        enemyInstancesManager,
         magicFireballInstancesManager,
         magicIceballInstancesManager,
         magicUFOInstancesManager,

@@ -56,7 +56,6 @@ export const clickMagicUFO = (
     images,
     initialEnemiesPosition,
     orders,
-    enemyInstancesManager,
     magicFireballInstancesManager,
     magicIceballInstancesManager,
     magicUFOInstancesManager,
@@ -64,9 +63,5 @@ export const clickMagicUFO = (
 }
 
 const createHudButtonsMagics = () => {
-  return new HudButtonsMagics(
-    magicUFOButtonImages,
-    magicFireballButtonImages,
-    magicIceballButtonImages,
-  )
+  return new HudButtonsMagics()
 }

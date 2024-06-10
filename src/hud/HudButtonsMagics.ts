@@ -2,12 +2,10 @@ import { Position } from '../types/position'
 import { Image } from 'p5'
 import { MagicFireball } from '../magics/MagicFireball'
 import { MagicIceball } from '../magics/MagicIceball'
-import { MagicUFO } from '../magics/MagicUFO'
 import { ButtonMagic } from './ButtonMagic'
 import { PositionUtils } from '../utils/PositionUtils'
 import { PathMovement } from '../path/PathMovement'
 import { MagicCollisionChecker } from '../magics/MagicCollisionChecker'
-import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 import { MagicFireballCreator } from '../magics/MagicFireballCreator'
 import { MagicFireballInstancesManager } from '../magics/MagicFireballInstancesManager'
 import { MagicIceballCreator } from '../magics/MagicIceballCreator'
@@ -16,20 +14,6 @@ import { MagicUFOInstancesManager } from '../magics/MagicUFOInstancesManager'
 import { MagicUFOCreator } from '../magics/MagicUFOCreator'
 
 export class HudButtonsMagics {
-  #magicUFOButtonImages: Image[]
-  #magicFireballButtonImages: Image[]
-  #magicIceballButtonImages: Image[]
-
-  constructor(
-    magicUFOButtonImages: Image[],
-    magicFireballButtonImages: Image[],
-    magicIceballButtonImages: Image[],
-  ) {
-    this.#magicUFOButtonImages = magicUFOButtonImages
-    this.#magicFireballButtonImages = magicFireballButtonImages
-    this.#magicIceballButtonImages = magicIceballButtonImages
-  }
-
   #isInsideButtonsBar(position: Position) {
     const ButtonsBarRectanglePosition = { x: 0, y: 28 }
     const ButtonsBarRectangleSize = { w: 800, h: 50 }
@@ -134,7 +118,6 @@ export class HudButtonsMagics {
     magicUFOImages: Image[],
     initialEnemiesPosition: Position,
     orders: number[],
-    enemyInstancesManager: EnemyInstancesManager,
     magicFireballInstancesManager: MagicFireballInstancesManager,
     magicIceballInstancesManager: MagicIceballInstancesManager,
     magicUFOInstancesManager: MagicUFOInstancesManager,

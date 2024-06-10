@@ -20,10 +20,5 @@ export const instantiateHudButtonsTowers = () => {
   const money = 10000
   const wallet = new Wallet(Wallet.GAME_NORMAL_MODE, money)
 
-  return new HudButtonsTowers(
-    greenTowerButtonImages,
-    redTowerButtonImages,
-    yellowTowerButtonImages,
-    wallet,
-  )
+  return new HudButtonsTowers(wallet)
 }

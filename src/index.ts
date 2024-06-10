@@ -127,7 +127,6 @@ window.mouseClicked = () => {
     Path.initialEnemiesPosition,
     Path.orders,
     controls.mouseTileOrangeOver,
-    enemyInstancesManager,
     magicFireballInstancesManager,
     magicIceballInstancesManager,
     magicUFOInstancesManager,
@@ -190,20 +189,11 @@ window.setup = () => {
   ButtonTower.initializeButtons()
 
   hudPanel = new HudPanel(Images.hudImages)
-  hudButtonsMagic = new HudButtonsMagics(
-    Images.magicUFOButtonImages,
-    Images.magicFireballButtonImages,
-    Images.magicIceballButtonImages,
-  )
+  hudButtonsMagic = new HudButtonsMagics()
 
   // wallet = new Wallet(Wallet.GAME_TESTING_MODE, tileGenerator.initialMoney)
   wallet = new Wallet(Wallet.GAME_NORMAL_MODE, tileGenerator.initialMoney)
-  hudButtonsTowers = new HudButtonsTowers(
-    Images.towerGreenButtonImages,
-    Images.towerRedButtonImages,
-    Images.yellowTowerImages,
-    wallet,
-  )
+  hudButtonsTowers = new HudButtonsTowers(wallet)
 
   controls = new Controls(hudButtonsMagic, hudButtonsTowers, wallet)
 

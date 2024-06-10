@@ -1,5 +1,4 @@
 import { images } from '../helpers/imagesResources'
-import { testTinyOrders } from '../helpers/levelMap'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicUFOInstancesManager } from '../../src/magics/MagicUFOInstancesManager'
 import { MagicUFOCreator } from '../../src/magics/MagicUFOCreator'

@@ -21,7 +21,6 @@ export class Enemy extends Obj {
   static allowCreateEnemies: boolean = true
   static createEnemyTime: number = 0
 
-  #position: Position
   #endurance: number
   #isBoss: boolean
   #enemyAnimator: EnemyAnimator
@@ -47,7 +46,6 @@ export class Enemy extends Obj {
   ) {
     super(position)
 
-    this.#position = { ...position }
     this.#endurance = endurance
     this.#isBoss = isBoss
     this.#id = id

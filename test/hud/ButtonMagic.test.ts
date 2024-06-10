@@ -2,7 +2,6 @@ import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { ButtonMagic } from '../../src/hud/ButtonMagic'
 import { MagicFireballInstancesManager } from '../../src/magics/MagicFireballInstancesManager'
 import { MagicIceballInstancesManager } from '../../src/magics/MagicIceballInstancesManager'
-import { MagicUFO } from '../../src/magics/MagicUFO'
 import { MagicUFOInstancesManager } from '../../src/magics/MagicUFOInstancesManager'
 import { Position } from '../../src/types/position'
 import {

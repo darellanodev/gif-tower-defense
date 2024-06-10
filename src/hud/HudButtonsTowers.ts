@@ -1,7 +1,6 @@
 import { Position } from '../types/position'
 import { TowerType } from '../types/towerType'
 import { TextProperties } from './TextProperties'
-import { Image } from 'p5'
 import { TowerGreen } from '../towers/TowerGreen'
 import { TowerRed } from '../towers/TowerRed'
 import { TowerYellow } from '../towers/TowerYellow'
@@ -23,26 +22,14 @@ export class HudButtonsTowers {
   #canBuyTowerRed: boolean = false
   #canBuyTowerYellow: boolean = false
 
-  #towerGreenButtonImages: Image[]
-  #towerRedButtonImages: Image[]
-  #towerYellowButtonImages: Image[]
   #wallet: Wallet
 
   #upgradeCost: number | null = null
   #sellProfit: number | null = null
   #canUpgrade: boolean
 
-  constructor(
-    towerGreenButtonImages: Image[],
-    towerRedButtonImages: Image[],
-    towerYellowButtonImages: Image[],
-    wallet: Wallet,
-  ) {
-    this.#towerGreenButtonImages = towerGreenButtonImages
-    this.#towerRedButtonImages = towerRedButtonImages
-    this.#towerYellowButtonImages = towerYellowButtonImages
+  constructor(wallet: Wallet) {
     this.#wallet = wallet
-
     this.#canUpgrade = false
   }
 
