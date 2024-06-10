@@ -5,7 +5,6 @@ import { MagicUFOInstancesManager } from '../../src/magics/MagicUFOInstancesMana
 import { images } from './imagesResources'
 
 export const createMagicUFO = (
-  orders: number[],
   enemyInstancesManager: EnemyInstancesManager,
   magicUFOInstancesManager: MagicUFOInstancesManager,
 ) => {
@@ -13,7 +12,6 @@ export const createMagicUFO = (
   const magicUFOCreator = new MagicUFOCreator(
     images,
     initialEnemiesPosition,
-    orders,
     enemyInstancesManager,
     magicUFOInstancesManager,
   )

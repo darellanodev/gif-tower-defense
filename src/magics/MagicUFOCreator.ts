@@ -7,19 +7,16 @@ import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 export class MagicUFOCreator {
   #images: Image[]
   #startPosition: Position
-  #orders: number[]
   #enemyInstancesManager: EnemyInstancesManager
   #magicUFOInstancesManager: MagicUFOInstancesManager
   constructor(
     images: Image[],
     startPosition: Position,
-    orders: number[],
     enemyInstancesManager: EnemyInstancesManager,
     magicUFOInstancesManager: MagicUFOInstancesManager,
   ) {
     this.#images = images
     this.#startPosition = startPosition
-    this.#orders = orders
     this.#enemyInstancesManager = enemyInstancesManager
     this.#magicUFOInstancesManager = magicUFOInstancesManager
   }
@@ -30,7 +27,6 @@ export class MagicUFOCreator {
       new MagicUFO(
         this.#images,
         this.#startPosition,
-        this.#orders,
         this.#enemyInstancesManager,
         this.#magicUFOInstancesManager,
       ),

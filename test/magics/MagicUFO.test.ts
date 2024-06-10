@@ -9,7 +9,6 @@ import {
   getEnemyTargetIdForUFO,
   updateInstancesOfEnemiesAndUFOsForATileSize,
 } from '../helpers/magicUFO'
-import { getOrdersFromValidMap } from '../helpers/orders'
 
 test('id, when three Magic UFOs are created, last UFO has id = 3', () => {
   const enemyInstancesManager = new EnemyInstancesManager()
@@ -20,7 +19,6 @@ test('id, when three Magic UFOs are created, last UFO has id = 3', () => {
   const magicUFOCreator = new MagicUFOCreator(
     images,
     initialEnemiesPosition,
-    testTinyOrders,
     enemyInstancesManager,
     magicUFOInstancesManager,
   )
@@ -39,8 +37,7 @@ test('enemyTarget id, when an Enemy is created and then a magic UFO is created, 
   const magicUFOInstancesManager = new MagicUFOInstancesManager(
     enemyInstancesManager,
   )
-  const orders = getOrdersFromValidMap()
-  createMagicUFO(orders, enemyInstancesManager, magicUFOInstancesManager)
+  createMagicUFO(enemyInstancesManager, magicUFOInstancesManager)
   createNormalEnemy(enemyInstancesManager)
 
   updateInstancesOfEnemiesAndUFOsForATileSize(
@@ -65,14 +62,13 @@ test('enemyTarget, when a first Enemy and a first UFO are instantiated the first
   )
   createNormalEnemy(enemyInstancesManager, testTinyOrders)
   createNormalEnemy(enemyInstancesManager, testTinyOrders)
-  const orders = getOrdersFromValidMap()
-  createMagicUFO(orders, enemyInstancesManager, magicUFOInstancesManager)
+  createMagicUFO(enemyInstancesManager, magicUFOInstancesManager)
   updateInstancesOfEnemiesAndUFOsForATileSize(
     enemyInstancesManager,
     magicUFOInstancesManager,
   )
 
-  createMagicUFO(orders, enemyInstancesManager, magicUFOInstancesManager)
+  createMagicUFO(enemyInstancesManager, magicUFOInstancesManager)
   updateInstancesOfEnemiesAndUFOsForATileSize(
     enemyInstancesManager,
     magicUFOInstancesManager,

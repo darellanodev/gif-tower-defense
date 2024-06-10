@@ -33,7 +33,6 @@ export class MagicUFO extends Magic {
   constructor(
     images: Image[],
     startPosition: Position,
-    orders: number[],
     enemyInstancesManager: EnemyInstancesManager,
     magicUFOInstancesManager: MagicUFOInstancesManager,
   ) {

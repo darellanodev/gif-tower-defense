@@ -123,7 +123,6 @@ export class HudButtonsMagics {
     const magicUFOCreator = new MagicUFOCreator(
       magicUFOImages,
       initialEnemiesPosition,
-      orders,
       enemyInstancesManager,
       magicUFOInstancesManager,
     )

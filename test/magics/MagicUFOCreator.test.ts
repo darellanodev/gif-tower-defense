@@ -16,7 +16,6 @@ describe('Magic UFO Instances length', () => {
     const magicUFOCreator = new MagicUFOCreator(
       images,
       initialEnemiesPosition,
-      testTinyOrders,
       enemyInstancesManager,
       magicUFOInstancesManager,
     )
