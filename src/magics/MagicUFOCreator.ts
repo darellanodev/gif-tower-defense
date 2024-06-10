@@ -2,22 +2,18 @@ import { Image } from 'p5'
 import { MagicUFOInstancesManager } from './MagicUFOInstancesManager'
 import { MagicUFO } from './MagicUFO'
 import { Position } from '../types/position'
-import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 
 export class MagicUFOCreator {
   #images: Image[]
   #startPosition: Position
-  #enemyInstancesManager: EnemyInstancesManager
   #magicUFOInstancesManager: MagicUFOInstancesManager
   constructor(
     images: Image[],
     startPosition: Position,
-    enemyInstancesManager: EnemyInstancesManager,
     magicUFOInstancesManager: MagicUFOInstancesManager,
   ) {
     this.#images = images
     this.#startPosition = startPosition
-    this.#enemyInstancesManager = enemyInstancesManager
     this.#magicUFOInstancesManager = magicUFOInstancesManager
   }
 
@@ -27,7 +23,6 @@ export class MagicUFOCreator {
       new MagicUFO(
         this.#images,
         this.#startPosition,
-        this.#enemyInstancesManager,
         this.#magicUFOInstancesManager,
       ),
     )

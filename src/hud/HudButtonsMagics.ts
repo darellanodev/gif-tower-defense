@@ -111,8 +111,6 @@ export class HudButtonsMagics {
   _instantiateMagicUFO(
     magicUFOImages: Image[],
     initialEnemiesPosition: Position,
-    orders: number[],
-    enemyInstancesManager: EnemyInstancesManager,
     magicUFOInstancesManager: MagicUFOInstancesManager,
   ) {
     if (ButtonMagic.magicUFOButton.items === 0) {
@@ -123,7 +121,6 @@ export class HudButtonsMagics {
     const magicUFOCreator = new MagicUFOCreator(
       magicUFOImages,
       initialEnemiesPosition,
-      enemyInstancesManager,
       magicUFOInstancesManager,
     )
 
@@ -162,8 +159,6 @@ export class HudButtonsMagics {
       this._instantiateMagicUFO(
         magicUFOImages,
         initialEnemiesPosition,
-        orders,
-        enemyInstancesManager,
         magicUFOInstancesManager,
       )
     }

@@ -5,14 +5,12 @@ import { MagicUFOInstancesManager } from '../../src/magics/MagicUFOInstancesMana
 import { images } from './imagesResources'
 
 export const createMagicUFO = (
-  enemyInstancesManager: EnemyInstancesManager,
   magicUFOInstancesManager: MagicUFOInstancesManager,
 ) => {
   const initialEnemiesPosition = { x: 100, y: 200 }
   const magicUFOCreator = new MagicUFOCreator(
     images,
     initialEnemiesPosition,
-    enemyInstancesManager,
     magicUFOInstancesManager,
   )
   magicUFOCreator.create()

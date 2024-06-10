@@ -19,7 +19,6 @@ test('id, when three Magic UFOs are created, last UFO has id = 3', () => {
   const magicUFOCreator = new MagicUFOCreator(
     images,
     initialEnemiesPosition,
-    enemyInstancesManager,
     magicUFOInstancesManager,
   )
 
@@ -37,7 +36,7 @@ test('enemyTarget id, when an Enemy is created and then a magic UFO is created, 
   const magicUFOInstancesManager = new MagicUFOInstancesManager(
     enemyInstancesManager,
   )
-  createMagicUFO(enemyInstancesManager, magicUFOInstancesManager)
+  createMagicUFO(magicUFOInstancesManager)
   createNormalEnemy(enemyInstancesManager)
 
   updateInstancesOfEnemiesAndUFOsForATileSize(
@@ -62,13 +61,13 @@ test('enemyTarget, when a first Enemy and a first UFO are instantiated the first
   )
   createNormalEnemy(enemyInstancesManager, testTinyOrders)
   createNormalEnemy(enemyInstancesManager, testTinyOrders)
-  createMagicUFO(enemyInstancesManager, magicUFOInstancesManager)
+  createMagicUFO(magicUFOInstancesManager)
   updateInstancesOfEnemiesAndUFOsForATileSize(
     enemyInstancesManager,
     magicUFOInstancesManager,
   )
 
-  createMagicUFO(enemyInstancesManager, magicUFOInstancesManager)
+  createMagicUFO(magicUFOInstancesManager)
   updateInstancesOfEnemiesAndUFOsForATileSize(
     enemyInstancesManager,
     magicUFOInstancesManager,

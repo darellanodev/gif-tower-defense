@@ -27,13 +27,11 @@ export class MagicUFO extends Magic {
   #showRay: boolean = false
   #goOut: boolean = false
   #id: number = 0
-  #enemyInstancesManager: EnemyInstancesManager
   #magicUFOInstancesManager: MagicUFOInstancesManager // the UFO needs to see the other UFOs
 
   constructor(
     images: Image[],
     startPosition: Position,
-    enemyInstancesManager: EnemyInstancesManager,
     magicUFOInstancesManager: MagicUFOInstancesManager,
   ) {
     super(startPosition)
@@ -43,7 +41,6 @@ export class MagicUFO extends Magic {
     MagicUFO.numberOfUFOs++
     this.#id = MagicUFO.numberOfUFOs
 
-    this.#enemyInstancesManager = enemyInstancesManager
     this.#magicUFOInstancesManager = magicUFOInstancesManager
   }
 
@@ -201,9 +198,9 @@ export class MagicUFO extends Magic {
     }
   }
 
-  #searchTarget() {
+  #searchTarget(enemyInstancesManager: EnemyInstancesManager) {
     if (this.#timeToSearchEnemy === Const.TILE_SIZE) {
-      this.selectTarget()
+      this.selectTarget(enemyInstancesManager)
       this.#timeToSearchEnemy = 0
     } else {
       this.#timeToSearchEnemy++
@@ -214,16 +211,16 @@ export class MagicUFO extends Magic {
     return this.#enemyTarget
   }
 
-  #reSearchEnemyEveryTile() {
+  #reSearchEnemyEveryTile(enemyInstancesManager: EnemyInstancesManager) {
     if (!this.#enemyTarget) {
       return
     }
     if (this.#enemyTarget.moveCount === 0) {
-      this.selectTarget()
+      this.selectTarget(enemyInstancesManager)
     }
   }
 
-  update() {
+  update(enemyInstancesManager: EnemyInstancesManager) {
     if (this.#enemyTarget && this.#enemyTarget.alive) {
       if (this.#enemyTarget.isAbducted) {
         this.#carryEnemyToStartTile()
@@ -231,13 +228,13 @@ export class MagicUFO extends Magic {
       } else {
         this.#updatePositionToGetEnemy()
         this.#checkCollisionToAbductEnemy()
-        this.#reSearchEnemyEveryTile()
+        this.#reSearchEnemyEveryTile(enemyInstancesManager)
       }
     } else {
       if (this.#goOut) {
         this.#updatePositionGoOut()
       } else {
-        this.#searchTarget()
+        this.#searchTarget(enemyInstancesManager)
       }
     }
   }
@@ -256,11 +253,11 @@ export class MagicUFO extends Magic {
     return result
   }
 
-  selectTarget() {
+  selectTarget(enemyInstancesManager: EnemyInstancesManager) {
     let maxIndexOrder = 0
     let enemyTarget = null
 
-    this.#enemyInstancesManager.getAll().forEach((enemy: Enemy) => {
+    enemyInstancesManager.getAll().forEach((enemy: Enemy) => {
       const indexOder = enemy.orderPosition
 
       if (indexOder > maxIndexOrder && !this.#isTargetedByOtherUFO(enemy)) {

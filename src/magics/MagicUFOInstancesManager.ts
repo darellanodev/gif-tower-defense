@@ -30,7 +30,7 @@ export class MagicUFOInstancesManager {
 
   updateInstances() {
     this.#instances.forEach((magicUFO) => {
-      magicUFO.update()
+      magicUFO.update(this.#enemyInstancesManager)
     })
   }
 }
