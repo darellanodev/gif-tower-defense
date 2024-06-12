@@ -35,9 +35,7 @@ import { EnemyAnimator } from './enemies/EnemyAnimator'
 import { PathMovement } from './path/PathMovement'
 import { EnemyInstancesManager } from './enemies/EnemyInstancesManager'
 import { EnemyCreator } from './enemies/EnemyCreator'
-import { MagicFireballInstancesManager } from './magics/MagicFireballInstancesManager'
-import { MagicIceballInstancesManager } from './magics/MagicIceballInstancesManager'
-import { MagicUFOInstancesManager } from './magics/MagicUFOInstancesManager'
+import { MagicInstancesManager } from './magics/MagicInstancesManager'
 
 let _p5: p5
 let gameStatus: number = 0
@@ -55,9 +53,9 @@ let wallet: Wallet
 let controls: Controls
 let enemyInstancesManager: EnemyInstancesManager
 let enemyCreator: EnemyCreator
-let magicFireballInstancesManager: MagicFireballInstancesManager
-let magicIceballInstancesManager: MagicIceballInstancesManager
-let magicUFOInstancesManager: MagicUFOInstancesManager
+let magicFireballInstancesManager: MagicInstancesManager
+let magicIceballInstancesManager: MagicInstancesManager
+let magicUFOInstancesManager: MagicInstancesManager
 
 // ugly hack: remove the extra canvas created
 window.addEventListener('load', () => {
@@ -141,13 +139,13 @@ window.setup = () => {
   enemyInstancesManager = new EnemyInstancesManager()
   enemyCreator = new EnemyCreator(enemyInstancesManager)
 
-  magicFireballInstancesManager = new MagicFireballInstancesManager(
+  magicFireballInstancesManager = new MagicInstancesManager(
     enemyInstancesManager,
   )
-  magicIceballInstancesManager = new MagicIceballInstancesManager(
+  magicIceballInstancesManager = new MagicInstancesManager(
     enemyInstancesManager,
   )
-  magicUFOInstancesManager = new MagicUFOInstancesManager(enemyInstancesManager)
+  magicUFOInstancesManager = new MagicInstancesManager(enemyInstancesManager)
 
   levelDataProvider = new LevelsDataProvider(LevelsData.data)
 

@@ -1,13 +1,13 @@
 import { Enemy } from '../../src/enemies/Enemy'
 import { MagicCollisionChecker } from '../../src/magics/MagicCollisionChecker'
 import { MagicIceballCreator } from '../../src/magics/MagicIceballCreator'
-import { MagicIceballInstancesManager } from '../../src/magics/MagicIceballInstancesManager'
+import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { PathMovement } from '../../src/path/PathMovement'
 import { img } from './imagesResources'
 
 export const createMagicIceball = (
   orders: number[],
-  magicIceballInstancesManager: MagicIceballInstancesManager,
+  magicIceballInstancesManager: MagicInstancesManager,
 ) => {
   const magicCollisionChecker = new MagicCollisionChecker()
 

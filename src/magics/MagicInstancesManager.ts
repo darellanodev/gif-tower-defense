@@ -1,8 +1,8 @@
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
-import { MagicUFO } from './MagicUFO'
+import { MagicsType } from '../types/magicsType'
 
-export class MagicUFOInstancesManager {
-  #instances: MagicUFO[]
+export class MagicInstancesManager {
+  #instances: MagicsType[]
   #enemyInstancesManager: EnemyInstancesManager
 
   constructor(enemyInstancesManager: EnemyInstancesManager) {
@@ -10,8 +10,8 @@ export class MagicUFOInstancesManager {
     this.#enemyInstancesManager = enemyInstancesManager
   }
 
-  add(magicUFO: MagicUFO) {
-    this.#instances.push(magicUFO)
+  add(instance: MagicsType) {
+    this.#instances.push(instance)
   }
 
   getAll() {
@@ -19,18 +19,18 @@ export class MagicUFOInstancesManager {
   }
 
   removeDeadInstances() {
-    this.#instances = this.#instances.filter((UFO) => UFO.isAlive())
+    this.#instances = this.#instances.filter((instance) => instance.isAlive())
   }
 
   drawInstances() {
-    this.#instances.forEach((magicUFO) => {
-      magicUFO.draw()
+    this.#instances.forEach((instance) => {
+      instance.draw()
     })
   }
 
   updateInstances() {
-    this.#instances.forEach((magicUFO) => {
-      magicUFO.update(this.#enemyInstancesManager)
+    this.#instances.forEach((instance) => {
+      instance.update(this.#enemyInstancesManager)
     })
   }
 }

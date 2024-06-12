@@ -1,29 +1,29 @@
 import { Image } from 'p5'
-import { MagicUFOInstancesManager } from './MagicUFOInstancesManager'
+import { MagicInstancesManager } from './MagicInstancesManager'
 import { MagicUFO } from './MagicUFO'
 import { Position } from '../types/position'
 
 export class MagicUFOCreator {
   #images: Image[]
   #startPosition: Position
-  #magicUFOInstancesManager: MagicUFOInstancesManager
+  #magicInstancesManager: MagicInstancesManager
   constructor(
     images: Image[],
     startPosition: Position,
-    magicUFOInstancesManager: MagicUFOInstancesManager,
+    magicInstancesManager: MagicInstancesManager,
   ) {
     this.#images = images
     this.#startPosition = startPosition
-    this.#magicUFOInstancesManager = magicUFOInstancesManager
+    this.#magicInstancesManager = magicInstancesManager
   }
 
-  // this is the only magic that needs to pass in the instance creation the instances manager (magicUFOInstancesManager). The UFO needs to see if other UFOs has targeted the enemy to target it
+  // this is the only magic that needs to pass in the instance creation the instances manager (magicInstancesManager). The UFO needs to see if other UFOs has targeted the enemy to target it
   create() {
-    this.#magicUFOInstancesManager.add(
+    this.#magicInstancesManager.add(
       new MagicUFO(
         this.#images,
         this.#startPosition,
-        this.#magicUFOInstancesManager,
+        this.#magicInstancesManager,
       ),
     )
   }

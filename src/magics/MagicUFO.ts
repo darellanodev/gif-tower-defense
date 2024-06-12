@@ -6,7 +6,7 @@ import { Enemy } from '../enemies/Enemy'
 import { Const } from '../constants/Const'
 import { PositionUtils } from '../utils/PositionUtils'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
-import { MagicUFOInstancesManager } from './MagicUFOInstancesManager'
+import { MagicInstancesManager } from './MagicInstancesManager'
 
 export class MagicUFO extends Magic {
   static SPEED = 2
@@ -27,12 +27,12 @@ export class MagicUFO extends Magic {
   #showRay: boolean = false
   #goOut: boolean = false
   #id: number = 0
-  #magicUFOInstancesManager: MagicUFOInstancesManager // the UFO needs to see the other UFOs
+  #instancesManager: MagicInstancesManager // the UFO needs to see the other UFOs
 
   constructor(
     images: Image[],
     startPosition: Position,
-    magicUFOInstancesManager: MagicUFOInstancesManager,
+    instancesManager: MagicInstancesManager,
   ) {
     super(startPosition)
     this.#images = images
@@ -41,7 +41,7 @@ export class MagicUFO extends Magic {
     MagicUFO.numberOfUFOs++
     this.#id = MagicUFO.numberOfUFOs
 
-    this.#magicUFOInstancesManager = magicUFOInstancesManager
+    this.#instancesManager = instancesManager
   }
 
   #drawUFO() {
@@ -241,11 +241,13 @@ export class MagicUFO extends Magic {
 
   #isTargetedByOtherUFO(enemy: Enemy): boolean {
     let result = false
-    this.#magicUFOInstancesManager.getAll().forEach((ufo) => {
-      if (ufo.id !== this.id) {
-        if (ufo.#enemyTarget) {
-          if (ufo.#enemyTarget.id === enemy.id) {
-            result = true
+    this.#instancesManager.getAll().forEach((instance) => {
+      if ('id' in instance) {
+        if (instance.id !== this.id) {
+          if (instance.#enemyTarget) {
+            if (instance.#enemyTarget.id === enemy.id) {
+              result = true
+            }
           }
         }
       }

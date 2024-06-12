@@ -1,7 +1,7 @@
 import { Const } from '../../src/constants/Const'
 import { ConstTest } from '../../src/constants/ConstTest'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
-import { MagicFireballInstancesManager } from '../../src/magics/MagicFireballInstancesManager'
+import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { createNormalEnemy } from '../helpers/enemyCreator'
 import { testTinyOrders } from '../helpers/levelMap'
 
@@ -15,7 +15,7 @@ test('position, when the magicfireball is recently created and update instances,
   const orders = getOrdersFromValidMap()
 
   const enemyInstancesManager = new EnemyInstancesManager()
-  const magicFireballInstancesManager = new MagicFireballInstancesManager(
+  const magicFireballInstancesManager = new MagicInstancesManager(
     enemyInstancesManager,
   )
   createMagicFireball(orders, magicFireballInstancesManager)
@@ -33,7 +33,7 @@ test('isAlive, when the magicfireball is recently created, return true', () => {
   const orders = getOrdersFromValidMap()
 
   const enemyInstancesManager = new EnemyInstancesManager()
-  const magicFireballInstancesManager = new MagicFireballInstancesManager(
+  const magicFireballInstancesManager = new MagicInstancesManager(
     enemyInstancesManager,
   )
   createMagicFireball(orders, magicFireballInstancesManager)
@@ -47,7 +47,7 @@ test('reachEnd, when the magicfireball is recently created, return false', () =>
   const orders = getOrdersFromValidMap()
 
   const enemyInstancesManager = new EnemyInstancesManager()
-  const magicFireballInstancesManager = new MagicFireballInstancesManager(
+  const magicFireballInstancesManager = new MagicInstancesManager(
     enemyInstancesManager,
   )
   createMagicFireball(orders, magicFireballInstancesManager)
@@ -70,7 +70,7 @@ test('damage of enemy, when enemy is enought strong and collides with a fireball
 
   // make a magic fireball instance
   const orders = getOrdersFromValidMap()
-  const magicFireballInstancesManager = new MagicFireballInstancesManager(
+  const magicFireballInstancesManager = new MagicInstancesManager(
     enemyInstancesManager,
   )
   createMagicFireball(orders, magicFireballInstancesManager)

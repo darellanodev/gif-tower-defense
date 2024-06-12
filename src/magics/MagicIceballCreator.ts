@@ -1,28 +1,28 @@
 import { Image } from 'p5'
 import { PathMovement } from '../path/PathMovement'
 import { MagicCollisionChecker } from './MagicCollisionChecker'
-import { MagicIceballInstancesManager } from './MagicIceballInstancesManager'
+import { MagicInstancesManager } from './MagicInstancesManager'
 import { MagicIceball } from './MagicIceball'
 
 export class MagicIceballCreator {
-  #magicIceballInstancesManager: MagicIceballInstancesManager
+  #instancesManager: MagicInstancesManager
   #images: Image
   #pathMovement: PathMovement
   #magicCollisionChecker: MagicCollisionChecker
   constructor(
-    magicIceballInstancesManager: MagicIceballInstancesManager,
+    instancesManager: MagicInstancesManager,
     images: Image,
     pathMovement: PathMovement,
     magicCollisionChecker: MagicCollisionChecker,
   ) {
-    this.#magicIceballInstancesManager = magicIceballInstancesManager
+    this.#instancesManager = instancesManager
     this.#images = images
     this.#pathMovement = pathMovement
     this.#magicCollisionChecker = magicCollisionChecker
   }
 
   create() {
-    this.#magicIceballInstancesManager.add(
+    this.#instancesManager.add(
       new MagicIceball(
         this.#images,
         this.#pathMovement,

@@ -1,4 +1,4 @@
-import { MagicFireballInstancesManager } from '../../src/magics/MagicFireballInstancesManager'
+import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { MagicFireballCreator } from '../../src/magics/MagicFireballCreator'
 import { img } from '../helpers/imagesResources'
 import { MagicCollisionChecker } from '../../src/magics/MagicCollisionChecker'
@@ -10,7 +10,7 @@ import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 describe('Magic Fireball Instances length', () => {
   test('when there are not magicFireball, return 1', () => {
     const enemyInstancesManager = new EnemyInstancesManager()
-    const magicFireballInstancesManager = new MagicFireballInstancesManager(
+    const magicFireballInstancesManager = new MagicInstancesManager(
       enemyInstancesManager,
     )
     const magicCollisionChecker = new MagicCollisionChecker()

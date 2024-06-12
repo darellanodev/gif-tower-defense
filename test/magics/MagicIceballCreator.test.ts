@@ -1,12 +1,12 @@
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
-import { MagicIceballInstancesManager } from '../../src/magics/MagicIceballInstancesManager'
+import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { testTinyOrders } from '../helpers/levelMap'
 import { createMagicIceball } from '../helpers/magicIceball'
 
 describe('Magic Iceball Instances length', () => {
   test('when there are not magicIceball, return 1', () => {
     const enemyInstancesManager = new EnemyInstancesManager()
-    const magicIceballInstancesManager = new MagicIceballInstancesManager(
+    const magicIceballInstancesManager = new MagicInstancesManager(
       enemyInstancesManager,
     )
     createMagicIceball(testTinyOrders, magicIceballInstancesManager)

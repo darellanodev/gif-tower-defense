@@ -1,8 +1,6 @@
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { ButtonMagic } from '../../src/hud/ButtonMagic'
-import { MagicFireballInstancesManager } from '../../src/magics/MagicFireballInstancesManager'
-import { MagicIceballInstancesManager } from '../../src/magics/MagicIceballInstancesManager'
-import { MagicUFOInstancesManager } from '../../src/magics/MagicUFOInstancesManager'
+import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { Position } from '../../src/types/position'
 import {
   clickMagicUFO,
@@ -22,13 +20,13 @@ test('isMouseOver, if mouse is inside the button, return true', () => {
 test('get items, when there is 3 magic ufos and click, return 2', () => {
   initializeAllMagicButtons()
   const enemyInstancesManager = new EnemyInstancesManager()
-  const magicFireballInstancesManager = new MagicFireballInstancesManager(
+  const magicFireballInstancesManager = new MagicInstancesManager(
     enemyInstancesManager,
   )
-  const magicIceballInstancesManager = new MagicIceballInstancesManager(
+  const magicIceballInstancesManager = new MagicInstancesManager(
     enemyInstancesManager,
   )
-  const magicUFOInstancesManager = new MagicUFOInstancesManager(
+  const magicUFOInstancesManager = new MagicInstancesManager(
     enemyInstancesManager,
   )
 
@@ -46,13 +44,13 @@ test('get items, when there is 3 magic ufos and click, return 2', () => {
 test('count instances, when there is 3 magic ufos and click 5 times, return 3', () => {
   initializeAllMagicButtons()
   const enemyInstancesManager = new EnemyInstancesManager()
-  const magicFireballInstancesManager = new MagicFireballInstancesManager(
+  const magicFireballInstancesManager = new MagicInstancesManager(
     enemyInstancesManager,
   )
-  const magicIceballInstancesManager = new MagicIceballInstancesManager(
+  const magicIceballInstancesManager = new MagicInstancesManager(
     enemyInstancesManager,
   )
-  const magicUFOInstancesManager = new MagicUFOInstancesManager(
+  const magicUFOInstancesManager = new MagicInstancesManager(
     enemyInstancesManager,
   )
 
