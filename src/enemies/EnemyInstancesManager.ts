@@ -8,8 +8,8 @@ export class EnemyInstancesManager {
     this.#instances = []
   }
 
-  add(enemy: Enemy) {
-    this.#instances.push(enemy)
+  add(instance: Enemy) {
+    this.#instances.push(instance)
   }
 
   getAll() {
@@ -22,18 +22,18 @@ export class EnemyInstancesManager {
   }
 
   removeDeadInstances() {
-    this.#instances = this.#instances.filter((enemy) => enemy.alive)
+    this.#instances = this.#instances.filter((instance) => instance.alive)
   }
 
   drawInstances() {
-    this.#instances.forEach((enemy) => {
-      enemy.draw()
+    this.#instances.forEach((instance) => {
+      instance.draw()
     })
   }
 
   updateInstances() {
-    this.#instances.forEach((enemy) => {
-      enemy.update()
+    this.#instances.forEach((instance) => {
+      instance.update()
     })
   }
 }
