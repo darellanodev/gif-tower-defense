@@ -17,7 +17,7 @@ export class Magic extends Obj {
     this.status = Const.MAGIC_STATUS_DEAD
   }
 
-  isAlive() {
+  get alive() {
     return this.status == Const.MAGIC_STATUS_ALIVE
   }
 }
