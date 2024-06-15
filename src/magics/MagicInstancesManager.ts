@@ -1,35 +1,21 @@
+import { InstancesManager } from '../InstancesManager'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 import { MagicsType } from '../types/magicsType'
 
-export class MagicInstancesManager {
-  #instances: MagicsType[]
+export class MagicInstancesManager extends InstancesManager {
   #enemyInstancesManager: EnemyInstancesManager
 
   constructor(enemyInstancesManager: EnemyInstancesManager) {
-    this.#instances = []
+    super()
     this.#enemyInstancesManager = enemyInstancesManager
   }
 
   add(instance: MagicsType) {
-    this.#instances.push(instance)
-  }
-
-  getAll() {
-    return this.#instances
-  }
-
-  removeDeadInstances() {
-    this.#instances = this.#instances.filter((instance) => instance.isAlive())
-  }
-
-  drawInstances() {
-    this.#instances.forEach((instance) => {
-      instance.draw()
-    })
+    this.instances.push(instance)
   }
 
   updateInstances() {
-    this.#instances.forEach((instance) => {
+    this.instances.forEach((instance) => {
       instance.update(this.#enemyInstancesManager)
     })
   }

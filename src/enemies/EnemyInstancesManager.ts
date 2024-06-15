@@ -1,19 +1,11 @@
+import { InstancesManager } from '../InstancesManager'
 import { Enemy } from './Enemy'
 
-export class EnemyInstancesManager {
-  #instances: Enemy[]
+export class EnemyInstancesManager extends InstancesManager {
   #lastId: number = 0
 
-  constructor() {
-    this.#instances = []
-  }
-
   add(instance: Enemy) {
-    this.#instances.push(instance)
-  }
-
-  getAll() {
-    return this.#instances
+    this.instances.push(instance)
   }
 
   generateId() {
@@ -21,18 +13,8 @@ export class EnemyInstancesManager {
     return this.#lastId
   }
 
-  removeDeadInstances() {
-    this.#instances = this.#instances.filter((instance) => instance.alive)
-  }
-
-  drawInstances() {
-    this.#instances.forEach((instance) => {
-      instance.draw()
-    })
-  }
-
   updateInstances() {
-    this.#instances.forEach((instance) => {
+    this.instances.forEach((instance) => {
       instance.update()
     })
   }
