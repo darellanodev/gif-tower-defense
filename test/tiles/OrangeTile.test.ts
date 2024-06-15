@@ -5,12 +5,26 @@ import { Wallet } from '../../src/player/Wallet'
 import { instantiateOrangeTile } from '../helpers/orangeTile'
 import { buyGreenTower } from '../helpers/wallet'
 import { img } from '../helpers/imagesResources'
+import { images } from '../helpers/imagesResources'
+import { TowerGreenCreator } from '../../src/towers/TowerGreenCreator'
+import { TowerRedCreator } from '../../src/towers/TowerRedCreator'
+import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
 
 describe('isInside', () => {
   test('If mouse is inside, return true', () => {
     const position: Position = { x: 100, y: 200 }
     const player = new Player()
-    const orangeTile = new TileOrange(img, position, player)
+    const towerGreenCreator = new TowerGreenCreator(images)
+    const towerRedCreator = new TowerRedCreator(images)
+    const towerYellowCreator = new TowerYellowCreator(images, player)
+    const orangeTile = new TileOrange(
+      img,
+      position,
+      player,
+      towerGreenCreator,
+      towerRedCreator,
+      towerYellowCreator,
+    )
 
     const result = orangeTile.isInside(120, 220)
 
@@ -20,7 +34,17 @@ describe('isInside', () => {
   test('If mouse is outside, return false', () => {
     const position: Position = { x: 100, y: 200 }
     const player = new Player()
-    const orangeTile = new TileOrange(img, position, player)
+    const towerGreenCreator = new TowerGreenCreator(images)
+    const towerRedCreator = new TowerRedCreator(images)
+    const towerYellowCreator = new TowerYellowCreator(images, player)
+    const orangeTile = new TileOrange(
+      img,
+      position,
+      player,
+      towerGreenCreator,
+      towerRedCreator,
+      towerYellowCreator,
+    )
 
     const result = orangeTile.isInside(90, 220)
 

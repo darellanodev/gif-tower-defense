@@ -19,31 +19,17 @@ export class TowerYellow extends Tower {
   static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
   static INFLUENCE_AREA_FACTOR = 2
 
-  static images: Image[]
+  #images: Image[]
 
   #coreProgressBar: ProgressBar
   #player: Player
 
-  static setImages(images: Image[]) {
-    TowerYellow.images = images
-  }
-
-  static instantiate(
+  constructor(
     position: Position,
     tileOrange: TileOrange,
     player: Player,
+    images: Image[],
   ) {
-    return new TowerYellow(
-      {
-        x: position.x - Const.TOWER_OFFSET,
-        y: position.y - Const.TOWER_OFFSET,
-      },
-      tileOrange,
-      player,
-    )
-  }
-
-  constructor(position: Position, tileOrange: TileOrange, player: Player) {
     super(position, tileOrange)
     this.#coreProgressBar = new ProgressBar(
       {
@@ -53,6 +39,7 @@ export class TowerYellow extends Tower {
       { w: Const.TILE_SIZE - 13, h: Const.TILE_SIZE - 10 },
     )
     this.#player = player
+    this.#images = images
   }
 
   upgrade() {
@@ -98,7 +85,7 @@ export class TowerYellow extends Tower {
       this.#coreProgressBar.draw()
 
       P5.p5.image(
-        TowerYellow.images[this.upgradeLevel],
+        this.#images[this.upgradeLevel],
         this.position.x + Tower.OFFSET_X,
         this.position.y + Tower.OFFSET_Y,
       )

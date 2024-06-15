@@ -26,7 +26,9 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - Code improvements:
 
+  - [x] TowerGreenCreator, TowerRedCreator, and TowerYellowCreator like MagicFireballCreator, ...
   - [ ] Extract class for collision from MagicFireball and MagicIceBall
+  - [ ] Review static methods to convert them to normal methods
 
 - The player can:
 

@@ -1,27 +1,31 @@
 import { Player } from '../../src/player/Player'
 import { Tower } from '../../src/towers/Tower'
-import { TowerGreen } from '../../src/towers/TowerGreen'
-import { TowerRed } from '../../src/towers/TowerRed'
-import { TowerYellow } from '../../src/towers/TowerYellow'
 import { Position } from '../../src/types/position'
 import { TowerType } from '../../src/types/towerType'
 import { instantiateOrangeTile } from './orangeTile'
+import { TowerGreenCreator } from '../../src/towers/TowerGreenCreator'
+import { TowerRedCreator } from '../../src/towers/TowerRedCreator'
+import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
+import { images } from './imagesResources'
 
 export const instantiateGreenTower = () => {
   const orangeTile = instantiateOrangeTile()
   const position: Position = { x: 10, y: 20 }
-  return TowerGreen.instantiate(position, orangeTile)
+  const towerGreenCreator = new TowerGreenCreator(images)
+  return towerGreenCreator.create(position, orangeTile)
 }
 export const instantiateRedTower = () => {
   const orangeTile = instantiateOrangeTile()
   const position: Position = { x: 10, y: 20 }
-  return TowerRed.instantiate(position, orangeTile)
+  const towerRedCreator = new TowerRedCreator(images)
+  return towerRedCreator.create(position, orangeTile)
 }
 export const instantiateYellowTower = () => {
   const orangeTile = instantiateOrangeTile()
   const towerYellowPosition: Position = { x: 10, y: 20 }
   const player = new Player()
-  return TowerYellow.instantiate(towerYellowPosition, orangeTile, player)
+  const towerYellowCreator = new TowerYellowCreator(images, player)
+  return towerYellowCreator.create(towerYellowPosition, orangeTile)
 }
 export const upgradeTowerNTimes = (tower: TowerType, nTimes: number) => {
   Tower.INSTANT_UPGRADING = true

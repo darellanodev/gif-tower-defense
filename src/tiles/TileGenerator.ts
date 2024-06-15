@@ -7,6 +7,9 @@ import { Image } from 'p5'
 import { ConstDirection } from '../constants/ConstDirection'
 import { ConstMapTileSymbol } from '../constants/ConstMapTileSymbol'
 import { Player } from '../player/Player'
+import { TowerGreenCreator } from '../towers/TowerGreenCreator'
+import { TowerRedCreator } from '../towers/TowerRedCreator'
+import { TowerYellowCreator } from '../towers/TowerYellowCreator'
 
 export class TileGenerator {
   static FLOOR_SIZE = 50
@@ -22,10 +25,17 @@ export class TileGenerator {
   #startDirection: number
   #player: Player
 
+  #towerGreenCreator: TowerGreenCreator
+  #towerRedCreator: TowerRedCreator
+  #towerYellowCreator: TowerYellowCreator
+
   constructor(
     levelMap: MapDataType | undefined,
     mapImages: Image[],
     player: Player,
+    towerGreenCreator: TowerGreenCreator,
+    towerRedCreator: TowerRedCreator,
+    towerYellowCreator: TowerYellowCreator,
   ) {
     if (!levelMap) {
       throw new Error('Map is undefined')
@@ -45,6 +55,9 @@ export class TileGenerator {
     this.#orangeImage = mapImages[0]
     this.#blackImage = mapImages[1]
     this.#startDirection = this.#levelMap.startDirection
+    this.#towerGreenCreator = towerGreenCreator
+    this.#towerRedCreator = towerRedCreator
+    this.#towerYellowCreator = towerYellowCreator
   }
 
   #setStartImage(mapImages: any[]) {
@@ -111,6 +124,9 @@ export class TileGenerator {
                   this.#orangeImage,
                   { x: posX, y: posY },
                   this.#player,
+                  this.#towerGreenCreator,
+                  this.#towerRedCreator,
+                  this.#towerYellowCreator,
                 ),
               )
               break

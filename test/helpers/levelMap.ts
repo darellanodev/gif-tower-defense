@@ -7,10 +7,23 @@ import { Player } from '../../src/player/Player'
 import { TileGenerator } from '../../src/tiles/TileGenerator'
 import { MapDataType } from '../../src/types/mapDataType'
 import { images } from './imagesResources'
+import { TowerGreenCreator } from '../../src/towers/TowerGreenCreator'
+import { TowerRedCreator } from '../../src/towers/TowerRedCreator'
+import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
 
 export const getTileGeneratorFromMap = (levelMap: MapDataType | undefined) => {
   const player = new Player()
-  return new TileGenerator(levelMap, images, player)
+  const towerGreenCreator = new TowerGreenCreator(images)
+  const towerRedCreator = new TowerRedCreator(images)
+  const towerYellowCreator = new TowerYellowCreator(images, player)
+  return new TileGenerator(
+    levelMap,
+    images,
+    player,
+    towerGreenCreator,
+    towerRedCreator,
+    towerYellowCreator,
+  )
 }
 
 export const getPathFromMap = (levelMap: MapDataType | undefined) => {

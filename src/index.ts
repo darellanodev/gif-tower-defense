@@ -15,7 +15,6 @@ import { ExplosionMagicIceball } from './explosions/ExplosionMagicIceball'
 import { TextProperties } from './hud/TextProperties'
 import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { LevelsData } from './levels/LevelsData'
-import { MagicUFO } from './magics/MagicUFO'
 import { Player } from './player/Player'
 import { Images } from './resources/Images'
 import { Missile } from './towers/Missile'
@@ -36,6 +35,9 @@ import { PathMovement } from './path/PathMovement'
 import { EnemyInstancesManager } from './enemies/EnemyInstancesManager'
 import { EnemyCreator } from './enemies/EnemyCreator'
 import { MagicInstancesManager } from './magics/MagicInstancesManager'
+import { TowerGreenCreator } from './towers/TowerGreenCreator'
+import { TowerRedCreator } from './towers/TowerRedCreator'
+import { TowerYellowCreator } from './towers/TowerYellowCreator'
 
 let _p5: p5
 let gameStatus: number = 0
@@ -155,13 +157,23 @@ window.setup = () => {
     throw new Error('Map invalid')
   }
 
-  TowerGreen.setImages(Images.greenTowerImages)
-  TowerRed.setImages(Images.redTowerImages)
-  TowerYellow.setImages(Images.yellowTowerImages)
-
   player = new Player()
 
-  const tileGenerator = new TileGenerator(levelMap, Images.tileImages, player)
+  const towerGreenCreator = new TowerGreenCreator(Images.greenTowerImages)
+  const towerRedCreator = new TowerRedCreator(Images.redTowerImages)
+  const towerYellowCreator = new TowerYellowCreator(
+    Images.yellowTowerImages,
+    player,
+  )
+
+  const tileGenerator = new TileGenerator(
+    levelMap,
+    Images.tileImages,
+    player,
+    towerGreenCreator,
+    towerRedCreator,
+    towerYellowCreator,
+  )
   TileOrange.instances = tileGenerator.orangeTiles
   Path.startTile = tileGenerator.startTile
 

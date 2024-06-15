@@ -14,20 +14,11 @@ export class TowerGreen extends Tower {
   static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
   static INFLUENCE_AREA_FACTOR = 1.65
 
-  static images: Image[]
+  #images: Image[]
 
-  static setImages(images: Image[]) {
-    TowerGreen.images = images
-  }
-
-  static instantiate(position: Position, tileOrange: TileOrange) {
-    return new TowerGreen(
-      {
-        x: position.x - Const.TOWER_OFFSET,
-        y: position.y - Const.TOWER_OFFSET,
-      },
-      tileOrange,
-    )
+  constructor(position: Position, tileOrange: TileOrange, images: Image[]) {
+    super(position, tileOrange)
+    this.#images = images
   }
 
   #drawShotToEnemy() {
@@ -72,7 +63,7 @@ export class TowerGreen extends Tower {
 
     this.#drawShotToEnemy()
     this.enemyTarget.addDamage(TowerGreen.DAMAGE_UPGRADE[this.upgradeLevel])
-    P5.p5.image(TowerGreen.images[this.upgradeLevel], 0, 0)
+    P5.p5.image(this.#images[this.upgradeLevel], 0, 0)
 
     P5.p5.resetMatrix()
     P5.p5.imageMode(P5.p5.CORNER)
@@ -80,7 +71,7 @@ export class TowerGreen extends Tower {
 
   #drawWhenNoEnemyTarget() {
     P5.p5.image(
-      TowerGreen.images[this.upgradeLevel],
+      this.#images[this.upgradeLevel],
       this.position.x + Tower.OFFSET_X,
       this.position.y + Tower.OFFSET_Y,
     )

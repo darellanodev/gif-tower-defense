@@ -15,21 +15,13 @@ export class TowerRed extends Tower {
   static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
   static INFLUENCE_AREA_FACTOR = 1.65
   static MAXTIME_TO_RECHARGE = 50
-  static images: Image[]
+  #images: Image[]
 
   #timeToRecharge = 0
-  static setImages(images: Image[]) {
-    TowerRed.images = images
-  }
 
-  static instantiate(position: Position, tileOrange: TileOrange) {
-    return new TowerRed(
-      {
-        x: position.x - Const.TOWER_OFFSET,
-        y: position.y - Const.TOWER_OFFSET,
-      },
-      tileOrange,
-    )
+  constructor(position: Position, tileOrange: TileOrange, images: Image[]) {
+    super(position, tileOrange)
+    this.#images = images
   }
 
   #drawUpgrading() {
@@ -77,7 +69,7 @@ export class TowerRed extends Tower {
       )
     }
 
-    P5.p5.image(TowerRed.images[this.upgradeLevel], 0, 0)
+    P5.p5.image(this.#images[this.upgradeLevel], 0, 0)
 
     P5.p5.resetMatrix()
     P5.p5.imageMode(P5.p5.CORNER)
@@ -85,7 +77,7 @@ export class TowerRed extends Tower {
 
   #drawWhenNoEnemyTarget() {
     P5.p5.image(
-      TowerRed.images[this.upgradeLevel],
+      this.#images[this.upgradeLevel],
       this.position.x + Tower.OFFSET_X,
       this.position.y + Tower.OFFSET_Y,
     )
