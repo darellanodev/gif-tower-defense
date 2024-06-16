@@ -1,11 +1,10 @@
 import { Image } from 'p5'
 import { Enemy } from '../enemies/Enemy'
 import { Magic } from './Magic'
-import { ExplosionMagicIceball } from '../explosions/ExplosionMagicIceball'
 import { P5 } from '../utils/P5'
 import { PathMovement } from '../path/PathMovement'
 import { Const } from '../constants/Const'
-import { MagicCollisionChecker } from './MagicCollisionChecker'
+import { MagicIceballCollisionChecker } from './MagicIceballCollisionChecker'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 
 export class MagicIceball extends Magic {
@@ -13,18 +12,18 @@ export class MagicIceball extends Magic {
   static SPEED = 10
 
   #pathMovement: PathMovement
-  #magicCollisionChecker: MagicCollisionChecker
+  #magicIceballCollisionChecker: MagicIceballCollisionChecker
 
   #img: Image
   constructor(
     img: Image,
     pathMovement: PathMovement,
-    magicCollisionChecker: MagicCollisionChecker,
+    magicIceballCollisionChecker: MagicIceballCollisionChecker,
   ) {
     super(pathMovement.position)
     this.#img = img
     this.#pathMovement = pathMovement
-    this.#magicCollisionChecker = magicCollisionChecker
+    this.#magicIceballCollisionChecker = magicIceballCollisionChecker
   }
 
   freeze(enemy: Enemy) {
@@ -51,25 +50,9 @@ export class MagicIceball extends Magic {
     this.#pathMovement.update()
     this.updatePosition()
     this.updateStatus()
-    this.checkMagicIceballCollides(this, enemyInstancesManager.getAll())
-  }
-
-  checkMagicIceballCollides(magicIceball: MagicIceball, enemies: Enemy[]) {
-    enemies.forEach((enemy) => {
-      if (
-        magicIceball.#magicCollisionChecker.checkCollision(
-          enemy,
-          magicIceball.#pathMovement.indexOrder,
-        )
-      ) {
-        this.handleMagicIceballCollision(magicIceball, enemy)
-      }
-    })
-  }
-
-  handleMagicIceballCollision(magicIceball: MagicIceball, enemy: Enemy) {
-    magicIceball.freeze(enemy)
-    magicIceball.#magicCollisionChecker.setToIgnoreList(enemy)
-    ExplosionMagicIceball.instantiate(enemy.position)
+    this.#magicIceballCollisionChecker.check(
+      this,
+      enemyInstancesManager.getAll(),
+    )
   }
 }

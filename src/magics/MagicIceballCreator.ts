@@ -3,6 +3,7 @@ import { PathMovement } from '../path/PathMovement'
 import { MagicCollisionChecker } from './MagicCollisionChecker'
 import { MagicInstancesManager } from './MagicInstancesManager'
 import { MagicIceball } from './MagicIceball'
+import { MagicIceballCollisionChecker } from './MagicIceballCollisionChecker'
 
 export class MagicIceballCreator {
   #instancesManager: MagicInstancesManager
@@ -22,11 +23,15 @@ export class MagicIceballCreator {
   }
 
   create() {
+    const magicIceballCollisionChecker = new MagicIceballCollisionChecker(
+      this.#magicCollisionChecker,
+      this.#pathMovement,
+    )
     this.#instancesManager.add(
       new MagicIceball(
         this.#images,
         this.#pathMovement,
-        this.#magicCollisionChecker,
+        magicIceballCollisionChecker,
       ),
     )
   }
