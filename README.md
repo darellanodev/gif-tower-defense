@@ -27,7 +27,9 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - Code improvements:
 
   - [x] TowerGreenCreator, TowerRedCreator, and TowerYellowCreator like MagicFireballCreator, ...
-  - [ ] Extract class for collision from MagicFireball and MagicIceBall
+  - [x] Extract collision logic from Magic classes to collision classes.
+  - [ ] Make the towers with an instance manager concept like the enemies or the magics
+  - [ ] Make the tiles with an instance manager concept like the enemies or the magics
   - [ ] Review static methods to convert them to normal methods
 
 - The player can:
