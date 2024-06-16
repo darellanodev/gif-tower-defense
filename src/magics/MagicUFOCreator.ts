@@ -2,6 +2,7 @@ import { Image } from 'p5'
 import { MagicInstancesManager } from './MagicInstancesManager'
 import { MagicUFO } from './MagicUFO'
 import { Position } from '../types/position'
+import { MagicUFOCollisionChecker } from './MagicUFOCollisionChecker'
 
 export class MagicUFOCreator {
   #images: Image[]
@@ -19,11 +20,15 @@ export class MagicUFOCreator {
 
   // this is the only magic that needs to pass in the instance creation the instances manager (magicInstancesManager). The UFO needs to see if other UFOs has targeted the enemy to target it
   create() {
+    const magicUFOCollisionChecker = new MagicUFOCollisionChecker(
+      this.#startPosition,
+    )
     this.#magicInstancesManager.add(
       new MagicUFO(
         this.#images,
         this.#startPosition,
         this.#magicInstancesManager,
+        magicUFOCollisionChecker,
       ),
     )
   }

@@ -4,9 +4,9 @@ import { Position } from '../types/position'
 import { P5 } from '../utils/P5'
 import { Enemy } from '../enemies/Enemy'
 import { Const } from '../constants/Const'
-import { PositionUtils } from '../utils/PositionUtils'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 import { MagicInstancesManager } from './MagicInstancesManager'
+import { MagicUFOCollisionChecker } from './MagicUFOCollisionChecker'
 
 export class MagicUFO extends Magic {
   static SPEED = 2
@@ -28,11 +28,12 @@ export class MagicUFO extends Magic {
   #goOut: boolean = false
   #id: number = 0
   #instancesManager: MagicInstancesManager // the UFO needs to see the other UFOs
-
+  #magicUFOCollisionChecker: MagicUFOCollisionChecker
   constructor(
     images: Image[],
     startPosition: Position,
     instancesManager: MagicInstancesManager,
+    magicUFOCollisionChecker: MagicUFOCollisionChecker,
   ) {
     super(startPosition)
     this.#images = images
@@ -42,6 +43,7 @@ export class MagicUFO extends Magic {
     this.#id = MagicUFO.numberOfUFOs
 
     this.#instancesManager = instancesManager
+    this.#magicUFOCollisionChecker = magicUFOCollisionChecker
   }
 
   #drawUFO() {
@@ -97,43 +99,17 @@ export class MagicUFO extends Magic {
     }
   }
 
-  #isCollidingWithEnemy() {
-    if (!this.#enemyTarget) {
-      return false
-    }
-    return PositionUtils.isInsideRectangle(
-      {
-        x: this.position.x + Const.TILE_SIZE / 2,
-        y: this.position.y + Const.TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
-      },
-      {
-        x: this.#enemyTarget.position.x,
-        y: this.#enemyTarget.position.y,
-      },
-      { w: Const.TILE_SIZE, h: Const.TILE_SIZE },
-    )
-  }
-
-  #isCollidingWithStartPosition() {
-    return PositionUtils.isInsideRectangle(
-      {
-        x: this.position.x + Const.TILE_SIZE / 2,
-        y: this.position.y + Const.TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
-      },
-      {
-        x: this.startPosition.x,
-        y: this.startPosition.y,
-      },
-      { w: Const.TILE_SIZE, h: Const.TILE_SIZE },
-    )
-  }
-
   #startedAbduct(): boolean {
     return this.#timeToAbduct > 0
   }
 
   #checkCollisionToAbductEnemy() {
-    if (this.#isCollidingWithEnemy()) {
+    if (
+      this.#magicUFOCollisionChecker.isCollidingWithEnemy(
+        this,
+        this.#enemyTarget,
+      )
+    ) {
       this.#showRay = true
       this.#abduct()
     } else {
@@ -147,7 +123,7 @@ export class MagicUFO extends Magic {
   }
 
   #checkCollisionWithStartPosition() {
-    if (this.#isCollidingWithStartPosition()) {
+    if (this.#magicUFOCollisionChecker.isCollidingWithStartPosition(this)) {
       if (!this.#enemyTarget) {
         return
       }
