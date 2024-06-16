@@ -52,16 +52,11 @@ export class MagicFireball extends Magic {
     this.#pathMovement.update()
     this.updatePosition()
     this.updateStatus()
-    MagicFireball.checkMagicFireballCollides(
-      this,
-      enemyInstancesManager.getAll(),
-    )
+
+    this.checkMagicFireballCollides(this, enemyInstancesManager.getAll())
   }
 
-  static checkMagicFireballCollides(
-    magicFireball: MagicFireball,
-    enemies: Enemy[],
-  ) {
+  checkMagicFireballCollides(magicFireball: MagicFireball, enemies: Enemy[]) {
     enemies.forEach((enemy) => {
       if (
         magicFireball.#magicCollisionChecker.checkCollision(
@@ -69,15 +64,12 @@ export class MagicFireball extends Magic {
           magicFireball.#pathMovement.indexOrder,
         )
       ) {
-        MagicFireball.handleMagicFireballCollision(magicFireball, enemy)
+        this.handleMagicFireballCollision(magicFireball, enemy)
       }
     })
   }
 
-  static handleMagicFireballCollision(
-    magicFireball: MagicFireball,
-    enemy: Enemy,
-  ) {
+  handleMagicFireballCollision(magicFireball: MagicFireball, enemy: Enemy) {
     magicFireball.addDamage(enemy)
     magicFireball.#magicCollisionChecker.setToIgnoreList(enemy)
     if (!ConstTest.DISABLE_EXPLOSION_FOR_UNIT_TESTING) {

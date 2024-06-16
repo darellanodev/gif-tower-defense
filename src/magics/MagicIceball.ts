@@ -51,13 +51,10 @@ export class MagicIceball extends Magic {
     this.#pathMovement.update()
     this.updatePosition()
     this.updateStatus()
-    MagicIceball.checkMagicIceballCollides(this, enemyInstancesManager.getAll())
+    this.checkMagicIceballCollides(this, enemyInstancesManager.getAll())
   }
 
-  static checkMagicIceballCollides(
-    magicIceball: MagicIceball,
-    enemies: Enemy[],
-  ) {
+  checkMagicIceballCollides(magicIceball: MagicIceball, enemies: Enemy[]) {
     enemies.forEach((enemy) => {
       if (
         magicIceball.#magicCollisionChecker.checkCollision(
@@ -65,12 +62,12 @@ export class MagicIceball extends Magic {
           magicIceball.#pathMovement.indexOrder,
         )
       ) {
-        MagicIceball.handleMagicIceballCollision(magicIceball, enemy)
+        this.handleMagicIceballCollision(magicIceball, enemy)
       }
     })
   }
 
-  static handleMagicIceballCollision(magicIceball: MagicIceball, enemy: Enemy) {
+  handleMagicIceballCollision(magicIceball: MagicIceball, enemy: Enemy) {
     magicIceball.freeze(enemy)
     magicIceball.#magicCollisionChecker.setToIgnoreList(enemy)
     ExplosionMagicIceball.instantiate(enemy.position)
