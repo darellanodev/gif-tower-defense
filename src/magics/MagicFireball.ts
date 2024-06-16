@@ -1,31 +1,28 @@
 import { Image } from 'p5'
 import { Enemy } from '../enemies/Enemy'
 import { Magic } from './Magic'
-import { ExplosionMagicFireball } from '../explosions/ExplosionMagicFireball'
 import { P5 } from '../utils/P5'
 import { PathMovement } from '../path/PathMovement'
 import { Const } from '../constants/Const'
-import { MagicCollisionChecker } from './MagicCollisionChecker'
-import { ConstTest } from '../constants/ConstTest'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
+import { MagicFireballCollisionChecker } from './MagicFireballCollisionChecker'
 
 export class MagicFireball extends Magic {
   static DAMAGE = 500
   static SPEED = 10
 
-  #magicCollisionChecker: MagicCollisionChecker
   #pathMovement: PathMovement
-
+  #magicFireballCollisionChecker: MagicFireballCollisionChecker
   #img: Image
   constructor(
     img: Image,
     pathMovement: PathMovement,
-    magicCollisionChecker: MagicCollisionChecker,
+    magicFireballCollisionChecker: MagicFireballCollisionChecker,
   ) {
     super(pathMovement.position)
     this.#img = img
     this.#pathMovement = pathMovement
-    this.#magicCollisionChecker = magicCollisionChecker
+    this.#magicFireballCollisionChecker = magicFireballCollisionChecker
   }
 
   addDamage(enemy: Enemy) {
@@ -52,28 +49,9 @@ export class MagicFireball extends Magic {
     this.#pathMovement.update()
     this.updatePosition()
     this.updateStatus()
-
-    this.checkMagicFireballCollides(this, enemyInstancesManager.getAll())
-  }
-
-  checkMagicFireballCollides(magicFireball: MagicFireball, enemies: Enemy[]) {
-    enemies.forEach((enemy) => {
-      if (
-        magicFireball.#magicCollisionChecker.checkCollision(
-          enemy,
-          magicFireball.#pathMovement.indexOrder,
-        )
-      ) {
-        this.handleMagicFireballCollision(magicFireball, enemy)
-      }
-    })
-  }
-
-  handleMagicFireballCollision(magicFireball: MagicFireball, enemy: Enemy) {
-    magicFireball.addDamage(enemy)
-    magicFireball.#magicCollisionChecker.setToIgnoreList(enemy)
-    if (!ConstTest.DISABLE_EXPLOSION_FOR_UNIT_TESTING) {
-      ExplosionMagicFireball.instantiate(enemy.position)
-    }
+    this.#magicFireballCollisionChecker.check(
+      this,
+      enemyInstancesManager.getAll(),
+    )
   }
 }

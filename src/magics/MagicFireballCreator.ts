@@ -3,6 +3,7 @@ import { PathMovement } from '../path/PathMovement'
 import { MagicCollisionChecker } from './MagicCollisionChecker'
 import { MagicInstancesManager } from './MagicInstancesManager'
 import { MagicFireball } from './MagicFireball'
+import { MagicFireballCollisionChecker } from './MagicFireballCollisionChecker'
 
 export class MagicFireballCreator {
   #instancesManager: MagicInstancesManager
@@ -22,11 +23,15 @@ export class MagicFireballCreator {
   }
 
   create() {
+    const magicFireballCollisionChecker = new MagicFireballCollisionChecker(
+      this.#magicCollisionChecker,
+      this.#pathMovement,
+    )
     this.#instancesManager.add(
       new MagicFireball(
         this.#images,
         this.#pathMovement,
-        this.#magicCollisionChecker,
+        magicFireballCollisionChecker,
       ),
     )
   }
