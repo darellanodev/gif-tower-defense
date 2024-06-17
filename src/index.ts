@@ -3,7 +3,6 @@ import { Const } from './constants/Const'
 import { Path } from './path/Path'
 import { TileGenerator } from './tiles/TileGenerator'
 import { TileOrange } from './tiles/TileOrange'
-import { Arrays } from './utils/Arrays'
 import { Enemy } from './enemies/Enemy'
 import { Debug } from './hud/Debug'
 import { ExplosionEnemy } from './explosions/ExplosionEnemy'
@@ -27,14 +26,13 @@ import { HudProgressBarWave } from './hud/HudProgressBarWave'
 import { HudOtherIndicators } from './hud/HudOtherIndicators'
 import { Wallet } from './player/Wallet'
 import { Controls } from './player/Controls'
-import { EnemyAnimator } from './enemies/EnemyAnimator'
-import { PathMovement } from './path/PathMovement'
 import { EnemyInstancesManager } from './enemies/EnemyInstancesManager'
 import { EnemyCreator } from './enemies/EnemyCreator'
 import { MagicInstancesManager } from './magics/MagicInstancesManager'
 import { TowerGreenCreator } from './towers/TowerGreenCreator'
 import { TowerRedCreator } from './towers/TowerRedCreator'
 import { TowerYellowCreator } from './towers/TowerYellowCreator'
+import { Game } from './Game'
 
 let _p5: p5
 let gameStatus: number = 0
@@ -55,6 +53,7 @@ let enemyCreator: EnemyCreator
 let magicFireballInstancesManager: MagicInstancesManager
 let magicIceballInstancesManager: MagicInstancesManager
 let magicUFOInstancesManager: MagicInstancesManager
+let game: Game
 
 // ugly hack: remove the extra canvas created
 window.addEventListener('load', () => {
@@ -86,23 +85,6 @@ function getMouseTileOrangeOver(): TileOrange | null {
   )
 
   return result ? result : null
-}
-
-function updateMagics() {
-  magicFireballInstancesManager.updateInstances()
-  magicFireballInstancesManager.removeDeadInstances()
-
-  magicIceballInstancesManager.updateInstances()
-  magicIceballInstancesManager.removeDeadInstances()
-
-  magicUFOInstancesManager.updateInstances()
-  magicUFOInstancesManager.removeDeadInstances()
-}
-
-function drawMagics() {
-  magicFireballInstancesManager.drawInstances()
-  magicIceballInstancesManager.drawInstances()
-  magicUFOInstancesManager.drawInstances()
 }
 
 function disableContextualMenu() {
@@ -207,119 +189,45 @@ window.setup = () => {
   hudProgressBarBoss = new HudProgressBarBoss()
   hudProgressBarWave = new HudProgressBarWave(player)
   hudOtherIndicators = new HudOtherIndicators(wallet, player)
+
+  game = new Game(
+    enemyCreator,
+    player,
+    magicIceballInstancesManager,
+    magicFireballInstancesManager,
+    magicUFOInstancesManager,
+    enemyInstancesManager,
+    wallet,
+    hudPanel,
+    hudButtonsMagic,
+    hudButtonsTowers,
+    hudProgressBarBoss,
+    hudProgressBarWave,
+    hudOtherIndicators,
+    controls,
+  )
 }
 
 window.keyPressed = () => {
   controls.keyPressed()
 }
 
-const handleNewEnemyCreation = () => {
-  if (Enemy.allowCreateEnemies) {
-    if (Enemy.waveEnemies < Enemy.TOTAL_ENEMIES) {
-      Enemy.createEnemyTime++
-      if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
-        Enemy.createEnemyTime = 0
-        const enemyAnimator = new EnemyAnimator(
-          Images.enemiesImages.slice(
-            ...Arrays.getTwoNumbersFourTimes(Enemy.waveEnemies),
-          ),
-        )
-
-        const pathMovement = new PathMovement(
-          Path.initialEnemiesPosition,
-          Path.orders,
-          Enemy.VELOCITY,
-        )
-
-        enemyCreator.createNormal(
-          Enemy.waveEnemies,
-          Path.initialEnemiesPosition,
-          player.wave,
-          enemyAnimator,
-          pathMovement,
-        )
-
-        Enemy.waveEnemies++
-      }
-    } else {
-      Enemy.allowCreateEnemies = false
-      Enemy.waveEnemies = 0
-    }
-  }
-}
-
-const handleWinners = () => {
-  let gameStatus = Const.GAME_STATUS_PLAYING
-  const winnerEnemies = enemyInstancesManager
-    .getAll()
-    .filter((enemy) => enemy.winner)
-  winnerEnemies.forEach((enemy) => {
-    player.decreaseLives()
-    if (player.lives <= 0) {
-      gameStatus = Const.GAME_STATUS_GAME_OVER
-    }
-    enemy.resetWinner()
-  })
-  return gameStatus
-}
-
-const handleExplosionEnemys = () => {
-  const deadEnemies: Enemy[] = enemyInstancesManager
-    .getAll()
-    .filter((enemy) => enemy.dead)
-  deadEnemies.forEach((enemy) => {
-    ExplosionEnemy.instantiate(enemy.position)
-
-    const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR
-    wallet.increaseMoney($increasedMoney)
-    player.increaseScore($increasedMoney * 2)
-  })
-}
-
-const updateEnemies = () => {
-  handleNewEnemyCreation()
-  handleExplosionEnemys()
-  enemyInstancesManager.removeDeadInstances()
-  enemyInstancesManager.updateInstances()
-
-  return handleWinners()
-}
-
 window.draw = () => {
   if (gameStatus === Const.GAME_STATUS_PLAYING) {
-    gameStatus = updateEnemies()
+    gameStatus = game.updateEnemies()
     controls.mouseTileOrangeOver = getMouseTileOrangeOver()
     instantiateEnemies = hudProgressBarWave.updateWaveProgressBar()
     instantiateBoss = hudProgressBarBoss.updateBossProgressBar()
 
     if (instantiateBoss) {
-      const enemyBossAnimator = new EnemyAnimator(
-        Images.enemiesImages.slice(
-          ...Arrays.getTwoNumbersFourTimes(
-            EnemyAnimator.INDEX_BOSS_IN_ENEMIES_IMAGES,
-          ),
-        ),
-      )
-
-      const pathMovement = new PathMovement(
-        Path.initialEnemiesPosition,
-        Path.orders,
-        Enemy.BOSS_VELOCITY,
-      )
-
-      enemyCreator.createBoss(
-        Path.initialEnemiesPosition,
-        player.wave,
-        enemyBossAnimator,
-        pathMovement,
-      )
+      game.instantiateBoss()
     }
 
     if (instantiateEnemies) {
       Enemy.allowCreateEnemies = true
     }
 
-    updateMagics()
+    game.updateMagics()
     Missile.updateInstances()
   }
 
@@ -328,39 +236,13 @@ window.draw = () => {
 
   P5.p5.image(Images.backgroundImage, 0, HudPanel.HEIGHT)
 
-  Path.startTile.draw()
-  Path.endTile.draw()
-
-  TileOrange.instances.forEach((orangeTile) => {
-    orangeTile.selectTarget(enemyInstancesManager.getAll())
-    orangeTile.drawTile()
-  })
-
-  TileOrange.instances.forEach((orangeTile) => {
-    orangeTile.updateTower()
-    orangeTile.drawTower()
-  })
-
-  hudPanel.draw()
-
-  if (controls.mouseTileOrangeOver !== null) {
-    if (controls.mouseTileOrangeOver.hasTower()) {
-      controls.drawMouseIsOverOrangeTileWithTower(controls.mouseTileOrangeOver)
-    } else {
-      controls.drawMouseIsOverOrangeTileWithoutTower()
-    }
-  } else {
-    hudPanel.drawNormalHud()
-  }
-  hudButtonsTowers.draw()
-  hudButtonsMagic.draw()
-  hudProgressBarWave.draw()
-  hudProgressBarBoss.draw()
-  hudOtherIndicators.draw()
+  game.drawTiles()
+  game.drawTowers()
+  game.drawHud()
 
   enemyInstancesManager.drawInstances()
 
-  drawMagics()
+  game.drawMagics()
 
   ExplosionEnemy.removeDeadInstances()
   ExplosionMagicFireball.removeDeadInstances()
