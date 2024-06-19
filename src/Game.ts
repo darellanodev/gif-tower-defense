@@ -248,32 +248,42 @@ export class Game {
     this.#hudOtherIndicators.draw()
   }
 
+  #createPathMovement() {
+    return new PathMovement(
+      Path.initialEnemiesPosition,
+      Path.orders,
+      Enemy.VELOCITY,
+    )
+  }
+
+  #createEnemyAnimator() {
+    return new EnemyAnimator(
+      Images.enemiesImages.slice(
+        ...Arrays.getTwoNumbersFourTimes(Enemy.waveEnemies),
+      ),
+    )
+  }
+
+  #createNormalEnemy() {
+    const enemyAnimator = this.#createEnemyAnimator()
+    const pathMovement = this.#createPathMovement()
+
+    this.#enemyCreator.createNormal(
+      Enemy.waveEnemies,
+      Path.initialEnemiesPosition,
+      this.#player.wave,
+      enemyAnimator,
+      pathMovement,
+    )
+  }
+
   handleNewEnemyCreation() {
     if (Enemy.allowCreateEnemies) {
       if (Enemy.waveEnemies < Enemy.TOTAL_ENEMIES) {
         Enemy.createEnemyTime++
         if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
           Enemy.createEnemyTime = 0
-          const enemyAnimator = new EnemyAnimator(
-            Images.enemiesImages.slice(
-              ...Arrays.getTwoNumbersFourTimes(Enemy.waveEnemies),
-            ),
-          )
-
-          const pathMovement = new PathMovement(
-            Path.initialEnemiesPosition,
-            Path.orders,
-            Enemy.VELOCITY,
-          )
-
-          this.#enemyCreator.createNormal(
-            Enemy.waveEnemies,
-            Path.initialEnemiesPosition,
-            this.#player.wave,
-            enemyAnimator,
-            pathMovement,
-          )
-
+          this.#createNormalEnemy()
           Enemy.waveEnemies++
         }
       } else {
