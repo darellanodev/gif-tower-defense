@@ -216,9 +216,8 @@ export class Game {
     })
   }
 
-  #drawHud() {
-    this.#hudPanel.draw()
-
+  // TODO: this do too much, separate drawing influence area and hud background
+  #drawHudBackgroundImageAndInfluenceArea() {
     if (this.#controls.mouseTileOrangeOver !== null) {
       if (this.#controls.mouseTileOrangeOver.hasTower()) {
         this.#controls.drawMouseIsOverOrangeTileWithTower(
@@ -230,6 +229,11 @@ export class Game {
     } else {
       this.#hudPanel.drawNormalHud()
     }
+  }
+
+  #drawHud() {
+    this.#hudPanel.draw()
+    this.#drawHudBackgroundImageAndInfluenceArea()
     this.#hudButtonsTowers.draw()
     this.#hudButtonsMagic.draw()
     this.#hudProgressBarWave.draw()
