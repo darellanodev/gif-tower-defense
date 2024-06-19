@@ -216,24 +216,40 @@ export class Game {
     })
   }
 
-  // TODO: this do too much, separate drawing influence area and hud background
-  #drawHudBackgroundImageAndInfluenceArea() {
-    if (this.#controls.mouseTileOrangeOver !== null) {
-      if (this.#controls.mouseTileOrangeOver.hasTower()) {
-        this.#controls.drawMouseIsOverOrangeTileWithTower(
-          this.#controls.mouseTileOrangeOver,
-        )
+  get #isMouseOverOrangeTile() {
+    return this.#controls.mouseTileOrangeOver !== null
+  }
+
+  #drawHudBackgroundImage() {
+    if (this.#isMouseOverOrangeTile) {
+      const orangeTile = this.#controls.mouseTileOrangeOver
+      if (orangeTile?.hasTower()) {
+        const tower = orangeTile.getTower()
+        this.#controls.drawHudBackgroundWhenTowerExists(tower)
       } else {
-        this.#controls.drawMouseIsOverOrangeTileWithoutTower()
+        this.#controls.drawHudBackgroundWhenTowerNotExists()
       }
     } else {
       this.#hudPanel.drawNormalHud()
     }
   }
 
+  #drawInfluenceArea() {
+    if (this.#isMouseOverOrangeTile) {
+      const orangeTile = this.#controls.mouseTileOrangeOver
+      if (orangeTile?.hasTower()) {
+        const tower = orangeTile.getTower()
+        this.#controls.drawInfluenceAreaWhenTowerExists(tower)
+      } else {
+        this.#controls.drawInfluenceAreaWhenTowerNotExists(orangeTile?.position)
+      }
+    }
+  }
+
   #drawHud() {
     this.#hudPanel.draw()
-    this.#drawHudBackgroundImageAndInfluenceArea()
+    this.#drawHudBackgroundImage()
+    this.#drawInfluenceArea()
     this.#hudButtonsTowers.draw()
     this.#hudButtonsMagic.draw()
     this.#hudProgressBarWave.draw()

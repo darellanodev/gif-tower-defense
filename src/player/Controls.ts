@@ -11,6 +11,7 @@ import { HudButtonsMagics } from '../hud/HudButtonsMagics'
 import { Wallet } from './Wallet'
 import { InfluenceArea } from '../towers/InfluenceArea'
 import { MagicInstancesManager } from '../magics/MagicInstancesManager'
+import { TowerType } from '../types/towerType'
 
 export class Controls {
   #mouseTileOrangeOver: TileOrange | null = null
@@ -107,42 +108,50 @@ export class Controls {
     }
   }
 
-  drawMouseIsOverOrangeTileWithTower(mouseTileOrangeOver: TileOrange | null) {
-    const playerMouseTileOrangeOver = mouseTileOrangeOver
-
-    if (!playerMouseTileOrangeOver) {
-      return
-    }
-
-    const tower = playerMouseTileOrangeOver.getTower()
-
+  drawInfluenceAreaWhenTowerExists(tower: TowerType | null) {
     if (!tower) {
       return
     }
+    if (!tower.isMaxUpgraded) {
+      const canUpgrade = this.#wallet.haveMoneyToUpgradeTower(
+        tower.type,
+        tower.upgradeLevel + 1,
+      )
+      InfluenceArea.drawTowerInfluenceArea(tower, canUpgrade)
+    } else {
+      InfluenceArea.drawTowerInfluenceArea(tower, false)
+    }
+  }
 
+  drawInfluenceAreaWhenTowerNotExists(position: Position | undefined) {
+    if (!position) {
+      return
+    }
+    const towerSelected = this.#hudButtonsTowers.getSelectedTower()
+
+    InfluenceArea.drawNoTowerInfluenceArea(
+      position,
+      towerSelected,
+      this.#wallet.haveMoneyToBuyNewTower(towerSelected),
+    )
+  }
+
+  drawHudBackgroundWhenTowerExists(tower: TowerType | null) {
+    if (!tower) {
+      return
+    }
     if (!tower.isMaxUpgraded) {
       const canUpgrade = this.#wallet.haveMoneyToUpgradeTower(
         tower.type,
         tower.upgradeLevel + 1,
       )
       this.#hudButtonsTowers.viewUpgradeCost(tower, canUpgrade)
-      InfluenceArea.drawTowerInfluenceArea(tower, canUpgrade)
-    } else {
-      InfluenceArea.drawTowerInfluenceArea(tower, false)
     }
 
     this.#hudButtonsTowers.viewSellProfit(tower)
   }
 
-  drawMouseIsOverOrangeTileWithoutTower() {
-    if (this.mouseTileOrangeOver) {
-      const towerSelected = this.#hudButtonsTowers.getSelectedTower()
-
-      InfluenceArea.drawNoTowerInfluenceArea(
-        this.mouseTileOrangeOver.position,
-        towerSelected,
-        this.#wallet.haveMoneyToBuyNewTower(towerSelected),
-      )
-    }
+  drawHudBackgroundWhenTowerNotExists() {
+    //TODO
   }
 }
