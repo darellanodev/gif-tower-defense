@@ -142,7 +142,7 @@ export class Game {
     )
   }
 
-  updateMagics() {
+  #updateMagics() {
     this.#magicFireballInstancesManager.updateInstances()
     this.#magicFireballInstancesManager.removeDeadInstances()
 
@@ -153,13 +153,13 @@ export class Game {
     this.#magicUFOInstancesManager.removeDeadInstances()
   }
 
-  drawMagics() {
+  #drawMagics() {
     this.#magicFireballInstancesManager.drawInstances()
     this.#magicIceballInstancesManager.drawInstances()
     this.#magicUFOInstancesManager.drawInstances()
   }
 
-  instantiateBoss() {
+  #instantiateEnemyBoss() {
     const enemyBossAnimator = new EnemyAnimator(
       Images.enemiesImages.slice(
         ...Arrays.getTwoNumbersFourTimes(
@@ -182,7 +182,7 @@ export class Game {
     )
   }
 
-  handleWinners() {
+  #handleWinners() {
     let gameStatus = Const.GAME_STATUS_PLAYING
     const winnerEnemies = this.#enemyInstancesManager
       .getAll()
@@ -197,7 +197,7 @@ export class Game {
     return gameStatus
   }
 
-  handleExplosionEnemys() {
+  #handleExplosionEnemys() {
     const deadEnemies: Enemy[] = this.#enemyInstancesManager
       .getAll()
       .filter((enemy) => enemy.dead)
@@ -210,7 +210,7 @@ export class Game {
     })
   }
 
-  drawTiles() {
+  #drawTiles() {
     Path.startTile.draw()
     Path.endTile.draw()
 
@@ -220,14 +220,14 @@ export class Game {
     })
   }
 
-  drawTowers() {
+  #drawTowers() {
     TileOrange.instances.forEach((orangeTile) => {
       orangeTile.updateTower()
       orangeTile.drawTower()
     })
   }
 
-  drawHud() {
+  #drawHud() {
     this.#hudPanel.draw()
 
     if (this.#controls.mouseTileOrangeOver !== null) {
@@ -277,7 +277,7 @@ export class Game {
     )
   }
 
-  handleNewEnemyCreation() {
+  #handleNewEnemyCreation() {
     if (Enemy.allowCreateEnemies) {
       if (Enemy.waveEnemies < Enemy.TOTAL_ENEMIES) {
         Enemy.createEnemyTime++
@@ -293,16 +293,16 @@ export class Game {
     }
   }
 
-  updateEnemies() {
-    this.handleNewEnemyCreation()
-    this.handleExplosionEnemys()
+  #updateEnemies() {
+    this.#handleNewEnemyCreation()
+    this.#handleExplosionEnemys()
     this.#enemyInstancesManager.removeDeadInstances()
     this.#enemyInstancesManager.updateInstances()
 
-    return this.handleWinners()
+    return this.#handleWinners()
   }
 
-  drawExplosions() {
+  #drawExplosions() {
     ExplosionEnemy.removeDeadInstances()
     ExplosionMagicFireball.removeDeadInstances()
     ExplosionMagicIceball.removeDeadInstances()
@@ -312,39 +312,39 @@ export class Game {
     ExplosionMagicIceball.updateInstances()
   }
 
-  drawFlyIndicators() {
+  #drawFlyIndicators() {
     FlyIndicator.removeDeadInstances()
     FlyIndicator.updateInstances()
 
     FlyIndicator.drawInstances()
   }
 
-  drawBackground() {
+  #drawBackground() {
     P5.p5.background('skyblue')
     P5.p5.rectMode(P5.p5.CORNER)
 
     P5.p5.image(Images.backgroundImage, 0, HudPanel.HEIGHT)
   }
 
-  drawPlayingThings() {
-    this.#gameStatus = this.updateEnemies()
-    this.#controls.mouseTileOrangeOver = this.getMouseTileOrangeOver()
+  #drawPlayingThings() {
+    this.#gameStatus = this.#updateEnemies()
+    this.#controls.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
     this.#instantiateEnemies = this.#hudProgressBarWave.updateWaveProgressBar()
     this.#instantiateBoss = this.#hudProgressBarBoss.updateBossProgressBar()
 
     if (this.#instantiateBoss) {
-      this.instantiateBoss()
+      this.#instantiateEnemyBoss()
     }
 
     if (this.#instantiateEnemies) {
       Enemy.allowCreateEnemies = true
     }
 
-    this.updateMagics()
+    this.#updateMagics()
     Missile.updateInstances()
   }
 
-  getMouseTileOrangeOver() {
+  #getMouseTileOrangeOver() {
     const result = TileOrange.instances.find((orangeTile) =>
       orangeTile.isInside(P5.p5.mouseX, P5.p5.mouseY),
     )
@@ -372,44 +372,44 @@ export class Game {
     this.#controls.keyPressed()
   }
 
-  drawEnemies() {
+  #drawEnemies() {
     this.#enemyInstancesManager.drawInstances()
   }
 
-  drawGameOverScreen() {
+  #drawGameOverScreen() {
     TextProperties.setForBigCenteredTitle()
     P5.p5.text('Game over', P5.p5.width / 2, P5.p5.height / 2)
   }
 
-  drawDebugElements() {
+  #drawDebugElements() {
     Debug.showMouseCoordinates({ x: P5.p5.mouseX, y: P5.p5.mouseY })
     Debug.showLabelTestingMode()
   }
 
   draw() {
     if (this.#gameStatus === Const.GAME_STATUS_PLAYING) {
-      this.drawPlayingThings()
+      this.#drawPlayingThings()
     }
 
-    this.drawBackground()
-    this.drawTiles()
-    this.drawTowers()
-    this.drawHud()
-    this.drawEnemies()
+    this.#drawBackground()
+    this.#drawTiles()
+    this.#drawTowers()
+    this.#drawHud()
+    this.#drawEnemies()
 
-    this.drawMagics()
-    this.drawExplosions()
-    this.drawFlyIndicators()
+    this.#drawMagics()
+    this.#drawExplosions()
+    this.#drawFlyIndicators()
 
     if (this.#gameStatus === Const.GAME_STATUS_GAME_OVER) {
-      this.drawGameOverScreen()
+      this.#drawGameOverScreen()
     }
 
     Missile.removeDeadInstances()
     Missile.drawInstances()
 
     if (this.#wallet.isGameInTestingMode()) {
-      this.drawDebugElements()
+      this.#drawDebugElements()
     }
   }
 }
