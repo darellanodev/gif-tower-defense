@@ -224,8 +224,7 @@ export class Game {
     if (this.#isMouseOverOrangeTile) {
       const orangeTile = this.#controls.mouseTileOrangeOver
       if (orangeTile?.hasTower()) {
-        const tower = orangeTile.getTower()
-        this.#controls.drawHudBackgroundWhenTowerExists(tower)
+        this.#controls.drawHudBackgroundWhenTowerExists(orangeTile.getTower())
       } else {
         this.#controls.drawHudBackgroundWhenTowerNotExists()
       }
@@ -238,8 +237,7 @@ export class Game {
     if (this.#isMouseOverOrangeTile) {
       const orangeTile = this.#controls.mouseTileOrangeOver
       if (orangeTile?.hasTower()) {
-        const tower = orangeTile.getTower()
-        this.#controls.drawInfluenceAreaWhenTowerExists(tower)
+        this.#controls.drawInfluenceAreaWhenTowerExists(orangeTile.getTower())
       } else {
         this.#controls.drawInfluenceAreaWhenTowerNotExists(orangeTile?.position)
       }
