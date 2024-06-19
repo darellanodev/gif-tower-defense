@@ -160,19 +160,8 @@ export class Game {
   }
 
   #instantiateEnemyBoss() {
-    const enemyBossAnimator = new EnemyAnimator(
-      Images.enemiesImages.slice(
-        ...Arrays.getTwoNumbersFourTimes(
-          EnemyAnimator.INDEX_BOSS_IN_ENEMIES_IMAGES,
-        ),
-      ),
-    )
-
-    const pathMovement = new PathMovement(
-      Path.initialEnemiesPosition,
-      Path.orders,
-      Enemy.BOSS_VELOCITY,
-    )
+    const enemyBossAnimator = this.#createEnemyBossAnimator()
+    const pathMovement = this.#createPathMovement(Enemy.BOSS_VELOCITY)
 
     this.#enemyCreator.createBoss(
       Path.initialEnemiesPosition,
@@ -248,15 +237,11 @@ export class Game {
     this.#hudOtherIndicators.draw()
   }
 
-  #createPathMovement() {
-    return new PathMovement(
-      Path.initialEnemiesPosition,
-      Path.orders,
-      Enemy.VELOCITY,
-    )
+  #createPathMovement(speed: number) {
+    return new PathMovement(Path.initialEnemiesPosition, Path.orders, speed)
   }
 
-  #createEnemyAnimator() {
+  #createEnemyNormalAnimator() {
     return new EnemyAnimator(
       Images.enemiesImages.slice(
         ...Arrays.getTwoNumbersFourTimes(Enemy.waveEnemies),
@@ -264,9 +249,19 @@ export class Game {
     )
   }
 
-  #createNormalEnemy() {
-    const enemyAnimator = this.#createEnemyAnimator()
-    const pathMovement = this.#createPathMovement()
+  #createEnemyBossAnimator() {
+    return new EnemyAnimator(
+      Images.enemiesImages.slice(
+        ...Arrays.getTwoNumbersFourTimes(
+          EnemyAnimator.INDEX_BOSS_IN_ENEMIES_IMAGES,
+        ),
+      ),
+    )
+  }
+
+  #createEnemyNormal() {
+    const enemyAnimator = this.#createEnemyNormalAnimator()
+    const pathMovement = this.#createPathMovement(Enemy.VELOCITY)
 
     this.#enemyCreator.createNormal(
       Enemy.waveEnemies,
@@ -283,7 +278,7 @@ export class Game {
         Enemy.createEnemyTime++
         if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
           Enemy.createEnemyTime = 0
-          this.#createNormalEnemy()
+          this.#createEnemyNormal()
           Enemy.waveEnemies++
         }
       } else {
