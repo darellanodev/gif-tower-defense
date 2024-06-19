@@ -272,24 +272,28 @@ export class Game {
     )
   }
 
-  #handleNewEnemyCreation() {
+  #handleEnemyNormalCreation() {
     if (Enemy.allowCreateEnemies) {
       if (Enemy.waveEnemies < Enemy.TOTAL_ENEMIES) {
         Enemy.createEnemyTime++
         if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
-          Enemy.createEnemyTime = 0
           this.#createEnemyNormal()
+          Enemy.createEnemyTime = 0
           Enemy.waveEnemies++
         }
       } else {
-        Enemy.allowCreateEnemies = false
-        Enemy.waveEnemies = 0
+        this.#disableEnemyNormalCreation()
       }
     }
   }
 
+  #disableEnemyNormalCreation() {
+    Enemy.allowCreateEnemies = false
+    Enemy.waveEnemies = 0
+  }
+
   #updateEnemies() {
-    this.#handleNewEnemyCreation()
+    this.#handleEnemyNormalCreation()
     this.#handleExplosionEnemys()
     this.#enemyInstancesManager.removeDeadInstances()
     this.#enemyInstancesManager.updateInstances()
