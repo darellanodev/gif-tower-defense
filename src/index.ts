@@ -51,7 +51,7 @@ window.setup = () => {
 
   disableContextualMenu()
 
-  game = new Game()
+  game = Game.getInstance()
   stateManager = new StateManager()
 }
 
