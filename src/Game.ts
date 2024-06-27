@@ -36,7 +36,7 @@ import { TextProperties } from './hud/TextProperties'
 import { Debug } from './hud/Debug'
 
 export class Game {
-  static instance: Game | null = null
+  static #instance: Game | null = null
 
   #enemyCreator: EnemyCreator
   #player: Player
@@ -58,13 +58,13 @@ export class Game {
   #instantiateEnemies: boolean = false
 
   static getInstance() {
-    if (Game.instance === null) {
-      Game.instance = new Game()
+    if (Game.#instance === null) {
+      Game.#instance = new Game()
     }
-    return Game.instance
+    return Game.#instance
   }
   constructor() {
-    if (Game.instance !== null) {
+    if (Game.#instance !== null) {
       throw new Error(
         'Game is a singleton class. Use getInstance to get the instance of the Game.',
       )

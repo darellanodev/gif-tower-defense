@@ -1,11 +1,11 @@
 export class Player {
-  static instance: Player | null = null
+  static #instance: Player | null = null
 
   #lives: number = 7
   #score: number = 0
   #wave: number = 1
   constructor() {
-    if (Player.instance !== null) {
+    if (Player.#instance !== null) {
       throw new Error(
         'Player is a singleton class. Use getInstance to get the instance of the Player',
       )
@@ -13,10 +13,10 @@ export class Player {
   }
 
   static getInstance() {
-    if (Player.instance === null) {
-      Player.instance = new Player()
+    if (Player.#instance === null) {
+      Player.#instance = new Player()
     }
-    return Player.instance
+    return Player.#instance
   }
 
   get lives() {
