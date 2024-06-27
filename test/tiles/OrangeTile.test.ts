@@ -13,7 +13,7 @@ import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
 describe('isInside', () => {
   test('If mouse is inside, return true', () => {
     const position: Position = { x: 100, y: 200 }
-    const player = new Player()
+    const player = Player.getInstance()
     const towerGreenCreator = new TowerGreenCreator(images)
     const towerRedCreator = new TowerRedCreator(images)
     const towerYellowCreator = new TowerYellowCreator(images, player)
@@ -33,7 +33,7 @@ describe('isInside', () => {
 
   test('If mouse is outside, return false', () => {
     const position: Position = { x: 100, y: 200 }
-    const player = new Player()
+    const player = Player.getInstance()
     const towerGreenCreator = new TowerGreenCreator(images)
     const towerRedCreator = new TowerRedCreator(images)
     const towerYellowCreator = new TowerYellowCreator(images, player)

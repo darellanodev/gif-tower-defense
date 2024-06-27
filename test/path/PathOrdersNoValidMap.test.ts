@@ -9,7 +9,7 @@ import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
 
 test('length orders of makeOrders, when map is invalid, returns zero', () => {
   const noValidMap = getNoValidLevelMapUnreachableEndTile()
-  const player = new Player()
+  const player = Player.getInstance()
   const towerGreenCreator = new TowerGreenCreator(images)
   const towerRedCreator = new TowerRedCreator(images)
   const towerYellowCreator = new TowerYellowCreator(images, player)

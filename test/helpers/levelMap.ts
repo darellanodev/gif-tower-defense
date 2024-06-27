@@ -12,7 +12,7 @@ import { TowerRedCreator } from '../../src/towers/TowerRedCreator'
 import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
 
 export const getTileGeneratorFromMap = (levelMap: MapDataType | undefined) => {
-  const player = new Player()
+  const player = Player.getInstance()
   const towerGreenCreator = new TowerGreenCreator(images)
   const towerRedCreator = new TowerRedCreator(images)
   const towerYellowCreator = new TowerYellowCreator(images, player)

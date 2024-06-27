@@ -12,7 +12,7 @@ import { TowerRedCreator } from '../../src/towers/TowerRedCreator'
 import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
 
 test('Constructor, when passing an invalid map without rows map, throws "No rows map found" exception', () => {
-  const player = new Player()
+  const player = Player.getInstance()
   const noValidMap = getNoValidLevelMapWithoutRows()
   const towerGreenCreator = new TowerGreenCreator(images)
   const towerRedCreator = new TowerRedCreator(images)
@@ -31,7 +31,7 @@ test('Constructor, when passing an invalid map without rows map, throws "No rows
 })
 
 test('Constructor, when passing a non existing map, throws "Map is undefined" exception', () => {
-  const player = new Player()
+  const player = Player.getInstance()
   const noExistingMap = getNoExistingLevelMap()
   const towerGreenCreator = new TowerGreenCreator(images)
   const towerRedCreator = new TowerRedCreator(images)

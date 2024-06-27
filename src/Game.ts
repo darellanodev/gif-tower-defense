@@ -90,7 +90,7 @@ export class Game {
       throw new Error('Map invalid')
     }
 
-    this.#player = new Player()
+    this.#player = Player.getInstance()
 
     const towerGreenCreator = new TowerGreenCreator(Images.greenTowerImages)
     const towerRedCreator = new TowerRedCreator(Images.redTowerImages)

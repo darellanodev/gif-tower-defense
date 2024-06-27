@@ -23,7 +23,7 @@ export const instantiateRedTower = () => {
 export const instantiateYellowTower = () => {
   const orangeTile = instantiateOrangeTile()
   const towerYellowPosition: Position = { x: 10, y: 20 }
-  const player = new Player()
+  const player = Player.getInstance()
   const towerYellowCreator = new TowerYellowCreator(images, player)
   return towerYellowCreator.create(towerYellowPosition, orangeTile)
 }
