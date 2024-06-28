@@ -14,9 +14,9 @@ describe('isInside', () => {
   test('If mouse is inside, return true', () => {
     const position: Position = { x: 100, y: 200 }
     const player = Player.getInstance()
-    const towerGreenCreator = new TowerGreenCreator(images)
-    const towerRedCreator = new TowerRedCreator(images)
-    const towerYellowCreator = new TowerYellowCreator(images, player)
+    const towerGreenCreator = TowerGreenCreator.getInstance(images)
+    const towerRedCreator = TowerRedCreator.getInstance(images)
+    const towerYellowCreator = TowerYellowCreator.getInstance(images, player)
     const orangeTile = new TileOrange(
       img,
       position,
@@ -34,9 +34,9 @@ describe('isInside', () => {
   test('If mouse is outside, return false', () => {
     const position: Position = { x: 100, y: 200 }
     const player = Player.getInstance()
-    const towerGreenCreator = new TowerGreenCreator(images)
-    const towerRedCreator = new TowerRedCreator(images)
-    const towerYellowCreator = new TowerYellowCreator(images, player)
+    const towerGreenCreator = TowerGreenCreator.getInstance(images)
+    const towerRedCreator = TowerRedCreator.getInstance(images)
+    const towerYellowCreator = TowerYellowCreator.getInstance(images, player)
     const orangeTile = new TileOrange(
       img,
       position,

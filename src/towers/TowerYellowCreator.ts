@@ -6,11 +6,25 @@ import { TowerYellow } from './TowerYellow'
 import { Player } from '../player/Player'
 
 export class TowerYellowCreator {
+  static #instance: TowerYellowCreator | null = null
+
   #images: Image[]
   #player: Player
   constructor(images: Image[], player: Player) {
+    if (TowerYellowCreator.#instance !== null) {
+      throw new Error(
+        'TowerYellowCreator is a singleton class, use getInstance to get the instance',
+      )
+    }
     this.#images = images
     this.#player = player
+  }
+
+  static getInstance(images: Image[], player: Player) {
+    if (TowerYellowCreator.#instance === null) {
+      TowerYellowCreator.#instance = new TowerYellowCreator(images, player)
+    }
+    return TowerYellowCreator.#instance
   }
 
   create(position: Position, tileOrange: TileOrange) {

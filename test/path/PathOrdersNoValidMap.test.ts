@@ -10,9 +10,9 @@ import { TileCreator } from '../../src/tiles/TileCreator'
 test('length orders of makeOrders, when map is invalid, returns zero', () => {
   const noValidMap = getNoValidLevelMapUnreachableEndTile()
   const player = Player.getInstance()
-  const towerGreenCreator = new TowerGreenCreator(images)
-  const towerRedCreator = new TowerRedCreator(images)
-  const towerYellowCreator = new TowerYellowCreator(images, player)
+  const towerGreenCreator = TowerGreenCreator.getInstance(images)
+  const towerRedCreator = TowerRedCreator.getInstance(images)
+  const towerYellowCreator = TowerYellowCreator.getInstance(images, player)
   const tileCreator = new TileCreator(
     noValidMap,
     images,

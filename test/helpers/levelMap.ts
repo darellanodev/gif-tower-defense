@@ -13,9 +13,9 @@ import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
 
 export const getTileCreatorFromMap = (levelMap: MapDataType | undefined) => {
   const player = Player.getInstance()
-  const towerGreenCreator = new TowerGreenCreator(images)
-  const towerRedCreator = new TowerRedCreator(images)
-  const towerYellowCreator = new TowerYellowCreator(images, player)
+  const towerGreenCreator = TowerGreenCreator.getInstance(images)
+  const towerRedCreator = TowerRedCreator.getInstance(images)
+  const towerYellowCreator = TowerYellowCreator.getInstance(images, player)
   return new TileCreator(
     levelMap,
     images,

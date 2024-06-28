@@ -92,9 +92,11 @@ export class Game {
 
     this.#player = Player.getInstance()
 
-    const towerGreenCreator = new TowerGreenCreator(Images.greenTowerImages)
-    const towerRedCreator = new TowerRedCreator(Images.redTowerImages)
-    const towerYellowCreator = new TowerYellowCreator(
+    const towerGreenCreator = TowerGreenCreator.getInstance(
+      Images.greenTowerImages,
+    )
+    const towerRedCreator = TowerRedCreator.getInstance(Images.redTowerImages)
+    const towerYellowCreator = TowerYellowCreator.getInstance(
       Images.yellowTowerImages,
       this.#player,
     )
