@@ -104,71 +104,99 @@ export class TileGenerator {
     }
   }
 
-  _extractTiles(symbol: string) {
+  #instanceOrangeTile(resultTiles: any[], posX: number, posY: number) {
+    resultTiles.push(
+      new TileOrange(
+        this.#orangeImage,
+        { x: posX, y: posY },
+        this.#player,
+        this.#towerGreenCreator,
+        this.#towerRedCreator,
+        this.#towerYellowCreator,
+      ),
+    )
+  }
+
+  #instancePathTile(resultTiles: any[], posX: number, posY: number) {
+    resultTiles.push(new TilePath({ x: posX, y: posY }))
+  }
+
+  #instanceStartTile(resultTiles: any[], posX: number, posY: number) {
+    resultTiles.push(
+      new TileStart(
+        this.#startImage,
+        { x: posX, y: posY },
+        this.#startDirection,
+      ),
+    )
+  }
+
+  #processSymbol(
+    symbol: string,
+    resultTiles: any[],
+    posX: number,
+    posY: number,
+  ) {
+    switch (symbol) {
+      case ConstMapTileSymbol.ORANGE:
+        this.#instanceOrangeTile(resultTiles, posX, posY)
+        break
+      case ConstMapTileSymbol.PATH:
+        this.#instancePathTile(resultTiles, posX, posY)
+        break
+      case ConstMapTileSymbol.START:
+        this.#instanceStartTile(resultTiles, posX, posY)
+        break
+      case ConstMapTileSymbol.END:
+        resultTiles.push(new TileEnd(this.#endImage, { x: posX, y: posY }))
+        break
+    }
+  }
+
+  #processRow(
+    resultTiles: any[],
+    trimmedRow: string,
+    rowCount: number,
+    symbol: string,
+  ) {
+    for (let column = 0; column < trimmedRow.length; column++) {
+      const character = trimmedRow[column]
+      const posX = TileGenerator.FLOOR_SIZE * column
+      const posY =
+        TileGenerator.FLOOR_SIZE * rowCount + TileGenerator.MARGIN_TOP
+      if (character === symbol) {
+        this.#processSymbol(symbol, resultTiles, posX, posY)
+      }
+    }
+  }
+
+  #extractTiles(symbol: string) {
     const resultTiles: any[] = []
 
     let rowCount = 0
     this.#levelMap.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
-      for (let column = 0; column < trimmedRow.length; column++) {
-        const character = trimmedRow[column]
-        const posX = TileGenerator.FLOOR_SIZE * column
-        const posY =
-          TileGenerator.FLOOR_SIZE * rowCount + TileGenerator.MARGIN_TOP
-        if (character === symbol) {
-          switch (symbol) {
-            case ConstMapTileSymbol.ORANGE:
-              resultTiles.push(
-                new TileOrange(
-                  this.#orangeImage,
-                  { x: posX, y: posY },
-                  this.#player,
-                  this.#towerGreenCreator,
-                  this.#towerRedCreator,
-                  this.#towerYellowCreator,
-                ),
-              )
-              break
-            case ConstMapTileSymbol.PATH:
-              resultTiles.push(new TilePath({ x: posX, y: posY }))
-              break
-            case ConstMapTileSymbol.START:
-              resultTiles.push(
-                new TileStart(
-                  this.#startImage,
-                  { x: posX, y: posY },
-                  this.#startDirection,
-                ),
-              )
-              break
-            case ConstMapTileSymbol.END:
-              resultTiles.push(
-                new TileEnd(this.#endImage, { x: posX, y: posY }),
-              )
-              break
-          }
-        }
-      }
+      this.#processRow(resultTiles, trimmedRow, rowCount, symbol)
     })
 
     return resultTiles
   }
 
   get orangeTiles() {
-    return this._extractTiles('0')
+    return this.#extractTiles('0')
   }
 
   get pathTiles() {
-    return this._extractTiles('1')
+    return this.#extractTiles('1')
   }
 
   get startTile() {
-    return this._extractTiles('x')[0]
+    return this.#extractTiles('x')[0]
   }
 
   get endTile() {
-    return this._extractTiles('y')[0]
+    return this.#extractTiles('y')[0]
   }
 
   get initialMoney() {
