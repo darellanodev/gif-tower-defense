@@ -12,6 +12,8 @@ import { TowerRedCreator } from '../towers/TowerRedCreator'
 import { TowerYellowCreator } from '../towers/TowerYellowCreator'
 
 export class TileCreator {
+  static #instance: TileCreator | null = null
+
   static FLOOR_SIZE = 50
   static MARGIN_TOP = 30
 
@@ -29,6 +31,27 @@ export class TileCreator {
   #towerRedCreator: TowerRedCreator
   #towerYellowCreator: TowerYellowCreator
 
+  static getInstance(
+    levelMap: MapDataType | undefined,
+    mapImages: Image[],
+    player: Player,
+    towerGreenCreator: TowerGreenCreator,
+    towerRedCreator: TowerRedCreator,
+    towerYellowCreator: TowerYellowCreator,
+  ) {
+    if (TileCreator.#instance === null) {
+      TileCreator.#instance = new TileCreator(
+        levelMap,
+        mapImages,
+        player,
+        towerGreenCreator,
+        towerRedCreator,
+        towerYellowCreator,
+      )
+    }
+    return TileCreator.#instance
+  }
+
   constructor(
     levelMap: MapDataType | undefined,
     mapImages: Image[],
@@ -37,6 +60,12 @@ export class TileCreator {
     towerRedCreator: TowerRedCreator,
     towerYellowCreator: TowerYellowCreator,
   ) {
+    if (TileCreator.#instance !== null) {
+      throw new Error(
+        'TileCreator is a singleton class, use getInstance to get the instance',
+      )
+    }
+
     if (!levelMap) {
       throw new Error('Map is undefined')
     }

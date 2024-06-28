@@ -99,7 +99,7 @@ export class Game {
       this.#player,
     )
 
-    const tileCreator = new TileCreator(
+    const tileCreator = TileCreator.getInstance(
       levelMap,
       Images.tileImages,
       this.#player,
