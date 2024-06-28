@@ -4,15 +4,15 @@ import { TilePath } from '../../src/tiles/TilePath'
 import { TileStart } from '../../src/tiles/TileStart'
 import { TileEnd } from '../../src/tiles/TileEnd'
 import { Position } from '../../src/types/position'
-import { getTileGeneratorFromMap, getValidLevelMap } from '../helpers/levelMap'
+import { getTileCreatorFromMap, getValidLevelMap } from '../helpers/levelMap'
 import { img } from '../helpers/imagesResources'
 
 test('getEnemiesInitialPosition, when start direction is LEFT and start tile is at {x:750, y:80}, return x+=50 ({x:800, y:80})', () => {
   const levelMap = getValidLevelMap()
-  const tileGenerator = getTileGeneratorFromMap(levelMap)
-  const pathTiles = tileGenerator.pathTiles
-  const startTile = tileGenerator.startTile
-  const endTile = tileGenerator.endTile
+  const TileCreator = getTileCreatorFromMap(levelMap)
+  const pathTiles = TileCreator.pathTiles
+  const startTile = TileCreator.startTile
+  const endTile = TileCreator.endTile
   const startTilePosition = startTile.position
   const path = new Path(startTile, endTile, pathTiles)
 

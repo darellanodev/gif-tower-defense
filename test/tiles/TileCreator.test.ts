@@ -1,9 +1,9 @@
-import { TileGenerator } from '../../src/tiles/TileGenerator'
+import { TileCreator } from '../../src/tiles/TileCreator'
 import { Player } from '../../src/player/Player'
 import {
   getNoExistingLevelMap,
   getNoValidLevelMapWithoutRows,
-  getTileGeneratorFromMap,
+  getTileCreatorFromMap,
   getValidLevelMap,
 } from '../helpers/levelMap'
 import { images } from '../helpers/imagesResources'
@@ -19,7 +19,7 @@ test('Constructor, when passing an invalid map without rows map, throws "No rows
   const towerYellowCreator = new TowerYellowCreator(images, player)
   expect(
     () =>
-      new TileGenerator(
+      new TileCreator(
         noValidMap,
         images,
         player,
@@ -38,7 +38,7 @@ test('Constructor, when passing a non existing map, throws "Map is undefined" ex
   const towerYellowCreator = new TowerYellowCreator(images, player)
   expect(
     () =>
-      new TileGenerator(
+      new TileCreator(
         noExistingMap,
         images,
         player,
@@ -51,45 +51,45 @@ test('Constructor, when passing a non existing map, throws "Map is undefined" ex
 
 test('orangeTiles getter, when valid map is passed, return the orange tiles', () => {
   const levelMap = getValidLevelMap()
-  const tileGenerator = getTileGeneratorFromMap(levelMap)
+  const TileCreator = getTileCreatorFromMap(levelMap)
 
-  const result = tileGenerator.orangeTiles
+  const result = TileCreator.orangeTiles
 
   expect(result).toHaveLength(71)
 })
 
 test('pathTiles getter, when valid map is passed, return the path tiles', () => {
   const levelMap = getValidLevelMap()
-  const tileGenerator = getTileGeneratorFromMap(levelMap)
+  const TileCreator = getTileCreatorFromMap(levelMap)
 
-  const result = tileGenerator.pathTiles
+  const result = TileCreator.pathTiles
 
   expect(result).toHaveLength(87)
 })
 
 test('startTile getter, when valid map is passed, return the start tile', () => {
   const levelMap = getValidLevelMap()
-  const tileGenerator = getTileGeneratorFromMap(levelMap)
+  const TileCreator = getTileCreatorFromMap(levelMap)
 
-  const result = tileGenerator.startTile
+  const result = TileCreator.startTile
 
   expect(result).toBeInstanceOf(Object)
 })
 
 test('endTile getter, when valid map is passed, return the end tile', () => {
   const levelMap = getValidLevelMap()
-  const tileGenerator = getTileGeneratorFromMap(levelMap)
+  const TileCreator = getTileCreatorFromMap(levelMap)
 
-  const result = tileGenerator.endTile
+  const result = TileCreator.endTile
 
   expect(result).toBeInstanceOf(Object)
 })
 
 test('initialMoney getter, when valid map is passed, return the initial money', () => {
   const levelMap = getValidLevelMap()
-  const tileGenerator = getTileGeneratorFromMap(levelMap)
+  const TileCreator = getTileCreatorFromMap(levelMap)
 
-  const result = tileGenerator.initialMoney
+  const result = TileCreator.initialMoney
 
   const expected = 150
   expect(result).toBe(expected)

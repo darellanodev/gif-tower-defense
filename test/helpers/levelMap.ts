@@ -4,19 +4,19 @@ import { Path } from '../../src/path/Path'
 import { LevelsData } from '../../src/levels/LevelsData'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
 import { Player } from '../../src/player/Player'
-import { TileGenerator } from '../../src/tiles/TileGenerator'
+import { TileCreator } from '../../src/tiles/TileCreator'
 import { MapDataType } from '../../src/types/mapDataType'
 import { images } from './imagesResources'
 import { TowerGreenCreator } from '../../src/towers/TowerGreenCreator'
 import { TowerRedCreator } from '../../src/towers/TowerRedCreator'
 import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
 
-export const getTileGeneratorFromMap = (levelMap: MapDataType | undefined) => {
+export const getTileCreatorFromMap = (levelMap: MapDataType | undefined) => {
   const player = Player.getInstance()
   const towerGreenCreator = new TowerGreenCreator(images)
   const towerRedCreator = new TowerRedCreator(images)
   const towerYellowCreator = new TowerYellowCreator(images, player)
-  return new TileGenerator(
+  return new TileCreator(
     levelMap,
     images,
     player,
@@ -27,10 +27,10 @@ export const getTileGeneratorFromMap = (levelMap: MapDataType | undefined) => {
 }
 
 export const getPathFromMap = (levelMap: MapDataType | undefined) => {
-  const tileGenerator = getTileGeneratorFromMap(levelMap)
-  const pathTiles = tileGenerator.pathTiles
-  const startTile = tileGenerator.startTile
-  const endTile = tileGenerator.endTile
+  const TileCreator = getTileCreatorFromMap(levelMap)
+  const pathTiles = TileCreator.pathTiles
+  const startTile = TileCreator.startTile
+  const endTile = TileCreator.endTile
 
   return new Path(startTile, endTile, pathTiles)
 }

@@ -11,7 +11,7 @@ import { TowerGreenCreator } from '../towers/TowerGreenCreator'
 import { TowerRedCreator } from '../towers/TowerRedCreator'
 import { TowerYellowCreator } from '../towers/TowerYellowCreator'
 
-export class TileGenerator {
+export class TileCreator {
   static FLOOR_SIZE = 50
   static MARGIN_TOP = 30
 
@@ -161,9 +161,8 @@ export class TileGenerator {
   ) {
     for (let column = 0; column < trimmedRow.length; column++) {
       const character = trimmedRow[column]
-      const posX = TileGenerator.FLOOR_SIZE * column
-      const posY =
-        TileGenerator.FLOOR_SIZE * rowCount + TileGenerator.MARGIN_TOP
+      const posX = TileCreator.FLOOR_SIZE * column
+      const posY = TileCreator.FLOOR_SIZE * rowCount + TileCreator.MARGIN_TOP
       if (character === symbol) {
         this.#processSymbol(symbol, resultTiles, posX, posY)
       }

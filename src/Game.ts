@@ -24,7 +24,7 @@ import { LevelsData } from './levels/LevelsData'
 import { TowerGreenCreator } from './towers/TowerGreenCreator'
 import { TowerRedCreator } from './towers/TowerRedCreator'
 import { TowerYellowCreator } from './towers/TowerYellowCreator'
-import { TileGenerator } from './tiles/TileGenerator'
+import { TileCreator } from './tiles/TileCreator'
 import { ButtonMagic } from './hud/ButtonMagic'
 import { ButtonTower } from './hud/ButtonTower'
 import { ExplosionMagicFireball } from './explosions/ExplosionMagicFireball'
@@ -99,7 +99,7 @@ export class Game {
       this.#player,
     )
 
-    const tileGenerator = new TileGenerator(
+    const tileCreator = new TileCreator(
       levelMap,
       Images.tileImages,
       this.#player,
@@ -107,11 +107,11 @@ export class Game {
       towerRedCreator,
       towerYellowCreator,
     )
-    TileOrange.instances = tileGenerator.orangeTiles
-    Path.startTile = tileGenerator.startTile
+    TileOrange.instances = tileCreator.orangeTiles
+    Path.startTile = tileCreator.startTile
 
-    Path.endTile = tileGenerator.endTile
-    const pathTiles = tileGenerator.pathTiles
+    Path.endTile = tileCreator.endTile
+    const pathTiles = tileCreator.pathTiles
 
     const path = new Path(Path.startTile, Path.endTile, pathTiles)
     Path.orders = path.makeOrders()
@@ -134,11 +134,8 @@ export class Game {
     this.#hudPanel = new HudPanel(Images.hudImages)
     this.#hudButtonsMagic = new HudButtonsMagics()
 
-    // wallet = new Wallet(Wallet.GAME_TESTING_MODE, tileGenerator.initialMoney)
-    this.#wallet = new Wallet(
-      Wallet.GAME_NORMAL_MODE,
-      tileGenerator.initialMoney,
-    )
+    // wallet = new Wallet(Wallet.GAME_TESTING_MODE, TileCreator.initialMoney)
+    this.#wallet = new Wallet(Wallet.GAME_NORMAL_MODE, tileCreator.initialMoney)
     this.#hudButtonsTowers = new HudButtonsTowers(this.#wallet)
 
     this.#controls = new Controls(
