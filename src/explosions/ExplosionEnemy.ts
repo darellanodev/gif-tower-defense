@@ -34,8 +34,6 @@ export class ExplosionEnemy extends Explosion {
   }
 
   static removeDeadInstances() {
-    ExplosionEnemy.instances = ExplosionEnemy.instances.filter((e) =>
-      e.isActive(),
-    )
+    ExplosionEnemy.instances = ExplosionEnemy.instances.filter((e) => e.alive)
   }
 }

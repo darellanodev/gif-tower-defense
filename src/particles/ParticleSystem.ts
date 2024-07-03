@@ -19,6 +19,10 @@ export class ParticleSystem {
     return this.#particles
   }
 
+  get anyAlive() {
+    return this.#particles.length > 0
+  }
+
   addParticle() {
     this.#particles.push(
       new Particle(this.#origin, this.#particlesSize, this.#particlesColor),
@@ -29,7 +33,7 @@ export class ParticleSystem {
     for (let i = this.#particles.length - 1; i >= 0; i--) {
       let p = this.#particles[i]
       p.run()
-      if (p.isDead()) {
+      if (p.dead) {
         this.#particles.splice(i, 1)
       }
     }

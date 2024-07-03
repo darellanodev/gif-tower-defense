@@ -110,7 +110,7 @@ export class Particle extends Obj {
     P5.p5.ellipse(this.#vec.x, this.#vec.y, this.#size, this.#size)
   }
 
-  isDead() {
+  get dead() {
     return this.#lifespan <= 0
   }
 

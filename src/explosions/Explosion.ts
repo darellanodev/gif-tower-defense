@@ -6,7 +6,6 @@ export class Explosion extends Obj {
   static MAX_EMIT_TIME = 5
 
   #emisionTime: number = 0
-  #finished: boolean = false
 
   particleSystem: ParticleSystem | null
   constructor(position: Position) {
@@ -14,12 +13,15 @@ export class Explosion extends Obj {
     this.particleSystem = null
   }
 
-  isActive() {
-    return !this.#finished
+  alive() {
+    return this.particleSystem?.anyAlive
   }
 
   update() {
     if (!this.particleSystem) {
+      return
+    }
+    if (!this.alive) {
       return
     }
     if (this.#emisionTime < Explosion.MAX_EMIT_TIME) {
