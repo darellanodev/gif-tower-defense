@@ -136,8 +136,11 @@ export class Game {
     this.#hudPanel = new HudPanel(Images.hudImages)
     this.#hudButtonsMagic = new HudButtonsMagics()
 
-    // wallet = new Wallet(Wallet.GAME_TESTING_MODE, TileCreator.initialMoney)
-    this.#wallet = new Wallet(Wallet.GAME_NORMAL_MODE, tileCreator.initialMoney)
+    // wallet = Wallet.getInstance(Wallet.GAME_TESTING_MODE, TileCreator.initialMoney)
+    this.#wallet = Wallet.getInstance(
+      Wallet.GAME_NORMAL_MODE,
+      tileCreator.initialMoney,
+    )
     this.#hudButtonsTowers = new HudButtonsTowers(this.#wallet)
 
     this.#controls = new Controls(

@@ -6,6 +6,8 @@ import { FlyIndicator } from '../hud/FlyIndicator'
 import { TileOrange } from '../tiles/TileOrange'
 
 export class Wallet {
+  static #instance: Wallet | null = null
+
   static GAME_NORMAL_MODE = 0
   static GAME_TESTING_MODE = 1
   static MONEY_IN_TESTING_MODE = 999999
@@ -14,10 +16,25 @@ export class Wallet {
   #money: number = 0
 
   constructor(gameMode: number, money: number) {
+    if (Wallet.#instance !== null) {
+      throw new Error(
+        'Wallet is a singleton class, use getInstance to get the instance',
+      )
+    }
     this.#mode = gameMode
     this.initialMoney = money
   }
 
+  static getInstance(gameMode: number, money: number) {
+    if (Wallet.#instance === null) {
+      Wallet.#instance = new Wallet(gameMode, money)
+    }
+    return Wallet.#instance
+  }
+  // clearInstance is for using in jest
+  static clearInstance() {
+    Wallet.#instance = null
+  }
   isGameInTestingMode() {
     return this.#mode === Wallet.GAME_TESTING_MODE
   }
