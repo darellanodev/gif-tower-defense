@@ -53,8 +53,9 @@ describe('isInside', () => {
 })
 
 test('hasTower, after buy a tower, return true', () => {
+  Wallet.clearInstance()
   const money = 100
-  const wallet = new Wallet(Wallet.GAME_NORMAL_MODE, money)
+  const wallet = Wallet.getInstance(Wallet.GAME_NORMAL_MODE, money)
   const orangeTile = instantiateOrangeTile()
   const tower = buyGreenTower(orangeTile, wallet)
 
@@ -62,8 +63,9 @@ test('hasTower, after buy a tower, return true', () => {
 })
 
 test('sell tower, when player has 100 of money after buy a new tower of cost of 50 , return selling profit 30 so player has 80 of money', () => {
+  Wallet.clearInstance()
   const money = 100
-  const wallet = new Wallet(Wallet.GAME_NORMAL_MODE, money)
+  const wallet = Wallet.getInstance(Wallet.GAME_NORMAL_MODE, money)
   const orangeTile = instantiateOrangeTile()
   const tower = buyGreenTower(orangeTile, wallet)
 

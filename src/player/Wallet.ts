@@ -23,6 +23,7 @@ export class Wallet {
     }
     this.#mode = gameMode
     this.initialMoney = money
+    Wallet.#instance = this
   }
 
   static getInstance(gameMode: number, money: number) {

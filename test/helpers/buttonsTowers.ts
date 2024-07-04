@@ -17,8 +17,9 @@ export const initializeButtonTower = () => {
 }
 
 export const instantiateHudButtonsTowers = () => {
+  Wallet.clearInstance()
   const money = 10000
-  const wallet = new Wallet(Wallet.GAME_NORMAL_MODE, money)
+  const wallet = Wallet.getInstance(Wallet.GAME_NORMAL_MODE, money)
 
   return new HudButtonsTowers(wallet)
 }

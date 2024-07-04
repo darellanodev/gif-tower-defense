@@ -1,6 +1,14 @@
 import { Wallet } from '../../src/player/Wallet'
 import { TowerGreen } from '../../src/towers/TowerGreen'
 
+test('can not call constructor two times', () => {
+  const money = 150
+  new Wallet(Wallet.GAME_NORMAL_MODE, money)
+  expect(() => new Wallet(Wallet.GAME_NORMAL_MODE, money)).toThrow(
+    'Wallet is a singleton class, use getInstance to get the instance',
+  )
+})
+
 describe('haveMoneyToBuy', () => {
   test('when wallet has 150 of money and wants to buy a new green tower (cost 50), return true', () => {
     Wallet.clearInstance()
