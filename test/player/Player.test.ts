@@ -1,5 +1,12 @@
 import { Player } from '../../src/player/Player'
 
+test('dont call the constructor two times', () => {
+  new Player()
+  expect(() => new Player()).toThrow(
+    'Player is a singleton class. Use getInstance to get the instance of the Player',
+  )
+})
+
 describe('getPrintScore', () => {
   test('when initialy there is no score, print 0000000000', () => {
     const player = Player.getInstance()
