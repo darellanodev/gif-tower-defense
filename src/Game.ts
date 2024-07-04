@@ -155,6 +155,7 @@ export class Game {
       this.#wallet,
       this.#player,
     )
+    Game.#instance = this
   }
 
   #updateMagics() {
