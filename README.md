@@ -27,8 +27,12 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - Code improvements:
 
   - [ ] Use singleton pattern for the following classes
-    - [ ] Game
-    - [ ] Player
+    - [x] Game
+    - [x] Player
+    - [x] Wallet
+    - [x] MagicFireballCreator
+    - [ ] MagicIceballCreator
+    - [ ] MagicUFOCreator
     - [ ] ...
   - [ ] Separate low level code of high level code
   - [x] TowerGreenCreator, TowerRedCreator, and TowerYellowCreator like MagicFireballCreator, ...
