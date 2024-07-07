@@ -12,19 +12,13 @@ export const createMagicFireball = (
 ) => {
   const initialPosition = { x: 100, y: 200 }
 
-  const pathMovement = new PathMovement(
+  MagicFireballCreator.clearInstance()
+  const magicFireballCreator = MagicFireballCreator.getInstance(
+    magicFireballInstancesManager,
+    img,
     initialPosition,
     orders,
     MagicFireball.SPEED,
-  )
-
-  const magicCollisionChecker = new MagicCollisionChecker()
-
-  const magicFireballCreator = new MagicFireballCreator(
-    magicFireballInstancesManager,
-    img,
-    pathMovement,
-    magicCollisionChecker,
   )
   magicFireballCreator.create()
 }

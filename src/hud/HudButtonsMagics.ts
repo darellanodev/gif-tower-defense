@@ -45,20 +45,14 @@ export class HudButtonsMagics {
     if (ButtonMagic.magicFireballButton.items === 0) {
       return
     }
-    const pathMovement = new PathMovement(
+    ButtonMagic.magicFireballButton.removeItem()
+
+    const magicFireballCreator = MagicFireballCreator.getInstance(
+      magicInstancesManager,
+      magicFireballImage,
       initialEnemiesPosition,
       orders,
       MagicFireball.SPEED,
-    )
-    ButtonMagic.magicFireballButton.removeItem()
-
-    const magicCollisionChecker = new MagicCollisionChecker()
-
-    const magicFireballCreator = new MagicFireballCreator(
-      magicInstancesManager,
-      magicFireballImage,
-      pathMovement,
-      magicCollisionChecker,
     )
     magicFireballCreator.create()
   }
