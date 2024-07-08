@@ -66,20 +66,14 @@ export class HudButtonsMagics {
     if (ButtonMagic.magicIceballButton.items === 0) {
       return
     }
-    const pathMovement = new PathMovement(
+    ButtonMagic.magicIceballButton.removeItem()
+
+    const magicIceballCreator = MagicIceballCreator.getInstance(
+      magicInstancesManager,
+      magicIceballImage,
       initialEnemiesPosition,
       orders,
       MagicIceball.SPEED,
-    )
-    ButtonMagic.magicIceballButton.removeItem()
-
-    const magicCollisionChecker = new MagicCollisionChecker()
-
-    const magicIceballCreator = new MagicIceballCreator(
-      magicInstancesManager,
-      magicIceballImage,
-      pathMovement,
-      magicCollisionChecker,
     )
     magicIceballCreator.create()
   }
