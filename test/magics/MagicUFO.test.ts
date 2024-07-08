@@ -5,23 +5,24 @@ import { createNormalEnemy } from '../helpers/enemyCreator'
 import { images } from '../helpers/imagesResources'
 import { testTinyOrders } from '../helpers/levelMap'
 import {
-  createMagicUFO,
   getEnemyTargetIdForUFO,
   updateInstancesOfEnemiesAndUFOsForATileSize,
 } from '../helpers/magicUFO'
 
+let magicUFOCreator: MagicUFOCreator
+let magicUFOInstancesManager: MagicInstancesManager
+
+beforeEach(() => {})
 test('id, when three Magic UFOs are created, last UFO has id = 3', () => {
+  MagicUFOCreator.clearInstance()
   const enemyInstancesManager = new EnemyInstancesManager()
-  const magicUFOInstancesManager = new MagicInstancesManager(
-    enemyInstancesManager,
-  )
+  magicUFOInstancesManager = new MagicInstancesManager(enemyInstancesManager)
   const initialEnemiesPosition = { x: 100, y: 200 }
-  const magicUFOCreator = new MagicUFOCreator(
+  magicUFOCreator = MagicUFOCreator.getInstance(
     images,
     initialEnemiesPosition,
     magicUFOInstancesManager,
   )
-
   magicUFOCreator.create()
   magicUFOCreator.create()
   magicUFOCreator.create()
@@ -37,11 +38,18 @@ test('id, when three Magic UFOs are created, last UFO has id = 3', () => {
 })
 
 test('enemyTarget id, when an Enemy is created and then a magic UFO is created, MagicUFO targets the enemy', () => {
+  MagicUFOCreator.clearInstance()
   const enemyInstancesManager = new EnemyInstancesManager()
   const magicUFOInstancesManager = new MagicInstancesManager(
     enemyInstancesManager,
   )
-  createMagicUFO(magicUFOInstancesManager)
+  const initialEnemiesPosition = { x: 100, y: 200 }
+  magicUFOCreator = MagicUFOCreator.getInstance(
+    images,
+    initialEnemiesPosition,
+    magicUFOInstancesManager,
+  )
+  magicUFOCreator.create()
   createNormalEnemy(enemyInstancesManager)
 
   updateInstancesOfEnemiesAndUFOsForATileSize(
@@ -60,19 +68,27 @@ test('enemyTarget id, when an Enemy is created and then a magic UFO is created, 
 })
 
 test('enemyTarget, when a first Enemy and a first UFO are instantiated the first MagicUFO targets the first enemy and then when we instantiate a second enemy and a second UFO, the second UFO returns the second enemy as target', () => {
+  MagicUFOCreator.clearInstance()
   const enemyInstancesManager = new EnemyInstancesManager()
   const magicUFOInstancesManager = new MagicInstancesManager(
     enemyInstancesManager,
   )
+  const initialEnemiesPosition = { x: 100, y: 200 }
+  magicUFOCreator = MagicUFOCreator.getInstance(
+    images,
+    initialEnemiesPosition,
+    magicUFOInstancesManager,
+  )
   createNormalEnemy(enemyInstancesManager, testTinyOrders)
   createNormalEnemy(enemyInstancesManager, testTinyOrders)
-  createMagicUFO(magicUFOInstancesManager)
+
+  magicUFOCreator.create()
   updateInstancesOfEnemiesAndUFOsForATileSize(
     enemyInstancesManager,
     magicUFOInstancesManager,
   )
 
-  createMagicUFO(magicUFOInstancesManager)
+  magicUFOCreator.create()
   updateInstancesOfEnemiesAndUFOsForATileSize(
     enemyInstancesManager,
     magicUFOInstancesManager,

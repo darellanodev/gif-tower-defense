@@ -88,7 +88,7 @@ export class HudButtonsMagics {
     }
     ButtonMagic.magicUFOButton.removeItem()
 
-    const magicUFOCreator = new MagicUFOCreator(
+    const magicUFOCreator = MagicUFOCreator.getInstance(
       magicUFOImages,
       initialEnemiesPosition,
       magicUFOInstancesManager,

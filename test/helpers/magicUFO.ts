@@ -1,21 +1,7 @@
 import { Const } from '../../src/constants/Const'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
-import { MagicUFOCreator } from '../../src/magics/MagicUFOCreator'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
-import { images } from './imagesResources'
 import { Enemy } from '../../src/enemies/Enemy'
-
-export const createMagicUFO = (
-  magicUFOInstancesManager: MagicInstancesManager,
-) => {
-  const initialEnemiesPosition = { x: 100, y: 200 }
-  const magicUFOCreator = new MagicUFOCreator(
-    images,
-    initialEnemiesPosition,
-    magicUFOInstancesManager,
-  )
-  magicUFOCreator.create()
-}
 
 export const updateInstancesOfEnemiesAndUFOsForATileSize = (
   enemyInstancesManager: EnemyInstancesManager,
