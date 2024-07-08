@@ -1,9 +1,7 @@
 import { Const } from '../../src/constants/Const'
-import { MagicCollisionChecker } from '../../src/magics/MagicCollisionChecker'
 import { MagicFireball } from '../../src/magics/MagicFireball'
 import { MagicFireballCreator } from '../../src/magics/MagicFireballCreator'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
-import { PathMovement } from '../../src/path/PathMovement'
 import { img } from './imagesResources'
 
 export const createMagicFireball = (
