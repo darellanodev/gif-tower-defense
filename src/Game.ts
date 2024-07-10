@@ -155,6 +155,8 @@ export class Game {
       this.#wallet,
       this.#player,
     )
+
+    // assign the singleton instance
     Game.#instance = this
   }
 
