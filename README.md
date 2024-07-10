@@ -31,8 +31,8 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
     - [x] Player
     - [x] Wallet
     - [x] MagicFireballCreator
-    - [ ] MagicIceballCreator
-    - [ ] MagicUFOCreator
+    - [x] MagicIceballCreator
+    - [x] MagicUFOCreator
     - [ ] ...
   - [ ] Separate low level code of high level code
   - [x] TowerGreenCreator, TowerRedCreator, and TowerYellowCreator like MagicFireballCreator, ...
@@ -43,6 +43,11 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - The player can:
 
+  - [ ] View the Main Menu and select a desired level to play.
+    - [x] Basic background
+    - [ ] Click in miniature to play
+    - [ ] Replace old player names with other nicknames
+    - [ ] ...
   - [ ] Pause the game and resume it with the pause button
   - [ ] Speed the game and return to normal speed with the speed button
   - [ ] Click on an enemy to select it as a target
@@ -55,7 +60,6 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
     - [ ] ...
   - [ ] Modify the difficult of the game with a visual graph (enemy endurances, profits, tower damages, ...)
     - [ ] ...
-  - [ ] View the Main Menu and select a desired level to play. Replace old player names with other nicknames
 
 - The magic fireball and iceball:
 
@@ -89,6 +93,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - Detected bugs:
 
+  - [ ] When a magic UFO drops an enemy, the enemy apears for an instant in the position where it was captured (there is a fast visual blink)
   - [ ] When Game Over towers continue increasing damage bar of enemies.
   - [ ] When an Enemy is freezed and is near to move, if it collides with other magic ice ball the timer dont increment. Idea: make a balloon indicating the time in seconds over the enemy indicating the freezed time.
   - [ ] Explosion enemy particles never goes down
