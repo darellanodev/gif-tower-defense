@@ -10,6 +10,8 @@ export class Player {
         'Player is a singleton class. Use getInstance to get the instance of the Player',
       )
     }
+
+    // assign the singleton instance
     Player.#instance = this
   }
 

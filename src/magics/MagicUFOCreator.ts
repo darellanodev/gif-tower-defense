@@ -23,6 +23,7 @@ export class MagicUFOCreator {
     this.#startPosition = startPosition
     this.#magicInstancesManager = magicInstancesManager
 
+    // assign the singleton instance
     MagicUFOCreator.#instance = this
   }
 

@@ -32,6 +32,7 @@ export class MagicFireballCreator {
     this.#orders = orders
     this.#speed = speed
 
+    // assign the singleton instance
     MagicFireballCreator.#instance = this
   }
   static getInstance(

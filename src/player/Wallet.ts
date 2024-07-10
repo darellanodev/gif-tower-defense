@@ -23,6 +23,8 @@ export class Wallet {
     }
     this.#mode = gameMode
     this.initialMoney = money
+
+    // assign the singleton instance
     Wallet.#instance = this
   }
 

@@ -31,6 +31,7 @@ export class MagicIceballCreator {
     this.#orders = orders
     this.#speed = speed
 
+    // assign the singleton instance
     MagicIceballCreator.#instance = this
   }
 
