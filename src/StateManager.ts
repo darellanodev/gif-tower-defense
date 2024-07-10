@@ -4,7 +4,7 @@ export class StateManager {
 
   #state: number
   constructor() {
-    this.#state = 1
+    this.#state = 0
   }
 
   setPlay() {

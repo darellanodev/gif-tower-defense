@@ -19,6 +19,7 @@ export class Images {
   static magicIceballImage: Image
   static magicUFOImages: Image[]
   static coreImage: Image
+  static menu: Image
 
   static _loadButtons() {
     Images.towerGreenButtonImages = Resources.towerGreenButtonImages()
@@ -46,7 +47,12 @@ export class Images {
     Images.coreImage = Resources.coreImage()
   }
 
+  static _loadMenu() {
+    Images.menu = Resources.menu()
+  }
+
   static loadAll() {
+    Images._loadMenu()
     Images._loadMagics()
     Images._loadTowers()
     Images._loadButtons()

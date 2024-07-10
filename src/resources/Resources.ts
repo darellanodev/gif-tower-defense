@@ -143,4 +143,8 @@ export class Resources {
       P5.p5.loadImage('../img/magics/ufo_ray.png'),
     ]
   }
+
+  static menu() {
+    return P5.p5.loadImage('../img/menu/menu.png')
+  }
 }

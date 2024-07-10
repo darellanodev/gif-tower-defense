@@ -4,9 +4,11 @@ import { Images } from './resources/Images'
 import { P5 } from './utils/P5'
 import { Game } from './Game'
 import { StateManager } from './StateManager'
+import { Menu } from './Menu'
 
 let _p5: p5
 let game: Game
+let menu: Menu
 let stateManager: StateManager
 
 // ugly hack: remove the extra canvas created
@@ -52,6 +54,7 @@ window.setup = () => {
   disableContextualMenu()
 
   game = Game.getInstance()
+  menu = Menu.getInstance()
   stateManager = new StateManager()
 }
 
@@ -63,6 +66,6 @@ window.draw = () => {
   if (stateManager.isPlay) {
     game.draw()
   } else if (stateManager.isMenu) {
-    // TODO: make menu
+    menu.draw()
   }
 }
