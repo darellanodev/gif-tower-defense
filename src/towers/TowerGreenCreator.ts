@@ -15,6 +15,9 @@ export class TowerGreenCreator {
       )
     }
     this.#images = images
+
+    // assign the singleton instance
+    TowerGreenCreator.#instance = this
   }
   static getInstance(images: Image[]) {
     if (TowerGreenCreator.#instance === null) {

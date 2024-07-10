@@ -18,6 +18,9 @@ export class TowerYellowCreator {
     }
     this.#images = images
     this.#player = player
+
+    // assign the singleton instance
+    TowerYellowCreator.#instance = this
   }
 
   static getInstance(images: Image[], player: Player) {

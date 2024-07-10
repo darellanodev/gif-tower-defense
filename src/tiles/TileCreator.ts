@@ -87,6 +87,9 @@ export class TileCreator {
     this.#towerGreenCreator = towerGreenCreator
     this.#towerRedCreator = towerRedCreator
     this.#towerYellowCreator = towerYellowCreator
+
+    // assign the singleton instance
+    TileCreator.#instance = this
   }
 
   #setStartImage(mapImages: any[]) {
