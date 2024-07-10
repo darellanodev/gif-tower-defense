@@ -16,7 +16,7 @@ export const getTileCreatorFromMap = (levelMap: MapDataType | undefined) => {
   const towerGreenCreator = TowerGreenCreator.getInstance(images)
   const towerRedCreator = TowerRedCreator.getInstance(images)
   const towerYellowCreator = TowerYellowCreator.getInstance(images, player)
-  return new TileCreator(
+  return TileCreator.getInstance(
     levelMap,
     images,
     player,
