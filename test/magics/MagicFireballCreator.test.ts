@@ -1,8 +1,6 @@
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { MagicFireballCreator } from '../../src/magics/MagicFireballCreator'
 import { img } from '../helpers/imagesResources'
-import { MagicCollisionChecker } from '../../src/magics/MagicCollisionChecker'
-import { PathMovement } from '../../src/path/PathMovement'
 import { Enemy } from '../../src/enemies/Enemy'
 import { testTinyOrders } from '../helpers/levelMap'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
