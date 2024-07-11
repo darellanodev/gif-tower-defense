@@ -21,8 +21,11 @@ export class Menu {
     return Menu.#instance
   }
   #drawDebugElements() {
-    Debug.showMouseCoordinates({ x: P5.p5.mouseX, y: P5.p5.mouseY })
-    Debug.showLabelTestingMode()
+    Debug.showMouseCoordinates(
+      { x: P5.p5.mouseX, y: P5.p5.mouseY },
+      { x: 355, y: 15 },
+    )
+    Debug.showLabelTestingMode({ x: 170, y: 15 })
   }
   #drawBackground() {
     P5.p5.background('skyblue')

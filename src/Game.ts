@@ -136,11 +136,14 @@ export class Game {
     this.#hudPanel = new HudPanel(Images.hudImages)
     this.#hudButtonsMagic = new HudButtonsMagics()
 
-    // wallet = Wallet.getInstance(Wallet.GAME_TESTING_MODE, TileCreator.initialMoney)
     this.#wallet = Wallet.getInstance(
-      Wallet.GAME_NORMAL_MODE,
+      Wallet.GAME_TESTING_MODE,
       tileCreator.initialMoney,
     )
+    // this.#wallet = Wallet.getInstance(
+    //   Wallet.GAME_NORMAL_MODE,
+    //   tileCreator.initialMoney,
+    // )
     this.#hudButtonsTowers = new HudButtonsTowers(this.#wallet)
 
     this.#controls = new Controls(
@@ -417,8 +420,11 @@ export class Game {
   }
 
   #drawDebugElements() {
-    Debug.showMouseCoordinates({ x: P5.p5.mouseX, y: P5.p5.mouseY })
-    Debug.showLabelTestingMode()
+    Debug.showMouseCoordinates(
+      { x: P5.p5.mouseX, y: P5.p5.mouseY },
+      { x: 260, y: 18 },
+    )
+    Debug.showLabelTestingMode({ x: 8, y: 100 })
   }
 
   draw() {
