@@ -38,6 +38,7 @@ import { StateManager } from './StateManager'
 import { TilesManager } from './tiles/TilesManager'
 import { TileOrangeCreator } from './tiles/TileOrangeCreator'
 import { TileStartCreator } from './tiles/TileStartCreator'
+import { TileEndCreator } from './tiles/TileEndCreator'
 
 export class Game {
   static #instance: Game | null = null
@@ -64,6 +65,7 @@ export class Game {
   #tilesManager: TilesManager
   #tileOrangeCreator: TileOrangeCreator
   #tileStartCreator: TileStartCreator
+  #tileEndCreator: TileEndCreator
 
   static getInstance(stateManager: StateManager) {
     if (Game.#instance === null) {
@@ -112,6 +114,7 @@ export class Game {
 
     this.#tilesManager = new TilesManager()
 
+    // create orange tiles
     this.#tileOrangeCreator = TileOrangeCreator.getInstance(
       levelMap,
       Images.tileImages,
@@ -122,6 +125,9 @@ export class Game {
       this.#tilesManager,
     )
     this.#tileOrangeCreator.createAll()
+    TileOrange.instances = this.#tilesManager.getAllOrangeTiles
+
+    //create start tile
     this.#tileStartCreator = TileStartCreator.getInstance(
       levelMap,
       Images.tileImages,
@@ -130,6 +136,26 @@ export class Game {
     )
     this.#tileStartCreator.create()
 
+    if (this.#tilesManager.tileStart === null) {
+      throw new Error('Map invalid: there is no tileStart')
+    }
+    Path.startTile = this.#tilesManager.tileStart
+
+    //create end tile
+    this.#tileEndCreator = TileEndCreator.getInstance(
+      levelMap,
+      Images.tileImages,
+      this.#player,
+      this.#tilesManager,
+    )
+    this.#tileEndCreator.create()
+
+    if (this.#tilesManager.tileEnd === null) {
+      throw new Error('Map invalid: there is no tileEnd')
+    }
+    Path.endTile = this.#tilesManager.tileEnd
+
+    // start of old code (refactoring)
     const tileCreator = TileCreator.getInstance(
       levelMap,
       Images.tileImages,
@@ -139,13 +165,6 @@ export class Game {
       towerYellowCreator,
     )
 
-    TileOrange.instances = this.#tilesManager.getAllOrangeTiles
-    if (this.#tilesManager.tileStart === null) {
-      throw new Error('Map invalid: there is no tileStart')
-    }
-    Path.startTile = this.#tilesManager.tileStart
-
-    Path.endTile = tileCreator.endTile
     const pathTiles = tileCreator.pathTiles
 
     const path = new Path(Path.startTile, Path.endTile, pathTiles)

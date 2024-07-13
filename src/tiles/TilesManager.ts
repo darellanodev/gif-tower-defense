@@ -1,9 +1,11 @@
+import { TileEnd } from './TileEnd'
 import { TileOrange } from './TileOrange'
 import { TileStart } from './TileStart'
 
 export class TilesManager {
   #tileOrangeInstances: TileOrange[] = []
   #tileStart: TileStart | null = null
+  #tileEnd: TileEnd | null = null
 
   get getAllOrangeTiles() {
     return this.#tileOrangeInstances
@@ -11,6 +13,9 @@ export class TilesManager {
 
   get tileStart(): TileStart | null {
     return this.#tileStart
+  }
+  get tileEnd(): TileEnd | null {
+    return this.#tileEnd
   }
 
   addOrangeTile(instance: TileOrange) {
@@ -21,5 +26,8 @@ export class TilesManager {
     this.#tileStart = tileStart
   }
 
+  set tileEnd(tileEnd: TileEnd) {
+    this.#tileEnd = tileEnd
+  }
   updateInstances() {}
 }
