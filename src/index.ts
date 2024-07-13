@@ -45,7 +45,11 @@ function disableContextualMenu() {
 }
 
 window.mouseClicked = () => {
-  game.mouseClicked()
+  if (stateManager.isPlay) {
+    game.mouseClicked()
+  } else if (stateManager.isMenu) {
+    menu.mouseClicked()
+  }
 }
 
 window.setup = () => {

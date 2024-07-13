@@ -1,4 +1,5 @@
 import { StateManager } from './StateManager'
+import { ButtonTransparent } from './hud/ButtonTransparent'
 import { Debug } from './hud/Debug'
 import { Images } from './resources/Images'
 import { P5 } from './utils/P5'
@@ -14,6 +15,10 @@ export class Menu {
       )
     }
     this.#stateManager = stateManager
+    this.#startButton = new ButtonTransparent(
+      { x: 623, y: 207 },
+      { w: 150, h: 100 },
+    )
 
     // assign the singleton instance
     Menu.#instance = this
@@ -37,6 +42,12 @@ export class Menu {
 
     P5.p5.image(Images.menu, 0, 0, 800, 580)
   }
+  mouseClicked() {
+    if (this.#startButton.isMouseOver({ x: P5.p5.mouseX, y: P5.p5.mouseY })) {
+      this.#stateManager.setPlay()
+    }
+  }
+  update() {}
   draw() {
     this.#drawBackground()
     this.#drawDebugElements()
