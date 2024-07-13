@@ -53,9 +53,9 @@ window.setup = () => {
 
   disableContextualMenu()
 
-  game = Game.getInstance()
-  menu = Menu.getInstance()
-  stateManager = new StateManager()
+  stateManager = StateManager.getInstance(StateManager.STATE_MENU)
+  game = Game.getInstance(stateManager)
+  menu = Menu.getInstance(stateManager)
 }
 
 window.keyPressed = () => {

@@ -34,6 +34,7 @@ import { P5 } from './utils/P5'
 import { Missile } from './towers/Missile'
 import { TextProperties } from './hud/TextProperties'
 import { Debug } from './hud/Debug'
+import { StateManager } from './StateManager'
 
 export class Game {
   static #instance: Game | null = null
@@ -56,19 +57,21 @@ export class Game {
   #gameStatus: number = 0
   #instantiateBoss: boolean = false
   #instantiateEnemies: boolean = false
+  #stateManager: StateManager
 
-  static getInstance() {
+  static getInstance(stateManager: StateManager) {
     if (Game.#instance === null) {
-      Game.#instance = new Game()
+      Game.#instance = new Game(stateManager)
     }
     return Game.#instance
   }
-  constructor() {
+  constructor(stateManager: StateManager) {
     if (Game.#instance !== null) {
       throw new Error(
         'Game is a singleton class. Use getInstance to get the instance of the Game.',
       )
     }
+    this.#stateManager = stateManager
     this.#enemyInstancesManager = new EnemyInstancesManager()
     this.#enemyCreator = new EnemyCreator(this.#enemyInstancesManager)
 
