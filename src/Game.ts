@@ -35,6 +35,8 @@ import { Missile } from './towers/Missile'
 import { TextProperties } from './hud/TextProperties'
 import { Debug } from './hud/Debug'
 import { StateManager } from './StateManager'
+import { TilesManager } from './tiles/TilesManager'
+import { TileOrangeCreator } from './tiles/TileOrangeCreator'
 
 export class Game {
   static #instance: Game | null = null
@@ -58,6 +60,8 @@ export class Game {
   #instantiateBoss: boolean = false
   #instantiateEnemies: boolean = false
   #stateManager: StateManager
+  #tilesManager: TilesManager
+  #tileOrangeCreator: TileOrangeCreator
 
   static getInstance(stateManager: StateManager) {
     if (Game.#instance === null) {
@@ -104,6 +108,19 @@ export class Game {
       this.#player,
     )
 
+    this.#tilesManager = new TilesManager()
+
+    this.#tileOrangeCreator = TileOrangeCreator.getInstance(
+      levelMap,
+      Images.tileImages,
+      this.#player,
+      towerGreenCreator,
+      towerRedCreator,
+      towerYellowCreator,
+      this.#tilesManager,
+    )
+    this.#tileOrangeCreator.createAll()
+
     const tileCreator = TileCreator.getInstance(
       levelMap,
       Images.tileImages,
@@ -112,7 +129,13 @@ export class Game {
       towerRedCreator,
       towerYellowCreator,
     )
-    TileOrange.instances = tileCreator.orangeTiles
+
+    if (this.#tilesManager.getAllOrangeTiles === null) {
+      console.log('ups!')
+      throw new Error('Map invalid')
+    }
+
+    TileOrange.instances = this.#tilesManager.getAllOrangeTiles
     Path.startTile = tileCreator.startTile
 
     Path.endTile = tileCreator.endTile
