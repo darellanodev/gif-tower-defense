@@ -39,6 +39,7 @@ import { TilesManager } from './tiles/TilesManager'
 import { TileOrangeCreator } from './tiles/TileOrangeCreator'
 import { TileStartCreator } from './tiles/TileStartCreator'
 import { TileEndCreator } from './tiles/TileEndCreator'
+import { TilePathCreator } from './tiles/TilePathCreator'
 
 export class Game {
   static #instance: Game | null = null
@@ -66,6 +67,7 @@ export class Game {
   #tileOrangeCreator: TileOrangeCreator
   #tileStartCreator: TileStartCreator
   #tileEndCreator: TileEndCreator
+  #tilePathCreator: TilePathCreator
 
   static getInstance(stateManager: StateManager) {
     if (Game.#instance === null) {
@@ -155,17 +157,16 @@ export class Game {
     }
     Path.endTile = this.#tilesManager.tileEnd
 
-    // start of old code (refactoring)
-    const tileCreator = TileCreator.getInstance(
+    // create path tiles
+    this.#tilePathCreator = TilePathCreator.getInstance(
       levelMap,
       Images.tileImages,
       this.#player,
-      towerGreenCreator,
-      towerRedCreator,
-      towerYellowCreator,
+      this.#tilesManager,
     )
+    this.#tilePathCreator.createAll()
 
-    const pathTiles = tileCreator.pathTiles
+    const pathTiles = this.#tilesManager.getAllPathTiles
 
     const path = new Path(Path.startTile, Path.endTile, pathTiles)
     Path.orders = path.makeOrders()
@@ -188,13 +189,10 @@ export class Game {
     this.#hudPanel = new HudPanel(Images.hudImages)
     this.#hudButtonsMagic = new HudButtonsMagics()
 
-    this.#wallet = Wallet.getInstance(
-      Wallet.GAME_TESTING_MODE,
-      tileCreator.initialMoney,
-    )
+    this.#wallet = Wallet.getInstance(Wallet.GAME_TESTING_MODE, levelMap.money)
     // this.#wallet = Wallet.getInstance(
     //   Wallet.GAME_NORMAL_MODE,
-    //   tileCreator.initialMoney,
+    //   levelMap.money,
     // )
     this.#hudButtonsTowers = new HudButtonsTowers(this.#wallet)
 
