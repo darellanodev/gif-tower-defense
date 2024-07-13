@@ -37,6 +37,7 @@ import { Debug } from './hud/Debug'
 import { StateManager } from './StateManager'
 import { TilesManager } from './tiles/TilesManager'
 import { TileOrangeCreator } from './tiles/TileOrangeCreator'
+import { TileStartCreator } from './tiles/TileStartCreator'
 
 export class Game {
   static #instance: Game | null = null
@@ -62,6 +63,7 @@ export class Game {
   #stateManager: StateManager
   #tilesManager: TilesManager
   #tileOrangeCreator: TileOrangeCreator
+  #tileStartCreator: TileStartCreator
 
   static getInstance(stateManager: StateManager) {
     if (Game.#instance === null) {
@@ -120,6 +122,13 @@ export class Game {
       this.#tilesManager,
     )
     this.#tileOrangeCreator.createAll()
+    this.#tileStartCreator = TileStartCreator.getInstance(
+      levelMap,
+      Images.tileImages,
+      this.#player,
+      this.#tilesManager,
+    )
+    this.#tileStartCreator.create()
 
     const tileCreator = TileCreator.getInstance(
       levelMap,
@@ -130,13 +139,11 @@ export class Game {
       towerYellowCreator,
     )
 
-    if (this.#tilesManager.getAllOrangeTiles === null) {
-      console.log('ups!')
-      throw new Error('Map invalid')
-    }
-
     TileOrange.instances = this.#tilesManager.getAllOrangeTiles
-    Path.startTile = tileCreator.startTile
+    if (this.#tilesManager.tileStart === null) {
+      throw new Error('Map invalid: there is no tileStart')
+    }
+    Path.startTile = this.#tilesManager.tileStart
 
     Path.endTile = tileCreator.endTile
     const pathTiles = tileCreator.pathTiles
