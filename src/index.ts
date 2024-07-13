@@ -64,6 +64,7 @@ window.keyPressed = () => {
 
 window.draw = () => {
   if (stateManager.isPlay) {
+    game.update()
     game.draw()
   } else if (stateManager.isMenu) {
     menu.draw()

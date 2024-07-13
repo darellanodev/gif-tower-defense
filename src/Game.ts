@@ -225,8 +225,12 @@ export class Game {
     Path.endTile.draw()
 
     TileOrange.instances.forEach((orangeTile) => {
-      orangeTile.selectTarget(this.#enemyInstancesManager.getAll())
       orangeTile.drawTile()
+    })
+  }
+  #updateTowersEnemyTarget() {
+    TileOrange.instances.forEach((orangeTile) => {
+      orangeTile.selectTarget(this.#enemyInstancesManager.getAll())
     })
   }
 
@@ -425,6 +429,10 @@ export class Game {
       { x: 260, y: 18 },
     )
     Debug.showLabelTestingMode({ x: 8, y: 100 })
+  }
+
+  update() {
+    this.#updateTowersEnemyTarget()
   }
 
   draw() {
