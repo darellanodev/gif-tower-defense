@@ -27,6 +27,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - Code improvements:
 
   - [ ] Use singleton pattern for the following classes
+
     - [x] Game
     - [x] Player
     - [x] Wallet
@@ -34,12 +35,16 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
     - [x] MagicIceballCreator
     - [x] MagicUFOCreator
     - [ ] ...
-  - [ ] Separate low level code of high level code
+
+  - [ ] Clean tile creator classes
+  - [ ] Make Button a child of ButtonTransparent and perhaps rename Button to ButtonImage
   - [x] TowerGreenCreator, TowerRedCreator, and TowerYellowCreator like MagicFireballCreator, ...
   - [x] Extract collision logic from Magic classes to collision classes.
+  - [x] Make the tiles with an instance manager concept like the enemies or the magics
   - [ ] Make the towers with an instance manager concept like the enemies or the magics
-  - [ ] Make the tiles with an instance manager concept like the enemies or the magics
   - [ ] Review static methods to convert them to normal methods
+  - [ ] Separate low level code of high level code
+  - [ ] TilesManager can not extend from InstancesManager because InstancesManager has methods for remove dead instances and doesnt make any sense
 
 - The player can:
 
