@@ -66,6 +66,11 @@ export class TileStartCreator {
     TileStartCreator.#instance = this
   }
 
+  // clearInstance is for using in jest
+  static clearInstance() {
+    TileStartCreator.#instance = null
+  }
+
   #setStartImage(mapImages: any[]) {
     switch (this.#levelMap.startDirection) {
       case ConstDirection.DOWN:

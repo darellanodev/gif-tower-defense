@@ -64,6 +64,10 @@ export class TileEndCreator {
     // assign the singleton instance
     TileEndCreator.#instance = this
   }
+  // clearInstance is for using in jest
+  static clearInstance() {
+    TileEndCreator.#instance = null
+  }
 
   #instanceEndTile(posX: number, posY: number) {
     this.#tilesManager.tileEnd = new TileEnd(this.#endImage, {

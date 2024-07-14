@@ -1,30 +1,12 @@
-import { Path } from '../../src/path/Path'
-import { Player } from '../../src/player/Player'
-import { getNoValidLevelMapUnreachableEndTile } from '../helpers/levelMap'
-import { images } from '../helpers/imagesResources'
-import { TowerGreenCreator } from '../../src/towers/TowerGreenCreator'
-import { TowerRedCreator } from '../../src/towers/TowerRedCreator'
-import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
-import { TileCreator } from '../../src/tiles/TileCreator'
+import {
+  getNoValidLevelMapUnreachableEndTile,
+  getPathFromMap,
+} from '../helpers/levelMap'
 
 test('length orders of makeOrders, when map is invalid, returns zero', () => {
   const noValidMap = getNoValidLevelMapUnreachableEndTile()
-  const player = Player.getInstance()
-  const towerGreenCreator = TowerGreenCreator.getInstance(images)
-  const towerRedCreator = TowerRedCreator.getInstance(images)
-  const towerYellowCreator = TowerYellowCreator.getInstance(images, player)
-  const tileCreator = new TileCreator(
-    noValidMap,
-    images,
-    player,
-    towerGreenCreator,
-    towerRedCreator,
-    towerYellowCreator,
-  )
-  const pathTiles = tileCreator.pathTiles
-  const startTile = tileCreator.startTile
-  const endTile = tileCreator.endTile
-  const path = new Path(startTile, endTile, pathTiles)
+
+  const path = getPathFromMap(noValidMap)
 
   const orders = path.makeOrders()
 

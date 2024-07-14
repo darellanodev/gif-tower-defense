@@ -109,6 +109,11 @@ export class TileOrangeCreator {
     }
   }
 
+  // clearInstance is for using in jest
+  static clearInstance() {
+    TileOrangeCreator.#instance = null
+  }
+
   createAll() {
     let rowCount = 0
     this.#levelMap.rowsMap.forEach((row: string) => {

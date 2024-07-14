@@ -17,7 +17,6 @@ export const createNormalEnemy = (
   if (!wave) {
     wave = 1
   }
-
   const enemyCreator = new EnemyCreator(enemyInstancesManager)
 
   const waveEnemies = 3

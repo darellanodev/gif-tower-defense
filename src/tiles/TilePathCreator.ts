@@ -76,6 +76,11 @@ export class TilePathCreator {
     }
   }
 
+  // clearInstance is for using in jest
+  static clearInstance() {
+    TilePathCreator.#instance = null
+  }
+
   createAll() {
     let rowCount = 0
     this.#levelMap.rowsMap.forEach((row: string) => {
