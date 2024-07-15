@@ -51,7 +51,7 @@ export class Game {
   #enemyInstancesManager: EnemyInstancesManager
   #wallet: Wallet
   #hudPanel: HudPanel
-  #hudButtonsMagic: HudButtonsMagics
+  #hudButtonsMagics: HudButtonsMagics
   #hudButtonsTowers: HudButtonsTowers
   #hudProgressBarBoss: HudProgressBarBoss
   #hudProgressBarWave: HudProgressBarWave
@@ -186,7 +186,7 @@ export class Game {
     ButtonTower.initializeButtons()
 
     this.#hudPanel = new HudPanel(Images.hudImages)
-    this.#hudButtonsMagic = new HudButtonsMagics()
+    this.#hudButtonsMagics = new HudButtonsMagics()
 
     this.#wallet = Wallet.getInstance(Wallet.GAME_TESTING_MODE, levelMap.money)
     // this.#wallet = Wallet.getInstance(
@@ -196,9 +196,12 @@ export class Game {
     this.#hudButtonsTowers = new HudButtonsTowers(this.#wallet)
 
     this.#controls = new Controls(
-      this.#hudButtonsMagic,
+      this.#hudButtonsMagics,
       this.#hudButtonsTowers,
       this.#wallet,
+      this.#magicFireballInstancesManager,
+      this.#magicIceballInstancesManager,
+      this.#magicUFOInstancesManager,
     )
 
     this.#hudProgressBarBoss = new HudProgressBarBoss()
@@ -323,7 +326,7 @@ export class Game {
     this.#drawHudBackgroundImage()
     this.#drawInfluenceArea()
     this.#hudButtonsTowers.draw()
-    this.#hudButtonsMagic.draw()
+    this.#hudButtonsMagics.draw()
     this.#hudProgressBarWave.draw()
     this.#hudProgressBarBoss.draw()
     this.#hudOtherIndicators.draw()
@@ -444,19 +447,7 @@ export class Game {
   }
 
   mouseClicked() {
-    this.#controls.mouseClicked(
-      P5.p5.mouseX,
-      P5.p5.mouseY,
-      Images.magicIceballImage,
-      Images.magicFireballImage,
-      Images.magicUFOImages,
-      Path.initialEnemiesPosition,
-      Path.orders,
-      this.#controls.mouseTileOrangeOver,
-      this.#magicFireballInstancesManager,
-      this.#magicIceballInstancesManager,
-      this.#magicUFOInstancesManager,
-    )
+    this.#controls.mouseClicked()
   }
 
   keyPressed() {

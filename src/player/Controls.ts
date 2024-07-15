@@ -2,7 +2,6 @@ import { TowerGreen } from '../towers/TowerGreen'
 import { TowerRed } from '../towers/TowerRed'
 import { TowerYellow } from '../towers/TowerYellow'
 import { Const } from '../constants/Const'
-import { Image } from 'p5'
 import { Position } from '../types/position'
 import { TileOrange } from '../tiles/TileOrange'
 import { P5 } from '../utils/P5'
@@ -12,6 +11,8 @@ import { Wallet } from './Wallet'
 import { InfluenceArea } from '../towers/InfluenceArea'
 import { MagicInstancesManager } from '../magics/MagicInstancesManager'
 import { TowerType } from '../types/towerType'
+import { Images } from '../resources/Images'
+import { Path } from '../path/Path'
 
 export class Controls {
   #mouseTileOrangeOver: TileOrange | null = null
@@ -19,14 +20,24 @@ export class Controls {
   #hudButtonsMagics: HudButtonsMagics
   #wallet: Wallet
 
+  #magicFireballInstancesManager: MagicInstancesManager
+  #magicIceballInstancesManager: MagicInstancesManager
+  #magicUFOInstancesManager: MagicInstancesManager
+
   constructor(
     hudButtonsMagics: HudButtonsMagics,
     hudButtonsTowers: HudButtonsTowers,
     wallet: Wallet,
+    magicFireballInstancesManager: MagicInstancesManager,
+    magicIceballInstancesManager: MagicInstancesManager,
+    magicUFOInstancesManager: MagicInstancesManager,
   ) {
     this.#hudButtonsMagics = hudButtonsMagics
     this.#hudButtonsTowers = hudButtonsTowers
     this.#wallet = wallet
+    this.#magicFireballInstancesManager = magicFireballInstancesManager
+    this.#magicIceballInstancesManager = magicIceballInstancesManager
+    this.#magicUFOInstancesManager = magicUFOInstancesManager
   }
 
   keyPressed() {
@@ -51,41 +62,25 @@ export class Controls {
     this.#mouseTileOrangeOver = tileOrange
   }
 
-  mouseClicked(
-    mouseX: number,
-    mouseY: number,
-    magicIceballImage: Image,
-    magicFireballImage: Image,
-    magicUFOImages: Image[],
-    initialEnemiesPosition: Position,
-    orders: number[],
-    mouseTileOrangeOver: TileOrange | null,
-    magicFireballInstancesManager: MagicInstancesManager,
-    magicIceballInstancesManager: MagicInstancesManager,
-    magicUFOInstancesManager: MagicInstancesManager,
-  ) {
-    const mousePosition: Position = { x: mouseX, y: mouseY }
+  mouseClicked() {
+    const mousePosition = { x: P5.p5.mouseX, y: P5.p5.mouseY }
 
     if (this.#hudButtonsTowers.isInsideTowersButtonsBar(mousePosition)) {
       this.#hudButtonsTowers.handleTowerButtons(mousePosition)
-    }
-    if (this.#hudButtonsMagics.isInsideMagicsButtonsBar(mousePosition)) {
+    } else if (this.#hudButtonsMagics.isInsideMagicsButtonsBar(mousePosition)) {
       this.#hudButtonsMagics.handleMagicButtons(
         mousePosition,
-        magicIceballImage,
-        magicFireballImage,
-        magicUFOImages,
-        initialEnemiesPosition,
-        orders,
-        magicFireballInstancesManager,
-        magicIceballInstancesManager,
-        magicUFOInstancesManager,
+        Images.magicIceballImage,
+        Images.magicFireballImage,
+        Images.magicUFOImages,
+        Path.initialEnemiesPosition,
+        Path.orders,
+        this.#magicFireballInstancesManager,
+        this.#magicIceballInstancesManager,
+        this.#magicUFOInstancesManager,
       )
-      return
-    }
-
-    if (mouseTileOrangeOver !== null) {
-      this.clicOrangeTile(mouseTileOrangeOver)
+    } else if (this.mouseTileOrangeOver !== null) {
+      this.clicOrangeTile(this.mouseTileOrangeOver)
     }
   }
 
