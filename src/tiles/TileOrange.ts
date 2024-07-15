@@ -14,7 +14,6 @@ import { TowerRedCreator } from '../towers/TowerRedCreator'
 import { TowerYellowCreator } from '../towers/TowerYellowCreator'
 
 export class TileOrange extends Obj {
-  static instances: TileOrange[] = []
 
   #img: Image
   #tower: TowerType | null = null

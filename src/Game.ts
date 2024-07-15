@@ -126,7 +126,6 @@ export class Game {
       this.#tilesManager,
     )
     this.#tileOrangeCreator.createAll()
-    TileOrange.instances = this.#tilesManager.getAllOrangeTiles
 
     //create start tile
     this.#tileStartCreator = TileStartCreator.getInstance(
@@ -276,18 +275,18 @@ export class Game {
     Path.startTile.draw()
     Path.endTile.draw()
 
-    TileOrange.instances.forEach((orangeTile) => {
+    this.#tilesManager.getAllOrangeTiles.forEach((orangeTile) => {
       orangeTile.drawTile()
     })
   }
   #updateTowersEnemyTarget() {
-    TileOrange.instances.forEach((orangeTile) => {
+    this.#tilesManager.getAllOrangeTiles.forEach((orangeTile) => {
       orangeTile.selectTarget(this.#enemyInstancesManager.getAll())
     })
   }
 
   #drawTowers() {
-    TileOrange.instances.forEach((orangeTile) => {
+    this.#tilesManager.getAllOrangeTiles.forEach((orangeTile) => {
       orangeTile.updateTower()
       orangeTile.drawTower()
     })
@@ -439,7 +438,7 @@ export class Game {
   }
 
   #getMouseTileOrangeOver() {
-    const result = TileOrange.instances.find((orangeTile) =>
+    const result = this.#tilesManager.getAllOrangeTiles.find((orangeTile) =>
       orangeTile.isInside(P5.p5.mouseX, P5.p5.mouseY),
     )
 
