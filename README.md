@@ -36,11 +36,13 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
     - [x] MagicUFOCreator
     - [ ] ...
 
-  - [ ] Clean tile creator classes
-  - [ ] Make Button a child of ButtonTransparent and perhaps rename Button to ButtonImage
+  - [ ] Extract getTilePosition from Path class to a new class because it is not related with the Path concept
+  - [x] Review Path class: remove static properties, refactor long methods.
+  - [x] Clean tile creator classes
   - [x] TowerGreenCreator, TowerRedCreator, and TowerYellowCreator like MagicFireballCreator, ...
   - [x] Extract collision logic from Magic classes to collision classes.
   - [x] Make the tiles with an instance manager concept like the enemies or the magics
+  - [ ] Make Button a child of ButtonTransparent and perhaps rename Button to ButtonImage
   - [ ] Make the towers with an instance manager concept like the enemies or the magics
   - [ ] Review static methods to convert them to normal methods
   - [ ] Separate low level code of high level code
