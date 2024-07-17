@@ -80,7 +80,7 @@ export class Path {
     return this.getTileInPosition(searchPx, searchPy)
   }
 
-  _isLeftTileEnd(currentTile: any) {
+  #isLeftTileEnd(currentTile: any) {
     const searchPx = currentTile.position.x - Const.TILE_SIZE
     const searchPy = currentTile.position.y
 
@@ -96,7 +96,7 @@ export class Path {
   }
 
   #processLeftDirection() {
-    const isLeftTileEnd = this._isLeftTileEnd(this.#currentTile)
+    const isLeftTileEnd = this.#isLeftTileEnd(this.#currentTile)
 
     if (isLeftTileEnd) {
       this.#endReached = true
