@@ -54,8 +54,7 @@ export const getTilePathCreator = (
   levelMap: MapDataType | undefined,
   tilesManager: TilesManager,
 ) => {
-  const player = Player.getInstance()
-  return TilePathCreator.getInstance(levelMap, images, player, tilesManager)
+  return TilePathCreator.getInstance(levelMap, tilesManager)
 }
 
 export const getPathFromMap = (levelMap: MapDataType | undefined) => {

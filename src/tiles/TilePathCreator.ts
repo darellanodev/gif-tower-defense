@@ -1,6 +1,4 @@
 import { MapDataType } from '../types/mapDataType'
-import { Image } from 'p5'
-import { Player } from '../player/Player'
 import { TilesManager } from './TilesManager'
 import { TilePath } from './TilePath'
 
@@ -12,32 +10,19 @@ export class TilePathCreator {
   static SYMBOL = '1'
 
   #levelMap: MapDataType
-  #player: Player
   #tilesManager: TilesManager
 
   static getInstance(
     levelMap: MapDataType | undefined,
-    mapImages: Image[],
-    player: Player,
     tilesManager: TilesManager,
   ) {
     if (TilePathCreator.#instance === null) {
-      TilePathCreator.#instance = new TilePathCreator(
-        levelMap,
-        mapImages,
-        player,
-        tilesManager,
-      )
+      TilePathCreator.#instance = new TilePathCreator(levelMap, tilesManager)
     }
     return TilePathCreator.#instance
   }
 
-  constructor(
-    levelMap: MapDataType | undefined,
-    mapImages: Image[],
-    player: Player,
-    tilesManager: TilesManager,
-  ) {
+  constructor(levelMap: MapDataType | undefined, tilesManager: TilesManager) {
     if (TilePathCreator.#instance !== null) {
       throw new Error(
         'TilePathCreator is a singleton class, use getInstance to get the instance',
@@ -49,7 +34,6 @@ export class TilePathCreator {
     }
 
     this.#levelMap = levelMap
-    this.#player = player
 
     if (this.#levelMap.rowsMap.length === 0) {
       throw new Error('No rows map found')

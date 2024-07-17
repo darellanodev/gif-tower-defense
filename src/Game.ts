@@ -157,8 +157,6 @@ export class Game {
     // create path tiles
     this.#tilePathCreator = TilePathCreator.getInstance(
       levelMap,
-      Images.tileImages,
-      this.#player,
       this.#tilesManager,
     )
     this.#tilePathCreator.createAll()
