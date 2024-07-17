@@ -11,7 +11,6 @@ import { Const } from './constants/Const'
 import { EnemyInstancesManager } from './enemies/EnemyInstancesManager'
 import { Wallet } from './player/Wallet'
 import { ExplosionEnemy } from './explosions/ExplosionEnemy'
-import { TileOrange } from './tiles/TileOrange'
 import { HudPanel } from './hud/HudPanel'
 import { HudButtonsTowers } from './hud/HudButtonsTowers'
 import { HudButtonsMagics } from './hud/HudButtonsMagics'
@@ -39,6 +38,8 @@ import { TileOrangeCreator } from './tiles/TileOrangeCreator'
 import { TileStartCreator } from './tiles/TileStartCreator'
 import { TileEndCreator } from './tiles/TileEndCreator'
 import { TilePathCreator } from './tiles/TilePathCreator'
+import { PathStartEnemiesPosition } from './path/PathStartEnemiesPosition'
+import { Position } from './types/position'
 
 export class Game {
   static #instance: Game | null = null
@@ -67,6 +68,7 @@ export class Game {
   #tileStartCreator: TileStartCreator
   #tileEndCreator: TileEndCreator
   #tilePathCreator: TilePathCreator
+  #pathStartEnemiesPosition: Position = { x: 0, y: 0 }
 
   static getInstance(stateManager: StateManager) {
     if (Game.#instance === null) {
@@ -164,7 +166,11 @@ export class Game {
 
     const path = new Path(Path.startTile, Path.endTile, pathTiles)
     Path.orders = path.makeOrders()
-    Path.initialEnemiesPosition = path.getEnemiesInitialPosition()
+
+    const pathStartEnemiesPosition = PathStartEnemiesPosition.getInstance(
+      Path.startTile,
+    )
+    this.#pathStartEnemiesPosition = pathStartEnemiesPosition.get()
 
     ButtonMagic.setImages(
       Images.magicUFOButtonImages,
@@ -197,6 +203,7 @@ export class Game {
       this.#magicFireballInstancesManager,
       this.#magicIceballInstancesManager,
       this.#magicUFOInstancesManager,
+      this.#pathStartEnemiesPosition,
     )
 
     this.#hudProgressBarBoss = new HudProgressBarBoss()
@@ -232,7 +239,7 @@ export class Game {
     const pathMovement = this.#createPathMovement(Enemy.BOSS_VELOCITY)
 
     this.#enemyCreator.createBoss(
-      Path.initialEnemiesPosition,
+      this.#pathStartEnemiesPosition,
       this.#player.wave,
       enemyBossAnimator,
       pathMovement,
@@ -328,7 +335,7 @@ export class Game {
   }
 
   #createPathMovement(speed: number) {
-    return new PathMovement(Path.initialEnemiesPosition, Path.orders, speed)
+    return new PathMovement(this.#pathStartEnemiesPosition, Path.orders, speed)
   }
 
   #createEnemyNormalAnimator() {
@@ -355,7 +362,7 @@ export class Game {
 
     this.#enemyCreator.createNormal(
       Enemy.waveEnemies,
-      Path.initialEnemiesPosition,
+      this.#pathStartEnemiesPosition,
       this.#player.wave,
       enemyAnimator,
       pathMovement,

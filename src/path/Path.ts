@@ -3,14 +3,12 @@ import { TileEnd } from '../tiles/TileEnd'
 import { TilePath } from '../tiles/TilePath'
 import { Const } from '../constants/Const'
 import { ConstDirection } from '../constants/ConstDirection'
-import { Position } from '../types/position'
 
 export class Path {
   static MAX_SEARCHES = 5000 // For testing purposes put a low value. For production put this value at 5000
   static orders: number[] = []
   static startTile: TileStart
   static endTile: TileEnd
-  static initialEnemiesPosition: Position
 
   #startTile: TileStart
   #endTile: TileEnd
@@ -33,19 +31,6 @@ export class Path {
     })
 
     this.#currentDirection = this.#startTile.getStartDirection()
-  }
-
-  getEnemiesInitialPosition() {
-    let finalX = 0
-    let finalY = 0
-
-    if (this.#startTile.getStartDirection() === ConstDirection.LEFT) {
-      const finalPosition = this.#startTile.position
-      finalX = finalPosition.x + Const.TILE_SIZE
-      finalY = finalPosition.y
-    }
-
-    return { x: finalX, y: finalY }
   }
 
   getTileInPosition(tx: number, ty: number) {

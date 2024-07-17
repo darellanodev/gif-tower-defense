@@ -23,6 +23,7 @@ export class Controls {
   #magicFireballInstancesManager: MagicInstancesManager
   #magicIceballInstancesManager: MagicInstancesManager
   #magicUFOInstancesManager: MagicInstancesManager
+  #pathStartEnemiesPosition: Position
 
   constructor(
     hudButtonsMagics: HudButtonsMagics,
@@ -31,6 +32,7 @@ export class Controls {
     magicFireballInstancesManager: MagicInstancesManager,
     magicIceballInstancesManager: MagicInstancesManager,
     magicUFOInstancesManager: MagicInstancesManager,
+    pathStartEnemiesPosition: Position,
   ) {
     this.#hudButtonsMagics = hudButtonsMagics
     this.#hudButtonsTowers = hudButtonsTowers
@@ -38,6 +40,7 @@ export class Controls {
     this.#magicFireballInstancesManager = magicFireballInstancesManager
     this.#magicIceballInstancesManager = magicIceballInstancesManager
     this.#magicUFOInstancesManager = magicUFOInstancesManager
+    this.#pathStartEnemiesPosition = pathStartEnemiesPosition
   }
 
   keyPressed() {
@@ -73,7 +76,7 @@ export class Controls {
         Images.magicIceballImage,
         Images.magicFireballImage,
         Images.magicUFOImages,
-        Path.initialEnemiesPosition,
+        this.#pathStartEnemiesPosition,
         Path.orders,
         this.#magicFireballInstancesManager,
         this.#magicIceballInstancesManager,
