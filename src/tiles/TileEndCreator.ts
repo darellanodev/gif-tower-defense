@@ -1,9 +1,7 @@
 import { MapDataType } from '../types/mapDataType'
 import { Image } from 'p5'
-import { Player } from '../player/Player'
 import { TilesManager } from './TilesManager'
 import { ConstDirection } from '../constants/ConstDirection'
-import { TileStart } from './TileStart'
 import { TileEnd } from './TileEnd'
 
 export class TileEndCreator {
@@ -14,21 +12,18 @@ export class TileEndCreator {
   static SYMBOL = 'y'
 
   #levelMap: MapDataType
-  #player: Player
   #tilesManager: TilesManager
   #endImage: Image | null = null
 
   static getInstance(
     levelMap: MapDataType | undefined,
     mapImages: Image[],
-    player: Player,
     tilesManager: TilesManager,
   ) {
     if (TileEndCreator.#instance === null) {
       TileEndCreator.#instance = new TileEndCreator(
         levelMap,
         mapImages,
-        player,
         tilesManager,
       )
     }
@@ -38,7 +33,6 @@ export class TileEndCreator {
   constructor(
     levelMap: MapDataType | undefined,
     mapImages: Image[],
-    player: Player,
     tilesManager: TilesManager,
   ) {
     if (TileEndCreator.#instance !== null) {
@@ -52,7 +46,6 @@ export class TileEndCreator {
     }
 
     this.#levelMap = levelMap
-    this.#player = player
 
     if (this.#levelMap.rowsMap.length === 0) {
       throw new Error('No rows map found')

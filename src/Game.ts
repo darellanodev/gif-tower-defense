@@ -145,7 +145,6 @@ export class Game {
     this.#tileEndCreator = TileEndCreator.getInstance(
       levelMap,
       Images.tileImages,
-      this.#player,
       this.#tilesManager,
     )
     this.#tileEndCreator.create()
