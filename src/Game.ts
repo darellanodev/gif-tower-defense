@@ -140,7 +140,6 @@ export class Game {
     if (this.#tilesManager.tileStart === null) {
       throw new Error('Map invalid: there is no tileStart')
     }
-    Path.startTile = this.#tilesManager.tileStart
 
     //create end tile
     this.#tileEndCreator = TileEndCreator.getInstance(
@@ -153,7 +152,6 @@ export class Game {
     if (this.#tilesManager.tileEnd === null) {
       throw new Error('Map invalid: there is no tileEnd')
     }
-    Path.endTile = this.#tilesManager.tileEnd
 
     // create path tiles
     this.#tilePathCreator = TilePathCreator.getInstance(
@@ -162,14 +160,15 @@ export class Game {
     )
     this.#tilePathCreator.createAll()
 
-    const pathTiles = this.#tilesManager.getAllPathTiles
+    const tilesPath = this.#tilesManager.getAllPathTiles
+    const tileStart = this.#tilesManager.tileStart
+    const tileEnd = this.#tilesManager.tileEnd
 
-    const path = new Path(Path.startTile, Path.endTile, pathTiles)
+    const path = new Path(tileStart, tileEnd, tilesPath)
     Path.orders = path.makeOrders()
 
-    const pathStartEnemiesPosition = PathStartEnemiesPosition.getInstance(
-      Path.startTile,
-    )
+    const pathStartEnemiesPosition =
+      PathStartEnemiesPosition.getInstance(tileStart)
     this.#pathStartEnemiesPosition = pathStartEnemiesPosition.get()
 
     ButtonMagic.setImages(
