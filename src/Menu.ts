@@ -27,9 +27,9 @@ export class Menu {
     )
     this.#minimapEditor = new MiniMap({ x: 637, y: 200 })
 
-    this.#minimapLastPlayed1 = new MiniMap({ x: 430, y: 468 })
-    this.#minimapLastPlayed2 = new MiniMap({ x: 555, y: 468 })
-    this.#minimapLastPlayed3 = new MiniMap({ x: 680, y: 468 })
+    this.#minimapLastPlayed1 = new MiniMap({ x: 350, y: 445 })
+    this.#minimapLastPlayed2 = new MiniMap({ x: 500, y: 445 })
+    this.#minimapLastPlayed3 = new MiniMap({ x: 650, y: 445 })
     // assign the singleton instance
     Menu.#instance = this
   }
