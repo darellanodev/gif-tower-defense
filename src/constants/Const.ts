@@ -16,4 +16,5 @@ export class Const {
   static DELAY_UPGRADE_MULTIPLIER = 5
   static MAGIC_STATUS_ALIVE = 0
   static MAGIC_STATUS_DEAD = 1
+  static SCALE_MINIMAP = 7 // 1 = 100%, 2 = 50%, ...
 }

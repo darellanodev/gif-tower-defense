@@ -14,7 +14,6 @@ import { TowerRedCreator } from '../towers/TowerRedCreator'
 import { TowerYellowCreator } from '../towers/TowerYellowCreator'
 
 export class TileOrange extends Obj {
-
   #img: Image
   #tower: TowerType | null = null
   #player: Player
@@ -57,8 +56,14 @@ export class TileOrange extends Obj {
     }
   }
 
-  drawTile() {
-    P5.p5.image(this.#img, this.position.x, this.position.y)
+  drawTile(scale: number, startOffsetX: number, startOffsetY: number) {
+    P5.p5.image(
+      this.#img,
+      this.position.x / scale + startOffsetX,
+      this.position.y / scale + startOffsetY,
+      Const.TILE_SIZE / scale,
+      Const.TILE_SIZE / scale,
+    )
   }
 
   drawTower() {

@@ -38,14 +38,15 @@ export class TilesManager {
     this.#tileEnd = tileEnd
   }
 
-  drawAll() {
+  drawAll(scale = 1, startOffsetX = 0, startOffsetY = 0) {
     if (this.#tileStart === null || this.#tileEnd === null) {
       throw new Error('Error: tileStart or tileEnd is null')
     }
-    this.#tileStart.draw()
-    this.#tileEnd.draw()
+
+    this.#tileStart.draw(scale, startOffsetX, startOffsetY)
+    this.#tileEnd.draw(scale, startOffsetX, startOffsetY)
     this.#tilesOrange.forEach((tileOrange) => {
-      tileOrange.drawTile()
+      tileOrange.drawTile(scale, startOffsetX, startOffsetY)
     })
   }
 }

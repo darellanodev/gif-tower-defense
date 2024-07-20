@@ -10,6 +10,8 @@ import { TileOrangeCreator } from './tiles/TileOrangeCreator'
 import { TileStartCreator } from './tiles/TileStartCreator'
 import { TileEndCreator } from './tiles/TileEndCreator'
 import { TilePathCreator } from './tiles/TilePathCreator'
+import { Const } from './constants/Const'
+import { Position } from './types/position'
 
 export class MiniMap {
   #levelDataProvider: LevelsDataProvider
@@ -20,7 +22,9 @@ export class MiniMap {
   #tilePathCreator: TilePathCreator
   #player: Player
 
-  constructor() {
+  #position: Position
+  constructor(position: Position) {
+    this.#position = position
     this.#levelDataProvider = new LevelsDataProvider(LevelsData.data)
 
     const levelMap = this.#levelDataProvider.getLevel(1)
@@ -65,13 +69,11 @@ export class MiniMap {
     this.#tilePathCreator.createAll(levelMap, this.#tilesManager)
   }
 
-  // #drawBackground() {
-  //   P5.p5.rectMode(P5.p5.CORNER)
-  //   P5.p5.image(Images.backgroundImage, 0, HudPanel.HEIGHT)
-  // }
-
   draw() {
-    // this.#drawBackground()
-    this.#tilesManager.drawAll()
+    this.#tilesManager.drawAll(
+      Const.SCALE_MINIMAP,
+      this.#position.x,
+      this.#position.y,
+    )
   }
 }

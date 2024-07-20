@@ -2,6 +2,7 @@ import { Image } from 'p5'
 import { Position } from '../types/position'
 import { Obj } from '../Obj'
 import { P5 } from '../utils/P5'
+import { Const } from '../constants/Const'
 
 export class TileStart extends Obj {
   #img: Image | null
@@ -13,9 +14,15 @@ export class TileStart extends Obj {
     this.#startDirection = startDirection
   }
 
-  draw() {
+  draw(scale: number, startOffsetX: number, startOffsetY: number) {
     if (this.#img) {
-      P5.p5.image(this.#img, this.position.x, this.position.y)
+      P5.p5.image(
+        this.#img,
+        this.position.x / scale + startOffsetX,
+        this.position.y / scale + startOffsetY,
+        Const.TILE_SIZE / scale,
+        Const.TILE_SIZE / scale,
+      )
     }
   }
 

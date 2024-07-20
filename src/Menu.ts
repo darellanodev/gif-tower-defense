@@ -9,7 +9,10 @@ export class Menu {
   static #instance: Menu | null = null
   #startButton: ButtonTransparent
   #stateManager: StateManager
-  #minimap: MiniMap
+  #minimapEditor: MiniMap
+  #minimapLastPlayed1: MiniMap
+  #minimapLastPlayed2: MiniMap
+  #minimapLastPlayed3: MiniMap
 
   constructor(stateManager: StateManager) {
     if (Menu.#instance !== null) {
@@ -22,8 +25,11 @@ export class Menu {
       { x: 623, y: 207 },
       { w: 150, h: 100 },
     )
-    this.#minimap = new MiniMap()
+    this.#minimapEditor = new MiniMap({ x: 637, y: 200 })
 
+    this.#minimapLastPlayed1 = new MiniMap({ x: 430, y: 468 })
+    this.#minimapLastPlayed2 = new MiniMap({ x: 555, y: 468 })
+    this.#minimapLastPlayed3 = new MiniMap({ x: 680, y: 468 })
     // assign the singleton instance
     Menu.#instance = this
   }
@@ -43,7 +49,6 @@ export class Menu {
   #drawBackground() {
     P5.p5.background('skyblue')
     P5.p5.rectMode(P5.p5.CORNER)
-
     P5.p5.image(Images.menu, 0, 0, 800, 580)
   }
   mouseClicked() {
@@ -54,7 +59,10 @@ export class Menu {
   update() {}
   draw() {
     this.#drawBackground()
-    // this.#minimap.draw()
+    this.#minimapEditor.draw()
+    this.#minimapLastPlayed1.draw()
+    this.#minimapLastPlayed2.draw()
+    this.#minimapLastPlayed3.draw()
     this.#drawDebugElements()
   }
 }
