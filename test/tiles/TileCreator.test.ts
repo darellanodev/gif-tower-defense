@@ -9,10 +9,13 @@ import { TilesManager } from '../../src/tiles/TilesManager'
 
 test('orangeTiles getter, when valid map is passed, return the orange tiles', () => {
   const levelMap = getValidLevelMap()
+  if (levelMap === undefined) {
+    throw new Error('levelMap is undefined')
+  }
 
   const tilesManager = new TilesManager()
-  const tileOrangeCreator = getTileOrangeCreator(levelMap, tilesManager)
-  tileOrangeCreator.createAll()
+  const tileOrangeCreator = getTileOrangeCreator()
+  tileOrangeCreator.createAll(levelMap, tilesManager)
 
   const result = tilesManager.getAllOrangeTiles
 
@@ -21,10 +24,13 @@ test('orangeTiles getter, when valid map is passed, return the orange tiles', ()
 
 test('pathTiles getter, when valid map is passed, return the path tiles', () => {
   const levelMap = getValidLevelMap()
+  if (levelMap === undefined) {
+    throw new Error('levelMap is undefined')
+  }
 
   const tilesManager = new TilesManager()
-  const tilePathCreator = getTilePathCreator(levelMap, tilesManager)
-  tilePathCreator.createAll()
+  const tilePathCreator = getTilePathCreator()
+  tilePathCreator.createAll(levelMap, tilesManager)
 
   const result = tilesManager.getAllPathTiles
 
@@ -33,10 +39,13 @@ test('pathTiles getter, when valid map is passed, return the path tiles', () => 
 
 test('startTile getter, when valid map is passed, return the start tile', () => {
   const levelMap = getValidLevelMap()
+  if (levelMap === undefined) {
+    throw new Error('levelMap is undefined')
+  }
 
   const tilesManager = new TilesManager()
-  const tileStartCreator = getTileStartCreator(levelMap, tilesManager)
-  tileStartCreator.create()
+  const tileStartCreator = getTileStartCreator()
+  tileStartCreator.create(levelMap, tilesManager)
 
   const result = tilesManager.tileStart
 
@@ -45,10 +54,13 @@ test('startTile getter, when valid map is passed, return the start tile', () => 
 
 test('endTile getter, when valid map is passed, return the end tile', () => {
   const levelMap = getValidLevelMap()
+  if (levelMap === undefined) {
+    throw new Error('levelMap is undefined')
+  }
 
   const tilesManager = new TilesManager()
-  const tileEndCreator = getTileEndCreator(levelMap, tilesManager)
-  tileEndCreator.create()
+  const tileEndCreator = getTileEndCreator()
+  tileEndCreator.create(levelMap, tilesManager)
 
   const result = tilesManager.tileEnd
 

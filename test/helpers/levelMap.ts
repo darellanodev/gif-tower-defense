@@ -15,64 +15,52 @@ import { TileStartCreator } from '../../src/tiles/TileStartCreator'
 import { TileEndCreator } from '../../src/tiles/TileEndCreator'
 import { TilePathCreator } from '../../src/tiles/TilePathCreator'
 
-export const getTileOrangeCreator = (
-  levelMap: MapDataType | undefined,
-  tilesManager: TilesManager,
-) => {
+export const getTileOrangeCreator = () => {
+  TileOrangeCreator.clearInstance()
   const player = Player.getInstance()
   const towerGreenCreator = TowerGreenCreator.getInstance(images)
   const towerRedCreator = TowerRedCreator.getInstance(images)
   const towerYellowCreator = TowerYellowCreator.getInstance(images, player)
 
   return TileOrangeCreator.getInstance(
-    levelMap,
     images,
     player,
     towerGreenCreator,
     towerRedCreator,
     towerYellowCreator,
-    tilesManager,
   )
 }
 
-export const getTileStartCreator = (
-  levelMap: MapDataType | undefined,
-  tilesManager: TilesManager,
-) => {
-  return TileStartCreator.getInstance(levelMap, images, tilesManager)
+export const getTileStartCreator = () => {
+  TileStartCreator.clearInstance()
+  return TileStartCreator.getInstance(images)
 }
 
-export const getTileEndCreator = (
-  levelMap: MapDataType | undefined,
-  tilesManager: TilesManager,
-) => {
-  return TileEndCreator.getInstance(levelMap, images, tilesManager)
+export const getTileEndCreator = () => {
+  TileEndCreator.clearInstance()
+  return TileEndCreator.getInstance(images)
 }
 
-export const getTilePathCreator = (
-  levelMap: MapDataType | undefined,
-  tilesManager: TilesManager,
-) => {
-  return TilePathCreator.getInstance(levelMap, tilesManager)
+export const getTilePathCreator = () => {
+  TilePathCreator.clearInstance()
+  return TilePathCreator.getInstance()
 }
 
 export const getPathFromMap = (levelMap: MapDataType | undefined) => {
+  if (levelMap === undefined) {
+    throw new Error('levelMap is undefined')
+  }
   const tilesManager = new TilesManager()
 
-  TileOrangeCreator.clearInstance()
-  TileStartCreator.clearInstance()
-  TileEndCreator.clearInstance()
-  TilePathCreator.clearInstance()
+  const tileOrangeCreator = getTileOrangeCreator()
+  const tileStartCreator = getTileStartCreator()
+  const tileEndCreator = getTileEndCreator()
+  const tilePathCreator = getTilePathCreator()
 
-  const tileOrangeCreator = getTileOrangeCreator(levelMap, tilesManager)
-  const tileStartCreator = getTileStartCreator(levelMap, tilesManager)
-  const tileEndCreator = getTileEndCreator(levelMap, tilesManager)
-  const tilePathCreator = getTilePathCreator(levelMap, tilesManager)
-
-  tileOrangeCreator.createAll()
-  tileStartCreator.create()
-  tileEndCreator.create()
-  tilePathCreator.createAll()
+  tileOrangeCreator.createAll(levelMap, tilesManager)
+  tileStartCreator.create(levelMap, tilesManager)
+  tileEndCreator.create(levelMap, tilesManager)
+  tilePathCreator.createAll(levelMap, tilesManager)
 
   const pathTiles = tilesManager.getAllPathTiles
   const startTile = tilesManager.tileStart

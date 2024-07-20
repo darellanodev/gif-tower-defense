@@ -44,7 +44,6 @@ export class TilesManager {
     }
     this.#tileStart.draw()
     this.#tileEnd.draw()
-
     this.#tilesOrange.forEach((tileOrange) => {
       tileOrange.drawTile()
     })

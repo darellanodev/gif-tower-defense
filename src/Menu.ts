@@ -1,3 +1,4 @@
+import { MiniMap } from './MiniMap'
 import { StateManager } from './StateManager'
 import { ButtonTransparent } from './hud/ButtonTransparent'
 import { Debug } from './hud/Debug'
@@ -8,6 +9,8 @@ export class Menu {
   static #instance: Menu | null = null
   #startButton: ButtonTransparent
   #stateManager: StateManager
+  #minimap: MiniMap
+
   constructor(stateManager: StateManager) {
     if (Menu.#instance !== null) {
       throw new Error(
@@ -19,6 +22,7 @@ export class Menu {
       { x: 623, y: 207 },
       { w: 150, h: 100 },
     )
+    this.#minimap = new MiniMap()
 
     // assign the singleton instance
     Menu.#instance = this
@@ -50,6 +54,7 @@ export class Menu {
   update() {}
   draw() {
     this.#drawBackground()
+    // this.#minimap.draw()
     this.#drawDebugElements()
   }
 }

@@ -1,6 +1,6 @@
 import { MapDataType } from '../types/mapDataType'
-import { TilesManager } from './TilesManager'
 import { TilePath } from './TilePath'
+import { TilesManager } from './TilesManager'
 
 export class TilePathCreator {
   static #instance: TilePathCreator | null = null
@@ -9,53 +9,39 @@ export class TilePathCreator {
   static MARGIN_TOP = 30
   static SYMBOL = '1'
 
-  #levelMap: MapDataType
-  #tilesManager: TilesManager
-
-  static getInstance(
-    levelMap: MapDataType | undefined,
-    tilesManager: TilesManager,
-  ) {
+  static getInstance() {
     if (TilePathCreator.#instance === null) {
-      TilePathCreator.#instance = new TilePathCreator(levelMap, tilesManager)
+      TilePathCreator.#instance = new TilePathCreator()
     }
     return TilePathCreator.#instance
   }
 
-  constructor(levelMap: MapDataType | undefined, tilesManager: TilesManager) {
+  constructor() {
     if (TilePathCreator.#instance !== null) {
       throw new Error(
         'TilePathCreator is a singleton class, use getInstance to get the instance',
       )
     }
 
-    if (!levelMap) {
-      throw new Error('Map is undefined')
-    }
-
-    this.#levelMap = levelMap
-
-    if (this.#levelMap.rowsMap.length === 0) {
-      throw new Error('No rows map found')
-    }
-
-    this.#tilesManager = tilesManager
-
     // assign the singleton instance
     TilePathCreator.#instance = this
   }
-  #instancePathTile(posX: number, posY: number) {
-    this.#tilesManager.addPathTile(new TilePath({ x: posX, y: posY }))
+  #instancePathTile(tilesManager: TilesManager, posX: number, posY: number) {
+    tilesManager.addPathTile(new TilePath({ x: posX, y: posY }))
   }
 
-  #processRow(trimmedRow: string, rowCount: number) {
+  #processRow(
+    tilesManager: TilesManager,
+    trimmedRow: string,
+    rowCount: number,
+  ) {
     for (let column = 0; column < trimmedRow.length; column++) {
       const character = trimmedRow[column]
       const posX = TilePathCreator.FLOOR_SIZE * column
       const posY =
         TilePathCreator.FLOOR_SIZE * rowCount + TilePathCreator.MARGIN_TOP
       if (character === TilePathCreator.SYMBOL) {
-        this.#instancePathTile(posX, posY)
+        this.#instancePathTile(tilesManager, posX, posY)
       }
     }
   }
@@ -65,12 +51,12 @@ export class TilePathCreator {
     TilePathCreator.#instance = null
   }
 
-  createAll() {
+  createAll(levelMap: MapDataType, tilesManager: TilesManager) {
     let rowCount = 0
-    this.#levelMap.rowsMap.forEach((row: string) => {
+    levelMap.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
-      this.#processRow(trimmedRow, rowCount)
+      this.#processRow(tilesManager, trimmedRow, rowCount)
     })
   }
 }

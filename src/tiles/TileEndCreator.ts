@@ -1,8 +1,8 @@
-import { MapDataType } from '../types/mapDataType'
 import { Image } from 'p5'
 import { TilesManager } from './TilesManager'
 import { ConstDirection } from '../constants/ConstDirection'
 import { TileEnd } from './TileEnd'
+import { MapDataType } from '../types/mapDataType'
 
 export class TileEndCreator {
   static #instance: TileEndCreator | null = null
@@ -11,49 +11,21 @@ export class TileEndCreator {
   static MARGIN_TOP = 30
   static SYMBOL = 'y'
 
-  #levelMap: MapDataType
-  #tilesManager: TilesManager
-  #endImage: Image | null = null
-
-  static getInstance(
-    levelMap: MapDataType | undefined,
-    mapImages: Image[],
-    tilesManager: TilesManager,
-  ) {
+  static getInstance(mapImages: Image[]) {
     if (TileEndCreator.#instance === null) {
-      TileEndCreator.#instance = new TileEndCreator(
-        levelMap,
-        mapImages,
-        tilesManager,
-      )
+      TileEndCreator.#instance = new TileEndCreator(mapImages)
     }
     return TileEndCreator.#instance
   }
 
-  constructor(
-    levelMap: MapDataType | undefined,
-    mapImages: Image[],
-    tilesManager: TilesManager,
-  ) {
+  #mapImages: Image[]
+  constructor(mapImages: Image[]) {
     if (TileEndCreator.#instance !== null) {
       throw new Error(
         'TileEndCreator is a singleton class, use getInstance to get the instance',
       )
     }
-
-    if (!levelMap) {
-      throw new Error('Map is undefined')
-    }
-
-    this.#levelMap = levelMap
-
-    if (this.#levelMap.rowsMap.length === 0) {
-      throw new Error('No rows map found')
-    }
-
-    this.#tilesManager = tilesManager
-    this.#setEndImage(mapImages)
-
+    this.#mapImages = mapImages
     // assign the singleton instance
     TileEndCreator.#instance = this
   }
@@ -62,50 +34,67 @@ export class TileEndCreator {
     TileEndCreator.#instance = null
   }
 
-  #instanceEndTile(posX: number, posY: number) {
-    this.#tilesManager.tileEnd = new TileEnd(this.#endImage, {
+  #instanceEndTile(
+    tilesManager: TilesManager,
+    levelMap: MapDataType,
+    posX: number,
+    posY: number,
+  ) {
+    const endImage = this.#endImage(levelMap)
+
+    tilesManager.tileEnd = new TileEnd(endImage, {
       x: posX,
       y: posY,
     })
   }
-  #setEndImage(mapImages: any[]) {
-    switch (this.#levelMap.endDirection) {
+
+  #endImage(levelMap: MapDataType) {
+    switch (levelMap.endDirection) {
       case ConstDirection.DOWN:
-        this.#endImage = mapImages[2]
+        return this.#mapImages[2]
         break
 
       case ConstDirection.RIGHT:
-        this.#endImage = mapImages[4]
+        return this.#mapImages[4]
         break
 
       case ConstDirection.LEFT:
-        this.#endImage = mapImages[3]
+        return this.#mapImages[3]
         break
 
       case ConstDirection.UP:
-        this.#endImage = mapImages[5]
+        return this.#mapImages[5]
+        break
+
+      default:
+        return this.#mapImages[3]
         break
     }
   }
 
-  #processRow(trimmedRow: string, rowCount: number) {
+  #processRow(
+    tilesManager: TilesManager,
+    levelMap: MapDataType,
+    trimmedRow: string,
+    rowCount: number,
+  ) {
     for (let column = 0; column < trimmedRow.length; column++) {
       const character = trimmedRow[column]
       const posX = TileEndCreator.FLOOR_SIZE * column
       const posY =
         TileEndCreator.FLOOR_SIZE * rowCount + TileEndCreator.MARGIN_TOP
       if (character === TileEndCreator.SYMBOL) {
-        this.#instanceEndTile(posX, posY)
+        this.#instanceEndTile(tilesManager, levelMap, posX, posY)
       }
     }
   }
 
-  create() {
+  create(levelMap: MapDataType, tilesManager: TilesManager) {
     let rowCount = 0
-    this.#levelMap.rowsMap.forEach((row: string) => {
+    levelMap.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
-      this.#processRow(trimmedRow, rowCount)
+      this.#processRow(tilesManager, levelMap, trimmedRow, rowCount)
     })
   }
 }

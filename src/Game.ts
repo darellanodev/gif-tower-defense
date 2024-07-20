@@ -119,50 +119,33 @@ export class Game {
 
     // create orange tiles
     this.#tileOrangeCreator = TileOrangeCreator.getInstance(
-      levelMap,
       Images.tileImages,
       this.#player,
       towerGreenCreator,
       towerRedCreator,
       towerYellowCreator,
-      this.#tilesManager,
     )
-    this.#tileOrangeCreator.createAll()
+    this.#tileOrangeCreator.createAll(levelMap, this.#tilesManager)
 
     //create start tile
-    this.#tileStartCreator = TileStartCreator.getInstance(
-      levelMap,
-      Images.tileImages,
-      this.#tilesManager,
-    )
-    this.#tileStartCreator.create()
-
-    if (this.#tilesManager.tileStart === null) {
-      throw new Error('Map invalid: there is no tileStart')
-    }
+    this.#tileStartCreator = TileStartCreator.getInstance(Images.tileImages)
+    this.#tileStartCreator.create(levelMap, this.#tilesManager)
 
     //create end tile
-    this.#tileEndCreator = TileEndCreator.getInstance(
-      levelMap,
-      Images.tileImages,
-      this.#tilesManager,
-    )
-    this.#tileEndCreator.create()
-
-    if (this.#tilesManager.tileEnd === null) {
-      throw new Error('Map invalid: there is no tileEnd')
-    }
+    this.#tileEndCreator = TileEndCreator.getInstance(Images.tileImages)
+    this.#tileEndCreator.create(levelMap, this.#tilesManager)
 
     // create path tiles
-    this.#tilePathCreator = TilePathCreator.getInstance(
-      levelMap,
-      this.#tilesManager,
-    )
-    this.#tilePathCreator.createAll()
+    this.#tilePathCreator = TilePathCreator.getInstance()
+    this.#tilePathCreator.createAll(levelMap, this.#tilesManager)
 
     const tilesPath = this.#tilesManager.getAllPathTiles
     const tileStart = this.#tilesManager.tileStart
     const tileEnd = this.#tilesManager.tileEnd
+
+    if (tileStart === null || tileEnd === null) {
+      throw new Error('Map invalid: tileStart or tileEnd is null')
+    }
 
     const path = new Path(tileStart, tileEnd, tilesPath)
     Path.orders = path.makeOrders()
