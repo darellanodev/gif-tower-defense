@@ -273,14 +273,6 @@ export class Game {
     })
   }
 
-  #drawTiles() {
-    Path.startTile.draw()
-    Path.endTile.draw()
-
-    this.#tilesManager.getAllOrangeTiles.forEach((orangeTile) => {
-      orangeTile.drawTile()
-    })
-  }
   #updateTowersEnemyTarget() {
     this.#tilesManager.getAllOrangeTiles.forEach((orangeTile) => {
       orangeTile.selectTarget(this.#enemyInstancesManager.getAll())
@@ -482,7 +474,7 @@ export class Game {
     }
 
     this.#drawBackground()
-    this.#drawTiles()
+    this.#tilesManager.drawAll()
     this.#drawTowers()
     this.#drawHud()
     this.#drawEnemies()

@@ -4,16 +4,16 @@ import { TilePath } from './TilePath'
 import { TileStart } from './TileStart'
 
 export class TilesManager {
-  #tileOrangeInstances: TileOrange[] = []
-  #tilePathInstances: TilePath[] = []
+  #tilesOrange: TileOrange[] = []
+  #tilesPath: TilePath[] = []
   #tileStart: TileStart | null = null
   #tileEnd: TileEnd | null = null
 
   get getAllOrangeTiles() {
-    return this.#tileOrangeInstances
+    return this.#tilesOrange
   }
   get getAllPathTiles() {
-    return this.#tilePathInstances
+    return this.#tilesPath
   }
 
   get tileStart(): TileStart | null {
@@ -24,10 +24,10 @@ export class TilesManager {
   }
 
   addOrangeTile(instance: TileOrange) {
-    this.#tileOrangeInstances.push(instance)
+    this.#tilesOrange.push(instance)
   }
   addPathTile(instance: TilePath) {
-    this.#tilePathInstances.push(instance)
+    this.#tilesPath.push(instance)
   }
 
   set tileStart(tileStart: TileStart) {
@@ -37,5 +37,16 @@ export class TilesManager {
   set tileEnd(tileEnd: TileEnd) {
     this.#tileEnd = tileEnd
   }
-  updateInstances() {}
+
+  drawAll() {
+    if (this.#tileStart === null || this.#tileEnd === null) {
+      throw new Error('Error: tileStart or tileEnd is null')
+    }
+    this.#tileStart.draw()
+    this.#tileEnd.draw()
+
+    this.#tilesOrange.forEach((tileOrange) => {
+      tileOrange.drawTile()
+    })
+  }
 }
