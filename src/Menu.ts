@@ -2,6 +2,8 @@ import { MiniMap } from './MiniMap'
 import { StateManager } from './StateManager'
 import { ButtonMiniMap } from './hud/ButtonMiniMap'
 import { Debug } from './hud/Debug'
+import { LevelsData } from './levels/LevelsData'
+import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { Images } from './resources/Images'
 import { P5 } from './utils/P5'
 
@@ -21,27 +23,35 @@ export class Menu {
     }
     this.#stateManager = stateManager
 
+    const levelDataProvider = new LevelsDataProvider(LevelsData.data)
+    const levelId = 1
+    const levelMap = levelDataProvider.getLevel(levelId)
+
+    if (levelMap === undefined) {
+      throw new Error('levelMap is undefined')
+    }
+
     this.#btnMiniMapEditor = new ButtonMiniMap(
       { x: 637, y: 207 },
       Images.buttonMiniMapImages,
-      new MiniMap(),
+      new MiniMap(levelMap),
     )
 
     const posY = 452
     this.#btnMiniMapLastPlayed1 = new ButtonMiniMap(
       { x: 336, y: posY },
       Images.buttonMiniMapImages,
-      new MiniMap(),
+      new MiniMap(levelMap),
     )
     this.#btnMiniMapLastPlayed2 = new ButtonMiniMap(
       { x: 486, y: posY },
       Images.buttonMiniMapImages,
-      new MiniMap(),
+      new MiniMap(levelMap),
     )
     this.#btnMiniMapLastPlayed3 = new ButtonMiniMap(
       { x: 636, y: posY },
       Images.buttonMiniMapImages,
-      new MiniMap(),
+      new MiniMap(levelMap),
     )
 
     // assign the singleton instance

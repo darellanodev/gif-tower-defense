@@ -12,9 +12,9 @@ import { TileEndCreator } from './tiles/TileEndCreator'
 import { TilePathCreator } from './tiles/TilePathCreator'
 import { Const } from './constants/Const'
 import { Position } from './types/position'
+import { MapDataType } from './types/mapDataType'
 
 export class MiniMap {
-  #levelDataProvider: LevelsDataProvider
   #tilesManager: TilesManager
   #tileOrangeCreator: TileOrangeCreator
   #tileStartCreator: TileStartCreator
@@ -23,11 +23,8 @@ export class MiniMap {
   #player: Player
 
   #position: Position
-  constructor(position: Position = { x: 0, y: 0 }) {
+  constructor(levelMap: MapDataType, position: Position = { x: 0, y: 0 }) {
     this.#position = position
-    this.#levelDataProvider = new LevelsDataProvider(LevelsData.data)
-
-    const levelMap = this.#levelDataProvider.getLevel(1)
 
     if (levelMap === undefined) {
       throw new Error('Map invalid')
