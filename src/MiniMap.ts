@@ -87,11 +87,17 @@ export class MiniMap {
     )
     TextProperties.setForHudData()
     if (this.#type === MiniMap.TYPE_LAST_LEVEL_PLAYED) {
-      P5.p5.text(`Serpent`, this.#position.x, this.#position.y + 102)
-      P5.p5.text(`By Ocliboy`, this.#position.x, this.#position.y + 118)
+      this.#drawTitleMapLastEdited()
     } else if (this.#type === MiniMap.TYPE_LAST_LEVEL_EDITOR) {
-      P5.p5.text(`Serpent`, this.#position.x - 200, this.#position.y + 75)
-      P5.p5.text(`By Ocliboy`, this.#position.x - 200, this.#position.y + 91)
+      this.#drawTitleMapLastPlayed()
     }
+  }
+  #drawTitleMapLastEdited() {
+    P5.p5.text(`Serpent`, this.#position.x, this.#position.y + 102)
+    P5.p5.text(`By Ocliboy`, this.#position.x, this.#position.y + 118)
+  }
+  #drawTitleMapLastPlayed() {
+    P5.p5.text(`Serpent`, this.#position.x - 170, this.#position.y + 71)
+    P5.p5.text(`By Ocliboy`, this.#position.x - 170, this.#position.y + 88)
   }
 }
