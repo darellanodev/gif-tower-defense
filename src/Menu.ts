@@ -66,8 +66,12 @@ export class Menu {
     P5.p5.image(Images.menu, 0, 0, 800, 580)
   }
   mouseClicked() {
+    const mousePosition = { x: P5.p5.mouseX, y: P5.p5.mouseY }
     if (
-      this.#btnMiniMapEditor.isMouseOver({ x: P5.p5.mouseX, y: P5.p5.mouseY })
+      this.#btnMiniMapEditor.isMouseOver(mousePosition) ||
+      this.#btnMiniMapLastPlayed1.isMouseOver(mousePosition) ||
+      this.#btnMiniMapLastPlayed2.isMouseOver(mousePosition) ||
+      this.#btnMiniMapLastPlayed3.isMouseOver(mousePosition)
     ) {
       this.#stateManager.setPlay()
     }
