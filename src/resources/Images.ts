@@ -20,6 +20,7 @@ export class Images {
   static magicUFOImages: Image[]
   static coreImage: Image
   static menu: Image
+  static buttonMiniMapImages: Image[]
 
   static _loadButtons() {
     Images.towerGreenButtonImages = Resources.towerGreenButtonImages()
@@ -28,6 +29,7 @@ export class Images {
     Images.magicUFOButtonImages = Resources.magicUFOButtonImages()
     Images.magicFireballButtonImages = Resources.magicFireballButtonImages()
     Images.magicIceballButtonImages = Resources.magicIceballButtonImages()
+    Images.buttonMiniMapImages = Resources.buttonMiniMapImages()
   }
   static _loadMagics() {
     Images.magicFireballImage = Resources.magicFireball()

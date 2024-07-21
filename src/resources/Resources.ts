@@ -121,6 +121,14 @@ export class Resources {
     ]
   }
 
+  static buttonMiniMapImages() {
+    return [
+      P5.p5.loadImage('../img/menu/btn_minimap_on.png'),
+      P5.p5.loadImage('../img/menu/btn_minimap_off.png'),
+      P5.p5.loadImage('../img/menu/btn_minimap_hover.png'),
+    ]
+  }
+
   static backgroundImage() {
     return P5.p5.loadImage('../img/backgrounds/ground.jpg')
   }
