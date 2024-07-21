@@ -3,6 +3,7 @@ import { Position } from '../types/position'
 import { Size } from '../types/size'
 import { Button } from './Button'
 import { MiniMap } from '../MiniMap'
+import { P5 } from '../utils/P5'
 
 export class ButtonMiniMap extends Button {
   static MINIMAP_OFFSET_X = 14
@@ -24,8 +25,11 @@ export class ButtonMiniMap extends Button {
   }
 
   draw() {
-    super.draw()
-    this.#miniMap.draw()
+    if (this.isMouseOver({ x: P5.p5.mouseX, y: P5.p5.mouseY })) {
+      this.drawHover()
+    } else {
+      this.drawOn()
+    }
   }
 
   drawOn() {
