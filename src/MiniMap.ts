@@ -1,7 +1,5 @@
 import { Player } from './player/Player'
 import { Images } from './resources/Images'
-import { LevelsDataProvider } from './levels/LevelsDataProvider'
-import { LevelsData } from './levels/LevelsData'
 import { TowerGreenCreator } from './towers/TowerGreenCreator'
 import { TowerRedCreator } from './towers/TowerRedCreator'
 import { TowerYellowCreator } from './towers/TowerYellowCreator'
@@ -17,17 +15,25 @@ import { TextProperties } from './hud/TextProperties'
 import { P5 } from './utils/P5'
 
 export class MiniMap {
+  static TYPE_LAST_LEVEL_EDITOR = 1
+  static TYPE_LAST_LEVEL_PLAYED = 2
+
   #tilesManager: TilesManager
   #tileOrangeCreator: TileOrangeCreator
   #tileStartCreator: TileStartCreator
   #tileEndCreator: TileEndCreator
   #tilePathCreator: TilePathCreator
   #player: Player
+  #type: number
 
   #position: Position
-  constructor(levelMap: MapDataType, position: Position = { x: 0, y: 0 }) {
+  constructor(
+    levelMap: MapDataType,
+    type: number,
+    position: Position = { x: 0, y: 0 },
+  ) {
     this.#position = position
-
+    this.#type = type
     if (levelMap === undefined) {
       throw new Error('Map invalid')
     }
@@ -79,9 +85,13 @@ export class MiniMap {
       this.#position.x,
       this.#position.y,
     )
-
     TextProperties.setForHudData()
-    P5.p5.text(`Serpent`, this.#position.x, this.#position.y + 102)
-    P5.p5.text(`By Ocliboy`, this.#position.x, this.#position.y + 118)
+    if (this.#type === MiniMap.TYPE_LAST_LEVEL_PLAYED) {
+      P5.p5.text(`Serpent`, this.#position.x, this.#position.y + 102)
+      P5.p5.text(`By Ocliboy`, this.#position.x, this.#position.y + 118)
+    } else if (this.#type === MiniMap.TYPE_LAST_LEVEL_EDITOR) {
+      P5.p5.text(`Serpent`, this.#position.x - 200, this.#position.y + 75)
+      P5.p5.text(`By Ocliboy`, this.#position.x - 200, this.#position.y + 91)
+    }
   }
 }

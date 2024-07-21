@@ -34,24 +34,24 @@ export class Menu {
     this.#btnMiniMapEditor = new ButtonMiniMap(
       { x: 637, y: 207 },
       Images.buttonMiniMapImages,
-      new MiniMap(levelMap),
+      new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_EDITOR),
     )
 
     const posY = 452
     this.#btnMiniMapLastPlayed1 = new ButtonMiniMap(
       { x: 336, y: posY },
       Images.buttonMiniMapImages,
-      new MiniMap(levelMap),
+      new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_PLAYED),
     )
     this.#btnMiniMapLastPlayed2 = new ButtonMiniMap(
       { x: 486, y: posY },
       Images.buttonMiniMapImages,
-      new MiniMap(levelMap),
+      new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_PLAYED),
     )
     this.#btnMiniMapLastPlayed3 = new ButtonMiniMap(
       { x: 636, y: posY },
       Images.buttonMiniMapImages,
-      new MiniMap(levelMap),
+      new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_PLAYED),
     )
 
     // assign the singleton instance
