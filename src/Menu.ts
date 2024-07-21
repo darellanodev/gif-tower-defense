@@ -22,32 +22,26 @@ export class Menu {
     this.#stateManager = stateManager
 
     this.#btnMiniMapEditor = new ButtonMiniMap(
-      { x: 637, y: 200 },
-      { w: 144, h: 82 },
+      { x: 637, y: 207 },
       Images.buttonMiniMapImages,
-      { x: 0, y: 0 },
-      new MiniMap({ x: 637, y: 200 }),
+      new MiniMap(),
     )
+
+    const posY = 452
     this.#btnMiniMapLastPlayed1 = new ButtonMiniMap(
-      { x: 350, y: 445 },
-      { w: 144, h: 82 },
+      { x: 336, y: posY },
       Images.buttonMiniMapImages,
-      { x: 0, y: 0 },
-      new MiniMap({ x: 350, y: 445 }),
+      new MiniMap(),
     )
     this.#btnMiniMapLastPlayed2 = new ButtonMiniMap(
-      { x: 500, y: 445 },
-      { w: 144, h: 82 },
+      { x: 486, y: posY },
       Images.buttonMiniMapImages,
-      { x: 0, y: 0 },
-      new MiniMap({ x: 500, y: 445 }),
+      new MiniMap(),
     )
     this.#btnMiniMapLastPlayed3 = new ButtonMiniMap(
-      { x: 650, y: 445 },
-      { w: 144, h: 82 },
+      { x: 636, y: posY },
       Images.buttonMiniMapImages,
-      { x: 0, y: 0 },
-      new MiniMap({ x: 650, y: 445 }),
+      new MiniMap(),
     )
 
     // assign the singleton instance

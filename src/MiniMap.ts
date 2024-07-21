@@ -23,7 +23,7 @@ export class MiniMap {
   #player: Player
 
   #position: Position
-  constructor(position: Position) {
+  constructor(position: Position = { x: 0, y: 0 }) {
     this.#position = position
     this.#levelDataProvider = new LevelsDataProvider(LevelsData.data)
 
@@ -67,6 +67,11 @@ export class MiniMap {
     // create path tiles
     this.#tilePathCreator = TilePathCreator.getInstance()
     this.#tilePathCreator.createAll(levelMap, this.#tilesManager)
+  }
+
+  set position(position: Position) {
+    this.#position.x = position.x
+    this.#position.y = position.y
   }
 
   draw() {
