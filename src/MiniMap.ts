@@ -13,6 +13,8 @@ import { TilePathCreator } from './tiles/TilePathCreator'
 import { Const } from './constants/Const'
 import { Position } from './types/position'
 import { MapDataType } from './types/mapDataType'
+import { TextProperties } from './hud/TextProperties'
+import { P5 } from './utils/P5'
 
 export class MiniMap {
   #tilesManager: TilesManager
@@ -77,5 +79,9 @@ export class MiniMap {
       this.#position.x,
       this.#position.y,
     )
+
+    TextProperties.setForHudData()
+    P5.p5.text(`Serpent`, this.#position.x, this.#position.y + 102)
+    P5.p5.text(`By Ocliboy`, this.#position.x, this.#position.y + 118)
   }
 }
