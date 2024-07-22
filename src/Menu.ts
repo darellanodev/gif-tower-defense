@@ -11,9 +11,7 @@ export class Menu {
   static #instance: Menu | null = null
   #stateManager: StateManager
   #btnMiniMapEditor: ButtonMiniMap
-  #btnMiniMapLastPlayed1: ButtonMiniMap
-  #btnMiniMapLastPlayed2: ButtonMiniMap
-  #btnMiniMapLastPlayed3: ButtonMiniMap
+  #btnsMiniMapsLastLevelsPlayed: ButtonMiniMap[] = []
 
   constructor(stateManager: StateManager) {
     if (Menu.#instance !== null) {
@@ -36,24 +34,18 @@ export class Menu {
       Images.buttonMiniMapImages,
       new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_EDITOR),
     )
-
+    // create the three last played levels
     const posY = 452
-    this.#btnMiniMapLastPlayed1 = new ButtonMiniMap(
-      { x: 336, y: posY },
-      Images.buttonMiniMapImages,
-      new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_PLAYED),
-    )
-    this.#btnMiniMapLastPlayed2 = new ButtonMiniMap(
-      { x: 486, y: posY },
-      Images.buttonMiniMapImages,
-      new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_PLAYED),
-    )
-    this.#btnMiniMapLastPlayed3 = new ButtonMiniMap(
-      { x: 636, y: posY },
-      Images.buttonMiniMapImages,
-      new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_PLAYED),
-    )
-
+    const stepX = 150
+    for (let i = 0; i < 3; i++) {
+      this.#btnsMiniMapsLastLevelsPlayed.push(
+        new ButtonMiniMap(
+          { x: 336 + i * stepX, y: posY },
+          Images.buttonMiniMapImages,
+          new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_PLAYED),
+        ),
+      )
+    }
     // assign the singleton instance
     Menu.#instance = this
   }
@@ -77,22 +69,27 @@ export class Menu {
   }
   mouseClicked() {
     const mousePosition = { x: P5.p5.mouseX, y: P5.p5.mouseY }
-    if (
-      this.#btnMiniMapEditor.isMouseOver(mousePosition) ||
-      this.#btnMiniMapLastPlayed1.isMouseOver(mousePosition) ||
-      this.#btnMiniMapLastPlayed2.isMouseOver(mousePosition) ||
-      this.#btnMiniMapLastPlayed3.isMouseOver(mousePosition)
-    ) {
+    // check if player clic the minimap button last level edited
+    if (this.#btnMiniMapEditor.isMouseOver(mousePosition)) {
       this.#stateManager.setPlay()
+    }
+    // check if player clic one of the last played levels
+    for (const btnMiniMapLastPlayed of this.#btnsMiniMapsLastLevelsPlayed) {
+      if (btnMiniMapLastPlayed.isMouseOver(mousePosition)) {
+        this.#stateManager.setPlay()
+      }
     }
   }
   update() {}
   draw() {
     this.#drawBackground()
     this.#btnMiniMapEditor.draw()
-    this.#btnMiniMapLastPlayed1.draw()
-    this.#btnMiniMapLastPlayed2.draw()
-    this.#btnMiniMapLastPlayed3.draw()
+    this.#drawBtnsMiniMapsLastLevelsPlayed()
     this.#drawDebugElements()
+  }
+  #drawBtnsMiniMapsLastLevelsPlayed() {
+    for (const btnMiniMapLastPlayed of this.#btnsMiniMapsLastLevelsPlayed) {
+      btnMiniMapLastPlayed.draw()
+    }
   }
 }
