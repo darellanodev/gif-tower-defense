@@ -36,6 +36,8 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
     - [x] MagicUFOCreator
     - [ ] ...
 
+  - [ ] Survival menu
+  - [ ] Make a fade transition when the player goes to a new screen.
   - [ ] Extract getTilePosition from Path class to a new class because it is not related with the Path concept
   - [x] Review Path class: remove static properties, refactor long methods.
   - [x] Clean tile creator classes
