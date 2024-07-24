@@ -153,11 +153,11 @@ export class Resources {
     ]
   }
 
-  static buttonMenuImages() {
+  static buttonMenuMainImages() {
     return [
-      P5.p5.loadImage('../img/menu/btn_menu_on.png'),
-      P5.p5.loadImage('../img/menu/btn_menu_off.png'),
-      P5.p5.loadImage('../img/menu/btn_menu_hover.png'),
+      P5.p5.loadImage('../img/menu/btn_menu_main_on.png'),
+      P5.p5.loadImage('../img/menu/btn_menu_main_off.png'),
+      P5.p5.loadImage('../img/menu/btn_menu_main_hover.png'),
     ]
   }
 
@@ -184,7 +184,10 @@ export class Resources {
     ]
   }
 
-  static menu() {
-    return P5.p5.loadImage('../img/menu/menu.png')
+  static menuMain() {
+    return P5.p5.loadImage('../img/menu/menu_main.png')
+  }
+  static menuSurvival() {
+    return P5.p5.loadImage('../img/menu/menu_survival.png')
   }
 }

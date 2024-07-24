@@ -4,11 +4,13 @@ import { Images } from './resources/Images'
 import { P5 } from './utils/P5'
 import { Game } from './Game'
 import { StateManager } from './StateManager'
-import { Menu } from './Menu'
+import { MenuMain } from './MenuMain'
+import { MenuSurvival } from './MenuSurvival'
 
 let _p5: p5
 let game: Game
-let menu: Menu
+let menuMain: MenuMain
+let menuSurvival: MenuSurvival
 let stateManager: StateManager
 
 // ugly hack: remove the extra canvas created
@@ -47,8 +49,8 @@ function disableContextualMenu() {
 window.mouseClicked = () => {
   if (stateManager.isPlay) {
     game.mouseClicked()
-  } else if (stateManager.isMenu) {
-    menu.mouseClicked()
+  } else if (stateManager.isMenuMain) {
+    menuMain.mouseClicked()
   }
 }
 
@@ -57,9 +59,10 @@ window.setup = () => {
 
   disableContextualMenu()
 
-  stateManager = StateManager.getInstance(StateManager.STATE_MENU)
+  stateManager = StateManager.getInstance(StateManager.STATE_MENU_MAIN)
   game = Game.getInstance(stateManager)
-  menu = Menu.getInstance(stateManager)
+  menuMain = MenuMain.getInstance(stateManager)
+  menuSurvival = MenuSurvival.getInstance(stateManager)
 }
 
 window.keyPressed = () => {
@@ -70,7 +73,9 @@ window.draw = () => {
   if (stateManager.isPlay) {
     game.update()
     game.draw()
-  } else if (stateManager.isMenu) {
-    menu.draw()
+  } else if (stateManager.isMenuMain) {
+    menuMain.draw()
+  } else if (stateManager.isMenuSurvival) {
+    menuSurvival.draw()
   }
 }

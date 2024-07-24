@@ -9,8 +9,8 @@ import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { Images } from './resources/Images'
 import { P5 } from './utils/P5'
 
-export class Menu {
-  static #instance: Menu | null = null
+export class MenuMain {
+  static #instance: MenuMain | null = null
   #stateManager: StateManager
   #btnMiniMapEditor: ButtonMiniMap
   #btnsMiniMapsLastLevelsPlayed: ButtonMiniMap[] = []
@@ -19,9 +19,9 @@ export class Menu {
   #btnTodays: Button
 
   constructor(stateManager: StateManager) {
-    if (Menu.#instance !== null) {
+    if (MenuMain.#instance !== null) {
       throw new Error(
-        'Menu is a singleton class, use getInstance to get the instance',
+        'MenuMain is a singleton class, use getInstance to get the instance',
       )
     }
     this.#stateManager = stateManager
@@ -68,13 +68,13 @@ export class Menu {
       Images.buttonEditorImages,
     )
     // assign the singleton instance
-    Menu.#instance = this
+    MenuMain.#instance = this
   }
   static getInstance(stateManager: StateManager) {
-    if (Menu.#instance === null) {
-      Menu.#instance = new Menu(stateManager)
+    if (MenuMain.#instance === null) {
+      MenuMain.#instance = new MenuMain(stateManager)
     }
-    return Menu.#instance
+    return MenuMain.#instance
   }
   #drawDebugElements() {
     Debug.showMouseCoordinates(
@@ -86,10 +86,16 @@ export class Menu {
   #drawBackground() {
     P5.p5.background('skyblue')
     P5.p5.rectMode(P5.p5.CORNER)
-    P5.p5.image(Images.menu, 0, 0, 800, 580)
+    P5.p5.image(Images.menuMain, 0, 0, 800, 580)
   }
   mouseClicked() {
     const mousePosition = { x: P5.p5.mouseX, y: P5.p5.mouseY }
+
+    // check if player clic the survival mode button
+    if (this.#btnSurvival.isMouseOver(mousePosition)) {
+      this.#stateManager.setMenuSurvival()
+    }
+
     // check if player clic the minimap button last level edited
     if (this.#btnMiniMapEditor.isMouseOver(mousePosition)) {
       this.#stateManager.setPlay()

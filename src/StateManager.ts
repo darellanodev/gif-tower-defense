@@ -1,6 +1,7 @@
 export class StateManager {
-  static STATE_MENU = 0
-  static STATE_PLAY = 1
+  static STATE_MENU_MAIN = 0
+  static STATE_MENU_SURVIVAL = 1
+  static STATE_PLAY_SURVIVAL = 2
 
   static #instance: StateManager | null = null
   #state: number
@@ -24,18 +25,24 @@ export class StateManager {
   }
 
   setPlay() {
-    this.#state = StateManager.STATE_PLAY
+    this.#state = StateManager.STATE_PLAY_SURVIVAL
   }
 
-  setMenu() {
-    this.#state = StateManager.STATE_MENU
+  setMenuSurvival() {
+    this.#state = StateManager.STATE_MENU_SURVIVAL
+  }
+
+  setMenuMain() {
+    this.#state = StateManager.STATE_MENU_MAIN
   }
 
   get isPlay() {
-    return this.#state == StateManager.STATE_PLAY
+    return this.#state == StateManager.STATE_PLAY_SURVIVAL
   }
-
-  get isMenu() {
-    return this.#state == StateManager.STATE_MENU
+  get isMenuSurvival() {
+    return this.#state == StateManager.STATE_MENU_SURVIVAL
+  }
+  get isMenuMain() {
+    return this.#state == StateManager.STATE_MENU_MAIN
   }
 }

@@ -19,12 +19,13 @@ export class Images {
   static magicIceballImage: Image
   static magicUFOImages: Image[]
   static coreImage: Image
-  static menu: Image
+  static menuMain: Image
+  static menuSurvival: Image
   static buttonMiniMapImages: Image[]
 
   static buttonSurvivalImages: Image[]
   static buttonEditorImages: Image[]
-  static buttonMenuImages: Image[]
+  static buttonMenuMainImages: Image[]
   static buttonTodaysImages: Image[]
 
   static _loadButtons() {
@@ -37,7 +38,7 @@ export class Images {
     Images.buttonMiniMapImages = Resources.buttonMiniMapImages()
     Images.buttonSurvivalImages = Resources.buttonSurvivalImages()
     Images.buttonEditorImages = Resources.buttonEditorImages()
-    Images.buttonMenuImages = Resources.buttonMenuImages()
+    Images.buttonMenuMainImages = Resources.buttonMenuMainImages()
     Images.buttonTodaysImages = Resources.buttonTodaysImages()
   }
   static _loadMagics() {
@@ -59,7 +60,8 @@ export class Images {
   }
 
   static _loadMenu() {
-    Images.menu = Resources.menu()
+    Images.menuMain = Resources.menuMain()
+    Images.menuSurvival = Resources.menuSurvival()
   }
 
   static loadAll() {
