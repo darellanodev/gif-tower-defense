@@ -24,14 +24,6 @@ export class ButtonMiniMap extends Button {
     }
   }
 
-  draw() {
-    if (this.isMouseOver({ x: P5.p5.mouseX, y: P5.p5.mouseY })) {
-      this.drawHover()
-    } else {
-      this.drawOn()
-    }
-  }
-
   drawOn() {
     super.drawOn()
     this.#miniMap.draw()

@@ -27,11 +27,11 @@ export class Button extends Obj {
   }
 
   draw() {
-    P5.p5.image(
-      this.images[Button.INDEX_IMAGE_ON],
-      this.position.x + this.offsetImages.x,
-      this.position.y + this.offsetImages.y,
-    )
+    if (this.isMouseOver({ x: P5.p5.mouseX, y: P5.p5.mouseY })) {
+      this.drawHover()
+    } else {
+      this.drawOn()
+    }
   }
 
   drawOn() {
