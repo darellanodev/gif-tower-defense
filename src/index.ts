@@ -51,6 +51,8 @@ window.mouseClicked = () => {
     game.mouseClicked()
   } else if (stateManager.isMenuMain) {
     menuMain.mouseClicked()
+  } else if (stateManager.isMenuSurvival) {
+    menuSurvival.mouseClicked()
   }
 }
 

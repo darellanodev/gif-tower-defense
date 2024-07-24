@@ -48,7 +48,7 @@ export class MenuSurvival {
     // create the buttons
     this.#btnBackMenuMain = new Button(
       { x: 610, y: 520 },
-      { w: 103, h: 31 },
+      { w: 166, h: 31 },
       Images.buttonMenuMainImages,
     )
 
