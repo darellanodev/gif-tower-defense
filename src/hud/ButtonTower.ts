@@ -56,14 +56,14 @@ export class ButtonTower extends Button {
     )
   }
 
-  _drawOn() {
+  #drawOn() {
     if (this.isMouseInsideAndNotChecked) {
       this.drawHover()
     } else {
       this.drawOn()
     }
   }
-  _drawOff() {
+  #drawOff() {
     if (this.isMouseInsideAndNotChecked) {
       this.drawOffHover()
     } else {
@@ -73,9 +73,9 @@ export class ButtonTower extends Button {
 
   draw() {
     if (this.#isOn) {
-      this._drawOn()
+      this.#drawOn()
     } else {
-      this._drawOff()
+      this.#drawOff()
     }
     if (this.#isChecked) {
       this.drawCheckRectangle()
