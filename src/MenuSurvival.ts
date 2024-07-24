@@ -31,12 +31,15 @@ export class MenuSurvival {
     }
 
     // create the three last played levels
+    const posX = 28
     const posY = 160
     const stepX = 150
-    for (let i = 0; i < 5; i++) {
+    const total = 5
+
+    for (let i = 0; i < total; i++) {
       this.#btnsMiniMaps.push(
         new ButtonMiniMap(
-          { x: 28 + i * stepX, y: posY },
+          { x: posX + i * stepX, y: posY },
           Images.buttonMiniMapImages,
           new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_PLAYED),
         ),

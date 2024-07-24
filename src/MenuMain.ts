@@ -40,12 +40,15 @@ export class MenuMain {
       new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_EDITOR),
     )
     // create the three last played levels
-    const posY = 452
+    const posX = 336
     const stepX = 150
-    for (let i = 0; i < 3; i++) {
+    const posY = 452
+    const total = 3
+
+    for (let i = 0; i < total; i++) {
       this.#btnsMiniMapsLastLevelsPlayed.push(
         new ButtonMiniMap(
-          { x: 336 + i * stepX, y: posY },
+          { x: posX + i * stepX, y: posY },
           Images.buttonMiniMapImages,
           new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_PLAYED),
         ),
