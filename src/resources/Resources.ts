@@ -129,6 +129,38 @@ export class Resources {
     ]
   }
 
+  static buttonSurvivalImages() {
+    return [
+      P5.p5.loadImage('../img/menu/btn_survival_on.png'),
+      P5.p5.loadImage('../img/menu/btn_survival_off.png'),
+      P5.p5.loadImage('../img/menu/btn_survival_hover.png'),
+    ]
+  }
+
+  static buttonTodaysImages() {
+    return [
+      P5.p5.loadImage('../img/menu/btn_todays_on.png'),
+      P5.p5.loadImage('../img/menu/btn_todays_off.png'),
+      P5.p5.loadImage('../img/menu/btn_todays_hover.png'),
+    ]
+  }
+
+  static buttonEditorImages() {
+    return [
+      P5.p5.loadImage('../img/menu/btn_editor_on.png'),
+      P5.p5.loadImage('../img/menu/btn_editor_off.png'),
+      P5.p5.loadImage('../img/menu/btn_editor_hover.png'),
+    ]
+  }
+
+  static buttonMenuImages() {
+    return [
+      P5.p5.loadImage('../img/menu/btn_menu_on.png'),
+      P5.p5.loadImage('../img/menu/btn_menu_off.png'),
+      P5.p5.loadImage('../img/menu/btn_menu_hover.png'),
+    ]
+  }
+
   static backgroundImage() {
     return P5.p5.loadImage('../img/backgrounds/ground.jpg')
   }

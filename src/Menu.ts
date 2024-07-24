@@ -1,5 +1,7 @@
 import { MiniMap } from './MiniMap'
 import { StateManager } from './StateManager'
+import { Button } from './hud/Button'
+import { ButtonDisabled } from './hud/ButtonDisabled'
 import { ButtonMiniMap } from './hud/ButtonMiniMap'
 import { Debug } from './hud/Debug'
 import { LevelsData } from './levels/LevelsData'
@@ -12,6 +14,9 @@ export class Menu {
   #stateManager: StateManager
   #btnMiniMapEditor: ButtonMiniMap
   #btnsMiniMapsLastLevelsPlayed: ButtonMiniMap[] = []
+  #btnSurvival: Button
+  #btnEditor: Button
+  #btnTodays: Button
 
   constructor(stateManager: StateManager) {
     if (Menu.#instance !== null) {
@@ -46,6 +51,22 @@ export class Menu {
         ),
       )
     }
+    // create the buttons
+    this.#btnSurvival = new Button(
+      { x: 480, y: 110 },
+      { w: 103, h: 31 },
+      Images.buttonSurvivalImages,
+    )
+    this.#btnTodays = new ButtonDisabled(
+      { x: 600, y: 110 },
+      { w: 132, h: 31 },
+      Images.buttonTodaysImages,
+    )
+    this.#btnEditor = new ButtonDisabled(
+      { x: 455, y: 206 },
+      { w: 129, h: 31 },
+      Images.buttonEditorImages,
+    )
     // assign the singleton instance
     Menu.#instance = this
   }
@@ -84,10 +105,16 @@ export class Menu {
   draw() {
     this.#drawBackground()
     this.#btnMiniMapEditor.draw()
-    this.#drawBtnsMiniMapsLastLevelsPlayed()
+    this.#drawGameModeButtons()
+    this.#drawButtonsMiniMapsLastLevelsPlayed()
     this.#drawDebugElements()
   }
-  #drawBtnsMiniMapsLastLevelsPlayed() {
+  #drawGameModeButtons() {
+    this.#btnSurvival.draw()
+    this.#btnEditor.draw()
+    this.#btnTodays.draw()
+  }
+  #drawButtonsMiniMapsLastLevelsPlayed() {
     for (const btnMiniMapLastPlayed of this.#btnsMiniMapsLastLevelsPlayed) {
       btnMiniMapLastPlayed.draw()
     }

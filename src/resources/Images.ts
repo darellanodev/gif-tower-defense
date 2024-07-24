@@ -22,6 +22,11 @@ export class Images {
   static menu: Image
   static buttonMiniMapImages: Image[]
 
+  static buttonSurvivalImages: Image[]
+  static buttonEditorImages: Image[]
+  static buttonMenuImages: Image[]
+  static buttonTodaysImages: Image[]
+
   static _loadButtons() {
     Images.towerGreenButtonImages = Resources.towerGreenButtonImages()
     Images.towerRedButtonImages = Resources.towerRedButtonImages()
@@ -30,6 +35,10 @@ export class Images {
     Images.magicFireballButtonImages = Resources.magicFireballButtonImages()
     Images.magicIceballButtonImages = Resources.magicIceballButtonImages()
     Images.buttonMiniMapImages = Resources.buttonMiniMapImages()
+    Images.buttonSurvivalImages = Resources.buttonSurvivalImages()
+    Images.buttonEditorImages = Resources.buttonEditorImages()
+    Images.buttonMenuImages = Resources.buttonMenuImages()
+    Images.buttonTodaysImages = Resources.buttonTodaysImages()
   }
   static _loadMagics() {
     Images.magicFireballImage = Resources.magicFireball()
