@@ -47,12 +47,18 @@ function disableContextualMenu() {
 }
 
 window.mouseClicked = () => {
-  if (stateManager.isPlay) {
-    game.mouseClicked()
-  } else if (stateManager.isMenuMain) {
-    menuMain.mouseClicked()
-  } else if (stateManager.isMenuSurvival) {
-    menuSurvival.mouseClicked()
+  switch (stateManager.state) {
+    case StateManager.STATE_PLAY_SURVIVAL:
+      game.mouseClicked()
+      break
+    case StateManager.STATE_MENU_MAIN:
+      menuMain.mouseClicked()
+      break
+    case StateManager.STATE_MENU_SURVIVAL:
+      menuSurvival.mouseClicked()
+      break
+    default:
+      break
   }
 }
 
@@ -72,12 +78,18 @@ window.keyPressed = () => {
 }
 
 window.draw = () => {
-  if (stateManager.isPlay) {
-    game.update()
-    game.draw()
-  } else if (stateManager.isMenuMain) {
-    menuMain.draw()
-  } else if (stateManager.isMenuSurvival) {
-    menuSurvival.draw()
+  switch (stateManager.state) {
+    case StateManager.STATE_PLAY_SURVIVAL:
+      game.update()
+      game.draw()
+      break
+    case StateManager.STATE_MENU_MAIN:
+      menuMain.draw()
+      break
+    case StateManager.STATE_MENU_SURVIVAL:
+      menuSurvival.draw()
+      break
+    default:
+      break
   }
 }

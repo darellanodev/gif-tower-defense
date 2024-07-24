@@ -36,13 +36,7 @@ export class StateManager {
     this.#state = StateManager.STATE_MENU_MAIN
   }
 
-  get isPlay() {
-    return this.#state == StateManager.STATE_PLAY_SURVIVAL
-  }
-  get isMenuSurvival() {
-    return this.#state == StateManager.STATE_MENU_SURVIVAL
-  }
-  get isMenuMain() {
-    return this.#state == StateManager.STATE_MENU_MAIN
+  get state() {
+    return this.#state
   }
 }
