@@ -5,10 +5,7 @@ import { ButtonDisabled } from './hud/ButtonDisabled'
 import { ButtonMiniMap } from './hud/ButtonMiniMap'
 import { ButtonsMiniMapsCreator } from './hud/ButtonsMiniMapsCreator'
 import { Debug } from './hud/Debug'
-import { LevelsData } from './levels/LevelsData'
-import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { Images } from './resources/Images'
-import { Position } from './types/position'
 import { P5 } from './utils/P5'
 
 export class MenuMain {

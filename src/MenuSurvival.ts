@@ -4,8 +4,6 @@ import { Button } from './hud/Button'
 import { ButtonMiniMap } from './hud/ButtonMiniMap'
 import { ButtonsMiniMapsCreator } from './hud/ButtonsMiniMapsCreator'
 import { Debug } from './hud/Debug'
-import { LevelsData } from './levels/LevelsData'
-import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { Images } from './resources/Images'
 import { P5 } from './utils/P5'
 
