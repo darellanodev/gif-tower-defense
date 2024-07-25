@@ -2,6 +2,7 @@ import { MiniMap } from './MiniMap'
 import { StateManager } from './StateManager'
 import { Button } from './hud/Button'
 import { ButtonMiniMap } from './hud/ButtonMiniMap'
+import { ButtonsMiniMapsCreator } from './hud/ButtonsMiniMapsCreator'
 import { Debug } from './hud/Debug'
 import { LevelsData } from './levels/LevelsData'
 import { LevelsDataProvider } from './levels/LevelsDataProvider'
@@ -22,29 +23,15 @@ export class MenuSurvival {
     }
     this.#stateManager = stateManager
 
-    const levelDataProvider = new LevelsDataProvider(LevelsData.data)
-    const levelId = 1
-    const levelMap = levelDataProvider.getLevel(levelId)
+    const buttonsMiniMapsCreator = ButtonsMiniMapsCreator.getInstance()
 
-    if (levelMap === undefined) {
-      throw new Error('levelMap is undefined')
-    }
+    const levelsIds = [1, 13, 14, 1, 1]
+    this.#btnsMiniMaps = buttonsMiniMapsCreator.createForLevelIds(
+      levelsIds,
+      MiniMap.TYPE_LAST_LEVEL_PLAYED,
+      { x: 28, y: 160 },
+    )
 
-    // create the three last played levels
-    const posX = 28
-    const posY = 160
-    const stepX = 150
-    const total = 5
-
-    for (let i = 0; i < total; i++) {
-      this.#btnsMiniMaps.push(
-        new ButtonMiniMap(
-          { x: posX + i * stepX, y: posY },
-          Images.buttonMiniMapImages,
-          new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_PLAYED),
-        ),
-      )
-    }
     // create the buttons
     this.#btnBackMenuMain = new Button(
       { x: 610, y: 520 },
