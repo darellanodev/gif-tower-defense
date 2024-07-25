@@ -7,12 +7,13 @@ import { Debug } from './hud/Debug'
 import { LevelsData } from './levels/LevelsData'
 import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { Images } from './resources/Images'
+import { Position } from './types/position'
 import { P5 } from './utils/P5'
 
 export class MenuMain {
   static #instance: MenuMain | null = null
   #stateManager: StateManager
-  #btnMiniMapEditor: ButtonMiniMap
+  #btnsMiniMapsEditor: ButtonMiniMap[] = []
   #btnsMiniMapsLastLevelsPlayed: ButtonMiniMap[] = []
   #btnSurvival: Button
   #btnEditor: Button
@@ -26,34 +27,23 @@ export class MenuMain {
     }
     this.#stateManager = stateManager
 
-    const levelDataProvider = new LevelsDataProvider(LevelsData.data)
-    const levelId = 1
-    const levelMap = levelDataProvider.getLevel(levelId)
+    const lastEditorLevelsIds = [13]
 
-    if (levelMap === undefined) {
-      throw new Error('levelMap is undefined')
-    }
-
-    this.#btnMiniMapEditor = new ButtonMiniMap(
+    this.#btnsMiniMapsEditor = this.#createMiniMapButtonsForLevelIds(
+      lastEditorLevelsIds,
+      MiniMap.TYPE_LAST_LEVEL_EDITOR,
       { x: 637, y: 207 },
-      Images.buttonMiniMapImages,
-      new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_EDITOR),
     )
-    // create the three last played levels
-    const posX = 336
-    const stepX = 150
-    const posY = 452
-    const total = 3
 
-    for (let i = 0; i < total; i++) {
-      this.#btnsMiniMapsLastLevelsPlayed.push(
-        new ButtonMiniMap(
-          { x: posX + i * stepX, y: posY },
-          Images.buttonMiniMapImages,
-          new MiniMap(levelMap, MiniMap.TYPE_LAST_LEVEL_PLAYED),
-        ),
-      )
-    }
+    // create the three last played levels
+
+    const lastPlayedLevelsIds = [1, 14, 13]
+
+    this.#btnsMiniMapsLastLevelsPlayed = this.#createMiniMapButtonsForLevelIds(
+      lastPlayedLevelsIds,
+      MiniMap.TYPE_LAST_LEVEL_PLAYED,
+      { x: 336, y: 452 },
+    )
     // create the buttons
     this.#btnSurvival = new Button(
       { x: 480, y: 110 },
@@ -99,9 +89,11 @@ export class MenuMain {
       this.#stateManager.setMenuSurvival()
     }
 
-    // check if player clic the minimap button last level edited
-    if (this.#btnMiniMapEditor.isMouseOver(mousePosition)) {
-      this.#stateManager.setPlay()
+    // check if player clic over one last level edited minimap (currently there is only one)
+    for (const btnMiniMapEditor of this.#btnsMiniMapsEditor) {
+      if (btnMiniMapEditor.isMouseOver(mousePosition)) {
+        this.#stateManager.setPlay()
+      }
     }
     // check if player clic one of the last played levels
     for (const btnMiniMapLastPlayed of this.#btnsMiniMapsLastLevelsPlayed) {
@@ -113,7 +105,7 @@ export class MenuMain {
   update() {}
   draw() {
     this.#drawBackground()
-    this.#btnMiniMapEditor.draw()
+    this.#drawButtonsMiniMapsEditor()
     this.#drawGameModeButtons()
     this.#drawButtonsMiniMapsLastLevelsPlayed()
     this.#drawDebugElements()
@@ -127,5 +119,39 @@ export class MenuMain {
     for (const btnMiniMapLastPlayed of this.#btnsMiniMapsLastLevelsPlayed) {
       btnMiniMapLastPlayed.draw()
     }
+  }
+  #drawButtonsMiniMapsEditor() {
+    for (const btnMiniMapEditor of this.#btnsMiniMapsEditor) {
+      btnMiniMapEditor.draw()
+    }
+  }
+  #createMiniMapButtonsForLevelIds(
+    levelsIds: number[],
+    mode: number,
+    position: Position,
+  ): ButtonMiniMap[] {
+    const stepX = 150
+
+    const levelDataProvider = new LevelsDataProvider(LevelsData.data)
+
+    const result = []
+    let i = 0
+    for (const levelId of levelsIds) {
+      const levelMap = levelDataProvider.getLevel(levelId)
+      if (levelMap === undefined) {
+        throw new Error(`Level with id ${levelId} is undefined`)
+      }
+
+      result.push(
+        new ButtonMiniMap(
+          { x: position.x + i * stepX, y: position.y },
+          Images.buttonMiniMapImages,
+          new MiniMap(levelMap, mode),
+        ),
+      )
+      i++
+    }
+
+    return result
   }
 }

@@ -25,6 +25,8 @@ export class MiniMap {
   #tilePathCreator: TilePathCreator
   #player: Player
   #type: number
+  #author: string
+  #title: string
 
   #position: Position
   constructor(
@@ -37,6 +39,8 @@ export class MiniMap {
     if (levelMap === undefined) {
       throw new Error('Map invalid')
     }
+    this.#author = levelMap.author
+    this.#title = levelMap.title
 
     this.#player = Player.getInstance()
 
@@ -93,11 +97,15 @@ export class MiniMap {
     }
   }
   #drawTitleMapLastEdited() {
-    P5.p5.text(`Serpent`, this.#position.x, this.#position.y + 102)
-    P5.p5.text(`By Ocliboy`, this.#position.x, this.#position.y + 118)
+    P5.p5.text(this.#title, this.#position.x, this.#position.y + 102)
+    P5.p5.text(`By ${this.#author}`, this.#position.x, this.#position.y + 118)
   }
   #drawTitleMapLastPlayed() {
-    P5.p5.text(`Serpent`, this.#position.x - 170, this.#position.y + 71)
-    P5.p5.text(`By Ocliboy`, this.#position.x - 170, this.#position.y + 88)
+    P5.p5.text(this.#title, this.#position.x - 170, this.#position.y + 71)
+    P5.p5.text(
+      `By ${this.#author}`,
+      this.#position.x - 170,
+      this.#position.y + 88,
+    )
   }
 }
