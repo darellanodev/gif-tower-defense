@@ -6,9 +6,18 @@ import { TextProperties } from './TextProperties'
 export class HudOtherIndicators {
   #wallet: Wallet
   #player: Player
-  constructor(wallet: Wallet, player: Player) {
+  #levelMapTitle: string
+  #levelMapAuthor: string
+  constructor(
+    wallet: Wallet,
+    player: Player,
+    levelMapTitle: string,
+    levelMapAuthor: string,
+  ) {
     this.#wallet = wallet
     this.#player = player
+    this.#levelMapTitle = levelMapTitle
+    this.#levelMapAuthor = levelMapAuthor
   }
 
   draw() {
@@ -33,7 +42,7 @@ export class HudOtherIndicators {
   }
 
   #drawLevelTitle() {
-    P5.p5.text('Serpent by Ocliboy', 130, 18)
+    P5.p5.text(`${this.#levelMapTitle} by ${this.#levelMapAuthor}`, 130, 18)
   }
 
   #drawWave() {

@@ -161,6 +161,8 @@ export class Game {
     this.#hudOtherIndicators = new HudOtherIndicators(
       this.#wallet,
       this.#player,
+      levelMap.title,
+      levelMap.author,
     )
 
     this.#createTiles(levelMap)
