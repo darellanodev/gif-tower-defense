@@ -8,6 +8,7 @@ test('getLevel, when request the id of a testing level, return data of the corre
     id: 1,
     comments: 'first level and also used in unit testing',
     title: 'serpent',
+    author: 'ocliboy',
     rowsMap: [
       '111111111111111x',
       '1000000000000000',
