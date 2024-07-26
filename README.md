@@ -36,7 +36,11 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
     - [x] MagicUFOCreator
     - [ ] ...
 
+  - [ ] Insert more basic levels (maybe some of them need to write tests to implement the correct orders)
   - [ ] Survival menu
+    - [x] Display a first row of minimap levels
+    - [ ] Display a second row (and perhaps a third row) of levels
+    - [ ] Paginator (first page, previous page, next page, last page)
   - [ ] Make a fade transition when the player goes to a new screen.
   - [ ] Extract getTilePosition from Path class to a new class because it is not related with the Path concept
   - [x] Review Path class: remove static properties, refactor long methods.
