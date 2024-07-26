@@ -177,8 +177,13 @@ export class Game {
     const path = new Path(tileStart, tileEnd, tilesPath)
     Path.orders = path.makeOrders()
 
+    if (Path.orders.length === 0) {
+      throw new Error('Empty orders')
+    }
+
     const pathStartEnemiesPosition = PathStartEnemiesPosition.getInstance()
     pathStartEnemiesPosition.tileStart = tileStart
+
     this.#pathStartEnemiesPosition = pathStartEnemiesPosition.get()
 
     this.#tileOrangeCreator.createAll(levelMap, this.#tilesManager)
