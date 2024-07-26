@@ -13,7 +13,8 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ## Execute the unit tests
 
-- Execute `run_tests.sh` or `npm test` command
+- Execute `run_tests.sh` to run the filtered test (see package.json for testf script)
+- Execute `run_all_tests.sh` to run all the tests
 - Also you can run `run_tests_watch.sh` or `npm run testw` command to use jest in watch mode
 
 ## Build to web

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "testw": "jest --watch",
-    "testf": "jest --testPathPattern=path/PathOrdersValidMap.test.ts",
+    "testf": "jest --testPathPattern=path/PathStartEnemiesPosition.test.ts",
     "test:coverage": "jest --coverage",
     "build": "tsc && parcel build ./src/index.html --out-dir ./dist --public-url ./"
   },
