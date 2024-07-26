@@ -6,9 +6,6 @@ import { getTileStartCreator, getValidLevelMap } from '../helpers/levelMap'
 test('getEnemiesInitialPosition, when start direction is LEFT and start tile is at {x:750, y:80}, return x+=50 ({x:800, y:80})', () => {
   const startTilePosition = { x: 750, y: 80 }
   const levelMap = getValidLevelMap()
-  if (levelMap === undefined) {
-    throw new Error('levelMap is undefined')
-  }
 
   const tilesManager = new TilesManager()
   TileStartCreator.clearInstance()

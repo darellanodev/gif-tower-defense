@@ -46,10 +46,7 @@ export const getTilePathCreator = () => {
   return TilePathCreator.getInstance()
 }
 
-export const getPathFromMap = (levelMap: MapDataType | undefined) => {
-  if (levelMap === undefined) {
-    throw new Error('levelMap is undefined')
-  }
+export const getPathFromMap = (levelMap: MapDataType) => {
   const tilesManager = new TilesManager()
 
   const tileOrangeCreator = getTileOrangeCreator()

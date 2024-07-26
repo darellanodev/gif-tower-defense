@@ -7,7 +7,11 @@ export class LevelsDataProvider {
     this.#levels = levels
   }
 
-  getLevel(id: number): MapDataType | undefined {
-    return this.#levels.find((level: MapDataType) => level.id == id)
+  getLevel(id: number): MapDataType {
+    const result = this.#levels.find((level: MapDataType) => level.id == id)
+    if (result === undefined) {
+      throw new Error('level is undefined')
+    }
+    return result
   }
 }

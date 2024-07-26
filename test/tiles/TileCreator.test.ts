@@ -9,9 +9,6 @@ import { TilesManager } from '../../src/tiles/TilesManager'
 
 test('orangeTiles getter, when valid map is passed, return the orange tiles', () => {
   const levelMap = getValidLevelMap()
-  if (levelMap === undefined) {
-    throw new Error('levelMap is undefined')
-  }
 
   const tilesManager = new TilesManager()
   const tileOrangeCreator = getTileOrangeCreator()
@@ -24,9 +21,6 @@ test('orangeTiles getter, when valid map is passed, return the orange tiles', ()
 
 test('pathTiles getter, when valid map is passed, return the path tiles', () => {
   const levelMap = getValidLevelMap()
-  if (levelMap === undefined) {
-    throw new Error('levelMap is undefined')
-  }
 
   const tilesManager = new TilesManager()
   const tilePathCreator = getTilePathCreator()
@@ -39,9 +33,6 @@ test('pathTiles getter, when valid map is passed, return the path tiles', () => 
 
 test('startTile getter, when valid map is passed, return the start tile', () => {
   const levelMap = getValidLevelMap()
-  if (levelMap === undefined) {
-    throw new Error('levelMap is undefined')
-  }
 
   const tilesManager = new TilesManager()
   const tileStartCreator = getTileStartCreator()
@@ -54,9 +45,6 @@ test('startTile getter, when valid map is passed, return the start tile', () => 
 
 test('endTile getter, when valid map is passed, return the end tile', () => {
   const levelMap = getValidLevelMap()
-  if (levelMap === undefined) {
-    throw new Error('levelMap is undefined')
-  }
 
   const tilesManager = new TilesManager()
   const tileEndCreator = getTileEndCreator()

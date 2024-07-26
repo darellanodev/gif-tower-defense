@@ -36,9 +36,7 @@ export class MiniMap {
   ) {
     this.#position = position
     this.#type = type
-    if (levelMap === undefined) {
-      throw new Error('Map invalid')
-    }
+
     this.#author = levelMap.author
     this.#title = levelMap.title
 
