@@ -27,6 +27,7 @@ export class MiniMap {
   #type: number
   #author: string
   #title: string
+  #levelId: number
 
   #position: Position
   constructor(
@@ -39,6 +40,7 @@ export class MiniMap {
 
     this.#author = levelMap.author
     this.#title = levelMap.title
+    this.#levelId = levelMap.id
 
     this.#player = Player.getInstance()
 
@@ -74,6 +76,10 @@ export class MiniMap {
     // create path tiles
     this.#tilePathCreator = TilePathCreator.getInstance()
     this.#tilePathCreator.createAll(levelMap, this.#tilesManager)
+  }
+
+  get levelId() {
+    return this.#levelId
   }
 
   set position(position: Position) {

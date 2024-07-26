@@ -19,7 +19,6 @@ import { HudProgressBarWave } from './hud/HudProgressBarWave'
 import { HudOtherIndicators } from './hud/HudOtherIndicators'
 import { Controls } from './player/Controls'
 import { LevelsDataProvider } from './levels/LevelsDataProvider'
-import { LevelsData } from './levels/LevelsData'
 import { TowerGreenCreator } from './towers/TowerGreenCreator'
 import { TowerRedCreator } from './towers/TowerRedCreator'
 import { TowerYellowCreator } from './towers/TowerYellowCreator'
@@ -40,6 +39,7 @@ import { TileEndCreator } from './tiles/TileEndCreator'
 import { TilePathCreator } from './tiles/TilePathCreator'
 import { PathStartEnemiesPosition } from './path/PathStartEnemiesPosition'
 import { Position } from './types/position'
+import { MapDataType } from './types/mapDataType'
 
 export class Game {
   static #instance: Game | null = null
@@ -50,38 +50,45 @@ export class Game {
   #magicIceballInstancesManager: MagicInstancesManager
   #magicUFOInstancesManager: MagicInstancesManager
   #enemyInstancesManager: EnemyInstancesManager
-  #wallet: Wallet
+  #wallet: Wallet | null = null
   #hudPanel: HudPanel
   #hudButtonsMagics: HudButtonsMagics
-  #hudButtonsTowers: HudButtonsTowers
+  #hudButtonsTowers: HudButtonsTowers | null = null
   #hudProgressBarBoss: HudProgressBarBoss
   #hudProgressBarWave: HudProgressBarWave
-  #hudOtherIndicators: HudOtherIndicators
-  #controls: Controls
-  #levelDataProvider: LevelsDataProvider
+  #hudOtherIndicators: HudOtherIndicators | null = null
+  #controls: Controls | null = null
+  #levelsDataProvider: LevelsDataProvider
   #gameStatus: number = 0
   #instantiateBoss: boolean = false
   #instantiateEnemies: boolean = false
   #stateManager: StateManager
   #tilesManager: TilesManager
   #tileOrangeCreator: TileOrangeCreator
-  #tileStartCreator: TileStartCreator
-  #tileEndCreator: TileEndCreator
-  #tilePathCreator: TilePathCreator
+  #tileStartCreator: TileStartCreator | null = null
+  #tileEndCreator: TileEndCreator | null = null
+  #tilePathCreator: TilePathCreator | null = null
   #pathStartEnemiesPosition: Position = { x: 0, y: 0 }
 
-  static getInstance(stateManager: StateManager) {
+  static getInstance(
+    stateManager: StateManager,
+    levelsDataProvider: LevelsDataProvider,
+  ) {
     if (Game.#instance === null) {
-      Game.#instance = new Game(stateManager)
+      Game.#instance = new Game(stateManager, levelsDataProvider)
     }
     return Game.#instance
   }
-  constructor(stateManager: StateManager) {
+  constructor(
+    stateManager: StateManager,
+    levelsDataProvider: LevelsDataProvider,
+  ) {
     if (Game.#instance !== null) {
       throw new Error(
         'Game is a singleton class. Use getInstance to get the instance of the Game.',
       )
     }
+    this.#levelsDataProvider = levelsDataProvider
     this.#stateManager = stateManager
     this.#enemyInstancesManager = new EnemyInstancesManager()
     this.#enemyCreator = new EnemyCreator(this.#enemyInstancesManager)
@@ -95,15 +102,6 @@ export class Game {
     this.#magicUFOInstancesManager = new MagicInstancesManager(
       this.#enemyInstancesManager,
     )
-
-    this.#levelDataProvider = new LevelsDataProvider(LevelsData.data)
-
-    const levelMap = this.#levelDataProvider.getLevel(1)
-
-    if (levelMap === undefined) {
-      throw new Error('Map invalid')
-    }
-
     this.#player = Player.getInstance()
 
     const towerGreenCreator = TowerGreenCreator.getInstance(
@@ -125,34 +123,6 @@ export class Game {
       towerRedCreator,
       towerYellowCreator,
     )
-    this.#tileOrangeCreator.createAll(levelMap, this.#tilesManager)
-
-    //create start tile
-    this.#tileStartCreator = TileStartCreator.getInstance(Images.tileImages)
-    this.#tileStartCreator.create(levelMap, this.#tilesManager)
-
-    //create end tile
-    this.#tileEndCreator = TileEndCreator.getInstance(Images.tileImages)
-    this.#tileEndCreator.create(levelMap, this.#tilesManager)
-
-    // create path tiles
-    this.#tilePathCreator = TilePathCreator.getInstance()
-    this.#tilePathCreator.createAll(levelMap, this.#tilesManager)
-
-    const tilesPath = this.#tilesManager.getAllPathTiles
-    const tileStart = this.#tilesManager.tileStart
-    const tileEnd = this.#tilesManager.tileEnd
-
-    if (tileStart === null || tileEnd === null) {
-      throw new Error('Map invalid: tileStart or tileEnd is null')
-    }
-
-    const path = new Path(tileStart, tileEnd, tilesPath)
-    Path.orders = path.makeOrders()
-
-    const pathStartEnemiesPosition =
-      PathStartEnemiesPosition.getInstance(tileStart)
-    this.#pathStartEnemiesPosition = pathStartEnemiesPosition.get()
 
     ButtonMagic.setImages(
       Images.magicUFOButtonImages,
@@ -171,12 +141,47 @@ export class Game {
     this.#hudPanel = new HudPanel(Images.hudImages)
     this.#hudButtonsMagics = new HudButtonsMagics()
 
+    this.#hudProgressBarBoss = new HudProgressBarBoss()
+    this.#hudProgressBarWave = new HudProgressBarWave(this.#player)
+    // assign the singleton instance
+    Game.#instance = this
+  }
+
+  loadLevel(levelId: number) {
+    const levelMap = this.#levelsDataProvider.getLevel(levelId)
+
     this.#wallet = Wallet.getInstance(Wallet.GAME_TESTING_MODE, levelMap.money)
     // this.#wallet = Wallet.getInstance(
     //   Wallet.GAME_NORMAL_MODE,
     //   levelMap.money,
     // )
+
     this.#hudButtonsTowers = new HudButtonsTowers(this.#wallet)
+
+    this.#hudOtherIndicators = new HudOtherIndicators(
+      this.#wallet,
+      this.#player,
+    )
+
+    this.#createTiles(levelMap)
+
+    // create orders
+    const tilesPath = this.#tilesManager.getAllPathTiles
+    const tileStart = this.#tilesManager.tileStart
+    const tileEnd = this.#tilesManager.tileEnd
+
+    if (tileStart === null || tileEnd === null) {
+      throw new Error('Map invalid: tileStart or tileEnd is null')
+    }
+
+    const path = new Path(tileStart, tileEnd, tilesPath)
+    Path.orders = path.makeOrders()
+
+    const pathStartEnemiesPosition =
+      PathStartEnemiesPosition.getInstance(tileStart)
+    this.#pathStartEnemiesPosition = pathStartEnemiesPosition.get()
+
+    this.#tileOrangeCreator.createAll(levelMap, this.#tilesManager)
 
     this.#controls = new Controls(
       this.#hudButtonsMagics,
@@ -187,18 +192,20 @@ export class Game {
       this.#magicUFOInstancesManager,
       this.#pathStartEnemiesPosition,
     )
-
-    this.#hudProgressBarBoss = new HudProgressBarBoss()
-    this.#hudProgressBarWave = new HudProgressBarWave(this.#player)
-    this.#hudOtherIndicators = new HudOtherIndicators(
-      this.#wallet,
-      this.#player,
-    )
-
-    // assign the singleton instance
-    Game.#instance = this
   }
+  #createTiles(levelMap: MapDataType) {
+    //create start tile
+    this.#tileStartCreator = TileStartCreator.getInstance(Images.tileImages)
+    this.#tileStartCreator.create(levelMap, this.#tilesManager)
 
+    //create end tile
+    this.#tileEndCreator = TileEndCreator.getInstance(Images.tileImages)
+    this.#tileEndCreator.create(levelMap, this.#tilesManager)
+
+    // create path tiles
+    this.#tilePathCreator = TilePathCreator.getInstance()
+    this.#tilePathCreator.createAll(levelMap, this.#tilesManager)
+  }
   #updateMagics() {
     this.#magicFireballInstancesManager.updateInstances()
     this.#magicFireballInstancesManager.removeDeadInstances()
@@ -248,6 +255,10 @@ export class Game {
       .getAll()
       .filter((enemy) => enemy.dead)
     deadEnemies.forEach((enemy) => {
+      if (this.#wallet === null) {
+        throw new Error('wallet is null')
+      }
+
       ExplosionEnemy.instantiate(enemy.position)
 
       const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR
@@ -270,10 +281,16 @@ export class Game {
   }
 
   get #isMouseOverOrangeTile() {
+    if (this.#controls === null) {
+      throw new Error('controls is null')
+    }
     return this.#controls.mouseTileOrangeOver !== null
   }
 
   #drawHudBackgroundImage() {
+    if (this.#controls === null) {
+      throw new Error('controls is null')
+    }
     if (this.#isMouseOverOrangeTile) {
       const orangeTile = this.#controls.mouseTileOrangeOver
       if (orangeTile?.hasTower()) {
@@ -287,6 +304,9 @@ export class Game {
   }
 
   #drawInfluenceArea() {
+    if (this.#controls === null) {
+      throw new Error('controls is null')
+    }
     if (this.#isMouseOverOrangeTile) {
       const orangeTile = this.#controls.mouseTileOrangeOver
       if (orangeTile?.hasTower()) {
@@ -298,6 +318,9 @@ export class Game {
   }
 
   #drawHud() {
+    if (this.#hudButtonsTowers === null || this.#hudOtherIndicators === null) {
+      throw new Error('hudButtonsTower or hudOtherIndicators is null')
+    }
     this.#hudPanel.draw()
     this.#drawHudBackgroundImage()
     this.#drawInfluenceArea()
@@ -397,6 +420,9 @@ export class Game {
   }
 
   #drawPlayingThings() {
+    if (this.#controls === null) {
+      throw new Error('controls is null')
+    }
     this.#gameStatus = this.#updateEnemies()
     this.#controls.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
     this.#instantiateEnemies = this.#hudProgressBarWave.updateWaveProgressBar()
@@ -423,10 +449,16 @@ export class Game {
   }
 
   mouseClicked() {
+    if (this.#controls === null) {
+      throw new Error('controls is null')
+    }
     this.#controls.mouseClicked()
   }
 
   keyPressed() {
+    if (this.#controls === null) {
+      throw new Error('controls is null')
+    }
     this.#controls.keyPressed()
   }
 
@@ -452,6 +484,9 @@ export class Game {
   }
 
   draw() {
+    if (this.#wallet === null) {
+      throw new Error('wallet is null')
+    }
     if (this.#gameStatus === Const.GAME_STATUS_PLAYING) {
       this.#drawPlayingThings()
     }

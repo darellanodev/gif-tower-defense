@@ -1,3 +1,4 @@
+import { Game } from './Game'
 import { MiniMap } from './MiniMap'
 import { StateManager } from './StateManager'
 import { Button } from './hud/Button'
@@ -12,19 +13,25 @@ export class MenuSurvival {
   #stateManager: StateManager
   #btnsMiniMaps: ButtonMiniMap[] = []
   #btnBackMenuMain: Button
+  #buttonsMiniMapsCreator: ButtonsMiniMapsCreator
+  #game: Game
 
-  constructor(stateManager: StateManager) {
+  constructor(
+    stateManager: StateManager,
+    buttonsMiniMapsCreator: ButtonsMiniMapsCreator,
+    game: Game,
+  ) {
     if (MenuSurvival.#instance !== null) {
       throw new Error(
         'MenuSurvival is a singleton class, use getInstance to get the instance',
       )
     }
     this.#stateManager = stateManager
-
-    const buttonsMiniMapsCreator = ButtonsMiniMapsCreator.getInstance()
+    this.#buttonsMiniMapsCreator = buttonsMiniMapsCreator
+    this.#game = game
 
     const levelsIds = [1, 13, 14, 1, 1]
-    this.#btnsMiniMaps = buttonsMiniMapsCreator.createForLevelIds(
+    this.#btnsMiniMaps = this.#buttonsMiniMapsCreator.createForLevelIds(
       levelsIds,
       MiniMap.TYPE_LAST_LEVEL_PLAYED,
       { x: 28, y: 160 },
@@ -40,9 +47,17 @@ export class MenuSurvival {
     // assign the singleton instance
     MenuSurvival.#instance = this
   }
-  static getInstance(stateManager: StateManager) {
+  static getInstance(
+    stateManager: StateManager,
+    buttonsMiniMapsCreator: ButtonsMiniMapsCreator,
+    game: Game,
+  ) {
     if (MenuSurvival.#instance === null) {
-      MenuSurvival.#instance = new MenuSurvival(stateManager)
+      MenuSurvival.#instance = new MenuSurvival(
+        stateManager,
+        buttonsMiniMapsCreator,
+        game,
+      )
     }
     return MenuSurvival.#instance
   }
@@ -69,6 +84,8 @@ export class MenuSurvival {
     // check if player clic one of the survival minimaps
     for (const btnMiniMap of this.#btnsMiniMaps) {
       if (btnMiniMap.isMouseOver(mousePosition)) {
+        const levelId = btnMiniMap.miniMap.levelId
+        this.#game.loadLevel(levelId)
         this.#stateManager.setPlay()
       }
     }

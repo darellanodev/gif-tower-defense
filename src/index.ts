@@ -6,12 +6,17 @@ import { Game } from './Game'
 import { StateManager } from './StateManager'
 import { MenuMain } from './MenuMain'
 import { MenuSurvival } from './MenuSurvival'
+import { LevelsDataProvider } from './levels/LevelsDataProvider'
+import { LevelsData } from './levels/LevelsData'
+import { ButtonsMiniMapsCreator } from './hud/ButtonsMiniMapsCreator'
 
 let _p5: p5
 let game: Game
 let menuMain: MenuMain
 let menuSurvival: MenuSurvival
 let stateManager: StateManager
+let levelsDataProvider: LevelsDataProvider
+let buttonsMiniMapsCreator: ButtonsMiniMapsCreator
 
 // ugly hack: remove the extra canvas created
 window.addEventListener('load', () => {
@@ -67,10 +72,20 @@ window.setup = () => {
 
   disableContextualMenu()
 
+  levelsDataProvider = LevelsDataProvider.getInstance()
+  levelsDataProvider.initLevels(LevelsData.data)
+
+  buttonsMiniMapsCreator =
+    ButtonsMiniMapsCreator.getInstance(levelsDataProvider)
+
   stateManager = StateManager.getInstance(StateManager.STATE_MENU_MAIN)
-  game = Game.getInstance(stateManager)
-  menuMain = MenuMain.getInstance(stateManager)
-  menuSurvival = MenuSurvival.getInstance(stateManager)
+  game = Game.getInstance(stateManager, levelsDataProvider)
+  menuMain = MenuMain.getInstance(stateManager, buttonsMiniMapsCreator, game)
+  menuSurvival = MenuSurvival.getInstance(
+    stateManager,
+    buttonsMiniMapsCreator,
+    game,
+  )
 }
 
 window.keyPressed = () => {

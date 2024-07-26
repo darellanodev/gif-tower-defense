@@ -26,7 +26,9 @@ test('getLevel, when request the id of a testing level, return data of the corre
     money: 150,
   }
 
-  const levelsDataProvider = new LevelsDataProvider(LevelsData.data)
+  const levelsDataProvider = LevelsDataProvider.getInstance()
+
+  levelsDataProvider.initLevels(LevelsData.data)
 
   const result = levelsDataProvider.getLevel(
     ConstTest.ID_LEVEL_VALID_FOR_UNIT_TESTING,

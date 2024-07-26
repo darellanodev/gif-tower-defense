@@ -3,7 +3,6 @@ import { Position } from '../types/position'
 import { Size } from '../types/size'
 import { Button } from './Button'
 import { MiniMap } from '../MiniMap'
-import { P5 } from '../utils/P5'
 
 export class ButtonMiniMap extends Button {
   static MINIMAP_OFFSET_X = 14
@@ -37,5 +36,9 @@ export class ButtonMiniMap extends Button {
   drawHover() {
     super.drawHover()
     this.#miniMap.draw()
+  }
+
+  get miniMap() {
+    return this.#miniMap
   }
 }

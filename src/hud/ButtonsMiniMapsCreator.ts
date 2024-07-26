@@ -8,18 +8,24 @@ import { ButtonMiniMap } from './ButtonMiniMap'
 export class ButtonsMiniMapsCreator {
   static #instance: ButtonsMiniMapsCreator | null = null
 
-  constructor() {
+  #levelsDataProvider: LevelsDataProvider
+
+  constructor(levelsDataProvider: LevelsDataProvider) {
     if (ButtonsMiniMapsCreator.#instance !== null) {
       throw new Error(
         'ButtonsMiniMapsCreator is a singleton class, use getInstance to get the instance',
       )
     }
+    this.#levelsDataProvider = levelsDataProvider
+
     // assign the singleton instance
     ButtonsMiniMapsCreator.#instance = this
   }
-  static getInstance() {
+  static getInstance(levelsDataProvider: LevelsDataProvider) {
     if (ButtonsMiniMapsCreator.#instance === null) {
-      ButtonsMiniMapsCreator.#instance = new ButtonsMiniMapsCreator()
+      ButtonsMiniMapsCreator.#instance = new ButtonsMiniMapsCreator(
+        levelsDataProvider,
+      )
     }
     return ButtonsMiniMapsCreator.#instance
   }
@@ -31,15 +37,10 @@ export class ButtonsMiniMapsCreator {
   ): ButtonMiniMap[] {
     const stepX = 150
 
-    const levelDataProvider = new LevelsDataProvider(LevelsData.data)
-
     const result = []
     let i = 0
     for (const levelId of levelsIds) {
-      const levelMap = levelDataProvider.getLevel(levelId)
-      if (levelMap === undefined) {
-        throw new Error(`Level with id ${levelId} is undefined`)
-      }
+      const levelMap = this.#levelsDataProvider.getLevel(levelId)
 
       result.push(
         new ButtonMiniMap(

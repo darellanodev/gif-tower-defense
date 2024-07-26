@@ -1,3 +1,4 @@
+import { Game } from './Game'
 import { MiniMap } from './MiniMap'
 import { StateManager } from './StateManager'
 import { Button } from './hud/Button'
@@ -16,15 +17,23 @@ export class MenuMain {
   #btnSurvival: Button
   #btnEditor: Button
   #btnTodays: Button
+  #buttonsMiniMapsCreator: ButtonsMiniMapsCreator
+  #game: Game
 
-  constructor(stateManager: StateManager) {
+  constructor(
+    stateManager: StateManager,
+    buttonsMiniMapsCreator: ButtonsMiniMapsCreator,
+    game: Game,
+  ) {
     if (MenuMain.#instance !== null) {
       throw new Error(
         'MenuMain is a singleton class, use getInstance to get the instance',
       )
     }
     this.#stateManager = stateManager
-    const buttonsMiniMapsCreator = ButtonsMiniMapsCreator.getInstance()
+    this.#buttonsMiniMapsCreator = buttonsMiniMapsCreator
+    this.#game = game
+
     const lastEditorLevelsIds = [13]
 
     this.#btnsMiniMapsEditor = buttonsMiniMapsCreator.createForLevelIds(
@@ -61,9 +70,17 @@ export class MenuMain {
     // assign the singleton instance
     MenuMain.#instance = this
   }
-  static getInstance(stateManager: StateManager) {
+  static getInstance(
+    stateManager: StateManager,
+    buttonsMiniMapsCreator: ButtonsMiniMapsCreator,
+    game: Game,
+  ) {
     if (MenuMain.#instance === null) {
-      MenuMain.#instance = new MenuMain(stateManager)
+      MenuMain.#instance = new MenuMain(
+        stateManager,
+        buttonsMiniMapsCreator,
+        game,
+      )
     }
     return MenuMain.#instance
   }
@@ -90,12 +107,16 @@ export class MenuMain {
     // check if player clic over one last level edited minimap (currently there is only one)
     for (const btnMiniMapEditor of this.#btnsMiniMapsEditor) {
       if (btnMiniMapEditor.isMouseOver(mousePosition)) {
+        const levelId = btnMiniMapEditor.miniMap.levelId
+        this.#game.loadLevel(levelId)
         this.#stateManager.setPlay()
       }
     }
     // check if player clic one of the last played levels
     for (const btnMiniMapLastPlayed of this.#btnsMiniMapsLastLevelsPlayed) {
       if (btnMiniMapLastPlayed.isMouseOver(mousePosition)) {
+        const levelId = btnMiniMapLastPlayed.miniMap.levelId
+        this.#game.loadLevel(levelId)
         this.#stateManager.setPlay()
       }
     }
