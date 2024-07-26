@@ -89,7 +89,14 @@ window.setup = () => {
 }
 
 window.keyPressed = () => {
-  game.keyPressed()
+  switch (stateManager.state) {
+    case StateManager.STATE_PLAY_SURVIVAL:
+      game.keyPressed()
+      break
+
+    default:
+      break
+  }
 }
 
 window.draw = () => {
