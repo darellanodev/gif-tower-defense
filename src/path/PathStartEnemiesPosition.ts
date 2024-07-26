@@ -5,30 +5,34 @@ import { ConstDirection } from '../constants/ConstDirection'
 export class PathStartEnemiesPosition {
   static #instance: PathStartEnemiesPosition | null = null
 
-  #tileStart: TileStart
+  #tileStart: TileStart | null = null
 
-  constructor(tileStart: TileStart) {
+  constructor() {
     if (PathStartEnemiesPosition.#instance !== null) {
       throw new Error(
         'PathStartEnemiesPosition is a singleton class, use getInstance to get the instance',
       )
     }
-    this.#tileStart = tileStart
 
     // assign the singleton instance
     PathStartEnemiesPosition.#instance = this
   }
 
-  static getInstance(tileStart: TileStart) {
+  static getInstance() {
     if (PathStartEnemiesPosition.#instance === null) {
-      PathStartEnemiesPosition.#instance = new PathStartEnemiesPosition(
-        tileStart,
-      )
+      PathStartEnemiesPosition.#instance = new PathStartEnemiesPosition()
     }
     return PathStartEnemiesPosition.#instance
   }
 
+  set tileStart(tileStart: TileStart) {
+    this.#tileStart = tileStart
+  }
+
   get() {
+    if (this.#tileStart === null) {
+      throw new Error('tileStart is null')
+    }
     let finalX = 0
     let finalY = 0
 

@@ -177,8 +177,8 @@ export class Game {
     const path = new Path(tileStart, tileEnd, tilesPath)
     Path.orders = path.makeOrders()
 
-    const pathStartEnemiesPosition =
-      PathStartEnemiesPosition.getInstance(tileStart)
+    const pathStartEnemiesPosition = PathStartEnemiesPosition.getInstance()
+    pathStartEnemiesPosition.tileStart = tileStart
     this.#pathStartEnemiesPosition = pathStartEnemiesPosition.get()
 
     this.#tileOrangeCreator.createAll(levelMap, this.#tilesManager)
