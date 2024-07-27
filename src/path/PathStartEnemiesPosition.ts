@@ -36,10 +36,27 @@ export class PathStartEnemiesPosition {
     let finalX = 0
     let finalY = 0
 
-    if (this.#tileStart.getStartDirection() === ConstDirection.LEFT) {
-      const finalPosition = this.#tileStart.position
-      finalX = finalPosition.x + Const.TILE_SIZE
-      finalY = finalPosition.y
+    // LEFT by default
+    const finalPosition = this.#tileStart.position
+
+    switch (this.#tileStart.getStartDirection()) {
+      case ConstDirection.RIGHT:
+        finalX = finalPosition.x - Const.TILE_SIZE
+        finalY = finalPosition.y
+        break
+      case ConstDirection.UP:
+        finalX = finalPosition.x
+        finalY = finalPosition.y + Const.TILE_SIZE
+        break
+      case ConstDirection.DOWN:
+        finalX = finalPosition.x
+        finalY = finalPosition.y - Const.TILE_SIZE
+        break
+      default:
+        // LEFT by default
+        finalX = finalPosition.x + Const.TILE_SIZE
+        finalY = finalPosition.y
+        break
     }
 
     return { x: finalX, y: finalY }

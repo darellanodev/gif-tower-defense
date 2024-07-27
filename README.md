@@ -40,6 +40,11 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
   - [ ] Insert more basic levels (maybe some of them need to write tests to implement the correct orders)
     - [x] Level 14 titled "one loop"
     - [ ] Level 13 titled "doble loop"
+      - [x] fix tileStart image orientation
+      - [x] fix enemies start position
+      - [ ] put the hud over the enemies because the enemies walk in tilestart over the hud
+    - [ ] Level with endTile in UP direction
+    - [ ] Level with endTile in DOWN direction
   - [ ] Survival menu
     - [x] Display a first row of minimap levels
     - [ ] Display a second row (and perhaps a third row) of levels
