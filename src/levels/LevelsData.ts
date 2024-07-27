@@ -42,8 +42,8 @@ export class LevelsData {
         '0000000000000000',
       ],
       money: 150,
-      startDirection: ConstDirection.LEFT,
-      endDirection: ConstDirection.UP,
+      startDirection: ConstDirection.DOWN,
+      endDirection: ConstDirection.RIGHT,
     },
     {
       id: 14,
