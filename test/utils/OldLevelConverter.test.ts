@@ -50,3 +50,9 @@ test('extract money', () => {
   const expected = 150
   expect(result).toBe(expected)
 })
+
+test('extract startDirection', () => {
+  const result = oldLevelConverter.startDirection
+  const expected = 3
+  expect(result).toBe(expected)
+})
