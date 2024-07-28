@@ -11,6 +11,7 @@ export class OldLevelConverter {
       author: this.extractAuthor(),
       id: this.extractId(),
       title: this.extractTitle(),
+      comments: 'comments are not set yet',
       rowsmap: this.extractRowsmap(),
     }
   }
@@ -45,7 +46,7 @@ export class OldLevelConverter {
     return this.#newLevelData.title
   }
   get comments() {
-    return 'comments are not set yet'
+    return this.#newLevelData.comments
   }
   get rowsmap() {
     return this.#newLevelData.rowsmap
