@@ -27,3 +27,20 @@ test('extract comments', () => {
   const expected = 'comments are not set yet'
   expect(result).toBe(expected)
 })
+
+test('extract rowsmap', () => {
+  const result = oldLevelConverter.rowsmap
+  const expected = [
+    '0000000000000000',
+    'x111111111111110',
+    '0000002222220010',
+    '0111020000002010',
+    '0101000022220010',
+    '0101000020000010',
+    '0101000000000010',
+    '0101000020000010',
+    '0101111111111110',
+    '0y00000000000000',
+  ]
+  expect(result).toStrictEqual(expected)
+})

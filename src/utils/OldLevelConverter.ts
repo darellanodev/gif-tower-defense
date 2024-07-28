@@ -11,6 +11,7 @@ export class OldLevelConverter {
       author: this.extractAuthor(),
       id: this.extractId(),
       title: this.extractTitle(),
+      rowsmap: this.extractRowsmap(),
     }
   }
   extractAuthor() {
@@ -26,6 +27,13 @@ export class OldLevelConverter {
     const str = arr[0].replace(/\(/g, '').trim()
     return Number.parseInt(str)
   }
+  extractRowsmap() {
+    const arr = this.#oldLevelData.split("'")
+    const levelmapParts = arr[5].split('@')
+    const levelmap = levelmapParts[0].trim()
+
+    return levelmap.split(',')
+  }
 
   get author() {
     return this.#newLevelData.author
@@ -38,5 +46,8 @@ export class OldLevelConverter {
   }
   get comments() {
     return 'comments are not set yet'
+  }
+  get rowsmap() {
+    return this.#newLevelData.rowsmap
   }
 }
