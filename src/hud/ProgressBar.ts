@@ -43,7 +43,7 @@ export class ProgressBar extends Obj {
     P5.p5.fill('green')
     P5.p5.rect(
       this.position.x + 10,
-      this.position.y + 20,
+      this.position.y + 23,
       this.#size.w,
       this.#size.h,
     )
@@ -55,7 +55,7 @@ export class ProgressBar extends Obj {
     const progressLevel = (this.#progress * this.#maxProgress) / 100
     P5.p5.rect(
       this.position.x + 11,
-      this.position.y + 21,
+      this.position.y + 24,
       progressLevel,
       this.#size.h - 2,
     )
