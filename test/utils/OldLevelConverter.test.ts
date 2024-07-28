@@ -15,3 +15,9 @@ test('extract id', () => {
   const expected = 12
   expect(result).toBe(expected)
 })
+
+test('extract title', () => {
+  const result = oldLevelConverter.title
+  const expected = 'question'
+  expect(result).toBe(expected)
+})
