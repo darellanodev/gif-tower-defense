@@ -61,9 +61,8 @@ export class Enemy extends Obj {
   #createHealthBar() {
     const initialPosition: Position = { x: 0, y: 0 } // doesn't matter because later it will change with the enemy's position
     const size: Size = { w: 27, h: 7 }
-    const offsetPosition: Position = { x: 10, y: 23 }
 
-    return new ProgressBar(initialPosition, size, offsetPosition)
+    return new ProgressBar(initialPosition, size)
   }
 
   isBoss() {
@@ -133,8 +132,8 @@ export class Enemy extends Obj {
 
   #updateHealthBarPosition() {
     this.#healthBar.position = {
-      x: this.position.x,
-      y: this.position.y - 20,
+      x: this.position.x + 10,
+      y: this.position.y + 3,
     }
   }
 

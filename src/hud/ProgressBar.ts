@@ -8,16 +8,10 @@ export class ProgressBar extends Obj {
   #progress: number = 0
   #maxProgress: number
 
-  #offsetPosition: Position = { x: 0, y: 0 }
-  constructor(
-    position: Position,
-    size: Size,
-    offsetPosition: Position = { x: 0, y: 0 },
-  ) {
+  constructor(position: Position, size: Size) {
     super(position)
     this.#size = { ...size }
     this.#maxProgress = this.#size.w - 1
-    this.#offsetPosition = { ...offsetPosition }
   }
 
   get progress(): number {
@@ -43,12 +37,7 @@ export class ProgressBar extends Obj {
     P5.p5.strokeWeight(1)
     P5.p5.stroke('black')
     P5.p5.fill('green')
-    P5.p5.rect(
-      this.position.x + this.#offsetPosition.x,
-      this.position.y + this.#offsetPosition.y,
-      this.#size.w,
-      this.#size.h,
-    )
+    P5.p5.rect(this.position.x, this.position.y, this.#size.w, this.#size.h)
   }
 
   #drawProgressBar() {
@@ -56,8 +45,8 @@ export class ProgressBar extends Obj {
     P5.p5.fill('red')
     const progressLevel = (this.#progress * this.#maxProgress) / 100
     P5.p5.rect(
-      this.position.x + this.#offsetPosition.x + 1,
-      this.position.y + this.#offsetPosition.y + 1,
+      this.position.x + 1,
+      this.position.y + 1,
       progressLevel,
       this.#size.h - 2,
     )
