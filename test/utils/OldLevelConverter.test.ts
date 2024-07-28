@@ -21,3 +21,9 @@ test('extract title', () => {
   const expected = 'question'
   expect(result).toBe(expected)
 })
+
+test('extract comments', () => {
+  const result = oldLevelConverter.comments
+  const expected = 'comments are not set yet'
+  expect(result).toBe(expected)
+})

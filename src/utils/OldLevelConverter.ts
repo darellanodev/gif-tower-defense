@@ -36,4 +36,7 @@ export class OldLevelConverter {
   get title() {
     return this.#newLevelData.title
   }
+  get comments() {
+    return 'comments are not set yet'
+  }
 }
