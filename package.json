@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "testw": "jest --watch",
-    "testf": "jest --testPathPattern=path/PathOrdersValidMapLevel14.test.ts",
+    "testf": "jest --testPathPattern=utils/OldLevelConverter.test.ts",
     "test:coverage": "jest --coverage",
     "build": "tsc && parcel build ./src/index.html --out-dir ./dist --public-url ./"
   },
