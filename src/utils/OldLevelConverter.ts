@@ -9,13 +9,22 @@ export class OldLevelConverter {
   #convert() {
     this.#newLevelData = {
       author: this.extractAuthor(),
+      id: this.extractId(),
     }
   }
   extractAuthor() {
     const arr = this.#oldLevelData.split(',')
     return arr[2].replace(/'/g, '').trim()
   }
+  extractId() {
+    const arr = this.#oldLevelData.split(',')
+    const str = arr[0].replace(/\(/g, '').trim()
+    return Number.parseInt(str)
+  }
   get author() {
     return this.#newLevelData.author
+  }
+  get id() {
+    return this.#newLevelData.id
   }
 }

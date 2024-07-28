@@ -9,3 +9,9 @@ test('extract author', () => {
   const expected = 'ocliboy'
   expect(result).toBe(expected)
 })
+
+test('extract id', () => {
+  const result = oldLevelConverter.id
+  const expected = 12
+  expect(result).toBe(expected)
+})
