@@ -7,6 +7,7 @@ import { P5 } from '../utils/P5'
 import { TileOrange } from '../tiles/TileOrange'
 import { Obj } from '../Obj'
 import { PositionUtils } from '../utils/PositionUtils'
+import { Size } from '../types/size'
 
 export class Tower extends Obj {
   static OFFSET_X: number = 3
@@ -26,15 +27,18 @@ export class Tower extends Obj {
 
   constructor(position: Position, tileOrange: TileOrange) {
     super(position)
-
-    this.progressBar = new ProgressBar(
-      {
-        x: this.position.x + Const.TOWER_OFFSET,
-        y: this.position.y + Const.TOWER_OFFSET,
-      },
-      { w: ProgressBar.WIDTH, h: ProgressBar.HEIGHT },
-    )
+    this.progressBar = this.#createTowerProgressBar()
     this.tileOrange = tileOrange
+  }
+
+  #createTowerProgressBar() {
+    const position: Position = {
+      x: this.position.x + Const.TOWER_OFFSET + 10,
+      y: this.position.y + Const.TOWER_OFFSET + 20,
+    }
+    const size: Size = { w: 27, h: 7 }
+
+    return new ProgressBar(position, size)
   }
 
   upgrade() {

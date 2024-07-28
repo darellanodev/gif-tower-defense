@@ -11,6 +11,7 @@ import { P5 } from '../utils/P5'
 import { FlyIndicator } from '../hud/FlyIndicator'
 import { Images } from '../resources/Images'
 import { PositionUtils } from '../utils/PositionUtils'
+import { Size } from '../types/size'
 
 export class TowerYellow extends Tower {
   static ID = 3
@@ -31,17 +32,19 @@ export class TowerYellow extends Tower {
     images: Image[],
   ) {
     super(position, tileOrange)
-    this.#coreProgressBar = new ProgressBar(
-      {
-        x: this.position.x,
-        y: this.position.y - 11,
-      },
-      { w: Const.TILE_SIZE - 13, h: Const.TILE_SIZE - 10 },
-    )
+    this.#coreProgressBar = this.#createTowerProgressBar()
     this.#player = player
     this.#images = images
   }
+  #createTowerProgressBar() {
+    const position: Position = {
+      x: this.position.x + 10,
+      y: this.position.y + 13,
+    }
+    const size: Size = { w: Const.TILE_SIZE - 13, h: Const.TILE_SIZE - 10 }
 
+    return new ProgressBar(position, size)
+  }
   upgrade() {
     if (!this.upgrading) {
       this.upgrading = true

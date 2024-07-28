@@ -40,6 +40,7 @@ import { TilePathCreator } from './tiles/TilePathCreator'
 import { PathStartEnemiesPosition } from './path/PathStartEnemiesPosition'
 import { Position } from './types/position'
 import { MapDataType } from './types/mapDataType'
+import { Size } from './types/size'
 
 export class Game {
   static #instance: Game | null = null
@@ -141,10 +142,24 @@ export class Game {
     this.#hudPanel = new HudPanel(Images.hudImages)
     this.#hudButtonsMagics = new HudButtonsMagics()
 
-    this.#hudProgressBarBoss = new HudProgressBarBoss()
-    this.#hudProgressBarWave = new HudProgressBarWave(this.#player)
+    this.#hudProgressBarBoss = this.#createHudProgressBarBoss()
+    this.#hudProgressBarWave = this.#createHudProgressBarWave()
     // assign the singleton instance
     Game.#instance = this
+  }
+
+  #createHudProgressBarBoss() {
+    const position: Position = { x: 345, y: 19 }
+    const size: Size = { w: 150, h: 10 }
+
+    return new HudProgressBarBoss(position, size)
+  }
+
+  #createHudProgressBarWave() {
+    const position: Position = { x: 345, y: 1 }
+    const size: Size = { w: 150, h: 16 }
+
+    return new HudProgressBarWave(position, size, this.#player)
   }
 
   loadLevel(levelId: number) {

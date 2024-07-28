@@ -4,15 +4,14 @@ import { ProgressBar } from './ProgressBar'
 import { Const } from '../constants/Const'
 import { Player } from '../player/Player'
 
-export class HudProgressBarWave {
-  #waveProgressBar: ProgressBar
+export class HudProgressBarWave extends ProgressBar {
+  static POSITION: Position = { x: 335, y: -19 }
+  static SIZE: Size = { w: 150, h: 16 }
   #waveProgressDelay: number = Const.WAVE_PROGRESS_DELAY
   #player: Player
 
-  constructor(player: Player) {
-    const position: Position = { x: 335, y: -19 }
-    const size: Size = { w: 150, h: 16 }
-    this.#waveProgressBar = new ProgressBar(position, size)
+  constructor(position: Position, size: Size, player: Player) {
+    super(position, size)
     this.#player = player
   }
 
@@ -22,19 +21,15 @@ export class HudProgressBarWave {
       this.#waveProgressDelay--
     } else {
       this.#waveProgressDelay = Const.WAVE_PROGRESS_DELAY
-      this.#waveProgressBar.increaseProgress()
+      this.increaseProgress()
 
-      if (this.#waveProgressBar.isFullOfProgress()) {
+      if (this.isFullOfProgress()) {
         // next wave
-        this.#waveProgressBar.reinitProgress()
+        this.reinitProgress()
         this.#player.increaseWave()
         instantiateEnemies = true
       }
     }
     return instantiateEnemies
-  }
-
-  draw() {
-    this.#waveProgressBar.draw()
   }
 }

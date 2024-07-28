@@ -5,6 +5,7 @@ import { P5 } from '../utils/P5'
 import { Obj } from '../Obj'
 import { EnemyAnimator } from './EnemyAnimator'
 import { PathMovement } from '../path/PathMovement'
+import { Size } from '../types/size'
 
 export class Enemy extends Obj {
   static VELOCITY = 1 // must be multiple of "this.#Const.TILE_SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
@@ -52,12 +53,17 @@ export class Enemy extends Obj {
     this.#enemyAnimator = enemyAnimator
     this.#pathMovement = pathMovement
 
-    this.#healthBar = new ProgressBar(
-      { x: 200, y: 200 },
-      { w: ProgressBar.WIDTH, h: ProgressBar.HEIGHT },
-    )
+    this.#healthBar = this.#createHealthBar()
 
     this.#status = Enemy.STATUS_ALIVE
+  }
+
+  #createHealthBar() {
+    const initialPosition: Position = { x: 0, y: 0 } // doesn't matter because later it will change with the enemy's position
+    const size: Size = { w: 27, h: 7 }
+    const offsetPosition: Position = { x: 10, y: 23 }
+
+    return new ProgressBar(initialPosition, size, offsetPosition)
   }
 
   isBoss() {
