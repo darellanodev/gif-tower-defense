@@ -13,6 +13,7 @@ export class OldLevelConverter {
       title: this.extractTitle(),
       comments: 'comments are not set yet',
       rowsmap: this.extractRowsmap(),
+      money: this.extractMoney(),
     }
   }
   extractAuthor() {
@@ -35,6 +36,13 @@ export class OldLevelConverter {
 
     return levelmap.split(',')
   }
+  extractMoney() {
+    const arr = this.#oldLevelData.split("'")
+    const levelmapParts = arr[5].split('@')
+    const datamap = levelmapParts[1].trim()
+    const datamapParts = datamap.split(',')
+    return Number.parseInt(datamapParts[4])
+  }
 
   get author() {
     return this.#newLevelData.author
@@ -50,5 +58,8 @@ export class OldLevelConverter {
   }
   get rowsmap() {
     return this.#newLevelData.rowsmap
+  }
+  get money() {
+    return this.#newLevelData.money
   }
 }

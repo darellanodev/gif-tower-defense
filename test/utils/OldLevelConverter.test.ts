@@ -44,3 +44,9 @@ test('extract rowsmap', () => {
   ]
   expect(result).toStrictEqual(expected)
 })
+
+test('extract money', () => {
+  const result = oldLevelConverter.money
+  const expected = 150
+  expect(result).toBe(expected)
+})
