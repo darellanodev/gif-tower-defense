@@ -501,8 +501,8 @@ export class Game {
     this.#drawBackground()
     this.#tilesManager.drawAll()
     this.#drawTowers()
-    this.#drawHud()
     this.#drawEnemies()
+    this.#drawHud()
 
     this.#drawMagics()
     this.#drawExplosions()
