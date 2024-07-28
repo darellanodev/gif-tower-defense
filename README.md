@@ -35,7 +35,13 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
     - [x] MagicFireballCreator
     - [x] MagicIceballCreator
     - [x] MagicUFOCreator
-    - [ ] ...
+    - [ ] HudProgressBarWave
+    - [ ] HudProgressBarBoss
+
+  - [ ] Group into subfolders:
+
+    - [ ] Buttons
+    - [ ] ProgressBar
 
   - [ ] Insert more basic levels (maybe some of them need to write tests to implement the correct orders)
     - [x] Level 14 titled "one loop"
