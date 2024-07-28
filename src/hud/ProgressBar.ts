@@ -37,7 +37,7 @@ export class ProgressBar extends Obj {
     return this.#progress >= 100
   }
 
-  _drawBackgroundBar() {
+  #drawBackgroundBar() {
     P5.p5.strokeWeight(1)
     P5.p5.stroke('black')
     P5.p5.fill('green')
@@ -49,7 +49,7 @@ export class ProgressBar extends Obj {
     )
   }
 
-  _drawProgressBar() {
+  #drawProgressBar() {
     P5.p5.strokeWeight(0)
     P5.p5.fill('red')
     const progressLevel = (this.#progress * this.#maxProgress) / 100
@@ -62,9 +62,9 @@ export class ProgressBar extends Obj {
   }
 
   draw() {
-    this._drawBackgroundBar()
+    this.#drawBackgroundBar()
     if (this.#progress > 0) {
-      this._drawProgressBar()
+      this.#drawProgressBar()
     }
   }
 }
