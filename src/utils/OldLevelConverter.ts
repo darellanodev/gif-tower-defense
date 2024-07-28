@@ -37,18 +37,18 @@ export class OldLevelConverter {
 
     return levelmap.split(',')
   }
-  #extractMoney() {
+  #getMapData() {
     const arr = this.#oldLevelData.split("'")
     const levelmapParts = arr[5].split('@')
     const datamap = levelmapParts[1].trim()
-    const datamapParts = datamap.split(',')
+    return datamap.split(',')
+  }
+  #extractMoney() {
+    const datamapParts = this.#getMapData()
     return Number.parseInt(datamapParts[4])
   }
   #extractStartDirection() {
-    const arr = this.#oldLevelData.split("'")
-    const levelmapParts = arr[5].split('@')
-    const datamap = levelmapParts[1].trim()
-    const datamapParts = datamap.split(',')
+    const datamapParts = this.#getMapData()
     return Number.parseInt(datamapParts[1])
   }
 
