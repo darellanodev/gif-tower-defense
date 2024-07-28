@@ -8,35 +8,35 @@ export class OldLevelConverter {
   }
   #convert() {
     this.#newLevelData = {
-      author: this.extractAuthor(),
-      id: this.extractId(),
-      title: this.extractTitle(),
+      author: this.#extractAuthor(),
+      id: this.#extractId(),
+      title: this.#extractTitle(),
       comments: 'comments are not set yet',
-      rowsmap: this.extractRowsmap(),
-      money: this.extractMoney(),
+      rowsmap: this.#extractRowsmap(),
+      money: this.#extractMoney(),
     }
   }
-  extractAuthor() {
+  #extractAuthor() {
     const arr = this.#oldLevelData.split(',')
     return arr[2].replace(/'/g, '').trim()
   }
-  extractTitle() {
+  #extractTitle() {
     const arr = this.#oldLevelData.split(',')
     return arr[1].replace(/'/g, '').trim()
   }
-  extractId() {
+  #extractId() {
     const arr = this.#oldLevelData.split(',')
     const str = arr[0].replace(/\(/g, '').trim()
     return Number.parseInt(str)
   }
-  extractRowsmap() {
+  #extractRowsmap() {
     const arr = this.#oldLevelData.split("'")
     const levelmapParts = arr[5].split('@')
     const levelmap = levelmapParts[0].trim()
 
     return levelmap.split(',')
   }
-  extractMoney() {
+  #extractMoney() {
     const arr = this.#oldLevelData.split("'")
     const levelmapParts = arr[5].split('@')
     const datamap = levelmapParts[1].trim()
