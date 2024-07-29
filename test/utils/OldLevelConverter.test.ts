@@ -90,3 +90,9 @@ test('get the json format', () => {
 `
   expect(result).toBe(expected)
 })
+
+test('can convert the level', () => {
+  const availableTiles = ['0', '1', '2', 'x', 'y']
+  const result = oldLevelConverter.canConvert(availableTiles)
+  expect(result).toBeTruthy()
+})

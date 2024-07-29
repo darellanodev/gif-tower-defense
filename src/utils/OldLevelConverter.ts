@@ -133,4 +133,25 @@ export class OldLevelConverter {
     },
 `
   }
+
+  #existsInAvailableTiles(availableTiles: string[], character: string) {
+    const found = availableTiles.find((elem) => elem === character)
+    if (found === undefined) {
+      return false
+    }
+    return true
+  }
+
+  canConvert(availableTiles: string[]): boolean {
+    const rowsMap = this.#extractRowsmap()
+    for (const row of rowsMap) {
+      const chars = row.split('')
+      for (const char of chars) {
+        if (!this.#existsInAvailableTiles(availableTiles, char)) {
+          return false
+        }
+      }
+    }
+    return true
+  }
 }
