@@ -108,3 +108,19 @@ export const testTinyOrders = [
   ConstDirection.RIGHT,
   ConstDirection.UP,
 ]
+
+export const getTileStartForLevel = (levelId: number) => {
+  const levelMap = getLevelMap(levelId)
+
+  const tilesManager = new TilesManager()
+  TileStartCreator.clearInstance()
+  const tileStartCreator = getTileStartCreator()
+
+  tileStartCreator.create(levelMap, tilesManager)
+  const tileStart = tilesManager.tileStart
+
+  if (tileStart === null) {
+    throw new Error('Error tileStart is null')
+  }
+  return tileStart
+}
