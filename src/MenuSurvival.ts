@@ -30,7 +30,7 @@ export class MenuSurvival {
     this.#buttonsMiniMapsCreator = buttonsMiniMapsCreator
     this.#game = game
 
-    const levelsIds = [1, 13, 14, 1, 1]
+    const levelsIds = [1, 13, 14, 9, 15]
     this.#btnsMiniMaps = this.#buttonsMiniMapsCreator.createForLevelIds(
       levelsIds,
       MiniMap.TYPE_LAST_LEVEL_PLAYED,
