@@ -51,7 +51,7 @@ export class TileEndCreator {
   #endImage(levelMap: MapDataType) {
     switch (levelMap.endDirection) {
       case ConstDirection.DOWN:
-        return this.#mapImages[2]
+        return this.#mapImages[5]
         break
 
       case ConstDirection.RIGHT:
@@ -63,7 +63,7 @@ export class TileEndCreator {
         break
 
       case ConstDirection.UP:
-        return this.#mapImages[5]
+        return this.#mapImages[2]
         break
 
       default:
