@@ -93,9 +93,41 @@ export class Path {
     return false
   }
 
+  #isDownTileEnd(currentTile: any) {
+    const searchPx = currentTile.position.x
+    const searchPy = currentTile.position.y + Const.TILE_SIZE
+
+    const endPosition = this.#endTile.position
+
+    const endPx = endPosition.x
+    const endPy = endPosition.y
+
+    if (searchPx === endPx && searchPy === endPy) {
+      return true
+    }
+    return false
+  }
+
+  #isUpTileEnd(currentTile: any) {
+    const searchPx = currentTile.position.x
+    const searchPy = currentTile.position.y - Const.TILE_SIZE
+
+    const endPosition = this.#endTile.position
+
+    const endPx = endPosition.x
+    const endPy = endPosition.y
+
+    if (searchPx === endPx && searchPy === endPy) {
+      return true
+    }
+    return false
+  }
+
   #foundTileEnd() {
     const isLeftTileEnd = this.#isLeftTileEnd(this.#currentTile)
     const isRightTileEnd = this.#isRightTileEnd(this.#currentTile)
+    const isUpTileEnd = this.#isUpTileEnd(this.#currentTile)
+    const isDownTileEnd = this.#isDownTileEnd(this.#currentTile)
 
     if (isLeftTileEnd) {
       this.#endReached = true
@@ -103,6 +135,12 @@ export class Path {
     } else if (isRightTileEnd) {
       this.#endReached = true
       this.#orders.push(ConstDirection.RIGHT)
+    } else if (isUpTileEnd) {
+      this.#endReached = true
+      this.#orders.push(ConstDirection.UP)
+    } else if (isDownTileEnd) {
+      this.#endReached = true
+      this.#orders.push(ConstDirection.DOWN)
     }
   }
 
@@ -128,18 +166,22 @@ export class Path {
   }
 
   #processDownDirection() {
-    const searchTile = this.#searchDownTile(this.#currentTile)
+    this.#foundTileEnd()
 
-    if (searchTile) {
-      this.#orders.push(ConstDirection.DOWN)
-      this.#currentTile = searchTile
-    } else {
-      // It is preferred to go first to the right and if it is not possible to the left
-      const searchNextTile = this.#searchRightTile(this.#currentTile)
-      if (searchNextTile) {
-        this.#currentDirection = ConstDirection.RIGHT
+    if (!this.#endReached) {
+      const searchTile = this.#searchDownTile(this.#currentTile)
+
+      if (searchTile) {
+        this.#orders.push(ConstDirection.DOWN)
+        this.#currentTile = searchTile
       } else {
-        this.#currentDirection = ConstDirection.LEFT
+        // It is preferred to go first to the right and if it is not possible to the left
+        const searchNextTile = this.#searchRightTile(this.#currentTile)
+        if (searchNextTile) {
+          this.#currentDirection = ConstDirection.RIGHT
+        } else {
+          this.#currentDirection = ConstDirection.LEFT
+        }
       }
     }
   }
@@ -165,18 +207,22 @@ export class Path {
   }
 
   #processUpDirection() {
-    const searchTile = this.#searchUpTile(this.#currentTile)
+    this.#foundTileEnd()
 
-    if (searchTile) {
-      this.#orders.push(ConstDirection.UP)
-      this.#currentTile = searchTile
-    } else {
-      // It is preferred to go first left and if it is not possible to go right
-      const searchNextTile = this.#searchLeftTile(this.#currentTile)
-      if (searchNextTile) {
-        this.#currentDirection = ConstDirection.LEFT
+    if (!this.#endReached) {
+      const searchTile = this.#searchUpTile(this.#currentTile)
+
+      if (searchTile) {
+        this.#orders.push(ConstDirection.UP)
+        this.#currentTile = searchTile
       } else {
-        this.#currentDirection = ConstDirection.RIGHT
+        // It is preferred to go first left and if it is not possible to go right
+        const searchNextTile = this.#searchLeftTile(this.#currentTile)
+        if (searchNextTile) {
+          this.#currentDirection = ConstDirection.LEFT
+        } else {
+          this.#currentDirection = ConstDirection.RIGHT
+        }
       }
     }
   }
