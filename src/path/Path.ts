@@ -93,13 +93,23 @@ export class Path {
     return false
   }
 
-  #processLeftDirection() {
+  #foundTileEnd() {
     const isLeftTileEnd = this.#isLeftTileEnd(this.#currentTile)
+    const isRightTileEnd = this.#isRightTileEnd(this.#currentTile)
 
     if (isLeftTileEnd) {
       this.#endReached = true
       this.#orders.push(ConstDirection.LEFT)
-    } else {
+    } else if (isRightTileEnd) {
+      this.#endReached = true
+      this.#orders.push(ConstDirection.RIGHT)
+    }
+  }
+
+  #processLeftDirection() {
+    this.#foundTileEnd()
+
+    if (!this.#endReached) {
       const searchTile = this.#searchLeftTile(this.#currentTile)
 
       if (searchTile) {
@@ -135,12 +145,9 @@ export class Path {
   }
 
   #proccessRightDirection() {
-    const isRightTileEnd = this.#isRightTileEnd(this.#currentTile)
+    this.#foundTileEnd()
 
-    if (isRightTileEnd) {
-      this.#endReached = true
-      this.#orders.push(ConstDirection.RIGHT)
-    } else {
+    if (!this.#endReached) {
       const searchTile = this.#searchRightTile(this.#currentTile)
       if (searchTile) {
         this.#orders.push(ConstDirection.RIGHT)
