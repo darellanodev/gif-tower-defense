@@ -72,6 +72,7 @@ test('get the json format', () => {
       author: 'ocliboy',
       comments: 'comments are not set yet',
       rowsMap: [
+        
         '0000000000000000',
         'x111111111111110',
         '0000002222220010',
@@ -82,6 +83,7 @@ test('get the json format', () => {
         '0101000020000010',
         '0101111111111110',
         '0y00000000000000',
+    
       ],
       money: 150,
       startDirection: ConstDirection.RIGHT,

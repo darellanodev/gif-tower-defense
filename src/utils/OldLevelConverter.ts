@@ -39,6 +39,21 @@ export class OldLevelConverter {
     const levelmap = this.#getMapParts()[0].trim()
     return levelmap.split(',')
   }
+  get #rowsmapText() {
+    const rows = this.#extractRowsmap()
+    return `
+        '${rows[0]}',
+        '${rows[1]}',
+        '${rows[2]}',
+        '${rows[3]}',
+        '${rows[4]}',
+        '${rows[5]}',
+        '${rows[6]}',
+        '${rows[7]}',
+        '${rows[8]}',
+        '${rows[9]}',
+    `
+  }
   #getMapData() {
     const datamap = this.#getMapParts()[1].trim()
     return datamap.split(',')
@@ -116,16 +131,7 @@ export class OldLevelConverter {
       author: '${this.author}',
       comments: '${this.comments}',
       rowsMap: [
-        '0000000000000000',
-        'x111111111111110',
-        '0000002222220010',
-        '0111020000002010',
-        '0101000022220010',
-        '0101000020000010',
-        '0101000000000010',
-        '0101000020000010',
-        '0101111111111110',
-        '0y00000000000000',
+        ${this.#rowsmapText}
       ],
       money: ${this.money},
       startDirection: ${this.#startDirectionText},
