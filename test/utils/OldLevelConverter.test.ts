@@ -96,3 +96,9 @@ test('can convert the level', () => {
   const result = oldLevelConverter.canConvert(availableTiles)
   expect(result).toBeTruthy()
 })
+
+test('can not convert the level', () => {
+  const availableTiles = ['0', '1', 'x', 'y']
+  const result = oldLevelConverter.canConvert(availableTiles)
+  expect(result).toBeFalsy()
+})
