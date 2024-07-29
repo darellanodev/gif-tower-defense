@@ -82,4 +82,55 @@ export class OldLevelConverter {
   get endDirection() {
     return this.#newLevelData.endDirection
   }
+  #directionToText(direction: number): string {
+    switch (direction) {
+      case 1:
+        return 'ConstDirection.DOWN'
+        break
+      case 2:
+        return 'ConstDirection.LEFT'
+        break
+      case 3:
+        return 'ConstDirection.RIGHT'
+        break
+      case 4:
+        return 'ConstDirection.UP'
+        break
+      default:
+        return 'ConstDirection.LEFT'
+        break
+    }
+  }
+  get #startDirectionText() {
+    return this.#directionToText(this.startDirection)
+  }
+  get #endDirectionText() {
+    return this.#directionToText(this.endDirection)
+  }
+
+  get json() {
+    return `
+    {
+      id: ${this.id},
+      title: '${this.title}',
+      author: '${this.author}',
+      comments: '${this.comments}',
+      rowsMap: [
+        '0000000000000000',
+        'x111111111111110',
+        '0000002222220010',
+        '0111020000002010',
+        '0101000022220010',
+        '0101000020000010',
+        '0101000000000010',
+        '0101000020000010',
+        '0101111111111110',
+        '0y00000000000000',
+      ],
+      money: ${this.money},
+      startDirection: ${this.#startDirectionText},
+      endDirection: ${this.#endDirectionText},
+    },
+`
+  }
 }

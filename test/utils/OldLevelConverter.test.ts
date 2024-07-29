@@ -62,3 +62,31 @@ test('extract endDirection', () => {
   const expected = 1
   expect(result).toBe(expected)
 })
+
+test('get the json format', () => {
+  const result = oldLevelConverter.json
+  const expected = `
+    {
+      id: 12,
+      title: 'question',
+      author: 'ocliboy',
+      comments: 'comments are not set yet',
+      rowsMap: [
+        '0000000000000000',
+        'x111111111111110',
+        '0000002222220010',
+        '0111020000002010',
+        '0101000022220010',
+        '0101000020000010',
+        '0101000000000010',
+        '0101000020000010',
+        '0101111111111110',
+        '0y00000000000000',
+      ],
+      money: 150,
+      startDirection: ConstDirection.RIGHT,
+      endDirection: ConstDirection.DOWN,
+    },
+`
+  expect(result).toBe(expected)
+})
