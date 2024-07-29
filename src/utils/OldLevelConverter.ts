@@ -15,6 +15,7 @@ export class OldLevelConverter {
       rowsmap: this.#extractRowsmap(),
       money: this.#extractMoney(),
       startDirection: this.#extractStartDirection(),
+      endDirection: this.#extractEndDirection(),
     }
   }
   #extractAuthor() {
@@ -51,9 +52,15 @@ export class OldLevelConverter {
     return Number.parseInt(datamapParts[1])
   }
 
+  #extractEndDirection() {
+    const datamapParts = this.#getMapData()
+    return Number.parseInt(datamapParts[0])
+  }
+
   get author() {
     return this.#newLevelData.author
   }
+
   get id() {
     return this.#newLevelData.id
   }
@@ -71,5 +78,8 @@ export class OldLevelConverter {
   }
   get startDirection() {
     return this.#newLevelData.startDirection
+  }
+  get endDirection() {
+    return this.#newLevelData.endDirection
   }
 }

@@ -56,3 +56,9 @@ test('extract startDirection', () => {
   const expected = 3
   expect(result).toBe(expected)
 })
+
+test('extract endDirection', () => {
+  const result = oldLevelConverter.endDirection
+  const expected = 1
+  expect(result).toBe(expected)
+})
