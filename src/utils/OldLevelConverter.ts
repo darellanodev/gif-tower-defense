@@ -30,17 +30,16 @@ export class OldLevelConverter {
     const str = arr[0].replace(/\(/g, '').trim()
     return Number.parseInt(str)
   }
-  #extractRowsmap() {
+  #getMapParts() {
     const arr = this.#oldLevelData.split("'")
-    const levelmapParts = arr[5].split('@')
-    const levelmap = levelmapParts[0].trim()
-
+    return arr[5].split('@')
+  }
+  #extractRowsmap() {
+    const levelmap = this.#getMapParts()[0].trim()
     return levelmap.split(',')
   }
   #getMapData() {
-    const arr = this.#oldLevelData.split("'")
-    const levelmapParts = arr[5].split('@')
-    const datamap = levelmapParts[1].trim()
+    const datamap = this.#getMapParts()[1].trim()
     return datamap.split(',')
   }
   #extractMoney() {
