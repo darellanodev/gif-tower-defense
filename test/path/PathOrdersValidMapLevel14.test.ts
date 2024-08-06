@@ -1,5 +1,6 @@
 import { ConstDirection } from '../../src/constants/ConstDirection'
 import { isIncluded } from '../helpers/arrays'
+import { getLevelMap, getPathFromMap } from '../helpers/levelMap'
 import { getOrdersFromLevelMapId } from '../helpers/orders'
 
 describe('makeOrders', () => {
@@ -55,5 +56,23 @@ describe('makeOrders', () => {
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
+  })
+
+  test('can reach the endTile', () => {
+    const levelId = 14
+    const levelMap = getLevelMap(levelId)
+    const path = getPathFromMap(levelMap)
+    const orders = path.makeOrders()
+    const result = path.endReached
+    expect(result).toBeTruthy()
+  })
+
+  test('orders lenght is 56', () => {
+    const levelId = 14
+    const levelMap = getLevelMap(levelId)
+    const path = getPathFromMap(levelMap)
+    const orders = path.makeOrders()
+    const result = orders.length
+    expect(result).toBe(56)
   })
 })

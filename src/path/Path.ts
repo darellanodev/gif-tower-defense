@@ -5,7 +5,7 @@ import { Const } from '../constants/Const'
 import { ConstDirection } from '../constants/ConstDirection'
 
 export class Path {
-  static MAX_SEARCHES = 5000 // For testing purposes put a low value. For production put this value at 5000
+  static MAX_SEARCHES = 1000 // For testing purposes put a low value. For production put this value at 5000
   static orders: number[] = []
 
   #startTile: TileStart
@@ -30,8 +30,11 @@ export class Path {
 
     this.#currentDirection = this.#startTile.getStartDirection()
   }
+  get endReached(): boolean {
+    return this.#endReached
+  }
 
-  getTileInPosition(tx: number, ty: number) {
+  getTilePath(tx: number, ty: number): TilePath | null {
     const pathTile = this.#pathTiles.find(
       (pathTile) => tx === pathTile.position.x && ty === pathTile.position.y,
     )
@@ -39,33 +42,63 @@ export class Path {
     return pathTile ? pathTile : null
   }
 
-  #searchLeftTile(currentTile: any) {
+  getTileEnd(tx: number, ty: number): TileEnd | null {
+    if (this.#endTile.position.x === tx && this.#endTile.position.y === ty) {
+      return this.#endTile
+    }
+    return null
+  }
+  #searchLeftTile(currentTile: any): TilePath | TileEnd | null {
     const searchPx = currentTile.position.x - Const.TILE_SIZE
     const searchPy = currentTile.position.y
-    return this.getTileInPosition(searchPx, searchPy)
+    const tilePath = this.getTilePath(searchPx, searchPy)
+    if (tilePath === null) {
+      const endTile = this.getTileEnd(searchPx, searchPy)
+      return endTile
+    } else {
+      return tilePath
+    }
   }
 
   #searchDownTile(currentTile: any) {
     const searchPx = currentTile.position.x
     const searchPy = currentTile.position.y + Const.TILE_SIZE
-    return this.getTileInPosition(searchPx, searchPy)
+    const tilePath = this.getTilePath(searchPx, searchPy)
+    if (tilePath === null) {
+      const endTile = this.getTileEnd(searchPx, searchPy)
+      return endTile
+    } else {
+      return tilePath
+    }
   }
 
   #searchRightTile(currentTile: any) {
     const searchPx = currentTile.position.x + Const.TILE_SIZE
     const searchPy = currentTile.position.y
-    return this.getTileInPosition(searchPx, searchPy)
+    const tilePath = this.getTilePath(searchPx, searchPy)
+    if (tilePath === null) {
+      const endTile = this.getTileEnd(searchPx, searchPy)
+      return endTile
+    } else {
+      return tilePath
+    }
   }
 
   #searchUpTile(currentTile: any) {
     const searchPx = currentTile.position.x
     const searchPy = currentTile.position.y - Const.TILE_SIZE
-    return this.getTileInPosition(searchPx, searchPy)
+    const tilePath = this.getTilePath(searchPx, searchPy)
+    if (tilePath === null) {
+      const endTile = this.getTileEnd(searchPx, searchPy)
+      return endTile
+    } else {
+      return tilePath
+    }
   }
 
-  #isLeftTileEnd(currentTile: any) {
-    const searchPx = currentTile.position.x - Const.TILE_SIZE
-    const searchPy = currentTile.position.y
+  #checkEndTile() {
+    const searchPx = this.#currentTile.position.x
+    const searchPy = this.#currentTile.position.y
 
     const endPosition = this.#endTile.position
 
@@ -73,84 +106,17 @@ export class Path {
     const endPy = endPosition.y
 
     if (searchPx === endPx && searchPy === endPy) {
-      return true
-    }
-    return false
-  }
-
-  #isRightTileEnd(currentTile: any) {
-    const searchPx = currentTile.position.x + Const.TILE_SIZE
-    const searchPy = currentTile.position.y
-
-    const endPosition = this.#endTile.position
-
-    const endPx = endPosition.x
-    const endPy = endPosition.y
-
-    if (searchPx === endPx && searchPy === endPy) {
-      return true
-    }
-    return false
-  }
-
-  #isDownTileEnd(currentTile: any) {
-    const searchPx = currentTile.position.x
-    const searchPy = currentTile.position.y + Const.TILE_SIZE
-
-    const endPosition = this.#endTile.position
-
-    const endPx = endPosition.x
-    const endPy = endPosition.y
-
-    if (searchPx === endPx && searchPy === endPy) {
-      return true
-    }
-    return false
-  }
-
-  #isUpTileEnd(currentTile: any) {
-    const searchPx = currentTile.position.x
-    const searchPy = currentTile.position.y - Const.TILE_SIZE
-
-    const endPosition = this.#endTile.position
-
-    const endPx = endPosition.x
-    const endPy = endPosition.y
-
-    if (searchPx === endPx && searchPy === endPy) {
-      return true
-    }
-    return false
-  }
-
-  #foundTileEnd() {
-    const isLeftTileEnd = this.#isLeftTileEnd(this.#currentTile)
-    const isRightTileEnd = this.#isRightTileEnd(this.#currentTile)
-    const isUpTileEnd = this.#isUpTileEnd(this.#currentTile)
-    const isDownTileEnd = this.#isDownTileEnd(this.#currentTile)
-
-    if (isLeftTileEnd) {
       this.#endReached = true
-      this.#orders.push(ConstDirection.LEFT)
-    } else if (isRightTileEnd) {
-      this.#endReached = true
-      this.#orders.push(ConstDirection.RIGHT)
-    } else if (isUpTileEnd) {
-      this.#endReached = true
-      this.#orders.push(ConstDirection.UP)
-    } else if (isDownTileEnd) {
-      this.#endReached = true
-      this.#orders.push(ConstDirection.DOWN)
     }
   }
 
   #processLeftDirection() {
-    this.#foundTileEnd()
+    this.#checkEndTile()
 
     if (!this.#endReached) {
       const searchTile = this.#searchLeftTile(this.#currentTile)
 
-      if (searchTile) {
+      if (searchTile !== null) {
         this.#orders.push(ConstDirection.LEFT)
         this.#currentTile = searchTile
       } else {
@@ -162,16 +128,18 @@ export class Path {
           this.#currentDirection = ConstDirection.UP
         }
       }
+    } else {
+      this.#orders.push(this.#currentDirection)
     }
   }
 
   #processDownDirection() {
-    this.#foundTileEnd()
+    this.#checkEndTile()
 
     if (!this.#endReached) {
       const searchTile = this.#searchDownTile(this.#currentTile)
 
-      if (searchTile) {
+      if (searchTile !== null) {
         this.#orders.push(ConstDirection.DOWN)
         this.#currentTile = searchTile
       } else {
@@ -183,15 +151,17 @@ export class Path {
           this.#currentDirection = ConstDirection.LEFT
         }
       }
+    } else {
+      this.#orders.push(this.#currentDirection)
     }
   }
 
   #proccessRightDirection() {
-    this.#foundTileEnd()
+    this.#checkEndTile()
 
     if (!this.#endReached) {
       const searchTile = this.#searchRightTile(this.#currentTile)
-      if (searchTile) {
+      if (searchTile !== null) {
         this.#orders.push(ConstDirection.RIGHT)
         this.#currentTile = searchTile
       } else {
@@ -203,16 +173,18 @@ export class Path {
           this.#currentDirection = ConstDirection.DOWN
         }
       }
+    } else {
+      this.#orders.push(this.#currentDirection)
     }
   }
 
   #processUpDirection() {
-    this.#foundTileEnd()
+    this.#checkEndTile()
 
     if (!this.#endReached) {
       const searchTile = this.#searchUpTile(this.#currentTile)
 
-      if (searchTile) {
+      if (searchTile !== null) {
         this.#orders.push(ConstDirection.UP)
         this.#currentTile = searchTile
       } else {
@@ -224,6 +196,8 @@ export class Path {
           this.#currentDirection = ConstDirection.RIGHT
         }
       }
+    } else {
+      this.#orders.push(this.#currentDirection)
     }
   }
 
@@ -254,11 +228,6 @@ export class Path {
     // finally we add the same direction one mor time, from reached endtile to outside
     if (this.#endReached) {
       this.#orders.push(this.#currentDirection)
-    }
-
-    // cant reach the end because we spent all searchCount
-    if (searchCount === Path.MAX_SEARCHES) {
-      return []
     }
 
     return this.#orders

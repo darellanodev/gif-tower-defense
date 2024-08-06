@@ -18,7 +18,7 @@ test('getTileInPosition, when passing an existing pathtile coordinates, return t
   ]
   const path = new Path(startTile, endTile, pathTiles)
 
-  const result = path.getTileInPosition(150, 300)
+  const result = path.getTilePath(150, 300)
 
   expect(result).toMatchObject(searchTile)
 })
