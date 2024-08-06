@@ -1,21 +1,22 @@
 import { ConstDirection } from '../../src/constants/ConstDirection'
 import { isIncluded } from '../helpers/arrays'
 import { getLevelMap, getPathFromMap } from '../helpers/levelMap'
-import { getOrdersFromLevelMapId } from '../helpers/orders'
+
+const levelId = 14
+const levelMap = getLevelMap(levelId)
+const path = getPathFromMap(levelMap)
+const orders = path.makeOrders()
 
 describe('makeOrders', () => {
-  test('if there are 3 tiles consecutively to the left, the enemy moves first 3 times to left (2 tiles to the left + 1 tile to left when the enemy starts before the startTile', () => {
+  test('first order', () => {
     const expectedOrders: number[] = []
     expectedOrders.push(...Array(3).fill(ConstDirection.LEFT))
-
-    const levelId = 14
-    const orders = getOrdersFromLevelMapId(levelId)
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
   })
 
-  test('after the 3 first left path tiles, make 1 down, 7 left, 1 up, 4 left, 5 down, 11 right, 2 up, 7 left, 4 down, 9 right', () => {
+  test('middle orders', () => {
     const expectedOrders: number[] = []
     expectedOrders.push(...Array(3).fill(ConstDirection.LEFT))
     expectedOrders.push(...Array(1).fill(ConstDirection.DOWN))
@@ -29,14 +30,11 @@ describe('makeOrders', () => {
     expectedOrders.push(...Array(4).fill(ConstDirection.DOWN))
     expectedOrders.push(...Array(9).fill(ConstDirection.RIGHT))
 
-    const levelId = 14
-    const orders = getOrdersFromLevelMapId(levelId)
-
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
   })
 
-  test('after all the orders, the last one is 1 right to exit', () => {
+  test('last order', () => {
     const expectedOrders: number[] = []
     expectedOrders.push(...Array(3).fill(ConstDirection.LEFT))
     expectedOrders.push(...Array(1).fill(ConstDirection.DOWN))
@@ -51,27 +49,16 @@ describe('makeOrders', () => {
     expectedOrders.push(...Array(9).fill(ConstDirection.RIGHT))
     expectedOrders.push(...Array(1).fill(ConstDirection.RIGHT))
 
-    const levelId = 14
-    const orders = getOrdersFromLevelMapId(levelId)
-
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
   })
 
   test('can reach the endTile', () => {
-    const levelId = 14
-    const levelMap = getLevelMap(levelId)
-    const path = getPathFromMap(levelMap)
-    const orders = path.makeOrders()
     const result = path.endReached
     expect(result).toBeTruthy()
   })
 
   test('orders lenght is 56', () => {
-    const levelId = 14
-    const levelMap = getLevelMap(levelId)
-    const path = getPathFromMap(levelMap)
-    const orders = path.makeOrders()
     const result = orders.length
     expect(result).toBe(56)
   })
