@@ -201,6 +201,24 @@ export class Path {
     }
   }
 
+  #processCurrentDirection() {
+    if (this.#currentDirection === ConstDirection.LEFT) {
+      this.#processLeftDirection()
+    }
+
+    if (this.#currentDirection === ConstDirection.DOWN) {
+      this.#processDownDirection()
+    }
+
+    if (this.#currentDirection === ConstDirection.RIGHT) {
+      this.#proccessRightDirection()
+    }
+
+    if (this.#currentDirection === ConstDirection.UP) {
+      this.#processUpDirection()
+    }
+  }
+
   makeOrders() {
     // the first time it goes in the same direction than this.#currentDirection one tile only, from out of the startTile to the startTile.
     this.#orders.push(this.#currentDirection)
@@ -208,21 +226,7 @@ export class Path {
     let searchCount = 0
     while (searchCount < Path.MAX_SEARCHES && !this.#endReached) {
       searchCount++
-      if (this.#currentDirection === ConstDirection.LEFT) {
-        this.#processLeftDirection()
-      }
-
-      if (this.#currentDirection === ConstDirection.DOWN) {
-        this.#processDownDirection()
-      }
-
-      if (this.#currentDirection === ConstDirection.RIGHT) {
-        this.#proccessRightDirection()
-      }
-
-      if (this.#currentDirection === ConstDirection.UP) {
-        this.#processUpDirection()
-      }
+      this.#processCurrentDirection()
     }
 
     // finally we add the same direction one more time, from reached endtile to outside
