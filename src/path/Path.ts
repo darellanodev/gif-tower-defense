@@ -225,7 +225,7 @@ export class Path {
       }
     }
 
-    // finally we add the same direction one mor time, from reached endtile to outside
+    // finally we add the same direction one more time, from reached endtile to outside
     if (this.#endReached) {
       this.#orders.push(this.#currentDirection)
     }
