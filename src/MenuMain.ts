@@ -1,12 +1,16 @@
 import { Game } from './Game'
 import { MiniMap } from './MiniMap'
 import { StateManager } from './StateManager'
+import { TodayEnemies } from './TodayEnemies'
+import { Const } from './constants/Const'
+import { EnemyAnimator } from './enemies/EnemyAnimator'
 import { Button } from './hud/Button'
 import { ButtonDisabled } from './hud/ButtonDisabled'
 import { ButtonMiniMap } from './hud/ButtonMiniMap'
 import { ButtonsMiniMapsCreator } from './hud/ButtonsMiniMapsCreator'
 import { Debug } from './hud/Debug'
 import { Images } from './resources/Images'
+import { Arrays } from './utils/Arrays'
 import { P5 } from './utils/P5'
 
 export class MenuMain {
@@ -19,6 +23,7 @@ export class MenuMain {
   #btnTodays: Button
   #buttonsMiniMapsCreator: ButtonsMiniMapsCreator
   #game: Game
+  #todayEnemies: TodayEnemies | null = null
 
   constructor(
     stateManager: StateManager,
@@ -67,9 +72,22 @@ export class MenuMain {
       { w: 129, h: 31 },
       Images.buttonEditorImages,
     )
+    // create the todayEnemies zone
+    const enemiesAnimators: EnemyAnimator[] = []
+
+    for (let i = 0; i < Const.MAX_WAVE_ENEMIES; i++) {
+      enemiesAnimators.push(
+        new EnemyAnimator(
+          Images.enemiesImages.slice(...Arrays.getTwoNumbersFourTimes(i)),
+        ),
+      )
+    }
+    this.#todayEnemies = new TodayEnemies(enemiesAnimators)
+
     // assign the singleton instance
     MenuMain.#instance = this
   }
+
   static getInstance(
     stateManager: StateManager,
     buttonsMiniMapsCreator: ButtonsMiniMapsCreator,
@@ -124,6 +142,7 @@ export class MenuMain {
   update() {}
   draw() {
     this.#drawBackground()
+    this.#todayEnemies?.draw()
     this.#drawButtonsMiniMapsEditor()
     this.#drawGameModeButtons()
     this.#drawButtonsMiniMapsLastLevelsPlayed()

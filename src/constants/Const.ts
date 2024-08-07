@@ -1,5 +1,6 @@
 export class Const {
   static TILE_SIZE = 50
+  static MAX_WAVE_ENEMIES = 5
   static UPGRADE_MAX_LEVEL = 5
   static CANVAS_WIDTH = 800
   static CANVAS_HEIGHT = 580
