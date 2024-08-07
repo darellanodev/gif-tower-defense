@@ -149,7 +149,7 @@ export class Game {
   }
 
   #createHudProgressBarBoss() {
-    const position: Position = { x: 345, y: 19 }
+    const position: Position = { x: 345, y: 17 }
     const size: Size = { w: 150, h: 10 }
 
     return new HudProgressBarBoss(position, size)
