@@ -23,7 +23,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - Wait until the process finish
 - Open index.html in VSCode and use Open with live server option (from Live Server VSCode extension)
 
-### Next tasks
+## Next tasks
 
 - Code improvements:
 
@@ -43,12 +43,13 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
     - [ ] Buttons
     - [ ] ProgressBar
 
+  - [x] Change the colors for startTile and endTile (starTile in green and endTile in red)
   - [ ] Insert more basic levels (maybe some of them need to write tests to implement the correct orders)
     - [x] Level 14 titled "one loop"
-    - [ ] Level 13 titled "doble loop"
+    - [x] Level 13 titled "doble loop"
       - [x] fix tileStart image orientation
       - [x] fix enemies start position
-      - [ ] put the hud over the enemies because the enemies walk in tilestart over the hud
+      - [x] put the hud over the enemies because the enemies walk in tilestart over the hud
     - [ ] Level with endTile in UP direction
     - [ ] Level with endTile in DOWN direction
   - [ ] Survival menu
