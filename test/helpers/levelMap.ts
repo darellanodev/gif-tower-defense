@@ -1,7 +1,7 @@
 import { ConstDirection } from '../../src/constants/ConstDirection'
 import { ConstTest } from '../../src/constants/ConstTest'
 import { Path } from '../../src/path/Path'
-import { LevelsData } from '../../src/levels/LevelsData'
+import { LevelsDataTesting } from '../../src/levels/LevelsDataTesting'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
 import { Player } from '../../src/player/Player'
 import { MapDataType } from '../../src/types/mapDataType'
@@ -95,7 +95,7 @@ export const getNoExistingLevelMap = () => {
 
 export const getLevelMap = (idLevelMap: number) => {
   const levelsDataProvider = LevelsDataProvider.getInstance()
-  levelsDataProvider.initLevels(LevelsData.data)
+  levelsDataProvider.initLevels(LevelsDataTesting.data)
 
   const levelMap = levelsDataProvider.getById(idLevelMap)
 

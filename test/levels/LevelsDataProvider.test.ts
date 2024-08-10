@@ -1,7 +1,7 @@
 import { ConstDirection } from '../../src/constants/ConstDirection'
 import { ConstTest } from '../../src/constants/ConstTest'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
-import { LevelsData } from '../../src/levels/LevelsData'
+import { LevelsDataTesting } from '../../src/levels/LevelsDataTesting'
 
 test('getLevel, when request the id of a testing level, return data of the corresponding level', () => {
   const expected = {
@@ -28,7 +28,7 @@ test('getLevel, when request the id of a testing level, return data of the corre
 
   const levelsDataProvider = LevelsDataProvider.getInstance()
 
-  levelsDataProvider.initLevels(LevelsData.data)
+  levelsDataProvider.initLevels(LevelsDataTesting.data)
 
   const result = levelsDataProvider.getById(
     ConstTest.ID_LEVEL_VALID_FOR_UNIT_TESTING,
