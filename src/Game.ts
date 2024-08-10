@@ -163,7 +163,7 @@ export class Game {
   }
 
   loadLevel(levelId: number) {
-    const levelMap = this.#levelsDataProvider.getLevel(levelId)
+    const levelMap = this.#levelsDataProvider.getById(levelId)
 
     this.#wallet = Wallet.getInstance(Wallet.GAME_TESTING_MODE, levelMap.money)
     // this.#wallet = Wallet.getInstance(

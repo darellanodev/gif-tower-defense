@@ -40,7 +40,7 @@ export class ButtonsMiniMapsCreator {
     const result = []
     let i = 0
     for (const levelId of levelsIds) {
-      const levelMap = this.#levelsDataProvider.getLevel(levelId)
+      const levelMap = this.#levelsDataProvider.getById(levelId)
 
       result.push(
         new ButtonMiniMap(

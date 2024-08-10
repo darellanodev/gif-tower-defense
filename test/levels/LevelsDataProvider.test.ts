@@ -30,7 +30,7 @@ test('getLevel, when request the id of a testing level, return data of the corre
 
   levelsDataProvider.initLevels(LevelsData.data)
 
-  const result = levelsDataProvider.getLevel(
+  const result = levelsDataProvider.getById(
     ConstTest.ID_LEVEL_VALID_FOR_UNIT_TESTING,
   )
 

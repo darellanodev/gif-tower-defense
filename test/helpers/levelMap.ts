@@ -97,7 +97,7 @@ export const getLevelMap = (idLevelMap: number) => {
   const levelsDataProvider = LevelsDataProvider.getInstance()
   levelsDataProvider.initLevels(LevelsData.data)
 
-  const levelMap = levelsDataProvider.getLevel(idLevelMap)
+  const levelMap = levelsDataProvider.getById(idLevelMap)
 
   return levelMap
 }
