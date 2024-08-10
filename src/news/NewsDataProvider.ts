@@ -27,7 +27,7 @@ export class NewsDataProvider {
     this.#news = newsItems
   }
 
-  getNewsItem(id: number): NewsDataType {
+  getById(id: number): NewsDataType {
     const result = this.#news.find((item: NewsDataType) => item.id == id)
     if (result === undefined) {
       throw new Error('news item is undefined')
@@ -37,6 +37,6 @@ export class NewsDataProvider {
 
   get last() {
     const last = this.#news.length
-    return this.getNewsItem(last)
+    return this.getById(last)
   }
 }

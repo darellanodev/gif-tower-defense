@@ -5,7 +5,7 @@ const newsDataProvider = NewsDataProvider.getInstance()
 newsDataProvider.initNewsItems(NewsDataTesting.data)
 
 test('return the news item with id 1', () => {
-  const newsItem = newsDataProvider.getNewsItem(1)
+  const newsItem = newsDataProvider.getById(1)
   const result = newsItem.id
 
   expect(result).toBe(1)
