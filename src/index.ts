@@ -10,6 +10,8 @@ import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { LevelsData } from './levels/LevelsData'
 import { ButtonsMiniMapsCreator } from './hud/ButtonsMiniMapsCreator'
 import { OldLevelConverter } from './utils/OldLevelConverter'
+import { NewsDataProvider } from './news/NewsDataProvider'
+import { NewsData } from './news/NewsData'
 
 let _p5: p5
 let game: Game
@@ -18,6 +20,7 @@ let menuSurvival: MenuSurvival
 let stateManager: StateManager
 let levelsDataProvider: LevelsDataProvider
 let buttonsMiniMapsCreator: ButtonsMiniMapsCreator
+let newsDataProvider: NewsDataProvider
 
 // ugly hack: remove the extra canvas created
 window.addEventListener('load', () => {
@@ -96,6 +99,9 @@ window.setup = () => {
 
   disableContextualMenu()
 
+  newsDataProvider = NewsDataProvider.getInstance()
+  newsDataProvider.initNewsItems(NewsData.data)
+
   levelsDataProvider = LevelsDataProvider.getInstance()
   levelsDataProvider.initLevels(LevelsData.data)
 
@@ -104,7 +110,12 @@ window.setup = () => {
 
   stateManager = StateManager.getInstance(StateManager.STATE_MENU_MAIN)
   game = Game.getInstance(stateManager, levelsDataProvider)
-  menuMain = MenuMain.getInstance(stateManager, buttonsMiniMapsCreator, game)
+  menuMain = MenuMain.getInstance(
+    stateManager,
+    buttonsMiniMapsCreator,
+    game,
+    newsDataProvider,
+  )
   menuSurvival = MenuSurvival.getInstance(
     stateManager,
     buttonsMiniMapsCreator,

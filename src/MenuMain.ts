@@ -9,7 +9,9 @@ import { ButtonDisabled } from './hud/ButtonDisabled'
 import { ButtonMiniMap } from './hud/ButtonMiniMap'
 import { ButtonsMiniMapsCreator } from './hud/ButtonsMiniMapsCreator'
 import { Debug } from './hud/Debug'
+import { NewsDataProvider } from './news/NewsDataProvider'
 import { Images } from './resources/Images'
+import { Position } from './types/position'
 import { Arrays } from './utils/Arrays'
 import { P5 } from './utils/P5'
 
@@ -24,11 +26,13 @@ export class MenuMain {
   #buttonsMiniMapsCreator: ButtonsMiniMapsCreator
   #game: Game
   #todayEnemies: TodayEnemies | null = null
+  #actualNewsItem: string
 
   constructor(
     stateManager: StateManager,
     buttonsMiniMapsCreator: ButtonsMiniMapsCreator,
     game: Game,
+    newsDataProvider: NewsDataProvider,
   ) {
     if (MenuMain.#instance !== null) {
       throw new Error(
@@ -38,6 +42,7 @@ export class MenuMain {
     this.#stateManager = stateManager
     this.#buttonsMiniMapsCreator = buttonsMiniMapsCreator
     this.#game = game
+    this.#actualNewsItem = newsDataProvider.last.content
 
     const lastEditorLevelsIds = [13]
 
@@ -92,12 +97,14 @@ export class MenuMain {
     stateManager: StateManager,
     buttonsMiniMapsCreator: ButtonsMiniMapsCreator,
     game: Game,
+    newsDataProvider: NewsDataProvider,
   ) {
     if (MenuMain.#instance === null) {
       MenuMain.#instance = new MenuMain(
         stateManager,
         buttonsMiniMapsCreator,
         game,
+        newsDataProvider,
       )
     }
     return MenuMain.#instance
@@ -139,14 +146,21 @@ export class MenuMain {
       }
     }
   }
+
   update() {}
+
   draw() {
     this.#drawBackground()
     this.#todayEnemies?.draw()
+    this.#drawActualNewsItem()
     this.#drawButtonsMiniMapsEditor()
     this.#drawGameModeButtons()
     this.#drawButtonsMiniMapsLastLevelsPlayed()
     this.#drawDebugElements()
+  }
+  #drawActualNewsItem() {
+    const position: Position = { x: 440, y: 65 }
+    P5.p5.text(this.#actualNewsItem, position.x, position.y)
   }
   #drawGameModeButtons() {
     this.#btnSurvival.draw()
