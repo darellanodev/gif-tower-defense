@@ -8,7 +8,8 @@
     "testw": "jest --watch",
     "testf": "jest --testPathPattern=utils/OldLevelConverter.test.ts",
     "test:coverage": "jest --coverage",
-    "build": "tsc && parcel build ./src/index.html --out-dir ./dist --public-url ./"
+    "build": "tsc && parcel build ./src/index.html --out-dir ./dist --public-url ./",
+    "oldlevelsconverter": "tsx ./src/oldLevelsConverter.ts"
   },
   "devDependencies": {
     "@types/jest": "^29.5.11",
@@ -23,6 +24,7 @@
     "parcel-bundler": "^1.12.5",
     "prettier": "^3.1.1",
     "ts-jest": "^29.1.1",
+    "tsx": "^4.17.0",
     "typescript": "^5.3.3"
   }
 }

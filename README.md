@@ -23,6 +23,10 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 - Wait until the process finish
 - Open index.html in VSCode and use Open with live server option (from Live Server VSCode extension)
 
+## Utility to convert old levels data to new levels data format
+
+- Run `npm run oldlevelsconverter`
+
 ## Next tasks
 
 - Code improvements:
