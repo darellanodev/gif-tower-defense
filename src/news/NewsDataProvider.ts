@@ -36,7 +36,10 @@ export class NewsDataProvider {
   }
 
   get last() {
-    const last = this.#news.length
-    return this.getById(last)
+    return this.#news.reduce((max, obj) => (obj.id > max.id ? obj : max), {
+      id: 0,
+      content: '',
+      date: '',
+    })
   }
 }
