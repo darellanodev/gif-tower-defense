@@ -1,7 +1,7 @@
-import { MapDataType } from '../types/mapDataType'
-import { ConstDirection } from '../constants/ConstDirection'
+import { MapDataType } from '../../types/mapDataType'
+import { ConstDirection } from '../../constants/ConstDirection'
 
-export class LevelsData {
+export class OcliboyLevels {
   static data: MapDataType[] = [
     {
       id: 1,
@@ -107,38 +107,6 @@ export class LevelsData {
       money: 150,
       startDirection: ConstDirection.UP,
       endDirection: ConstDirection.UP,
-    },
-    {
-      id: 6666,
-      title: 'no valid map 1',
-      author: 'admin',
-      comments:
-        'invalid map with unreachable exit (look at the last row, there is a "0" blocking the exit), for unit testing purposes',
-      rowsMap: [
-        '111111111111111x',
-        '1000000000000000',
-        '1011111111111111',
-        '1010000000000001',
-        '1010000111111101',
-        '1011111100000101',
-        '1000000000000101',
-        '1111111111111101',
-        '0000000000000001',
-        'y011111111111111',
-      ],
-      money: 150,
-      startDirection: ConstDirection.LEFT,
-      endDirection: ConstDirection.LEFT,
-    },
-    {
-      id: 6667,
-      title: 'no valid map 2',
-      author: 'admin',
-      comments: 'empty rowsMap, for unit testing purposes',
-      rowsMap: [],
-      money: 150,
-      startDirection: ConstDirection.LEFT,
-      endDirection: ConstDirection.LEFT,
     },
   ]
 }
