@@ -1,15 +1,20 @@
+import { TileBlack } from './TileBlack'
 import { TileEnd } from './TileEnd'
 import { TileOrange } from './TileOrange'
 import { TilePath } from './TilePath'
 import { TileStart } from './TileStart'
 
 export class TilesManager {
+  #tilesBlack: TileBlack[] = []
   #tilesOrange: TileOrange[] = []
   #tilesPath: TilePath[] = []
   #tileStart: TileStart | null = null
   #tileEnd: TileEnd | null = null
 
   get getAllOrangeTiles() {
+    return this.#tilesOrange
+  }
+  get getAllBlackTiles() {
     return this.#tilesOrange
   }
   get getAllPathTiles() {
@@ -25,6 +30,9 @@ export class TilesManager {
 
   addOrangeTile(instance: TileOrange) {
     this.#tilesOrange.push(instance)
+  }
+  addBlackTile(instance: TileBlack) {
+    this.#tilesBlack.push(instance)
   }
   addPathTile(instance: TilePath) {
     this.#tilesPath.push(instance)
@@ -47,6 +55,9 @@ export class TilesManager {
     this.#tileEnd.draw(scale, startOffsetX, startOffsetY)
     this.#tilesOrange.forEach((tileOrange) => {
       tileOrange.drawTile(scale, startOffsetX, startOffsetY)
+    })
+    this.#tilesBlack.forEach((tileBlack) => {
+      tileBlack.drawTile(scale, startOffsetX, startOffsetY)
     })
   }
 }
