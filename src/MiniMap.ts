@@ -13,12 +13,14 @@ import { Position } from './types/position'
 import { MapDataType } from './types/mapDataType'
 import { TextProperties } from './hud/TextProperties'
 import { P5 } from './utils/P5'
+import { TileBlackCreator } from './tiles/TileBlackCreator'
 
 export class MiniMap {
   static TYPE_LAST_LEVEL_EDITOR = 1
   static TYPE_LAST_LEVEL_PLAYED = 2
 
   #tilesManager: TilesManager
+  #tileBlackCreator: TileBlackCreator
   #tileOrangeCreator: TileOrangeCreator
   #tileStartCreator: TileStartCreator
   #tileEndCreator: TileEndCreator
@@ -54,6 +56,10 @@ export class MiniMap {
     )
 
     this.#tilesManager = new TilesManager()
+
+    // create black tiles
+    this.#tileBlackCreator = TileBlackCreator.getInstance(Images.tileImages)
+    this.#tileBlackCreator.createAll(levelMap, this.#tilesManager)
 
     // create orange tiles
     this.#tileOrangeCreator = TileOrangeCreator.getInstance(

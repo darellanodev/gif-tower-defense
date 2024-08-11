@@ -41,6 +41,7 @@ import { PathStartEnemiesPosition } from './path/PathStartEnemiesPosition'
 import { Position } from './types/position'
 import { MapDataType } from './types/mapDataType'
 import { Size } from './types/size'
+import { TileBlackCreator } from './tiles/TileBlackCreator'
 
 export class Game {
   static #instance: Game | null = null
@@ -66,6 +67,7 @@ export class Game {
   #stateManager: StateManager
   #tilesManager: TilesManager
   #tileOrangeCreator: TileOrangeCreator
+  #tileBlackCreator: TileBlackCreator
   #tileStartCreator: TileStartCreator | null = null
   #tileEndCreator: TileEndCreator | null = null
   #tilePathCreator: TilePathCreator | null = null
@@ -115,6 +117,9 @@ export class Game {
     )
 
     this.#tilesManager = new TilesManager()
+
+    // create black tiles
+    this.#tileBlackCreator = TileBlackCreator.getInstance(Images.tileImages)
 
     // create orange tiles
     this.#tileOrangeCreator = TileOrangeCreator.getInstance(
@@ -227,6 +232,10 @@ export class Game {
     // create path tiles
     this.#tilePathCreator = TilePathCreator.getInstance()
     this.#tilePathCreator.createAll(levelMap, this.#tilesManager)
+
+    // create black tiles
+    this.#tileBlackCreator = TileBlackCreator.getInstance(Images.tileImages)
+    this.#tileBlackCreator.createAll(levelMap, this.#tilesManager)
   }
   #updateMagics() {
     this.#magicFireballInstancesManager.updateInstances()
