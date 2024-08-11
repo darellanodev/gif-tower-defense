@@ -44,7 +44,7 @@ export class MenuMain {
     this.#game = game
     this.#actualNewsItem = newsDataProvider.last.content
 
-    const lastEditorLevelsIds = [13]
+    const lastEditorLevelsIds = [8]
 
     this.#btnsMiniMapsEditor = buttonsMiniMapsCreator.createForLevelIds(
       lastEditorLevelsIds,
