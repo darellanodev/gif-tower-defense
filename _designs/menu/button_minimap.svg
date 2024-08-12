@@ -23,9 +23,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
      inkscape:document-units="mm"
-     inkscape:zoom="1.5340488"
-     inkscape:cx="239.23619"
-     inkscape:cy="470.97588"
+     inkscape:zoom="4.3389452"
+     inkscape:cx="297.07681"
+     inkscape:cy="412.19695"
      inkscape:window-width="1920"
      inkscape:window-height="1057"
      inkscape:window-x="-8"
@@ -104,5 +104,29 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;text-align:start;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-opacity:1"
          x="106.81694"
          y="84.167252">Disabled</tspan></text>
+    <rect
+       style="fill:#483737;stroke:none;stroke-width:1.45521;stroke-opacity:0"
+       id="rect3"
+       width="30.200001"
+       height="19.1"
+       x="21.386309"
+       y="90.946579"
+       rx="0" />
+    <rect
+       style="fill:#483737;stroke:none;stroke-width:1.45521;stroke-opacity:0"
+       id="rect4"
+       width="30.200001"
+       height="19.1"
+       x="63.719643"
+       y="90.946579"
+       rx="0" />
+    <rect
+       style="fill:#483737;stroke:none;stroke-width:1.45521;stroke-opacity:0"
+       id="rect5"
+       width="30.200001"
+       height="19.1"
+       x="106.05296"
+       y="90.946579"
+       rx="0" />
   </g>
 </svg>
