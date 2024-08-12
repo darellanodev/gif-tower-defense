@@ -7,7 +7,7 @@ import { StateManager } from './StateManager'
 import { MenuMain } from './MenuMain'
 import { MenuSurvival } from './MenuSurvival'
 import { LevelsDataProvider } from './levels/LevelsDataProvider'
-import { LevelsData } from './levels/LevelsData'
+import { OcliboyLevels } from './levels/levelsData/OcliboyLevels'
 import { ButtonsMiniMapsCreator } from './hud/ButtonsMiniMapsCreator'
 import { OldLevelConverter } from './utils/OldLevelConverter'
 import { NewsDataProvider } from './news/NewsDataProvider'
@@ -80,7 +80,7 @@ window.setup = () => {
   newsDataProvider.initNewsItems(NewsData.data)
 
   levelsDataProvider = LevelsDataProvider.getInstance()
-  levelsDataProvider.initLevels(LevelsData.data)
+  levelsDataProvider.initLevels(OcliboyLevels.data)
 
   buttonsMiniMapsCreator =
     ButtonsMiniMapsCreator.getInstance(levelsDataProvider)

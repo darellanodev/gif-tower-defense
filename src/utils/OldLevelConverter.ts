@@ -11,7 +11,7 @@ export class OldLevelConverter {
       author: this.#extractAuthor(),
       id: this.#extractId(),
       title: this.#extractTitle(),
-      comments: 'comments are not set yet',
+      comments: '',
       rowsmap: this.#extractRowsmap(),
       money: this.#extractMoney(),
       startDirection: this.#extractStartDirection(),
