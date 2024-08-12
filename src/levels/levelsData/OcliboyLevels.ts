@@ -28,7 +28,7 @@ export class OcliboyLevels {
       id: 9,
       title: 'animal',
       author: 'ocliboy',
-      comments: 'comments are not set yet',
+      comments: '',
       rowsMap: [
         '0000000000000000',
         '0000000000000000',
@@ -91,7 +91,7 @@ export class OcliboyLevels {
       id: 15,
       title: 'psycho',
       author: 'ocliboy',
-      comments: 'comments are not set yet',
+      comments: '',
       rowsMap: [
         '000y000011100000',
         '0011000110110000',
@@ -112,7 +112,7 @@ export class OcliboyLevels {
       id: 8,
       title: 'cross',
       author: 'ocliboy',
-      comments: 'comments are not set yet',
+      comments: '',
       rowsMap: [
         '000y000000000000',
         '0001000000000000',
@@ -133,7 +133,7 @@ export class OcliboyLevels {
       id: 10,
       title: 'happy',
       author: 'ocliboy',
-      comments: 'comments are not set yet',
+      comments: '',
       rowsMap: [
         '0000000000000000',
         '011111111111111x',
@@ -147,14 +147,14 @@ export class OcliboyLevels {
         '0y00000000000000',
       ],
       money: 150,
-      startDirection: ConstDirection.RIGHT,
-      endDirection: ConstDirection.LEFT,
+      startDirection: ConstDirection.LEFT,
+      endDirection: ConstDirection.DOWN,
     },
     {
       id: 11,
       title: 'walls',
       author: 'ocliboy',
-      comments: 'comments are not set yet',
+      comments: '',
       rowsMap: [
         '0000000000000000',
         '0111101110222220',
@@ -168,14 +168,14 @@ export class OcliboyLevels {
         '0000x00000000000',
       ],
       money: 150,
-      startDirection: ConstDirection.DOWN,
-      endDirection: ConstDirection.UP,
+      startDirection: ConstDirection.UP,
+      endDirection: ConstDirection.RIGHT,
     },
     {
       id: 12,
       title: 'question',
       author: 'ocliboy',
-      comments: 'comments are not set yet',
+      comments: '',
       rowsMap: [
         '0000000000000000',
         'x111111111111110',
@@ -196,7 +196,7 @@ export class OcliboyLevels {
       id: 16,
       title: 'threeloops',
       author: 'ocliboy',
-      comments: 'comments are not set yet',
+      comments: '',
       rowsMap: [
         '0000000000000000',
         '0111111000111000',
@@ -210,14 +210,14 @@ export class OcliboyLevels {
         '2y000000000000x2',
       ],
       money: 150,
-      startDirection: ConstDirection.RIGHT,
-      endDirection: ConstDirection.UP,
+      startDirection: ConstDirection.UP,
+      endDirection: ConstDirection.DOWN,
     },
     {
       id: 22,
       title: 'irreal',
       author: 'ocliboy',
-      comments: 'comments are not set yet',
+      comments: 'problem: can reach the exit',
       rowsMap: [
         '111111011101110x',
         '0111111121112111',
@@ -238,7 +238,7 @@ export class OcliboyLevels {
       id: 26,
       title: 'castle',
       author: 'ocliboy',
-      comments: 'comments are not set yet',
+      comments: 'problem: it has more rows than normal maps',
       rowsMap: [
         '211y111111112222',
         '2121222222211222',

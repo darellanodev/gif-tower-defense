@@ -24,7 +24,7 @@ test('extract title', () => {
 
 test('extract comments', () => {
   const result = oldLevelConverter.comments
-  const expected = 'comments are not set yet'
+  const expected = ''
   expect(result).toBe(expected)
 })
 
@@ -70,7 +70,7 @@ test('get the json format', () => {
       id: 12,
       title: 'question',
       author: 'ocliboy',
-      comments: 'comments are not set yet',
+      comments: '',
       rowsMap: [
         
         '0000000000000000',

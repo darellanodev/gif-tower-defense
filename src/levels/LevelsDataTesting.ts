@@ -70,7 +70,7 @@ export class LevelsDataTesting {
       id: 15,
       title: 'psycho',
       author: 'ocliboy',
-      comments: 'comments are not set yet',
+      comments: '',
       rowsMap: [
         '000y000011100000',
         '0011000110110000',
