@@ -6,6 +6,7 @@ import { TowerRedCreator } from '../towers/TowerRedCreator'
 import { TowerYellowCreator } from '../towers/TowerYellowCreator'
 import { TilesManager } from './TilesManager'
 import { MapDataType } from '../types/mapDataType'
+import { ConstTest } from '../constants/ConstTest'
 
 export class TileOrangeCreator {
   static #instance: TileOrangeCreator | null = null
@@ -14,7 +15,7 @@ export class TileOrangeCreator {
   static MARGIN_TOP = 30
   static SYMBOL = '0'
 
-  #orangeImage: Image
+  #orangeImage: Image | null = null
   #player: Player
 
   #towerGreenCreator: TowerGreenCreator
@@ -54,8 +55,9 @@ export class TileOrangeCreator {
     }
 
     this.#player = player
-
-    this.#orangeImage = mapImages[0]
+    if (!ConstTest.DISABLE_LOADING_IMAGES) {
+      this.#orangeImage = mapImages[0]
+    }
     this.#towerGreenCreator = towerGreenCreator
     this.#towerRedCreator = towerRedCreator
     this.#towerYellowCreator = towerYellowCreator

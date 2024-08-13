@@ -14,7 +14,7 @@ import { TowerRedCreator } from '../towers/TowerRedCreator'
 import { TowerYellowCreator } from '../towers/TowerYellowCreator'
 
 export class TileOrange extends Obj {
-  #img: Image
+  #img: Image | null
   #tower: TowerType | null = null
   #player: Player
 
@@ -23,7 +23,7 @@ export class TileOrange extends Obj {
   #towerYellowCreator: TowerYellowCreator
 
   constructor(
-    img: Image,
+    img: Image | null,
     position: Position,
     player: Player,
     towerGreenCreator: TowerGreenCreator,
@@ -57,6 +57,9 @@ export class TileOrange extends Obj {
   }
 
   drawTile(scale: number, startOffsetX: number, startOffsetY: number) {
+    if (this.#img === null) {
+      return
+    }
     P5.p5.image(
       this.#img,
       this.position.x / scale + startOffsetX,

@@ -3,6 +3,7 @@ import { TilesManager } from './TilesManager'
 import { ConstDirection } from '../constants/ConstDirection'
 import { TileEnd } from './TileEnd'
 import { MapDataType } from '../types/mapDataType'
+import { ConstTest } from '../constants/ConstTest'
 
 export class TileEndCreator {
   static #instance: TileEndCreator | null = null
@@ -18,14 +19,18 @@ export class TileEndCreator {
     return TileEndCreator.#instance
   }
 
-  #mapImages: Image[]
+  #mapImages: Image[] | null = null
   constructor(mapImages: Image[]) {
     if (TileEndCreator.#instance !== null) {
       throw new Error(
         'TileEndCreator is a singleton class, use getInstance to get the instance',
       )
     }
-    this.#mapImages = mapImages
+
+    if (!ConstTest.DISABLE_LOADING_IMAGES) {
+      this.#mapImages = mapImages
+    }
+
     // assign the singleton instance
     TileEndCreator.#instance = this
   }
@@ -49,6 +54,9 @@ export class TileEndCreator {
   }
 
   #endImage(levelMap: MapDataType) {
+    if (this.#mapImages === null) {
+      return null
+    }
     switch (levelMap.endDirection) {
       case ConstDirection.DOWN:
         return this.#mapImages[5]

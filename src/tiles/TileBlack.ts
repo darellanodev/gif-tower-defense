@@ -5,14 +5,17 @@ import { P5 } from '../utils/P5'
 import { Obj } from '../Obj'
 
 export class TileBlack extends Obj {
-  #img: Image
+  #img: Image | null = null
 
-  constructor(img: Image, position: Position) {
+  constructor(img: Image | null, position: Position) {
     super(position)
     this.#img = img
   }
 
   drawTile(scale: number, startOffsetX: number, startOffsetY: number) {
+    if (this.#img === null) {
+      return
+    }
     P5.p5.image(
       this.#img,
       this.position.x / scale + startOffsetX,

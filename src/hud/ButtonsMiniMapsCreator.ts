@@ -53,4 +53,34 @@ export class ButtonsMiniMapsCreator {
 
     return result
   }
+
+  createForLevelIdsMenuSurvival(
+    levelsIds: number[],
+    mode: number,
+    position: Position,
+  ): ButtonMiniMap[] {
+    const stepX = 150
+    const stepY = 120
+
+    const result = []
+    let row = 0
+    let i = 0
+    for (const levelId of levelsIds) {
+      const levelMap = this.#levelsDataProvider.getById(levelId)
+
+      result.push(
+        new ButtonMiniMap(
+          { x: position.x + i * stepX, y: position.y + row * stepY },
+          Images.buttonMiniMapImages,
+          new MiniMap(levelMap, mode),
+        ),
+      )
+      i++
+      if (i % 5 === 0) {
+        row++
+      }
+    }
+
+    return result
+  }
 }

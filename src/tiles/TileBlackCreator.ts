@@ -2,6 +2,7 @@ import { TileBlack } from './TileBlack'
 import { Image } from 'p5'
 import { TilesManager } from './TilesManager'
 import { MapDataType } from '../types/mapDataType'
+import { ConstTest } from '../constants/ConstTest'
 
 export class TileBlackCreator {
   static #instance: TileBlackCreator | null = null
@@ -10,7 +11,7 @@ export class TileBlackCreator {
   static MARGIN_TOP = 30
   static SYMBOL = '2'
 
-  #blackImage: Image
+  #blackImage: Image | null = null
 
   static getInstance(mapImages: Image[]) {
     if (TileBlackCreator.#instance === null) {
@@ -26,13 +27,15 @@ export class TileBlackCreator {
       )
     }
 
-    this.#blackImage = mapImages[1]
+    if (!ConstTest.DISABLE_LOADING_IMAGES) {
+      this.#blackImage = mapImages[1]
+    }
 
     // assign the singleton instance
     TileBlackCreator.#instance = this
   }
 
-  #instanceOrangeTile(tilesManager: TilesManager, posX: number, posY: number) {
+  #instanceBlackTile(tilesManager: TilesManager, posX: number, posY: number) {
     tilesManager.addBlackTile(
       new TileBlack(this.#blackImage, { x: posX, y: posY }),
     )
@@ -49,7 +52,7 @@ export class TileBlackCreator {
       const posY =
         TileBlackCreator.FLOOR_SIZE * rowCount + TileBlackCreator.MARGIN_TOP
       if (character === TileBlackCreator.SYMBOL) {
-        this.#instanceOrangeTile(tilesManager, posX, posY)
+        this.#instanceBlackTile(tilesManager, posX, posY)
       }
     }
   }
