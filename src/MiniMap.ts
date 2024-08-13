@@ -16,8 +16,8 @@ import { P5 } from './utils/P5'
 import { TileBlackCreator } from './tiles/TileBlackCreator'
 
 export class MiniMap {
-  static TYPE_LAST_LEVEL_EDITOR = 1
-  static TYPE_LAST_LEVEL_PLAYED = 2
+  static TYPE_TEXT_DOWN = 1
+  static TYPE_TEXT_LEFT = 2
 
   #tilesManager: TilesManager
   #tileBlackCreator: TileBlackCreator
@@ -100,17 +100,17 @@ export class MiniMap {
       this.#position.y,
     )
     TextProperties.setForHudData()
-    if (this.#type === MiniMap.TYPE_LAST_LEVEL_PLAYED) {
-      this.#drawTitleMapLastEdited()
-    } else if (this.#type === MiniMap.TYPE_LAST_LEVEL_EDITOR) {
-      this.#drawTitleMapLastPlayed()
+    if (this.#type === MiniMap.TYPE_TEXT_LEFT) {
+      this.#drawTitleMapTextLeft()
+    } else if (this.#type === MiniMap.TYPE_TEXT_DOWN) {
+      this.#drawTitleMapTextDown()
     }
   }
-  #drawTitleMapLastEdited() {
+  #drawTitleMapTextLeft() {
     P5.p5.text(this.#title, this.#position.x, this.#position.y + 102)
     P5.p5.text(`By ${this.#author}`, this.#position.x, this.#position.y + 118)
   }
-  #drawTitleMapLastPlayed() {
+  #drawTitleMapTextDown() {
     P5.p5.text(this.#title, this.#position.x - 170, this.#position.y + 71)
     P5.p5.text(
       `By ${this.#author}`,

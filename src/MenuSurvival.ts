@@ -37,7 +37,7 @@ export class MenuSurvival {
     const levelsIdsRow1 = [1, 13, 14, 9, 15]
     this.#btnsMiniMapsRow1 = this.#buttonsMiniMapsCreator.createForLevelIds(
       levelsIdsRow1,
-      MiniMap.TYPE_LAST_LEVEL_PLAYED,
+      MiniMap.TYPE_TEXT_LEFT,
       { x: 28, y: 160 },
     )
 
@@ -45,7 +45,7 @@ export class MenuSurvival {
     const levelsIdsRow2 = [8, 10, 11, 12, 16]
     this.#btnsMiniMapsRow2 = this.#buttonsMiniMapsCreator.createForLevelIds(
       levelsIdsRow2,
-      MiniMap.TYPE_LAST_LEVEL_PLAYED,
+      MiniMap.TYPE_TEXT_LEFT,
       { x: 28, y: 280 },
     )
 
@@ -53,7 +53,7 @@ export class MenuSurvival {
     const levelsIdsRow3 = [22, 26]
     this.#btnsMiniMapsRow3 = this.#buttonsMiniMapsCreator.createForLevelIds(
       levelsIdsRow3,
-      MiniMap.TYPE_LAST_LEVEL_PLAYED,
+      MiniMap.TYPE_TEXT_LEFT,
       { x: 28, y: 400 },
     )
 

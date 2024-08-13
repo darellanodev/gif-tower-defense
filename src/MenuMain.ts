@@ -48,7 +48,7 @@ export class MenuMain {
 
     this.#btnsMiniMapsEditor = buttonsMiniMapsCreator.createForLevelIds(
       lastEditorLevelsIds,
-      MiniMap.TYPE_LAST_LEVEL_EDITOR,
+      MiniMap.TYPE_TEXT_DOWN,
       { x: 637, y: 207 },
     )
 
@@ -58,7 +58,7 @@ export class MenuMain {
     this.#btnsMiniMapsLastLevelsPlayed =
       buttonsMiniMapsCreator.createForLevelIds(
         lastPlayedLevelsIds,
-        MiniMap.TYPE_LAST_LEVEL_PLAYED,
+        MiniMap.TYPE_TEXT_LEFT,
         { x: 336, y: 452 },
       )
     // create the buttons
