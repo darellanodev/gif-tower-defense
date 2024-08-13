@@ -9,7 +9,6 @@ import { MenuSurvival } from './MenuSurvival'
 import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { OcliboyLevels } from './levels/levelsData/OcliboyLevels'
 import { ButtonsMiniMapsCreator } from './hud/ButtonsMiniMapsCreator'
-import { OldLevelConverter } from './utils/OldLevelConverter'
 import { NewsDataProvider } from './news/NewsDataProvider'
 import { NewsData } from './news/NewsData'
 

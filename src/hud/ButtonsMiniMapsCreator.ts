@@ -1,4 +1,3 @@
-import { OcliboyLevels } from '../levels/levelsData/OcliboyLevels'
 import { LevelsDataProvider } from '../levels/LevelsDataProvider'
 import { MiniMap } from '../MiniMap'
 import { Images } from '../resources/Images'
