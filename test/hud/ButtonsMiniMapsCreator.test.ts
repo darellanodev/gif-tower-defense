@@ -1,8 +1,16 @@
-import { createSixMiniMapsButtonsForMenuSurvival } from '../helpers/hud'
+import { ConstTest } from '../../src/constants/ConstTest'
+import { MiniMap } from '../../src/MiniMap'
+import { getButtonsMiniMapsCreator } from '../helpers/hud'
 
+ConstTest.DISABLE_LOADING_IMAGES = true
+const levelsIds = [1, 1, 1, 1, 1, 1]
 const initialPosition = { x: 100, y: 200 }
-const buttonsMiniMaps = createSixMiniMapsButtonsForMenuSurvival(initialPosition)
-
+const buttonsMiniMapsCreator = getButtonsMiniMapsCreator()
+const buttonsMiniMaps = buttonsMiniMapsCreator.createForLevelIdsMenuSurvival(
+  levelsIds,
+  MiniMap.TYPE_TEXT_DOWN,
+  initialPosition,
+)
 test('createForLevelsIdsMenuSurvival, when we pass six levels Ids, then the 6th button minimap is in the sencond row', () => {
   const result = buttonsMiniMaps.at(-1)?.position.y
   const expected = 320
