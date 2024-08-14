@@ -61,23 +61,26 @@ export class ButtonsMiniMapsCreator {
   ): ButtonMiniMap[] {
     const stepX = 150
     const stepY = 120
+    const initialPositionX = position.x
 
     const result = []
     let row = 0
-    let i = 0
+    let column = 0
     for (const levelId of levelsIds) {
       const levelMap = this.#levelsDataProvider.getById(levelId)
 
       result.push(
         new ButtonMiniMap(
-          { x: position.x + i * stepX, y: position.y + row * stepY },
+          { x: position.x + column * stepX, y: position.y + row * stepY },
           Images.buttonMiniMapImages,
           new MiniMap(levelMap, mode),
         ),
       )
-      i++
-      if (i % 5 === 0) {
+      column++
+      if (column % 5 === 0) {
         row++
+        position.x = initialPositionX
+        column = 0
       }
     }
 

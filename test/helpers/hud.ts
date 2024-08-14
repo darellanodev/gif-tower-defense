@@ -3,8 +3,11 @@ import { ButtonsMiniMapsCreator } from '../../src/hud/ButtonsMiniMapsCreator'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
 import { LevelsDataTesting } from '../../src/levels/LevelsDataTesting'
 import { MiniMap } from '../../src/MiniMap'
+import { Position } from '../../src/types/position'
 
-export const createSixMiniMapsButtonsForMenuSurvival = () => {
+export const createSixMiniMapsButtonsForMenuSurvival = (
+  initialPosition: Position,
+) => {
   ConstTest.DISABLE_LOADING_IMAGES = true
   const levelsDataProvider = LevelsDataProvider.getInstance()
   levelsDataProvider.initLevels(LevelsDataTesting.data)
@@ -15,7 +18,7 @@ export const createSixMiniMapsButtonsForMenuSurvival = () => {
   const buttonsMiniMaps = buttonsMiniMapsCreator.createForLevelIdsMenuSurvival(
     levelsIds,
     MiniMap.TYPE_TEXT_DOWN,
-    { x: 100, y: 200 },
+    initialPosition,
   )
   return buttonsMiniMaps
 }
