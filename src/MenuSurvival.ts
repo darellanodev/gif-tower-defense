@@ -11,10 +11,7 @@ import { P5 } from './utils/P5'
 export class MenuSurvival {
   static #instance: MenuSurvival | null = null
   #stateManager: StateManager
-  #btnsMiniMapsRow1: ButtonMiniMap[] = []
-  #btnsMiniMapsRow2: ButtonMiniMap[] = []
-  #btnsMiniMapsRow3: ButtonMiniMap[] = []
-  #btnsMiniMapsRows: any[] = []
+  #btnsMiniMaps: ButtonMiniMap[] = []
   #btnBackMenuMain: Button
   #buttonsMiniMapsCreator: ButtonsMiniMapsCreator
   #game: Game
@@ -33,28 +30,11 @@ export class MenuSurvival {
     this.#buttonsMiniMapsCreator = buttonsMiniMapsCreator
     this.#game = game
 
-    // create row1 of minimaps
-    const levelsIdsRow1 = [1, 13, 14, 9, 15]
-    this.#btnsMiniMapsRow1 = this.#buttonsMiniMapsCreator.createForLevelIds(
+    const levelsIdsRow1 = [1, 13, 14, 9, 15, 8, 10, 11, 12, 16, 22, 26]
+    this.#btnsMiniMaps = this.#buttonsMiniMapsCreator.createMultiRows(
       levelsIdsRow1,
       MiniMap.TYPE_TEXT_LEFT,
       { x: 28, y: 160 },
-    )
-
-    // create row2 of minimaps
-    const levelsIdsRow2 = [8, 10, 11, 12, 16]
-    this.#btnsMiniMapsRow2 = this.#buttonsMiniMapsCreator.createForLevelIds(
-      levelsIdsRow2,
-      MiniMap.TYPE_TEXT_LEFT,
-      { x: 28, y: 280 },
-    )
-
-    // create row3 of minimaps
-    const levelsIdsRow3 = [22, 26]
-    this.#btnsMiniMapsRow3 = this.#buttonsMiniMapsCreator.createForLevelIds(
-      levelsIdsRow3,
-      MiniMap.TYPE_TEXT_LEFT,
-      { x: 28, y: 400 },
     )
 
     // create the buttons
@@ -63,11 +43,6 @@ export class MenuSurvival {
       { w: 166, h: 31 },
       Images.buttonMenuMainImages,
     )
-
-    // group the minimaps
-    this.#btnsMiniMapsRows.push(this.#btnsMiniMapsRow1)
-    this.#btnsMiniMapsRows.push(this.#btnsMiniMapsRow2)
-    this.#btnsMiniMapsRows.push(this.#btnsMiniMapsRow3)
 
     // assign the singleton instance
     MenuSurvival.#instance = this
@@ -107,13 +82,11 @@ export class MenuSurvival {
     }
 
     // check if player clic one of the survival minimaps
-    for (const btnsMiniMapsRow of this.#btnsMiniMapsRows) {
-      for (const btnMiniMap of btnsMiniMapsRow) {
-        if (btnMiniMap.isMouseOver(mousePosition)) {
-          const levelId = btnMiniMap.miniMap.levelId
-          this.#game.loadLevel(levelId)
-          this.#stateManager.setPlay()
-        }
+    for (const btnMiniMap of this.#btnsMiniMaps) {
+      if (btnMiniMap.isMouseOver(mousePosition)) {
+        const levelId = btnMiniMap.miniMap.levelId
+        this.#game.loadLevel(levelId)
+        this.#stateManager.setPlay()
       }
     }
   }
@@ -126,10 +99,8 @@ export class MenuSurvival {
   }
 
   #drawButtonsMiniMaps() {
-    for (const btnsMiniMapsRow of this.#btnsMiniMapsRows) {
-      for (const btnMiniMap of btnsMiniMapsRow) {
-        btnMiniMap.draw()
-      }
+    for (const btnMiniMap of this.#btnsMiniMaps) {
+      btnMiniMap.draw()
     }
   }
 }

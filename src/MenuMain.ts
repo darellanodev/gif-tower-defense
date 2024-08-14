@@ -46,7 +46,7 @@ export class MenuMain {
 
     const lastEditorLevelsIds = [8]
 
-    this.#btnsMiniMapsEditor = buttonsMiniMapsCreator.createForLevelIds(
+    this.#btnsMiniMapsEditor = buttonsMiniMapsCreator.createOneRow(
       lastEditorLevelsIds,
       MiniMap.TYPE_TEXT_DOWN,
       { x: 637, y: 207 },
@@ -55,12 +55,11 @@ export class MenuMain {
     // create the three last played levels
     const lastPlayedLevelsIds = [1, 14, 13]
 
-    this.#btnsMiniMapsLastLevelsPlayed =
-      buttonsMiniMapsCreator.createForLevelIds(
-        lastPlayedLevelsIds,
-        MiniMap.TYPE_TEXT_LEFT,
-        { x: 336, y: 452 },
-      )
+    this.#btnsMiniMapsLastLevelsPlayed = buttonsMiniMapsCreator.createOneRow(
+      lastPlayedLevelsIds,
+      MiniMap.TYPE_TEXT_LEFT,
+      { x: 336, y: 452 },
+    )
     // create the buttons
     this.#btnSurvival = new Button(
       { x: 480, y: 110 },

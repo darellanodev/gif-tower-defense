@@ -29,35 +29,19 @@ export class ButtonsMiniMapsCreator {
     return ButtonsMiniMapsCreator.#instance
   }
 
-  createForLevelIds(
-    levelsIds: number[],
-    mode: number,
-    position: Position,
-  ): ButtonMiniMap[] {
-    const stepX = 150
-
-    const result = []
-    let i = 0
-    for (const levelId of levelsIds) {
-      const levelMap = this.#levelsDataProvider.getById(levelId)
-
-      result.push(
-        new ButtonMiniMap(
-          { x: position.x + i * stepX, y: position.y },
-          Images.buttonMiniMapImages,
-          new MiniMap(levelMap, mode),
-        ),
-      )
-      i++
-    }
-
-    return result
+  createOneRow(levelsIds: number[], mode: number, position: Position) {
+    return this.#create(levelsIds, mode, position, false)
   }
 
-  createForLevelIdsMenuSurvival(
+  createMultiRows(levelsIds: number[], mode: number, position: Position) {
+    return this.#create(levelsIds, mode, position, true)
+  }
+
+  #create(
     levelsIds: number[],
     mode: number,
     position: Position,
+    isMultiRow: boolean,
   ): ButtonMiniMap[] {
     const stepX = 150
     const stepY = 120
@@ -77,7 +61,7 @@ export class ButtonsMiniMapsCreator {
         ),
       )
       column++
-      if (column % 5 === 0) {
+      if (column % 5 === 0 && isMultiRow) {
         row++
         position.x = initialPositionX
         column = 0
