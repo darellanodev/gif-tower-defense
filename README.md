@@ -27,46 +27,23 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - Run `npm run oldlevelsconverter`
 
-## Next tasks
+## Next tasks (moving to github issues...)
 
 - Code improvements:
 
   - [ ] Use singleton pattern for the following classes
-
-    - [x] Game
-    - [x] Player
-    - [x] Wallet
-    - [x] MagicFireballCreator
-    - [x] MagicIceballCreator
-    - [x] MagicUFOCreator
     - [ ] HudProgressBarWave
     - [ ] HudProgressBarBoss
 
   - [ ] Group into subfolders:
-
     - [ ] Buttons
     - [ ] ProgressBar
 
-  - [x] Change the colors for startTile and endTile (starTile in green and endTile in red)
   - [ ] Insert more basic levels (maybe some of them need to write tests to implement the correct orders)
-    - [x] Level 14 titled "one loop"
-    - [x] Level 13 titled "doble loop"
-      - [x] fix tileStart image orientation
-      - [x] fix enemies start position
-      - [x] put the hud over the enemies because the enemies walk in tilestart over the hud
     - [ ] Level with endTile in UP direction
     - [ ] Level with endTile in DOWN direction
-  - [ ] Survival menu
-    - [x] Display a first row of minimap levels
-    - [ ] Display a second row (and perhaps a third row) of levels
-    - [ ] Paginator (first page, previous page, next page, last page)
   - [ ] Make a fade transition when the player goes to a new screen.
   - [ ] Extract getTilePosition from Path class to a new class because it is not related with the Path concept
-  - [x] Review Path class: remove static properties, refactor long methods.
-  - [x] Clean tile creator classes
-  - [x] TowerGreenCreator, TowerRedCreator, and TowerYellowCreator like MagicFireballCreator, ...
-  - [x] Extract collision logic from Magic classes to collision classes.
-  - [x] Make the tiles with an instance manager concept like the enemies or the magics
   - [ ] Make Button a child of ButtonTransparent and perhaps rename Button to ButtonImage
   - [ ] Make the towers with an instance manager concept like the enemies or the magics
   - [ ] Review static methods to convert them to normal methods
@@ -75,34 +52,23 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - The player can:
 
-  - [ ] View the Main Menu and select a desired level to play.
-    - [x] Basic background
-    - [ ] Click in miniature to play
-    - [ ] Replace old player names with other nicknames
-    - [ ] ...
-  - [ ] Pause the game and resume it with the pause button
-  - [ ] Speed the game and return to normal speed with the speed button
-  - [ ] Click on an enemy to select it as a target
-  - [ ] Click on other enemy to select it as a target. If an enemy was selected before it will be deselected
-  - [ ] Click on two or more enemies that are sharing the same position and then the target selection will change from one enemy to the next enemy.
-  - [ ] Click on the path to deselect the target enemy
-  - [ ] View the heatmap
-  - [ ] Can exit from the current playing level. (ask for confirmation). Then return to main menu.
   - [ ] Create a level with the level editor
     - [ ] ...
   - [ ] Modify the difficult of the game with a visual graph (enemy endurances, profits, tower damages, ...)
     - [ ] ...
 
 - The magic fireball and iceball:
-
   - [ ] Do not damage the enemies that are abducted by UFOs
 
 - The enemy:
 
   - If it is freezed with an iceball:
+    
     - [ ] it will tilt
     - [ ] it will drop ice particles
+  
   - [ ] If it is burn with a fireball, during a time:
+  
     - [ ] it will be dark
     - [ ] it will decrease its energy
     - [ ] it will drop fire particles
