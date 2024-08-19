@@ -27,6 +27,10 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - Run `npm run oldlevelsconverter`
 
+## How to contribute
+
+Check out the contribution guidelines [here](./CONTRIBUTING.md).
+
 ## Resources
 
 <https://p5js.org/es/reference/>
