@@ -16,13 +16,15 @@ export class MagicIceballCollisionChecker {
   }
   check(magicIceball: MagicIceball, enemies: Enemy[]) {
     enemies.forEach((enemy) => {
-      if (
-        this.#magicCollisionChecker.checkCollision(
-          enemy,
-          this.#pathMovement.indexOrder,
-        )
-      ) {
-        this.handleCollision(magicIceball, enemy)
+      if (!enemy.isAbducted) {
+        if (
+          this.#magicCollisionChecker.checkCollision(
+            enemy,
+            this.#pathMovement.indexOrder,
+          )
+        ) {
+          this.handleCollision(magicIceball, enemy)
+        }
       }
     })
   }
