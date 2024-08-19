@@ -27,26 +27,6 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - Run `npm run oldlevelsconverter`
 
-## Next tasks (moving to github issues...)
-
-- Code improvements:
-
-  - [ ] Use singleton pattern for the following classes
-
-    - [ ] HudProgressBarWave
-    - [ ] HudProgressBarBoss
-
-  - [ ] Group into subfolders:
-
-    - [ ] Buttons
-    - [ ] ProgressBar
-
-  - [ ] Extract getTilePosition from Path class to a new class because it is not related with the Path concept
-  - [ ] Make Button a child of ButtonTransparent and perhaps rename Button to ButtonImage
-  - [ ] Make the towers with an instance manager concept like the enemies or the magics
-  - [ ] Review static methods to convert them to normal methods
-  - [ ] Separate low level code of high level code
-
 ## Resources
 
 <https://p5js.org/es/reference/>
