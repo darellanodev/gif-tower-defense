@@ -17,13 +17,15 @@ export class MagicFireballCollisionChecker {
   }
   check(magicFireball: MagicFireball, enemies: Enemy[]) {
     enemies.forEach((enemy) => {
-      if (
-        this.#magicCollisionChecker.checkCollision(
-          enemy,
-          this.#pathMovement.indexOrder,
-        )
-      ) {
-        this.handleCollision(magicFireball, enemy)
+      if (!enemy.isAbducted) {
+        if (
+          this.#magicCollisionChecker.checkCollision(
+            enemy,
+            this.#pathMovement.indexOrder,
+          )
+        ) {
+          this.handleCollision(magicFireball, enemy)
+        }
       }
     })
   }
