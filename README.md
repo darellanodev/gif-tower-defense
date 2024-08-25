@@ -33,7 +33,7 @@ Check out the contribution guidelines [here](./CONTRIBUTING.md).
 
 ## Discord channel
 
-Join the discord channel: [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?logo=discord&logoColor=white)](https://discord.gg/dACAtQ5N)
+Join the discord channel: [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?logo=discord&logoColor=white)](https://discord.gg/5zDkGD4P)
 
 ## Resources
 
