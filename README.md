@@ -31,6 +31,10 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 Check out the contribution guidelines [here](./CONTRIBUTING.md).
 
+## Discord channel
+
+Join the discord channel: [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?logo=discord&logoColor=white)](https://discord.gg/dACAtQ5N)
+
 ## Resources
 
 <https://p5js.org/es/reference/>
