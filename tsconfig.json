@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "target": "es6",
+    "lib": [
+      "es2022",
+      "dom"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
