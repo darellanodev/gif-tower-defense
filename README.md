@@ -6,6 +6,10 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ![git tower defense screenshots](https://github.com/darellanodev/gif-tower-defense/blob/main/img/github_readme/screenshots.png?raw=true)
 
+## Github repository
+
+- <https://github.com/darellanodev/gif-tower-defense>
+
 ## Run the game on web browser
 
 - Use a web server like XAMPP and open index.html through localhost.
