@@ -25,7 +25,7 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ## Try it online
 
-<https://darellanodev.github.io/playablegames/giftowerdefense/index.html>
+<https://darellanodev.github.io/tryitonline/giftowerdefense/index.html>
 
 ## Run the game on web browser
 
