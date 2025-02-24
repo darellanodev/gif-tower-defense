@@ -31,9 +31,13 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - Execute `run_tests.sh`
 
+## Running in development mode
+
+- Execute `run.sh` or `pnpm run dev`
+
 ## Build to web
 
-- Execute `run_build.sh` or `pnpm run build` command
+- Execute `run_build.sh` or `pnpm run build` command.
 - Wait until the process finish
 - Open `dist/index.html` in VSCode and use Open with live server option (from Live Server VSCode extension)
 
