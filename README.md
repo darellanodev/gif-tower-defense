@@ -14,10 +14,10 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 [![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![p5.js](https://img.shields.io/badge/p5.js-ED225D?style=flat&logo=p5dotjs&logoColor=white)](https://p5js.org)
-[![Jest](https://img.shields.io/badge/Jest-C21325?style=flat&logo=jest&logoColor=white)](https://jestjs.io)
+[![Vitest](https://img.shields.io/badge/Vitest-6E78FF?style=flat&logo=vitest&logoColor=white)](https://vitest.dev)
 [![pnpm](https://img.shields.io/badge/pnpm-%234a4a4a.svg?style=flat&logo=pnpm&logoColor=f69220)](https://pnpm.io)
 [![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=flat&logo=prettier&logoColor=black)](https://prettier.io)
-[![Parcel](https://img.shields.io/badge/Parcel-21374B?style=flat&logo=parcel&logoColor=white)](https://parceljs.org/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev)
 
 ## Screenshots
 
@@ -27,26 +27,19 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 <https://darellanodev.github.io/tryitonline/giftowerdefense/index.html>
 
-## Run the game on web browser
-
-- Use a web server like XAMPP and open index.html through localhost.
-- Alternatively, you can use the "Live Server" extension in VSCode to open index.html.
-
 ## Execute the unit tests
 
-- Execute `run_tests.sh` to run the filtered test (see package.json for testf script)
-- Execute `run_all_tests.sh` to run all the tests
-- Also you can run `run_tests_watch.sh` or `npm run testw` command to use jest in watch mode
+- Execute `run_tests.sh`
 
 ## Build to web
 
-- Execute `run.sh` or `npm run build` command
+- Execute `run_build.sh` or `pnpm run build` command
 - Wait until the process finish
-- Open index.html in VSCode and use Open with live server option (from Live Server VSCode extension)
+- Open `dist/index.html` in VSCode and use Open with live server option (from Live Server VSCode extension)
 
 ## Utility to convert old levels data to new levels data format
 
-- Run `npm run oldlevelsconverter`
+- Run `pnpm run oldlevelsconverter`
 
 ## How to contribute
 
