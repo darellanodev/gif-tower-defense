@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { ButtonMagic } from '../../src/hud/ButtonMagic'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'

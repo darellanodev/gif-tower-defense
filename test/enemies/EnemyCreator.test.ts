@@ -1,3 +1,4 @@
+import { describe, expect } from 'vitest'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { createBossEnemy, createNormalEnemy } from '../helpers/enemyCreator'
 

@@ -1,3 +1,4 @@
+import { describe, expect } from 'vitest'
 import { Position } from '../../src/types/position'
 import { instantiateHudButtonsMagics } from '../helpers/buttonsMagics'
 

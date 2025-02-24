@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 import {
   getNoValidLevelMapUnreachableEndTile,
   getPathFromMap,

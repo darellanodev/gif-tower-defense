@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 import { ConstDirection } from '../../src/constants/ConstDirection'
 import { Path } from '../../src/path/Path'
 import { TilePath } from '../../src/tiles/TilePath'

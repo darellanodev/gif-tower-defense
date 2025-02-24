@@ -1,3 +1,4 @@
+import { describe, expect } from 'vitest'
 import { images } from '../helpers/imagesResources'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'

@@ -1,3 +1,4 @@
+import { describe, expect } from 'vitest'
 import { Player } from '../../src/player/Player'
 
 test('dont call the constructor two times', () => {

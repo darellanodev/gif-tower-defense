@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 import { Missile } from '../../src/towers/Missile'
 import { instantiateMissile } from '../helpers/missile'
 

@@ -1,3 +1,4 @@
+import { describe, expect } from 'vitest'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { MagicFireballCreator } from '../../src/magics/MagicFireballCreator'
 import { img } from '../helpers/imagesResources'

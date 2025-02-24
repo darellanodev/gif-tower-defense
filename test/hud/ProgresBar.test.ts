@@ -1,3 +1,4 @@
+import { describe, expect } from 'vitest'
 import { instantiateProgressBar } from '../helpers/progressBar'
 
 describe('get progress', () => {

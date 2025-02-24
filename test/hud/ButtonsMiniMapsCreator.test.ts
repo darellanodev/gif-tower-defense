@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 import { ConstTest } from '../../src/constants/ConstTest'
 import { MiniMap } from '../../src/MiniMap'
 import { getButtonsMiniMapsCreator } from '../helpers/hud'

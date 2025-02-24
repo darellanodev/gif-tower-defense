@@ -1,3 +1,4 @@
+import { describe, expect } from 'vitest'
 import { FlyIndicator } from '../../src/hud/FlyIndicator'
 import {
   instantiateFlyIndicator,

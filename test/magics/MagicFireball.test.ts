@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 import { Const } from '../../src/constants/Const'
 import { ConstTest } from '../../src/constants/ConstTest'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'

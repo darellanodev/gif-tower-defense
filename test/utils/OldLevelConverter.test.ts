@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 import { OldLevelConverter } from '../../src/utils/OldLevelConverter'
 
 const oldLevelData =

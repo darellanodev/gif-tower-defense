@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 import { PositionUtils } from '../../src/utils/PositionUtils'
 import { Position } from '../../src/types/position'
 import { Size } from '../../src/types/size'

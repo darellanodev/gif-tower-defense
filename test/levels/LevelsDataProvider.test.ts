@@ -1,3 +1,4 @@
+import { expect } from 'vitest'
 import { ConstDirection } from '../../src/constants/ConstDirection'
 import { ConstTest } from '../../src/constants/ConstTest'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'

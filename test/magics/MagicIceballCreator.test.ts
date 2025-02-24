@@ -1,3 +1,4 @@
+import { describe, expect } from 'vitest'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { testTinyOrders } from '../helpers/levelMap'
