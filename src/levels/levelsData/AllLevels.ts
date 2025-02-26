@@ -1,7 +1,7 @@
 import { MapDataType } from '../../types/mapDataType'
 import { ConstDirection } from '../../constants/ConstDirection'
 
-export class OcliboyLevels {
+export class AllLevels {
   static data: MapDataType[] = [
     {
       id: 1,
