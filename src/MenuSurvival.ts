@@ -30,7 +30,10 @@ export class MenuSurvival {
     this.#buttonsMiniMapsCreator = buttonsMiniMapsCreator
     this.#game = game
 
-    const levelsIdsRow1 = [1, 13, 14, 9, 15, 8, 10, 11, 12, 16, 22, 26]
+    // TODO: Add on another page: 19, 20, 21, 23, 24, 25
+    const levelsIdsRow1 = [
+      1, 13, 14, 9, 15, 8, 10, 11, 12, 16, 22, 26, 7, 17, 18,
+    ]
     this.#btnsMiniMaps = this.#buttonsMiniMapsCreator.createMultiRows(
       levelsIdsRow1,
       MiniMap.TYPE_TEXT_LEFT,
