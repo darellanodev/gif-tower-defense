@@ -1,5 +1,6 @@
 import * as OldLevelConverter from './utils/OldLevelConverter'
 import * as fs from 'fs'
+import { AllLevels } from './levels/levelsData/AllLevels'
 
 function convertOldFormatLevels() {
   const availableTiles = ['0', '1', 'x', 'y', '2']
@@ -18,9 +19,13 @@ function convertOldFormatLevels() {
   const convertedLevels: string[] = []
   for (const oldLevel of oldLevels) {
     const oldLevelConverter = new OldLevelConverter.OldLevelConverter(oldLevel)
-    if (oldLevelConverter.canConvert(availableTiles)) {
-      convertedLevels.push(oldLevelConverter.json)
+    if (!oldLevelConverter.canConvert(availableTiles)) {
+      continue
     }
+    if (oldLevelConverter.existsLevelId(AllLevels.data, oldLevel)) {
+      continue
+    }
+    convertedLevels.push(oldLevelConverter.json)
   }
   fs.writeFileSync(
     './src/levels/levelsData/oldLevelsConverted.json',

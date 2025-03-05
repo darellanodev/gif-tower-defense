@@ -1,3 +1,5 @@
+import { MapDataType } from '../types/mapDataType'
+
 export class OldLevelConverter {
   #oldLevelData: string
   #newLevelData: any
@@ -159,5 +161,10 @@ export class OldLevelConverter {
       }
     }
     return true
+  }
+  existsLevelId(allLevels: MapDataType[], processedLevel: string) {
+    return allLevels.some((level) =>
+      new RegExp(`\\(${level.id},`).test(processedLevel),
+    )
   }
 }
