@@ -183,3 +183,17 @@ test('existsLevelId return false if the level id does not exists', () => {
   const result = oldLevelConverter.existsLevelId(allLevels, processedLevel)
   expect(result).toBeFalsy()
 })
+
+test('isProcessed return true if finds the ***processed*** prefix', () => {
+  const processedLevel = `***processed***(48,'Blue cacao','unknown321','2020202020202020,ys1s1s1s1s1s1s12,02020202020202s0,22201s1s101s1012,0202s020s2s0s2s0,2s1sss0210121012,0120ss20s1s0s1s0,2s02020202020202,01s1s1s1s1sssssx,2020202020202020@2,2,0,50,150',1299836796,'79.159.13.189',0,52,2),
+`
+  const result = oldLevelConverter.isProcessed(processedLevel)
+  expect(result).toBeTruthy()
+})
+
+test('isProcessed return false if it does not find the ***processed*** prefix', () => {
+  const processedLevel = `(48,'Blue cacao','unknown321','2020202020202020,ys1s1s1s1s1s1s12,02020202020202s0,22201s1s101s1012,0202s020s2s0s2s0,2s1sss0210121012,0120ss20s1s0s1s0,2s02020202020202,01s1s1s1s1sssssx,2020202020202020@2,2,0,50,150',1299836796,'79.159.13.189',0,52,2),
+`
+  const result = oldLevelConverter.isProcessed(processedLevel)
+  expect(result).toBeFalsy()
+})

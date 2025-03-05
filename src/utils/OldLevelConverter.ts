@@ -167,4 +167,7 @@ export class OldLevelConverter {
       new RegExp(`\\(${level.id},`).test(processedLevel),
     )
   }
+  isProcessed(processedLevel: string) {
+    return /^\*\*\*processed\*\*\*/.test(processedLevel)
+  }
 }

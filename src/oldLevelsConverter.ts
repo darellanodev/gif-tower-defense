@@ -29,6 +29,10 @@ function convertOldFormatLevels() {
       finalOldLevels.push(finalOldLevel)
       continue
     }
+    if (oldLevelConverter.isProcessed(oldLevel)) {
+      finalOldLevels.push(finalOldLevel)
+      continue
+    }
     finalOldLevels.push(`***processed***${finalOldLevel}`)
     convertedLevels.push(oldLevelConverter.json)
   }
