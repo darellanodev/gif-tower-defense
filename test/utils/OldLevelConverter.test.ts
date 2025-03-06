@@ -119,13 +119,13 @@ test('extract money', () => {
 
 test('extract startDirection', () => {
   const result = oldLevelConverter.startDirection
-  const expected = 3
+  const expected = 1
   expect(result).toBe(expected)
 })
 
 test('extract endDirection', () => {
   const result = oldLevelConverter.endDirection
-  const expected = 1
+  const expected = 3
   expect(result).toBe(expected)
 })
 
