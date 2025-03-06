@@ -34,4 +34,9 @@ export class LevelsDataProvider {
     }
     return result
   }
+
+  getPageLevelsIds(page: number): number[] {
+    const pageLevels = this.#levels.slice(page - 1, page + 14)
+    return pageLevels.map((level) => level.id)
+  }
 }
