@@ -50,10 +50,12 @@ function convertOldFormatLevels(limit: number) {
     './src/levels/levelsData/oldLevels.txt',
     finalOldLevels.join('\n'),
   )
-  console.log(`Total processed: ${totalProcessed}`)
+  console.log(
+    `The limit is set to ${limit}. Total levels processed: ${totalProcessed}`,
+  )
 }
 
 // Configuration
-const limit = 0
+const limit = 15
 
 convertOldFormatLevels(limit)
