@@ -96,6 +96,7 @@ window.setup = () => {
     stateManager,
     buttonsMiniMapsCreator,
     game,
+    levelsDataProvider,
   )
 }
 

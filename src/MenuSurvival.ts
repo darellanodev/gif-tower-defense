@@ -5,6 +5,7 @@ import { Button } from './hud/Button'
 import { ButtonMiniMap } from './hud/ButtonMiniMap'
 import { ButtonsMiniMapsCreator } from './hud/ButtonsMiniMapsCreator'
 import { Debug } from './hud/Debug'
+import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { Images } from './resources/Images'
 import { P5 } from './utils/P5'
 
@@ -15,11 +16,13 @@ export class MenuSurvival {
   #btnBackMenuMain: Button
   #buttonsMiniMapsCreator: ButtonsMiniMapsCreator
   #game: Game
+  #levelsDataProvider: LevelsDataProvider
 
   constructor(
     stateManager: StateManager,
     buttonsMiniMapsCreator: ButtonsMiniMapsCreator,
     game: Game,
+    levelsDataProvider: LevelsDataProvider,
   ) {
     if (MenuSurvival.#instance !== null) {
       throw new Error(
@@ -29,11 +32,10 @@ export class MenuSurvival {
     this.#stateManager = stateManager
     this.#buttonsMiniMapsCreator = buttonsMiniMapsCreator
     this.#game = game
+    this.#levelsDataProvider = levelsDataProvider
 
-    // TODO: Add on another page: 19, 20, 21, 23, 24, 25
-    const levelsIdsRow1 = [
-      1, 13, 14, 9, 15, 8, 10, 11, 12, 16, 22, 26, 7, 17, 18,
-    ]
+    const levelsIdsRow1 = this.#levelsDataProvider.getPageLevelsIds(1)
+
     this.#btnsMiniMaps = this.#buttonsMiniMapsCreator.createMultiRows(
       levelsIdsRow1,
       MiniMap.TYPE_TEXT_LEFT,
@@ -54,12 +56,14 @@ export class MenuSurvival {
     stateManager: StateManager,
     buttonsMiniMapsCreator: ButtonsMiniMapsCreator,
     game: Game,
+    levelsDataProvider: LevelsDataProvider,
   ) {
     if (MenuSurvival.#instance === null) {
       MenuSurvival.#instance = new MenuSurvival(
         stateManager,
         buttonsMiniMapsCreator,
         game,
+        levelsDataProvider,
       )
     }
     return MenuSurvival.#instance
