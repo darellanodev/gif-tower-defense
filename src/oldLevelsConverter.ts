@@ -2,7 +2,7 @@ import * as OldLevelConverter from './utils/OldLevelConverter'
 import * as fs from 'fs'
 import { AllLevels } from './levels/levelsData/AllLevels'
 
-function convertOldFormatLevels() {
+function convertOldFormatLevels(limit: number) {
   const availableTiles = ['0', '1', 'x', 'y', '2']
 
   const oldLevels: string[] = []
@@ -18,6 +18,7 @@ function convertOldFormatLevels() {
 
   const convertedLevels: string[] = []
   const finalOldLevels: string[] = []
+  let totalProcessed = 0
   for (const oldLevel of oldLevels) {
     let finalOldLevel = oldLevel
     const oldLevelConverter = new OldLevelConverter.OldLevelConverter(oldLevel)
@@ -33,8 +34,13 @@ function convertOldFormatLevels() {
       finalOldLevels.push(finalOldLevel)
       continue
     }
-    finalOldLevels.push(`***processed***${finalOldLevel}`)
+    if (limit != 0 && totalProcessed >= limit) {
+      finalOldLevels.push(finalOldLevel)
+      continue
+    }
     convertedLevels.push(oldLevelConverter.json)
+    finalOldLevels.push(`***processed***${finalOldLevel}`)
+    totalProcessed++
   }
   fs.writeFileSync(
     './src/levels/levelsData/oldLevelsConverted.json',
@@ -44,6 +50,10 @@ function convertOldFormatLevels() {
     './src/levels/levelsData/oldLevels.txt',
     finalOldLevels.join('\n'),
   )
+  console.log(`Total processed: ${totalProcessed}`)
 }
 
-convertOldFormatLevels()
+// Configuration
+const limit = 0
+
+convertOldFormatLevels(limit)
