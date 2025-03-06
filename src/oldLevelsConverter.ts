@@ -63,6 +63,6 @@ function convertOldFormatLevels(limit: number) {
 }
 
 // Configuration
-const limit = 15
+const limit = 0 // set zero to process all
 
 convertOldFormatLevels(limit)
