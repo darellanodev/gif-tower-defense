@@ -37,3 +37,25 @@ test('getLevel, when request the id of a testing level, return data of the corre
 
   expect(result).toStrictEqual(expected)
 })
+
+test('getPageLevels, when request the page 1, return the first 15 levels', () => {
+  const levelsDataProvider = LevelsDataProvider.getInstance()
+
+  levelsDataProvider.initLevels(LevelsDataTesting.data)
+
+  const result = levelsDataProvider.getPageLevelsIds(1)
+  expect(result).toStrictEqual([
+    1, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  ])
+})
+
+test('getPageLevels, when request the page 2, return the next 15 levels', () => {
+  const levelsDataProvider = LevelsDataProvider.getInstance()
+
+  levelsDataProvider.initLevels(LevelsDataTesting.data)
+
+  const result = levelsDataProvider.getPageLevelsIds(2)
+  expect(result).toStrictEqual([
+    21, 22, 23, 24, 25, 26, 27, 29, 30, 31, 32, 33, 34, 35, 36,
+  ])
+})

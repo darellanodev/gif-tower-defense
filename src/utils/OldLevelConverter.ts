@@ -1,3 +1,5 @@
+import { MapDataType } from '../types/mapDataType'
+
 export class OldLevelConverter {
   #oldLevelData: string
   #newLevelData: any
@@ -64,12 +66,12 @@ export class OldLevelConverter {
   }
   #extractStartDirection() {
     const datamapParts = this.#getMapData()
-    return Number.parseInt(datamapParts[1])
+    return Number.parseInt(datamapParts[0])
   }
 
   #extractEndDirection() {
     const datamapParts = this.#getMapData()
-    return Number.parseInt(datamapParts[0])
+    return Number.parseInt(datamapParts[1])
   }
 
   get author() {
@@ -100,13 +102,13 @@ export class OldLevelConverter {
   #directionToText(direction: number): string {
     switch (direction) {
       case 1:
-        return 'ConstDirection.DOWN'
+        return 'ConstDirection.RIGHT'
         break
       case 2:
         return 'ConstDirection.LEFT'
         break
       case 3:
-        return 'ConstDirection.RIGHT'
+        return 'ConstDirection.DOWN'
         break
       case 4:
         return 'ConstDirection.UP'
@@ -159,5 +161,10 @@ export class OldLevelConverter {
       }
     }
     return true
+  }
+  existsLevelId(allLevels: MapDataType[], processedLevel: string) {
+    return allLevels.some((level) =>
+      new RegExp(`\\(${level.id},`).test(processedLevel),
+    )
   }
 }

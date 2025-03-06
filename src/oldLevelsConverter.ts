@@ -1,23 +1,68 @@
 import * as OldLevelConverter from './utils/OldLevelConverter'
+import * as fs from 'fs'
+import { AllLevels } from './levels/levelsData/AllLevels'
 
-function convertOldFormatLevels() {
-  const availableTiles = ['0', '1', 'x', 'y', '2']
-  const oldLevels = [
-    `(8,'cross','ocliboy','000y000000000000,0001000000000000,0001022011111100,0001022010000100,0001000010220100,0001111110220100,0000000000000100,0000002201111100,0000002201000000,000000000x000000@4,4,150,0,150',1296995313,'127.0.0.1',0,217,2),`,
-    `(10,'happy','ocliboy','0000000000000000,011111111111111x,0100000000000000,0100022000022000,0100022000022000,0100000000000000,0102200000000220,0100020000002000,0100002222220000,0y00000000000000@2,3,50,450,150',1296995678,'127.0.0.1',0,242,3),`,
-    `(11,'walls','ocliboy','0000000000000000,0111101110222220,0122101010222220,0122101010000000,0122111010111110,0122000010100010,0122000010101110,0111100010101000,000010001110111y,0000x00000000000@4,1,750,400,150',1296996417,'127.0.0.1',0,261,4),`,
-    `(12,'question','ocliboy','0000000000000000,x111111111111110,0000002222220010,0111020000002010,0101000022220010,0101000020000010,0101000000000010,0101000020000010,0101111111111110,0y00000000000000@1,3,50,450,150',1297020179,'127.0.0.1',0,288,3),`,
-    `(16,'threeloops','ocliboy','0000000000000000,0111111000111000,0102201101101000,0111111111111200,0002221222122200,0002111112110000,0001121010011000,2211021110001122,2110022000000112,2y000000000000x2@4,3,50,450,150',1297021477,'127.0.0.1',0,98,2),`,
-    `(22,'irreal','ocliboy','111111011101110x,0111111121112111,1111012101210101,1101110121012121,1111112101210101,0111110111011121,1112011101110111,1010201020102012,1112021101110111,y101111111112111@2,2,0,450,150',1297772379,'83.56.250.148',0,73,3),`,
-    `(26,'castle','ocliboy','211y111111112222,2121222222211222,2111110201111102,2221012221012122,2111110201112102,2121222222222122,2111112021112102,2221212021212122,2021112021111102,22222222222x2222@4,4,150,0,150',1297864030,'83.56.248.156',0,120,4),`,
-  ]
-
-  for (const oldLevel of oldLevels) {
-    const oldLevelConverter = new OldLevelConverter.OldLevelConverter(oldLevel)
-    if (oldLevelConverter.canConvert(availableTiles)) {
-      console.log(oldLevelConverter.json)
+function getLinesFromFile(path: string): string[] {
+  const result: string[] = []
+  const resultFile = fs.readFileSync(path, 'utf8')
+  resultFile.split('\n').forEach((line: string) => {
+    if (line) {
+      result.push(line)
     }
-  }
+  })
+  return result
 }
 
-convertOldFormatLevels()
+function convertOldFormatLevels(limit: number) {
+  const availableTiles = ['0', '1', 'x', 'y', '2']
+
+  const oldLevels: string[] = getLinesFromFile(
+    './src/levels/levelsData/oldLevels.txt',
+  )
+  const oldLevelsProcessed: string[] = getLinesFromFile(
+    './src/levels/levelsData/oldLevelsProcessed.txt',
+  )
+
+  const convertedLevels: string[] = []
+  const finalOldLevels: string[] = []
+  let totalProcessed = 0
+  for (const oldLevel of oldLevels) {
+    let finalOldLevel = oldLevel
+    const oldLevelConverter = new OldLevelConverter.OldLevelConverter(oldLevel)
+    if (!oldLevelConverter.canConvert(availableTiles)) {
+      finalOldLevels.push(finalOldLevel)
+      continue
+    }
+    if (oldLevelConverter.existsLevelId(AllLevels.data, oldLevel)) {
+      finalOldLevels.push(finalOldLevel)
+      continue
+    }
+    if (limit != 0 && totalProcessed >= limit) {
+      finalOldLevels.push(finalOldLevel)
+      continue
+    }
+    convertedLevels.push(oldLevelConverter.json)
+    oldLevelsProcessed.push(finalOldLevel)
+    totalProcessed++
+  }
+  fs.writeFileSync(
+    './src/levels/levelsData/oldLevelsConverted.json',
+    convertedLevels.join('\n'),
+  )
+  fs.writeFileSync(
+    './src/levels/levelsData/oldLevels.txt',
+    finalOldLevels.join('\n'),
+  )
+  fs.writeFileSync(
+    './src/levels/levelsData/oldLevelsProcessed.txt',
+    oldLevelsProcessed.join('\n'),
+  )
+  console.log(
+    `The limit is set to ${limit}. Total levels processed: ${totalProcessed}`,
+  )
+}
+
+// Configuration
+const limit = 0 // set zero to process all
+
+convertOldFormatLevels(limit)
