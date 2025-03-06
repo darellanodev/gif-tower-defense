@@ -44,7 +44,7 @@ test('getPageLevels, when request the page 1, return the first 15 levels', () =>
   levelsDataProvider.initLevels(LevelsDataTesting.data)
 
   const result = levelsDataProvider.getPageLevelsIds(1)
-  expect(result.length).toStrictEqual([
+  expect(result).toStrictEqual([
     1, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ])
 })
