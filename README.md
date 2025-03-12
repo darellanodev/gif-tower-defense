@@ -47,7 +47,9 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 ## How to contribute
 
-Thank you for considering contributing! Please check out our detailed contribution guidelines [here](./CONTRIBUTING.md) to get started.
+Thank you for considering contributing! Before you get started, please take a moment to star this repository 🌟. Your support helps us grow and reach more developers. To do this, simply visit the repository's main page and click the **Star** button located in the top right corner.
+
+Please check out our detailed contribution guidelines [here](./CONTRIBUTING.md) to get started.
 
 ## Resources
 
