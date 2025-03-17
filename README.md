@@ -53,7 +53,9 @@ This will generate a `AllLevelsSorted.ts` file. After that, you can delete the `
 
 ## How to contribute
 
-Thank you for considering contributing! Please check out our detailed contribution guidelines [here](./CONTRIBUTING.md) to get started.
+Thank you for considering contributing! Before you get started, please take a moment to star this repository 🌟. Your support helps us grow and reach more developers. To do this, simply visit the repository's main page and click the **Star** button located in the top right corner.
+
+Please check out our detailed contribution guidelines [here](./CONTRIBUTING.md) to get started.
 
 ## Resources
 
