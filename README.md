@@ -45,6 +45,12 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 - Run `pnpm run oldlevelsconverter`
 
+## Utility to order levels by their ID
+
+- Run `pnpm run sortLevels.ts` or execute the `run_sorter_levels.sh` script.
+
+This will generate a `AllLevelsSorted.ts` file. After that, you can delete the `AllLevels.ts` file and rename `AllLevelsSorted.ts` to `AllLevels.ts`.
+
 ## How to contribute
 
 Thank you for considering contributing! Please check out our detailed contribution guidelines [here](./CONTRIBUTING.md) to get started.
