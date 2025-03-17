@@ -11,7 +11,8 @@
     "test": "vitest --run",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest run --coverage",
-    "oldlevelsconverter": "tsx ./src/oldLevelsConverter.ts"
+    "oldlevelsconverter": "tsx ./src/oldLevelsConverter.ts",
+    "sortlevels": "tsx ./src/sortLevels.ts"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
