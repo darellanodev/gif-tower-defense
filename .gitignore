@@ -4,3 +4,4 @@ dist
 .cache
 coverage
 oldLevelsConverted.json
+AllLevelsSorted.ts
