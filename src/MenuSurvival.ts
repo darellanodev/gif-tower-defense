@@ -3,6 +3,7 @@ import { MiniMap } from './MiniMap'
 import { StateManager } from './StateManager'
 import { Button } from './hud/Button'
 import { ButtonMiniMap } from './hud/ButtonMiniMap'
+import { ButtonPage } from './hud/ButtonPage'
 import { ButtonsMiniMapsCreator } from './hud/ButtonsMiniMapsCreator'
 import { Debug } from './hud/Debug'
 import { LevelsDataProvider } from './levels/LevelsDataProvider'
@@ -13,6 +14,7 @@ export class MenuSurvival {
   static #instance: MenuSurvival | null = null
   #stateManager: StateManager
   #btnsMiniMaps: ButtonMiniMap[] = []
+  #btnsPages: ButtonPage[] = []
   #btnBackMenuMain: Button
   #buttonsMiniMapsCreator: ButtonsMiniMapsCreator
   #game: Game
@@ -48,6 +50,17 @@ export class MenuSurvival {
       { w: 166, h: 31 },
       Images.buttonMenuMainImages,
     )
+
+    // create de pages buttons
+    this.#btnsPages = [
+      new ButtonPage(
+        { x: 20, y: 520 },
+        Images.buttonPagesImages,
+        { w: 32, h: 32 },
+        { x: 0, y: 0 },
+        25,
+      ),
+    ]
 
     // assign the singleton instance
     MenuSurvival.#instance = this
@@ -98,11 +111,19 @@ export class MenuSurvival {
     }
   }
   update() {}
+
+  #drawPagination() {
+    for (const btnPage of this.#btnsPages) {
+      btnPage.draw()
+    }
+  }
+
   draw() {
     this.#drawBackground()
     this.#btnBackMenuMain.draw()
     this.#drawButtonsMiniMaps()
     this.#drawDebugElements()
+    this.#drawPagination()
   }
 
   #drawButtonsMiniMaps() {

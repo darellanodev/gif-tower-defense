@@ -28,6 +28,8 @@ export class Images {
   static buttonMenuMainImages: Image[]
   static buttonTodaysImages: Image[]
 
+  static buttonPagesImages: Image[]
+
   static _loadButtons() {
     Images.towerGreenButtonImages = Resources.towerGreenButtonImages()
     Images.towerRedButtonImages = Resources.towerRedButtonImages()
@@ -40,6 +42,7 @@ export class Images {
     Images.buttonEditorImages = Resources.buttonEditorImages()
     Images.buttonMenuMainImages = Resources.buttonMenuMainImages()
     Images.buttonTodaysImages = Resources.buttonTodaysImages()
+    Images.buttonPagesImages = Resources.buttonPageImages()
   }
   static _loadMagics() {
     Images.magicFireballImage = Resources.magicFireball()

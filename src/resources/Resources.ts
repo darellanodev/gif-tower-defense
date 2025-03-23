@@ -161,6 +161,14 @@ export class Resources {
     ]
   }
 
+  static buttonPageImages() {
+    return [
+      P5.p5.loadImage('../img/menu/btn_page_on.png'),
+      P5.p5.loadImage('../img/menu/btn_page_off.png'),
+      P5.p5.loadImage('../img/menu/btn_page_hover.png'),
+    ]
+  }
+
   static backgroundImage() {
     return P5.p5.loadImage('../img/backgrounds/ground.jpg')
   }
