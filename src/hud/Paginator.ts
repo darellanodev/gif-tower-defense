@@ -68,12 +68,8 @@ export class Paginator {
 
     const offset = 10 * pagesGroup - 10
 
-    if (this.#levelsPages > maxLevelsDisplay) {
-      for (let i = 0 + offset; i < maxLevelsDisplay + offset; i++) {
-        result.push(`${i + 1}`)
-      }
-    } else {
-      for (let i = 0 + offset; i < maxLevelsDisplay + offset; i++) {
+    for (let i = 0 + offset; i < maxLevelsDisplay + offset; i++) {
+      if (i < this.#levelsPages) {
         result.push(`${i + 1}`)
       }
     }

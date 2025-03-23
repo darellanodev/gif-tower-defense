@@ -1,7 +1,7 @@
 import { expect } from 'vitest'
 import { Paginator } from '../../src/hud/Paginator'
 
-test('getLabels, when there are 15 * 10 levels and pages group is 1, returns the correct pages', () => {
+test('getLabels, when there are 25 level pages and the current group of pages is 1, returns the correct pages', () => {
   const expected = [
     '<<',
     '1',
@@ -17,15 +17,15 @@ test('getLabels, when there are 15 * 10 levels and pages group is 1, returns the
     '>>',
   ]
 
-  const totalLevels = 15 * 10
+  const levelsPages = 25
   const currentPagesGroup = 1
-  const paginator = new Paginator(totalLevels)
+  const paginator = new Paginator(levelsPages)
   const result = paginator.getLabels(currentPagesGroup)
 
   expect(result).toStrictEqual(expected)
 })
 
-test('getLabels, when there are 15 * 10 * 5 group pages levels and group page is 2, returns the correct pages', () => {
+test('getLabels, when there are 25 level pages and the current group of pages is 2, returns the correct pages', () => {
   const expected = [
     '<<',
     '11',
@@ -41,9 +41,20 @@ test('getLabels, when there are 15 * 10 * 5 group pages levels and group page is
     '>>',
   ]
 
-  const totalLevels = 15 * 10 * 5
+  const levelsPages = 25
   const currentPagesGroup = 2
-  const paginator = new Paginator(totalLevels)
+  const paginator = new Paginator(levelsPages)
+  const result = paginator.getLabels(currentPagesGroup)
+
+  expect(result).toStrictEqual(expected)
+})
+
+test('getLabels, when there are 25 level pages and the current group of pages is 2, returns the correct pages', () => {
+  const expected = ['<<', '21', '22', '23', '24', '25', '>>']
+
+  const levelsPages = 25
+  const currentPagesGroup = 3
+  const paginator = new Paginator(levelsPages)
   const result = paginator.getLabels(currentPagesGroup)
 
   expect(result).toStrictEqual(expected)
