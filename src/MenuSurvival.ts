@@ -36,6 +36,7 @@ export class MenuSurvival {
     this.#game = game
     this.#levelsDataProvider = levelsDataProvider
 
+    const levelsPages = this.#levelsDataProvider.getTotalPages()
     const levelsIdsRow1 = this.#levelsDataProvider.getPageLevelsIds(1)
 
     this.#btnsMiniMaps = this.#buttonsMiniMapsCreator.createMultiRows(
@@ -52,15 +53,16 @@ export class MenuSurvival {
     )
 
     // create de pages buttons
-    this.#btnsPages = [
-      new ButtonPage(
-        { x: 20, y: 520 },
+    for (let i = 0; i < levelsPages; i++) {
+      const buttonPage = new ButtonPage(
+        { x: 20 + i * 32, y: 520 },
         Images.buttonPagesImages,
         { w: 32, h: 32 },
         { x: 0, y: 0 },
-        25,
-      ),
-    ]
+        i + 1,
+      )
+      this.#btnsPages.push(buttonPage)
+    }
 
     // assign the singleton instance
     MenuSurvival.#instance = this
