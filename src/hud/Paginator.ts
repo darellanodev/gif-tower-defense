@@ -6,7 +6,9 @@ export class Paginator {
   #levelsPages: number
   #btnsPages: ButtonPage[] = []
   #currentPagesGroup: number
+  #active: number
   constructor(levelsPages: number) {
+    this.#active = 1
     this.#levelsPages = levelsPages
     this.#currentPagesGroup = 1
     this.#createButtons()
@@ -31,8 +33,18 @@ export class Paginator {
     this.#btnsPages = result
   }
 
+  set active(value: number) {
+    this.#active = value
+  }
+
   draw() {
     for (const btnPage of this.#btnsPages) {
+      if (!isNaN(parseInt(btnPage.label))) {
+        if (this.#active === parseInt(btnPage.label)) {
+          btnPage.drawOff()
+          continue
+        }
+      }
       btnPage.draw()
     }
   }

@@ -37,6 +37,7 @@ export class MenuSurvival {
     this.#levelsDataProvider = levelsDataProvider
 
     const levelsPages = this.#levelsDataProvider.getTotalPages()
+    this.#paginator = new Paginator(levelsPages)
     this.#getLevelsPage(1)
     // create the buttons
     this.#btnBackMenuMain = new Button(
@@ -44,8 +45,6 @@ export class MenuSurvival {
       { w: 166, h: 31 },
       Images.buttonMenuMainImages,
     )
-
-    this.#paginator = new Paginator(levelsPages)
 
     // assign the singleton instance
     MenuSurvival.#instance = this
@@ -59,6 +58,8 @@ export class MenuSurvival {
       MiniMap.TYPE_TEXT_LEFT,
       { x: 28, y: 160 },
     )
+
+    this.#paginator.active = page
   }
 
   static getInstance(

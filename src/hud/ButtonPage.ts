@@ -30,10 +30,14 @@ export class ButtonPage extends Button {
 
   drawOff() {
     super.drawOff()
+    TextProperties.setForPageButtons()
+    P5.p5.text(this.#label, this.#textPosition.x, this.#textPosition.y)
   }
 
   drawHover() {
     super.drawHover()
+    TextProperties.setForPageButtons()
+    P5.p5.text(this.#label, this.#textPosition.x, this.#textPosition.y)
   }
 
   get label() {
