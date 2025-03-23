@@ -59,3 +59,12 @@ test('getPageLevels, when request the page 2, return the next 15 levels', () => 
     21, 22, 23, 24, 25, 26, 27, 29, 30, 31, 32, 33, 34, 35, 36,
   ])
 })
+
+test('getTotalPages, when called, returns the total pages that can contain a maximum of 15 levels', () => {
+  const levelsDataProvider = LevelsDataProvider.getInstance()
+
+  levelsDataProvider.initLevels(LevelsDataTesting.data)
+
+  const result = levelsDataProvider.getTotalPages()
+  expect(result).toStrictEqual(3)
+})

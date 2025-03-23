@@ -39,4 +39,8 @@ export class LevelsDataProvider {
     const pageLevels = this.#levels.slice(15 * (page - 1), 15 * page)
     return pageLevels.map((level) => level.id)
   }
+
+  getTotalPages(): number {
+    return Math.ceil(this.#levels.length / 15)
+  }
 }
