@@ -40,17 +40,19 @@ export class Paginator {
     return null
   }
 
-  getLabels(currentPagesGroup: number): string[] {
+  getLabels(pagesGroup: number): string[] {
     const maxLevelsDisplay = 10
     const result: string[] = []
     result.push('<<')
 
+    const offset = 10 * pagesGroup - 10
+
     if (this.#levelsPages > maxLevelsDisplay) {
-      for (let i = 0; i < maxLevelsDisplay; i++) {
+      for (let i = 0 + offset; i < maxLevelsDisplay + offset; i++) {
         result.push(`${i + 1}`)
       }
     } else {
-      for (let i = 0; i < maxLevelsDisplay; i++) {
+      for (let i = 0 + offset; i < maxLevelsDisplay + offset; i++) {
         result.push(`${i + 1}`)
       }
     }
