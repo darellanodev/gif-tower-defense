@@ -37,14 +37,7 @@ export class MenuSurvival {
     this.#levelsDataProvider = levelsDataProvider
 
     const levelsPages = this.#levelsDataProvider.getTotalPages()
-    const levelsIdsRow1 = this.#levelsDataProvider.getPageLevelsIds(1)
-
-    this.#btnsMiniMaps = this.#buttonsMiniMapsCreator.createMultiRows(
-      levelsIdsRow1,
-      MiniMap.TYPE_TEXT_LEFT,
-      { x: 28, y: 160 },
-    )
-
+    this.#getLevelsPage(1)
     // create the buttons
     this.#btnBackMenuMain = new Button(
       { x: 610, y: 520 },
@@ -57,6 +50,17 @@ export class MenuSurvival {
     // assign the singleton instance
     MenuSurvival.#instance = this
   }
+
+  #getLevelsPage(page: number) {
+    const levelsIdsRow1 = this.#levelsDataProvider.getPageLevelsIds(page)
+
+    this.#btnsMiniMaps = this.#buttonsMiniMapsCreator.createMultiRows(
+      levelsIdsRow1,
+      MiniMap.TYPE_TEXT_LEFT,
+      { x: 28, y: 160 },
+    )
+  }
+
   static getInstance(
     stateManager: StateManager,
     buttonsMiniMapsCreator: ButtonsMiniMapsCreator,
@@ -88,12 +92,12 @@ export class MenuSurvival {
   mouseClicked() {
     const mousePosition = { x: P5.p5.mouseX, y: P5.p5.mouseY }
 
-    // check if player clic the survival mode button
+    // check if player click the survival mode button
     if (this.#btnBackMenuMain.isMouseOver(mousePosition)) {
       this.#stateManager.setMenuMain()
     }
 
-    // check if player clic one of the survival minimaps
+    // check if player click one of the survival minimaps
     for (const btnMiniMap of this.#btnsMiniMaps) {
       if (btnMiniMap.isMouseOver(mousePosition)) {
         const levelId = btnMiniMap.miniMap.levelId
@@ -101,6 +105,21 @@ export class MenuSurvival {
         this.#stateManager.setPlay()
       }
     }
+    // check if the player click on the paginator buttons
+    const btnPageClicked: string | null =
+      this.#paginator.mouseClicked(mousePosition)
+    if (btnPageClicked !== null) {
+      if (this.#isButtonPageNumber(btnPageClicked)) {
+        this.#getLevelsPage(parseInt(btnPageClicked))
+      } else if (btnPageClicked === '>>') {
+        // todo
+      } else if (btnPageClicked === '<<') {
+        // todo
+      }
+    }
+  }
+  #isButtonPageNumber(label: string) {
+    return !Number.isNaN(parseInt(label))
   }
   update() {}
 

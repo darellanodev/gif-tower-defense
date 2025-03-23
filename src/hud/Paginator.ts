@@ -1,5 +1,6 @@
 import { ButtonPage } from '../hud/ButtonPage'
 import { Images } from '../resources/Images'
+import { Position } from '../types/position'
 
 export class Paginator {
   #levelsPages: number
@@ -60,5 +61,14 @@ export class Paginator {
     for (const btnPage of this.#btnsPages) {
       btnPage.draw()
     }
+  }
+
+  mouseClicked(mousePosition: Position): string | null {
+    for (const btnPage of this.#btnsPages) {
+      if (btnPage.isMouseOver(mousePosition)) {
+        return btnPage.label
+      }
+    }
+    return null
   }
 }
