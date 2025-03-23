@@ -3,9 +3,9 @@ import { MiniMap } from './MiniMap'
 import { StateManager } from './StateManager'
 import { Button } from './hud/Button'
 import { ButtonMiniMap } from './hud/ButtonMiniMap'
-import { ButtonPage } from './hud/ButtonPage'
 import { ButtonsMiniMapsCreator } from './hud/ButtonsMiniMapsCreator'
 import { Debug } from './hud/Debug'
+import { Paginator } from './hud/Paginator'
 import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { Images } from './resources/Images'
 import { P5 } from './utils/P5'
@@ -14,11 +14,11 @@ export class MenuSurvival {
   static #instance: MenuSurvival | null = null
   #stateManager: StateManager
   #btnsMiniMaps: ButtonMiniMap[] = []
-  #btnsPages: ButtonPage[] = []
   #btnBackMenuMain: Button
   #buttonsMiniMapsCreator: ButtonsMiniMapsCreator
   #game: Game
   #levelsDataProvider: LevelsDataProvider
+  #paginator: Paginator
 
   constructor(
     stateManager: StateManager,
@@ -52,53 +52,7 @@ export class MenuSurvival {
       Images.buttonMenuMainImages,
     )
 
-    const maxLevelsDisplay = 10
-
-    // add the next button to navigate to the next group of pages
-    this.#btnsPages.push(
-      new ButtonPage(
-        { x: 20, y: 520 },
-        Images.buttonPagesImages,
-        { w: 32, h: 32 },
-        { x: 0, y: 0 },
-        '<<',
-      ),
-    )
-
-    if (levelsPages > maxLevelsDisplay) {
-      for (let i = 0; i < maxLevelsDisplay; i++) {
-        const buttonPage = new ButtonPage(
-          { x: 20 + (i + 1) * 32, y: 520 },
-          Images.buttonPagesImages,
-          { w: 32, h: 32 },
-          { x: 0, y: 0 },
-          `${i + 1}`,
-        )
-        this.#btnsPages.push(buttonPage)
-      }
-    } else {
-      for (let i = 0; i < maxLevelsDisplay; i++) {
-        const buttonPage = new ButtonPage(
-          { x: 20 + (i + 1) * 32, y: 520 },
-          Images.buttonPagesImages,
-          { w: 32, h: 32 },
-          { x: 0, y: 0 },
-          `${i + 1}`,
-        )
-        this.#btnsPages.push(buttonPage)
-      }
-    }
-
-    // add the next button to navigate to the next group of pages
-    this.#btnsPages.push(
-      new ButtonPage(
-        { x: 20 + (maxLevelsDisplay + 1) * 32, y: 520 },
-        Images.buttonPagesImages,
-        { w: 32, h: 32 },
-        { x: 0, y: 0 },
-        '>>',
-      ),
-    )
+    this.#paginator = new Paginator(levelsPages)
 
     // assign the singleton instance
     MenuSurvival.#instance = this
@@ -150,18 +104,12 @@ export class MenuSurvival {
   }
   update() {}
 
-  #drawPagination() {
-    for (const btnPage of this.#btnsPages) {
-      btnPage.draw()
-    }
-  }
-
   draw() {
     this.#drawBackground()
     this.#btnBackMenuMain.draw()
     this.#drawButtonsMiniMaps()
     this.#drawDebugElements()
-    this.#drawPagination()
+    this.#paginator.draw()
   }
 
   #drawButtonsMiniMaps() {
