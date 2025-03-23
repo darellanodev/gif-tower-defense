@@ -5,56 +5,24 @@ import { Position } from '../types/position'
 export class Paginator {
   #levelsPages: number
   #btnsPages: ButtonPage[] = []
+  #currentPagesGroup: number
   constructor(levelsPages: number) {
     this.#levelsPages = levelsPages
-
-    const maxLevelsDisplay = 10
-
-    // add the next button to navigate to the next group of pages
-    this.#btnsPages.push(
-      new ButtonPage(
-        { x: 20, y: 520 },
-        Images.buttonPagesImages,
-        { w: 32, h: 32 },
-        { x: 0, y: 0 },
-        '<<',
-      ),
-    )
-
-    if (this.#levelsPages > maxLevelsDisplay) {
-      for (let i = 0; i < maxLevelsDisplay; i++) {
-        const buttonPage = new ButtonPage(
-          { x: 20 + (i + 1) * 32, y: 520 },
+    this.#currentPagesGroup = 1
+    const labels = this.getLabels(this.#currentPagesGroup)
+    let i = 1
+    for (const label of labels) {
+      this.#btnsPages.push(
+        new ButtonPage(
+          { x: 20 + i * 32, y: 520 },
           Images.buttonPagesImages,
           { w: 32, h: 32 },
           { x: 0, y: 0 },
-          `${i + 1}`,
-        )
-        this.#btnsPages.push(buttonPage)
-      }
-    } else {
-      for (let i = 0; i < maxLevelsDisplay; i++) {
-        const buttonPage = new ButtonPage(
-          { x: 20 + (i + 1) * 32, y: 520 },
-          Images.buttonPagesImages,
-          { w: 32, h: 32 },
-          { x: 0, y: 0 },
-          `${i + 1}`,
-        )
-        this.#btnsPages.push(buttonPage)
-      }
+          label,
+        ),
+      )
+      i++
     }
-
-    // add the next button to navigate to the next group of pages
-    this.#btnsPages.push(
-      new ButtonPage(
-        { x: 20 + (maxLevelsDisplay + 1) * 32, y: 520 },
-        Images.buttonPagesImages,
-        { w: 32, h: 32 },
-        { x: 0, y: 0 },
-        '>>',
-      ),
-    )
   }
 
   draw() {
@@ -70,5 +38,25 @@ export class Paginator {
       }
     }
     return null
+  }
+
+  getLabels(currentPagesGroup: number): string[] {
+    const maxLevelsDisplay = 10
+    const result: string[] = []
+    result.push('<<')
+
+    if (this.#levelsPages > maxLevelsDisplay) {
+      for (let i = 0; i < maxLevelsDisplay; i++) {
+        result.push(`${i + 1}`)
+      }
+    } else {
+      for (let i = 0; i < maxLevelsDisplay; i++) {
+        result.push(`${i + 1}`)
+      }
+    }
+
+    result.push('>>')
+
+    return result
   }
 }
