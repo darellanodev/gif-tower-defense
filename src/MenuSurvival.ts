@@ -112,10 +112,8 @@ export class MenuSurvival {
       if (this.#isButtonPageNumber(btnPageClicked)) {
         this.#getLevelsPage(parseInt(btnPageClicked))
       } else if (btnPageClicked === '>>') {
-        console.log('clicked >>')
         this.#paginator.nextPagesGroup()
       } else if (btnPageClicked === '<<') {
-        console.log('clicked <<')
         this.#paginator.previousPagesGroup()
       }
     }
