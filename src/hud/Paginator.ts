@@ -9,10 +9,15 @@ export class Paginator {
   constructor(levelsPages: number) {
     this.#levelsPages = levelsPages
     this.#currentPagesGroup = 1
+    this.#createButtons()
+  }
+
+  #createButtons() {
     const labels = this.getLabels(this.#currentPagesGroup)
     let i = 1
+    const result = []
     for (const label of labels) {
-      this.#btnsPages.push(
+      result.push(
         new ButtonPage(
           { x: 20 + i * 32, y: 520 },
           Images.buttonPagesImages,
@@ -23,6 +28,7 @@ export class Paginator {
       )
       i++
     }
+    this.#btnsPages = result
   }
 
   draw() {
@@ -38,6 +44,21 @@ export class Paginator {
       }
     }
     return null
+  }
+
+  nextPagesGroup() {
+    if (this.#currentPagesGroup > this.#levelsPages / 10) {
+      return
+    }
+    this.#currentPagesGroup++
+    this.#createButtons()
+  }
+  previousPagesGroup() {
+    if (this.#currentPagesGroup === 1) {
+      return
+    }
+    this.#currentPagesGroup--
+    this.#createButtons()
   }
 
   getLabels(pagesGroup: number): string[] {
