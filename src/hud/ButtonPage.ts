@@ -7,13 +7,13 @@ import { P5 } from '../utils/P5'
 
 export class ButtonPage extends Button {
   #textPosition: Position
-  #pageNumber: number
+  #pageNumber: string
   constructor(
     position: Position,
     images: Image[],
     size: Size = { w: 48, h: 48 },
     offsetImages: Position = { x: 0, y: 0 },
-    pageNumber: number,
+    pageNumber: string,
   ) {
     super(position, size, images, offsetImages)
     this.#textPosition = position

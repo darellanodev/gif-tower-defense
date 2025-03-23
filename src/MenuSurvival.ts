@@ -52,17 +52,53 @@ export class MenuSurvival {
       Images.buttonMenuMainImages,
     )
 
-    // create de pages buttons
-    for (let i = 0; i < levelsPages; i++) {
-      const buttonPage = new ButtonPage(
-        { x: 20 + i * 32, y: 520 },
+    const maxLevelsDisplay = 10
+
+    // add the next button to navigate to the next group of pages
+    this.#btnsPages.push(
+      new ButtonPage(
+        { x: 20, y: 520 },
         Images.buttonPagesImages,
         { w: 32, h: 32 },
         { x: 0, y: 0 },
-        i + 1,
-      )
-      this.#btnsPages.push(buttonPage)
+        '<<',
+      ),
+    )
+
+    if (levelsPages > maxLevelsDisplay) {
+      for (let i = 0; i < maxLevelsDisplay; i++) {
+        const buttonPage = new ButtonPage(
+          { x: 20 + (i + 1) * 32, y: 520 },
+          Images.buttonPagesImages,
+          { w: 32, h: 32 },
+          { x: 0, y: 0 },
+          `${i + 1}`,
+        )
+        this.#btnsPages.push(buttonPage)
+      }
+    } else {
+      for (let i = 0; i < maxLevelsDisplay; i++) {
+        const buttonPage = new ButtonPage(
+          { x: 20 + (i + 1) * 32, y: 520 },
+          Images.buttonPagesImages,
+          { w: 32, h: 32 },
+          { x: 0, y: 0 },
+          `${i + 1}`,
+        )
+        this.#btnsPages.push(buttonPage)
+      }
     }
+
+    // add the next button to navigate to the next group of pages
+    this.#btnsPages.push(
+      new ButtonPage(
+        { x: 20 + (maxLevelsDisplay + 1) * 32, y: 520 },
+        Images.buttonPagesImages,
+        { w: 32, h: 32 },
+        { x: 0, y: 0 },
+        '>>',
+      ),
+    )
 
     // assign the singleton instance
     MenuSurvival.#instance = this
