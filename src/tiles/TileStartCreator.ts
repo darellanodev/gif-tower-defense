@@ -42,27 +42,14 @@ export class TileStartCreator {
     if (this.#mapImages === null) {
       return null
     }
-    switch (levelMap.startDirection) {
-      case ConstDirection.DOWN:
-        return this.#mapImages[6]
-        break
-
-      case ConstDirection.RIGHT:
-        return this.#mapImages[7]
-        break
-
-      case ConstDirection.LEFT:
-        return this.#mapImages[8]
-        break
-
-      case ConstDirection.UP:
-        return this.#mapImages[9]
-        break
-
-      default:
-        return this.#mapImages[8]
-        break
+    const startDirectionMap = {
+      [ConstDirection.DOWN]: 6,
+      [ConstDirection.RIGHT]: 7,
+      [ConstDirection.LEFT]: 8,
+      [ConstDirection.UP]: 9,
     }
+    const index = startDirectionMap[levelMap.startDirection]
+    return this.#mapImages[index] ?? 8
   }
 
   #instanceStartTile(

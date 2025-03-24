@@ -100,23 +100,16 @@ export class OldLevelConverter {
     return this.#newLevelData.endDirection
   }
   #directionToText(direction: number): string {
-    switch (direction) {
-      case 1:
-        return 'ConstDirection.RIGHT'
-        break
-      case 2:
-        return 'ConstDirection.LEFT'
-        break
-      case 3:
-        return 'ConstDirection.DOWN'
-        break
-      case 4:
-        return 'ConstDirection.UP'
-        break
-      default:
-        return 'ConstDirection.LEFT'
-        break
+    const directionMap = {
+      1: 'ConstDirection.RIGHT',
+      2: 'ConstDirection.LEFT',
+      3: 'ConstDirection.DOWN',
+      4: 'ConstDirection.UP',
     }
+    return (
+      (directionMap as Record<number, string>)[direction] ||
+      'ConstDirection.LEFT'
+    )
   }
   get #startDirectionText() {
     return this.#directionToText(this.startDirection)

@@ -4,6 +4,7 @@ import { ConstDirection } from '../constants/ConstDirection'
 import { TileEnd } from './TileEnd'
 import { MapDataType } from '../types/mapDataType'
 import { ConstTest } from '../constants/ConstTest'
+import { Const } from '../constants/Const'
 
 export class TileEndCreator {
   static #instance: TileEndCreator | null = null
@@ -57,27 +58,16 @@ export class TileEndCreator {
     if (this.#mapImages === null) {
       return null
     }
-    switch (levelMap.endDirection) {
-      case ConstDirection.DOWN:
-        return this.#mapImages[5]
-        break
 
-      case ConstDirection.RIGHT:
-        return this.#mapImages[4]
-        break
-
-      case ConstDirection.LEFT:
-        return this.#mapImages[3]
-        break
-
-      case ConstDirection.UP:
-        return this.#mapImages[2]
-        break
-
-      default:
-        return this.#mapImages[3]
-        break
+    const directionImageMap = {
+      [ConstDirection.DOWN]: 5,
+      [ConstDirection.RIGHT]: 4,
+      [ConstDirection.LEFT]: 3,
+      [ConstDirection.UP]: 2,
     }
+
+    const imageIndex = directionImageMap[levelMap.endDirection] ?? 3
+    return this.#mapImages[imageIndex]
   }
 
   #processRow(

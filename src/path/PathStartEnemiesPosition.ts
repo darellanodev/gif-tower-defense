@@ -33,32 +33,17 @@ export class PathStartEnemiesPosition {
     if (this.#tileStart === null) {
       throw new Error('tileStart is null')
     }
-    let finalX = 0
-    let finalY = 0
 
-    // LEFT by default
-    const finalPosition = this.#tileStart.position
-
-    switch (this.#tileStart.getStartDirection()) {
-      case ConstDirection.RIGHT:
-        finalX = finalPosition.x - Const.TILE_SIZE
-        finalY = finalPosition.y
-        break
-      case ConstDirection.UP:
-        finalX = finalPosition.x
-        finalY = finalPosition.y + Const.TILE_SIZE
-        break
-      case ConstDirection.DOWN:
-        finalX = finalPosition.x
-        finalY = finalPosition.y - Const.TILE_SIZE
-        break
-      default:
-        // LEFT by default
-        finalX = finalPosition.x + Const.TILE_SIZE
-        finalY = finalPosition.y
-        break
+    const directionMap: Record<number, { x: number; y: number }> = {
+      [ConstDirection.RIGHT]: { x: -Const.TILE_SIZE, y: 0 },
+      [ConstDirection.UP]: { x: 0, y: Const.TILE_SIZE },
+      [ConstDirection.DOWN]: { x: 0, y: -Const.TILE_SIZE },
     }
 
-    return { x: finalX, y: finalY }
+    const finalPosition = this.#tileStart.position
+    const direction = this.#tileStart.getStartDirection()
+    const offset = directionMap[direction] ?? { x: Const.TILE_SIZE, y: 0 } // LEFT by default
+
+    return { x: finalPosition.x + offset.x, y: finalPosition.y + offset.y }
   }
 }

@@ -64,25 +64,20 @@ export class Wallet {
     this.#money += value
   }
 
-  haveMoneyToUpgradeTower(towerId: number, upgradeLevel: number) {
-    let canBuy = false
-
-    switch (towerId) {
-      case TowerGreen.ID:
-        canBuy = this.money >= TowerGreen.COST_UPGRADE[upgradeLevel]
-        break
-      case TowerRed.ID:
-        canBuy = this.money >= TowerRed.COST_UPGRADE[upgradeLevel]
-        break
-      case TowerYellow.ID:
-        canBuy = this.money >= TowerYellow.COST_UPGRADE[upgradeLevel]
-        break
-
-      default:
-        break
+  haveMoneyToUpgradeTower(towerId: number, upgradeLevel: number): boolean {
+    const towerCosts = {
+      [TowerGreen.ID]: TowerGreen.COST_UPGRADE,
+      [TowerRed.ID]: TowerRed.COST_UPGRADE,
+      [TowerYellow.ID]: TowerYellow.COST_UPGRADE,
     }
 
-    return canBuy
+    const cost = towerCosts[towerId]?.[upgradeLevel]
+
+    if (cost === undefined) {
+      throw new Error(`Unknown tower id: ${towerId}`)
+    }
+
+    return this.money >= cost
   }
 
   haveMoneyToBuyNewTower(towerId: number) {

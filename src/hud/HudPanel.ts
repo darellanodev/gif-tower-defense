@@ -16,19 +16,13 @@ export class HudPanel {
   }
 
   draw() {
-    switch (HudPanel.mode) {
-      case HudPanel.NORMAL:
-        P5.p5.image(this.#hudImages[HudPanel.NORMAL], 0, 0)
-        break
-
-      case HudPanel.UPGRADING:
-        P5.p5.image(this.#hudImages[HudPanel.UPGRADING], 0, 0)
-        break
-
-      case HudPanel.UPGRADING_MAX:
-        P5.p5.image(this.#hudImages[HudPanel.UPGRADING_MAX], 0, 0)
-        break
+    const hudImages = {
+      [HudPanel.NORMAL]: this.#hudImages[HudPanel.NORMAL],
+      [HudPanel.UPGRADING]: this.#hudImages[HudPanel.UPGRADING],
+      [HudPanel.UPGRADING_MAX]: this.#hudImages[HudPanel.UPGRADING_MAX],
     }
+
+    P5.p5.image(hudImages[HudPanel.mode], 0, 0)
   }
 
   selectHudMode(tower: TowerType | null) {

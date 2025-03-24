@@ -33,21 +33,12 @@ export class InfluenceArea {
   }
 
   static _getInfluenceAreaFor(towerSelected: number) {
-    let influenceArea: number = 0
-    switch (towerSelected) {
-      case TowerGreen.ID:
-        influenceArea = TowerGreen.UPGRADE_INFLUENCE_AREA[0]
-        break
-
-      case TowerRed.ID:
-        influenceArea = TowerRed.UPGRADE_INFLUENCE_AREA[0]
-        break
-
-      case TowerYellow.ID:
-        influenceArea = TowerYellow.UPGRADE_INFLUENCE_AREA[0]
-        break
+    const influenceMap = {
+      [TowerGreen.ID]: TowerGreen.UPGRADE_INFLUENCE_AREA[0],
+      [TowerRed.ID]: TowerRed.UPGRADE_INFLUENCE_AREA[0],
+      [TowerYellow.ID]: TowerYellow.UPGRADE_INFLUENCE_AREA[0],
     }
-    return influenceArea
+    return influenceMap[towerSelected]
   }
 
   static drawNoTowerInfluenceArea(
