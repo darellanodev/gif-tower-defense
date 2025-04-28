@@ -115,19 +115,19 @@ export class Enemy extends Obj {
     this.#winned = false
   }
 
-  #reinitEnemy() {
+  #reInitEnemy() {
     this.#enemyAnimator.restart()
     this.#reduction = 0
-    this.#pathMovement.reinit()
+    this.#pathMovement.reInit()
   }
 
   dropFromUFO() {
-    this.#reinitEnemy()
+    this.#reInitEnemy()
   }
 
-  #reinitWinnerEnemy() {
+  #reInitWinnerEnemy() {
     this.#winned = true
-    this.#reinitEnemy()
+    this.#reInitEnemy()
   }
 
   #updateHealthBarPosition() {
@@ -170,7 +170,7 @@ export class Enemy extends Obj {
 
     this.#pathMovement.update()
     if (!this.#pathMovement.isAlive) {
-      this.#reinitWinnerEnemy()
+      this.#reInitWinnerEnemy()
     }
     this.updatePosition()
 

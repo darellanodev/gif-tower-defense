@@ -25,7 +25,7 @@ export class HudProgressBarWave extends ProgressBar {
 
       if (this.isFullOfProgress()) {
         // next wave
-        this.reinitProgress()
+        this.reInitProgress()
         this.#player.increaseWave()
         instantiateEnemies = true
       }

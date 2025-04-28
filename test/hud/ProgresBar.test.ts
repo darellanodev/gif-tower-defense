@@ -26,10 +26,10 @@ describe('get progress', () => {
 
     expect(result).toBe(100)
   })
-  test('when increase progress by 20 and then we call to reinitProgress, return 0', () => {
+  test('when increase progress by 20 and then we call to reInitProgress, return 0', () => {
     const progressBar = instantiateProgressBar()
     progressBar.increaseProgress(20)
-    progressBar.reinitProgress()
+    progressBar.reInitProgress()
 
     const result = progressBar.progress
 

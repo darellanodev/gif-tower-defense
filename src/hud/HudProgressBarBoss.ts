@@ -20,7 +20,7 @@ export class HudProgressBarBoss extends ProgressBar {
 
       if (this.isFullOfProgress()) {
         // next boss
-        this.reinitProgress()
+        this.reInitProgress()
         instantiateBoss = true
       }
     }

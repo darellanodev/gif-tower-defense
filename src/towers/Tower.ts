@@ -113,20 +113,20 @@ export class Tower extends Obj {
     return Tower.UPGRADE_INCREMENT / (this.upgradeLevel + 1)
   }
 
-  #reinitUpgrading() {
+  #reInitUpgrading() {
     this.upgrading = false
-    this.progressBar.reinitProgress()
+    this.progressBar.reInitProgress()
   }
 
   update() {
     if (this.upgrading) {
       if (Tower.INSTANT_UPGRADING) {
-        this.#reinitUpgrading()
+        this.#reInitUpgrading()
       } else {
         if (!this.progressBar.isFullOfProgress()) {
           this.progressBar.increaseProgress(this.upgradeIncrement)
         } else {
-          this.#reinitUpgrading()
+          this.#reInitUpgrading()
         }
       }
     }

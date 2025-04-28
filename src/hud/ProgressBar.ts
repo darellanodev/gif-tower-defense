@@ -18,7 +18,7 @@ export class ProgressBar extends Obj {
     return this.#progress
   }
 
-  reinitProgress() {
+  reInitProgress() {
     this.#progress = 0
   }
 

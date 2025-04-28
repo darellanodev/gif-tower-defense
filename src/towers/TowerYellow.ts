@@ -49,7 +49,7 @@ export class TowerYellow extends Tower {
     if (!this.upgrading) {
       this.upgrading = true
       this.upgradeLevel++
-      this.#coreProgressBar.reinitProgress()
+      this.#coreProgressBar.reInitProgress()
     }
   }
 
@@ -59,7 +59,7 @@ export class TowerYellow extends Tower {
     } else {
       const incrementLives = this.upgradeLevel + 1
       this.#player.increaseLives(incrementLives)
-      this.#coreProgressBar.reinitProgress()
+      this.#coreProgressBar.reInitProgress()
 
       const flyIndicatorText = `+ ${incrementLives}`
       FlyIndicator.instantiateFlyIndicator(

@@ -101,7 +101,7 @@ export class PathMovement {
     this.#isAlive = false
   }
 
-  reinit() {
+  reInit() {
     this.#moveCount = 0
     this.#indexOrder = 0
     this.#currentDirection = this.#orders[this.#indexOrder]
