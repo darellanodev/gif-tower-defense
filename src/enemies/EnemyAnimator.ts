@@ -18,7 +18,7 @@ export class EnemyAnimator {
   #imgIndexBeforeEyesClosed: number
   #eyesSequence: number[]
   #changeEyesTime: number = 0
-  #indexEyesSecuence: number = 0
+  #indexEyesSequence: number = 0
   #closeEyesTime: number = 0
   #extendClosedEyesTime: number = 0
   #randomCloseEyes: number = 0
@@ -49,12 +49,12 @@ export class EnemyAnimator {
 
     if (this.#changeEyesTime > EnemyAnimator.CHANGE_EYES_MAX_TIME) {
       this.#changeEyesTime = 0
-      this.#indexEyesSecuence++
-      if (this.#indexEyesSecuence == this.#eyesSequence.length) {
-        this.#indexEyesSecuence = 0
+      this.#indexEyesSequence++
+      if (this.#indexEyesSequence == this.#eyesSequence.length) {
+        this.#indexEyesSequence = 0
       }
 
-      this.#imgIndex = this.#eyesSequence[this.#indexEyesSecuence]
+      this.#imgIndex = this.#eyesSequence[this.#indexEyesSequence]
     }
   }
 
@@ -95,7 +95,7 @@ export class EnemyAnimator {
 
   restart() {
     this.#changeEyesTime = 0
-    this.#indexEyesSecuence = 0
+    this.#indexEyesSequence = 0
     this.#closeEyesTime = 0
     this.#extendClosedEyesTime = 0
     this.#setRandomTimeMaxForClosingEyes()
