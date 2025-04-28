@@ -17,7 +17,7 @@ test('alive, when updating instances 1000 times the missile collides with the en
   expect(result).toBeFalsy()
 })
 
-test('instances lenght, when instantiating 1 instance and updating instances 1000 times the missile collides with the enemy and missile is dead, return 0 instances', () => {
+test('instances length, when instantiating 1 instance and updating instances 1000 times the missile collides with the enemy and missile is dead, return 0 instances', () => {
   instantiateMissile()
   for (let i = 0; i < 1000; i++) {
     Missile.updateInstances()

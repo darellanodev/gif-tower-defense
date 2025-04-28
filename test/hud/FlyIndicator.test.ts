@@ -34,7 +34,7 @@ test('get position, when FlyIndicator is recently created and updated one time, 
   expect(result).toBeTruthy()
 })
 
-describe('FlyIndicator.instances.lenght', () => {
+describe('FlyIndicator.instances.length', () => {
   test('when we instantiate one FlyIndicator and is recently created and updated one time and removed dead instances, return 1', () => {
     instantiateFlyIndicator()
     FlyIndicator.updateInstances()

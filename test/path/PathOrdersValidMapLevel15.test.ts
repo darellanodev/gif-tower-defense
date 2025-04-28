@@ -97,7 +97,7 @@ describe('makeOrders', () => {
     expect(result).toBeTruthy()
   })
 
-  test('orders lenght is 59', () => {
+  test('orders length is 59', () => {
     const result = orders.length
     expect(result).toBe(59)
   })
