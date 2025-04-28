@@ -60,7 +60,7 @@ test('reachEnd, when the magicfireball is recently created, return false', () =>
   expect(result).toBeFalsy()
 })
 
-test('damage of enemy, when enemy is enought strong and collides with a fireball, damage is not total (it is more than 0 but less than 100)', () => {
+test('damage of enemy, when enemy is enough strong and collides with a fireball, damage is not total (it is more than 0 but less than 100)', () => {
   // turn off explosions
   ConstTest.DISABLE_EXPLOSION_FOR_UNIT_TESTING = true
 
