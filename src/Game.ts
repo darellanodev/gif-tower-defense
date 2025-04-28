@@ -281,7 +281,7 @@ export class Game {
     return gameStatus
   }
 
-  #handleExplosionEnemys() {
+  #handleExplosionEnemies() {
     const deadEnemies: Enemy[] = this.#enemyInstancesManager
       .getAll()
       .filter((enemy) => enemy.dead)
@@ -419,7 +419,7 @@ export class Game {
 
   #updateEnemies() {
     this.#handleEnemyNormalCreation()
-    this.#handleExplosionEnemys()
+    this.#handleExplosionEnemies()
     this.#enemyInstancesManager.removeDeadInstances()
     this.#enemyInstancesManager.updateInstances()
 
