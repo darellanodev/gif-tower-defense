@@ -1,7 +1,7 @@
 import { describe, expect } from 'vitest'
 import { Player } from '../../src/player/Player'
 
-test('dont call the constructor two times', () => {
+test('do not call the constructor two times', () => {
   new Player()
   expect(() => new Player()).toThrow(
     'Player is a singleton class. Use getInstance to get the instance of the Player',
