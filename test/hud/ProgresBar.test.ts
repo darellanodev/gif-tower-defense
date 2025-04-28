@@ -2,7 +2,7 @@ import { describe, expect } from 'vitest'
 import { instantiateProgressBar } from '../helpers/progressBar'
 
 describe('get progress', () => {
-  test('when it is initialy created, return zero', () => {
+  test('when it is initially created, return zero', () => {
     const progressBar = instantiateProgressBar()
     const result = progressBar.progress
 

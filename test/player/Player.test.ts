@@ -9,7 +9,7 @@ test('dont call the constructor two times', () => {
 })
 
 describe('getPrintScore', () => {
-  test('when initialy there is no score, print 0000000000', () => {
+  test('when initially there is no score, print 0000000000', () => {
     const player = Player.getInstance()
     player.score = 0
 
@@ -26,7 +26,7 @@ describe('getPrintScore', () => {
   })
 })
 
-test('increaseScore, when initialy there is no score and it increases 10 and 15, score is 25', () => {
+test('increaseScore, when initially there is no score and it increases 10 and 15, score is 25', () => {
   const player = Player.getInstance()
   player.score = 0
 
