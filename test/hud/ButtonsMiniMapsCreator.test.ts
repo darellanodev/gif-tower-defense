@@ -8,7 +8,7 @@ const levelsIds = [1, 1, 1, 1, 1, 1]
 const initialPosition = { x: 100, y: 200 }
 const buttonsMiniMapsCreator = getButtonsMiniMapsCreator()
 
-test('createMultiRows, when we pass six levels Ids, then the 6th button minimap is in the sencond row', () => {
+test('createMultiRows, when we pass six levels Ids, then the 6th button minimap is in the second row', () => {
   const buttonsMiniMaps = buttonsMiniMapsCreator.createMultiRows(
     levelsIds,
     MiniMap.TYPE_TEXT_DOWN,
