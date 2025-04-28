@@ -48,7 +48,7 @@ describe('set initialMoney', () => {
       const wallet = Wallet.getInstance(Wallet.GAME_NORMAL_MODE, money)
     }).toThrow('Money must be a positive number')
   })
-  test('when game mode is GAME_TESTING_MODE if we set the intial money to 150, money still sets to MONEY_IN_TESTING_MODE', () => {
+  test('when game mode is GAME_TESTING_MODE if we set the initial money to 150, money still sets to MONEY_IN_TESTING_MODE', () => {
     Wallet.clearInstance()
     const money = 150
     const wallet = Wallet.getInstance(Wallet.GAME_TESTING_MODE, money)
