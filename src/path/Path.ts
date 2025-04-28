@@ -148,7 +148,7 @@ export class Path {
     }
   }
 
-  #proccessRightDirection() {
+  #processRightDirection() {
     this.#checkEndTile()
 
     if (!this.#endReached) {
@@ -203,7 +203,7 @@ export class Path {
     }
 
     if (this.#currentDirection === ConstDirection.RIGHT) {
-      this.#proccessRightDirection()
+      this.#processRightDirection()
     }
 
     if (this.#currentDirection === ConstDirection.UP) {
