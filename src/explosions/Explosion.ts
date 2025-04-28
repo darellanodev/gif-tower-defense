@@ -5,7 +5,7 @@ import { Position } from '../types/position'
 export class Explosion extends Obj {
   static MAX_EMIT_TIME = 5
 
-  #emisionTime: number = 0
+  #emissionTime: number = 0
 
   particleSystem: ParticleSystem | null
   constructor(position: Position) {
@@ -24,8 +24,8 @@ export class Explosion extends Obj {
     if (!this.alive) {
       return
     }
-    if (this.#emisionTime < Explosion.MAX_EMIT_TIME) {
-      this.#emisionTime++
+    if (this.#emissionTime < Explosion.MAX_EMIT_TIME) {
+      this.#emissionTime++
       this.particleSystem.addParticle()
     }
     this.particleSystem.run()
