@@ -123,12 +123,12 @@ export class MenuMain {
   mouseClicked() {
     const mousePosition = { x: P5.p5.mouseX, y: P5.p5.mouseY }
 
-    // check if player clic the survival mode button
+    // check if player click the survival mode button
     if (this.#btnSurvival.isMouseOver(mousePosition)) {
       this.#stateManager.setMenuSurvival()
     }
 
-    // check if player clic over one last level edited minimap (currently there is only one)
+    // check if player click over one last level edited minimap (currently there is only one)
     for (const btnMiniMapEditor of this.#btnsMiniMapsEditor) {
       if (btnMiniMapEditor.isMouseOver(mousePosition)) {
         const levelId = btnMiniMapEditor.miniMap.levelId
@@ -136,7 +136,7 @@ export class MenuMain {
         this.#stateManager.setPlay()
       }
     }
-    // check if player clic one of the last played levels
+    // check if player click one of the last played levels
     for (const btnMiniMapLastPlayed of this.#btnsMiniMapsLastLevelsPlayed) {
       if (btnMiniMapLastPlayed.isMouseOver(mousePosition)) {
         const levelId = btnMiniMapLastPlayed.miniMap.levelId

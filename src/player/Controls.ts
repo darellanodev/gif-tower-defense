@@ -83,11 +83,11 @@ export class Controls {
         this.#magicUFOInstancesManager,
       )
     } else if (this.mouseTileOrangeOver !== null) {
-      this.clicOrangeTile(this.mouseTileOrangeOver)
+      this.clickOrangeTile(this.mouseTileOrangeOver)
     }
   }
 
-  clicOrangeTile(mouseTileOrangeOver: TileOrange) {
+  clickOrangeTile(mouseTileOrangeOver: TileOrange) {
     const tower = mouseTileOrangeOver.getTower()
 
     if (P5.p5.mouseButton === P5.p5.RIGHT && tower) {
