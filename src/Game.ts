@@ -292,7 +292,7 @@ export class Game {
 
       ExplosionEnemy.instantiate(enemy.position)
 
-      const $increasedMoney = enemy.endurance * Const.MONEY_MULTIPLICATOR
+      const $increasedMoney = enemy.endurance * Const.MONEY_FACTOR
       this.#wallet.increaseMoney($increasedMoney)
       this.#player.increaseScore($increasedMoney * 2)
     })
