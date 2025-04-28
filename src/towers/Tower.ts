@@ -51,7 +51,7 @@ export class Tower extends Obj {
   }
 
   get sellProfit() {
-    // this method is overriden by child classes
+    // this method is overridden by child classes
     return 0
   }
 
@@ -133,7 +133,7 @@ export class Tower extends Obj {
   }
 
   get type() {
-    // this method is overriden by child classes
+    // this method is overridden by child classes
     return 0
   }
 
