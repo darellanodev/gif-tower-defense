@@ -27,6 +27,10 @@ This is an attempt to rewrite my old game Gif Tower Defense (2012) originally ma
 
 <https://darellanodev.github.io/tryitonline/giftowerdefense/index.html>
 
+## Installation
+
+Run the command `pnpm install`
+
 ## Execute the unit tests
 
 - Execute `run_tests.sh`
