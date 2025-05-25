@@ -500,6 +500,11 @@ export class Game {
     P5.p5.text('Game over', P5.p5.width / 2, P5.p5.height / 2)
   }
 
+  #drawPauseScreen() {
+    TextProperties.setForBigCenteredTitle()
+    P5.p5.text('Game paused', P5.p5.width / 2, P5.p5.height / 2)
+  }
+
   #drawDebugElements() {
     Debug.showMouseCoordinates(
       { x: P5.p5.mouseX, y: P5.p5.mouseY },
@@ -532,6 +537,10 @@ export class Game {
 
     if (this.#stateManager.isGameOver()) {
       this.#drawGameOverScreen()
+    }
+
+    if (this.#stateManager.isPaused()) {
+      this.#drawPauseScreen()
     }
 
     Missile.removeDeadInstances()

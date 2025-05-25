@@ -54,6 +54,10 @@ export class StateManager {
     return this.#state === StateManager.STATE_PLAY_SURVIVAL_GAME_OVER
   }
 
+  isPaused() {
+    return this.#state === StateManager.STATE_PLAY_SURVIVAL_PAUSE
+  }
+
   get state() {
     return this.#state
   }
