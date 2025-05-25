@@ -61,15 +61,19 @@ export class Controls {
         this.#hudButtonsTowers.selectTower(TowerYellow.ID)
         break
       case Const.KEY_P:
-        if (this.#isPauseAvailable()) {
-          if (this.#stateManager.isPaused()) {
-            this.#stateManager.setPlay()
-          } else {
-            this.#stateManager.setPause()
-            this.#pauseBtnTimeReady = 10
-          }
-        }
+        this.#togglePause()
         break
+    }
+  }
+
+  #togglePause() {
+    if (this.#isPauseAvailable()) {
+      if (this.#stateManager.isPaused()) {
+        this.#stateManager.setPlay()
+      } else {
+        this.#stateManager.setPause()
+        this.#pauseBtnTimeReady = 10
+      }
     }
   }
 
