@@ -99,6 +99,9 @@ _p5 = new p5((p: p5) => {
       case StateManager.STATE_PLAY_SURVIVAL:
         game.keyPressed(p.keyCode)
         break
+      case StateManager.STATE_PLAY_SURVIVAL_PAUSE:
+        game.keyPressed(p.keyCode)
+        break
       default:
         break
     }

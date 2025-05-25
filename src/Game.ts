@@ -518,6 +518,9 @@ export class Game {
   }
 
   draw() {
+    if (this.#controls !== null) {
+      this.#controls.pauseTimeReady()
+    }
     if (this.#wallet === null) {
       throw new Error('wallet is null')
     }

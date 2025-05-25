@@ -27,6 +27,8 @@ export class Controls {
   #magicUFOInstancesManager: MagicInstancesManager
   #pathStartEnemiesPosition: Position
 
+  #pauseBtnTimeReady: number = 0
+
   constructor(
     stateManager: StateManager,
     hudButtonsMagics: HudButtonsMagics,
@@ -59,8 +61,26 @@ export class Controls {
         this.#hudButtonsTowers.selectTower(TowerYellow.ID)
         break
       case Const.KEY_P:
-        this.#stateManager.setPause()
+        if (this.#isPauseAvailable()) {
+          if (this.#stateManager.isPaused()) {
+            this.#stateManager.setPlay()
+          } else {
+            this.#stateManager.setPause()
+            this.#pauseBtnTimeReady = 10
+          }
+        }
+        break
     }
+  }
+
+  pauseTimeReady() {
+    if (this.#pauseBtnTimeReady > 0) {
+      this.#pauseBtnTimeReady--
+    }
+  }
+
+  #isPauseAvailable() {
+    return this.#pauseBtnTimeReady === 0
   }
 
   get mouseTileOrangeOver(): TileOrange | null {
