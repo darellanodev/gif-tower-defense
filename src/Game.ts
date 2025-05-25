@@ -61,7 +61,6 @@ export class Game {
   #hudOtherIndicators: HudOtherIndicators | null = null
   #controls: Controls | null = null
   #levelsDataProvider: LevelsDataProvider
-  #gameStatus: number = 0
   #instantiateBoss: boolean = false
   #instantiateEnemies: boolean = false
   #stateManager: StateManager
@@ -268,18 +267,16 @@ export class Game {
   }
 
   #handleWinners() {
-    let gameStatus = Const.GAME_STATUS_PLAYING
     const winnerEnemies = this.#enemyInstancesManager
       .getAll()
       .filter((enemy) => enemy.winner)
     winnerEnemies.forEach((enemy) => {
       this.#player.decreaseLives()
       if (this.#player.lives <= 0) {
-        gameStatus = Const.GAME_STATUS_GAME_OVER
+        this.#stateManager.setGameOver()
       }
       enemy.resetWinner()
     })
-    return gameStatus
   }
 
   #handleExplosionEnemies() {
@@ -455,7 +452,7 @@ export class Game {
     if (this.#controls === null) {
       throw new Error('controls is null')
     }
-    this.#gameStatus = this.#updateEnemies()
+    this.#updateEnemies()
     this.#controls.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
     this.#instantiateEnemies = this.#hudProgressBarWave.updateWaveProgressBar()
     this.#instantiateBoss = this.#hudProgressBarBoss.updateBossProgressBar()
@@ -519,7 +516,7 @@ export class Game {
     if (this.#wallet === null) {
       throw new Error('wallet is null')
     }
-    if (this.#gameStatus === Const.GAME_STATUS_PLAYING) {
+    if (this.#stateManager.isPlaying()) {
       this.#drawPlayingThings()
     }
 
@@ -533,7 +530,7 @@ export class Game {
     this.#drawExplosions()
     this.#drawFlyIndicators()
 
-    if (this.#gameStatus === Const.GAME_STATUS_GAME_OVER) {
+    if (this.#stateManager.isGameOver()) {
       this.#drawGameOverScreen()
     }
 
