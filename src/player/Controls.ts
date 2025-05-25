@@ -43,8 +43,8 @@ export class Controls {
     this.#pathStartEnemiesPosition = pathStartEnemiesPosition
   }
 
-  keyPressed() {
-    switch (P5.p5.keyCode) {
+  keyPressed(keyCode: number) {
+    switch (keyCode) {
       case Const.KEY_1:
         this.#hudButtonsTowers.selectTower(TowerGreen.ID)
         break

@@ -486,11 +486,11 @@ export class Game {
     this.#controls.mouseClicked()
   }
 
-  keyPressed() {
+  keyPressed(keyCode: number) {
     if (this.#controls === null) {
       throw new Error('controls is null')
     }
-    this.#controls.keyPressed()
+    this.#controls.keyPressed(keyCode)
   }
 
   #drawEnemies() {
