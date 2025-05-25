@@ -13,8 +13,10 @@ import { MagicInstancesManager } from '../magics/MagicInstancesManager'
 import { TowerType } from '../types/towerType'
 import { Images } from '../resources/Images'
 import { Path } from '../path/Path'
+import { StateManager } from '../StateManager'
 
 export class Controls {
+  #stateManager: StateManager
   #mouseTileOrangeOver: TileOrange | null = null
   #hudButtonsTowers: HudButtonsTowers
   #hudButtonsMagics: HudButtonsMagics
@@ -26,6 +28,7 @@ export class Controls {
   #pathStartEnemiesPosition: Position
 
   constructor(
+    stateManager: StateManager,
     hudButtonsMagics: HudButtonsMagics,
     hudButtonsTowers: HudButtonsTowers,
     wallet: Wallet,
@@ -34,6 +37,7 @@ export class Controls {
     magicUFOInstancesManager: MagicInstancesManager,
     pathStartEnemiesPosition: Position,
   ) {
+    this.#stateManager = stateManager
     this.#hudButtonsMagics = hudButtonsMagics
     this.#hudButtonsTowers = hudButtonsTowers
     this.#wallet = wallet
@@ -54,6 +58,8 @@ export class Controls {
       case Const.KEY_3:
         this.#hudButtonsTowers.selectTower(TowerYellow.ID)
         break
+      case Const.KEY_P:
+        this.#stateManager.setPause()
     }
   }
 

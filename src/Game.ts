@@ -211,6 +211,7 @@ export class Game {
     this.#tileOrangeCreator.createAll(levelMap, this.#tilesManager)
 
     this.#controls = new Controls(
+      this.#stateManager,
       this.#hudButtonsMagics,
       this.#hudButtonsTowers,
       this.#wallet,
