@@ -7,6 +7,7 @@ export class Const {
   static KEY_1 = 49
   static KEY_2 = 50
   static KEY_3 = 51
+  static KEY_P = 80
   static TOWER_OFFSET = 5
   static EXPLOSION_OFFSET = 25
   static GAME_STATUS_PLAYING = 0
