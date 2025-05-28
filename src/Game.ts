@@ -42,6 +42,8 @@ import { Position } from './types/position'
 import { MapDataType } from './types/mapDataType'
 import { Size } from './types/size'
 import { TileBlackCreator } from './tiles/TileBlackCreator'
+import { ButtonPause } from './hud/ButtonPause'
+import { HudButtonsOthers } from './hud/HudButtonsOthers'
 
 export class Game {
   static #instance: Game | null = null
@@ -56,6 +58,7 @@ export class Game {
   #hudPanel: HudPanel
   #hudButtonsMagics: HudButtonsMagics
   #hudButtonsTowers: HudButtonsTowers | null = null
+  #hudButtonOthers: HudButtonsOthers | null = null
   #hudProgressBarBoss: HudProgressBarBoss
   #hudProgressBarWave: HudProgressBarWave
   #hudOtherIndicators: HudOtherIndicators | null = null
@@ -143,6 +146,9 @@ export class Game {
     )
     ButtonTower.initializeButtons()
 
+    ButtonPause.setImages(Images.buttonPauseImages)
+    ButtonPause.initializePauseButton()
+
     this.#hudPanel = new HudPanel(Images.hudImages)
     this.#hudButtonsMagics = new HudButtonsMagics()
 
@@ -176,6 +182,7 @@ export class Game {
     // )
 
     this.#hudButtonsTowers = new HudButtonsTowers(this.#wallet)
+    this.#hudButtonOthers = new HudButtonsOthers()
 
     this.#hudOtherIndicators = new HudOtherIndicators(
       this.#wallet,
@@ -213,6 +220,7 @@ export class Game {
       this.#stateManager,
       this.#hudButtonsMagics,
       this.#hudButtonsTowers,
+      this.#hudButtonOthers,
       this.#wallet,
       this.#magicFireballInstancesManager,
       this.#magicIceballInstancesManager,
@@ -347,13 +355,20 @@ export class Game {
   }
 
   #drawHud() {
-    if (this.#hudButtonsTowers === null || this.#hudOtherIndicators === null) {
-      throw new Error('hudButtonsTower or hudOtherIndicators is null')
+    if (
+      this.#hudButtonsTowers === null ||
+      this.#hudOtherIndicators === null ||
+      this.#hudButtonOthers === null
+    ) {
+      throw new Error(
+        'hudButtonsTower or hudOtherIndicators or hudButtonOthers is null',
+      )
     }
     this.#hudPanel.draw()
     this.#drawHudBackgroundImage()
     this.#drawInfluenceArea()
     this.#hudButtonsTowers.draw()
+    this.#hudButtonOthers.draw()
     this.#hudButtonsMagics.draw()
     this.#hudProgressBarWave.draw()
     this.#hudProgressBarBoss.draw()

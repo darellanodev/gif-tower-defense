@@ -14,12 +14,14 @@ import { TowerType } from '../types/towerType'
 import { Images } from '../resources/Images'
 import { Path } from '../path/Path'
 import { StateManager } from '../StateManager'
+import { HudButtonsOthers } from '../hud/HudButtonsOthers'
 
 export class Controls {
   #stateManager: StateManager
   #mouseTileOrangeOver: TileOrange | null = null
   #hudButtonsTowers: HudButtonsTowers
   #hudButtonsMagics: HudButtonsMagics
+  #hudButtonsOthers: HudButtonsOthers
   #wallet: Wallet
 
   #magicFireballInstancesManager: MagicInstancesManager
@@ -33,6 +35,7 @@ export class Controls {
     stateManager: StateManager,
     hudButtonsMagics: HudButtonsMagics,
     hudButtonsTowers: HudButtonsTowers,
+    hudButtonsOthers: HudButtonsOthers,
     wallet: Wallet,
     magicFireballInstancesManager: MagicInstancesManager,
     magicIceballInstancesManager: MagicInstancesManager,
@@ -42,6 +45,7 @@ export class Controls {
     this.#stateManager = stateManager
     this.#hudButtonsMagics = hudButtonsMagics
     this.#hudButtonsTowers = hudButtonsTowers
+    this.#hudButtonsOthers = hudButtonsOthers
     this.#wallet = wallet
     this.#magicFireballInstancesManager = magicFireballInstancesManager
     this.#magicIceballInstancesManager = magicIceballInstancesManager
