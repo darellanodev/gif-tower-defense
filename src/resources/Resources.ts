@@ -97,6 +97,15 @@ export class Resources {
     ]
   }
 
+  static pauseButtonImages() {
+    return [
+      P5.p5.loadImage('../img/hud/btn_pause_on.png'),
+      P5.p5.loadImage('../img/hud/btn_pause_off.png'),
+      P5.p5.loadImage('../img/hud/btn_pause_hover.png'),
+      P5.p5.loadImage('../img/hud/btn_pause_off_hover.png'),
+    ]
+  }
+
   static magicUFOButtonImages() {
     return [
       P5.p5.loadImage('../img/hud/btn_magic_ufo_on.png'),

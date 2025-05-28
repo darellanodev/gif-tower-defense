@@ -10,6 +10,7 @@ export class Images {
   static towerGreenButtonImages: Image[]
   static towerRedButtonImages: Image[]
   static towerYellowButtonImages: Image[]
+  static buttonPauseImages: Image[]
   static magicUFOButtonImages: Image[]
   static magicFireballButtonImages: Image[]
   static magicIceballButtonImages: Image[]
@@ -34,6 +35,7 @@ export class Images {
     Images.towerGreenButtonImages = Resources.towerGreenButtonImages()
     Images.towerRedButtonImages = Resources.towerRedButtonImages()
     Images.towerYellowButtonImages = Resources.towerYellowButtonImages()
+    Images.buttonPauseImages = Resources.pauseButtonImages()
     Images.magicUFOButtonImages = Resources.magicUFOButtonImages()
     Images.magicFireballButtonImages = Resources.magicFireballButtonImages()
     Images.magicIceballButtonImages = Resources.magicIceballButtonImages()
