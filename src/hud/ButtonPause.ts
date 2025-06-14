@@ -81,9 +81,9 @@ export class ButtonPause extends Button {
   }
 
   static initializePauseButton() {
-    const position: Position = { x: 266, y: 28 }
+    const position: Position = { x: 268, y: 30 }
     const size: Size = { w: 76, h: 24 }
-    const offsetImages: Position = { x: 0, y: 0 }
+    const offsetImages: Position = { x: 39, y: 4 }
 
     ButtonPause.instance = new ButtonPause(
       position,
