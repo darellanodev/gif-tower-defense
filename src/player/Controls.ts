@@ -102,6 +102,13 @@ export class Controls {
   mouseClicked() {
     const mousePosition = { x: P5.p5.mouseX, y: P5.p5.mouseY }
 
+    if (this.#stateManager.isPaused()) {
+      if (this.#hudButtonsOthers.isInsidePauseButton(mousePosition)) {
+        this.#togglePause()
+      }
+      return
+    }
+
     if (this.#hudButtonsTowers.isInsideTowersButtonsBar(mousePosition)) {
       this.#hudButtonsTowers.handleTowerButtons(mousePosition)
     } else if (this.#hudButtonsMagics.isInsideMagicsButtonsBar(mousePosition)) {
@@ -116,6 +123,8 @@ export class Controls {
         this.#magicIceballInstancesManager,
         this.#magicUFOInstancesManager,
       )
+    } else if (this.#hudButtonsOthers.isInsidePauseButton(mousePosition)) {
+      this.#togglePause()
     } else if (this.mouseTileOrangeOver !== null) {
       this.clickOrangeTile(this.mouseTileOrangeOver)
     }

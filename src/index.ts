@@ -109,6 +109,9 @@ _p5 = new p5((p: p5) => {
 
   p.mouseClicked = function () {
     switch (stateManager.state) {
+      case StateManager.STATE_PLAY_SURVIVAL_PAUSE:
+        game.mouseClicked()
+        break
       case StateManager.STATE_PLAY_SURVIVAL:
         game.mouseClicked()
         break
