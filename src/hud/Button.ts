@@ -9,6 +9,7 @@ export class Button extends Obj {
   static INDEX_IMAGE_ON = 0
   static INDEX_IMAGE_OFF = 1
   static INDEX_IMAGE_HOVER = 2
+  static INDEX_IMAGE_ON_HOVER = 3
 
   size: Size
   images: Image[]
@@ -42,6 +43,9 @@ export class Button extends Obj {
   }
   drawHover() {
     this.drawState(Button.INDEX_IMAGE_HOVER)
+  }
+  drawOnHover() {
+    this.drawState(Button.INDEX_IMAGE_ON_HOVER)
   }
 
   drawState(state: number) {
