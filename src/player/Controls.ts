@@ -105,7 +105,7 @@ export class Controls {
     const mousePosition = { x: P5.p5.mouseX, y: P5.p5.mouseY }
 
     if (this.#stateManager.isPaused()) {
-      if (ButtonPause.instance.isMouseInside(mousePosition)) {
+      if (this.#buttonPause.isMouseInside(mousePosition)) {
         this.#togglePause()
       }
       return
@@ -125,7 +125,7 @@ export class Controls {
         this.#magicIceballInstancesManager,
         this.#magicUFOInstancesManager,
       )
-    } else if (ButtonPause.instance.isMouseInside(mousePosition)) {
+    } else if (this.#buttonPause.isMouseInside(mousePosition)) {
       this.#togglePause()
     } else if (this.mouseTileOrangeOver !== null) {
       this.clickOrangeTile(this.mouseTileOrangeOver)

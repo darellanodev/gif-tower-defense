@@ -11,9 +11,11 @@ export class Button extends Obj {
   static INDEX_IMAGE_HOVER = 2
   static INDEX_IMAGE_ON_HOVER = 3
 
+  checked: boolean = false
   size: Size
   images: Image[]
   offsetImages: Position
+
   constructor(
     position: Position,
     size: Size,
@@ -25,6 +27,14 @@ export class Button extends Obj {
     this.size = { ...size }
     this.images = images
     this.offsetImages = { ...offsetImages }
+  }
+
+  check() {
+    this.checked = true
+  }
+
+  uncheck() {
+    this.checked = false
   }
 
   draw() {

@@ -145,8 +145,7 @@ export class Game {
     )
     ButtonTower.initializeButtons()
 
-    ButtonPause.setImages(Images.buttonPauseImages)
-    ButtonPause.initializePauseButton()
+    this.#buttonPause = ButtonPause.initializePauseButton()
 
     this.#hudPanel = new HudPanel(Images.hudImages)
     this.#hudButtonsMagics = new HudButtonsMagics()
