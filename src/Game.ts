@@ -43,7 +43,6 @@ import { MapDataType } from './types/mapDataType'
 import { Size } from './types/size'
 import { TileBlackCreator } from './tiles/TileBlackCreator'
 import { ButtonPause } from './hud/ButtonPause'
-import { HudButtonsOthers } from './hud/HudButtonsOthers'
 
 export class Game {
   static #instance: Game | null = null
@@ -58,7 +57,6 @@ export class Game {
   #hudPanel: HudPanel
   #hudButtonsMagics: HudButtonsMagics
   #hudButtonsTowers: HudButtonsTowers | null = null
-  #hudButtonOthers: HudButtonsOthers | null = null
   #hudProgressBarBoss: HudProgressBarBoss
   #hudProgressBarWave: HudProgressBarWave
   #hudOtherIndicators: HudOtherIndicators | null = null
@@ -74,6 +72,7 @@ export class Game {
   #tileEndCreator: TileEndCreator | null = null
   #tilePathCreator: TilePathCreator | null = null
   #pathStartEnemiesPosition: Position = { x: 0, y: 0 }
+  #buttonPause: ButtonPause
 
   static getInstance(
     stateManager: StateManager,
@@ -182,7 +181,6 @@ export class Game {
     // )
 
     this.#hudButtonsTowers = new HudButtonsTowers(this.#wallet)
-    this.#hudButtonOthers = new HudButtonsOthers()
 
     this.#hudOtherIndicators = new HudOtherIndicators(
       this.#wallet,
@@ -220,7 +218,7 @@ export class Game {
       this.#stateManager,
       this.#hudButtonsMagics,
       this.#hudButtonsTowers,
-      this.#hudButtonOthers,
+      this.#buttonPause,
       this.#wallet,
       this.#magicFireballInstancesManager,
       this.#magicIceballInstancesManager,
@@ -358,7 +356,7 @@ export class Game {
     if (
       this.#hudButtonsTowers === null ||
       this.#hudOtherIndicators === null ||
-      this.#hudButtonOthers === null
+      this.#buttonPause === null
     ) {
       throw new Error(
         'hudButtonsTower or hudOtherIndicators or hudButtonOthers is null',
@@ -368,7 +366,7 @@ export class Game {
     this.#drawHudBackgroundImage()
     this.#drawInfluenceArea()
     this.#hudButtonsTowers.draw()
-    this.#hudButtonOthers.draw()
+    this.#buttonPause.draw()
     this.#hudButtonsMagics.draw()
     this.#hudProgressBarWave.draw()
     this.#hudProgressBarBoss.draw()
