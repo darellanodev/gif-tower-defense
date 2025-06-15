@@ -35,6 +35,16 @@ export class Button extends Obj {
     }
   }
 
+  isMouseInside(mousePosition: Position): boolean {
+    const isInsideX =
+      mousePosition.x >= this.position.x &&
+      mousePosition.x <= this.position.x + this.size.w
+    const isInsideY =
+      mousePosition.y >= this.position.y &&
+      mousePosition.y <= this.position.y + this.size.w
+    return isInsideX && isInsideY
+  }
+
   drawOn() {
     this.drawState(Button.INDEX_IMAGE_ON)
   }
