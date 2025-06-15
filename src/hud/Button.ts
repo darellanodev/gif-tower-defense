@@ -35,22 +35,18 @@ export class Button extends Obj {
   }
 
   drawOn() {
-    P5.p5.image(
-      this.images[Button.INDEX_IMAGE_ON],
-      this.position.x + this.offsetImages.x,
-      this.position.y + this.offsetImages.y,
-    )
+    this.drawState(Button.INDEX_IMAGE_ON)
   }
   drawOff() {
-    P5.p5.image(
-      this.images[Button.INDEX_IMAGE_OFF],
-      this.position.x + this.offsetImages.x,
-      this.position.y + this.offsetImages.y,
-    )
+    this.drawState(Button.INDEX_IMAGE_OFF)
   }
   drawHover() {
+    this.drawState(Button.INDEX_IMAGE_HOVER)
+  }
+
+  drawState(state: number) {
     P5.p5.image(
-      this.images[Button.INDEX_IMAGE_HOVER],
+      this.images[state],
       this.position.x + this.offsetImages.x,
       this.position.y + this.offsetImages.y,
     )
