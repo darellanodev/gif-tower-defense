@@ -73,7 +73,7 @@ export class ButtonPause extends Button {
       this.#drawOff()
     }
     if (this.#isChecked) {
-      this.drawCheckRectangle()
+      this.#drawOn()
     }
   }
   static setImages(pauseImages: Image[]) {

@@ -18,6 +18,10 @@ export class HudButtonsOthers {
     ButtonPause.instance.check()
   }
 
+  unSelectPause() {
+    ButtonPause.instance.uncheck()
+  }
+
   draw() {
     ButtonPause.instance.draw()
   }
