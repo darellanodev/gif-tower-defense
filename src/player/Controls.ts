@@ -14,14 +14,14 @@ import { TowerType } from '../types/towerType'
 import { Images } from '../resources/Images'
 import { Path } from '../path/Path'
 import { StateManager } from '../StateManager'
-import { ButtonPause } from '../hud/ButtonPause'
+import { ButtonPauseCreator } from '../hud/ButtonPauseCreator'
 
 export class Controls {
   #stateManager: StateManager
   #mouseTileOrangeOver: TileOrange | null = null
   #hudButtonsTowers: HudButtonsTowers
   #hudButtonsMagics: HudButtonsMagics
-  #buttonPause: ButtonPause
+  #ButtonPauseCreator: ButtonPauseCreator
   #wallet: Wallet
 
   #magicFireballInstancesManager: MagicInstancesManager
@@ -35,7 +35,7 @@ export class Controls {
     stateManager: StateManager,
     hudButtonsMagics: HudButtonsMagics,
     hudButtonsTowers: HudButtonsTowers,
-    buttonPause: ButtonPause,
+    ButtonPauseCreator: ButtonPauseCreator,
     wallet: Wallet,
     magicFireballInstancesManager: MagicInstancesManager,
     magicIceballInstancesManager: MagicInstancesManager,
@@ -45,7 +45,7 @@ export class Controls {
     this.#stateManager = stateManager
     this.#hudButtonsMagics = hudButtonsMagics
     this.#hudButtonsTowers = hudButtonsTowers
-    this.#buttonPause = buttonPause
+    this.#ButtonPauseCreator = ButtonPauseCreator
     this.#wallet = wallet
     this.#magicFireballInstancesManager = magicFireballInstancesManager
     this.#magicIceballInstancesManager = magicIceballInstancesManager
@@ -74,9 +74,9 @@ export class Controls {
     if (this.#isPauseAvailable()) {
       if (this.#stateManager.isPaused()) {
         this.#stateManager.setPlay()
-        this.#buttonPause.check()
+        this.#ButtonPauseCreator.check()
       } else {
-        this.#buttonPause.uncheck()
+        this.#ButtonPauseCreator.uncheck()
         this.#stateManager.setPause()
         this.#pauseBtnTimeReady = 10
       }
@@ -105,7 +105,7 @@ export class Controls {
     const mousePosition = { x: P5.p5.mouseX, y: P5.p5.mouseY }
 
     if (this.#stateManager.isPaused()) {
-      if (this.#buttonPause.isMouseInside(mousePosition)) {
+      if (this.#ButtonPauseCreator.isMouseInside(mousePosition)) {
         this.#togglePause()
       }
       return
@@ -125,7 +125,7 @@ export class Controls {
         this.#magicIceballInstancesManager,
         this.#magicUFOInstancesManager,
       )
-    } else if (this.#buttonPause.isMouseInside(mousePosition)) {
+    } else if (this.#ButtonPauseCreator.isMouseInside(mousePosition)) {
       this.#togglePause()
     } else if (this.mouseTileOrangeOver !== null) {
       this.clickOrangeTile(this.mouseTileOrangeOver)
