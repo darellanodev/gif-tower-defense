@@ -74,7 +74,7 @@ export class Resources {
     return [
       P5.p5.loadImage('../img/hud/btn_tower_green_on.png'),
       P5.p5.loadImage('../img/hud/btn_tower_green_off.png'),
-      P5.p5.loadImage('../img/hud/btn_tower_green_hover.png'),
+      P5.p5.loadImage('../img/hud/btn_tower_green_on_hover.png'),
       P5.p5.loadImage('../img/hud/btn_tower_green_off_hover.png'),
     ]
   }
@@ -83,7 +83,7 @@ export class Resources {
     return [
       P5.p5.loadImage('../img/hud/btn_tower_red_on.png'),
       P5.p5.loadImage('../img/hud/btn_tower_red_off.png'),
-      P5.p5.loadImage('../img/hud/btn_tower_red_hover.png'),
+      P5.p5.loadImage('../img/hud/btn_tower_red_on_hover.png'),
       P5.p5.loadImage('../img/hud/btn_tower_red_off_hover.png'),
     ]
   }
@@ -92,7 +92,7 @@ export class Resources {
     return [
       P5.p5.loadImage('../img/hud/btn_tower_yellow_on.png'),
       P5.p5.loadImage('../img/hud/btn_tower_yellow_off.png'),
-      P5.p5.loadImage('../img/hud/btn_tower_yellow_hover.png'),
+      P5.p5.loadImage('../img/hud/btn_tower_yellow_on_hover.png'),
       P5.p5.loadImage('../img/hud/btn_tower_yellow_off_hover.png'),
     ]
   }
@@ -101,7 +101,7 @@ export class Resources {
     return [
       P5.p5.loadImage('../img/hud/btn_pause_on.png'),
       P5.p5.loadImage('../img/hud/btn_pause_off.png'),
-      P5.p5.loadImage('../img/hud/btn_pause_hover.png'),
+      P5.p5.loadImage('../img/hud/btn_pause_on_hover.png'),
       P5.p5.loadImage('../img/hud/btn_pause_off_hover.png'),
     ]
   }
@@ -110,7 +110,7 @@ export class Resources {
     return [
       P5.p5.loadImage('../img/hud/btn_magic_ufo_on.png'),
       P5.p5.loadImage('../img/hud/btn_magic_ufo_off.png'),
-      P5.p5.loadImage('../img/hud/btn_magic_ufo_hover.png'),
+      P5.p5.loadImage('../img/hud/btn_magic_ufo_on_hover.png'),
     ]
   }
 
@@ -118,7 +118,7 @@ export class Resources {
     return [
       P5.p5.loadImage('../img/hud/btn_magic_fireball_on.png'),
       P5.p5.loadImage('../img/hud/btn_magic_fireball_off.png'),
-      P5.p5.loadImage('../img/hud/btn_magic_fireball_hover.png'),
+      P5.p5.loadImage('../img/hud/btn_magic_fireball_on_hover.png'),
     ]
   }
 
@@ -126,7 +126,7 @@ export class Resources {
     return [
       P5.p5.loadImage('../img/hud/btn_magic_iceball_on.png'),
       P5.p5.loadImage('../img/hud/btn_magic_iceball_off.png'),
-      P5.p5.loadImage('../img/hud/btn_magic_iceball_hover.png'),
+      P5.p5.loadImage('../img/hud/btn_magic_iceball_on_hover.png'),
     ]
   }
 
@@ -134,7 +134,7 @@ export class Resources {
     return [
       P5.p5.loadImage('../img/menu/btn_minimap_on.png'),
       P5.p5.loadImage('../img/menu/btn_minimap_off.png'),
-      P5.p5.loadImage('../img/menu/btn_minimap_hover.png'),
+      P5.p5.loadImage('../img/menu/btn_minimap_on_hover.png'),
     ]
   }
 
@@ -142,7 +142,7 @@ export class Resources {
     return [
       P5.p5.loadImage('../img/menu/btn_survival_on.png'),
       P5.p5.loadImage('../img/menu/btn_survival_off.png'),
-      P5.p5.loadImage('../img/menu/btn_survival_hover.png'),
+      P5.p5.loadImage('../img/menu/btn_survival_on_hover.png'),
     ]
   }
 
@@ -150,7 +150,7 @@ export class Resources {
     return [
       P5.p5.loadImage('../img/menu/btn_todays_on.png'),
       P5.p5.loadImage('../img/menu/btn_todays_off.png'),
-      P5.p5.loadImage('../img/menu/btn_todays_hover.png'),
+      P5.p5.loadImage('../img/menu/btn_todays_on_hover.png'),
     ]
   }
 
@@ -158,7 +158,7 @@ export class Resources {
     return [
       P5.p5.loadImage('../img/menu/btn_editor_on.png'),
       P5.p5.loadImage('../img/menu/btn_editor_off.png'),
-      P5.p5.loadImage('../img/menu/btn_editor_hover.png'),
+      P5.p5.loadImage('../img/menu/btn_editor_on_hover.png'),
     ]
   }
 
@@ -166,7 +166,7 @@ export class Resources {
     return [
       P5.p5.loadImage('../img/menu/btn_menu_main_on.png'),
       P5.p5.loadImage('../img/menu/btn_menu_main_off.png'),
-      P5.p5.loadImage('../img/menu/btn_menu_main_hover.png'),
+      P5.p5.loadImage('../img/menu/btn_menu_main_on_hover.png'),
     ]
   }
 
@@ -174,7 +174,7 @@ export class Resources {
     return [
       P5.p5.loadImage('../img/menu/btn_page_on.png'),
       P5.p5.loadImage('../img/menu/btn_page_off.png'),
-      P5.p5.loadImage('../img/menu/btn_page_hover.png'),
+      P5.p5.loadImage('../img/menu/btn_page_on_hover.png'),
     ]
   }
 
