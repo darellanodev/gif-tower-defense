@@ -9,11 +9,6 @@ export class ButtonPauseCreator extends Button {
     const size: Size = { w: 76, h: 24 }
     const offsetImages: Position = { x: 39, y: 4 }
 
-    return new ButtonPauseCreator(
-      position,
-      size,
-      Images.buttonPauseImages,
-      offsetImages,
-    )
+    return new Button(position, size, Images.buttonPauseImages, offsetImages)
   }
 }

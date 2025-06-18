@@ -43,6 +43,7 @@ import { MapDataType } from './types/mapDataType'
 import { Size } from './types/size'
 import { TileBlackCreator } from './tiles/TileBlackCreator'
 import { ButtonPauseCreator } from './hud/ButtonPauseCreator'
+import { Button } from './hud/Button'
 
 export class Game {
   static #instance: Game | null = null
@@ -72,7 +73,7 @@ export class Game {
   #tileEndCreator: TileEndCreator | null = null
   #tilePathCreator: TilePathCreator | null = null
   #pathStartEnemiesPosition: Position = { x: 0, y: 0 }
-  #ButtonPauseCreator: ButtonPauseCreator
+  #buttonPause: Button
 
   static getInstance(
     stateManager: StateManager,
@@ -145,7 +146,7 @@ export class Game {
     )
     ButtonTower.initializeButtons()
 
-    this.#ButtonPauseCreator = ButtonPauseCreator.initializePauseButton()
+    this.#buttonPause = ButtonPauseCreator.initializePauseButton()
 
     this.#hudPanel = new HudPanel(Images.hudImages)
     this.#hudButtonsMagics = new HudButtonsMagics()
@@ -217,7 +218,7 @@ export class Game {
       this.#stateManager,
       this.#hudButtonsMagics,
       this.#hudButtonsTowers,
-      this.#ButtonPauseCreator,
+      this.#buttonPause,
       this.#wallet,
       this.#magicFireballInstancesManager,
       this.#magicIceballInstancesManager,
@@ -355,7 +356,7 @@ export class Game {
     if (
       this.#hudButtonsTowers === null ||
       this.#hudOtherIndicators === null ||
-      this.#ButtonPauseCreator === null
+      this.#buttonPause === null
     ) {
       throw new Error(
         'hudButtonsTower or hudOtherIndicators or hudButtonOthers is null',
@@ -365,7 +366,7 @@ export class Game {
     this.#drawHudBackgroundImage()
     this.#drawInfluenceArea()
     this.#hudButtonsTowers.draw()
-    this.#ButtonPauseCreator.draw()
+    this.#buttonPause.draw()
     this.#hudButtonsMagics.draw()
     this.#hudProgressBarWave.draw()
     this.#hudProgressBarBoss.draw()
