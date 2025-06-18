@@ -60,6 +60,9 @@ export class Button extends Obj {
       }
       return Button.INDEX_IMAGE_ON_HOVER
     }
+    if (this.checked) {
+      return Button.INDEX_IMAGE_CHECKED
+    }
     return Button.INDEX_IMAGE_ON
   }
 
