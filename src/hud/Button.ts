@@ -53,7 +53,7 @@ export class Button extends Obj {
       mousePosition.x <= this.position.x + this.size.w
     const isInsideY =
       mousePosition.y >= this.position.y &&
-      mousePosition.y <= this.position.y + this.size.w
+      mousePosition.y <= this.position.y + this.size.h
     return isInsideX && isInsideY
   }
 
