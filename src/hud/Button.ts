@@ -40,7 +40,7 @@ export class Button extends Obj {
   }
 
   draw() {
-    if (this.isMouseOver({ x: P5.p5.mouseX, y: P5.p5.mouseY })) {
+    if (this.isMouseInside({ x: P5.p5.mouseX, y: P5.p5.mouseY })) {
       this.drawHover()
     } else {
       this.drawOn()
