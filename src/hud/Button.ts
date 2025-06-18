@@ -10,6 +10,8 @@ export class Button extends Obj {
   static INDEX_IMAGE_OFF = 1
   static INDEX_IMAGE_HOVER = 2
   static INDEX_IMAGE_ON_HOVER = 3
+  static INDEX_IMAGE_CHECKED = 4
+  static INDEX_IMAGE_CHECKED_HOVER = 5
 
   checked: boolean = false
   size: Size
@@ -66,6 +68,12 @@ export class Button extends Obj {
   }
   drawOnHover() {
     this.drawState(Button.INDEX_IMAGE_ON_HOVER)
+  }
+  drawChecked() {
+    this.drawState(Button.INDEX_IMAGE_CHECKED)
+  }
+  drawCheckedHover() {
+    this.drawState(Button.INDEX_IMAGE_CHECKED_HOVER)
   }
 
   drawState(state: number) {

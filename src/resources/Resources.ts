@@ -100,9 +100,11 @@ export class Resources {
   static pauseButtonImages() {
     return [
       P5.p5.loadImage('../img/hud/btn_pause_on.png'),
-      P5.p5.loadImage('../img/hud/btn_pause_off.png'),
+      null,
       P5.p5.loadImage('../img/hud/btn_pause_on_hover.png'),
-      P5.p5.loadImage('../img/hud/btn_pause_off_hover.png'),
+      null,
+      P5.p5.loadImage('../img/hud/btn_pause_checked.png'),
+      P5.p5.loadImage('../img/hud/btn_pause_checked_hover.png'),
     ]
   }
 
