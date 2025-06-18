@@ -74,9 +74,9 @@ export class Controls {
     if (this.#isPauseAvailable()) {
       if (this.#stateManager.isPaused()) {
         this.#stateManager.setPlay()
-        this.#buttonPause.check()
-      } else {
         this.#buttonPause.uncheck()
+      } else {
+        this.#buttonPause.check()
         this.#stateManager.setPause()
         this.#pauseBtnTimeReady = 10
       }
