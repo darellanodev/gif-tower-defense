@@ -42,3 +42,12 @@ test('isMouseInside, if the mouse position is outside the button in the y coordi
 
   expect(result).toBeFalsy()
 })
+
+test('getImageDraw, if the mouse position is inside the button and the button has 4 images, return INDEX_IMAGE_ON_HOVER', () => {
+  const images: any[] = [null, null, null, null]
+  const button = new Button(buttonPosition, buttonSize, images)
+  const mousePosition: Position = { x: 120, y: 130 }
+
+  const result = button.getStateDraw(mousePosition)
+  expect(result).toBe(Button.INDEX_IMAGE_ON_HOVER)
+})

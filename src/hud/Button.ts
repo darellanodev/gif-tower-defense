@@ -17,6 +17,7 @@ export class Button extends Obj {
   size: Size
   images: Image[]
   offsetImages: Position
+  hasCheckedStates: boolean
 
   constructor(
     position: Position,
@@ -29,6 +30,9 @@ export class Button extends Obj {
     this.size = { ...size }
     this.images = images
     this.offsetImages = { ...offsetImages }
+
+    // Does this button have checked states? (Buttons with 6 components in the image array have checked states, such as the pause button.)
+    this.hasCheckedStates = Array.isArray(images) && images.length >= 6
   }
 
   check() {
@@ -44,6 +48,12 @@ export class Button extends Obj {
       this.drawHover()
     } else {
       this.drawOn()
+    }
+  }
+
+  getStateDraw(mousePosition: Position) {
+    if (this.isMouseInside({ x: mousePosition.x, y: mousePosition.y })) {
+      return Button.INDEX_IMAGE_ON_HOVER
     }
   }
 
