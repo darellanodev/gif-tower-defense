@@ -55,6 +55,7 @@ export class Button extends Obj {
     if (this.isMouseInside({ x: mousePosition.x, y: mousePosition.y })) {
       return Button.INDEX_IMAGE_ON_HOVER
     }
+    return Button.INDEX_IMAGE_ON
   }
 
   isMouseInside(mousePosition: Position): boolean {
