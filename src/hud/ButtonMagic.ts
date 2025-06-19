@@ -3,6 +3,7 @@ import { Button } from './Button'
 import { Position } from '../types/position'
 import { Size } from '../types/size'
 import { P5 } from '../utils/P5'
+import { ButtonMagicUFOCreator } from './ButtonMagicUFOCreator'
 
 export class ButtonMagic extends Button {
   static magicUFOButtonImages: Image[]
@@ -68,21 +69,6 @@ export class ButtonMagic extends Button {
     ButtonMagic.magicIceballButtonImages = magicIceballButtonImages
   }
 
-  static _initializeMagicUFOButton() {
-    const position: Position = { x: 498, y: 28 }
-    const size: Size = { w: 118, h: 50 }
-    const offsetImages: Position = { x: 44, y: 3 }
-    const offsetItems: Position = { x: 93, y: 47 }
-    ButtonMagic.magicUFOButton = new ButtonMagic(
-      position,
-      size,
-      ButtonMagic.magicUFOButtonImages,
-      offsetImages,
-      ButtonMagic.magicTotalUFOItems,
-      offsetItems,
-    )
-  }
-
   static _initializeMagicFireballButton() {
     const position: Position = { x: 616, y: 28 }
     const size: Size = { w: 78, h: 50 }
@@ -114,7 +100,7 @@ export class ButtonMagic extends Button {
   }
 
   static _initializeMagicButtons() {
-    ButtonMagic._initializeMagicUFOButton()
+    ButtonMagicUFOCreator._initializeMagicUFOButton()
     ButtonMagic._initializeMagicFireballButton()
     ButtonMagic._initializeMagicIceballButton()
   }
