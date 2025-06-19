@@ -5,6 +5,7 @@ import { Size } from '../types/size'
 import { P5 } from '../utils/P5'
 import { ButtonGreenTowerCreator } from './ButtonGreenTowerCreator'
 import { ButtonRedTowerCreator } from './ButtonRedTowerCreator'
+import { ButtonYellowTowerCreator } from './ButtonYellowTowerCreator'
 
 export class ButtonTower extends Button {
   static greenTowerButton: ButtonTower
@@ -93,18 +94,6 @@ export class ButtonTower extends Button {
     ButtonTower.towerYellowButtonImages = towerYellowButtonImages
   }
 
-  static _initializeYellowTowerButton() {
-    const position: Position = { x: 180, y: 28 }
-    const size: Size = { w: 83, h: 50 }
-    const offsetImages: Position = { x: 47, y: 10 }
-    ButtonTower.yellowTowerButton = new ButtonTower(
-      position,
-      size,
-      ButtonTower.towerYellowButtonImages,
-      offsetImages,
-    )
-  }
-
   static initializeButtons() {
     ButtonTower._initializeTowerButtons()
   }
@@ -118,7 +107,7 @@ export class ButtonTower extends Button {
   static _initializeTowerButtons() {
     ButtonGreenTowerCreator._initializeGreenTowerButton()
     ButtonRedTowerCreator._initializeRedTowerButton()
-    ButtonTower._initializeYellowTowerButton()
+    ButtonYellowTowerCreator._initializeYellowTowerButton()
 
     ButtonTower.uncheckAllTowerButtons()
     ButtonTower.greenTowerButton.check()
