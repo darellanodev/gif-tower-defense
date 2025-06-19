@@ -33,8 +33,8 @@ export class ButtonMiniMap extends Button {
     this.#miniMap.draw()
   }
 
-  drawHover() {
-    super.drawHover()
+  drawOnHover() {
+    super.drawOnHover()
     this.#miniMap.draw()
   }
 

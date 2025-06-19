@@ -58,7 +58,7 @@ export class ButtonTower extends Button {
 
   #drawOn() {
     if (this.isMouseInsideAndNotChecked) {
-      this.drawHover()
+      this.drawOnHover()
     } else {
       this.drawOn()
     }

@@ -8,8 +8,8 @@ import { PositionUtils } from '../utils/PositionUtils'
 export class Button extends Obj {
   static INDEX_IMAGE_ON = 0
   static INDEX_IMAGE_OFF = 1
-  static INDEX_IMAGE_HOVER = 2
-  static INDEX_IMAGE_ON_HOVER = 3
+  static INDEX_IMAGE_ON_HOVER = 2
+  static INDEX_IMAGE_OFF_HOVER = 3
   static INDEX_IMAGE_CHECKED = 4
   static INDEX_IMAGE_CHECKED_HOVER = 5
 
@@ -44,10 +44,27 @@ export class Button extends Obj {
   }
 
   draw() {
-    if (this.isMouseInside({ x: P5.p5.mouseX, y: P5.p5.mouseY })) {
-      this.drawHover()
-    } else {
-      this.drawOn()
+    switch (this.getStateDraw({ x: P5.p5.mouseX, y: P5.p5.mouseY })) {
+      case Button.INDEX_IMAGE_ON:
+        this.drawOn()
+        break
+      case Button.INDEX_IMAGE_OFF:
+        this.drawOff()
+        break
+      case Button.INDEX_IMAGE_ON_HOVER:
+        this.drawOnHover()
+        break
+      case Button.INDEX_IMAGE_OFF_HOVER:
+        this.drawOffHover()
+        break
+      case Button.INDEX_IMAGE_CHECKED:
+        this.drawChecked()
+        break
+      case Button.INDEX_IMAGE_CHECKED_HOVER:
+        this.drawCheckedHover()
+        break
+      default:
+        break
     }
   }
 
@@ -60,6 +77,7 @@ export class Button extends Obj {
       }
       return Button.INDEX_IMAGE_ON_HOVER
     }
+    // the mouse is outside the button
     if (this.checked) {
       return Button.INDEX_IMAGE_CHECKED
     }
@@ -82,11 +100,11 @@ export class Button extends Obj {
   drawOff() {
     this.drawState(Button.INDEX_IMAGE_OFF)
   }
-  drawHover() {
-    this.drawState(Button.INDEX_IMAGE_HOVER)
-  }
   drawOnHover() {
     this.drawState(Button.INDEX_IMAGE_ON_HOVER)
+  }
+  drawOffHover() {
+    this.drawState(Button.INDEX_IMAGE_OFF_HOVER)
   }
   drawChecked() {
     this.drawState(Button.INDEX_IMAGE_CHECKED)

@@ -44,7 +44,7 @@ export class ButtonMagic extends Button {
   draw() {
     if (this.#items > 0) {
       if (this.isMouseOver({ x: P5.p5.mouseX, y: P5.p5.mouseY })) {
-        this.drawHover()
+        this.drawOnHover()
       } else {
         this.drawOn()
       }
