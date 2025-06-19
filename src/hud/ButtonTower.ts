@@ -3,6 +3,7 @@ import { Button } from './Button'
 import { Position } from '../types/position'
 import { Size } from '../types/size'
 import { P5 } from '../utils/P5'
+import { ButtonGreenTowerCreator } from './ButtonGreenTowerCreator'
 
 export class ButtonTower extends Button {
   static greenTowerButton: ButtonTower
@@ -91,18 +92,6 @@ export class ButtonTower extends Button {
     ButtonTower.towerYellowButtonImages = towerYellowButtonImages
   }
 
-  static _initializeGreenTowerButton() {
-    const position: Position = { x: 0, y: 28 }
-    const size: Size = { w: 98, h: 50 }
-    const offsetImages: Position = { x: 60, y: 10 }
-
-    ButtonTower.greenTowerButton = new ButtonTower(
-      position,
-      size,
-      ButtonTower.towerGreenButtonImages,
-      offsetImages,
-    )
-  }
   static _initializeRedTowerButton() {
     const position: Position = { x: 98, y: 28 }
     const size: Size = { w: 82, h: 50 }
@@ -137,7 +126,7 @@ export class ButtonTower extends Button {
   }
 
   static _initializeTowerButtons() {
-    ButtonTower._initializeGreenTowerButton()
+    ButtonGreenTowerCreator._initializeGreenTowerButton()
     ButtonTower._initializeRedTowerButton()
     ButtonTower._initializeYellowTowerButton()
 
