@@ -13,8 +13,6 @@ export class ButtonMagic extends Button {
   static magicIceballButton: Button
   static magicUFOButton: Button
 
-  static magicTotalUFOItems: number = 3
-
   static setImages(
     magicUFOButtonImages: Image[],
     magicFireballButtonImages: Image[],
