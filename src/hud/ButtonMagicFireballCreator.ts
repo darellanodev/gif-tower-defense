@@ -9,12 +9,13 @@ export class ButtonMagicFireballCreator extends Button {
     const size: Size = { w: 78, h: 50 }
     const offsetImages: Position = { x: 20, y: 3 }
     const offsetItems: Position = { x: 64, y: 47 }
+    const totalItems = 2
     ButtonMagic.magicFireballButton = new Button(
       position,
       size,
       ButtonMagic.magicFireballButtonImages,
       offsetImages,
-      ButtonMagic.magicTotalFireballItems,
+      totalItems,
       offsetItems,
     )
   }
