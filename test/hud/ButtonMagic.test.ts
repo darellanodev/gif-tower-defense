@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
-import { ButtonMagic } from '../../src/hud/ButtonMagic'
+import { HudButtonsMagics } from '../../src/hud/HudButtonsMagics'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { MagicUFOCreator } from '../../src/magics/MagicUFOCreator'
 import { Position } from '../../src/types/position'
@@ -39,7 +39,7 @@ test('get items, when there is 3 magic ufos and click, return 2', () => {
     magicUFOInstancesManager,
   )
 
-  const actual = ButtonMagic.magicUFOButton.items
+  const actual = HudButtonsMagics.magicUFOButton.items
   expect(actual).toBe(2)
 })
 

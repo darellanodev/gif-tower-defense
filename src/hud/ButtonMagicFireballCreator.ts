@@ -1,8 +1,8 @@
 import { Button } from './Button'
 import { Position } from '../types/position'
 import { Size } from '../types/size'
-import { ButtonMagic } from './ButtonMagic'
 import { Images } from '../resources/Images'
+import { HudButtonsMagics } from './HudButtonsMagics'
 
 export class ButtonMagicFireballCreator extends Button {
   static _initializeMagicFireballButton() {
@@ -11,7 +11,7 @@ export class ButtonMagicFireballCreator extends Button {
     const offsetImages: Position = { x: 20, y: 3 }
     const offsetItems: Position = { x: 64, y: 47 }
     const totalItems = 2
-    ButtonMagic.magicFireballButton = new Button(
+    HudButtonsMagics.magicFireballButton = new Button(
       position,
       size,
       Images.magicFireballButtonImages,

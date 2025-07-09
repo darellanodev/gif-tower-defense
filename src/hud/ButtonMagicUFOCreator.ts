@@ -1,8 +1,8 @@
 import { Button } from './Button'
 import { Position } from '../types/position'
 import { Size } from '../types/size'
-import { ButtonMagic } from './ButtonMagic'
 import { Images } from '../resources/Images'
+import { HudButtonsMagics } from './HudButtonsMagics'
 
 export class ButtonMagicUFOCreator extends Button {
   static _initializeMagicUFOButton() {
@@ -11,7 +11,7 @@ export class ButtonMagicUFOCreator extends Button {
     const offsetImages: Position = { x: 44, y: 3 }
     const offsetItems: Position = { x: 93, y: 47 }
     const totalItems = 3
-    ButtonMagic.magicUFOButton = new Button(
+    HudButtonsMagics.magicUFOButton = new Button(
       position,
       size,
       Images.magicUFOButtonImages,
