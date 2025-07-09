@@ -9,7 +9,7 @@ export class ButtonMagicIceballCreator extends Button {
     const size: Size = { w: 103, h: 50 }
     const offsetImages: Position = { x: 33, y: 3 }
     const offsetItems: Position = { x: 77, y: 47 }
-    ButtonMagic.magicIceballButton = new ButtonMagic(
+    ButtonMagic.magicIceballButton = new Button(
       position,
       size,
       ButtonMagic.magicIceballButtonImages,
