@@ -5,10 +5,6 @@ import { ButtonMagicFireballCreator } from './ButtonMagicFireballCreator'
 import { ButtonMagicIceballCreator } from './ButtonMagicIceballCreator'
 
 export class ButtonMagic extends Button {
-  static magicUFOButtonImages: Image[]
-  static magicFireballButtonImages: Image[]
-  static magicIceballButtonImages: Image[]
-
   static magicFireballButton: Button
   static magicIceballButton: Button
   static magicUFOButton: Button
