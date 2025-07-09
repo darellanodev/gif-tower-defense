@@ -14,7 +14,7 @@ export class ButtonMagic extends Button {
 
   static magicFireballButton: Button
   static magicIceballButton: Button
-  static magicUFOButton: ButtonMagic
+  static magicUFOButton: Button
 
   static magicTotalUFOItems: number = 3
   static magicTotalFireballItems: number = 2

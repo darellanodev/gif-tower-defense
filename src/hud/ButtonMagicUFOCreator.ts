@@ -9,7 +9,7 @@ export class ButtonMagicUFOCreator extends Button {
     const size: Size = { w: 118, h: 50 }
     const offsetImages: Position = { x: 44, y: 3 }
     const offsetItems: Position = { x: 93, y: 47 }
-    ButtonMagic.magicUFOButton = new ButtonMagic(
+    ButtonMagic.magicUFOButton = new Button(
       position,
       size,
       ButtonMagic.magicUFOButtonImages,
