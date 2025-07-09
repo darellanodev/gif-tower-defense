@@ -4,13 +4,7 @@ import { HudButtonsMagics } from '../../src/hud/HudButtonsMagics'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { Position } from '../../src/types/position'
 import { Size } from '../../src/types/size'
-import {
-  images,
-  img,
-  magicFireballButtonImages,
-  magicIceballButtonImages,
-  magicUFOButtonImages,
-} from './imagesResources'
+import { images, img } from './imagesResources'
 
 export const createMagicButton = () => {
   const buttonPosition: Position = { x: 100, y: 100 }
@@ -27,12 +21,6 @@ export const createMagicButton = () => {
 }
 
 export const initializeAllMagicButtons = () => {
-  ButtonMagic.setImages(
-    magicUFOButtonImages,
-    magicFireballButtonImages,
-    magicIceballButtonImages,
-  )
-
   ButtonMagic.initializeButtons()
 }
 

@@ -2,6 +2,7 @@ import { Button } from './Button'
 import { Position } from '../types/position'
 import { Size } from '../types/size'
 import { ButtonMagic } from './ButtonMagic'
+import { Images } from '../resources/Images'
 
 export class ButtonMagicIceballCreator extends Button {
   static _initializeMagicIceballButton() {
@@ -13,7 +14,7 @@ export class ButtonMagicIceballCreator extends Button {
     ButtonMagic.magicIceballButton = new Button(
       position,
       size,
-      ButtonMagic.magicIceballButtonImages,
+      Images.magicIceballButtonImages,
       offsetImages,
       totalItems,
       offsetItems,

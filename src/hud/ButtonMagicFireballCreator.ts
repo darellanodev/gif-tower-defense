@@ -2,6 +2,7 @@ import { Button } from './Button'
 import { Position } from '../types/position'
 import { Size } from '../types/size'
 import { ButtonMagic } from './ButtonMagic'
+import { Images } from '../resources/Images'
 
 export class ButtonMagicFireballCreator extends Button {
   static _initializeMagicFireballButton() {
@@ -13,7 +14,7 @@ export class ButtonMagicFireballCreator extends Button {
     ButtonMagic.magicFireballButton = new Button(
       position,
       size,
-      ButtonMagic.magicFireballButtonImages,
+      Images.magicFireballButtonImages,
       offsetImages,
       totalItems,
       offsetItems,

@@ -132,11 +132,6 @@ export class Game {
       towerYellowCreator,
     )
 
-    ButtonMagic.setImages(
-      Images.magicUFOButtonImages,
-      Images.magicFireballButtonImages,
-      Images.magicIceballButtonImages,
-    )
     ButtonMagic.initializeButtons()
 
     ButtonTower.setImages(

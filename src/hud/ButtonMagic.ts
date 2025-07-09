@@ -13,16 +13,6 @@ export class ButtonMagic extends Button {
   static magicIceballButton: Button
   static magicUFOButton: Button
 
-  static setImages(
-    magicUFOButtonImages: Image[],
-    magicFireballButtonImages: Image[],
-    magicIceballButtonImages: Image[],
-  ) {
-    ButtonMagic.magicUFOButtonImages = magicUFOButtonImages
-    ButtonMagic.magicFireballButtonImages = magicFireballButtonImages
-    ButtonMagic.magicIceballButtonImages = magicIceballButtonImages
-  }
-
   static _initializeMagicButtons() {
     ButtonMagicUFOCreator._initializeMagicUFOButton()
     ButtonMagicFireballCreator._initializeMagicFireballButton()
