@@ -18,12 +18,17 @@ export class Button extends Obj {
   images: Image[]
   offsetImages: Position
   hasCheckedStates: boolean
+  hasItems: boolean = false
+  #totalItems: number
+  #offsetItems: Position
 
   constructor(
     position: Position,
     size: Size,
     images: Image[],
     offsetImages: Position = { x: 0, y: 0 },
+    totalItems: number = 0,
+    offsetItems: Position = { x: 0, y: 0 },
   ) {
     super(position)
 
@@ -33,6 +38,22 @@ export class Button extends Obj {
 
     // Does this button have checked states? (Buttons with 6 components in the image array have checked states, such as the pause button.)
     this.hasCheckedStates = Array.isArray(images) && images.length >= 6
+
+    // Buttons with items (like magic buttons)
+    this.#totalItems = totalItems
+    this.#offsetItems = offsetItems
+
+    if (this.#totalItems > 0) {
+      this.hasItems = true
+    }
+  }
+
+  removeItem() {
+    this.#totalItems--
+  }
+
+  get items() {
+    return this.#totalItems
   }
 
   check() {
@@ -65,6 +86,14 @@ export class Button extends Obj {
         break
       default:
         break
+    }
+
+    if (this.hasItems) {
+      P5.p5.text(
+        this.#totalItems,
+        this.position.x + this.#offsetItems.x,
+        this.position.y + this.#offsetItems.y,
+      )
     }
   }
 

@@ -12,7 +12,7 @@ export class ButtonMagic extends Button {
   static magicFireballButtonImages: Image[]
   static magicIceballButtonImages: Image[]
 
-  static magicFireballButton: ButtonMagic
+  static magicFireballButton: Button
   static magicIceballButton: ButtonMagic
   static magicUFOButton: ButtonMagic
 
