@@ -2,18 +2,30 @@ import { Position } from '../types/position'
 import { Image } from 'p5'
 import { MagicFireball } from '../magics/MagicFireball'
 import { MagicIceball } from '../magics/MagicIceball'
-import { ButtonMagic } from './ButtonMagic'
 import { PositionUtils } from '../utils/PositionUtils'
 import { MagicFireballCreator } from '../magics/MagicFireballCreator'
 import { MagicIceballCreator } from '../magics/MagicIceballCreator'
 import { MagicUFOCreator } from '../magics/MagicUFOCreator'
 import { MagicInstancesManager } from '../magics/MagicInstancesManager'
 import { Button } from './Button'
+import { ButtonMagicUFOCreator } from './ButtonMagicUFOCreator'
+import { ButtonMagicFireballCreator } from './ButtonMagicFireballCreator'
+import { ButtonMagicIceballCreator } from './ButtonMagicIceballCreator'
 
 export class HudButtonsMagics {
   static magicFireballButton: Button
   static magicIceballButton: Button
   static magicUFOButton: Button
+
+  static _initializeMagicButtons() {
+    ButtonMagicUFOCreator._initializeMagicUFOButton()
+    ButtonMagicFireballCreator._initializeMagicFireballButton()
+    ButtonMagicIceballCreator._initializeMagicIceballButton()
+  }
+
+  static initializeButtons() {
+    HudButtonsMagics._initializeMagicButtons()
+  }
 
   #isInsideButtonsBar(position: Position) {
     const ButtonsBarRectanglePosition = { x: 0, y: 28 }

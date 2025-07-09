@@ -22,7 +22,6 @@ import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { TowerGreenCreator } from './towers/TowerGreenCreator'
 import { TowerRedCreator } from './towers/TowerRedCreator'
 import { TowerYellowCreator } from './towers/TowerYellowCreator'
-import { ButtonMagic } from './hud/ButtonMagic'
 import { ButtonTower } from './hud/ButtonTower'
 import { ExplosionMagicFireball } from './explosions/ExplosionMagicFireball'
 import { ExplosionMagicIceball } from './explosions/ExplosionMagicIceball'
@@ -132,7 +131,7 @@ export class Game {
       towerYellowCreator,
     )
 
-    ButtonMagic.initializeButtons()
+    HudButtonsMagics.initializeButtons()
 
     ButtonTower.setImages(
       Images.towerGreenButtonImages,
