@@ -8,9 +8,9 @@ import { ButtonRedTowerCreator } from './ButtonRedTowerCreator'
 import { ButtonYellowTowerCreator } from './ButtonYellowTowerCreator'
 
 export class ButtonTower extends Button {
-  static greenTowerButton: ButtonTower
-  static redTowerButton: ButtonTower
-  static yellowTowerButton: ButtonTower
+  static greenTowerButton: Button
+  static redTowerButton: Button
+  static yellowTowerButton: Button
 
   static towerGreenButtonImages: Image[]
   static towerRedButtonImages: Image[]

@@ -8,7 +8,7 @@ export class ButtonRedTowerCreator extends Button {
     const position: Position = { x: 98, y: 28 }
     const size: Size = { w: 82, h: 50 }
     const offsetImages: Position = { x: 45, y: 10 }
-    ButtonTower.redTowerButton = new ButtonTower(
+    ButtonTower.redTowerButton = new Button(
       position,
       size,
       ButtonTower.towerRedButtonImages,

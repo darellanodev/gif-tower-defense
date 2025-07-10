@@ -103,10 +103,8 @@ export class Button extends Obj {
       if (!this.on) {
         return Button.INDEX_IMAGE_OFF_HOVER
       }
-      if (this.hasCheckedStates) {
-        if (this.checked) {
-          return Button.INDEX_IMAGE_CHECKED_HOVER
-        }
+      if (this.checked) {
+        return Button.INDEX_IMAGE_CHECKED_HOVER
       }
       return Button.INDEX_IMAGE_ON_HOVER
     }
@@ -143,10 +141,30 @@ export class Button extends Obj {
     this.drawState(Button.INDEX_IMAGE_OFF_HOVER)
   }
   drawChecked() {
-    this.drawState(Button.INDEX_IMAGE_CHECKED)
+    if (this.hasCheckedStates) {
+      this.drawState(Button.INDEX_IMAGE_CHECKED)
+    } else {
+      this.drawState(Button.INDEX_IMAGE_ON)
+      this.drawCheckRectangle()
+    }
   }
   drawCheckedHover() {
-    this.drawState(Button.INDEX_IMAGE_CHECKED_HOVER)
+    if (this.hasCheckedStates) {
+      this.drawState(Button.INDEX_IMAGE_CHECKED_HOVER)
+    } else {
+      this.drawState(Button.INDEX_IMAGE_ON_HOVER)
+      this.drawCheckRectangle()
+    }
+  }
+  drawCheckRectangle() {
+    P5.p5.strokeWeight(3)
+    P5.p5.stroke(255, 204, 0)
+    P5.p5.noFill()
+    P5.p5.square(
+      this.position.x + this.offsetImages.x - 2,
+      this.position.y + this.offsetImages.y - 2,
+      36,
+    )
   }
 
   drawState(state: number) {
@@ -155,6 +173,8 @@ export class Button extends Obj {
       this.position.x + this.offsetImages.x,
       this.position.y + this.offsetImages.y,
     )
+
+    // draw checked rectangle for buttons without checked images
   }
 
   isMouseOver(mousePosition: Position): boolean {
