@@ -100,6 +100,9 @@ export class Button extends Obj {
 
   getStateDraw(mousePosition: Position) {
     if (this.isMouseInside({ x: mousePosition.x, y: mousePosition.y })) {
+      if (!this.on) {
+        return Button.INDEX_IMAGE_OFF_HOVER
+      }
       if (this.hasCheckedStates) {
         if (this.checked) {
           return Button.INDEX_IMAGE_CHECKED_HOVER

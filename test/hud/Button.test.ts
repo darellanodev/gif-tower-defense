@@ -98,3 +98,11 @@ test('getStateDraw, if the mouse position is outside and button on is false, ret
 
   expect(result).toBe(Button.INDEX_IMAGE_OFF)
 })
+
+test('getStateDraw, if the mouse position is inside and button is not on, return INDEX_IMAGE_OFF_HOVER', () => {
+  const mousePosition: Position = { x: 120, y: 130 }
+  button.on = false
+  const result = button.getStateDraw(mousePosition)
+
+  expect(result).toBe(Button.INDEX_IMAGE_OFF_HOVER)
+})
