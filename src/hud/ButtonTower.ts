@@ -49,10 +49,6 @@ export class ButtonTower extends Button {
     )
   }
 
-  set on(isOn: boolean) {
-    this.#isOn = isOn
-  }
-
   get isMouseInsideAndNotChecked(): boolean {
     return (
       this.isMouseOver({ x: P5.p5.mouseX, y: P5.p5.mouseY }) && !this.#isChecked

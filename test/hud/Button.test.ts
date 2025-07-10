@@ -14,6 +14,10 @@ const buttonFourImages = new Button(buttonPosition, buttonSize, fourImages)
 const sixImages: any[] = [null, null, null, null, null, null]
 const buttonSixImages = new Button(buttonPosition, buttonSize, sixImages)
 
+beforeEach(() => {
+  button.on = true
+})
+
 test('isMouseInside, if it is inside the button, return true', () => {
   const mousePosition: Position = { x: 120, y: 130 }
   const result = button.isMouseInside(mousePosition)
@@ -85,4 +89,12 @@ test('getStateDraw, if the mouse position is outside and the button has 6 images
 
   const result = buttonSixImages.getStateDraw(mousePosition)
   expect(result).toBe(Button.INDEX_IMAGE_CHECKED)
+})
+
+test('getStateDraw, if the mouse position is outside and button on is false, return INDEX_IMAGE_OFF', () => {
+  const mousePosition: Position = { x: 120, y: 155 }
+  button.on = false
+  const result = button.getStateDraw(mousePosition)
+
+  expect(result).toBe(Button.INDEX_IMAGE_OFF)
 })

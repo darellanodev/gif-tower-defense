@@ -19,6 +19,7 @@ export class Button extends Obj {
   offsetImages: Position
   hasCheckedStates: boolean
   hasItems: boolean = false
+  on: boolean = true
   #totalItems: number
   #offsetItems: Position
 
@@ -107,6 +108,9 @@ export class Button extends Obj {
       return Button.INDEX_IMAGE_ON_HOVER
     }
     // the mouse is outside the button
+    if (!this.on) {
+      return Button.INDEX_IMAGE_OFF
+    }
     if (this.checked) {
       return Button.INDEX_IMAGE_CHECKED
     }
