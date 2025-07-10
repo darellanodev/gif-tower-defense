@@ -13,7 +13,6 @@ import {
 let magicUFOCreator: MagicUFOCreator
 let magicUFOInstancesManager: MagicInstancesManager
 
-beforeEach(() => {})
 test('id, when three Magic UFOs are created, last UFO has id = 3', () => {
   MagicUFOCreator.clearInstance()
   const enemyInstancesManager = new EnemyInstancesManager()
