@@ -10,7 +10,7 @@ export class Images {
   static towerGreenButtonImages: Image[]
   static towerRedButtonImages: Image[]
   static towerYellowButtonImages: Image[]
-  static buttonPauseImages: Image[]
+  static buttonPauseImages: (Image | null)[]
   static magicUFOButtonImages: Image[]
   static magicFireballButtonImages: Image[]
   static magicIceballButtonImages: Image[]
