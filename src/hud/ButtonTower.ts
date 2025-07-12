@@ -9,20 +9,6 @@ export class ButtonTower extends Button {
   static redTowerButton: Button
   static yellowTowerButton: Button
 
-  static towerGreenButtonImages: Image[]
-  static towerRedButtonImages: Image[]
-  static towerYellowButtonImages: Image[]
-
-  static setImages(
-    towerGreenButtonImages: Image[],
-    towerRedButtonImages: Image[],
-    towerYellowButtonImages: Image[],
-  ) {
-    ButtonTower.towerGreenButtonImages = towerGreenButtonImages
-    ButtonTower.towerRedButtonImages = towerRedButtonImages
-    ButtonTower.towerYellowButtonImages = towerYellowButtonImages
-  }
-
   static initializeButtons() {
     ButtonTower._initializeTowerButtons()
   }

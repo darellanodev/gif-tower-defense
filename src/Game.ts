@@ -133,11 +133,6 @@ export class Game {
 
     HudButtonsMagics.initializeButtons()
 
-    ButtonTower.setImages(
-      Images.towerGreenButtonImages,
-      Images.towerRedButtonImages,
-      Images.towerYellowButtonImages,
-    )
     ButtonTower.initializeButtons()
 
     this.#buttonPause = ButtonPauseCreator.initializePauseButton()

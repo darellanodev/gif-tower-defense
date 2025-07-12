@@ -2,6 +2,7 @@ import { Button } from './Button'
 import { Position } from '../types/position'
 import { Size } from '../types/size'
 import { ButtonTower } from './ButtonTower'
+import { Images } from '../resources/Images'
 
 export class ButtonRedTowerCreator extends Button {
   static _initializeRedTowerButton() {
@@ -11,7 +12,7 @@ export class ButtonRedTowerCreator extends Button {
     ButtonTower.redTowerButton = new Button(
       position,
       size,
-      ButtonTower.towerRedButtonImages,
+      Images.towerRedButtonImages,
       offsetImages,
     )
   }
