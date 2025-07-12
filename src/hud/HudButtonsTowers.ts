@@ -5,10 +5,13 @@ import { TowerGreen } from '../towers/TowerGreen'
 import { TowerRed } from '../towers/TowerRed'
 import { TowerYellow } from '../towers/TowerYellow'
 import { P5 } from '../utils/P5'
-import { ButtonTower } from './ButtonTower'
 import { HudPanel } from './HudPanel'
 import { Wallet } from '../player/Wallet'
 import { PositionUtils } from '../utils/PositionUtils'
+import { Button } from './Button'
+import { ButtonGreenTowerCreator } from './ButtonGreenTowerCreator'
+import { ButtonRedTowerCreator } from './ButtonRedTowerCreator'
+import { ButtonYellowTowerCreator } from './ButtonYellowTowerCreator'
 
 export class HudButtonsTowers {
   static ICON_GREEN_TOWER_ON = 0
@@ -17,6 +20,10 @@ export class HudButtonsTowers {
   static ICON_RED_TOWER_OFF = 1
   static ICON_YELLOW_TOWER_ON = 0
   static ICON_YELLOW_TOWER_OFF = 1
+
+  static greenTowerButton: Button
+  static redTowerButton: Button
+  static yellowTowerButton: Button
 
   #canBuyTowerGreen: boolean = false
   #canBuyTowerRed: boolean = false
@@ -50,34 +57,45 @@ export class HudButtonsTowers {
     }
     return false
   }
+  static initializeButtons() {
+    HudButtonsTowers._initializeTowerButtons()
+  }
+
+  static _initializeTowerButtons() {
+    ButtonGreenTowerCreator._initializeGreenTowerButton()
+    ButtonRedTowerCreator._initializeRedTowerButton()
+    ButtonYellowTowerCreator._initializeYellowTowerButton()
+
+    HudButtonsTowers.greenTowerButton.check()
+  }
 
   uncheckAllTowerButtons() {
-    ButtonTower.greenTowerButton.uncheck()
-    ButtonTower.redTowerButton.uncheck()
-    ButtonTower.yellowTowerButton.uncheck()
+    HudButtonsTowers.greenTowerButton.uncheck()
+    HudButtonsTowers.redTowerButton.uncheck()
+    HudButtonsTowers.yellowTowerButton.uncheck()
   }
 
   selectTower(towerId: number) {
     this.uncheckAllTowerButtons()
     switch (towerId) {
       case TowerGreen.ID:
-        ButtonTower.greenTowerButton.check()
+        HudButtonsTowers.greenTowerButton.check()
         break
 
       case TowerRed.ID:
-        ButtonTower.redTowerButton.check()
+        HudButtonsTowers.redTowerButton.check()
         break
 
       case TowerYellow.ID:
-        ButtonTower.yellowTowerButton.check()
+        HudButtonsTowers.yellowTowerButton.check()
         break
     }
   }
 
   getSelectedTower() {
-    if (ButtonTower.greenTowerButton.checked) {
+    if (HudButtonsTowers.greenTowerButton.checked) {
       return TowerGreen.ID
-    } else if (ButtonTower.redTowerButton.checked) {
+    } else if (HudButtonsTowers.redTowerButton.checked) {
       return TowerRed.ID
     }
     return TowerYellow.ID
@@ -102,13 +120,13 @@ export class HudButtonsTowers {
   }
 
   #drawTowerButtons() {
-    ButtonTower.greenTowerButton.on = this.#canBuyTowerGreen
-    ButtonTower.redTowerButton.on = this.#canBuyTowerRed
-    ButtonTower.yellowTowerButton.on = this.#canBuyTowerYellow
+    HudButtonsTowers.greenTowerButton.on = this.#canBuyTowerGreen
+    HudButtonsTowers.redTowerButton.on = this.#canBuyTowerRed
+    HudButtonsTowers.yellowTowerButton.on = this.#canBuyTowerYellow
 
-    ButtonTower.greenTowerButton.draw()
-    ButtonTower.redTowerButton.draw()
-    ButtonTower.yellowTowerButton.draw()
+    HudButtonsTowers.greenTowerButton.draw()
+    HudButtonsTowers.redTowerButton.draw()
+    HudButtonsTowers.yellowTowerButton.draw()
   }
 
   #drawUpgradeCost() {
@@ -196,13 +214,13 @@ export class HudButtonsTowers {
   }
 
   handleTowerButtons(mousePosition: Position) {
-    if (ButtonTower.greenTowerButton.isMouseOver(mousePosition)) {
+    if (HudButtonsTowers.greenTowerButton.isMouseOver(mousePosition)) {
       this.selectTower(TowerGreen.ID)
     }
-    if (ButtonTower.redTowerButton.isMouseOver(mousePosition)) {
+    if (HudButtonsTowers.redTowerButton.isMouseOver(mousePosition)) {
       this.selectTower(TowerRed.ID)
     }
-    if (ButtonTower.yellowTowerButton.isMouseOver(mousePosition)) {
+    if (HudButtonsTowers.yellowTowerButton.isMouseOver(mousePosition)) {
       this.selectTower(TowerYellow.ID)
     }
   }

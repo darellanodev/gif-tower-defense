@@ -1,9 +1,8 @@
-import { ButtonTower } from '../../src/hud/ButtonTower'
 import { HudButtonsTowers } from '../../src/hud/HudButtonsTowers'
 import { Wallet } from '../../src/player/Wallet'
 
 export const initializeButtonTower = () => {
-  ButtonTower.initializeButtons()
+  HudButtonsTowers.initializeButtons()
 }
 
 export const instantiateHudButtonsTowers = () => {

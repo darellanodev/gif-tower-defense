@@ -22,7 +22,6 @@ import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { TowerGreenCreator } from './towers/TowerGreenCreator'
 import { TowerRedCreator } from './towers/TowerRedCreator'
 import { TowerYellowCreator } from './towers/TowerYellowCreator'
-import { ButtonTower } from './hud/ButtonTower'
 import { ExplosionMagicFireball } from './explosions/ExplosionMagicFireball'
 import { ExplosionMagicIceball } from './explosions/ExplosionMagicIceball'
 import { FlyIndicator } from './hud/FlyIndicator'
@@ -133,7 +132,7 @@ export class Game {
 
     HudButtonsMagics.initializeButtons()
 
-    ButtonTower.initializeButtons()
+    HudButtonsTowers.initializeButtons()
 
     this.#buttonPause = ButtonPauseCreator.initializePauseButton()
 
