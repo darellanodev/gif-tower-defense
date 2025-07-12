@@ -27,18 +27,11 @@ export class ButtonTower extends Button {
     ButtonTower._initializeTowerButtons()
   }
 
-  static uncheckAllTowerButtons() {
-    ButtonTower.greenTowerButton.uncheck()
-    ButtonTower.redTowerButton.uncheck()
-    ButtonTower.yellowTowerButton.uncheck()
-  }
-
   static _initializeTowerButtons() {
     ButtonGreenTowerCreator._initializeGreenTowerButton()
     ButtonRedTowerCreator._initializeRedTowerButton()
     ButtonYellowTowerCreator._initializeYellowTowerButton()
 
-    ButtonTower.uncheckAllTowerButtons()
     ButtonTower.greenTowerButton.check()
   }
 }

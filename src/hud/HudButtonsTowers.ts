@@ -51,8 +51,14 @@ export class HudButtonsTowers {
     return false
   }
 
+  uncheckAllTowerButtons() {
+    ButtonTower.greenTowerButton.uncheck()
+    ButtonTower.redTowerButton.uncheck()
+    ButtonTower.yellowTowerButton.uncheck()
+  }
+
   selectTower(towerId: number) {
-    ButtonTower.uncheckAllTowerButtons()
+    this.uncheckAllTowerButtons()
     switch (towerId) {
       case TowerGreen.ID:
         ButtonTower.greenTowerButton.check()
