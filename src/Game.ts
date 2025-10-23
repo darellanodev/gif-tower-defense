@@ -1,16 +1,8 @@
-import { Enemy } from './enemies/Enemy'
-import { EnemyAnimator } from './enemies/EnemyAnimator'
-import { EnemyCreator } from './enemies/EnemyCreator'
 import { Path } from './path/Path'
-import { PathMovement } from './path/PathMovement'
 import { Player } from './player/Player'
 import { Images } from './resources/Images'
-import { Arrays } from './utils/Arrays'
 import { MagicInstancesManager } from './magics/MagicInstancesManager'
-import { Const } from './constants/Const'
-import { EnemyInstancesManager } from './enemies/EnemyInstancesManager'
 import { Wallet } from './player/Wallet'
-import { ExplosionEnemy } from './explosions/ExplosionEnemy'
 import { HudPanel } from './hud/HudPanel'
 import { HudButtonsTowers } from './hud/HudButtonsTowers'
 import { HudButtonsMagics } from './hud/HudButtonsMagics'
@@ -42,16 +34,18 @@ import { Size } from './types/size'
 import { TileBlackCreator } from './tiles/TileBlackCreator'
 import { ButtonPauseCreator } from './hud/ButtonPauseCreator'
 import { Button } from './hud/Button'
+import { EnemySystem } from './EnemySystem'
+import { ExplosionEnemy } from './explosions/ExplosionEnemy'
+import { Enemy } from './enemies/Enemy'
 
 export class Game {
   static #instance: Game | null = null
 
-  #enemyCreator: EnemyCreator
+  #enemySystem: EnemySystem
   #player: Player
   #magicFireballInstancesManager: MagicInstancesManager
   #magicIceballInstancesManager: MagicInstancesManager
   #magicUFOInstancesManager: MagicInstancesManager
-  #enemyInstancesManager: EnemyInstancesManager
   #wallet: Wallet | null = null
   #hudPanel: HudPanel
   #hudButtonsMagics: HudButtonsMagics
@@ -70,7 +64,6 @@ export class Game {
   #tileStartCreator: TileStartCreator | null = null
   #tileEndCreator: TileEndCreator | null = null
   #tilePathCreator: TilePathCreator | null = null
-  #pathStartEnemiesPosition: Position = { x: 0, y: 0 }
   #buttonPause: Button
 
   static getInstance(
@@ -93,19 +86,24 @@ export class Game {
     }
     this.#levelsDataProvider = levelsDataProvider
     this.#stateManager = stateManager
-    this.#enemyInstancesManager = new EnemyInstancesManager()
-    this.#enemyCreator = new EnemyCreator(this.#enemyInstancesManager)
+
+    this.#player = Player.getInstance()
+
+    this.#enemySystem = new EnemySystem(
+      this.#player,
+      this.#wallet,
+      this.#stateManager,
+    )
 
     this.#magicFireballInstancesManager = new MagicInstancesManager(
-      this.#enemyInstancesManager,
+      this.#enemySystem.enemyInstancesManager,
     )
     this.#magicIceballInstancesManager = new MagicInstancesManager(
-      this.#enemyInstancesManager,
+      this.#enemySystem.enemyInstancesManager,
     )
     this.#magicUFOInstancesManager = new MagicInstancesManager(
-      this.#enemyInstancesManager,
+      this.#enemySystem.enemyInstancesManager,
     )
-    this.#player = Player.getInstance()
 
     const towerGreenCreator = TowerGreenCreator.getInstance(
       Images.greenTowerImages,
@@ -198,7 +196,7 @@ export class Game {
     const pathStartEnemiesPosition = PathStartEnemiesPosition.getInstance()
     pathStartEnemiesPosition.tileStart = tileStart
 
-    this.#pathStartEnemiesPosition = pathStartEnemiesPosition.get()
+    this.#enemySystem.pathStartEnemiesPosition = pathStartEnemiesPosition.get()
 
     this.#tileOrangeCreator.createAll(levelMap, this.#tilesManager)
 
@@ -211,7 +209,7 @@ export class Game {
       this.#magicFireballInstancesManager,
       this.#magicIceballInstancesManager,
       this.#magicUFOInstancesManager,
-      this.#pathStartEnemiesPosition,
+      pathStartEnemiesPosition.get(),
     )
   }
   #createTiles(levelMap: MapDataType) {
@@ -248,51 +246,9 @@ export class Game {
     this.#magicUFOInstancesManager.drawInstances()
   }
 
-  #instantiateEnemyBoss() {
-    const enemyBossAnimator = this.#createEnemyBossAnimator()
-    const pathMovement = this.#createPathMovement(Enemy.BOSS_VELOCITY)
-
-    this.#enemyCreator.createBoss(
-      this.#pathStartEnemiesPosition,
-      this.#player.wave,
-      enemyBossAnimator,
-      pathMovement,
-    )
-  }
-
-  #handleWinners() {
-    const winnerEnemies = this.#enemyInstancesManager
-      .getAll()
-      .filter((enemy) => enemy.winner)
-    winnerEnemies.forEach((enemy) => {
-      this.#player.decreaseLives()
-      if (this.#player.lives <= 0) {
-        this.#stateManager.setGameOver()
-      }
-      enemy.resetWinner()
-    })
-  }
-
-  #handleExplosionEnemies() {
-    const deadEnemies: Enemy[] = this.#enemyInstancesManager
-      .getAll()
-      .filter((enemy) => enemy.dead)
-    deadEnemies.forEach((enemy) => {
-      if (this.#wallet === null) {
-        throw new Error('wallet is null')
-      }
-
-      ExplosionEnemy.instantiate(enemy.position)
-
-      const $increasedMoney = enemy.endurance * Const.MONEY_FACTOR
-      this.#wallet.increaseMoney($increasedMoney)
-      this.#player.increaseScore($increasedMoney * 2)
-    })
-  }
-
   #updateTowersEnemyTarget() {
     this.#tilesManager.getAllOrangeTiles.forEach((orangeTile) => {
-      orangeTile.selectTarget(this.#enemyInstancesManager.getAll())
+      orangeTile.selectTarget(this.#enemySystem.enemyInstancesManager.getAll())
     })
   }
 
@@ -361,70 +317,6 @@ export class Game {
     this.#hudOtherIndicators.draw()
   }
 
-  #createPathMovement(speed: number) {
-    return new PathMovement(this.#pathStartEnemiesPosition, Path.orders, speed)
-  }
-
-  #createEnemyNormalAnimator() {
-    return new EnemyAnimator(
-      Images.enemiesImages.slice(
-        ...Arrays.getTwoNumbersFourTimes(Enemy.waveEnemies),
-      ),
-    )
-  }
-
-  #createEnemyBossAnimator() {
-    return new EnemyAnimator(
-      Images.enemiesImages.slice(
-        ...Arrays.getTwoNumbersFourTimes(
-          EnemyAnimator.INDEX_BOSS_IN_ENEMIES_IMAGES,
-        ),
-      ),
-    )
-  }
-
-  #createEnemyNormal() {
-    const enemyAnimator = this.#createEnemyNormalAnimator()
-    const pathMovement = this.#createPathMovement(Enemy.VELOCITY)
-
-    this.#enemyCreator.createNormal(
-      Enemy.waveEnemies,
-      this.#pathStartEnemiesPosition,
-      this.#player.wave,
-      enemyAnimator,
-      pathMovement,
-    )
-  }
-
-  #handleEnemyNormalCreation() {
-    if (Enemy.allowCreateEnemies) {
-      if (Enemy.waveEnemies < Enemy.TOTAL_ENEMIES) {
-        Enemy.createEnemyTime++
-        if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
-          this.#createEnemyNormal()
-          Enemy.createEnemyTime = 0
-          Enemy.waveEnemies++
-        }
-      } else {
-        this.#disableEnemyNormalCreation()
-      }
-    }
-  }
-
-  #disableEnemyNormalCreation() {
-    Enemy.allowCreateEnemies = false
-    Enemy.waveEnemies = 0
-  }
-
-  #updateEnemies() {
-    this.#handleEnemyNormalCreation()
-    this.#handleExplosionEnemies()
-    this.#enemyInstancesManager.removeDeadInstances()
-    this.#enemyInstancesManager.updateInstances()
-
-    return this.#handleWinners()
-  }
-
   #drawExplosions() {
     ExplosionEnemy.removeDeadInstances()
     ExplosionMagicFireball.removeDeadInstances()
@@ -453,13 +345,13 @@ export class Game {
     if (this.#controls === null) {
       throw new Error('controls is null')
     }
-    this.#updateEnemies()
+    this.#enemySystem.updateEnemies()
     this.#controls.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
     this.#instantiateEnemies = this.#hudProgressBarWave.updateWaveProgressBar()
     this.#instantiateBoss = this.#hudProgressBarBoss.updateBossProgressBar()
 
     if (this.#instantiateBoss) {
-      this.#instantiateEnemyBoss()
+      this.#enemySystem.instantiateEnemyBoss()
     }
 
     if (this.#instantiateEnemies) {
@@ -493,7 +385,7 @@ export class Game {
   }
 
   #drawEnemies() {
-    this.#enemyInstancesManager.drawInstances()
+    this.#enemySystem.enemyInstancesManager.drawInstances()
   }
 
   #drawGameOverScreen() {
