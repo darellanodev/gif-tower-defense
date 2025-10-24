@@ -1,7 +1,6 @@
 import { Path } from './path/Path'
 import { Player } from './player/Player'
 import { Images } from './resources/Images'
-import { MagicInstancesManager } from './magics/MagicInstancesManager'
 import { Wallet } from './player/Wallet'
 import { Controls } from './player/Controls'
 import { LevelsDataProvider } from './levels/LevelsDataProvider'
@@ -23,6 +22,7 @@ import { ExplosionEnemy } from './explosions/ExplosionEnemy'
 import { Enemy } from './enemies/Enemy'
 import { HudPanel } from './hud/HudPanel'
 import { TileSystem } from './TileSystem'
+import { MagicSystem } from './MagicSystem'
 
 export class Game {
   static #instance: Game | null = null
@@ -30,10 +30,8 @@ export class Game {
   #enemySystem: EnemySystem | null = null
   #hudSystem: HudSystem | null = null
   #tileSystem: TileSystem | null = null
+  #magicSystem: MagicSystem | null = null
   #player: Player
-  #magicFireballInstancesManager: MagicInstancesManager | null = null
-  #magicIceballInstancesManager: MagicInstancesManager | null = null
-  #magicUFOInstancesManager: MagicInstancesManager | null = null
   #wallet: Wallet | null = null
   #controls: Controls | null = null
   #levelsDataProvider: LevelsDataProvider
@@ -89,15 +87,7 @@ export class Game {
       this.#stateManager,
     )
 
-    this.#magicFireballInstancesManager = new MagicInstancesManager(
-      this.#enemySystem.enemyInstancesManager,
-    )
-    this.#magicIceballInstancesManager = new MagicInstancesManager(
-      this.#enemySystem.enemyInstancesManager,
-    )
-    this.#magicUFOInstancesManager = new MagicInstancesManager(
-      this.#enemySystem.enemyInstancesManager,
-    )
+    this.#magicSystem = new MagicSystem(this.#enemySystem)
 
     this.#hudSystem = new HudSystem(
       this.#player,
@@ -138,49 +128,13 @@ export class Game {
       this.#hudSystem.hudButtonsTowers,
       this.#buttonPause,
       this.#wallet,
-      this.#magicFireballInstancesManager,
-      this.#magicIceballInstancesManager,
-      this.#magicUFOInstancesManager,
+      this.#magicSystem.magicFireballInstancesManager,
+      this.#magicSystem.magicIceballInstancesManager,
+      this.#magicSystem.magicUFOInstancesManager,
       pathStartEnemiesPosition.get(),
     )
 
     this.#hudSystem.setControls(this.#controls)
-  }
-  #updateMagics() {
-    if (this.#magicUFOInstancesManager === null) {
-      throw new Error('magicUFOInstancesManager is null')
-    }
-    if (this.#magicIceballInstancesManager === null) {
-      throw new Error('magicIceballInstancesManager is null')
-    }
-    if (this.#magicFireballInstancesManager === null) {
-      throw new Error('magicFireballInstancesManager is null')
-    }
-
-    this.#magicFireballInstancesManager.updateInstances()
-    this.#magicFireballInstancesManager.removeDeadInstances()
-
-    this.#magicIceballInstancesManager.updateInstances()
-    this.#magicIceballInstancesManager.removeDeadInstances()
-
-    this.#magicUFOInstancesManager.updateInstances()
-    this.#magicUFOInstancesManager.removeDeadInstances()
-  }
-
-  #drawMagics() {
-    if (this.#magicUFOInstancesManager === null) {
-      throw new Error('magicUFOInstancesManager is null')
-    }
-    if (this.#magicIceballInstancesManager === null) {
-      throw new Error('magicIceballInstancesManager is null')
-    }
-    if (this.#magicFireballInstancesManager === null) {
-      throw new Error('magicFireballInstancesManager is null')
-    }
-
-    this.#magicFireballInstancesManager.drawInstances()
-    this.#magicIceballInstancesManager.drawInstances()
-    this.#magicUFOInstancesManager.drawInstances()
   }
 
   #updateTowersEnemyTarget() {
@@ -233,6 +187,10 @@ export class Game {
     if (this.#controls === null) {
       throw new Error('controls is null')
     }
+    if (this.#magicSystem === null) {
+      throw new Error('magicSystem is null')
+    }
+
     this.#enemySystem.updateEnemies()
     this.#controls.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
     this.#instantiateEnemies =
@@ -248,7 +206,7 @@ export class Game {
       Enemy.allowCreateEnemies = true
     }
 
-    this.#updateMagics()
+    this.#magicSystem.updateMagics()
     Missile.updateInstances()
   }
 
@@ -304,6 +262,9 @@ export class Game {
   }
 
   draw() {
+    if (this.#magicSystem === null) {
+      throw new Error('magicSystem is null')
+    }
     if (this.#controls !== null) {
       this.#controls.pauseTimeReady()
     }
@@ -323,7 +284,7 @@ export class Game {
       this.#hudSystem.drawHud()
     }
 
-    this.#drawMagics()
+    this.#magicSystem.drawMagics()
     this.#drawExplosions()
     this.#drawFlyIndicators()
 
