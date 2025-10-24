@@ -42,6 +42,10 @@ export class Controls {
     magicUFOInstancesManager: MagicInstancesManager,
     pathStartEnemiesPosition: Position,
   ) {
+    // if (hudButtonsTowers === null) {
+    //   throw new Error('hudButtonsTower is null')
+    // }
+
     this.#stateManager = stateManager
     this.#hudButtonsMagics = hudButtonsMagics
     this.#hudButtonsTowers = hudButtonsTowers

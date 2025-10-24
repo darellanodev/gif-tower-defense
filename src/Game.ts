@@ -3,12 +3,6 @@ import { Player } from './player/Player'
 import { Images } from './resources/Images'
 import { MagicInstancesManager } from './magics/MagicInstancesManager'
 import { Wallet } from './player/Wallet'
-import { HudPanel } from './hud/HudPanel'
-import { HudButtonsTowers } from './hud/HudButtonsTowers'
-import { HudButtonsMagics } from './hud/HudButtonsMagics'
-import { HudProgressBarBoss } from './hud/HudProgressBarBoss'
-import { HudProgressBarWave } from './hud/HudProgressBarWave'
-import { HudOtherIndicators } from './hud/HudOtherIndicators'
 import { Controls } from './player/Controls'
 import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { TowerGreenCreator } from './towers/TowerGreenCreator'
@@ -28,31 +22,26 @@ import { TileStartCreator } from './tiles/TileStartCreator'
 import { TileEndCreator } from './tiles/TileEndCreator'
 import { TilePathCreator } from './tiles/TilePathCreator'
 import { PathStartEnemiesPosition } from './path/PathStartEnemiesPosition'
-import { Position } from './types/position'
 import { MapDataType } from './types/mapDataType'
-import { Size } from './types/size'
 import { TileBlackCreator } from './tiles/TileBlackCreator'
 import { ButtonPauseCreator } from './hud/ButtonPauseCreator'
 import { Button } from './hud/Button'
 import { EnemySystem } from './EnemySystem'
+import { HudSystem } from './HudSystem'
 import { ExplosionEnemy } from './explosions/ExplosionEnemy'
 import { Enemy } from './enemies/Enemy'
+import { HudPanel } from './hud/HudPanel'
 
 export class Game {
   static #instance: Game | null = null
 
   #enemySystem: EnemySystem
+  #hudSystem: HudSystem | null = null
   #player: Player
   #magicFireballInstancesManager: MagicInstancesManager
   #magicIceballInstancesManager: MagicInstancesManager
   #magicUFOInstancesManager: MagicInstancesManager
   #wallet: Wallet | null = null
-  #hudPanel: HudPanel
-  #hudButtonsMagics: HudButtonsMagics
-  #hudButtonsTowers: HudButtonsTowers | null = null
-  #hudProgressBarBoss: HudProgressBarBoss
-  #hudProgressBarWave: HudProgressBarWave
-  #hudOtherIndicators: HudOtherIndicators | null = null
   #controls: Controls | null = null
   #levelsDataProvider: LevelsDataProvider
   #instantiateBoss: boolean = false
@@ -128,33 +117,10 @@ export class Game {
       towerYellowCreator,
     )
 
-    HudButtonsMagics.initializeButtons()
-
-    HudButtonsTowers.initializeButtons()
-
     this.#buttonPause = ButtonPauseCreator.initializePauseButton()
 
-    this.#hudPanel = new HudPanel(Images.hudImages)
-    this.#hudButtonsMagics = new HudButtonsMagics()
-
-    this.#hudProgressBarBoss = this.#createHudProgressBarBoss()
-    this.#hudProgressBarWave = this.#createHudProgressBarWave()
     // assign the singleton instance
     Game.#instance = this
-  }
-
-  #createHudProgressBarBoss() {
-    const position: Position = { x: 345, y: 17 }
-    const size: Size = { w: 150, h: 10 }
-
-    return new HudProgressBarBoss(position, size)
-  }
-
-  #createHudProgressBarWave() {
-    const position: Position = { x: 345, y: 1 }
-    const size: Size = { w: 150, h: 16 }
-
-    return new HudProgressBarWave(position, size, this.#player)
   }
 
   loadLevel(levelId: number) {
@@ -166,13 +132,10 @@ export class Game {
     //   levelMap.money,
     // )
 
-    this.#hudButtonsTowers = new HudButtonsTowers(this.#wallet)
-
-    this.#hudOtherIndicators = new HudOtherIndicators(
-      this.#wallet,
+    this.#hudSystem = new HudSystem(
       this.#player,
-      levelMap.title,
-      levelMap.author,
+      this.#buttonPause,
+      this.#wallet,
     )
 
     this.#createTiles(levelMap)
@@ -200,10 +163,12 @@ export class Game {
 
     this.#tileOrangeCreator.createAll(levelMap, this.#tilesManager)
 
+    this.#hudSystem.createHuds(this.#wallet, levelMap)
+
     this.#controls = new Controls(
       this.#stateManager,
-      this.#hudButtonsMagics,
-      this.#hudButtonsTowers,
+      this.#hudSystem.hudButtonsMagics,
+      this.#hudSystem.hudButtonsTowers,
       this.#buttonPause,
       this.#wallet,
       this.#magicFireballInstancesManager,
@@ -211,6 +176,8 @@ export class Game {
       this.#magicUFOInstancesManager,
       pathStartEnemiesPosition.get(),
     )
+
+    this.#hudSystem.setControls(this.#controls)
   }
   #createTiles(levelMap: MapDataType) {
     //create start tile
@@ -259,64 +226,6 @@ export class Game {
     })
   }
 
-  get #isMouseOverOrangeTile() {
-    if (this.#controls === null) {
-      throw new Error('controls is null')
-    }
-    return this.#controls.mouseTileOrangeOver !== null
-  }
-
-  #drawHudBackgroundImage() {
-    if (this.#controls === null) {
-      throw new Error('controls is null')
-    }
-    if (this.#isMouseOverOrangeTile) {
-      const orangeTile = this.#controls.mouseTileOrangeOver
-      if (orangeTile?.hasTower()) {
-        this.#controls.drawHudBackgroundWhenTowerExists(orangeTile.getTower())
-      } else {
-        this.#controls.drawHudBackgroundWhenTowerNotExists()
-      }
-    } else {
-      this.#hudPanel.drawNormalHud()
-    }
-  }
-
-  #drawInfluenceArea() {
-    if (this.#controls === null) {
-      throw new Error('controls is null')
-    }
-    if (this.#isMouseOverOrangeTile) {
-      const orangeTile = this.#controls.mouseTileOrangeOver
-      if (orangeTile?.hasTower()) {
-        this.#controls.drawInfluenceAreaWhenTowerExists(orangeTile.getTower())
-      } else {
-        this.#controls.drawInfluenceAreaWhenTowerNotExists(orangeTile?.position)
-      }
-    }
-  }
-
-  #drawHud() {
-    if (
-      this.#hudButtonsTowers === null ||
-      this.#hudOtherIndicators === null ||
-      this.#buttonPause === null
-    ) {
-      throw new Error(
-        'hudButtonsTower or hudOtherIndicators or hudButtonOthers is null',
-      )
-    }
-    this.#hudPanel.draw()
-    this.#drawHudBackgroundImage()
-    this.#drawInfluenceArea()
-    this.#hudButtonsTowers.draw()
-    this.#buttonPause.draw()
-    this.#hudButtonsMagics.draw()
-    this.#hudProgressBarWave.draw()
-    this.#hudProgressBarBoss.draw()
-    this.#hudOtherIndicators.draw()
-  }
-
   #drawExplosions() {
     ExplosionEnemy.removeDeadInstances()
     ExplosionMagicFireball.removeDeadInstances()
@@ -342,13 +251,18 @@ export class Game {
   }
 
   #drawPlayingThings() {
+    if (this.#hudSystem === null) {
+      throw new Error('hudSystem is null')
+    }
     if (this.#controls === null) {
       throw new Error('controls is null')
     }
     this.#enemySystem.updateEnemies()
     this.#controls.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
-    this.#instantiateEnemies = this.#hudProgressBarWave.updateWaveProgressBar()
-    this.#instantiateBoss = this.#hudProgressBarBoss.updateBossProgressBar()
+    this.#instantiateEnemies =
+      this.#hudSystem.hudProgressBarWave.updateWaveProgressBar()
+    this.#instantiateBoss =
+      this.#hudSystem.hudProgressBarBoss.updateBossProgressBar()
 
     if (this.#instantiateBoss) {
       this.#enemySystem.instantiateEnemyBoss()
@@ -425,7 +339,10 @@ export class Game {
     this.#tilesManager.drawAll()
     this.#drawTowers()
     this.#drawEnemies()
-    this.#drawHud()
+
+    if (this.#hudSystem !== null) {
+      this.#hudSystem.drawHud()
+    }
 
     this.#drawMagics()
     this.#drawExplosions()
