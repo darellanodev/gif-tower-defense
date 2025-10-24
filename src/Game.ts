@@ -5,9 +5,6 @@ import { MagicInstancesManager } from './magics/MagicInstancesManager'
 import { Wallet } from './player/Wallet'
 import { Controls } from './player/Controls'
 import { LevelsDataProvider } from './levels/LevelsDataProvider'
-import { TowerGreenCreator } from './towers/TowerGreenCreator'
-import { TowerRedCreator } from './towers/TowerRedCreator'
-import { TowerYellowCreator } from './towers/TowerYellowCreator'
 import { ExplosionMagicFireball } from './explosions/ExplosionMagicFireball'
 import { ExplosionMagicIceball } from './explosions/ExplosionMagicIceball'
 import { FlyIndicator } from './hud/FlyIndicator'
@@ -17,13 +14,7 @@ import { TextProperties } from './hud/TextProperties'
 import { Debug } from './hud/Debug'
 import { StateManager } from './StateManager'
 import { TilesManager } from './tiles/TilesManager'
-import { TileOrangeCreator } from './tiles/TileOrangeCreator'
-import { TileStartCreator } from './tiles/TileStartCreator'
-import { TileEndCreator } from './tiles/TileEndCreator'
-import { TilePathCreator } from './tiles/TilePathCreator'
 import { PathStartEnemiesPosition } from './path/PathStartEnemiesPosition'
-import { MapDataType } from './types/mapDataType'
-import { TileBlackCreator } from './tiles/TileBlackCreator'
 import { ButtonPauseCreator } from './hud/ButtonPauseCreator'
 import { Button } from './hud/Button'
 import { EnemySystem } from './EnemySystem'
@@ -31,12 +22,14 @@ import { HudSystem } from './HudSystem'
 import { ExplosionEnemy } from './explosions/ExplosionEnemy'
 import { Enemy } from './enemies/Enemy'
 import { HudPanel } from './hud/HudPanel'
+import { TileSystem } from './TileSystem'
 
 export class Game {
   static #instance: Game | null = null
 
   #enemySystem: EnemySystem | null = null
   #hudSystem: HudSystem | null = null
+  #tileSystem: TileSystem | null = null
   #player: Player
   #magicFireballInstancesManager: MagicInstancesManager | null = null
   #magicIceballInstancesManager: MagicInstancesManager | null = null
@@ -48,11 +41,6 @@ export class Game {
   #instantiateEnemies: boolean = false
   #stateManager: StateManager
   #tilesManager: TilesManager
-  #tileOrangeCreator: TileOrangeCreator
-  #tileBlackCreator: TileBlackCreator
-  #tileStartCreator: TileStartCreator | null = null
-  #tileEndCreator: TileEndCreator | null = null
-  #tilePathCreator: TilePathCreator | null = null
   #buttonPause: Button
 
   static getInstance(
@@ -78,28 +66,7 @@ export class Game {
 
     this.#player = Player.getInstance()
 
-    const towerGreenCreator = TowerGreenCreator.getInstance(
-      Images.greenTowerImages,
-    )
-    const towerRedCreator = TowerRedCreator.getInstance(Images.redTowerImages)
-    const towerYellowCreator = TowerYellowCreator.getInstance(
-      Images.yellowTowerImages,
-      this.#player,
-    )
-
     this.#tilesManager = new TilesManager()
-
-    // create black tiles
-    this.#tileBlackCreator = TileBlackCreator.getInstance(Images.tileImages)
-
-    // create orange tiles
-    this.#tileOrangeCreator = TileOrangeCreator.getInstance(
-      Images.tileImages,
-      this.#player,
-      towerGreenCreator,
-      towerRedCreator,
-      towerYellowCreator,
-    )
 
     this.#buttonPause = ButtonPauseCreator.initializePauseButton()
 
@@ -138,7 +105,9 @@ export class Game {
       this.#wallet,
     )
 
-    this.#createTiles(levelMap)
+    this.#tileSystem = new TileSystem(this.#player, this.#tilesManager)
+
+    this.#tileSystem.createTiles(levelMap)
 
     // create orders
     const tilesPath = this.#tilesManager.getAllPathTiles
@@ -161,8 +130,6 @@ export class Game {
 
     this.#enemySystem.pathStartEnemiesPosition = pathStartEnemiesPosition.get()
 
-    this.#tileOrangeCreator.createAll(levelMap, this.#tilesManager)
-
     this.#hudSystem.createHuds(this.#wallet, levelMap)
 
     this.#controls = new Controls(
@@ -178,23 +145,6 @@ export class Game {
     )
 
     this.#hudSystem.setControls(this.#controls)
-  }
-  #createTiles(levelMap: MapDataType) {
-    //create start tile
-    this.#tileStartCreator = TileStartCreator.getInstance(Images.tileImages)
-    this.#tileStartCreator.create(levelMap, this.#tilesManager)
-
-    //create end tile
-    this.#tileEndCreator = TileEndCreator.getInstance(Images.tileImages)
-    this.#tileEndCreator.create(levelMap, this.#tilesManager)
-
-    // create path tiles
-    this.#tilePathCreator = TilePathCreator.getInstance()
-    this.#tilePathCreator.createAll(levelMap, this.#tilesManager)
-
-    // create black tiles
-    this.#tileBlackCreator = TileBlackCreator.getInstance(Images.tileImages)
-    this.#tileBlackCreator.createAll(levelMap, this.#tilesManager)
   }
   #updateMagics() {
     if (this.#magicUFOInstancesManager === null) {
