@@ -21,6 +21,7 @@ import { Enemy } from './enemies/Enemy'
 import { HudPanel } from './hud/HudPanel'
 import { TileSystem } from './TileSystem'
 import { MagicSystem } from './MagicSystem'
+import { TowerSystem } from './TowerSystem'
 
 export class Game {
   static #instance: Game | null = null
@@ -29,6 +30,7 @@ export class Game {
   #hudSystem: HudSystem | null = null
   #tileSystem: TileSystem | null = null
   #magicSystem: MagicSystem | null = null
+  #towerSystem: TowerSystem | null = null
   #player: Player
   #wallet: Wallet | null = null
   #controls: Controls | null = null
@@ -97,6 +99,8 @@ export class Game {
 
     this.#tileSystem.createTiles(levelMap)
 
+    this.#towerSystem = new TowerSystem(this.#tilesManager, this.#enemySystem)
+
     // create orders
     const tilesPath = this.#tilesManager.getAllPathTiles
     const tileStart = this.#tilesManager.tileStart
@@ -133,22 +137,6 @@ export class Game {
     )
 
     this.#hudSystem.setControls(this.#controls)
-  }
-
-  #updateTowersEnemyTarget() {
-    this.#tilesManager.getAllOrangeTiles.forEach((orangeTile) => {
-      if (this.#enemySystem === null) {
-        throw new Error('enemySystem is null')
-      }
-      orangeTile.selectTarget(this.#enemySystem.enemyInstancesManager.getAll())
-    })
-  }
-
-  #drawTowers() {
-    this.#tilesManager.getAllOrangeTiles.forEach((orangeTile) => {
-      orangeTile.updateTower()
-      orangeTile.drawTower()
-    })
   }
 
   #drawExplosions() {
@@ -231,7 +219,7 @@ export class Game {
   }
 
   update() {
-    this.#updateTowersEnemyTarget()
+    this.#towerSystem?.updateTowersEnemyTarget()
   }
 
   draw() {
@@ -247,7 +235,7 @@ export class Game {
 
     this.#drawBackground()
     this.#tilesManager.drawAll()
-    this.#drawTowers()
+    this.#towerSystem?.draw()
     this.#enemySystem?.draw()
 
     if (this.#hudSystem !== null) {
