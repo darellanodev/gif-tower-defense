@@ -271,7 +271,7 @@ export class Game {
     this.#enemySystem?.draw()
 
     if (this.#hudSystem !== null) {
-      this.#hudSystem.drawHud()
+      this.#hudSystem.draw()
     }
 
     this.#magicSystem?.draw()

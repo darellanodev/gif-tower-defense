@@ -69,7 +69,7 @@ export class HudSystem {
     this.#controls = controls
   }
 
-  drawHud() {
+  draw() {
     if (
       this.hudButtonsTowers === null ||
       this.#hudOtherIndicators === null ||
