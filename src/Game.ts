@@ -191,7 +191,7 @@ export class Game {
       throw new Error('magicSystem is null')
     }
 
-    this.#enemySystem.updateEnemies()
+    this.#enemySystem.update()
     this.#controls.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
     this.#instantiateEnemies =
       this.#hudSystem.hudProgressBarWave.updateWaveProgressBar()

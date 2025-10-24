@@ -42,7 +42,7 @@ export class EnemySystem {
     )
   }
 
-  updateEnemies() {
+  update() {
     this.#handleEnemyNormalCreation()
     this.#handleExplosionEnemies()
     this.enemyInstancesManager.removeDeadInstances()
