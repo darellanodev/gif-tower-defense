@@ -136,4 +136,7 @@ export class EnemySystem {
       pathMovement,
     )
   }
+  draw() {
+    this.enemyInstancesManager.drawInstances()
+  }
 }

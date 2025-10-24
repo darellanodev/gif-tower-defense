@@ -232,13 +232,6 @@ export class Game {
     this.#controls.keyPressed(keyCode)
   }
 
-  #drawEnemies() {
-    if (this.#enemySystem === null) {
-      throw new Error('enemySystem is null')
-    }
-    this.#enemySystem.enemyInstancesManager.drawInstances()
-  }
-
   #drawGameOverScreen() {
     TextProperties.setForBigCenteredTitle()
     P5.p5.text('Game over', P5.p5.width / 2, P5.p5.height / 2)
@@ -278,7 +271,7 @@ export class Game {
     this.#drawBackground()
     this.#tilesManager.drawAll()
     this.#drawTowers()
-    this.#drawEnemies()
+    this.#enemySystem?.draw()
 
     if (this.#hudSystem !== null) {
       this.#hudSystem.drawHud()
