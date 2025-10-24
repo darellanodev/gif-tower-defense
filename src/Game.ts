@@ -255,9 +255,6 @@ export class Game {
   }
 
   draw() {
-    if (this.#magicSystem === null) {
-      throw new Error('magicSystem is null')
-    }
     if (this.#controls !== null) {
       this.#controls.pauseTimeReady()
     }
@@ -277,7 +274,7 @@ export class Game {
       this.#hudSystem.drawHud()
     }
 
-    this.#magicSystem.drawMagics()
+    this.#magicSystem?.draw()
     this.#drawExplosions()
     this.#drawFlyIndicators()
 

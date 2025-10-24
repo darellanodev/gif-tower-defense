@@ -18,7 +18,7 @@ export class MagicSystem {
     )
   }
 
-  drawMagics() {
+  draw() {
     if (this.magicUFOInstancesManager === null) {
       throw new Error('magicUFOInstancesManager is null')
     }
