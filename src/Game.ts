@@ -206,7 +206,7 @@ export class Game {
       Enemy.allowCreateEnemies = true
     }
 
-    this.#magicSystem.updateMagics()
+    this.#magicSystem.update()
     Missile.updateInstances()
   }
 
