@@ -12,6 +12,9 @@ import { Wallet } from './player/Wallet'
 import { MapDataType } from './types/mapDataType'
 import { Button } from './hud/Button'
 import { Controls } from './player/Controls'
+import { TextProperties } from './hud/TextProperties'
+import { Debug } from './hud/Debug'
+import { P5 } from './utils/P5'
 
 export class HudSystem {
   #hudPanel: HudPanel
@@ -125,5 +128,23 @@ export class HudSystem {
       throw new Error('controls is null')
     }
     return this.#controls.mouseTileOrangeOver !== null
+  }
+
+  drawGameOverScreen() {
+    TextProperties.setForBigCenteredTitle()
+    P5.p5.text('Game over', P5.p5.width / 2, P5.p5.height / 2)
+  }
+
+  drawPauseScreen() {
+    TextProperties.setForBigCenteredTitle()
+    P5.p5.text('Game paused', P5.p5.width / 2, P5.p5.height / 2)
+  }
+
+  drawDebugElements() {
+    Debug.showMouseCoordinates(
+      { x: P5.p5.mouseX, y: P5.p5.mouseY },
+      { x: 260, y: 18 },
+    )
+    Debug.showLabelTestingMode({ x: 8, y: 100 })
   }
 }

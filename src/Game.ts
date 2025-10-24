@@ -9,8 +9,6 @@ import { ExplosionMagicIceball } from './explosions/ExplosionMagicIceball'
 import { FlyIndicator } from './hud/FlyIndicator'
 import { P5 } from './utils/P5'
 import { Missile } from './towers/Missile'
-import { TextProperties } from './hud/TextProperties'
-import { Debug } from './hud/Debug'
 import { StateManager } from './StateManager'
 import { TilesManager } from './tiles/TilesManager'
 import { PathStartEnemiesPosition } from './path/PathStartEnemiesPosition'
@@ -232,24 +230,6 @@ export class Game {
     this.#controls.keyPressed(keyCode)
   }
 
-  #drawGameOverScreen() {
-    TextProperties.setForBigCenteredTitle()
-    P5.p5.text('Game over', P5.p5.width / 2, P5.p5.height / 2)
-  }
-
-  #drawPauseScreen() {
-    TextProperties.setForBigCenteredTitle()
-    P5.p5.text('Game paused', P5.p5.width / 2, P5.p5.height / 2)
-  }
-
-  #drawDebugElements() {
-    Debug.showMouseCoordinates(
-      { x: P5.p5.mouseX, y: P5.p5.mouseY },
-      { x: 260, y: 18 },
-    )
-    Debug.showLabelTestingMode({ x: 8, y: 100 })
-  }
-
   update() {
     this.#updateTowersEnemyTarget()
   }
@@ -279,18 +259,18 @@ export class Game {
     this.#drawFlyIndicators()
 
     if (this.#stateManager.isGameOver()) {
-      this.#drawGameOverScreen()
+      this.#hudSystem?.drawGameOverScreen()
     }
 
     if (this.#stateManager.isPaused()) {
-      this.#drawPauseScreen()
+      this.#hudSystem?.drawPauseScreen()
     }
 
     Missile.removeDeadInstances()
     Missile.drawInstances()
 
     if (this.#wallet.isGameInTestingMode()) {
-      this.#drawDebugElements()
+      this.#hudSystem?.drawDebugElements()
     }
   }
 }
