@@ -35,12 +35,12 @@ import { HudPanel } from './hud/HudPanel'
 export class Game {
   static #instance: Game | null = null
 
-  #enemySystem: EnemySystem
+  #enemySystem: EnemySystem | null = null
   #hudSystem: HudSystem | null = null
   #player: Player
-  #magicFireballInstancesManager: MagicInstancesManager
-  #magicIceballInstancesManager: MagicInstancesManager
-  #magicUFOInstancesManager: MagicInstancesManager
+  #magicFireballInstancesManager: MagicInstancesManager | null = null
+  #magicIceballInstancesManager: MagicInstancesManager | null = null
+  #magicUFOInstancesManager: MagicInstancesManager | null = null
   #wallet: Wallet | null = null
   #controls: Controls | null = null
   #levelsDataProvider: LevelsDataProvider
@@ -77,22 +77,6 @@ export class Game {
     this.#stateManager = stateManager
 
     this.#player = Player.getInstance()
-
-    this.#enemySystem = new EnemySystem(
-      this.#player,
-      this.#wallet,
-      this.#stateManager,
-    )
-
-    this.#magicFireballInstancesManager = new MagicInstancesManager(
-      this.#enemySystem.enemyInstancesManager,
-    )
-    this.#magicIceballInstancesManager = new MagicInstancesManager(
-      this.#enemySystem.enemyInstancesManager,
-    )
-    this.#magicUFOInstancesManager = new MagicInstancesManager(
-      this.#enemySystem.enemyInstancesManager,
-    )
 
     const towerGreenCreator = TowerGreenCreator.getInstance(
       Images.greenTowerImages,
@@ -131,6 +115,22 @@ export class Game {
     //   Wallet.GAME_NORMAL_MODE,
     //   levelMap.money,
     // )
+
+    this.#enemySystem = new EnemySystem(
+      this.#player,
+      this.#wallet,
+      this.#stateManager,
+    )
+
+    this.#magicFireballInstancesManager = new MagicInstancesManager(
+      this.#enemySystem.enemyInstancesManager,
+    )
+    this.#magicIceballInstancesManager = new MagicInstancesManager(
+      this.#enemySystem.enemyInstancesManager,
+    )
+    this.#magicUFOInstancesManager = new MagicInstancesManager(
+      this.#enemySystem.enemyInstancesManager,
+    )
 
     this.#hudSystem = new HudSystem(
       this.#player,
@@ -197,6 +197,16 @@ export class Game {
     this.#tileBlackCreator.createAll(levelMap, this.#tilesManager)
   }
   #updateMagics() {
+    if (this.#magicUFOInstancesManager === null) {
+      throw new Error('magicUFOInstancesManager is null')
+    }
+    if (this.#magicIceballInstancesManager === null) {
+      throw new Error('magicIceballInstancesManager is null')
+    }
+    if (this.#magicFireballInstancesManager === null) {
+      throw new Error('magicFireballInstancesManager is null')
+    }
+
     this.#magicFireballInstancesManager.updateInstances()
     this.#magicFireballInstancesManager.removeDeadInstances()
 
@@ -208,6 +218,16 @@ export class Game {
   }
 
   #drawMagics() {
+    if (this.#magicUFOInstancesManager === null) {
+      throw new Error('magicUFOInstancesManager is null')
+    }
+    if (this.#magicIceballInstancesManager === null) {
+      throw new Error('magicIceballInstancesManager is null')
+    }
+    if (this.#magicFireballInstancesManager === null) {
+      throw new Error('magicFireballInstancesManager is null')
+    }
+
     this.#magicFireballInstancesManager.drawInstances()
     this.#magicIceballInstancesManager.drawInstances()
     this.#magicUFOInstancesManager.drawInstances()
@@ -215,6 +235,9 @@ export class Game {
 
   #updateTowersEnemyTarget() {
     this.#tilesManager.getAllOrangeTiles.forEach((orangeTile) => {
+      if (this.#enemySystem === null) {
+        throw new Error('enemySystem is null')
+      }
       orangeTile.selectTarget(this.#enemySystem.enemyInstancesManager.getAll())
     })
   }
@@ -253,6 +276,9 @@ export class Game {
   #drawPlayingThings() {
     if (this.#hudSystem === null) {
       throw new Error('hudSystem is null')
+    }
+    if (this.#enemySystem === null) {
+      throw new Error('enemySystem is null')
     }
     if (this.#controls === null) {
       throw new Error('controls is null')
@@ -299,6 +325,9 @@ export class Game {
   }
 
   #drawEnemies() {
+    if (this.#enemySystem === null) {
+      throw new Error('enemySystem is null')
+    }
     this.#enemySystem.enemyInstancesManager.drawInstances()
   }
 
