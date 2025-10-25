@@ -272,18 +272,19 @@ export class Game {
 
     this.#drawExplosions()
     this.#drawFlyIndicators()
-
-    if (this.#stateManager.isGameOver()) {
-      this.#hudSystem!.drawGameOverScreen()
-    }
-
-    if (this.#stateManager.isPaused()) {
-      this.#hudSystem!.drawPauseScreen()
-    }
+    this.#drawTextIndicators()
 
     Missile.removeDeadInstances()
     Missile.drawInstances()
+  }
 
+  #drawTextIndicators() {
+    if (this.#stateManager.isGameOver()) {
+      this.#hudSystem!.drawGameOverScreen()
+    }
+    if (this.#stateManager.isPaused()) {
+      this.#hudSystem!.drawPauseScreen()
+    }
     if (this.#wallet!.isGameInTestingMode()) {
       this.#hudSystem!.drawDebugElements()
     }
