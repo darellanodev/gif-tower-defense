@@ -24,6 +24,7 @@ import { MagicSystem } from './MagicSystem'
 import { TowerSystem } from './TowerSystem'
 import { ConstColor } from './constants/ConstColor'
 import { MapDataType } from './types/mapDataType'
+import { ConstGameMode } from './constants/ConstGameMode'
 
 export class Game {
   static #instance: Game | null = null
@@ -88,9 +89,9 @@ export class Game {
   }
 
   #initializeWallet(levelMap: MapDataType) {
-    this.#wallet = Wallet.getInstance(Wallet.GAME_TESTING_MODE, levelMap.money)
+    this.#wallet = Wallet.getInstance(ConstGameMode.TESTING, levelMap.money)
     // this.#wallet = Wallet.getInstance(
-    //   Wallet.GAME_NORMAL_MODE,
+    //   ConstGameMode.NORMAL,
     //   levelMap.money,
     // )
   }

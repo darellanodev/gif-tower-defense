@@ -4,12 +4,11 @@ import { TowerRed } from '../towers/TowerRed'
 import { TowerYellow } from '../towers/TowerYellow'
 import { FlyIndicator } from '../hud/FlyIndicator'
 import { TileOrange } from '../tiles/TileOrange'
+import { ConstGameMode } from '../constants/ConstGameMode'
 
 export class Wallet {
   static #instance: Wallet | null = null
 
-  static GAME_NORMAL_MODE = 0
-  static GAME_TESTING_MODE = 1
   static MONEY_IN_TESTING_MODE = 999999
 
   #mode = 0
@@ -39,7 +38,7 @@ export class Wallet {
     Wallet.#instance = null
   }
   isGameInTestingMode() {
-    return this.#mode === Wallet.GAME_TESTING_MODE
+    return this.#mode === ConstGameMode.TESTING
   }
 
   set initialMoney(money: number) {
@@ -47,7 +46,7 @@ export class Wallet {
       throw new Error('Money must be a positive number')
     }
     this.#money = money
-    if (this.#mode === Wallet.GAME_TESTING_MODE) {
+    if (this.#mode === ConstGameMode.TESTING) {
       this.#money = Wallet.MONEY_IN_TESTING_MODE
     }
   }
