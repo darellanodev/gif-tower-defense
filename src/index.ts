@@ -11,6 +11,7 @@ import { AllLevels } from './levels/levelsData/AllLevels'
 import { ButtonsMiniMapsCreator } from './hud/ButtonsMiniMapsCreator'
 import { NewsDataProvider } from './news/NewsDataProvider'
 import { NewsData } from './news/NewsData'
+import { Config } from './Config'
 
 let _p5: p5
 let game: Game
@@ -59,7 +60,7 @@ _p5 = new p5((p: p5) => {
       ButtonsMiniMapsCreator.getInstance(levelsDataProvider)
 
     stateManager = StateManager.getInstance(StateManager.STATE_MENU_MAIN)
-    game = Game.getInstance(stateManager, levelsDataProvider)
+    game = Game.getInstance(Config.gameMode, stateManager, levelsDataProvider)
     menuMain = MenuMain.getInstance(
       stateManager,
       buttonsMiniMapsCreator,

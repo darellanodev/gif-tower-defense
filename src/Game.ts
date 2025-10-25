@@ -43,18 +43,21 @@ export class Game {
   #stateManager: StateManager
   #tilesManager: TilesManager
   #buttonPause: Button
+  #gameMode: number
 
   static getInstance(
+    gameMode: number,
     stateManager: StateManager,
     levelsDataProvider: LevelsDataProvider,
   ) {
     if (Game.#instance === null) {
-      Game.#instance = new Game(stateManager, levelsDataProvider)
+      Game.#instance = new Game(gameMode, stateManager, levelsDataProvider)
     }
     return Game.#instance
   }
 
   constructor(
+    gameMode: number,
     stateManager: StateManager,
     levelsDataProvider: LevelsDataProvider,
   ) {
@@ -63,6 +66,7 @@ export class Game {
         'Game is a singleton class. Use getInstance to get the instance of the Game.',
       )
     }
+    this.#gameMode = gameMode
     this.#levelsDataProvider = levelsDataProvider
     this.#stateManager = stateManager
 
@@ -89,7 +93,11 @@ export class Game {
   }
 
   #initializeWallet(levelMap: MapDataType) {
-    this.#wallet = Wallet.getInstance(ConstGameMode.TESTING, levelMap.money)
+    const gameMode =
+      this.#gameMode === ConstGameMode.TESTING
+        ? ConstGameMode.TESTING
+        : ConstGameMode.NORMAL
+    this.#wallet = Wallet.getInstance(gameMode, levelMap.money)
     // this.#wallet = Wallet.getInstance(
     //   ConstGameMode.NORMAL,
     //   levelMap.money,
