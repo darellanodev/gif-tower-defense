@@ -5,4 +5,5 @@ export class ConstColor {
   static GREEN = [75, 185, 35] as RGBType
   static YELLOW = [202, 191, 24] as RGBType
   static RED = [185, 35, 35] as RGBType
+  static BACKGROUND = 'skyblue'
 }

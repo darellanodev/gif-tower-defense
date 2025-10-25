@@ -22,6 +22,7 @@ import { HudPanel } from './hud/HudPanel'
 import { TileSystem } from './TileSystem'
 import { MagicSystem } from './MagicSystem'
 import { TowerSystem } from './TowerSystem'
+import { ConstColor } from './constants/ConstColor'
 
 export class Game {
   static #instance: Game | null = null
@@ -171,7 +172,7 @@ export class Game {
   }
 
   #drawBackground() {
-    P5.p5.background('skyblue')
+    P5.p5.background(ConstColor.BACKGROUND)
     P5.p5.rectMode(P5.p5.CORNER)
 
     P5.p5.image(Images.backgroundImage, 0, HudPanel.HEIGHT)
