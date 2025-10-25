@@ -3,7 +3,7 @@ import { HudButtonsTowers } from './hud/HudButtonsTowers'
 import { HudButtonsMagics } from './hud/HudButtonsMagics'
 import { HudProgressBarBoss } from './hud/HudProgressBarBoss'
 import { HudProgressBarWave } from './hud/HudProgressBarWave'
-import { HudOtherIndicators } from './hud/HudOtherIndicators'
+import { HudPlayerIndicators } from './hud/HudPlayerIndicators'
 import { Images } from './resources/Images'
 import { Position } from './types/position'
 import { Size } from './types/size'
@@ -22,7 +22,7 @@ export class HudSystem {
   hudButtonsTowers: HudButtonsTowers
   hudProgressBarBoss: HudProgressBarBoss
   hudProgressBarWave: HudProgressBarWave
-  #hudOtherIndicators: HudOtherIndicators | null = null
+  #hudOtherIndicators: HudPlayerIndicators | null = null
   #player: Player
   #buttonPause: Button
   #controls: Controls | null
@@ -60,7 +60,7 @@ export class HudSystem {
   createHuds(wallet: Wallet, levelMap: MapDataType) {
     this.hudButtonsTowers = new HudButtonsTowers(wallet)
 
-    this.#hudOtherIndicators = new HudOtherIndicators(
+    this.#hudOtherIndicators = new HudPlayerIndicators(
       wallet,
       this.#player,
       levelMap.title,

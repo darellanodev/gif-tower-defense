@@ -3,7 +3,7 @@ import { Wallet } from '../player/Wallet'
 import { P5 } from '../utils/P5'
 import { TextProperties } from './TextProperties'
 
-export class HudOtherIndicators {
+export class HudPlayerIndicators {
   #wallet: Wallet
   #player: Player
   #levelMapTitle: string
