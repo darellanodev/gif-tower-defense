@@ -27,11 +27,11 @@ import { ConstColor } from './constants/ConstColor'
 export class Game {
   static #instance: Game | null = null
 
-  #enemySystem: EnemySystem | null = null
-  #hudSystem: HudSystem | null = null
-  #tileSystem: TileSystem | null = null
-  #magicSystem: MagicSystem | null = null
-  #towerSystem: TowerSystem | null = null
+  #enemySystem!: EnemySystem
+  #hudSystem!: HudSystem
+  #tileSystem!: TileSystem
+  #magicSystem!: MagicSystem
+  #towerSystem!: TowerSystem
   #player: Player
   #wallet: Wallet | null = null
   #controls: Controls | null = null
