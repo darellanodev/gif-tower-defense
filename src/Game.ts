@@ -211,13 +211,9 @@ export class Game {
     P5.p5.image(Images.backgroundImage, 0, HudPanel.HEIGHT)
   }
 
-  #drawPlayingThings() {
-    if (this.#controls === null) {
-      throw new Error('controls is null')
-    }
-
+  #updatePlayingThings() {
     this.#enemySystem!.update()
-    this.#controls.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
+    this.#controls!.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
     this.#instantiateEnemies =
       this.#hudSystem!.hudProgressBarWave.updateWaveProgressBar()
     this.#instantiateBoss =
@@ -262,14 +258,8 @@ export class Game {
   }
 
   draw() {
-    if (this.#controls !== null) {
-      this.#controls.pauseTimeReady()
-    }
-    if (this.#wallet === null) {
-      throw new Error('wallet is null')
-    }
     if (this.#stateManager.isPlaying()) {
-      this.#drawPlayingThings()
+      this.#updatePlayingThings()
     }
 
     this.#drawBackground()
@@ -294,7 +284,7 @@ export class Game {
     Missile.removeDeadInstances()
     Missile.drawInstances()
 
-    if (this.#wallet.isGameInTestingMode()) {
+    if (this.#wallet!.isGameInTestingMode()) {
       this.#hudSystem!.drawDebugElements()
     }
   }
