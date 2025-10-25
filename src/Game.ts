@@ -52,6 +52,7 @@ export class Game {
     }
     return Game.#instance
   }
+
   constructor(
     stateManager: StateManager,
     levelsDataProvider: LevelsDataProvider,
@@ -93,6 +94,7 @@ export class Game {
     //   levelMap.money,
     // )
   }
+
   #initializeEnemySystem() {
     this.#enemySystem = new EnemySystem(
       this.#player,
@@ -100,9 +102,11 @@ export class Game {
       this.#stateManager,
     )
   }
+
   #initializeMagicSystem() {
     this.#magicSystem = new MagicSystem(this.#enemySystem)
   }
+
   #initializeHudSystem() {
     this.#hudSystem = new HudSystem(
       this.#player,
@@ -110,9 +114,11 @@ export class Game {
       this.#wallet!,
     )
   }
+
   #initializeTileSystem() {
     this.#tileSystem = new TileSystem(this.#player, this.#tilesManager)
   }
+
   #initializeTowerSystem() {
     this.#towerSystem = new TowerSystem(this.#tilesManager, this.#enemySystem)
   }
@@ -141,13 +147,16 @@ export class Game {
 
     this.#enemySystem.pathStartEnemiesPosition = pathStartEnemiesPosition.get()
   }
+
   #initializeAllSystems() {
+    // the order is important
     this.#initializeEnemySystem()
     this.#initializeMagicSystem()
     this.#initializeHudSystem()
     this.#initializeTileSystem()
     this.#initializeTowerSystem()
   }
+
   #initializeControls() {
     this.#controls = new Controls(
       this.#stateManager,
@@ -161,6 +170,7 @@ export class Game {
       this.#enemySystem.pathStartEnemiesPosition,
     )
   }
+
   #configureHudSystem(levelMap: MapDataType) {
     this.#hudSystem.createHuds(this.#wallet!, levelMap)
     this.#hudSystem.setControls(this.#controls!)
@@ -168,7 +178,7 @@ export class Game {
 
   loadLevel(levelId: number) {
     const levelMap = this.#levelsDataProvider.getById(levelId)
-
+    // the order is important
     this.#initializeWallet(levelMap)
     this.#initializeAllSystems()
     this.#createPath(levelMap)
