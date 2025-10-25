@@ -72,7 +72,21 @@ export class Game {
     Game.#instance = this
   }
 
+  #validateSystems() {
+    if (
+      !this.#enemySystem ||
+      !this.#hudSystem ||
+      !this.#tileSystem ||
+      this.#magicSystem ||
+      this.#towerSystem
+    ) {
+      throw new Error('Some systems are not initialized correctly')
+    }
+  }
+
   loadLevel(levelId: number) {
+    this.#validateSystems()
+
     const levelMap = this.#levelsDataProvider.getById(levelId)
 
     this.#wallet = Wallet.getInstance(Wallet.GAME_TESTING_MODE, levelMap.money)
@@ -164,35 +178,26 @@ export class Game {
   }
 
   #drawPlayingThings() {
-    if (this.#hudSystem === null) {
-      throw new Error('hudSystem is null')
-    }
-    if (this.#enemySystem === null) {
-      throw new Error('enemySystem is null')
-    }
     if (this.#controls === null) {
       throw new Error('controls is null')
     }
-    if (this.#magicSystem === null) {
-      throw new Error('magicSystem is null')
-    }
 
-    this.#enemySystem.update()
+    this.#enemySystem!.update()
     this.#controls.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
     this.#instantiateEnemies =
-      this.#hudSystem.hudProgressBarWave.updateWaveProgressBar()
+      this.#hudSystem!.hudProgressBarWave.updateWaveProgressBar()
     this.#instantiateBoss =
-      this.#hudSystem.hudProgressBarBoss.updateBossProgressBar()
+      this.#hudSystem!.hudProgressBarBoss.updateBossProgressBar()
 
     if (this.#instantiateBoss) {
-      this.#enemySystem.instantiateEnemyBoss()
+      this.#enemySystem!.instantiateEnemyBoss()
     }
 
     if (this.#instantiateEnemies) {
       Enemy.allowCreateEnemies = true
     }
 
-    this.#magicSystem.update()
+    this.#magicSystem!.update()
     Missile.updateInstances()
   }
 
@@ -219,7 +224,7 @@ export class Game {
   }
 
   update() {
-    this.#towerSystem?.updateTowersEnemyTarget()
+    this.#towerSystem!.updateTowersEnemyTarget()
   }
 
   draw() {
@@ -235,30 +240,28 @@ export class Game {
 
     this.#drawBackground()
     this.#tilesManager.drawAll()
-    this.#towerSystem?.draw()
-    this.#enemySystem?.draw()
 
-    if (this.#hudSystem !== null) {
-      this.#hudSystem.draw()
-    }
+    this.#towerSystem!.draw()
+    this.#enemySystem!.draw()
+    this.#hudSystem!.draw()
+    this.#magicSystem!.draw()
 
-    this.#magicSystem?.draw()
     this.#drawExplosions()
     this.#drawFlyIndicators()
 
     if (this.#stateManager.isGameOver()) {
-      this.#hudSystem?.drawGameOverScreen()
+      this.#hudSystem!.drawGameOverScreen()
     }
 
     if (this.#stateManager.isPaused()) {
-      this.#hudSystem?.drawPauseScreen()
+      this.#hudSystem!.drawPauseScreen()
     }
 
     Missile.removeDeadInstances()
     Missile.drawInstances()
 
     if (this.#wallet.isGameInTestingMode()) {
-      this.#hudSystem?.drawDebugElements()
+      this.#hudSystem!.drawDebugElements()
     }
   }
 }
