@@ -28,17 +28,20 @@ export class HudSystem {
   #controls: Controls | null
   #stateManager: StateManager
   #wallet: Wallet
+  #isGameModeTesting: boolean
 
   constructor(
     player: Player,
     buttonPause: Button,
     wallet: Wallet,
     stateManager: StateManager,
+    isGameModeTesting: boolean,
   ) {
     this.#player = player
     this.#buttonPause = buttonPause
     this.#wallet = wallet
     this.#stateManager = stateManager
+    this.#isGameModeTesting = isGameModeTesting
 
     this.#controls = null
 
@@ -109,7 +112,7 @@ export class HudSystem {
     if (this.#stateManager.isPaused()) {
       this.#hudScreenIndicators!.drawPauseScreen()
     }
-    if (this.#wallet!.isGameInTestingMode()) {
+    if (this.#isGameModeTesting) {
       this.#hudScreenIndicators!.drawDebugElements()
     }
   }

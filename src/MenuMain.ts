@@ -109,6 +109,9 @@ export class MenuMain {
     return MenuMain.#instance
   }
   #drawDebugElements() {
+    if (!this.#game.isGameModeTesting()) {
+      return
+    }
     Debug.showMouseCoordinates(
       { x: P5.p5.mouseX, y: P5.p5.mouseY },
       { x: 355, y: 15 },

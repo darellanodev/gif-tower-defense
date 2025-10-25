@@ -37,9 +37,6 @@ export class Wallet {
   static clearInstance() {
     Wallet.#instance = null
   }
-  isGameInTestingMode() {
-    return this.#mode === ConstGameMode.TESTING
-  }
 
   set initialMoney(money: number) {
     if (money < 0) {

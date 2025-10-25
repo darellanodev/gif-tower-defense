@@ -92,11 +92,14 @@ export class Game {
     }
   }
 
+  isGameModeTesting(): boolean {
+    return this.#gameMode === ConstGameMode.TESTING
+  }
+
   #initializeWallet(levelMap: MapDataType) {
-    const gameMode =
-      this.#gameMode === ConstGameMode.TESTING
-        ? ConstGameMode.TESTING
-        : ConstGameMode.NORMAL
+    const gameMode = this.isGameModeTesting()
+      ? ConstGameMode.TESTING
+      : ConstGameMode.NORMAL
     this.#wallet = Wallet.getInstance(gameMode, levelMap.money)
     // this.#wallet = Wallet.getInstance(
     //   ConstGameMode.NORMAL,
@@ -122,6 +125,7 @@ export class Game {
       this.#buttonPause,
       this.#wallet!,
       this.#stateManager,
+      this.isGameModeTesting(),
     )
   }
 
