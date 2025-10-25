@@ -4,6 +4,7 @@ import { HudButtonsMagics } from './hud/HudButtonsMagics'
 import { HudProgressBarBoss } from './hud/HudProgressBarBoss'
 import { HudProgressBarWave } from './hud/HudProgressBarWave'
 import { HudPlayerIndicators } from './hud/HudPlayerIndicators'
+import { HudScreenIndicators } from './hud/HudScreenIndicators'
 import { Images } from './resources/Images'
 import { Position } from './types/position'
 import { Size } from './types/size'
@@ -12,9 +13,7 @@ import { Wallet } from './player/Wallet'
 import { MapDataType } from './types/mapDataType'
 import { Button } from './hud/Button'
 import { Controls } from './player/Controls'
-import { TextProperties } from './hud/TextProperties'
-import { Debug } from './hud/Debug'
-import { P5 } from './utils/P5'
+import { StateManager } from './StateManager'
 
 export class HudSystem {
   #hudPanel: HudPanel
@@ -22,14 +21,25 @@ export class HudSystem {
   hudButtonsTowers: HudButtonsTowers
   hudProgressBarBoss: HudProgressBarBoss
   hudProgressBarWave: HudProgressBarWave
-  #hudOtherIndicators: HudPlayerIndicators | null = null
+  #hudPlayerIndicators: HudPlayerIndicators | null = null
+  #hudScreenIndicators: HudScreenIndicators
   #player: Player
   #buttonPause: Button
   #controls: Controls | null
+  #stateManager: StateManager
+  #wallet: Wallet
 
-  constructor(player: Player, buttonPause: Button, wallet: Wallet) {
+  constructor(
+    player: Player,
+    buttonPause: Button,
+    wallet: Wallet,
+    stateManager: StateManager,
+  ) {
     this.#player = player
     this.#buttonPause = buttonPause
+    this.#wallet = wallet
+    this.#stateManager = stateManager
+
     this.#controls = null
 
     HudButtonsMagics.initializeButtons()
@@ -37,7 +47,8 @@ export class HudSystem {
 
     this.#hudPanel = new HudPanel(Images.hudImages)
     this.hudButtonsMagics = new HudButtonsMagics()
-    this.hudButtonsTowers = new HudButtonsTowers(wallet)
+    this.hudButtonsTowers = new HudButtonsTowers(this.#wallet)
+    this.#hudScreenIndicators = new HudScreenIndicators()
 
     this.hudProgressBarBoss = this.#createHudProgressBarBoss()
     this.hudProgressBarWave = this.#createHudProgressBarWave()
@@ -60,7 +71,7 @@ export class HudSystem {
   createHuds(wallet: Wallet, levelMap: MapDataType) {
     this.hudButtonsTowers = new HudButtonsTowers(wallet)
 
-    this.#hudOtherIndicators = new HudPlayerIndicators(
+    this.#hudPlayerIndicators = new HudPlayerIndicators(
       wallet,
       this.#player,
       levelMap.title,
@@ -75,11 +86,11 @@ export class HudSystem {
   draw() {
     if (
       this.hudButtonsTowers === null ||
-      this.#hudOtherIndicators === null ||
+      this.#hudPlayerIndicators === null ||
       this.#buttonPause === null
     ) {
       throw new Error(
-        'hudButtonsTower or hudOtherIndicators or hudButtonOthers is null',
+        'hudButtonsTower or hudPlayerIndicators or hudButtonOthers is null',
       )
     }
     this.#hudPanel.draw()
@@ -90,7 +101,17 @@ export class HudSystem {
     this.hudButtonsMagics.draw()
     this.hudProgressBarWave.draw()
     this.hudProgressBarBoss.draw()
-    this.#hudOtherIndicators.draw()
+    this.#hudPlayerIndicators.draw()
+
+    if (this.#stateManager.isGameOver()) {
+      this.#hudScreenIndicators!.drawGameOverScreen()
+    }
+    if (this.#stateManager.isPaused()) {
+      this.#hudScreenIndicators!.drawPauseScreen()
+    }
+    if (this.#wallet!.isGameInTestingMode()) {
+      this.#hudScreenIndicators!.drawDebugElements()
+    }
   }
 
   #drawInfluenceArea() {
@@ -128,23 +149,5 @@ export class HudSystem {
       throw new Error('controls is null')
     }
     return this.#controls.mouseTileOrangeOver !== null
-  }
-
-  drawGameOverScreen() {
-    TextProperties.setForBigCenteredTitle()
-    P5.p5.text('Game over', P5.p5.width / 2, P5.p5.height / 2)
-  }
-
-  drawPauseScreen() {
-    TextProperties.setForBigCenteredTitle()
-    P5.p5.text('Game paused', P5.p5.width / 2, P5.p5.height / 2)
-  }
-
-  drawDebugElements() {
-    Debug.showMouseCoordinates(
-      { x: P5.p5.mouseX, y: P5.p5.mouseY },
-      { x: 260, y: 18 },
-    )
-    Debug.showLabelTestingMode({ x: 8, y: 100 })
   }
 }
