@@ -78,16 +78,14 @@ export class Game {
       !this.#enemySystem ||
       !this.#hudSystem ||
       !this.#tileSystem ||
-      this.#magicSystem ||
-      this.#towerSystem
+      !this.#magicSystem ||
+      !this.#towerSystem
     ) {
       throw new Error('Some systems are not initialized correctly')
     }
   }
 
   loadLevel(levelId: number) {
-    this.#validateSystems()
-
     const levelMap = this.#levelsDataProvider.getById(levelId)
 
     this.#wallet = Wallet.getInstance(Wallet.GAME_TESTING_MODE, levelMap.money)
@@ -112,9 +110,9 @@ export class Game {
 
     this.#tileSystem = new TileSystem(this.#player, this.#tilesManager)
 
-    this.#tileSystem.createTiles(levelMap)
-
     this.#towerSystem = new TowerSystem(this.#tilesManager, this.#enemySystem)
+
+    this.#tileSystem.createTiles(levelMap)
 
     // create orders
     const tilesPath = this.#tilesManager.getAllPathTiles
@@ -152,6 +150,8 @@ export class Game {
     )
 
     this.#hudSystem.setControls(this.#controls)
+
+    this.#validateSystems()
   }
 
   #drawExplosions() {
