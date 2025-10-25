@@ -23,6 +23,7 @@ import { TileSystem } from './TileSystem'
 import { MagicSystem } from './MagicSystem'
 import { TowerSystem } from './TowerSystem'
 import { ConstColor } from './constants/ConstColor'
+import { MapDataType } from './types/mapDataType'
 
 export class Game {
   static #instance: Game | null = null
@@ -85,36 +86,41 @@ export class Game {
     }
   }
 
-  loadLevel(levelId: number) {
-    const levelMap = this.#levelsDataProvider.getById(levelId)
-
+  #initializeWallet(levelMap: MapDataType) {
     this.#wallet = Wallet.getInstance(Wallet.GAME_TESTING_MODE, levelMap.money)
     // this.#wallet = Wallet.getInstance(
     //   Wallet.GAME_NORMAL_MODE,
     //   levelMap.money,
     // )
-
+  }
+  #initializeEnemySystem() {
     this.#enemySystem = new EnemySystem(
       this.#player,
       this.#wallet,
       this.#stateManager,
     )
-
+  }
+  #initializeMagicSystem() {
     this.#magicSystem = new MagicSystem(this.#enemySystem)
-
+  }
+  #initializeHudSystem() {
     this.#hudSystem = new HudSystem(
       this.#player,
       this.#buttonPause,
-      this.#wallet,
+      this.#wallet!,
     )
-
+  }
+  #initializeTileSystem() {
     this.#tileSystem = new TileSystem(this.#player, this.#tilesManager)
-
+  }
+  #initializeTowerSystem() {
     this.#towerSystem = new TowerSystem(this.#tilesManager, this.#enemySystem)
+  }
 
+  #createPath(levelMap: MapDataType) {
+    // create orders
     this.#tileSystem.createTiles(levelMap)
 
-    // create orders
     const tilesPath = this.#tilesManager.getAllPathTiles
     const tileStart = this.#tilesManager.tileStart
     const tileEnd = this.#tilesManager.tileEnd
@@ -134,23 +140,40 @@ export class Game {
     pathStartEnemiesPosition.tileStart = tileStart
 
     this.#enemySystem.pathStartEnemiesPosition = pathStartEnemiesPosition.get()
-
-    this.#hudSystem.createHuds(this.#wallet, levelMap)
-
+  }
+  #initializeAllSystems() {
+    this.#initializeEnemySystem()
+    this.#initializeMagicSystem()
+    this.#initializeHudSystem()
+    this.#initializeTileSystem()
+    this.#initializeTowerSystem()
+  }
+  #initializeControls() {
     this.#controls = new Controls(
       this.#stateManager,
       this.#hudSystem.hudButtonsMagics,
       this.#hudSystem.hudButtonsTowers,
       this.#buttonPause,
-      this.#wallet,
+      this.#wallet!,
       this.#magicSystem.magicFireballInstancesManager,
       this.#magicSystem.magicIceballInstancesManager,
       this.#magicSystem.magicUFOInstancesManager,
-      pathStartEnemiesPosition.get(),
+      this.#enemySystem.pathStartEnemiesPosition,
     )
+  }
+  #configureHudSystem(levelMap: MapDataType) {
+    this.#hudSystem.createHuds(this.#wallet!, levelMap)
+    this.#hudSystem.setControls(this.#controls!)
+  }
 
-    this.#hudSystem.setControls(this.#controls)
+  loadLevel(levelId: number) {
+    const levelMap = this.#levelsDataProvider.getById(levelId)
 
+    this.#initializeWallet(levelMap)
+    this.#initializeAllSystems()
+    this.#createPath(levelMap)
+    this.#initializeControls()
+    this.#configureHudSystem(levelMap)
     this.#validateSystems()
   }
 
