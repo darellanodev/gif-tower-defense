@@ -11,19 +11,11 @@ export class HudProgressBarBoss extends ProgressBar {
   }
 
   updateBossProgressBar() {
-    let instantiateBoss = false
     if (this.#bossProgressDelay > 0) {
       this.#bossProgressDelay--
     } else {
       this.#bossProgressDelay = Const.BOSS_PROGRESS_DELAY
       this.increaseProgress()
-
-      if (this.isFullOfProgress()) {
-        // next boss
-        this.reInitProgress()
-        instantiateBoss = true
-      }
     }
-    return instantiateBoss
   }
 }
