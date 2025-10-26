@@ -20,7 +20,8 @@ export class EnemyCreator {
     const endurance = wave * 3 + waveEnemies * 2
     const isBoss = false
 
-    const id = this.#enemyInstancesManager.generateId()
+    this.#enemyInstancesManager.generateId()
+    const id = this.#enemyInstancesManager.getLastId()
 
     this.#enemyInstancesManager.add(
       new Enemy(
@@ -43,7 +44,8 @@ export class EnemyCreator {
     const endurance = wave * 25
     const isBoss = true
 
-    const id = this.#enemyInstancesManager.generateId()
+    this.#enemyInstancesManager.generateId()
+    const id = this.#enemyInstancesManager.getLastId()
 
     this.#enemyInstancesManager.add(
       new Enemy(

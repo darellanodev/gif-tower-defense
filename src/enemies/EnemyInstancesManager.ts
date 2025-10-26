@@ -10,6 +10,9 @@ export class EnemyInstancesManager extends InstancesManager {
 
   generateId() {
     this.#lastId++
+  }
+
+  getLastId(): number {
     return this.#lastId
   }
 
