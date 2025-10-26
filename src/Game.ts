@@ -150,7 +150,8 @@ export class Game {
     }
 
     const path = new Path(tileStart, tileEnd, tilesPath)
-    Path.orders = path.makeOrders()
+    path.makeOrders()
+    Path.orders = path.orders
 
     if (Path.orders.length === 0) {
       throw new Error('Empty orders')

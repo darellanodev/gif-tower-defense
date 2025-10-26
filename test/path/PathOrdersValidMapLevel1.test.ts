@@ -6,7 +6,8 @@ import { getLevelMap, getPathFromMap } from '../helpers/levelMap'
 const levelId = 1
 const levelMap = getLevelMap(levelId)
 const path = getPathFromMap(levelMap)
-const orders = path.makeOrders()
+path.makeOrders()
+const orders = path.orders
 
 describe('makeOrders', () => {
   test('first order', () => {

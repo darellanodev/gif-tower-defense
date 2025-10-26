@@ -225,7 +225,9 @@ export class Path {
     if (this.#endReached) {
       this.#orders.push(this.#currentDirection)
     }
+  }
 
+  get orders(): number[] {
     return this.#orders
   }
 }
