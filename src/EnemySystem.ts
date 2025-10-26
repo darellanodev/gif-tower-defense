@@ -47,8 +47,7 @@ export class EnemySystem {
     this.#handleExplosionEnemies()
     this.enemyInstancesManager.removeDeadInstances()
     this.enemyInstancesManager.updateInstances()
-
-    return this.#handleWinners()
+    this.#handleWinners()
   }
 
   #handleEnemyNormalCreation() {
