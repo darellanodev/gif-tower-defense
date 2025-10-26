@@ -56,6 +56,7 @@ export class PathMovement {
       if (this.endReached) {
         this.#reachTheEndTile()
       } else {
+        this.#indexOrder++
         this.#currentDirection = this.nextOrderDirection
       }
     }
@@ -68,7 +69,6 @@ export class PathMovement {
   }
 
   get nextOrderDirection() {
-    this.#indexOrder++
     return this.#orders[this.#indexOrder]
   }
 
