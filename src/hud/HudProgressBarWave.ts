@@ -16,20 +16,11 @@ export class HudProgressBarWave extends ProgressBar {
   }
 
   updateWaveProgressBar() {
-    let instantiateEnemies = false
     if (this.#waveProgressDelay > 0) {
       this.#waveProgressDelay--
     } else {
       this.#waveProgressDelay = Const.WAVE_PROGRESS_DELAY
       this.increaseProgress()
-
-      if (this.isFullOfProgress()) {
-        // next wave
-        this.reInitProgress()
-        this.#player.increaseWave()
-        instantiateEnemies = true
-      }
     }
-    return instantiateEnemies
   }
 }

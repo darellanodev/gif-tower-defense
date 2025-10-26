@@ -228,8 +228,15 @@ export class Game {
   #updatePlayingThings() {
     this.#enemySystem!.update()
     this.#controls!.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
-    this.#instantiateEnemies =
-      this.#hudSystem!.hudProgressBarWave.updateWaveProgressBar()
+
+    this.#hudSystem!.hudProgressBarWave.updateWaveProgressBar()
+
+    this.#instantiateEnemies = false
+    if (this.#hudSystem!.hudProgressBarWave.isFullOfProgress()) {
+      this.#hudSystem!.hudProgressBarWave.reInitProgress()
+      this.#player.increaseWave()
+      this.#instantiateEnemies = true
+    }
 
     this.#hudSystem!.hudProgressBarBoss.updateBossProgressBar()
 
