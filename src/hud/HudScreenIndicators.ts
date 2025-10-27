@@ -1,9 +1,28 @@
+import { StateManager } from '../StateManager'
 import { P5 } from '../utils/P5'
 import { Debug } from './Debug'
 import { TextProperties } from './TextProperties'
 
 export class HudScreenIndicators {
-  constructor() {}
+  #stateManager: StateManager
+  #isGameModeTesting: boolean
+
+  constructor(stateManager: StateManager, isGameModeTesting: boolean) {
+    this.#stateManager = stateManager
+    this.#isGameModeTesting = isGameModeTesting
+  }
+
+  draw() {
+    if (this.#stateManager.isGameOver()) {
+      this.drawGameOverScreen()
+    }
+    if (this.#stateManager.isPaused()) {
+      this.drawPauseScreen()
+    }
+    if (this.#isGameModeTesting) {
+      this.drawDebugElements()
+    }
+  }
 
   drawGameOverScreen() {
     TextProperties.setForBigCenteredTitle()

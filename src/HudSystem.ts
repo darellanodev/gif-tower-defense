@@ -51,7 +51,10 @@ export class HudSystem {
     this.#hudPanel = new HudPanel(Images.hudImages)
     this.hudButtonsMagics = new HudButtonsMagics()
     this.hudButtonsTowers = new HudButtonsTowers(this.#wallet)
-    this.#hudScreenIndicators = new HudScreenIndicators()
+    this.#hudScreenIndicators = new HudScreenIndicators(
+      this.#stateManager,
+      isGameModeTesting,
+    )
 
     this.hudProgressBarBoss = this.#createHudProgressBarBoss()
     this.hudProgressBarWave = this.#createHudProgressBarWave()
@@ -105,16 +108,7 @@ export class HudSystem {
     this.hudProgressBarWave.draw()
     this.hudProgressBarBoss.draw()
     this.#hudPlayerIndicators.draw()
-
-    if (this.#stateManager.isGameOver()) {
-      this.#hudScreenIndicators!.drawGameOverScreen()
-    }
-    if (this.#stateManager.isPaused()) {
-      this.#hudScreenIndicators!.drawPauseScreen()
-    }
-    if (this.#isGameModeTesting) {
-      this.#hudScreenIndicators!.drawDebugElements()
-    }
+    this.#hudScreenIndicators.draw()
   }
 
   #drawInfluenceArea() {
