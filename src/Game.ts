@@ -101,10 +101,6 @@ export class Game {
       ? ConstGameMode.TESTING
       : ConstGameMode.NORMAL
     this.#wallet = Wallet.getInstance(gameMode, levelMap.money)
-    // this.#wallet = Wallet.getInstance(
-    //   ConstGameMode.NORMAL,
-    //   levelMap.money,
-    // )
   }
 
   #initializeEnemySystem() {
