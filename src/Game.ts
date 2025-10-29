@@ -133,28 +133,18 @@ export class Game {
     this.#towerSystem = new TowerSystem(this.#tilesManager, this.#enemySystem)
   }
 
-  #createPath(levelMap: MapDataType) {
-    // create orders
-    this.#tileSystem.createTiles(levelMap)
-
-    const tilesPath = this.#tilesManager.getAllPathTiles
-    const tileStart = this.#tilesManager.tileStart
-    const tileEnd = this.#tilesManager.tileEnd
-
-    if (tileStart === null || tileEnd === null) {
-      throw new Error('Map invalid: tileStart or tileEnd is null')
-    }
-
-    const path = new Path(tileStart, tileEnd, tilesPath)
+  #makePathOrders() {
+    const path = new Path(
+      this.#tilesManager.tileStart!,
+      this.#tilesManager.tileEnd!,
+      this.#tilesManager.getAllPathTiles,
+    )
     path.makeOrders()
     Path.orders = path.orders
-
-    if (Path.orders.length === 0) {
-      throw new Error('Empty orders')
-    }
-
+  }
+  #initializeEnemiesStartPosition() {
     const pathStartEnemiesPosition = PathStartEnemiesPosition.getInstance()
-    pathStartEnemiesPosition.tileStart = tileStart
+    pathStartEnemiesPosition.tileStart = this.#tilesManager.tileStart!
 
     this.#enemySystem.pathStartEnemiesPosition = pathStartEnemiesPosition.get()
   }
@@ -192,7 +182,11 @@ export class Game {
     // the order is important
     this.#initializeWallet(levelMap)
     this.#initializeAllSystems()
-    this.#createPath(levelMap)
+
+    this.#tileSystem.createTiles(levelMap)
+    this.#makePathOrders()
+    this.#initializeEnemiesStartPosition()
+
     this.#initializeControls()
     this.#configureHudSystem(levelMap)
     this.#validateSystems()
