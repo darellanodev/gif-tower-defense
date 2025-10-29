@@ -222,12 +222,8 @@ export class Game {
     P5.p5.image(Images.backgroundImage, 0, HudPanel.HEIGHT)
   }
 
-  #updatePlayingThings() {
-    this.#enemySystem!.update()
-    this.#controls!.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
-
+  #updateEnemies() {
     this.#hudSystem!.hudProgressBarWave.updateWaveProgressBar()
-
     this.#instantiateEnemies = false
     if (this.#hudSystem!.hudProgressBarWave.isFullOfProgress()) {
       this.#hudSystem!.hudProgressBarWave.reInitProgress()
@@ -235,8 +231,13 @@ export class Game {
       this.#instantiateEnemies = true
     }
 
-    this.#hudSystem!.hudProgressBarBoss.updateBossProgressBar()
+    if (this.#instantiateEnemies) {
+      Enemy.allowCreateEnemies = true
+    }
+  }
 
+  #updateBoss() {
+    this.#hudSystem!.hudProgressBarBoss.updateBossProgressBar()
     this.#instantiateBoss = false
     if (this.#hudSystem!.hudProgressBarBoss.isFullOfProgress()) {
       this.#hudSystem!.hudProgressBarBoss.reInitProgress()
@@ -246,13 +247,19 @@ export class Game {
     if (this.#instantiateBoss) {
       this.#enemySystem!.instantiateEnemyBoss()
     }
+  }
 
-    if (this.#instantiateEnemies) {
-      Enemy.allowCreateEnemies = true
-    }
+  update() {
+    this.#enemySystem!.update()
+    this.#controls!.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
+
+    this.#updateEnemies()
+    this.#updateBoss()
 
     this.#magicSystem!.update()
     Missile.updateInstances()
+
+    this.#towerSystem!.updateTowersEnemyTarget()
   }
 
   #getMouseTileOrangeOver() {
@@ -277,15 +284,7 @@ export class Game {
     this.#controls.keyPressed(keyCode)
   }
 
-  update() {
-    this.#towerSystem!.updateTowersEnemyTarget()
-  }
-
   draw() {
-    if (this.#stateManager.isPlaying()) {
-      this.#updatePlayingThings()
-    }
-
     this.#drawBackground()
     this.#tilesManager.drawAll()
 
