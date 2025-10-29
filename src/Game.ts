@@ -69,11 +69,8 @@ export class Game {
     this.#gameMode = gameMode
     this.#levelsDataProvider = levelsDataProvider
     this.#stateManager = stateManager
-
     this.#player = Player.getInstance()
-
     this.#tilesManager = new TilesManager()
-
     this.#buttonPause = ButtonPauseCreator.initializePauseButton()
 
     // assign the singleton instance
