@@ -1,7 +1,7 @@
 import { Button } from './Button'
-import { Position } from '../types/position'
-import { Size } from '../types/size'
-import { Images } from '../resources/Images'
+import { Position } from '../../types/position'
+import { Size } from '../../types/size'
+import { Images } from '../../resources/Images'
 import { HudButtonsTowers } from './HudButtonsTowers'
 
 export class ButtonRedTowerCreator extends Button {

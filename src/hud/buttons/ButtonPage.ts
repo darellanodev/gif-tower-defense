@@ -1,9 +1,9 @@
 import { Image } from 'p5'
-import { Position } from '../types/position'
-import { Size } from '../types/size'
+import { Position } from '../../types/position'
+import { Size } from '../../types/size'
 import { Button } from './Button'
-import { TextProperties } from './TextProperties'
-import { P5 } from '../utils/P5'
+import { TextProperties } from '../TextProperties'
+import { P5 } from '../../utils/P5'
 
 export class ButtonPage extends Button {
   #textPosition: Position

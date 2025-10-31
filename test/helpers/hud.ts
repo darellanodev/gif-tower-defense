@@ -1,4 +1,4 @@
-import { ButtonsMiniMapsCreator } from '../../src/hud/ButtonsMiniMapsCreator'
+import { ButtonsMiniMapsCreator } from '../../src/hud/buttons/ButtonsMiniMapsCreator'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
 import { LevelsDataTesting } from '../../src/levels/LevelsDataTesting'
 

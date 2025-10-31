@@ -1,7 +1,7 @@
-import { LevelsDataProvider } from '../levels/LevelsDataProvider'
-import { MiniMap } from '../MiniMap'
-import { Images } from '../resources/Images'
-import { Position } from '../types/position'
+import { LevelsDataProvider } from '../../levels/LevelsDataProvider'
+import { MiniMap } from '../../MiniMap'
+import { Images } from '../../resources/Images'
+import { Position } from '../../types/position'
 import { ButtonMiniMap } from './ButtonMiniMap'
 
 export class ButtonsMiniMapsCreator {

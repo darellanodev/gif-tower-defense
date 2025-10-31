@@ -1,8 +1,8 @@
 import { Image } from 'p5'
-import { Position } from '../types/position'
-import { Size } from '../types/size'
+import { Position } from '../../types/position'
+import { Size } from '../../types/size'
 import { Button } from './Button'
-import { MiniMap } from '../MiniMap'
+import { MiniMap } from '../../MiniMap'
 
 export class ButtonMiniMap extends Button {
   static MINIMAP_OFFSET_X = 14

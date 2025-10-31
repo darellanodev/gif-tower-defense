@@ -1,4 +1,4 @@
-import { HudButtonsTowers } from '../../src/hud/HudButtonsTowers'
+import { HudButtonsTowers } from '../../src/hud/buttons/HudButtonsTowers'
 import { Wallet } from '../../src/player/Wallet'
 
 export const initializeButtonTower = () => {

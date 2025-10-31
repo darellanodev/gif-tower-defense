@@ -1,4 +1,4 @@
-import { ButtonPage } from '../hud/ButtonPage'
+import { ButtonPage } from './buttons/ButtonPage'
 import { Images } from '../resources/Images'
 import { Position } from '../types/position'
 

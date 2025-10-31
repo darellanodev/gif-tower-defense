@@ -1,5 +1,5 @@
 import { expect } from 'vitest'
-import { Button } from '../../src/hud/Button'
+import { Button } from '../../src/hud/buttons/Button'
 import { Position } from '../../src/types/position'
 import { Size } from '../../src/types/size'
 import { images } from '../helpers/imagesResources'

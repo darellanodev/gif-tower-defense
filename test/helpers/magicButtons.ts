@@ -1,10 +1,10 @@
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
-import { HudButtonsMagics } from '../../src/hud/HudButtonsMagics'
+import { HudButtonsMagics } from '../../src/hud/buttons/HudButtonsMagics'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { Position } from '../../src/types/position'
 import { Size } from '../../src/types/size'
 import { images, img } from './imagesResources'
-import { Button } from '../../src/hud/Button'
+import { Button } from '../../src/hud/buttons/Button'
 
 export const createMagicButton = () => {
   const buttonPosition: Position = { x: 100, y: 100 }
