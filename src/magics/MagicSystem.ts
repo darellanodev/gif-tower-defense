@@ -1,5 +1,5 @@
-import { EnemySystem } from './EnemySystem'
-import { MagicInstancesManager } from './magics/MagicInstancesManager'
+import { EnemySystem } from '../EnemySystem'
+import { MagicInstancesManager } from './MagicInstancesManager'
 
 export class MagicSystem {
   magicFireballInstancesManager: MagicInstancesManager
