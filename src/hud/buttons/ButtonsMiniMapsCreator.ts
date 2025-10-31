@@ -1,5 +1,5 @@
 import { LevelsDataProvider } from '../../levels/LevelsDataProvider'
-import { MiniMap } from '../../MiniMap'
+import { MiniMap } from '../../menus/MiniMap'
 import { Images } from '../../resources/Images'
 import { Position } from '../../types/position'
 import { ButtonMiniMap } from './ButtonMiniMap'

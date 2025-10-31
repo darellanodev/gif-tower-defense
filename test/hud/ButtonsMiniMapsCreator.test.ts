@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
 import { ConstTest } from '../../src/constants/ConstTest'
-import { MiniMap } from '../../src/MiniMap'
+import { MiniMap } from '../../src/menus/MiniMap'
 import { getButtonsMiniMapsCreator } from '../helpers/hud'
 
 ConstTest.DISABLE_LOADING_IMAGES = true

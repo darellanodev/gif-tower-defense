@@ -1,7 +1,7 @@
-import { EnemyAnimator } from './enemies/EnemyAnimator'
-import { Position } from './types/position'
-import { Size } from './types/size'
-import { P5 } from './utils/P5'
+import { EnemyAnimator } from '../enemies/EnemyAnimator'
+import { Position } from '../types/position'
+import { Size } from '../types/size'
+import { P5 } from '../utils/P5'
 
 export class TodayEnemies {
   #enemiesAnimators: EnemyAnimator[] = []
