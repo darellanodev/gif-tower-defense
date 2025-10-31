@@ -15,7 +15,7 @@ export class Button extends Obj {
 
   checked: boolean = false
   size: Size
-  images: Image[]
+  images: (Image | null)[]
   offsetImages: Position
   hasCheckedStates: boolean
   hasItems: boolean = false
@@ -26,7 +26,7 @@ export class Button extends Obj {
   constructor(
     position: Position,
     size: Size,
-    images: Image[],
+    images: (Image | null)[],
     offsetImages: Position = { x: 0, y: 0 },
     totalItems: number = 0,
     offsetItems: Position = { x: 0, y: 0 },
@@ -168,6 +168,9 @@ export class Button extends Obj {
   }
 
   drawState(state: number) {
+    if (this.images[state] === null) {
+      throw new Error('Image in drawState for the button is null')
+    }
     P5.p5.image(
       this.images[state],
       this.position.x + this.offsetImages.x,
