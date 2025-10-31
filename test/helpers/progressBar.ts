@@ -1,4 +1,4 @@
-import { ProgressBar } from '../../src/hud/ProgressBar'
+import { ProgressBar } from '../../src/hud/progressbar/ProgressBar'
 import { Position } from '../../src/types/position'
 import { Size } from '../../src/types/size'
 

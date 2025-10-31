@@ -1,8 +1,8 @@
-import { Position } from '../types/position'
-import { Size } from '../types/size'
+import { Position } from '../../types/position'
+import { Size } from '../../types/size'
 import { ProgressBar } from './ProgressBar'
-import { Const } from '../constants/Const'
-import { Player } from '../player/Player'
+import { Const } from '../../constants/Const'
+import { Player } from '../../player/Player'
 
 export class HudProgressBarWave extends ProgressBar {
   static POSITION: Position = { x: 335, y: -19 }

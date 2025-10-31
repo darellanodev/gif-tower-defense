@@ -1,7 +1,7 @@
 import { ProgressBar } from './ProgressBar'
-import { Const } from '../constants/Const'
-import { Position } from '../types/position'
-import { Size } from '../types/size'
+import { Const } from '../../constants/Const'
+import { Position } from '../../types/position'
+import { Size } from '../../types/size'
 
 export class HudProgressBarBoss extends ProgressBar {
   #bossProgressDelay: number = Const.BOSS_PROGRESS_DELAY

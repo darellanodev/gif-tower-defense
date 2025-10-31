@@ -1,7 +1,7 @@
 import { Position } from '../types/position'
 import { RGBType } from '../types/rgb'
 import { Const } from '../constants/Const'
-import { ProgressBar } from '../hud/ProgressBar'
+import { ProgressBar } from '../hud/progressbar/ProgressBar'
 import { Enemy } from '../enemies/Enemy'
 import { P5 } from '../utils/P5'
 import { TileOrange } from '../tiles/TileOrange'

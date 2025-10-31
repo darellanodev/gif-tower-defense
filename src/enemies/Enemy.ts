@@ -1,4 +1,4 @@
-import { ProgressBar } from '../hud/ProgressBar'
+import { ProgressBar } from '../hud/progressbar/ProgressBar'
 import { Position } from '../types/position'
 import { MagicIceball } from '../magics/MagicIceball'
 import { P5 } from '../utils/P5'

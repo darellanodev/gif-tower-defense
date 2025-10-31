@@ -1,7 +1,7 @@
-import { Position } from '../types/position'
-import { Size } from '../types/size'
-import { P5 } from '../utils/P5'
-import { Obj } from '../Obj'
+import { Position } from '../../types/position'
+import { Size } from '../../types/size'
+import { P5 } from '../../utils/P5'
+import { Obj } from '../../Obj'
 
 export class ProgressBar extends Obj {
   #size: Size
