@@ -9,11 +9,11 @@ import { images } from './imagesResources'
 import { TowerGreenCreator } from '../../src/towers/TowerGreenCreator'
 import { TowerRedCreator } from '../../src/towers/TowerRedCreator'
 import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
-import { TilesManager } from '../../src/tiles/TilesManager'
-import { TileOrangeCreator } from '../../src/tiles/TileOrangeCreator'
-import { TileStartCreator } from '../../src/tiles/TileStartCreator'
-import { TileEndCreator } from '../../src/tiles/TileEndCreator'
-import { TilePathCreator } from '../../src/tiles/TilePathCreator'
+import { TilesManager } from '../../src/levels/tiles/TilesManager'
+import { TileOrangeCreator } from '../../src/levels/tiles/TileOrangeCreator'
+import { TileStartCreator } from '../../src/levels/tiles/TileStartCreator'
+import { TileEndCreator } from '../../src/levels/tiles/TileEndCreator'
+import { TilePathCreator } from '../../src/levels/tiles/TilePathCreator'
 
 export const getTileOrangeCreator = () => {
   TileOrangeCreator.clearInstance()

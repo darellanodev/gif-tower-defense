@@ -1,10 +1,10 @@
 import { Image } from 'p5'
 import { TilesManager } from './TilesManager'
-import { ConstDirection } from '../constants/ConstDirection'
+import { ConstDirection } from '../../constants/ConstDirection'
 import { TileEnd } from './TileEnd'
-import { MapDataType } from '../types/mapDataType'
-import { ConstTest } from '../constants/ConstTest'
-import { Const } from '../constants/Const'
+import { MapDataType } from '../../types/mapDataType'
+import { ConstTest } from '../../constants/ConstTest'
+import { Const } from '../../constants/Const'
 
 export class TileEndCreator {
   static #instance: TileEndCreator | null = null

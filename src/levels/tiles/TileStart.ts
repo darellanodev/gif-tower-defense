@@ -1,8 +1,8 @@
 import { Image } from 'p5'
-import { Position } from '../types/position'
-import { Obj } from '../Obj'
-import { P5 } from '../utils/P5'
-import { Const } from '../constants/Const'
+import { Position } from '../../types/position'
+import { Obj } from '../../Obj'
+import { P5 } from '../../utils/P5'
+import { Const } from '../../constants/Const'
 
 export class TileStart extends Obj {
   #img: Image | null

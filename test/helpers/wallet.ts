@@ -1,5 +1,5 @@
 import { Wallet } from '../../src/player/Wallet'
-import { TileOrange } from '../../src/tiles/TileOrange'
+import { TileOrange } from '../../src/levels/tiles/TileOrange'
 import { TowerGreen } from '../../src/towers/TowerGreen'
 import { initializeButtonTower } from './buttonsTowers'
 

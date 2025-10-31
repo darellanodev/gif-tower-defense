@@ -1,7 +1,7 @@
-import { TileEnd } from '../tiles/TileEnd'
-import { TileOrange } from '../tiles/TileOrange'
-import { TilePath } from '../tiles/TilePath'
-import { TileStart } from '../tiles/TileStart'
+import { TileEnd } from '../levels/tiles/TileEnd'
+import { TileOrange } from '../levels/tiles/TileOrange'
+import { TilePath } from '../levels/tiles/TilePath'
+import { TileStart } from '../levels/tiles/TileStart'
 
 export type WalkableTile = TilePath | TileEnd | TileStart
 export type NotWalkableTile = TileOrange

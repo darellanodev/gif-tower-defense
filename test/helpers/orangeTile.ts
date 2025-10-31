@@ -1,5 +1,5 @@
 import { Player } from '../../src/player/Player'
-import { TileOrange } from '../../src/tiles/TileOrange'
+import { TileOrange } from '../../src/levels/tiles/TileOrange'
 import { Position } from '../../src/types/position'
 import { img } from './imagesResources'
 import { images } from './imagesResources'

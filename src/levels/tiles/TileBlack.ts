@@ -1,8 +1,8 @@
-import { Position } from '../types/position'
+import { Position } from '../../types/position'
 import { Image } from 'p5'
-import { Const } from '../constants/Const'
-import { P5 } from '../utils/P5'
-import { Obj } from '../Obj'
+import { Const } from '../../constants/Const'
+import { P5 } from '../../utils/P5'
+import { Obj } from '../../Obj'
 
 export class TileBlack extends Obj {
   #img: Image | null = null

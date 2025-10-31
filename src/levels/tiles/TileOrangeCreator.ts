@@ -1,12 +1,12 @@
 import { TileOrange } from './TileOrange'
 import { Image } from 'p5'
-import { Player } from '../player/Player'
-import { TowerGreenCreator } from '../towers/TowerGreenCreator'
-import { TowerRedCreator } from '../towers/TowerRedCreator'
-import { TowerYellowCreator } from '../towers/TowerYellowCreator'
+import { Player } from '../../player/Player'
+import { TowerGreenCreator } from '../../towers/TowerGreenCreator'
+import { TowerRedCreator } from '../../towers/TowerRedCreator'
+import { TowerYellowCreator } from '../../towers/TowerYellowCreator'
 import { TilesManager } from './TilesManager'
-import { MapDataType } from '../types/mapDataType'
-import { ConstTest } from '../constants/ConstTest'
+import { MapDataType } from '../../types/mapDataType'
+import { ConstTest } from '../../constants/ConstTest'
 
 export class TileOrangeCreator {
   static #instance: TileOrangeCreator | null = null

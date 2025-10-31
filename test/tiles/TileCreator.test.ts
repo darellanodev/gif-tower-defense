@@ -6,7 +6,7 @@ import {
   getTileStartCreator,
   getValidLevelMap,
 } from '../helpers/levelMap'
-import { TilesManager } from '../../src/tiles/TilesManager'
+import { TilesManager } from '../../src/levels/tiles/TilesManager'
 
 test('orangeTiles getter, when valid map is passed, return the orange tiles', () => {
   const levelMap = getValidLevelMap()

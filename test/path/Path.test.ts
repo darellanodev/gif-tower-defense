@@ -1,9 +1,9 @@
 import { expect } from 'vitest'
 import { ConstDirection } from '../../src/constants/ConstDirection'
 import { Path } from '../../src/path/Path'
-import { TilePath } from '../../src/tiles/TilePath'
-import { TileStart } from '../../src/tiles/TileStart'
-import { TileEnd } from '../../src/tiles/TileEnd'
+import { TilePath } from '../../src/levels/tiles/TilePath'
+import { TileStart } from '../../src/levels/tiles/TileStart'
+import { TileEnd } from '../../src/levels/tiles/TileEnd'
 import { img } from '../helpers/imagesResources'
 
 test('getTileInPosition, when passing an existing pathtile coordinates, return the pathtile', () => {

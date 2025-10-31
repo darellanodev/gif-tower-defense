@@ -1,4 +1,4 @@
-import { TileStart } from '../tiles/TileStart'
+import { TileStart } from '../levels/tiles/TileStart'
 import { Const } from '../constants/Const'
 import { ConstDirection } from '../constants/ConstDirection'
 

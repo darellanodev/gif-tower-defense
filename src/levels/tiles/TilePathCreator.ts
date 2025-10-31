@@ -1,4 +1,4 @@
-import { MapDataType } from '../types/mapDataType'
+import { MapDataType } from '../../types/mapDataType'
 import { TilePath } from './TilePath'
 import { TilesManager } from './TilesManager'
 

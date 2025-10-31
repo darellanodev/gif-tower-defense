@@ -3,7 +3,7 @@ import { TowerGreen } from '../towers/TowerGreen'
 import { TowerRed } from '../towers/TowerRed'
 import { TowerYellow } from '../towers/TowerYellow'
 import { FlyIndicator } from '../hud/FlyIndicator'
-import { TileOrange } from '../tiles/TileOrange'
+import { TileOrange } from '../levels/tiles/TileOrange'
 import { ConstGameMode } from '../constants/ConstGameMode'
 
 export class Wallet {

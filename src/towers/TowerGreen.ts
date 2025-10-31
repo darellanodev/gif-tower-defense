@@ -4,7 +4,7 @@ import { ConstColor } from '../constants/ConstColor'
 import { Const } from '../constants/Const'
 import { Tower } from './Tower'
 import { P5 } from '../utils/P5'
-import { TileOrange } from '../tiles/TileOrange'
+import { TileOrange } from '../levels/tiles/TileOrange'
 
 export class TowerGreen extends Tower {
   static ID = 1

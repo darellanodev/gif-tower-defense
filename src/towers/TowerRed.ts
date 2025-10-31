@@ -5,7 +5,7 @@ import { Const } from '../constants/Const'
 import { Tower } from './Tower'
 import { Missile } from './Missile'
 import { P5 } from '../utils/P5'
-import { TileOrange } from '../tiles/TileOrange'
+import { TileOrange } from '../levels/tiles/TileOrange'
 
 export class TowerRed extends Tower {
   static ID = 2
