@@ -1,4 +1,4 @@
-import { NewsDataType } from '../types/newsDataType'
+import { NewsDataType } from '../../types/newsDataType'
 
 export class NewsDataProvider {
   #news: NewsDataType[] = []

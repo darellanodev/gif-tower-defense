@@ -1,6 +1,6 @@
-import { NewsDataType } from '../types/newsDataType'
+import { NewsDataType } from '../../types/newsDataType'
 
-export class NewsDataTesting {
+export class NewsData {
   static data: NewsDataType[] = [
     {
       id: 1,

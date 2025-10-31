@@ -9,8 +9,8 @@ import { MenuSurvival } from './menus/MenuSurvival'
 import { LevelsDataProvider } from './levels/LevelsDataProvider'
 import { AllLevels } from './levels/levelsData/AllLevels'
 import { ButtonsMiniMapsCreator } from './hud/buttons/ButtonsMiniMapsCreator'
-import { NewsDataProvider } from './news/NewsDataProvider'
-import { NewsData } from './news/NewsData'
+import { NewsDataProvider } from './menus/news/NewsDataProvider'
+import { NewsData } from './menus/news/NewsData'
 import { Config } from './Config'
 
 let _p5: p5

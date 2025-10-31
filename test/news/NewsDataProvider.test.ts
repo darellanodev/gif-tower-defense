@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
-import { NewsDataProvider } from '../../src/news/NewsDataProvider'
-import { NewsDataTesting } from '../../src/news/NewsDataTesting'
+import { NewsDataProvider } from '../../src/menus/news/NewsDataProvider'
+import { NewsDataTesting } from '../../src/menus/news/NewsDataTesting'
 
 const newsDataProvider = NewsDataProvider.getInstance()
 newsDataProvider.initNewsItems(NewsDataTesting.data)
