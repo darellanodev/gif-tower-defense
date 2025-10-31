@@ -1,5 +1,5 @@
 import { Enemy } from '../enemies/Enemy'
-import { ExplosionMagicFireball } from '../explosions/ExplosionMagicFireball'
+import { ExplosionMagicFireball } from '../particles/explosions/ExplosionMagicFireball'
 import { ConstTest } from '../constants/ConstTest'
 import { MagicCollisionChecker } from './MagicCollisionChecker'
 import { MagicFireball } from './MagicFireball'
