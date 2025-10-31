@@ -1,4 +1,4 @@
-import { EnemySystem } from '../EnemySystem'
+import { EnemySystem } from '../enemies/EnemySystem'
 import { MagicInstancesManager } from './MagicInstancesManager'
 
 export class MagicSystem {

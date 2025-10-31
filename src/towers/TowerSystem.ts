@@ -1,4 +1,4 @@
-import { EnemySystem } from '../EnemySystem'
+import { EnemySystem } from '../enemies/EnemySystem'
 import { TileOrange } from '../tiles/TileOrange'
 import { TilesManager } from '../tiles/TilesManager'
 
