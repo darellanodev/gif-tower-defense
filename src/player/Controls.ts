@@ -12,7 +12,7 @@ import { InfluenceArea } from '../towers/InfluenceArea'
 import { MagicInstancesManager } from '../magics/MagicInstancesManager'
 import { TowerType } from '../types/towerType'
 import { Images } from '../resources/Images'
-import { Path } from '../path/Path'
+import { Path } from '../levels/path/Path'
 import { StateManager } from '../StateManager'
 import { Button } from '../hud/buttons/Button'
 

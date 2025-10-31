@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
 import { ConstDirection } from '../../src/constants/ConstDirection'
-import { Path } from '../../src/path/Path'
+import { Path } from '../../src/levels/path/Path'
 import { TilePath } from '../../src/levels/tiles/TilePath'
 import { TileStart } from '../../src/levels/tiles/TileStart'
 import { TileEnd } from '../../src/levels/tiles/TileEnd'

@@ -1,6 +1,6 @@
 import { Enemy } from '../enemies/Enemy'
 import { MagicCollisionChecker } from './MagicCollisionChecker'
-import { PathMovement } from '../path/PathMovement'
+import { PathMovement } from '../levels/path/PathMovement'
 import { MagicIceball } from './MagicIceball'
 import { ExplosionMagicIceball } from '../explosions/ExplosionMagicIceball'
 

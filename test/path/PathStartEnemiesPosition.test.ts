@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
 import { Const } from '../../src/constants/Const'
-import { PathStartEnemiesPosition } from '../../src/path/PathStartEnemiesPosition'
+import { PathStartEnemiesPosition } from '../../src/levels/path/PathStartEnemiesPosition'
 import { getTileStartForLevel } from '../helpers/levelMap'
 
 const topRightTileY = 80

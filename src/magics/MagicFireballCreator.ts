@@ -1,5 +1,5 @@
 import { Image } from 'p5'
-import { PathMovement } from '../path/PathMovement'
+import { PathMovement } from '../levels/path/PathMovement'
 import { MagicInstancesManager } from './MagicInstancesManager'
 import { MagicFireball } from './MagicFireball'
 import { MagicFireballCollisionChecker } from './MagicFireballCollisionChecker'

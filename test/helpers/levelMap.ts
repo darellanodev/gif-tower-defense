@@ -1,6 +1,6 @@
 import { ConstDirection } from '../../src/constants/ConstDirection'
 import { ConstTest } from '../../src/constants/ConstTest'
-import { Path } from '../../src/path/Path'
+import { Path } from '../../src/levels/path/Path'
 import { LevelsDataTesting } from '../../src/levels/LevelsDataTesting'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
 import { Player } from '../../src/player/Player'

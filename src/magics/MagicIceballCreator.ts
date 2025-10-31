@@ -3,7 +3,7 @@ import { MagicInstancesManager } from './MagicInstancesManager'
 import { MagicIceball } from './MagicIceball'
 import { MagicIceballCollisionChecker } from './MagicIceballCollisionChecker'
 import { Position } from '../types/position'
-import { PathMovement } from '../path/PathMovement'
+import { PathMovement } from '../levels/path/PathMovement'
 import { MagicCollisionChecker } from './MagicCollisionChecker'
 
 export class MagicIceballCreator {

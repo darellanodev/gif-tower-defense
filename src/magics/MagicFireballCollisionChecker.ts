@@ -3,7 +3,7 @@ import { ExplosionMagicFireball } from '../explosions/ExplosionMagicFireball'
 import { ConstTest } from '../constants/ConstTest'
 import { MagicCollisionChecker } from './MagicCollisionChecker'
 import { MagicFireball } from './MagicFireball'
-import { PathMovement } from '../path/PathMovement'
+import { PathMovement } from '../levels/path/PathMovement'
 
 export class MagicFireballCollisionChecker {
   #magicCollisionChecker: MagicCollisionChecker

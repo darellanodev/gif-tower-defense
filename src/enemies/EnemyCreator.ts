@@ -1,4 +1,4 @@
-import { PathMovement } from '../path/PathMovement'
+import { PathMovement } from '../levels/path/PathMovement'
 import { Position } from '../types/position'
 import { Enemy } from './Enemy'
 import { EnemyAnimator } from './EnemyAnimator'

@@ -1,10 +1,10 @@
-import { TileStart } from '../levels/tiles/TileStart'
-import { TileEnd } from '../levels/tiles/TileEnd'
-import { TilePath } from '../levels/tiles/TilePath'
-import { Const } from '../constants/Const'
-import { ConstDirection } from '../constants/ConstDirection'
-import { Position } from '../types/position'
-import { AnyTile, WalkableTile } from '../types/tileType'
+import { TileStart } from '../tiles/TileStart'
+import { TileEnd } from '../tiles/TileEnd'
+import { TilePath } from '../tiles/TilePath'
+import { Const } from '../../constants/Const'
+import { ConstDirection } from '../../constants/ConstDirection'
+import { Position } from '../../types/position'
+import { AnyTile, WalkableTile } from '../../types/tileType'
 
 export class Path {
   static MAX_SEARCHES = 1000 // For testing purposes put a low value. For production put this value at 5000

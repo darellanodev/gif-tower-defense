@@ -1,6 +1,6 @@
-import { Const } from '../constants/Const'
-import { ConstDirection } from '../constants/ConstDirection'
-import { Position } from '../types/position'
+import { Const } from '../../constants/Const'
+import { ConstDirection } from '../../constants/ConstDirection'
+import { Position } from '../../types/position'
 
 export class PathMovement {
   #position: Position

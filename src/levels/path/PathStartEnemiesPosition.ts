@@ -1,6 +1,6 @@
-import { TileStart } from '../levels/tiles/TileStart'
-import { Const } from '../constants/Const'
-import { ConstDirection } from '../constants/ConstDirection'
+import { TileStart } from '../tiles/TileStart'
+import { Const } from '../../constants/Const'
+import { ConstDirection } from '../../constants/ConstDirection'
 
 export class PathStartEnemiesPosition {
   static #instance: PathStartEnemiesPosition | null = null

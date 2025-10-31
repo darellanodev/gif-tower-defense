@@ -4,7 +4,7 @@ import { MagicIceball } from '../magics/MagicIceball'
 import { P5 } from '../utils/P5'
 import { Obj } from '../Obj'
 import { EnemyAnimator } from './EnemyAnimator'
-import { PathMovement } from '../path/PathMovement'
+import { PathMovement } from '../levels/path/PathMovement'
 import { Size } from '../types/size'
 
 export class Enemy extends Obj {

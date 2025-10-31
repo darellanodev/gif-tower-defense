@@ -2,7 +2,7 @@ import { Enemy } from '../../src/enemies/Enemy'
 import { EnemyAnimator } from '../../src/enemies/EnemyAnimator'
 import { EnemyCreator } from '../../src/enemies/EnemyCreator'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
-import { PathMovement } from '../../src/path/PathMovement'
+import { PathMovement } from '../../src/levels/path/PathMovement'
 import { getOrdersFromValidMap } from './orders'
 import { images } from './imagesResources'
 
