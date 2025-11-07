@@ -47,7 +47,10 @@ Run the command `pnpm install`
 
 ## Utility to convert old levels data to new levels data format
 
-- Run `pnpm run oldlevelsconverter`
+- Run `pnpm run oldlevelsconverter`.
+  - Processed levels are removed from `oldLevels.txt`.
+  - New levels are added to `oldLevelsProcessed.txt`
+  - New levels are added in JSON format to `oldLevelsConverted.json`. You can then add them to `AllLevels.ts` and run the utility to order levels by their ID, as explained in the next section.
 
 ## Utility to order levels by their ID
 
