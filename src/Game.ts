@@ -234,8 +234,11 @@ export class Game {
     }
   }
 
-  #updateBoss() {
+  #updateBossProgressBar() {
     this.#hudSystem!.hudProgressBarBoss.updateBossProgressBar()
+  }
+
+  #updateBoss() {
     this.#instantiateBoss = false
     if (this.#hudSystem!.hudProgressBarBoss.isFullOfProgress()) {
       this.#hudSystem!.hudProgressBarBoss.reInitProgress()
@@ -253,6 +256,8 @@ export class Game {
 
     this.#updateWaveProgressBar()
     this.#updateEnemies()
+
+    this.#updateBossProgressBar()
     this.#updateBoss()
 
     this.#magicSystem!.update()
