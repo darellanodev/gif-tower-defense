@@ -13,23 +13,26 @@ function convertOldFormatLevels(limit: number) {
   const convertedLevels: string[] = []
   const finalOldLevels: string[] = []
   let totalProcessed = 0
+
   for (const oldLevel of oldLevels) {
-    let finalOldLevel = oldLevel
     const oldLevelConverter = new OldLevelConverter(oldLevel)
+
     if (!oldLevelConverter.canConvert(availableTiles)) {
-      finalOldLevels.push(finalOldLevel)
+      finalOldLevels.push(oldLevel)
       continue
     }
     if (oldLevelConverter.existsLevelId(AllLevels.data, oldLevel)) {
-      finalOldLevels.push(finalOldLevel)
+      finalOldLevels.push(oldLevel)
       continue
     }
     if (limit != 0 && totalProcessed >= limit) {
-      finalOldLevels.push(finalOldLevel)
+      finalOldLevels.push(oldLevel)
       continue
     }
+
     convertedLevels.push(oldLevelConverter.json)
-    oldLevelsProcessed.push(finalOldLevel)
+    oldLevelsProcessed.push(oldLevel)
+
     totalProcessed++
   }
   oldLevelsConverterFiles.writeOldLevelsConverted(convertedLevels)
