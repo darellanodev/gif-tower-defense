@@ -3,6 +3,19 @@ import { OldLevelConverterFiles } from './utils/OldLevelConverterFiles'
 import { AllLevels } from './levels/levelsData/AllLevels'
 import { Config } from './Config'
 
+function shouldSkipLevel(
+  oldLevelConverter: OldLevelConverter,
+  oldLevel: string,
+  limit: number,
+  totalProcessed: number,
+) {
+  return (
+    !oldLevelConverter.canConvert(Config.availableTiles) ||
+    oldLevelConverter.existsLevelId(AllLevels.data, oldLevel) ||
+    (limit != 0 && totalProcessed >= limit)
+  )
+}
+
 function convertOldFormatLevels(limit: number) {
   const oldLevelsConverterFiles = new OldLevelConverterFiles()
 
@@ -16,15 +29,7 @@ function convertOldFormatLevels(limit: number) {
   for (const oldLevel of oldLevels) {
     const oldLevelConverter = new OldLevelConverter(oldLevel)
 
-    if (!oldLevelConverter.canConvert(Config.availableTiles)) {
-      finalOldLevels.push(oldLevel)
-      continue
-    }
-    if (oldLevelConverter.existsLevelId(AllLevels.data, oldLevel)) {
-      finalOldLevels.push(oldLevel)
-      continue
-    }
-    if (limit != 0 && totalProcessed >= limit) {
+    if (shouldSkipLevel(oldLevelConverter, oldLevel, limit, totalProcessed)) {
       finalOldLevels.push(oldLevel)
       continue
     }
