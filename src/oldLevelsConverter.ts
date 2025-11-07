@@ -1,3 +1,4 @@
+import { Config } from './Config'
 import { OldLevelConverter } from './utils/OldLevelConverter'
 import { OldLevelConverterFiles } from './utils/OldLevelConverterFiles'
 
@@ -33,7 +34,4 @@ function convertOldFormatLevels(limit: number) {
   )
 }
 
-// Configuration
-const limit = 0 // set zero to process all
-
-convertOldFormatLevels(limit)
+convertOldFormatLevels(Config.oldLevelsConverterLimit)
