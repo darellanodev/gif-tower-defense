@@ -21,4 +21,23 @@ export class OldLevelConverterFiles {
       './src/levels/levelsData/oldLevelsProcessed.txt',
     )
   }
+
+  writeOldLevelsConverted(convertedLevels: string[]) {
+    fs.writeFileSync(
+      './src/levels/levelsData/oldLevelsConverted.json',
+      convertedLevels.join('\n'),
+    )
+  }
+  writeOldLevels(finalOldLevels: string[]) {
+    fs.writeFileSync(
+      './src/levels/levelsData/oldLevels.txt',
+      finalOldLevels.join('\n'),
+    )
+  }
+  writeOldLevelsProcessed(oldLevelsProcessed: string[]) {
+    fs.writeFileSync(
+      './src/levels/levelsData/oldLevelsProcessed.txt',
+      oldLevelsProcessed.join('\n'),
+    )
+  }
 }

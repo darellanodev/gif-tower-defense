@@ -1,6 +1,5 @@
 import { OldLevelConverter } from './utils/OldLevelConverter'
 import { OldLevelConverterFiles } from './utils/OldLevelConverterFiles'
-import * as fs from 'fs'
 import { AllLevels } from './levels/levelsData/AllLevels'
 
 function convertOldFormatLevels(limit: number) {
@@ -33,18 +32,10 @@ function convertOldFormatLevels(limit: number) {
     oldLevelsProcessed.push(finalOldLevel)
     totalProcessed++
   }
-  fs.writeFileSync(
-    './src/levels/levelsData/oldLevelsConverted.json',
-    convertedLevels.join('\n'),
-  )
-  fs.writeFileSync(
-    './src/levels/levelsData/oldLevels.txt',
-    finalOldLevels.join('\n'),
-  )
-  fs.writeFileSync(
-    './src/levels/levelsData/oldLevelsProcessed.txt',
-    oldLevelsProcessed.join('\n'),
-  )
+  oldLevelsConverterFiles.writeOldLevelsConverted(convertedLevels)
+  oldLevelsConverterFiles.writeOldLevels(finalOldLevels)
+  oldLevelsConverterFiles.writeOldLevelsProcessed(oldLevelsProcessed)
+
   console.log(
     `The limit is set to ${limit}. Total levels processed: ${totalProcessed}`,
   )
