@@ -1,4 +1,6 @@
 import { MapDataType } from '../types/mapDataType'
+import { AllLevels } from '../levels/levelsData/AllLevels'
+import { Config } from '../Config'
 
 export class OldLevelConverter {
   #oldLevelData: string
@@ -158,6 +160,13 @@ export class OldLevelConverter {
   existsLevelId(allLevels: MapDataType[], processedLevel: string) {
     return allLevels.some((level) =>
       new RegExp(`\\(${level.id},`).test(processedLevel),
+    )
+  }
+  shouldSkipLevel(limit: number, totalProcessed: number) {
+    return (
+      !this.canConvert(Config.availableTiles) ||
+      this.existsLevelId(AllLevels.data, this.#oldLevelData) ||
+      (limit != 0 && totalProcessed >= limit)
     )
   }
 }
