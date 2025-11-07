@@ -1,10 +1,9 @@
 import { OldLevelConverter } from './utils/OldLevelConverter'
 import { OldLevelConverterFiles } from './utils/OldLevelConverterFiles'
 import { AllLevels } from './levels/levelsData/AllLevels'
+import { Config } from './Config'
 
 function convertOldFormatLevels(limit: number) {
-  const availableTiles = ['0', '1', 'x', 'y', '2']
-
   const oldLevelsConverterFiles = new OldLevelConverterFiles()
 
   const oldLevels = oldLevelsConverterFiles.oldLevels
@@ -17,7 +16,7 @@ function convertOldFormatLevels(limit: number) {
   for (const oldLevel of oldLevels) {
     const oldLevelConverter = new OldLevelConverter(oldLevel)
 
-    if (!oldLevelConverter.canConvert(availableTiles)) {
+    if (!oldLevelConverter.canConvert(Config.availableTiles)) {
       finalOldLevels.push(oldLevel)
       continue
     }
