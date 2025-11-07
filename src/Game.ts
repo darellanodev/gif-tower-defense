@@ -77,14 +77,18 @@ export class Game {
     Game.#instance = this
   }
 
-  #validateSystems() {
-    if (
+  #AreAnySystemsNull() {
+    return (
       !this.#enemySystem ||
       !this.#hudSystem ||
       !this.#tileSystem ||
       !this.#magicSystem ||
       !this.#towerSystem
-    ) {
+    )
+  }
+
+  #validateSystems() {
+    if (this.#AreAnySystemsNull()) {
       throw new Error('Some systems are not initialized correctly')
     }
   }
