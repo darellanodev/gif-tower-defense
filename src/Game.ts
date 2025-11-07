@@ -217,8 +217,11 @@ export class Game {
     P5.p5.image(Images.backgroundImage, 0, HudPanel.HEIGHT)
   }
 
-  #updateEnemies() {
+  #updateWaveProgressBar() {
     this.#hudSystem!.hudProgressBarWave.updateWaveProgressBar()
+  }
+
+  #updateEnemies() {
     this.#instantiateEnemies = false
     if (this.#hudSystem!.hudProgressBarWave.isFullOfProgress()) {
       this.#hudSystem!.hudProgressBarWave.reInitProgress()
@@ -248,6 +251,7 @@ export class Game {
     this.#enemySystem!.update()
     this.#controls!.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
 
+    this.#updateWaveProgressBar()
     this.#updateEnemies()
     this.#updateBoss()
 
