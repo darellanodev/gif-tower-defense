@@ -49,9 +49,13 @@ export class EnemyAnimator {
       this.#changeEyesTime = 0
       this.#indexEyesSequence++
       this.#checkIfReinitializeIndexEyesSequence()
-      this.#imgIndex = this.#eyesSequence[this.#indexEyesSequence]
+      this.#updateEyesImage()
     }
     this.#changeEyesTime++
+  }
+
+  #updateEyesImage() {
+    this.#imgIndex = this.#eyesSequence[this.#indexEyesSequence]
   }
 
   #checkIfReinitializeIndexEyesSequence() {
