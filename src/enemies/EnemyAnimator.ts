@@ -45,16 +45,18 @@ export class EnemyAnimator {
   }
 
   #moveEyesInSequence() {
-    this.#changeEyesTime++
-
     if (this.#changeEyesTime > EnemyAnimator.CHANGE_EYES_MAX_TIME) {
       this.#changeEyesTime = 0
       this.#indexEyesSequence++
-      if (this.#indexEyesSequence == this.#eyesSequence.length) {
-        this.#indexEyesSequence = 0
-      }
-
+      this.#checkIfReinitializeIndexEyesSequence()
       this.#imgIndex = this.#eyesSequence[this.#indexEyesSequence]
+    }
+    this.#changeEyesTime++
+  }
+
+  #checkIfReinitializeIndexEyesSequence() {
+    if (this.#indexEyesSequence == this.#eyesSequence.length) {
+      this.#indexEyesSequence = 0
     }
   }
 
