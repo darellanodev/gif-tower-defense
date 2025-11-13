@@ -71,17 +71,19 @@ export class EnemyAnimator {
     )
   }
 
+  #checkIfCloseEyes() {
+    if (this.#closeEyesTime > this.#randomCloseEyes) {
+      this.#closeEyesTime = 0
+      this.#setRandomTimeMaxForClosingEyes()
+      this.#imgIndexBeforeEyesClosed = this.#imgIndex
+      this.#imgIndex = EnemyAnimator.EYES_CLOSED
+    }
+  }
+
   #changeEyes() {
     if (this.#hasOpenEyes()) {
       this.#closeEyesTime++
-
-      if (this.#closeEyesTime > this.#randomCloseEyes) {
-        this.#closeEyesTime = 0
-        this.#setRandomTimeMaxForClosingEyes()
-        this.#imgIndexBeforeEyesClosed = this.#imgIndex
-        this.#imgIndex = EnemyAnimator.EYES_CLOSED
-      }
-
+      this.#checkIfCloseEyes()
       this.#moveEyesInSequence()
     } else {
       this.#extendClosedEyesTime++
