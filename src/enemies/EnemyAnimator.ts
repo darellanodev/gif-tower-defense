@@ -80,6 +80,15 @@ export class EnemyAnimator {
     }
   }
 
+  #checkIfOpenEyes() {
+    if (
+      this.#extendClosedEyesTime > EnemyAnimator.EXTEND_CLOSED_EYES_MAX_TIME
+    ) {
+      this.#extendClosedEyesTime = 0
+      this.#imgIndex = this.#imgIndexBeforeEyesClosed
+    }
+  }
+
   #changeEyes() {
     if (this.#hasOpenEyes()) {
       this.#closeEyesTime++
@@ -87,13 +96,7 @@ export class EnemyAnimator {
       this.#moveEyesInSequence()
     } else {
       this.#extendClosedEyesTime++
-
-      if (
-        this.#extendClosedEyesTime > EnemyAnimator.EXTEND_CLOSED_EYES_MAX_TIME
-      ) {
-        this.#extendClosedEyesTime = 0
-        this.#imgIndex = this.#imgIndexBeforeEyesClosed
-      }
+      this.#checkIfOpenEyes()
     }
   }
 
