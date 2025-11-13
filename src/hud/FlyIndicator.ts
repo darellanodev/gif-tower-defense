@@ -64,10 +64,15 @@ export class FlyIndicator extends Obj {
     this.#aliveTime++
     if (this.#aliveTime > FlyIndicator.MAX_TIME_ALIVE) {
       this.#alive = false
-    } else {
-      const newY = this.position.y - FlyIndicator.MOVE_INCREMENT
-      this.position = { x: this.position.x, y: newY }
+      return
     }
+
+    this.#changePosition()
+  }
+
+  #changePosition() {
+    const newY = this.position.y - FlyIndicator.MOVE_INCREMENT
+    this.position = { x: this.position.x, y: newY }
   }
 
   static removeDeadInstances() {
