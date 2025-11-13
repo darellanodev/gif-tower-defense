@@ -61,9 +61,13 @@ export class FlyIndicator extends Obj {
   }
 
   update() {
-    this.#aliveTime++
+    this.#increaseAliveTime()
     this.#checkIfRemove()
     this.#changePosition()
+  }
+
+  #increaseAliveTime() {
+    this.#aliveTime++
   }
 
   #checkIfRemove() {
