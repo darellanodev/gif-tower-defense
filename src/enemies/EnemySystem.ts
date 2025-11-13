@@ -50,18 +50,22 @@ export class EnemySystem {
     this.#handleWinners()
   }
 
+  #checkIfCreateNormalEnemy() {
+    Enemy.createEnemyTime++
+    if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
+      this.#createEnemyNormal()
+      Enemy.createEnemyTime = 0
+      Enemy.waveEnemies++
+    }
+  }
+
   #handleEnemyNormalCreation() {
     if (!Enemy.allowCreateEnemies) {
       return
     }
 
     if (Enemy.waveEnemies < Enemy.TOTAL_ENEMIES) {
-      Enemy.createEnemyTime++
-      if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
-        this.#createEnemyNormal()
-        Enemy.createEnemyTime = 0
-        Enemy.waveEnemies++
-      }
+      this.#checkIfCreateNormalEnemy()
     } else {
       this.#disableEnemyNormalCreation()
     }
