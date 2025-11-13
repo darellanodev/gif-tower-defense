@@ -51,17 +51,19 @@ export class EnemySystem {
   }
 
   #handleEnemyNormalCreation() {
-    if (Enemy.allowCreateEnemies) {
-      if (Enemy.waveEnemies < Enemy.TOTAL_ENEMIES) {
-        Enemy.createEnemyTime++
-        if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
-          this.#createEnemyNormal()
-          Enemy.createEnemyTime = 0
-          Enemy.waveEnemies++
-        }
-      } else {
-        this.#disableEnemyNormalCreation()
+    if (!Enemy.allowCreateEnemies) {
+      return
+    }
+
+    if (Enemy.waveEnemies < Enemy.TOTAL_ENEMIES) {
+      Enemy.createEnemyTime++
+      if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
+        this.#createEnemyNormal()
+        Enemy.createEnemyTime = 0
+        Enemy.waveEnemies++
       }
+    } else {
+      this.#disableEnemyNormalCreation()
     }
   }
   #createEnemyNormal() {
