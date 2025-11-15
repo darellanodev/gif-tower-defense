@@ -41,10 +41,14 @@ export class Paginator {
     return !isNaN(parseInt(btnPage.label))
   }
 
+  #isCurrentActiveBtn(btnPage: ButtonPage) {
+    return this.#active === parseInt(btnPage.label)
+  }
+
   draw() {
     for (const btnPage of this.#btnsPages) {
       if (this.#btnHasNumberLabel(btnPage)) {
-        if (this.#active === parseInt(btnPage.label)) {
+        if (this.#isCurrentActiveBtn(btnPage)) {
           btnPage.drawOff()
           continue
         }
