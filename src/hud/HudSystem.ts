@@ -115,13 +115,14 @@ export class HudSystem {
     if (this.#controls === null) {
       throw new Error('controls is null')
     }
-    if (this.#isMouseOverOrangeTile) {
-      const orangeTile = this.#controls.mouseTileOrangeOver
-      if (orangeTile?.hasTower()) {
-        this.#controls.drawInfluenceAreaWhenTowerExists(orangeTile.getTower())
-      } else {
-        this.#controls.drawInfluenceAreaWhenTowerNotExists(orangeTile?.position)
-      }
+    if (!this.#isMouseOverOrangeTile) {
+      return
+    }
+    const orangeTile = this.#controls.mouseTileOrangeOver
+    if (orangeTile?.hasTower()) {
+      this.#controls.drawInfluenceAreaWhenTowerExists(orangeTile.getTower())
+    } else {
+      this.#controls.drawInfluenceAreaWhenTowerNotExists(orangeTile?.position)
     }
   }
 
