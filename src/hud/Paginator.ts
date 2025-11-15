@@ -45,13 +45,15 @@ export class Paginator {
     return this.#active === parseInt(btnPage.label)
   }
 
+  #shouldPaintDisabledBtn(btnPage: ButtonPage): boolean {
+    return this.#btnHasNumberLabel(btnPage) && this.#isCurrentActiveBtn(btnPage)
+  }
+
   draw() {
     for (const btnPage of this.#btnsPages) {
-      if (this.#btnHasNumberLabel(btnPage)) {
-        if (this.#isCurrentActiveBtn(btnPage)) {
-          btnPage.drawOff()
-          continue
-        }
+      if (this.#shouldPaintDisabledBtn(btnPage)) {
+        btnPage.drawOff()
+        continue
       }
       btnPage.draw()
     }
