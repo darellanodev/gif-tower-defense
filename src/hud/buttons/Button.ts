@@ -65,7 +65,7 @@ export class Button extends Obj {
     this.checked = false
   }
 
-  draw() {
+  #drawButtonImage() {
     switch (this.getStateDraw({ x: P5.p5.mouseX, y: P5.p5.mouseY })) {
       case Button.INDEX_IMAGE_ON:
         this.drawOn()
@@ -88,7 +88,9 @@ export class Button extends Obj {
       default:
         break
     }
+  }
 
+  #drawTotalItems() {
     if (this.hasItems) {
       P5.p5.text(
         this.#totalItems,
@@ -96,6 +98,11 @@ export class Button extends Obj {
         this.position.y + this.#offsetItems.y,
       )
     }
+  }
+
+  draw() {
+    this.#drawButtonImage()
+    this.#drawTotalItems()
   }
 
   getStateDraw(mousePosition: Position) {
