@@ -87,11 +87,9 @@ export class Paginator {
     this.#createButtons()
   }
 
-  getLabels(pagesGroup: number): string[] {
+  #getNumberedLabels(pagesGroup: number): string[] {
+    const result = []
     const maxLevelsDisplay = 10
-    const result: string[] = []
-    result.push('<<')
-
     const offset = 10 * pagesGroup - 10
 
     for (let i = 0 + offset; i < maxLevelsDisplay + offset; i++) {
@@ -99,7 +97,14 @@ export class Paginator {
         result.push(`${i + 1}`)
       }
     }
+    return result
+  }
 
+  getLabels(pagesGroup: number): string[] {
+    const result: string[] = []
+
+    result.push('<<')
+    result.push(...this.#getNumberedLabels(pagesGroup))
     result.push('>>')
 
     return result
