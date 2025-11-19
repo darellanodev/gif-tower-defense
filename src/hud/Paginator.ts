@@ -3,6 +3,8 @@ import { Images } from '../resources/Images'
 import { Position } from '../types/position'
 
 export class Paginator {
+  static MAX_LEVELS_DISPLAYED: number = 10
+
   #levelsPages: number
   #btnsPages: ButtonPage[] = []
   #currentPagesGroup: number
@@ -73,7 +75,10 @@ export class Paginator {
   }
 
   nextPagesGroup() {
-    if (this.#currentPagesGroup > this.#levelsPages / 10) {
+    if (
+      this.#currentPagesGroup >
+      this.#levelsPages / Paginator.MAX_LEVELS_DISPLAYED
+    ) {
       return
     }
     this.#currentPagesGroup++
@@ -89,10 +94,11 @@ export class Paginator {
 
   #getNumberedLabels(pagesGroup: number): string[] {
     const result = []
-    const maxLevelsDisplay = 10
-    const offset = 10 * pagesGroup - 10
+    const offset =
+      Paginator.MAX_LEVELS_DISPLAYED * pagesGroup -
+      Paginator.MAX_LEVELS_DISPLAYED
 
-    for (let i = 0 + offset; i < maxLevelsDisplay + offset; i++) {
+    for (let i = 0 + offset; i < Paginator.MAX_LEVELS_DISPLAYED + offset; i++) {
       if (i < this.#levelsPages) {
         result.push(`${i + 1}`)
       }
