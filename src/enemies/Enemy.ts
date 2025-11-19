@@ -155,18 +155,22 @@ export class Enemy extends Obj {
     this.position = this.#pathMovement.position
   }
 
+  #updateFreezedEnemy() {
+    if (this.#freezedTime < MagicIceball.FREEZE_ENEMY_MAX_TIME) {
+      this.#freezedTime++
+    } else {
+      this.#freezed = false
+      this.#freezedTime = 0
+    }
+  }
+
   update() {
     if (this.isAbducted) {
       return
     }
 
     if (this.#freezed) {
-      if (this.#freezedTime < MagicIceball.FREEZE_ENEMY_MAX_TIME) {
-        this.#freezedTime++
-      } else {
-        this.#freezed = false
-        this.#freezedTime = 0
-      }
+      this.#updateFreezedEnemy()
       return
     }
 
