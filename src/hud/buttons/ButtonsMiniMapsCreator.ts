@@ -5,6 +5,8 @@ import { Position } from '../../types/position'
 import { ButtonMiniMap } from './ButtonMiniMap'
 
 export class ButtonsMiniMapsCreator {
+  static MINIMAPS_DISPLAYED_ROW = 5
+
   static #instance: ButtonsMiniMapsCreator | null = null
 
   #levelsDataProvider: LevelsDataProvider
@@ -61,7 +63,10 @@ export class ButtonsMiniMapsCreator {
         ),
       )
       column++
-      if (column % 5 === 0 && isMultiRow) {
+      if (
+        column % ButtonsMiniMapsCreator.MINIMAPS_DISPLAYED_ROW === 0 &&
+        isMultiRow
+      ) {
         row++
         position.x = initialPositionX
         column = 0
