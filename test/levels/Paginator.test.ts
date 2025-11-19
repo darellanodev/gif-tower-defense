@@ -49,7 +49,7 @@ test('getLabels, when there are 25 level pages and the current group of pages is
   expect(result).toStrictEqual(expected)
 })
 
-test('getLabels, when there are 25 level pages and the current group of pages is 2, returns the correct pages', () => {
+test('getLabels, when there are 25 level pages and the current group of pages is 3, returns the correct pages', () => {
   const expected = ['<<', '21', '22', '23', '24', '25', '>>']
 
   const levelsPages = 25
