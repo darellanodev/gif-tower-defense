@@ -14,6 +14,7 @@ import { MapDataType } from '../types/mapDataType'
 import { Button } from './buttons/Button'
 import { Controls } from '../player/Controls'
 import { StateManager } from '../StateManager'
+import { TileOrange } from '../levels/tiles/TileOrange'
 
 export class HudSystem {
   #hudPanel: HudPanel
@@ -126,17 +127,20 @@ export class HudSystem {
     }
   }
 
+  #drawHudOrangeTile(orangeTile: TileOrange | null) {
+    if (orangeTile?.hasTower()) {
+      this.#controls!.drawHudBackgroundWhenTowerExists(orangeTile.getTower())
+    } else {
+      this.#controls!.drawHudBackgroundWhenTowerNotExists()
+    }
+  }
+
   #drawHudBackgroundImage() {
     if (this.#controls === null) {
       throw new Error('controls is null')
     }
     if (this.#isMouseOverOrangeTile) {
-      const orangeTile = this.#controls.mouseTileOrangeOver
-      if (orangeTile?.hasTower()) {
-        this.#controls.drawHudBackgroundWhenTowerExists(orangeTile.getTower())
-      } else {
-        this.#controls.drawHudBackgroundWhenTowerNotExists()
-      }
+      this.#drawHudOrangeTile(this.#controls.mouseTileOrangeOver)
     } else {
       this.#hudPanel.drawNormalHud()
     }
