@@ -1,6 +1,7 @@
 import { LevelsDataProvider } from '../../levels/LevelsDataProvider'
 import { MiniMap } from '../../menus/MiniMap'
 import { Images } from '../../resources/Images'
+import { MapDataType } from '../../types/mapDataType'
 import { Position } from '../../types/position'
 import { ButtonMiniMap } from './ButtonMiniMap'
 
@@ -12,6 +13,8 @@ export class ButtonsMiniMapsCreator {
   static #instance: ButtonsMiniMapsCreator | null = null
 
   #levelsDataProvider: LevelsDataProvider
+  #row: number = 0
+  #column: number = 0
 
   constructor(levelsDataProvider: LevelsDataProvider) {
     if (ButtonsMiniMapsCreator.#instance !== null) {
@@ -33,21 +36,26 @@ export class ButtonsMiniMapsCreator {
     return ButtonsMiniMapsCreator.#instance
   }
 
+  #createMiniMap(position: Position, levelMap: MapDataType, mode: number) {
+    return new ButtonMiniMap(
+      this.getPosition(position, this.#column, this.#row),
+      Images.buttonMiniMapImages,
+      new MiniMap(levelMap, mode),
+    )
+  }
+
+  #resetRowColumn() {
+    this.#row = 0
+    this.#column = 0
+  }
+
   createOneRow(levelsIds: number[], mode: number, position: Position) {
     const result = []
-    let row = 0
-    let column = 0
+    this.#resetRowColumn()
     for (const levelId of levelsIds) {
       const levelMap = this.#levelsDataProvider.getById(levelId)
-
-      result.push(
-        new ButtonMiniMap(
-          this.getPosition(position, column, row),
-          Images.buttonMiniMapImages,
-          new MiniMap(levelMap, mode),
-        ),
-      )
-      column++
+      result.push(this.#createMiniMap(position, levelMap, mode))
+      this.#column++
     }
 
     return result
@@ -57,23 +65,16 @@ export class ButtonsMiniMapsCreator {
     const initialPositionX = position.x
 
     const result = []
-    let row = 0
-    let column = 0
+    this.#resetRowColumn()
     for (const levelId of levelsIds) {
       const levelMap = this.#levelsDataProvider.getById(levelId)
 
-      result.push(
-        new ButtonMiniMap(
-          this.getPosition(position, column, row),
-          Images.buttonMiniMapImages,
-          new MiniMap(levelMap, mode),
-        ),
-      )
-      column++
-      if (column % ButtonsMiniMapsCreator.MINIMAPS_DISPLAYED_ROW === 0) {
-        row++
+      result.push(this.#createMiniMap(position, levelMap, mode))
+      this.#column++
+      if (this.#column % ButtonsMiniMapsCreator.MINIMAPS_DISPLAYED_ROW === 0) {
+        this.#row++
         position.x = initialPositionX
-        column = 0
+        this.#column = 0
       }
     }
 
