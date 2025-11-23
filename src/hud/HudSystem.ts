@@ -112,6 +112,14 @@ export class HudSystem {
     this.#hudScreenIndicators.draw()
   }
 
+  #drawInfluenceAreaOrangeTile(orangeTile: TileOrange | null) {
+    if (orangeTile?.hasTower()) {
+      this.#controls!.drawInfluenceAreaWhenTowerExists(orangeTile.getTower())
+    } else {
+      this.#controls!.drawInfluenceAreaWhenTowerNotExists(orangeTile?.position)
+    }
+  }
+
   #drawInfluenceArea() {
     if (this.#controls === null) {
       throw new Error('controls is null')
@@ -119,12 +127,7 @@ export class HudSystem {
     if (!this.#isMouseOverOrangeTile) {
       return
     }
-    const orangeTile = this.#controls.mouseTileOrangeOver
-    if (orangeTile?.hasTower()) {
-      this.#controls.drawInfluenceAreaWhenTowerExists(orangeTile.getTower())
-    } else {
-      this.#controls.drawInfluenceAreaWhenTowerNotExists(orangeTile?.position)
-    }
+    this.#drawInfluenceAreaOrangeTile(this.#controls.mouseTileOrangeOver)
   }
 
   #drawHudOrangeTile(orangeTile: TileOrange | null) {
