@@ -72,13 +72,17 @@ export class ButtonsMiniMapsCreator {
       result.push(this.#createMiniMap(position, levelMap, mode))
       this.#column++
       if (this.#shouldChangeNextRow()) {
-        this.#row++
         position.x = initialPositionX
-        this.#column = 0
+        this.#changeNextRow()
       }
     }
 
     return result
+  }
+
+  #changeNextRow() {
+    this.#row++
+    this.#column = 0
   }
 
   #shouldChangeNextRow() {
