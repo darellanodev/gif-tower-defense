@@ -6,6 +6,8 @@ import { ButtonMiniMap } from './ButtonMiniMap'
 
 export class ButtonsMiniMapsCreator {
   static MINIMAPS_DISPLAYED_ROW = 5
+  static STEP_X = 150
+  static STEP_Y = 120
 
   static #instance: ButtonsMiniMapsCreator | null = null
 
@@ -45,8 +47,6 @@ export class ButtonsMiniMapsCreator {
     position: Position,
     isMultiRow: boolean,
   ): ButtonMiniMap[] {
-    const stepX = 150
-    const stepY = 120
     const initialPositionX = position.x
 
     const result = []
@@ -57,7 +57,10 @@ export class ButtonsMiniMapsCreator {
 
       result.push(
         new ButtonMiniMap(
-          { x: position.x + column * stepX, y: position.y + row * stepY },
+          {
+            x: position.x + column * ButtonsMiniMapsCreator.STEP_X,
+            y: position.y + row * ButtonsMiniMapsCreator.STEP_Y,
+          },
           Images.buttonMiniMapImages,
           new MiniMap(levelMap, mode),
         ),
