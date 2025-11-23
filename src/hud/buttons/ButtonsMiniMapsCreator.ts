@@ -57,10 +57,7 @@ export class ButtonsMiniMapsCreator {
 
       result.push(
         new ButtonMiniMap(
-          {
-            x: position.x + column * ButtonsMiniMapsCreator.STEP_X,
-            y: position.y + row * ButtonsMiniMapsCreator.STEP_Y,
-          },
+          this.getPosition(position, column, row),
           Images.buttonMiniMapImages,
           new MiniMap(levelMap, mode),
         ),
@@ -77,5 +74,12 @@ export class ButtonsMiniMapsCreator {
     }
 
     return result
+  }
+
+  getPosition(position: Position, column: number, row: number) {
+    return {
+      x: position.x + column * ButtonsMiniMapsCreator.STEP_X,
+      y: position.y + row * ButtonsMiniMapsCreator.STEP_Y,
+    }
   }
 }
