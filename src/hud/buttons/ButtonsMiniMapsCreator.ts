@@ -34,19 +34,26 @@ export class ButtonsMiniMapsCreator {
   }
 
   createOneRow(levelsIds: number[], mode: number, position: Position) {
-    return this.#create(levelsIds, mode, position, false)
+    const result = []
+    let row = 0
+    let column = 0
+    for (const levelId of levelsIds) {
+      const levelMap = this.#levelsDataProvider.getById(levelId)
+
+      result.push(
+        new ButtonMiniMap(
+          this.getPosition(position, column, row),
+          Images.buttonMiniMapImages,
+          new MiniMap(levelMap, mode),
+        ),
+      )
+      column++
+    }
+
+    return result
   }
 
   createMultiRows(levelsIds: number[], mode: number, position: Position) {
-    return this.#create(levelsIds, mode, position, true)
-  }
-
-  #create(
-    levelsIds: number[],
-    mode: number,
-    position: Position,
-    isMultiRow: boolean,
-  ): ButtonMiniMap[] {
     const initialPositionX = position.x
 
     const result = []
@@ -63,10 +70,7 @@ export class ButtonsMiniMapsCreator {
         ),
       )
       column++
-      if (
-        column % ButtonsMiniMapsCreator.MINIMAPS_DISPLAYED_ROW === 0 &&
-        isMultiRow
-      ) {
+      if (column % ButtonsMiniMapsCreator.MINIMAPS_DISPLAYED_ROW === 0) {
         row++
         position.x = initialPositionX
         column = 0
