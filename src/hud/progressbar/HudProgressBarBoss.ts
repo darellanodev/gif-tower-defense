@@ -13,9 +13,9 @@ export class HudProgressBarBoss extends ProgressBar {
   updateBossProgressBar() {
     if (this.#bossProgressDelay > 0) {
       this.#bossProgressDelay--
-    } else {
-      this.#bossProgressDelay = Const.BOSS_PROGRESS_DELAY
-      this.increaseProgress()
+      return
     }
+    this.#bossProgressDelay = Const.BOSS_PROGRESS_DELAY
+    this.increaseProgress()
   }
 }
