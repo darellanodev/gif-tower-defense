@@ -128,13 +128,14 @@ export class HudButtonsTowers {
   }
 
   #drawUpgradeCost() {
-    if (this.#upgradeCost !== null) {
-      if (!this.#canUpgrade) {
-        P5.p5.fill('gray')
-      }
-      P5.p5.text(this.#upgradeCost, 33, 72)
-      this.#restoreFill()
+    if (this.#upgradeCost === null) {
+      return
     }
+    if (!this.#canUpgrade) {
+      P5.p5.fill('gray')
+    }
+    P5.p5.text(this.#upgradeCost, 33, 72)
+    this.#restoreFill()
   }
 
   #drawSellProfit() {
