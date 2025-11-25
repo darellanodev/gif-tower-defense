@@ -52,10 +52,7 @@ export class HudButtonsTowers {
   }
 
   isInsideTowersButtonsBar(position: Position) {
-    if (this.#isInsideButtonsBar(position) && position.x < 265) {
-      return true
-    }
-    return false
+    return this.#isInsideButtonsBar(position) && position.x < 265
   }
   static initializeButtons() {
     HudButtonsTowers._initializeTowerButtons()
