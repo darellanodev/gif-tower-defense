@@ -18,9 +18,9 @@ export class HudProgressBarWave extends ProgressBar {
   updateWaveProgressBar() {
     if (this.#waveProgressDelay > 0) {
       this.#waveProgressDelay--
-    } else {
-      this.#waveProgressDelay = Const.WAVE_PROGRESS_DELAY
-      this.increaseProgress()
+      return
     }
+    this.#waveProgressDelay = Const.WAVE_PROGRESS_DELAY
+    this.increaseProgress()
   }
 }
