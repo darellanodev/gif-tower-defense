@@ -39,10 +39,7 @@ export class HudButtonsMagics {
   }
 
   isInsideMagicsButtonsBar(position: Position) {
-    if (this.#isInsideButtonsBar(position) && position.x > 495) {
-      return true
-    }
-    return false
+    return this.#isInsideButtonsBar(position) && position.x > 495
   }
 
   draw() {
