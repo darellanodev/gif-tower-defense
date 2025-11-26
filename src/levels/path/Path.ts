@@ -58,8 +58,7 @@ export class Path {
   #getWalkableTile(pos: Position): WalkableTile | null {
     const tilePath = this.getTilePath(pos.x, pos.y)
     if (tilePath === null) {
-      const endTile = this.getTileEnd(pos.x, pos.y)
-      return endTile
+      return this.getTileEnd(pos.x, pos.y)
     }
     return tilePath
   }
