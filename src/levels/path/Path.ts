@@ -100,7 +100,9 @@ export class Path {
   #processLeftDirection() {
     this.#checkEndTile()
 
-    if (!this.#endReached) {
+    if (this.#endReached) {
+      this.#orders.push(this.#currentDirection)
+    } else {
       const searchTile = this.#searchLeftTile(this.#currentTile)
 
       if (searchTile !== null) {
@@ -115,15 +117,15 @@ export class Path {
           this.#currentDirection = ConstDirection.UP
         }
       }
-    } else {
-      this.#orders.push(this.#currentDirection)
     }
   }
 
   #processDownDirection() {
     this.#checkEndTile()
 
-    if (!this.#endReached) {
+    if (this.#endReached) {
+      this.#orders.push(this.#currentDirection)
+    } else {
       const searchTile = this.#searchDownTile(this.#currentTile)
 
       if (searchTile !== null) {
@@ -138,15 +140,15 @@ export class Path {
           this.#currentDirection = ConstDirection.LEFT
         }
       }
-    } else {
-      this.#orders.push(this.#currentDirection)
     }
   }
 
   #processRightDirection() {
     this.#checkEndTile()
 
-    if (!this.#endReached) {
+    if (this.#endReached) {
+      this.#orders.push(this.#currentDirection)
+    } else {
       const searchTile = this.#searchRightTile(this.#currentTile)
       if (searchTile !== null) {
         this.#orders.push(ConstDirection.RIGHT)
@@ -160,15 +162,15 @@ export class Path {
           this.#currentDirection = ConstDirection.DOWN
         }
       }
-    } else {
-      this.#orders.push(this.#currentDirection)
     }
   }
 
   #processUpDirection() {
     this.#checkEndTile()
 
-    if (!this.#endReached) {
+    if (this.#endReached) {
+      this.#orders.push(this.#currentDirection)
+    } else {
       const searchTile = this.#searchUpTile(this.#currentTile)
 
       if (searchTile !== null) {
@@ -183,8 +185,6 @@ export class Path {
           this.#currentDirection = ConstDirection.RIGHT
         }
       }
-    } else {
-      this.#orders.push(this.#currentDirection)
     }
   }
 
