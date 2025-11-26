@@ -102,9 +102,9 @@ export class Path {
     const searchNextTile = this.#searchDownTile(this.#currentTile)
     if (searchNextTile) {
       this.#currentDirection = ConstDirection.DOWN
-    } else {
-      this.#currentDirection = ConstDirection.UP
+      return
     }
+    this.#currentDirection = ConstDirection.UP
   }
 
   #processLeftDirection() {
@@ -119,9 +119,9 @@ export class Path {
     if (searchTile !== null) {
       this.#orders.push(ConstDirection.LEFT)
       this.#currentTile = searchTile
-    } else {
-      this.#updateDirectionWhenLeftIsBlocked()
+      return
     }
+    this.#updateDirectionWhenLeftIsBlocked()
   }
 
   #updateDirectionWhenDownIsBlocked() {
@@ -129,9 +129,9 @@ export class Path {
     const searchNextTile = this.#searchRightTile(this.#currentTile)
     if (searchNextTile) {
       this.#currentDirection = ConstDirection.RIGHT
-    } else {
-      this.#currentDirection = ConstDirection.LEFT
+      return
     }
+    this.#currentDirection = ConstDirection.LEFT
   }
 
   #processDownDirection() {
@@ -145,9 +145,9 @@ export class Path {
     if (searchTile !== null) {
       this.#orders.push(ConstDirection.DOWN)
       this.#currentTile = searchTile
-    } else {
-      this.#updateDirectionWhenDownIsBlocked()
+      return
     }
+    this.#updateDirectionWhenDownIsBlocked()
   }
 
   #updateDirectionWhenRightIsBlocked() {
@@ -155,9 +155,9 @@ export class Path {
     const searchNextTile = this.#searchUpTile(this.#currentTile)
     if (searchNextTile) {
       this.#currentDirection = ConstDirection.UP
-    } else {
-      this.#currentDirection = ConstDirection.DOWN
+      return
     }
+    this.#currentDirection = ConstDirection.DOWN
   }
 
   #processRightDirection() {
@@ -170,9 +170,9 @@ export class Path {
     if (searchTile !== null) {
       this.#orders.push(ConstDirection.RIGHT)
       this.#currentTile = searchTile
-    } else {
-      this.#updateDirectionWhenRightIsBlocked()
+      return
     }
+    this.#updateDirectionWhenRightIsBlocked()
   }
 
   #updateDirectionWhenUpIsBlocked() {
@@ -180,9 +180,9 @@ export class Path {
     const searchNextTile = this.#searchLeftTile(this.#currentTile)
     if (searchNextTile) {
       this.#currentDirection = ConstDirection.LEFT
-    } else {
-      this.#currentDirection = ConstDirection.RIGHT
+      return
     }
+    this.#currentDirection = ConstDirection.RIGHT
   }
 
   #processUpDirection() {
@@ -196,9 +196,9 @@ export class Path {
     if (searchTile !== null) {
       this.#orders.push(ConstDirection.UP)
       this.#currentTile = searchTile
-    } else {
-      this.#updateDirectionWhenUpIsBlocked()
+      return
     }
+    this.#updateDirectionWhenUpIsBlocked()
   }
 
   #processCurrentDirection() {
