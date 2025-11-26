@@ -92,15 +92,7 @@ export class Path {
   }
 
   #checkEndTile() {
-    const searchPx = this.#currentTile.position.x
-    const searchPy = this.#currentTile.position.y
-
-    const endPosition = this.#endTile.position
-
-    const endPx = endPosition.x
-    const endPy = endPosition.y
-
-    if (searchPx === endPx && searchPy === endPy) {
+    if (this.#currentTile.position === this.#endTile.position) {
       this.#endReached = true
     }
   }
