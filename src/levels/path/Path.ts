@@ -142,6 +142,16 @@ export class Path {
     }
   }
 
+  #updateDirectionWhenRightIsBlocked() {
+    // It is preferred to go first up and if it is not possible to go down
+    const searchNextTile = this.#searchUpTile(this.#currentTile)
+    if (searchNextTile) {
+      this.#currentDirection = ConstDirection.UP
+    } else {
+      this.#currentDirection = ConstDirection.DOWN
+    }
+  }
+
   #processRightDirection() {
     this.#checkEndTile()
 
@@ -153,13 +163,7 @@ export class Path {
       this.#orders.push(ConstDirection.RIGHT)
       this.#currentTile = searchTile
     } else {
-      // It is preferred to go first up and if it is not possible to go down
-      const searchNextTile = this.#searchUpTile(this.#currentTile)
-      if (searchNextTile) {
-        this.#currentDirection = ConstDirection.UP
-      } else {
-        this.#currentDirection = ConstDirection.DOWN
-      }
+      this.#updateDirectionWhenRightIsBlocked()
     }
   }
 
