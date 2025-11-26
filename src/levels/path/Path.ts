@@ -102,20 +102,20 @@ export class Path {
 
     if (this.#endReached) {
       this.#orders.push(this.#currentDirection)
-    } else {
-      const searchTile = this.#searchLeftTile(this.#currentTile)
+      return
+    }
+    const searchTile = this.#searchLeftTile(this.#currentTile)
 
-      if (searchTile !== null) {
-        this.#orders.push(ConstDirection.LEFT)
-        this.#currentTile = searchTile
+    if (searchTile !== null) {
+      this.#orders.push(ConstDirection.LEFT)
+      this.#currentTile = searchTile
+    } else {
+      // It is preferred to go first down and if it is not possible to go up
+      const searchNextTile = this.#searchDownTile(this.#currentTile)
+      if (searchNextTile) {
+        this.#currentDirection = ConstDirection.DOWN
       } else {
-        // It is preferred to go first down and if it is not possible to go up
-        const searchNextTile = this.#searchDownTile(this.#currentTile)
-        if (searchNextTile) {
-          this.#currentDirection = ConstDirection.DOWN
-        } else {
-          this.#currentDirection = ConstDirection.UP
-        }
+        this.#currentDirection = ConstDirection.UP
       }
     }
   }
@@ -125,20 +125,19 @@ export class Path {
 
     if (this.#endReached) {
       this.#orders.push(this.#currentDirection)
-    } else {
-      const searchTile = this.#searchDownTile(this.#currentTile)
+    }
+    const searchTile = this.#searchDownTile(this.#currentTile)
 
-      if (searchTile !== null) {
-        this.#orders.push(ConstDirection.DOWN)
-        this.#currentTile = searchTile
+    if (searchTile !== null) {
+      this.#orders.push(ConstDirection.DOWN)
+      this.#currentTile = searchTile
+    } else {
+      // It is preferred to go first to the right and if it is not possible to the left
+      const searchNextTile = this.#searchRightTile(this.#currentTile)
+      if (searchNextTile) {
+        this.#currentDirection = ConstDirection.RIGHT
       } else {
-        // It is preferred to go first to the right and if it is not possible to the left
-        const searchNextTile = this.#searchRightTile(this.#currentTile)
-        if (searchNextTile) {
-          this.#currentDirection = ConstDirection.RIGHT
-        } else {
-          this.#currentDirection = ConstDirection.LEFT
-        }
+        this.#currentDirection = ConstDirection.LEFT
       }
     }
   }
@@ -148,19 +147,18 @@ export class Path {
 
     if (this.#endReached) {
       this.#orders.push(this.#currentDirection)
+    }
+    const searchTile = this.#searchRightTile(this.#currentTile)
+    if (searchTile !== null) {
+      this.#orders.push(ConstDirection.RIGHT)
+      this.#currentTile = searchTile
     } else {
-      const searchTile = this.#searchRightTile(this.#currentTile)
-      if (searchTile !== null) {
-        this.#orders.push(ConstDirection.RIGHT)
-        this.#currentTile = searchTile
+      // It is preferred to go first up and if it is not possible to go down
+      const searchNextTile = this.#searchUpTile(this.#currentTile)
+      if (searchNextTile) {
+        this.#currentDirection = ConstDirection.UP
       } else {
-        // It is preferred to go first up and if it is not possible to go down
-        const searchNextTile = this.#searchUpTile(this.#currentTile)
-        if (searchNextTile) {
-          this.#currentDirection = ConstDirection.UP
-        } else {
-          this.#currentDirection = ConstDirection.DOWN
-        }
+        this.#currentDirection = ConstDirection.DOWN
       }
     }
   }
@@ -170,20 +168,19 @@ export class Path {
 
     if (this.#endReached) {
       this.#orders.push(this.#currentDirection)
-    } else {
-      const searchTile = this.#searchUpTile(this.#currentTile)
+    }
+    const searchTile = this.#searchUpTile(this.#currentTile)
 
-      if (searchTile !== null) {
-        this.#orders.push(ConstDirection.UP)
-        this.#currentTile = searchTile
+    if (searchTile !== null) {
+      this.#orders.push(ConstDirection.UP)
+      this.#currentTile = searchTile
+    } else {
+      // It is preferred to go first left and if it is not possible to go right
+      const searchNextTile = this.#searchLeftTile(this.#currentTile)
+      if (searchNextTile) {
+        this.#currentDirection = ConstDirection.LEFT
       } else {
-        // It is preferred to go first left and if it is not possible to go right
-        const searchNextTile = this.#searchLeftTile(this.#currentTile)
-        if (searchNextTile) {
-          this.#currentDirection = ConstDirection.LEFT
-        } else {
-          this.#currentDirection = ConstDirection.RIGHT
-        }
+        this.#currentDirection = ConstDirection.RIGHT
       }
     }
   }
