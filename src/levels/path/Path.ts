@@ -97,6 +97,16 @@ export class Path {
     }
   }
 
+  #updateDirectionWhenLeftIsBlocked() {
+    // It is preferred to go first down and if it is not possible to go up
+    const searchNextTile = this.#searchDownTile(this.#currentTile)
+    if (searchNextTile) {
+      this.#currentDirection = ConstDirection.DOWN
+    } else {
+      this.#currentDirection = ConstDirection.UP
+    }
+  }
+
   #processLeftDirection() {
     this.#checkEndTile()
 
@@ -110,13 +120,7 @@ export class Path {
       this.#orders.push(ConstDirection.LEFT)
       this.#currentTile = searchTile
     } else {
-      // It is preferred to go first down and if it is not possible to go up
-      const searchNextTile = this.#searchDownTile(this.#currentTile)
-      if (searchNextTile) {
-        this.#currentDirection = ConstDirection.DOWN
-      } else {
-        this.#currentDirection = ConstDirection.UP
-      }
+      this.#updateDirectionWhenLeftIsBlocked()
     }
   }
 
