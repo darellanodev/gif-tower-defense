@@ -44,12 +44,12 @@ export class Path {
     return pathTile ? pathTile : null
   }
 
-  #isEndTile(tx: number, ty: number): boolean {
+  #isTileEnd(tx: number, ty: number): boolean {
     return this.#endTile.position.x === tx && this.#endTile.position.y === ty
   }
 
   getTileEnd(tx: number, ty: number): TileEnd | null {
-    if (this.#isEndTile(tx, ty)) {
+    if (this.#isTileEnd(tx, ty)) {
       return this.#endTile
     }
     return null
