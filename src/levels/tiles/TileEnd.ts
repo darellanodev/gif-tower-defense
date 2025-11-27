@@ -14,14 +14,16 @@ export class TileEnd extends Obj {
   }
 
   draw(scale: number, startOffsetX: number, startOffsetY: number) {
-    if (this.#img) {
-      P5.p5.image(
-        this.#img,
-        this.position.x / scale + startOffsetX,
-        this.position.y / scale + startOffsetY,
-        Const.TILE_SIZE / scale,
-        Const.TILE_SIZE / scale,
-      )
+    if (!this.#img) {
+      return
     }
+
+    P5.p5.image(
+      this.#img,
+      this.position.x / scale + startOffsetX,
+      this.position.y / scale + startOffsetY,
+      Const.TILE_SIZE / scale,
+      Const.TILE_SIZE / scale,
+    )
   }
 }
