@@ -37,13 +37,22 @@ export class TilePathCreator {
   ) {
     for (let column = 0; column < trimmedRow.length; column++) {
       const character = trimmedRow[column]
-      const posX = TilePathCreator.FLOOR_SIZE * column
-      const posY =
-        TilePathCreator.FLOOR_SIZE * rowCount + TilePathCreator.MARGIN_TOP
       if (character === TilePathCreator.SYMBOL) {
-        this.#instancePathTile(tilesManager, posX, posY)
+        this.#instancePathTile(
+          tilesManager,
+          this.#getPosX(column),
+          this.#getPosY(rowCount),
+        )
       }
     }
+  }
+
+  #getPosX(column: number) {
+    return TilePathCreator.FLOOR_SIZE * column
+  }
+
+  #getPosY(row: number) {
+    return TilePathCreator.FLOOR_SIZE * row + TilePathCreator.MARGIN_TOP
   }
 
   // clearInstance is for using in jest
