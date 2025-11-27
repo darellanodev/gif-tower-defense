@@ -30,9 +30,9 @@ export class TilePathCreator {
     tilesManager.addPathTile(new TilePath({ x: posX, y: posY }))
   }
 
-  #processRow(tilesManager: TilesManager, trimmedRow: string, row: number) {
-    for (let column = 0; column < trimmedRow.length; column++) {
-      if (this.#isPathTile(trimmedRow, column)) {
+  #processRow(tilesManager: TilesManager, rowSymbols: string, row: number) {
+    for (let column = 0; column < rowSymbols.length; column++) {
+      if (this.#isPathTile(rowSymbols, column)) {
         this.#instancePathTile(
           tilesManager,
           this.#getPosX(column),
@@ -42,8 +42,8 @@ export class TilePathCreator {
     }
   }
 
-  #isPathTile(trimmedRow: string, column: number) {
-    return trimmedRow[column] === TilePathCreator.SYMBOL
+  #isPathTile(rowSymbols: string, column: number) {
+    return rowSymbols[column] === TilePathCreator.SYMBOL
   }
 
   #getPosX(column: number) {
