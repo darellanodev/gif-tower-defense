@@ -69,18 +69,31 @@ export class TileStartCreator {
   #processRow(
     levelMap: MapDataType,
     tilesManager: TilesManager,
-    trimmedRow: string,
-    rowCount: number,
+    rowSymbols: string,
+    row: number,
   ) {
-    for (let column = 0; column < trimmedRow.length; column++) {
-      const character = trimmedRow[column]
-      const posX = TileStartCreator.FLOOR_SIZE * column
-      const posY =
-        TileStartCreator.FLOOR_SIZE * rowCount + TileStartCreator.MARGIN_TOP
-      if (character === TileStartCreator.SYMBOL) {
-        this.#instanceStartTile(levelMap, tilesManager, posX, posY)
+    for (let column = 0; column < rowSymbols.length; column++) {
+      if (this.#isStartTile(rowSymbols, column)) {
+        this.#instanceStartTile(
+          levelMap,
+          tilesManager,
+          this.#getPosX(column),
+          this.#getPosY(row),
+        )
       }
     }
+  }
+
+  #isStartTile(rowSymbols: string, column: number) {
+    return rowSymbols[column] === TileStartCreator.SYMBOL
+  }
+
+  #getPosX(column: number) {
+    return TileStartCreator.FLOOR_SIZE * column
+  }
+
+  #getPosY(row: number) {
+    return TileStartCreator.FLOOR_SIZE * row + TileStartCreator.MARGIN_TOP
   }
 
   create(levelMap: MapDataType, tilesManager: TilesManager) {
