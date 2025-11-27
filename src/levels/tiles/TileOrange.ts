@@ -82,14 +82,15 @@ export class TileOrange extends Obj {
   }
 
   selectTarget(enemies: Enemy[]) {
-    if (this.#tower) {
-      if (this.#tower.type === TowerYellow.ID) {
-        if ('selectAllExplosionsTargets' in this.#tower) {
-          this.#tower.selectAllExplosionsTargets()
-        }
-      }
-      this.#tower.selectTarget(enemies)
+    if (!this.#tower) {
+      return
     }
+    if (this.#tower.type === TowerYellow.ID) {
+      if ('selectAllExplosionsTargets' in this.#tower) {
+        this.#tower.selectAllExplosionsTargets()
+      }
+    }
+    this.#tower.selectTarget(enemies)
   }
 
   isInside(mouse_x: number, mouse_y: number) {
