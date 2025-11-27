@@ -55,10 +55,10 @@ export class PathMovement {
       this.#moveCount = 0
       if (this.endReached) {
         this.#reachTheEndTile()
-      } else {
-        this.#indexOrder++
-        this.#currentDirection = this.nextOrderDirection
+        return
       }
+      this.#indexOrder++
+      this.#currentDirection = this.nextOrderDirection
     }
   }
 
