@@ -32,8 +32,7 @@ export class TilePathCreator {
 
   #processRow(tilesManager: TilesManager, trimmedRow: string, row: number) {
     for (let column = 0; column < trimmedRow.length; column++) {
-      const character = trimmedRow[column]
-      if (character === TilePathCreator.SYMBOL) {
+      if (this.#isPathTile(trimmedRow, column)) {
         this.#instancePathTile(
           tilesManager,
           this.#getPosX(column),
@@ -41,6 +40,10 @@ export class TilePathCreator {
         )
       }
     }
+  }
+
+  #isPathTile(trimmedRow: string, column: number) {
+    return trimmedRow[column] === TilePathCreator.SYMBOL
   }
 
   #getPosX(column: number) {
