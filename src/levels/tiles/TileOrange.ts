@@ -89,6 +89,7 @@ export class TileOrange extends Obj {
       if ('selectAllExplosionsTargets' in this.#tower) {
         this.#tower.selectAllExplosionsTargets()
       }
+      return
     }
     this.#tower.selectTarget(enemies)
   }
