@@ -51,15 +51,16 @@ export class PathMovement {
   }
 
   #updateOrders() {
-    if (this.#moveCount === Const.TILE_SIZE) {
-      this.#moveCount = 0
-      if (this.endReached) {
-        this.#reachTheEndTile()
-        return
-      }
-      this.#indexOrder++
-      this.#currentDirection = this.nextOrderDirection
+    if (this.#moveCount !== Const.TILE_SIZE) {
+      return
     }
+    this.#moveCount = 0
+    if (this.endReached) {
+      this.#reachTheEndTile()
+      return
+    }
+    this.#indexOrder++
+    this.#currentDirection = this.nextOrderDirection
   }
 
   update() {
