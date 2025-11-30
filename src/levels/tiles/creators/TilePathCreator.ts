@@ -1,15 +1,12 @@
-import { MapDataType } from '../../../types/mapDataType'
 import { TilePath } from '../TilePath'
 import { TilesManager } from '../TilesManager'
+import { TileCreator } from './TileCreator'
 
-export class TilePathCreator {
+export class TilePathCreator extends TileCreator {
   static #instance: TilePathCreator | null = null
 
-  static FLOOR_SIZE = 50
   static MARGIN_TOP = 30
   static SYMBOL = '1'
-
-  #levelMap: MapDataType | null = null
 
   static getInstance() {
     if (TilePathCreator.#instance === null) {
@@ -19,6 +16,7 @@ export class TilePathCreator {
   }
 
   constructor() {
+    super()
     if (TilePathCreator.#instance !== null) {
       throw new Error(
         'TilePathCreator is a singleton class, use getInstance to get the instance',
@@ -27,10 +25,6 @@ export class TilePathCreator {
 
     // assign the singleton instance
     TilePathCreator.#instance = this
-  }
-
-  setLevelMap(levelMap: MapDataType) {
-    this.#levelMap = levelMap
   }
 
   #instancePathTile(tilesManager: TilesManager, posX: number, posY: number) {
@@ -42,8 +36,8 @@ export class TilePathCreator {
       if (this.#isPathTile(rowSymbols, column)) {
         this.#instancePathTile(
           tilesManager,
-          this.#getPosX(column),
-          this.#getPosY(row),
+          this.getPosX(column),
+          this.getPosY(row),
         )
       }
     }
@@ -53,14 +47,6 @@ export class TilePathCreator {
     return rowSymbols[column] === TilePathCreator.SYMBOL
   }
 
-  #getPosX(column: number) {
-    return TilePathCreator.FLOOR_SIZE * column
-  }
-
-  #getPosY(row: number) {
-    return TilePathCreator.FLOOR_SIZE * row + TilePathCreator.MARGIN_TOP
-  }
-
   // clearInstance is for using in jest
   static clearInstance() {
     TilePathCreator.#instance = null
@@ -68,7 +54,7 @@ export class TilePathCreator {
 
   createAll(tilesManager: TilesManager) {
     let rowCount = 0
-    this.#levelMap!.rowsMap.forEach((row: string) => {
+    this.levelMap!.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
       this.#processRow(tilesManager, trimmedRow, rowCount)

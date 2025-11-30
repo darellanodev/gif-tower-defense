@@ -1,18 +1,15 @@
 import { TileBlack } from '../TileBlack'
 import { Image } from 'p5'
 import { TilesManager } from '../TilesManager'
-import { MapDataType } from '../../../types/mapDataType'
 import { ConstTest } from '../../../constants/ConstTest'
+import { TileCreator } from './TileCreator'
 
-export class TileBlackCreator {
+export class TileBlackCreator extends TileCreator {
   static #instance: TileBlackCreator | null = null
 
-  static FLOOR_SIZE = 50
-  static MARGIN_TOP = 30
   static SYMBOL = '2'
 
   #blackImage: Image | null = null
-  #levelMap: MapDataType | null = null
 
   static getInstance(mapImages: Image[]) {
     if (TileBlackCreator.#instance === null) {
@@ -22,6 +19,7 @@ export class TileBlackCreator {
   }
 
   constructor(mapImages: Image[]) {
+    super()
     if (TileBlackCreator.#instance !== null) {
       throw new Error(
         'TileBlackCreator is a singleton class, use getInstance to get the instance',
@@ -36,10 +34,6 @@ export class TileBlackCreator {
     TileBlackCreator.#instance = this
   }
 
-  setLevelMap(levelMap: MapDataType) {
-    this.#levelMap = levelMap
-  }
-
   #instanceBlackTile(tilesManager: TilesManager, posX: number, posY: number) {
     tilesManager.addBlackTile(
       new TileBlack(this.#blackImage, { x: posX, y: posY }),
@@ -51,8 +45,8 @@ export class TileBlackCreator {
       if (this.#isBlackTile(rowSymbols, column)) {
         this.#instanceBlackTile(
           tilesManager,
-          this.#getPosX(column),
-          this.#getPosY(row),
+          this.getPosX(column),
+          this.getPosY(row),
         )
       }
     }
@@ -62,14 +56,6 @@ export class TileBlackCreator {
     return rowSymbols[column] === TileBlackCreator.SYMBOL
   }
 
-  #getPosX(column: number) {
-    return TileBlackCreator.FLOOR_SIZE * column
-  }
-
-  #getPosY(row: number) {
-    return TileBlackCreator.FLOOR_SIZE * row + TileBlackCreator.MARGIN_TOP
-  }
-
   // clearInstance is for using in jest
   static clearInstance() {
     TileBlackCreator.#instance = null
@@ -77,7 +63,7 @@ export class TileBlackCreator {
 
   createAll(tilesManager: TilesManager) {
     let rowCount = 0
-    this.#levelMap!.rowsMap.forEach((row: string) => {
+    this.levelMap!.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
       this.#processRow(tilesManager, trimmedRow, rowCount)

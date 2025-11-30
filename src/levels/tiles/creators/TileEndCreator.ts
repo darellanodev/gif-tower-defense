@@ -2,18 +2,16 @@ import { Image } from 'p5'
 import { TilesManager } from '../TilesManager'
 import { ConstDirection } from '../../../constants/ConstDirection'
 import { TileEnd } from '../TileEnd'
-import { MapDataType } from '../../../types/mapDataType'
 import { ConstTest } from '../../../constants/ConstTest'
+import { TileCreator } from './TileCreator'
 
-export class TileEndCreator {
+export class TileEndCreator extends TileCreator {
   static #instance: TileEndCreator | null = null
 
-  static FLOOR_SIZE = 50
   static MARGIN_TOP = 30
   static SYMBOL = 'y'
 
   #mapImages: Image[] | null = null
-  #levelMap: MapDataType | null = null
 
   static getInstance(mapImages: Image[]) {
     if (TileEndCreator.#instance === null) {
@@ -23,6 +21,7 @@ export class TileEndCreator {
   }
 
   constructor(mapImages: Image[]) {
+    super()
     if (TileEndCreator.#instance !== null) {
       throw new Error(
         'TileEndCreator is a singleton class, use getInstance to get the instance',
@@ -41,17 +40,8 @@ export class TileEndCreator {
     TileEndCreator.#instance = null
   }
 
-  setLevelMap(levelMap: MapDataType) {
-    this.#levelMap = levelMap
-  }
-
-  #instanceEndTile(
-    levelMap: MapDataType,
-    tilesManager: TilesManager,
-    posX: number,
-    posY: number,
-  ) {
-    const endImage = this.#endImage(levelMap)
+  #instanceEndTile(tilesManager: TilesManager, posX: number, posY: number) {
+    const endImage = this.#endImage()
 
     tilesManager.tileEnd = new TileEnd(endImage, {
       x: posX,
@@ -59,7 +49,7 @@ export class TileEndCreator {
     })
   }
 
-  #endImage(levelMap: MapDataType) {
+  #endImage() {
     if (this.#mapImages === null) {
       return null
     }
@@ -71,7 +61,7 @@ export class TileEndCreator {
       [ConstDirection.UP]: 2,
     }
 
-    const imageIndex = directionImageMap[levelMap.endDirection] ?? 3
+    const imageIndex = directionImageMap[this.levelMap!.endDirection] ?? 3
     return this.#mapImages[imageIndex]
   }
 
@@ -79,10 +69,9 @@ export class TileEndCreator {
     for (let column = 0; column < rowSymbols.length; column++) {
       if (this.#isEndTile(rowSymbols, column)) {
         this.#instanceEndTile(
-          this.#levelMap!,
           tilesManager,
-          this.#getPosX(column),
-          this.#getPosY(row),
+          this.getPosX(column),
+          this.getPosY(row),
         )
       }
     }
@@ -92,17 +81,9 @@ export class TileEndCreator {
     return rowSymbols[column] === TileEndCreator.SYMBOL
   }
 
-  #getPosX(column: number) {
-    return TileEndCreator.FLOOR_SIZE * column
-  }
-
-  #getPosY(row: number) {
-    return TileEndCreator.FLOOR_SIZE * row + TileEndCreator.MARGIN_TOP
-  }
-
   create(tilesManager: TilesManager) {
     let rowCount = 0
-    this.#levelMap!.rowsMap.forEach((row: string) => {
+    this.levelMap!.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
       this.#processRow(tilesManager, trimmedRow, rowCount)

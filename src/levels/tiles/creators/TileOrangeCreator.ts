@@ -5,19 +5,17 @@ import { TowerGreenCreator } from '../../../towers/TowerGreenCreator'
 import { TowerRedCreator } from '../../../towers/TowerRedCreator'
 import { TowerYellowCreator } from '../../../towers/TowerYellowCreator'
 import { TilesManager } from '../TilesManager'
-import { MapDataType } from '../../../types/mapDataType'
 import { ConstTest } from '../../../constants/ConstTest'
+import { TileCreator } from './TileCreator'
 
-export class TileOrangeCreator {
+export class TileOrangeCreator extends TileCreator {
   static #instance: TileOrangeCreator | null = null
 
-  static FLOOR_SIZE = 50
   static MARGIN_TOP = 30
   static SYMBOL = '0'
 
   #orangeImage: Image | null = null
   #player: Player
-  #levelMap: MapDataType | null = null
 
   #towerGreenCreator: TowerGreenCreator
   #towerRedCreator: TowerRedCreator
@@ -49,6 +47,7 @@ export class TileOrangeCreator {
     towerRedCreator: TowerRedCreator,
     towerYellowCreator: TowerYellowCreator,
   ) {
+    super()
     if (TileOrangeCreator.#instance !== null) {
       throw new Error(
         'TileOrangeCreator is a singleton class, use getInstance to get the instance',
@@ -65,10 +64,6 @@ export class TileOrangeCreator {
 
     // assign the singleton instance
     TileOrangeCreator.#instance = this
-  }
-
-  setLevelMap(levelMap: MapDataType) {
-    this.#levelMap = levelMap
   }
 
   #instanceOrangeTile(tilesManager: TilesManager, posX: number, posY: number) {
@@ -89,8 +84,8 @@ export class TileOrangeCreator {
       if (this.#isOrangeTile(rowSymbols, column)) {
         this.#instanceOrangeTile(
           tilesManager,
-          this.#getPosX(column),
-          this.#getPosY(row),
+          this.getPosX(column),
+          this.getPosY(row),
         )
       }
     }
@@ -100,14 +95,6 @@ export class TileOrangeCreator {
     return rowSymbols[column] === TileOrangeCreator.SYMBOL
   }
 
-  #getPosX(column: number) {
-    return TileOrangeCreator.FLOOR_SIZE * column
-  }
-
-  #getPosY(row: number) {
-    return TileOrangeCreator.FLOOR_SIZE * row + TileOrangeCreator.MARGIN_TOP
-  }
-
   // clearInstance is for using in jest
   static clearInstance() {
     TileOrangeCreator.#instance = null
@@ -115,7 +102,7 @@ export class TileOrangeCreator {
 
   createAll(tilesManager: TilesManager) {
     let rowCount = 0
-    this.#levelMap!.rowsMap.forEach((row: string) => {
+    this.levelMap!.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
       this.#processRow(tilesManager, trimmedRow, rowCount)
