@@ -15,7 +15,7 @@ test('orangeTiles getter, when valid map is passed, return the orange tiles', ()
   const tileOrangeCreator = getTileOrangeCreator()
 
   tileOrangeCreator.setLevelMap(levelMap)
-  tileOrangeCreator.createAll(tilesManager)
+  tileOrangeCreator.create(tilesManager)
 
   const result = tilesManager.getAllOrangeTiles
 
@@ -29,7 +29,7 @@ test('pathTiles getter, when valid map is passed, return the path tiles', () => 
   const tilePathCreator = getTilePathCreator()
 
   tilePathCreator.setLevelMap(levelMap)
-  tilePathCreator.createAll(tilesManager)
+  tilePathCreator.create(tilesManager)
 
   const result = tilesManager.getAllPathTiles
 

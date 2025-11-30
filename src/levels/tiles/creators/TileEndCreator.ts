@@ -8,7 +8,6 @@ import { TileCreator } from './TileCreator'
 export class TileEndCreator extends TileCreator {
   static #instance: TileEndCreator | null = null
 
-  static MARGIN_TOP = 30
   static SYMBOL = 'y'
 
   #mapImages: Image[] | null = null
@@ -65,7 +64,7 @@ export class TileEndCreator extends TileCreator {
     return this.#mapImages[imageIndex]
   }
 
-  #processRow(tilesManager: TilesManager, rowSymbols: string, row: number) {
+  processRow(tilesManager: TilesManager, rowSymbols: string, row: number) {
     for (let column = 0; column < rowSymbols.length; column++) {
       if (this.#isEndTile(rowSymbols, column)) {
         this.#instanceEndTile(
@@ -79,14 +78,5 @@ export class TileEndCreator extends TileCreator {
 
   #isEndTile(rowSymbols: string, column: number) {
     return rowSymbols[column] === TileEndCreator.SYMBOL
-  }
-
-  create(tilesManager: TilesManager) {
-    let rowCount = 0
-    this.levelMap!.rowsMap.forEach((row: string) => {
-      const trimmedRow = row.trim()
-      rowCount++
-      this.#processRow(tilesManager, trimmedRow, rowCount)
-    })
   }
 }

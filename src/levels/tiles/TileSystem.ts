@@ -57,14 +57,14 @@ export class TileSystem {
     // create path tiles
     this.#tilePathCreator = TilePathCreator.getInstance()
     this.#tilePathCreator.setLevelMap(levelMap)
-    this.#tilePathCreator.createAll(this.#tilesManager)
+    this.#tilePathCreator.create(this.#tilesManager)
 
     // create black tiles
     this.#tileBlackCreator = TileBlackCreator.getInstance(Images.tileImages)
     this.#tileBlackCreator.setLevelMap(levelMap)
-    this.#tileBlackCreator.createAll(this.#tilesManager)
+    this.#tileBlackCreator.create(this.#tilesManager)
 
     this.#tileOrangeCreator.setLevelMap(levelMap)
-    this.#tileOrangeCreator.createAll(this.#tilesManager)
+    this.#tileOrangeCreator.create(this.#tilesManager)
   }
 }

@@ -60,7 +60,7 @@ export class MiniMap {
     // create black tiles
     this.#tileBlackCreator = TileBlackCreator.getInstance(Images.tileImages)
     this.#tileBlackCreator.setLevelMap(levelMap)
-    this.#tileBlackCreator.createAll(this.#tilesManager)
+    this.#tileBlackCreator.create(this.#tilesManager)
 
     // create orange tiles
     this.#tileOrangeCreator = TileOrangeCreator.getInstance(
@@ -71,7 +71,7 @@ export class MiniMap {
       towerYellowCreator,
     )
     this.#tileOrangeCreator.setLevelMap(levelMap)
-    this.#tileOrangeCreator.createAll(this.#tilesManager)
+    this.#tileOrangeCreator.create(this.#tilesManager)
 
     //create start tile
     this.#tileStartCreator = TileStartCreator.getInstance(Images.tileImages)
@@ -86,7 +86,7 @@ export class MiniMap {
     // create path tiles
     this.#tilePathCreator = TilePathCreator.getInstance()
     this.#tilePathCreator.setLevelMap(levelMap)
-    this.#tilePathCreator.createAll(this.#tilesManager)
+    this.#tilePathCreator.create(this.#tilesManager)
   }
 
   get levelId() {

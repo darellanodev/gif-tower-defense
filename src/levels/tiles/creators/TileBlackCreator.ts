@@ -40,7 +40,7 @@ export class TileBlackCreator extends TileCreator {
     )
   }
 
-  #processRow(tilesManager: TilesManager, rowSymbols: string, row: number) {
+  processRow(tilesManager: TilesManager, rowSymbols: string, row: number) {
     for (let column = 0; column < rowSymbols.length; column++) {
       if (this.#isBlackTile(rowSymbols, column)) {
         this.#instanceBlackTile(
@@ -59,14 +59,5 @@ export class TileBlackCreator extends TileCreator {
   // clearInstance is for using in jest
   static clearInstance() {
     TileBlackCreator.#instance = null
-  }
-
-  createAll(tilesManager: TilesManager) {
-    let rowCount = 0
-    this.levelMap!.rowsMap.forEach((row: string) => {
-      const trimmedRow = row.trim()
-      rowCount++
-      this.#processRow(tilesManager, trimmedRow, rowCount)
-    })
   }
 }

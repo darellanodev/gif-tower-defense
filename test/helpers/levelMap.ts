@@ -55,13 +55,13 @@ export const getPathFromMap = (levelMap: MapDataType) => {
   const tilePathCreator = getTilePathCreator()
 
   tileOrangeCreator.setLevelMap(levelMap)
-  tileOrangeCreator.createAll(tilesManager)
+  tileOrangeCreator.create(tilesManager)
   tileStartCreator.setLevelMap(levelMap)
   tileStartCreator.create(tilesManager)
   tileEndCreator.setLevelMap(levelMap)
   tileEndCreator.create(tilesManager)
   tilePathCreator.setLevelMap(levelMap)
-  tilePathCreator.createAll(tilesManager)
+  tilePathCreator.create(tilesManager)
 
   const pathTiles = tilesManager.getAllPathTiles
   const startTile = tilesManager.tileStart
