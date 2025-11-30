@@ -4,7 +4,6 @@ import { TileCreator } from './TileCreator'
 
 export class TilePathCreator extends TileCreator {
   static #instance: TilePathCreator | null = null
-
   static SYMBOL = '1'
 
   static getInstance() {
@@ -26,6 +25,11 @@ export class TilePathCreator extends TileCreator {
     TilePathCreator.#instance = this
   }
 
+  // clearInstance is for using in jest
+  static clearInstance() {
+    TilePathCreator.#instance = null
+  }
+
   #instancePathTile(tilesManager: TilesManager, posX: number, posY: number) {
     tilesManager.addPathTile(new TilePath({ x: posX, y: posY }))
   }
@@ -44,10 +48,5 @@ export class TilePathCreator extends TileCreator {
 
   #isPathTile(rowSymbols: string, column: number) {
     return rowSymbols[column] === TilePathCreator.SYMBOL
-  }
-
-  // clearInstance is for using in jest
-  static clearInstance() {
-    TilePathCreator.#instance = null
   }
 }
