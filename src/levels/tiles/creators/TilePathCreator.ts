@@ -1,6 +1,6 @@
-import { MapDataType } from '../../types/mapDataType'
-import { TilePath } from './TilePath'
-import { TilesManager } from './TilesManager'
+import { MapDataType } from '../../../types/mapDataType'
+import { TilePath } from '../TilePath'
+import { TilesManager } from '../TilesManager'
 
 export class TilePathCreator {
   static #instance: TilePathCreator | null = null

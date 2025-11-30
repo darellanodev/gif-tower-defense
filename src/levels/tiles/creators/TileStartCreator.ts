@@ -1,9 +1,9 @@
 import { Image } from 'p5'
-import { TilesManager } from './TilesManager'
-import { ConstDirection } from '../../constants/ConstDirection'
-import { TileStart } from './TileStart'
-import { MapDataType } from '../../types/mapDataType'
-import { ConstTest } from '../../constants/ConstTest'
+import { TilesManager } from '../TilesManager'
+import { ConstDirection } from '../../../constants/ConstDirection'
+import { TileStart } from '../TileStart'
+import { MapDataType } from '../../../types/mapDataType'
+import { ConstTest } from '../../../constants/ConstTest'
 
 export class TileStartCreator {
   static #instance: TileStartCreator | null = null

@@ -10,10 +10,10 @@ import { TowerGreenCreator } from '../../src/towers/TowerGreenCreator'
 import { TowerRedCreator } from '../../src/towers/TowerRedCreator'
 import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
 import { TilesManager } from '../../src/levels/tiles/TilesManager'
-import { TileOrangeCreator } from '../../src/levels/tiles/TileOrangeCreator'
-import { TileStartCreator } from '../../src/levels/tiles/TileStartCreator'
-import { TileEndCreator } from '../../src/levels/tiles/TileEndCreator'
-import { TilePathCreator } from '../../src/levels/tiles/TilePathCreator'
+import { TileOrangeCreator } from '../../src/levels/tiles/creators/TileOrangeCreator'
+import { TileStartCreator } from '../../src/levels/tiles/creators/TileStartCreator'
+import { TileEndCreator } from '../../src/levels/tiles/creators/TileEndCreator'
+import { TilePathCreator } from '../../src/levels/tiles/creators/TilePathCreator'
 
 export const getTileOrangeCreator = () => {
   TileOrangeCreator.clearInstance()

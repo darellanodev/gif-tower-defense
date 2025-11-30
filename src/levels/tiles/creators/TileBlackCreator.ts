@@ -1,8 +1,8 @@
-import { TileBlack } from './TileBlack'
+import { TileBlack } from '../TileBlack'
 import { Image } from 'p5'
-import { TilesManager } from './TilesManager'
-import { MapDataType } from '../../types/mapDataType'
-import { ConstTest } from '../../constants/ConstTest'
+import { TilesManager } from '../TilesManager'
+import { MapDataType } from '../../../types/mapDataType'
+import { ConstTest } from '../../../constants/ConstTest'
 
 export class TileBlackCreator {
   static #instance: TileBlackCreator | null = null
