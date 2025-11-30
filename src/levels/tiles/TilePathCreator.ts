@@ -9,6 +9,8 @@ export class TilePathCreator {
   static MARGIN_TOP = 30
   static SYMBOL = '1'
 
+  #levelMap: MapDataType | null = null
+
   static getInstance() {
     if (TilePathCreator.#instance === null) {
       TilePathCreator.#instance = new TilePathCreator()
@@ -26,6 +28,11 @@ export class TilePathCreator {
     // assign the singleton instance
     TilePathCreator.#instance = this
   }
+
+  setLevelMap(levelMap: MapDataType) {
+    this.#levelMap = levelMap
+  }
+
   #instancePathTile(tilesManager: TilesManager, posX: number, posY: number) {
     tilesManager.addPathTile(new TilePath({ x: posX, y: posY }))
   }
@@ -59,9 +66,9 @@ export class TilePathCreator {
     TilePathCreator.#instance = null
   }
 
-  createAll(levelMap: MapDataType, tilesManager: TilesManager) {
+  createAll(tilesManager: TilesManager) {
     let rowCount = 0
-    levelMap.rowsMap.forEach((row: string) => {
+    this.#levelMap!.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
       this.#processRow(tilesManager, trimmedRow, rowCount)

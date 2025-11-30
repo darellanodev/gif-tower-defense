@@ -12,6 +12,7 @@ export class TileBlackCreator {
   static SYMBOL = '2'
 
   #blackImage: Image | null = null
+  #levelMap: MapDataType | null = null
 
   static getInstance(mapImages: Image[]) {
     if (TileBlackCreator.#instance === null) {
@@ -33,6 +34,10 @@ export class TileBlackCreator {
 
     // assign the singleton instance
     TileBlackCreator.#instance = this
+  }
+
+  setLevelMap(levelMap: MapDataType) {
+    this.#levelMap = levelMap
   }
 
   #instanceBlackTile(tilesManager: TilesManager, posX: number, posY: number) {
@@ -70,9 +75,9 @@ export class TileBlackCreator {
     TileBlackCreator.#instance = null
   }
 
-  createAll(levelMap: MapDataType, tilesManager: TilesManager) {
+  createAll(tilesManager: TilesManager) {
     let rowCount = 0
-    levelMap.rowsMap.forEach((row: string) => {
+    this.#levelMap!.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
       this.#processRow(tilesManager, trimmedRow, rowCount)

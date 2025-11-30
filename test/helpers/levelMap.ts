@@ -54,10 +54,14 @@ export const getPathFromMap = (levelMap: MapDataType) => {
   const tileEndCreator = getTileEndCreator()
   const tilePathCreator = getTilePathCreator()
 
-  tileOrangeCreator.createAll(levelMap, tilesManager)
-  tileStartCreator.create(levelMap, tilesManager)
-  tileEndCreator.create(levelMap, tilesManager)
-  tilePathCreator.createAll(levelMap, tilesManager)
+  tileOrangeCreator.setLevelMap(levelMap)
+  tileOrangeCreator.createAll(tilesManager)
+  tileStartCreator.setLevelMap(levelMap)
+  tileStartCreator.create(tilesManager)
+  tileEndCreator.setLevelMap(levelMap)
+  tileEndCreator.create(tilesManager)
+  tilePathCreator.setLevelMap(levelMap)
+  tilePathCreator.createAll(tilesManager)
 
   const pathTiles = tilesManager.getAllPathTiles
   const startTile = tilesManager.tileStart
@@ -116,7 +120,8 @@ export const getTileStartForLevel = (levelId: number) => {
   TileStartCreator.clearInstance()
   const tileStartCreator = getTileStartCreator()
 
-  tileStartCreator.create(levelMap, tilesManager)
+  tileStartCreator.setLevelMap(levelMap)
+  tileStartCreator.create(tilesManager)
   const tileStart = tilesManager.tileStart
 
   if (tileStart === null) {

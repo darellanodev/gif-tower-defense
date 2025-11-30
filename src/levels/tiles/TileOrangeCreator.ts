@@ -17,6 +17,7 @@ export class TileOrangeCreator {
 
   #orangeImage: Image | null = null
   #player: Player
+  #levelMap: MapDataType | null = null
 
   #towerGreenCreator: TowerGreenCreator
   #towerRedCreator: TowerRedCreator
@@ -66,6 +67,10 @@ export class TileOrangeCreator {
     TileOrangeCreator.#instance = this
   }
 
+  setLevelMap(levelMap: MapDataType) {
+    this.#levelMap = levelMap
+  }
+
   #instanceOrangeTile(tilesManager: TilesManager, posX: number, posY: number) {
     tilesManager.addOrangeTile(
       new TileOrange(
@@ -108,9 +113,9 @@ export class TileOrangeCreator {
     TileOrangeCreator.#instance = null
   }
 
-  createAll(levelMap: MapDataType, tilesManager: TilesManager) {
+  createAll(tilesManager: TilesManager) {
     let rowCount = 0
-    levelMap.rowsMap.forEach((row: string) => {
+    this.#levelMap!.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
       this.#processRow(tilesManager, trimmedRow, rowCount)

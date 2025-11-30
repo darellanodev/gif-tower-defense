@@ -12,13 +12,16 @@ export class TileStartCreator {
   static MARGIN_TOP = 30
   static SYMBOL = 'x'
 
+  #mapImages: Image[] | null = null
+  #levelMap: MapDataType | null = null
+
   static getInstance(mapImages: Image[]) {
     if (TileStartCreator.#instance === null) {
       TileStartCreator.#instance = new TileStartCreator(mapImages)
     }
     return TileStartCreator.#instance
   }
-  #mapImages: Image[] | null = null
+
   constructor(mapImages: Image[]) {
     if (TileStartCreator.#instance !== null) {
       throw new Error(
@@ -31,6 +34,10 @@ export class TileStartCreator {
 
     // assign the singleton instance
     TileStartCreator.#instance = this
+  }
+
+  setLevelMap(levelMap: MapDataType) {
+    this.#levelMap = levelMap
   }
 
   // clearInstance is for using in jest
@@ -66,16 +73,11 @@ export class TileStartCreator {
     )
   }
 
-  #processRow(
-    levelMap: MapDataType,
-    tilesManager: TilesManager,
-    rowSymbols: string,
-    row: number,
-  ) {
+  #processRow(tilesManager: TilesManager, rowSymbols: string, row: number) {
     for (let column = 0; column < rowSymbols.length; column++) {
       if (this.#isStartTile(rowSymbols, column)) {
         this.#instanceStartTile(
-          levelMap,
+          this.#levelMap!,
           tilesManager,
           this.#getPosX(column),
           this.#getPosY(row),
@@ -96,12 +98,12 @@ export class TileStartCreator {
     return TileStartCreator.FLOOR_SIZE * row + TileStartCreator.MARGIN_TOP
   }
 
-  create(levelMap: MapDataType, tilesManager: TilesManager) {
+  create(tilesManager: TilesManager) {
     let rowCount = 0
-    levelMap.rowsMap.forEach((row: string) => {
+    this.#levelMap!.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
-      this.#processRow(levelMap, tilesManager, trimmedRow, rowCount)
+      this.#processRow(tilesManager, trimmedRow, rowCount)
     })
   }
 }

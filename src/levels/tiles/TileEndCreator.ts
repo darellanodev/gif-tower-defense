@@ -4,7 +4,6 @@ import { ConstDirection } from '../../constants/ConstDirection'
 import { TileEnd } from './TileEnd'
 import { MapDataType } from '../../types/mapDataType'
 import { ConstTest } from '../../constants/ConstTest'
-import { Const } from '../../constants/Const'
 
 export class TileEndCreator {
   static #instance: TileEndCreator | null = null
@@ -13,6 +12,9 @@ export class TileEndCreator {
   static MARGIN_TOP = 30
   static SYMBOL = 'y'
 
+  #mapImages: Image[] | null = null
+  #levelMap: MapDataType | null = null
+
   static getInstance(mapImages: Image[]) {
     if (TileEndCreator.#instance === null) {
       TileEndCreator.#instance = new TileEndCreator(mapImages)
@@ -20,7 +22,6 @@ export class TileEndCreator {
     return TileEndCreator.#instance
   }
 
-  #mapImages: Image[] | null = null
   constructor(mapImages: Image[]) {
     if (TileEndCreator.#instance !== null) {
       throw new Error(
@@ -38,6 +39,10 @@ export class TileEndCreator {
   // clearInstance is for using in jest
   static clearInstance() {
     TileEndCreator.#instance = null
+  }
+
+  setLevelMap(levelMap: MapDataType) {
+    this.#levelMap = levelMap
   }
 
   #instanceEndTile(
@@ -70,16 +75,11 @@ export class TileEndCreator {
     return this.#mapImages[imageIndex]
   }
 
-  #processRow(
-    levelMap: MapDataType,
-    tilesManager: TilesManager,
-    rowSymbols: string,
-    row: number,
-  ) {
+  #processRow(tilesManager: TilesManager, rowSymbols: string, row: number) {
     for (let column = 0; column < rowSymbols.length; column++) {
       if (this.#isEndTile(rowSymbols, column)) {
         this.#instanceEndTile(
-          levelMap,
+          this.#levelMap!,
           tilesManager,
           this.#getPosX(column),
           this.#getPosY(row),
@@ -100,12 +100,12 @@ export class TileEndCreator {
     return TileEndCreator.FLOOR_SIZE * row + TileEndCreator.MARGIN_TOP
   }
 
-  create(levelMap: MapDataType, tilesManager: TilesManager) {
+  create(tilesManager: TilesManager) {
     let rowCount = 0
-    levelMap.rowsMap.forEach((row: string) => {
+    this.#levelMap!.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
-      this.#processRow(levelMap, tilesManager, trimmedRow, rowCount)
+      this.#processRow(tilesManager, trimmedRow, rowCount)
     })
   }
 }
