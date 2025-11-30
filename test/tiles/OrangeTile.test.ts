@@ -10,6 +10,7 @@ import { images } from '../helpers/imagesResources'
 import { TowerGreenCreator } from '../../src/towers/TowerGreenCreator'
 import { TowerRedCreator } from '../../src/towers/TowerRedCreator'
 import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
+import { ConstGameMode } from '../../src/constants/ConstGameMode'
 
 describe('isInside', () => {
   test('If mouse is inside, return true', () => {
@@ -56,7 +57,7 @@ describe('isInside', () => {
 test('hasTower, after buy a tower, return true', () => {
   Wallet.clearInstance()
   const money = 100
-  const wallet = Wallet.getInstance(Wallet.GAME_NORMAL_MODE, money)
+  const wallet = Wallet.getInstance(ConstGameMode.NORMAL, money)
   const orangeTile = instantiateOrangeTile()
   const tower = buyGreenTower(orangeTile, wallet)
 
@@ -66,7 +67,7 @@ test('hasTower, after buy a tower, return true', () => {
 test('sell tower, when player has 100 of money after buy a new tower of cost of 50 , return selling profit 30 so player has 80 of money', () => {
   Wallet.clearInstance()
   const money = 100
-  const wallet = Wallet.getInstance(Wallet.GAME_NORMAL_MODE, money)
+  const wallet = Wallet.getInstance(ConstGameMode.NORMAL, money)
   const orangeTile = instantiateOrangeTile()
   const tower = buyGreenTower(orangeTile, wallet)
 
