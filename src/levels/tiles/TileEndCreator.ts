@@ -41,8 +41,8 @@ export class TileEndCreator {
   }
 
   #instanceEndTile(
-    tilesManager: TilesManager,
     levelMap: MapDataType,
+    tilesManager: TilesManager,
     posX: number,
     posY: number,
   ) {
@@ -71,20 +71,33 @@ export class TileEndCreator {
   }
 
   #processRow(
-    tilesManager: TilesManager,
     levelMap: MapDataType,
-    trimmedRow: string,
-    rowCount: number,
+    tilesManager: TilesManager,
+    rowSymbols: string,
+    row: number,
   ) {
-    for (let column = 0; column < trimmedRow.length; column++) {
-      const character = trimmedRow[column]
-      const posX = TileEndCreator.FLOOR_SIZE * column
-      const posY =
-        TileEndCreator.FLOOR_SIZE * rowCount + TileEndCreator.MARGIN_TOP
-      if (character === TileEndCreator.SYMBOL) {
-        this.#instanceEndTile(tilesManager, levelMap, posX, posY)
+    for (let column = 0; column < rowSymbols.length; column++) {
+      if (this.#isEndTile(rowSymbols, column)) {
+        this.#instanceEndTile(
+          levelMap,
+          tilesManager,
+          this.#getPosX(column),
+          this.#getPosY(row),
+        )
       }
     }
+  }
+
+  #isEndTile(rowSymbols: string, column: number) {
+    return rowSymbols[column] === TileEndCreator.SYMBOL
+  }
+
+  #getPosX(column: number) {
+    return TileEndCreator.FLOOR_SIZE * column
+  }
+
+  #getPosY(row: number) {
+    return TileEndCreator.FLOOR_SIZE * row + TileEndCreator.MARGIN_TOP
   }
 
   create(levelMap: MapDataType, tilesManager: TilesManager) {
@@ -92,7 +105,7 @@ export class TileEndCreator {
     levelMap.rowsMap.forEach((row: string) => {
       const trimmedRow = row.trim()
       rowCount++
-      this.#processRow(tilesManager, levelMap, trimmedRow, rowCount)
+      this.#processRow(levelMap, tilesManager, trimmedRow, rowCount)
     })
   }
 }
