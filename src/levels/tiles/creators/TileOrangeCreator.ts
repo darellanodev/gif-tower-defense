@@ -10,7 +10,6 @@ import { TileCreator } from './TileCreator'
 
 export class TileOrangeCreator extends TileCreator {
   static #instance: TileOrangeCreator | null = null
-
   static SYMBOL = '0'
 
   #orangeImage: Image | null = null
@@ -65,6 +64,11 @@ export class TileOrangeCreator extends TileCreator {
     TileOrangeCreator.#instance = this
   }
 
+  // clearInstance is for using in jest
+  static clearInstance() {
+    TileOrangeCreator.#instance = null
+  }
+
   #instanceOrangeTile(tilesManager: TilesManager, posX: number, posY: number) {
     tilesManager.addOrangeTile(
       new TileOrange(
@@ -92,10 +96,5 @@ export class TileOrangeCreator extends TileCreator {
 
   #isOrangeTile(rowSymbols: string, column: number) {
     return rowSymbols[column] === TileOrangeCreator.SYMBOL
-  }
-
-  // clearInstance is for using in jest
-  static clearInstance() {
-    TileOrangeCreator.#instance = null
   }
 }
