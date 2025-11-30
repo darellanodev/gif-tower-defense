@@ -79,20 +79,28 @@ export class TileOrangeCreator {
     )
   }
 
-  #processRow(
-    tilesManager: TilesManager,
-    trimmedRow: string,
-    rowCount: number,
-  ) {
-    for (let column = 0; column < trimmedRow.length; column++) {
-      const character = trimmedRow[column]
-      const posX = TileOrangeCreator.FLOOR_SIZE * column
-      const posY =
-        TileOrangeCreator.FLOOR_SIZE * rowCount + TileOrangeCreator.MARGIN_TOP
-      if (character === TileOrangeCreator.SYMBOL) {
-        this.#instanceOrangeTile(tilesManager, posX, posY)
+  #processRow(tilesManager: TilesManager, rowSymbols: string, row: number) {
+    for (let column = 0; column < rowSymbols.length; column++) {
+      if (this.#isOrangeTile(rowSymbols, column)) {
+        this.#instanceOrangeTile(
+          tilesManager,
+          this.#getPosX(column),
+          this.#getPosY(row),
+        )
       }
     }
+  }
+
+  #isOrangeTile(rowSymbols: string, column: number) {
+    return rowSymbols[column] === TileOrangeCreator.SYMBOL
+  }
+
+  #getPosX(column: number) {
+    return TileOrangeCreator.FLOOR_SIZE * column
+  }
+
+  #getPosY(row: number) {
+    return TileOrangeCreator.FLOOR_SIZE * row + TileOrangeCreator.MARGIN_TOP
   }
 
   // clearInstance is for using in jest
