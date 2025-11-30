@@ -7,7 +7,6 @@ import { TileCreator } from './TileCreator'
 
 export class TileEndCreator extends TileCreator {
   static #instance: TileEndCreator | null = null
-
   static SYMBOL = 'y'
 
   #mapImages: Image[] | null = null
@@ -34,21 +33,13 @@ export class TileEndCreator extends TileCreator {
     // assign the singleton instance
     TileEndCreator.#instance = this
   }
+
   // clearInstance is for using in jest
   static clearInstance() {
     TileEndCreator.#instance = null
   }
 
-  #instanceEndTile(tilesManager: TilesManager, posX: number, posY: number) {
-    const endImage = this.#endImage()
-
-    tilesManager.tileEnd = new TileEnd(endImage, {
-      x: posX,
-      y: posY,
-    })
-  }
-
-  #endImage() {
+  #getEndImage() {
     if (this.#mapImages === null) {
       return null
     }
@@ -62,6 +53,15 @@ export class TileEndCreator extends TileCreator {
 
     const imageIndex = directionImageMap[this.levelMap!.endDirection] ?? 3
     return this.#mapImages[imageIndex]
+  }
+
+  #instanceEndTile(tilesManager: TilesManager, posX: number, posY: number) {
+    const endImage = this.#getEndImage()
+
+    tilesManager.tileEnd = new TileEnd(endImage, {
+      x: posX,
+      y: posY,
+    })
   }
 
   processRow(tilesManager: TilesManager, rowSymbols: string, row: number) {

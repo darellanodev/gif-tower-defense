@@ -7,7 +7,6 @@ import { TileCreator } from './TileCreator'
 
 export class TileStartCreator extends TileCreator {
   static #instance: TileStartCreator | null = null
-
   static SYMBOL = 'x'
 
   #mapImages: Image[] | null = null
