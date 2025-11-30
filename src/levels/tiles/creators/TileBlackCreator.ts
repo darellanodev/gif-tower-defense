@@ -6,7 +6,6 @@ import { TileCreator } from './TileCreator'
 
 export class TileBlackCreator extends TileCreator {
   static #instance: TileBlackCreator | null = null
-
   static SYMBOL = '2'
 
   #blackImage: Image | null = null
@@ -34,6 +33,11 @@ export class TileBlackCreator extends TileCreator {
     TileBlackCreator.#instance = this
   }
 
+  // clearInstance is for using in jest
+  static clearInstance() {
+    TileBlackCreator.#instance = null
+  }
+
   #instanceBlackTile(tilesManager: TilesManager, posX: number, posY: number) {
     tilesManager.addBlackTile(
       new TileBlack(this.#blackImage, { x: posX, y: posY }),
@@ -54,10 +58,5 @@ export class TileBlackCreator extends TileCreator {
 
   #isBlackTile(rowSymbols: string, column: number) {
     return rowSymbols[column] === TileBlackCreator.SYMBOL
-  }
-
-  // clearInstance is for using in jest
-  static clearInstance() {
-    TileBlackCreator.#instance = null
   }
 }
