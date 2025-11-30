@@ -41,20 +41,28 @@ export class TileBlackCreator {
     )
   }
 
-  #processRow(
-    tilesManager: TilesManager,
-    trimmedRow: string,
-    rowCount: number,
-  ) {
-    for (let column = 0; column < trimmedRow.length; column++) {
-      const character = trimmedRow[column]
-      const posX = TileBlackCreator.FLOOR_SIZE * column
-      const posY =
-        TileBlackCreator.FLOOR_SIZE * rowCount + TileBlackCreator.MARGIN_TOP
-      if (character === TileBlackCreator.SYMBOL) {
-        this.#instanceBlackTile(tilesManager, posX, posY)
+  #processRow(tilesManager: TilesManager, rowSymbols: string, row: number) {
+    for (let column = 0; column < rowSymbols.length; column++) {
+      if (this.#isBlackTile(rowSymbols, column)) {
+        this.#instanceBlackTile(
+          tilesManager,
+          this.#getPosX(column),
+          this.#getPosY(row),
+        )
       }
     }
+  }
+
+  #isBlackTile(rowSymbols: string, column: number) {
+    return rowSymbols[column] === TileBlackCreator.SYMBOL
+  }
+
+  #getPosX(column: number) {
+    return TileBlackCreator.FLOOR_SIZE * column
+  }
+
+  #getPosY(row: number) {
+    return TileBlackCreator.FLOOR_SIZE * row + TileBlackCreator.MARGIN_TOP
   }
 
   // clearInstance is for using in jest
