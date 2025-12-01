@@ -15,17 +15,22 @@ export class MagicFireballCollisionChecker {
     this.#magicCollisionChecker = magicCollisionChecker
     this.#pathMovement = pathMovement
   }
+
+  #checkCollision(magicFireball: MagicFireball, enemy: Enemy) {
+    if (
+      this.#magicCollisionChecker.checkCollision(
+        enemy,
+        this.#pathMovement.indexOrder,
+      )
+    ) {
+      this.handleCollision(magicFireball, enemy)
+    }
+  }
+
   check(magicFireball: MagicFireball, enemies: Enemy[]) {
     enemies.forEach((enemy) => {
       if (!enemy.isAbducted) {
-        if (
-          this.#magicCollisionChecker.checkCollision(
-            enemy,
-            this.#pathMovement.indexOrder,
-          )
-        ) {
-          this.handleCollision(magicFireball, enemy)
-        }
+        this.#checkCollision(magicFireball, enemy)
       }
     })
   }
