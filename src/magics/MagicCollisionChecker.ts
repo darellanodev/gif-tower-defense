@@ -14,10 +14,8 @@ export class MagicCollisionChecker {
   }
 
   #isMagicColliding(enemy: Enemy, indexOrder: number) {
-    const fireballPos = indexOrder
-    const enemyPos = enemy.orderPosition
-    const distanceBetween = Math.abs(fireballPos - enemyPos)
-    return fireballPos >= enemyPos && distanceBetween < 1
+    const distanceBetween = Math.abs(indexOrder - enemy.orderPosition)
+    return indexOrder >= enemy.orderPosition && distanceBetween < 1
   }
 
   checkCollision(enemy: Enemy, indexOrder: number) {
