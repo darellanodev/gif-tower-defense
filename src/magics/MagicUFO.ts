@@ -130,11 +130,15 @@ export class MagicUFO extends Magic {
       this.#abduct()
     } else {
       this.#showRay = false
-      if (this.#startedAbduct()) {
-        // loses the enemy
-        this.#enemyTarget = null
-        this.#timeToAbduct = 0
-      }
+      this.#checkIfShouldDropEnemy()
+    }
+  }
+
+  #checkIfShouldDropEnemy() {
+    if (this.#startedAbduct()) {
+      // loses the enemy
+      this.#enemyTarget = null
+      this.#timeToAbduct = 0
     }
   }
 
