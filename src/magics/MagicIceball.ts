@@ -41,9 +41,9 @@ export class MagicIceball extends Magic {
   updateStatus() {
     if (this.#pathMovement.isAlive) {
       this.status = Const.MAGIC_STATUS_ALIVE
-    } else {
-      this.status = Const.MAGIC_STATUS_DEAD
+      return
     }
+    this.status = Const.MAGIC_STATUS_DEAD
   }
 
   update(enemyInstancesManager: EnemyInstancesManager) {
