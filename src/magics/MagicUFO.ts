@@ -73,25 +73,25 @@ export class MagicUFO extends Magic {
     this.#drawUFO()
   }
 
-  #checkIfShouldMoveRight() {
+  #moveRightIfNeeded() {
     if (this.position.x < this.startPosition.x) {
       this.position.x = this.position.x + MagicUFO.SPEED
     }
   }
 
-  #checkIfShouldMoveLeft() {
+  #moveLeftIfNeeded() {
     if (this.position.x > this.startPosition.x) {
       this.position.x = this.position.x - MagicUFO.SPEED
     }
   }
 
-  #checkIfShouldMoveDown() {
+  #moveDownIfNeeded() {
     if (this.position.y < this.startPosition.y - MagicUFO.OFFSET_Y) {
       this.position.y = this.position.y + MagicUFO.SPEED
     }
   }
 
-  #checkIfShouldMoveUp() {
+  #moveUpIfNeeded() {
     if (this.position.y > this.startPosition.y - MagicUFO.OFFSET_Y) {
       this.position.y = this.position.y - MagicUFO.SPEED
     }
@@ -101,10 +101,10 @@ export class MagicUFO extends Magic {
     if (!this.#enemyTarget) {
       return
     }
-    this.#checkIfShouldMoveRight()
-    this.#checkIfShouldMoveLeft()
-    this.#checkIfShouldMoveDown()
-    this.#checkIfShouldMoveUp()
+    this.#moveRightIfNeeded()
+    this.#moveLeftIfNeeded()
+    this.#moveDownIfNeeded()
+    this.#moveUpIfNeeded()
   }
 
   #updatePositionGoOut() {
