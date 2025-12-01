@@ -143,15 +143,18 @@ export class MagicUFO extends Magic {
   }
 
   #checkCollisionWithStartPosition() {
-    if (this.#magicUFOCollisionChecker.isCollidingWithStartPosition(this)) {
-      if (!this.#enemyTarget) {
-        return
-      }
-      this.#enemyTarget.dropFromUFO()
-      this.#enemyTarget = null
-      this.#timeToAbduct = 0
-      this.#goOut = true
+    if (!this.#magicUFOCollisionChecker.isCollidingWithStartPosition(this)) {
+      return
     }
+
+    if (!this.#enemyTarget) {
+      return
+    }
+
+    this.#enemyTarget.dropFromUFO()
+    this.#enemyTarget = null
+    this.#timeToAbduct = 0
+    this.#goOut = true
   }
 
   #isAbducting() {
