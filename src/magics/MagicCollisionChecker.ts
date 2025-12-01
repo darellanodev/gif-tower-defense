@@ -13,6 +13,13 @@ export class MagicCollisionChecker {
     return found !== undefined
   }
 
+  #isMagicColliding(enemy: Enemy, indexOrder: number) {
+    const fireballPos = indexOrder
+    const enemyPos = enemy.orderPosition
+    const distanceBetween = Math.abs(fireballPos - enemyPos)
+    return fireballPos >= enemyPos && distanceBetween < 1
+  }
+
   checkCollision(enemy: Enemy, indexOrder: number) {
     if (enemy.dead || enemy.winner) {
       return false
@@ -22,11 +29,7 @@ export class MagicCollisionChecker {
       return false
     }
 
-    const fireballPos = indexOrder
-    const enemyPos = enemy.orderPosition
-    const distanceBetween = Math.abs(fireballPos - enemyPos)
-
-    if (fireballPos >= enemyPos && distanceBetween < 1) {
+    if (this.#isMagicColliding(enemy, indexOrder)) {
       return true
     }
 
