@@ -73,22 +73,38 @@ export class MagicUFO extends Magic {
     this.#drawUFO()
   }
 
+  #checkIfShouldMoveRight() {
+    if (this.position.x < this.startPosition.x) {
+      this.position.x = this.position.x + MagicUFO.SPEED
+    }
+  }
+
+  #checkIfShouldMoveLeft() {
+    if (this.position.x > this.startPosition.x) {
+      this.position.x = this.position.x - MagicUFO.SPEED
+    }
+  }
+
+  #checkIfShouldMoveDown() {
+    if (this.position.y < this.startPosition.y - MagicUFO.OFFSET_Y) {
+      this.position.y = this.position.y + MagicUFO.SPEED
+    }
+  }
+
+  #checkIfShouldMoveUp() {
+    if (this.position.y > this.startPosition.y - MagicUFO.OFFSET_Y) {
+      this.position.y = this.position.y - MagicUFO.SPEED
+    }
+  }
+
   #carryEnemyToStartTile() {
     if (!this.#enemyTarget) {
       return
     }
-    if (this.position.x < this.startPosition.x) {
-      this.position.x = this.position.x + MagicUFO.SPEED
-    }
-    if (this.position.x > this.startPosition.x) {
-      this.position.x = this.position.x - MagicUFO.SPEED
-    }
-    if (this.position.y < this.startPosition.y - MagicUFO.OFFSET_Y) {
-      this.position.y = this.position.y + MagicUFO.SPEED
-    }
-    if (this.position.y > this.startPosition.y - MagicUFO.OFFSET_Y) {
-      this.position.y = this.position.y - MagicUFO.SPEED
-    }
+    this.#checkIfShouldMoveRight()
+    this.#checkIfShouldMoveLeft()
+    this.#checkIfShouldMoveDown()
+    this.#checkIfShouldMoveUp()
   }
 
   #updatePositionGoOut() {
