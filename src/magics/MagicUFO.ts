@@ -110,9 +110,9 @@ export class MagicUFO extends Magic {
   #updatePositionGoOut() {
     if (this.position.y > MagicUFO.OUT_OF_SCREEN_Y) {
       this.position.y = this.position.y - MagicUFO.SPEED
-    } else {
-      this.die()
+      return
     }
+    this.die()
   }
 
   #startedAbduct(): boolean {
