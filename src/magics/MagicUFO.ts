@@ -136,10 +136,13 @@ export class MagicUFO extends Magic {
 
   #checkIfShouldDropEnemy() {
     if (this.#startedAbduct()) {
-      // loses the enemy
-      this.#enemyTarget = null
-      this.#timeToAbduct = 0
+      this.#dropEnemy()
     }
+  }
+
+  #dropEnemy() {
+    this.#enemyTarget = null
+    this.#timeToAbduct = 0
   }
 
   #checkCollisionWithStartPosition() {
@@ -152,8 +155,7 @@ export class MagicUFO extends Magic {
     }
 
     this.#enemyTarget.dropFromUFO()
-    this.#enemyTarget = null
-    this.#timeToAbduct = 0
+    this.#dropEnemy()
     this.#goOut = true
   }
 
