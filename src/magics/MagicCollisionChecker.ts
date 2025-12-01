@@ -8,13 +8,17 @@ export class MagicCollisionChecker {
     this.#touchedEnemiesIds.push(enemy.id)
   }
 
+  #hasPreviouslyCollided(enemy: Enemy) {
+    const found = this.#touchedEnemiesIds.find((id) => id === enemy.id)
+    return found !== undefined
+  }
+
   checkCollision(enemy: Enemy, indexOrder: number) {
     if (enemy.dead || enemy.winner) {
       return false
     }
 
-    const found = this.#touchedEnemiesIds.find((id) => id === enemy.id)
-    if (found !== undefined) {
+    if (this.#hasPreviouslyCollided(enemy)) {
       return false
     }
 
