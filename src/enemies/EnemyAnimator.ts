@@ -80,7 +80,7 @@ export class EnemyAnimator {
     }
   }
 
-  #checkIfOpenEyes() {
+  #openEyesWhenTimeReached() {
     if (
       this.#extendClosedEyesTime > EnemyAnimator.EXTEND_CLOSED_EYES_MAX_TIME
     ) {
@@ -96,7 +96,7 @@ export class EnemyAnimator {
       this.#moveEyesInSequence()
     } else {
       this.#extendClosedEyesTime++
-      this.#checkIfOpenEyes()
+      this.#openEyesWhenTimeReached()
     }
   }
 
