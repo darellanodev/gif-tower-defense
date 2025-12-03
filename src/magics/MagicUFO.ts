@@ -168,14 +168,16 @@ export class MagicUFO extends Magic {
       return
     }
 
-    if (this.#isAbducting()) {
-      if (this.#timeToAbduct < MagicUFO.MAX_TIME_ABDUCT) {
-        this.#timeToAbduct++
-      } else {
-        this.#enemyTarget.decrementSize()
-        if (this.#enemyTarget.isAbducted) {
-          this.#showRay = false
-        }
+    if (!this.#isAbducting()) {
+      return
+    }
+
+    if (this.#timeToAbduct < MagicUFO.MAX_TIME_ABDUCT) {
+      this.#timeToAbduct++
+    } else {
+      this.#enemyTarget.decrementSize()
+      if (this.#enemyTarget.isAbducted) {
+        this.#showRay = false
       }
     }
   }
