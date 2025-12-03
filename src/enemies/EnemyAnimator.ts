@@ -48,7 +48,7 @@ export class EnemyAnimator {
     if (this.#changeEyesTime > EnemyAnimator.CHANGE_EYES_MAX_TIME) {
       this.#changeEyesTime = 0
       this.#indexEyesSequence++
-      this.#checkIfReinitializeIndexEyesSequence()
+      this.#resetEyesSequenceWhenTimeReached()
       this.#updateEyesImage()
     }
     this.#changeEyesTime++
@@ -58,7 +58,7 @@ export class EnemyAnimator {
     this.#imgIndex = this.#eyesSequence[this.#indexEyesSequence]
   }
 
-  #checkIfReinitializeIndexEyesSequence() {
+  #resetEyesSequenceWhenTimeReached() {
     if (this.#indexEyesSequence == this.#eyesSequence.length) {
       this.#indexEyesSequence = 0
     }
