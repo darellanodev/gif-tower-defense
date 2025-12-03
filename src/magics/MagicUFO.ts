@@ -174,10 +174,10 @@ export class MagicUFO extends Magic {
 
     if (this.#timeToAbduct < MagicUFO.MAX_TIME_ABDUCT) {
       this.#timeToAbduct++
-    } else {
-      this.#enemyTarget.decrementSize()
-      this.#turnOffRayWhenEnemyIsAbducted()
+      return
     }
+    this.#enemyTarget.decrementSize()
+    this.#turnOffRayWhenEnemyIsAbducted()
   }
 
   #turnOffRayWhenEnemyIsAbducted() {
