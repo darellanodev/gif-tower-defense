@@ -96,10 +96,10 @@ export class Enemy extends Obj {
   addDamage(shotDamage: number) {
     const damageIncrement = shotDamage / this.#endurance
     this.#healthBar.increaseProgress(damageIncrement)
-    this.#checkIfDead()
+    this.#killEnemyIfProgressFull()
   }
 
-  #checkIfDead() {
+  #killEnemyIfProgressFull() {
     if (this.#healthBar.isFullOfProgress()) {
       this.#status = Enemy.STATUS_DEAD
     }
