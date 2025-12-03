@@ -101,10 +101,8 @@ export class MagicUFO extends Magic {
     if (!this.#enemyTarget) {
       return
     }
-    this.#moveRightIfNeeded(this.startPosition)
-    this.#moveLeftIfNeeded(this.startPosition)
-    this.#moveDownIfNeeded(this.startPosition)
-    this.#moveUpIfNeeded(this.startPosition)
+
+    this.#moveToTarget(this.startPosition)
   }
 
   #updatePositionGoOut() {
@@ -191,10 +189,14 @@ export class MagicUFO extends Magic {
       return
     }
 
-    this.#moveRightIfNeeded(this.#enemyTarget.position)
-    this.#moveLeftIfNeeded(this.#enemyTarget.position)
-    this.#moveDownIfNeeded(this.#enemyTarget.position)
-    this.#moveUpIfNeeded(this.#enemyTarget.position)
+    this.#moveToTarget(this.#enemyTarget.position)
+  }
+
+  #moveToTarget(targetPosition: Position) {
+    this.#moveRightIfNeeded(targetPosition)
+    this.#moveLeftIfNeeded(targetPosition)
+    this.#moveDownIfNeeded(targetPosition)
+    this.#moveUpIfNeeded(targetPosition)
   }
 
   #searchTarget(enemyInstancesManager: EnemyInstancesManager) {
