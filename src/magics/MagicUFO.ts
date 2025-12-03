@@ -241,19 +241,22 @@ export class MagicUFO extends Magic {
   }
 
   #isTargetedByOtherUFO(enemy: Enemy): boolean {
-    let result = false
-    this.#instancesManager.getAll().forEach((instance) => {
-      if ('id' in instance) {
-        if (instance.id !== this.id) {
-          if (instance.#enemyTarget) {
-            if (instance.#enemyTarget.id === enemy.id) {
-              result = true
-            }
-          }
-        }
+    for (const instance of this.#instancesManager.getAll()) {
+      if (!('id' in instance)) {
+        continue
       }
-    })
-    return result
+      if (instance.id === this.id) {
+        continue
+      }
+      if (!instance.#enemyTarget) {
+        continue
+      }
+      if (instance.#enemyTarget.id !== enemy.id) {
+        continue
+      }
+      return true
+    }
+    return false
   }
 
   selectTarget(enemyInstancesManager: EnemyInstancesManager) {
