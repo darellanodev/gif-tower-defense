@@ -71,7 +71,7 @@ export class EnemyAnimator {
     )
   }
 
-  #checkIfCloseEyes() {
+  #closeEyesWhenTimeReached() {
     if (this.#closeEyesTime > this.#randomCloseEyes) {
       this.#closeEyesTime = 0
       this.#setRandomTimeMaxForClosingEyes()
@@ -92,7 +92,7 @@ export class EnemyAnimator {
   #changeEyes() {
     if (this.#hasOpenEyes()) {
       this.#closeEyesTime++
-      this.#checkIfCloseEyes()
+      this.#closeEyesWhenTimeReached()
       this.#moveEyesInSequence()
     } else {
       this.#extendClosedEyesTime++
