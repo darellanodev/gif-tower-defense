@@ -200,12 +200,12 @@ export class MagicUFO extends Magic {
   }
 
   #searchTarget(enemyInstancesManager: EnemyInstancesManager) {
-    if (this.#timeToSearchEnemy === Const.TILE_SIZE) {
-      this.selectTarget(enemyInstancesManager)
-      this.#timeToSearchEnemy = 0
-    } else {
+    if (this.#timeToSearchEnemy !== Const.TILE_SIZE) {
       this.#timeToSearchEnemy++
+      return
     }
+    this.selectTarget(enemyInstancesManager)
+    this.#timeToSearchEnemy = 0
   }
 
   get enemyTarget(): Enemy | null {
