@@ -62,7 +62,7 @@ export class FlyIndicator extends Obj {
 
   update() {
     this.#increaseAliveTime()
-    this.#checkIfRemove()
+    this.#removeFlyIndicatorWhenTimeUp()
     this.#changePosition()
   }
 
@@ -70,7 +70,7 @@ export class FlyIndicator extends Obj {
     this.#aliveTime++
   }
 
-  #checkIfRemove() {
+  #removeFlyIndicatorWhenTimeUp() {
     if (this.#aliveTime > FlyIndicator.MAX_TIME_ALIVE) {
       this.#alive = false
       return
