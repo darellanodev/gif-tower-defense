@@ -50,7 +50,7 @@ export class EnemySystem {
     this.#handleWinners()
   }
 
-  #checkIfCreateNormalEnemy() {
+  #createNormalEnemyWhenTimeReached() {
     Enemy.createEnemyTime++
     if (Enemy.createEnemyTime === Enemy.CREATION_MAX_TIME) {
       this.#createEnemyNormal()
@@ -65,7 +65,7 @@ export class EnemySystem {
     }
 
     if (Enemy.waveEnemies < Enemy.TOTAL_ENEMIES) {
-      this.#checkIfCreateNormalEnemy()
+      this.#createNormalEnemyWhenTimeReached()
     } else {
       this.#disableEnemyNormalCreation()
     }
