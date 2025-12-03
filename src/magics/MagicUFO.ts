@@ -264,14 +264,17 @@ export class MagicUFO extends Magic {
     let enemyTarget = null
 
     enemyInstancesManager.getAll().forEach((enemy: Enemy) => {
-      if (
-        enemy.orderPosition > maxIndexOrder &&
-        !this.#isTargetedByOtherUFO(enemy)
-      ) {
+      if (this.#canSelectEnemyTarget(enemy, maxIndexOrder)) {
         maxIndexOrder = enemy.orderPosition
         enemyTarget = enemy
       }
     })
     this.#enemyTarget = enemyTarget
+  }
+
+  #canSelectEnemyTarget(enemy: Enemy, maxIndexOrder: number) {
+    return (
+      enemy.orderPosition > maxIndexOrder && !this.#isTargetedByOtherUFO(enemy)
+    )
   }
 }
