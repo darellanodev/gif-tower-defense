@@ -191,18 +191,10 @@ export class MagicUFO extends Magic {
       return
     }
 
-    if (this.position.x < this.#enemyTarget.position.x) {
-      this.position.x = this.position.x + MagicUFO.SPEED
-    }
-    if (this.position.x > this.#enemyTarget.position.x) {
-      this.position.x = this.position.x - MagicUFO.SPEED
-    }
-    if (this.position.y < this.#enemyTarget.position.y - MagicUFO.OFFSET_Y) {
-      this.position.y = this.position.y + MagicUFO.SPEED
-    }
-    if (this.position.y > this.#enemyTarget.position.y - MagicUFO.OFFSET_Y) {
-      this.position.y = this.position.y - MagicUFO.SPEED
-    }
+    this.#moveRightIfNeeded(this.#enemyTarget.position)
+    this.#moveLeftIfNeeded(this.#enemyTarget.position)
+    this.#moveDownIfNeeded(this.#enemyTarget.position)
+    this.#moveUpIfNeeded(this.#enemyTarget.position)
   }
 
   #searchTarget(enemyInstancesManager: EnemyInstancesManager) {
