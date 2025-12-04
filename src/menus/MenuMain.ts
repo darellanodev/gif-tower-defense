@@ -124,7 +124,7 @@ export class MenuMain {
     P5.p5.image(Images.menuMain, 0, 0, 800, 580)
   }
 
-  #handleSurvivalButtonClick() {
+  #handleSurvivalButton() {
     if (this.#btnSurvival.isMouseOver(this.#getMousePosition())) {
       this.#stateManager.setMenuSurvival()
     }
@@ -155,7 +155,7 @@ export class MenuMain {
   }
 
   mouseClicked() {
-    this.#handleSurvivalButtonClick()
+    this.#handleSurvivalButton()
     this.#handleMiniMapEditorButton()
     this.#handleMiniMapsLastLevelsPlayedButtons()
   }
