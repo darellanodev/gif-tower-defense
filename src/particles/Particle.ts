@@ -5,6 +5,7 @@ import { Const } from '../constants/Const'
 import { Random } from '../utils/Random'
 import { P5 } from '../utils/P5'
 import { Obj } from '../Obj'
+import { TowerType } from '../types/towerType'
 
 export class Particle extends Obj {
   static COLOR_CAPTURED: RGBType = [12, 222, 42]
@@ -49,6 +50,12 @@ export class Particle extends Obj {
     this.#towerYellowTarget = null
   }
 
+  #freeParticleWhenSellOrUpgradeTower(tower: TowerType | null) {
+    if (!tower || tower.upgrading) {
+      this.#free()
+    }
+  }
+
   update() {
     this.position = { x: this.#vec.x, y: this.#vec.y }
     if (!this.#captured) {
@@ -59,9 +66,9 @@ export class Particle extends Obj {
         return
       }
       const tower = this.#towerYellowTarget.tileOrange.getTower()
-      // free the particle when the player sells or upgrades the yellow tower
-      if (!tower || tower.upgrading) {
-        this.#free()
+
+      this.#freeParticleWhenSellOrUpgradeTower(tower)
+      if (!this.#captured) {
         return
       }
 
@@ -78,29 +85,39 @@ export class Particle extends Obj {
         }
       }
 
-      let aux_x: number
-      let aux_y: number
-
-      const towerYellowPosX =
-        this.#towerYellowTarget.position.x + Const.TILE_SIZE / 2
-      const towerYellowPosY =
-        this.#towerYellowTarget.position.y + Const.TILE_SIZE / 2
-
-      if (this.position.y <= towerYellowPosY)
-        aux_y = (towerYellowPosY - this.position.y) / 300
-      else aux_y = -(this.position.y - towerYellowPosY) / 300
-
-      if (this.position.x <= towerYellowPosX + Const.TILE_SIZE / 2)
-        aux_x = (towerYellowPosX - this.position.x) / 300
-      else aux_x = -(this.position.x - towerYellowPosX) / 300
-
-      const aux = new Vector(aux_x, aux_y, 0)
-      this.#vec.add(this.#velocity)
-      this.#velocity.add(aux)
-
-      const attract = new Vector(-aux_x * 3, -aux_y * 3, 0)
-      this.#vec.sub(attract)
+      this.#handleCapturedParticlePosition()
     }
+  }
+
+  #handleCapturedParticlePosition() {
+    const aux = new Vector(this.#getAuxX(), this.#getAuxY(), 0)
+    this.#vec.add(this.#velocity)
+    this.#velocity.add(aux)
+
+    const attract = new Vector(-this.#getAuxX() * 3, -this.#getAuxY() * 3, 0)
+    this.#vec.sub(attract)
+  }
+
+  #getAuxY() {
+    if (this.position.y <= this.#getTowerYellowPosY()) {
+      return (this.#getTowerYellowPosY() - this.position.y) / 300
+    }
+    return -(this.position.y - this.#getTowerYellowPosY()) / 300
+  }
+
+  #getAuxX() {
+    if (this.position.x <= this.#getTowerYellowPosX() + Const.TILE_SIZE / 2) {
+      return (this.#getTowerYellowPosX() - this.position.x) / 300
+    }
+    return -(this.position.x - this.#getTowerYellowPosX()) / 300
+  }
+
+  #getTowerYellowPosX() {
+    return this.#towerYellowTarget!.position.x + Const.TILE_SIZE / 2
+  }
+
+  #getTowerYellowPosY() {
+    return this.#towerYellowTarget!.position.y + Const.TILE_SIZE / 2
   }
 
   display() {
