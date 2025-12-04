@@ -130,14 +130,16 @@ export class MenuMain {
     }
   }
 
-  mouseClicked() {
-    const mousePosition = { x: P5.p5.mouseX, y: P5.p5.mouseY }
+  #getMousePosition() {
+    return { x: P5.p5.mouseX, y: P5.p5.mouseY }
+  }
 
-    this.#handleSurvivalButtonClick(mousePosition)
+  mouseClicked() {
+    this.#handleSurvivalButtonClick(this.#getMousePosition())
 
     // check if player click over one last level edited minimap (currently there is only one)
     for (const btnMiniMapEditor of this.#btnsMiniMapsEditor) {
-      if (btnMiniMapEditor.isMouseOver(mousePosition)) {
+      if (btnMiniMapEditor.isMouseOver(this.#getMousePosition())) {
         const levelId = btnMiniMapEditor.miniMap.levelId
         this.#game.loadLevel(levelId)
         this.#stateManager.setPlay()
@@ -145,7 +147,7 @@ export class MenuMain {
     }
     // check if player click one of the last played levels
     for (const btnMiniMapLastPlayed of this.#btnsMiniMapsLastLevelsPlayed) {
-      if (btnMiniMapLastPlayed.isMouseOver(mousePosition)) {
+      if (btnMiniMapLastPlayed.isMouseOver(this.#getMousePosition())) {
         const levelId = btnMiniMapLastPlayed.miniMap.levelId
         this.#game.loadLevel(levelId)
         this.#stateManager.setPlay()
