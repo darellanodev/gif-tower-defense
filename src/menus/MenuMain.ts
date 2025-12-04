@@ -144,11 +144,7 @@ export class MenuMain {
     }
   }
 
-  mouseClicked() {
-    this.#handleSurvivalButtonClick()
-    this.#handleMiniMapEditorButton()
-
-    // check if player click one of the last played levels
+  #handleMiniMapsLastLevelsPlayedButtons() {
     for (const btnMiniMapLastPlayed of this.#btnsMiniMapsLastLevelsPlayed) {
       if (btnMiniMapLastPlayed.isMouseOver(this.#getMousePosition())) {
         const levelId = btnMiniMapLastPlayed.miniMap.levelId
@@ -156,6 +152,12 @@ export class MenuMain {
         this.#stateManager.setPlay()
       }
     }
+  }
+
+  mouseClicked() {
+    this.#handleSurvivalButtonClick()
+    this.#handleMiniMapEditorButton()
+    this.#handleMiniMapsLastLevelsPlayedButtons()
   }
 
   update() {}
