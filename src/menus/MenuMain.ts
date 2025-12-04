@@ -123,13 +123,17 @@ export class MenuMain {
     P5.p5.rectMode(P5.p5.CORNER)
     P5.p5.image(Images.menuMain, 0, 0, 800, 580)
   }
-  mouseClicked() {
-    const mousePosition = { x: P5.p5.mouseX, y: P5.p5.mouseY }
 
-    // check if player click the survival mode button
+  #handleSurvivalButtonClick(mousePosition: Position) {
     if (this.#btnSurvival.isMouseOver(mousePosition)) {
       this.#stateManager.setMenuSurvival()
     }
+  }
+
+  mouseClicked() {
+    const mousePosition = { x: P5.p5.mouseX, y: P5.p5.mouseY }
+
+    this.#handleSurvivalButtonClick(mousePosition)
 
     // check if player click over one last level edited minimap (currently there is only one)
     for (const btnMiniMapEditor of this.#btnsMiniMapsEditor) {
