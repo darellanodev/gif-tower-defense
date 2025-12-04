@@ -117,14 +117,22 @@ export class MenuSurvival {
     const btnPageClicked: string | null = this.#paginator.mouseClicked(
       this.#getMousePosition(),
     )
-    if (btnPageClicked !== null) {
-      if (this.#isButtonPageNumber(btnPageClicked)) {
-        this.#getLevelsPage(parseInt(btnPageClicked))
-      } else if (btnPageClicked === '>>') {
-        this.#paginator.nextPagesGroup()
-      } else if (btnPageClicked === '<<') {
-        this.#paginator.previousPagesGroup()
-      }
+
+    if (btnPageClicked === null) {
+      return
+    }
+
+    if (this.#isButtonPageNumber(btnPageClicked)) {
+      this.#getLevelsPage(parseInt(btnPageClicked))
+      return
+    }
+    if (btnPageClicked === '>>') {
+      this.#paginator.nextPagesGroup()
+      return
+    }
+    if (btnPageClicked === '<<') {
+      this.#paginator.previousPagesGroup()
+      return
     }
   }
 
