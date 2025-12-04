@@ -93,25 +93,27 @@ export class MenuSurvival {
     P5.p5.rectMode(P5.p5.CORNER)
     P5.p5.image(Images.menuSurvival, 0, 0, 800, 580)
   }
+  #getMousePosition() {
+    return { x: P5.p5.mouseX, y: P5.p5.mouseY }
+  }
   mouseClicked() {
-    const mousePosition = { x: P5.p5.mouseX, y: P5.p5.mouseY }
-
     // check if player click the survival mode button
-    if (this.#btnBackMenuMain.isMouseOver(mousePosition)) {
+    if (this.#btnBackMenuMain.isMouseOver(this.#getMousePosition())) {
       this.#stateManager.setMenuMain()
     }
 
     // check if player click one of the survival minimaps
     for (const btnMiniMap of this.#btnsMiniMaps) {
-      if (btnMiniMap.isMouseOver(mousePosition)) {
+      if (btnMiniMap.isMouseOver(this.#getMousePosition())) {
         const levelId = btnMiniMap.miniMap.levelId
         this.#game.loadLevel(levelId)
         this.#stateManager.setPlay()
       }
     }
     // check if the player click on the paginator buttons
-    const btnPageClicked: string | null =
-      this.#paginator.mouseClicked(mousePosition)
+    const btnPageClicked: string | null = this.#paginator.mouseClicked(
+      this.#getMousePosition(),
+    )
     if (btnPageClicked !== null) {
       if (this.#isButtonPageNumber(btnPageClicked)) {
         this.#getLevelsPage(parseInt(btnPageClicked))
