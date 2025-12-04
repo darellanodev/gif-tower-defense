@@ -66,13 +66,16 @@ export class Particle extends Obj {
     this.#handleCapturedParticle()
   }
 
+  #getTowerYellowTarget() {
+    return this.#towerYellowTarget!.tileOrange.getTower()
+  }
+
   #handleCapturedParticle() {
     if (!this.#towerYellowTarget) {
       return
     }
-    const tower = this.#towerYellowTarget.tileOrange.getTower()
 
-    this.#freeParticleWhenSellOrUpgradeTower(tower)
+    this.#freeParticleWhenSellOrUpgradeTower(this.#getTowerYellowTarget())
     if (!this.#captured) {
       return
     }
