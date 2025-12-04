@@ -122,17 +122,26 @@ export class MenuSurvival {
       return
     }
 
+    this.#handlePageNumberButton(btnPageClicked)
+    this.#handleNextPageButton(btnPageClicked)
+    this.#handlePreviousPageButton(btnPageClicked)
+  }
+
+  #handlePageNumberButton(btnPageClicked: string) {
     if (this.#isButtonPageNumber(btnPageClicked)) {
       this.#getLevelsPage(parseInt(btnPageClicked))
-      return
     }
+  }
+
+  #handleNextPageButton(btnPageClicked: string) {
     if (btnPageClicked === '>>') {
       this.#paginator.nextPagesGroup()
-      return
     }
+  }
+
+  #handlePreviousPageButton(btnPageClicked: string) {
     if (btnPageClicked === '<<') {
       this.#paginator.previousPagesGroup()
-      return
     }
   }
 
