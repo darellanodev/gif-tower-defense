@@ -105,12 +105,22 @@ export class MiniMap {
       this.#position.y,
     )
     TextProperties.setForHudData()
+    this.#drawMiniMapWhenTextLeft()
+    this.#drawMiniMapWhenTextDown()
+  }
+
+  #drawMiniMapWhenTextLeft() {
     if (this.#type === MiniMap.TYPE_TEXT_LEFT) {
       this.#drawTitleMapTextLeft()
-    } else if (this.#type === MiniMap.TYPE_TEXT_DOWN) {
+    }
+  }
+
+  #drawMiniMapWhenTextDown() {
+    if (this.#type === MiniMap.TYPE_TEXT_DOWN) {
       this.#drawTitleMapTextDown()
     }
   }
+
   #drawTitleMapTextLeft() {
     P5.p5.text(this.#title, this.#position.x, this.#position.y + 102)
     P5.p5.text(`By ${this.#author}`, this.#position.x, this.#position.y + 118)
