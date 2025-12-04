@@ -62,19 +62,23 @@ export class Particle extends Obj {
       this.#vec.add(this.#velocity)
       this.#lifespan -= 2
     } else {
-      if (!this.#towerYellowTarget) {
-        return
-      }
-      const tower = this.#towerYellowTarget.tileOrange.getTower()
-
-      this.#freeParticleWhenSellOrUpgradeTower(tower)
-      if (!this.#captured) {
-        return
-      }
-
-      this.#handleCapturedParticleTime()
-      this.#handleCapturedParticlePosition()
+      this.#handleCapturedParticle()
     }
+  }
+
+  #handleCapturedParticle() {
+    if (!this.#towerYellowTarget) {
+      return
+    }
+    const tower = this.#towerYellowTarget.tileOrange.getTower()
+
+    this.#freeParticleWhenSellOrUpgradeTower(tower)
+    if (!this.#captured) {
+      return
+    }
+
+    this.#handleCapturedParticleTime()
+    this.#handleCapturedParticlePosition()
   }
 
   #handleCapturedParticleTime() {
