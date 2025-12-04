@@ -96,13 +96,14 @@ export class MenuSurvival {
   #getMousePosition() {
     return { x: P5.p5.mouseX, y: P5.p5.mouseY }
   }
-  mouseClicked() {
-    // check if player click the survival mode button
+
+  #handleMainMenuButton() {
     if (this.#btnBackMenuMain.isMouseOver(this.#getMousePosition())) {
       this.#stateManager.setMenuMain()
     }
+  }
 
-    // check if player click one of the survival minimaps
+  #handleMiniMapButtons() {
     for (const btnMiniMap of this.#btnsMiniMaps) {
       if (btnMiniMap.isMouseOver(this.#getMousePosition())) {
         const levelId = btnMiniMap.miniMap.levelId
@@ -110,7 +111,9 @@ export class MenuSurvival {
         this.#stateManager.setPlay()
       }
     }
-    // check if the player click on the paginator buttons
+  }
+
+  #handlePaginatorButtons() {
     const btnPageClicked: string | null = this.#paginator.mouseClicked(
       this.#getMousePosition(),
     )
@@ -123,6 +126,12 @@ export class MenuSurvival {
         this.#paginator.previousPagesGroup()
       }
     }
+  }
+
+  mouseClicked() {
+    this.#handleMainMenuButton()
+    this.#handleMiniMapButtons()
+    this.#handlePaginatorButtons()
   }
   #isButtonPageNumber(label: string) {
     return !Number.isNaN(parseInt(label))
