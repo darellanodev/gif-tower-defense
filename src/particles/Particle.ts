@@ -72,20 +72,27 @@ export class Particle extends Obj {
         return
       }
 
-      if (this.#capturedTime < Particle.CAPTURED_MAX_TIME) {
-        this.#capturedTime++
-      } else {
-        if (this.#size > 0) {
-          this.#size -= Particle.CAPTURED_REDUCE_FACTOR
-        } else {
-          this.#towerYellowTarget.increaseCoreProgress(
-            Particle.INCREMENT_YELLOW_TOWER_PROGRESS,
-          )
-          this.#lifespan = 0
-        }
-      }
-
+      this.#handleCapturedParticleTime()
       this.#handleCapturedParticlePosition()
+    }
+  }
+
+  #handleCapturedParticleTime() {
+    if (this.#capturedTime < Particle.CAPTURED_MAX_TIME) {
+      this.#capturedTime++
+    } else {
+      this.#handleResizeParticle()
+    }
+  }
+
+  #handleResizeParticle() {
+    if (this.#size > 0) {
+      this.#size -= Particle.CAPTURED_REDUCE_FACTOR
+    } else {
+      this.#towerYellowTarget!.increaseCoreProgress(
+        Particle.INCREMENT_YELLOW_TOWER_PROGRESS,
+      )
+      this.#lifespan = 0
     }
   }
 
