@@ -61,9 +61,9 @@ export class Particle extends Obj {
     if (!this.#captured) {
       this.#vec.add(this.#velocity)
       this.#lifespan -= 2
-    } else {
-      this.#handleCapturedParticle()
+      return
     }
+    this.#handleCapturedParticle()
   }
 
   #handleCapturedParticle() {
@@ -84,20 +84,20 @@ export class Particle extends Obj {
   #handleCapturedParticleTime() {
     if (this.#capturedTime < Particle.CAPTURED_MAX_TIME) {
       this.#capturedTime++
-    } else {
-      this.#handleResizeParticle()
+      return
     }
+    this.#handleResizeParticle()
   }
 
   #handleResizeParticle() {
     if (this.#size > 0) {
       this.#size -= Particle.CAPTURED_REDUCE_FACTOR
-    } else {
-      this.#towerYellowTarget!.increaseCoreProgress(
-        Particle.INCREMENT_YELLOW_TOWER_PROGRESS,
-      )
-      this.#lifespan = 0
+      return
     }
+    this.#towerYellowTarget!.increaseCoreProgress(
+      Particle.INCREMENT_YELLOW_TOWER_PROGRESS,
+    )
+    this.#lifespan = 0
   }
 
   #handleCapturedParticlePosition() {
