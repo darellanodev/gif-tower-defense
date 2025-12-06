@@ -198,15 +198,18 @@ export class Controls {
     if (!tower) {
       return
     }
-    if (!tower.isMaxUpgraded) {
-      const canUpgrade = this.#wallet.haveMoneyToUpgradeTower(
-        tower.type,
-        tower.upgradeLevel + 1,
-      )
-      this.#hudButtonsTowers.viewUpgradeCost(tower, canUpgrade)
-    }
 
     this.#hudButtonsTowers.viewSellProfit(tower)
+
+    if (tower.isMaxUpgraded) {
+      return
+    }
+
+    const canUpgrade = this.#wallet.haveMoneyToUpgradeTower(
+      tower.type,
+      tower.upgradeLevel + 1,
+    )
+    this.#hudButtonsTowers.viewUpgradeCost(tower, canUpgrade)
   }
 
   drawHudBackgroundWhenTowerNotExists() {
