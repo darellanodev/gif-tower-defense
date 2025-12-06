@@ -66,11 +66,7 @@ export class InfluenceArea {
     haveMoneyToBuySelectedTower: boolean,
   ) {
     this.#getInfluenceAreaColor(haveMoneyToBuySelectedTower, towerSelected)
-    this.#drawCircle(
-      position.x,
-      position.y,
-      this.#getInfluenceAreaFor(towerSelected),
-    )
+    this.#drawCircle(position, this.#getInfluenceAreaFor(towerSelected))
   }
 
   #getInfluenceAreaColor(
@@ -87,23 +83,26 @@ export class InfluenceArea {
   drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {
     const towerPosition = tower.position
 
-    let x = towerPosition.x
-    let y = towerPosition.y
+    const position: Position = { x: towerPosition.x, y: towerPosition.y }
 
     if (tower.type === TowerGreen.ID || tower.type === TowerRed.ID) {
-      x += Const.TOWER_OFFSET
-      y += Const.TOWER_OFFSET
+      position.x += Const.TOWER_OFFSET
+      position.y += Const.TOWER_OFFSET
     }
     if (canUpgrade) {
       this.#setInfluenceAreaColor(tower.type)
     } else {
       this.#setGrayInfluenceAreaColor()
     }
-    this.#drawCircle(x, y, tower.influenceArea)
+    this.#drawCircle(position, tower.influenceArea)
   }
 
-  #drawCircle(x: number, y: number, diameter: number) {
+  #drawCircle(position: Position, diameter: number) {
     P5.p5.strokeWeight(2)
-    P5.p5.circle(x + Const.TILE_SIZE / 2, y + Const.TILE_SIZE / 2, diameter)
+    P5.p5.circle(
+      position.x + Const.TILE_SIZE / 2,
+      position.y + Const.TILE_SIZE / 2,
+      diameter,
+    )
   }
 }
