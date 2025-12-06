@@ -140,23 +140,30 @@ export class Controls {
     this.#handleMagicsButtons()
   }
 
-  clickOrangeTile(mouseTileOrangeOver: TileOrange) {
-    const tower = mouseTileOrangeOver.getTower()
-
+  #sellTowerIfRightClickOnTower(tower: TowerType | null) {
     if (P5.p5.mouseButton === P5.p5.RIGHT && tower) {
       this.#wallet.sellTower(tower)
     }
+  }
 
-    if (P5.p5.mouseButton === P5.p5.LEFT) {
-      if (tower) {
-        this.#wallet.upgradeTower(tower)
-      } else {
-        this.#wallet.buyTower(
-          mouseTileOrangeOver,
-          this.#hudButtonsTowers.getSelectedTower(),
-        )
-      }
+  clickOrangeTile(mouseTileOrangeOver: TileOrange) {
+    const tower = mouseTileOrangeOver.getTower()
+
+    this.#sellTowerIfRightClickOnTower(tower)
+
+    if (P5.p5.mouseButton !== P5.p5.LEFT) {
+      return
     }
+
+    if (tower) {
+      this.#wallet.upgradeTower(tower)
+      return
+    }
+
+    this.#wallet.buyTower(
+      mouseTileOrangeOver,
+      this.#hudButtonsTowers.getSelectedTower(),
+    )
   }
 
   drawInfluenceAreaWhenTowerExists(tower: TowerType | null) {
