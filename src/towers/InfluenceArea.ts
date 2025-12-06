@@ -86,13 +86,10 @@ export class InfluenceArea {
   }
 
   #getInfluenceAreaPosition(tower: any) {
-    const towerPosition = tower.position
-    const position: Position = { x: towerPosition.x, y: towerPosition.y }
-
-    position.x += Const.TOWER_OFFSET
-    position.y += Const.TOWER_OFFSET
-
-    return position
+    return {
+      x: tower.position.x + Const.TOWER_OFFSET,
+      y: tower.position.y + Const.TOWER_OFFSET,
+    }
   }
 
   #getUpgradeInfluenceAreaColor(tower: any, canUpgrade: boolean) {
