@@ -170,15 +170,15 @@ export class Controls {
     if (!tower) {
       return
     }
-    if (!tower.isMaxUpgraded) {
-      const canUpgrade = this.#wallet.haveMoneyToUpgradeTower(
-        tower.type,
-        tower.upgradeLevel + 1,
-      )
-      InfluenceArea.drawTowerInfluenceArea(tower, canUpgrade)
-    } else {
+    if (tower.isMaxUpgraded) {
       InfluenceArea.drawTowerInfluenceArea(tower, false)
+      return
     }
+    const canUpgrade = this.#wallet.haveMoneyToUpgradeTower(
+      tower.type,
+      tower.upgradeLevel + 1,
+    )
+    InfluenceArea.drawTowerInfluenceArea(tower, canUpgrade)
   }
 
   drawInfluenceAreaWhenTowerNotExists(position: Position | undefined) {
