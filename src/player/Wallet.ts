@@ -88,10 +88,16 @@ export class Wallet {
     const profit = tower.sellProfit
     this.increaseMoney(profit)
 
-    const profitText = `+${profit} $`
-    FlyIndicator.instantiateFlyIndicator(tower.position, profitText)
+    FlyIndicator.instantiateFlyIndicator(
+      tower.position,
+      this.#getProfitText(profit),
+    )
 
     tower.tileOrange.removeTower()
+  }
+
+  #getProfitText(profit: number) {
+    return `+${profit} $`
   }
 
   upgradeTower(tower: Tower) {
@@ -109,8 +115,14 @@ export class Wallet {
 
     const cost = tower.cost
     this.decreaseMoney(cost)
-    const costText = `-${cost} $`
-    FlyIndicator.instantiateFlyIndicator(tower.position, costText)
+    FlyIndicator.instantiateFlyIndicator(
+      tower.position,
+      this.#getCostText(cost),
+    )
+  }
+
+  #getCostText(cost: number) {
+    return `-${cost} $`
   }
 
   buyTower(mouseTileOrangeOver: TileOrange, selectedTower: number) {
