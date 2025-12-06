@@ -96,9 +96,9 @@ export class InfluenceArea {
   #getUpgradeInfluenceAreaColor(tower: any, canUpgrade: boolean) {
     if (canUpgrade) {
       this.#setInfluenceAreaColor(tower.type)
-    } else {
-      this.#setGrayInfluenceAreaColor()
+      return
     }
+    this.#setGrayInfluenceAreaColor()
   }
 
   #drawCircle(position: Position, diameter: number) {
