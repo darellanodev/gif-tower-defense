@@ -86,21 +86,36 @@ export class Controls {
     this.#mouseTileOrangeOver = tileOrange
   }
 
-  mouseClicked() {
-    const mousePosition = { x: P5.p5.mouseX, y: P5.p5.mouseY }
-
-    if (this.#stateManager.isPaused()) {
-      if (this.#buttonPause.isMouseInside(mousePosition)) {
-        this.#togglePause()
-      }
-      return
+  #handlePauseButton() {
+    if (this.#buttonPause.isMouseInside(this.#getMousePosition())) {
+      this.#togglePause()
     }
+  }
 
-    if (this.#hudButtonsTowers.isInsideTowersButtonsBar(mousePosition)) {
-      this.#hudButtonsTowers.handleTowerButtons(mousePosition)
-    } else if (this.#hudButtonsMagics.isInsideMagicsButtonsBar(mousePosition)) {
+  #getMousePosition() {
+    return { x: P5.p5.mouseX, y: P5.p5.mouseY }
+  }
+
+  #handleTowersButtons() {
+    if (
+      this.#hudButtonsTowers.isInsideTowersButtonsBar(this.#getMousePosition())
+    ) {
+      this.#hudButtonsTowers.handleTowerButtons(this.#getMousePosition())
+    }
+  }
+
+  #handleOrangeTileButton() {
+    if (this.mouseTileOrangeOver !== null) {
+      this.clickOrangeTile(this.mouseTileOrangeOver)
+    }
+  }
+
+  #handleMagicsButtons() {
+    if (
+      this.#hudButtonsMagics.isInsideMagicsButtonsBar(this.#getMousePosition())
+    ) {
       this.#hudButtonsMagics.handleMagicButtons(
-        mousePosition,
+        this.#getMousePosition(),
         Images.magicIceballImage,
         Images.magicFireballImage,
         Images.magicUFOImages,
@@ -110,11 +125,19 @@ export class Controls {
         this.#magicIceballInstancesManager,
         this.#magicUFOInstancesManager,
       )
-    } else if (this.#buttonPause.isMouseInside(mousePosition)) {
-      this.#togglePause()
-    } else if (this.mouseTileOrangeOver !== null) {
-      this.clickOrangeTile(this.mouseTileOrangeOver)
     }
+  }
+
+  mouseClicked() {
+    if (this.#stateManager.isPaused()) {
+      this.#handlePauseButton()
+      return
+    }
+
+    this.#handlePauseButton()
+    this.#handleTowersButtons()
+    this.#handleOrangeTileButton()
+    this.#handleMagicsButtons()
   }
 
   clickOrangeTile(mouseTileOrangeOver: TileOrange) {
