@@ -81,16 +81,20 @@ export class InfluenceArea {
   }
 
   drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {
-    const towerPosition = tower.position
+    this.#getUpgradeInfluenceAreaColor(tower, canUpgrade)
+    this.#drawCircle(this.#getInfluenceAreaPosition(tower), tower.influenceArea)
+  }
 
+  #getInfluenceAreaPosition(tower: any) {
+    const towerPosition = tower.position
     const position: Position = { x: towerPosition.x, y: towerPosition.y }
 
     if (tower.type === TowerGreen.ID || tower.type === TowerRed.ID) {
       position.x += Const.TOWER_OFFSET
       position.y += Const.TOWER_OFFSET
     }
-    this.#getUpgradeInfluenceAreaColor(tower, canUpgrade)
-    this.#drawCircle(position, tower.influenceArea)
+
+    return position
   }
 
   #getUpgradeInfluenceAreaColor(tower: any, canUpgrade: boolean) {
