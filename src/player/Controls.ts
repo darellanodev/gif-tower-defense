@@ -84,7 +84,7 @@ export class Controls {
     this.#pauseBtnTimeReady = 10
   }
 
-  pauseTimeReady() {
+  decreasePauseTimeIfGreaterThanZero() {
     if (this.#pauseBtnTimeReady > 0) {
       this.#pauseBtnTimeReady--
     }
