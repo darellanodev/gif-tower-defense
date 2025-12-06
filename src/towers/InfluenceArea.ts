@@ -7,15 +7,34 @@ import { Const } from '../constants/Const'
 import { P5 } from '../utils/P5'
 
 export class InfluenceArea {
+  static #instance: InfluenceArea | null = null
   static ALPHA_FILL = 50
   static ALPHA_STROKE = 120
 
-  static _setGrayInfluenceAreaColor() {
+  static getInstance() {
+    if (InfluenceArea.#instance === null) {
+      InfluenceArea.#instance = new InfluenceArea()
+    }
+    return InfluenceArea.#instance
+  }
+
+  constructor() {
+    if (InfluenceArea.#instance !== null) {
+      throw new Error(
+        'InfluenceArea is a singleton class, use getInstance to get the instance',
+      )
+    }
+
+    // assign the singleton instance
+    InfluenceArea.#instance = this
+  }
+
+  #setGrayInfluenceAreaColor() {
     P5.p5.stroke(...ConstColor.GRAY, InfluenceArea.ALPHA_STROKE)
     P5.p5.fill(...ConstColor.GRAY, InfluenceArea.ALPHA_FILL)
   }
 
-  static _setInfluenceAreaColor(towerId: number) {
+  #setInfluenceAreaColor(towerId: number) {
     switch (towerId) {
       case TowerGreen.ID:
         P5.p5.stroke(...ConstColor.GREEN, InfluenceArea.ALPHA_STROKE)
@@ -32,7 +51,7 @@ export class InfluenceArea {
     }
   }
 
-  static _getInfluenceAreaFor(towerSelected: number) {
+  #getInfluenceAreaFor(towerSelected: number) {
     const influenceMap = {
       [TowerGreen.ID]: TowerGreen.UPGRADE_INFLUENCE_AREA[0],
       [TowerRed.ID]: TowerRed.UPGRADE_INFLUENCE_AREA[0],
@@ -41,24 +60,24 @@ export class InfluenceArea {
     return influenceMap[towerSelected]
   }
 
-  static drawNoTowerInfluenceArea(
+  drawNoTowerInfluenceArea(
     position: Position,
     towerSelected: number,
     haveMoneyToBuySelectedTower: boolean,
   ) {
     if (haveMoneyToBuySelectedTower) {
-      InfluenceArea._setInfluenceAreaColor(towerSelected)
+      this.#setInfluenceAreaColor(towerSelected)
     } else {
-      InfluenceArea._setGrayInfluenceAreaColor()
+      this.#setGrayInfluenceAreaColor()
     }
-    InfluenceArea._drawCircle(
+    this.#drawCircle(
       position.x,
       position.y,
-      InfluenceArea._getInfluenceAreaFor(towerSelected),
+      this.#getInfluenceAreaFor(towerSelected),
     )
   }
 
-  static drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {
+  drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {
     const towerPosition = tower.position
 
     let x = towerPosition.x
@@ -69,14 +88,14 @@ export class InfluenceArea {
       y += Const.TOWER_OFFSET
     }
     if (canUpgrade) {
-      this._setInfluenceAreaColor(tower.type)
+      this.#setInfluenceAreaColor(tower.type)
     } else {
-      this._setGrayInfluenceAreaColor()
+      this.#setGrayInfluenceAreaColor()
     }
-    this._drawCircle(x, y, tower.influenceArea)
+    this.#drawCircle(x, y, tower.influenceArea)
   }
 
-  static _drawCircle(x: number, y: number, diameter: number) {
+  #drawCircle(x: number, y: number, diameter: number) {
     P5.p5.strokeWeight(2)
     P5.p5.circle(x + Const.TILE_SIZE / 2, y + Const.TILE_SIZE / 2, diameter)
   }

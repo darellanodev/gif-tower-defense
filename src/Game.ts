@@ -25,6 +25,7 @@ import { TowerSystem } from './towers/TowerSystem'
 import { ConstColor } from './constants/ConstColor'
 import { MapDataType } from './types/mapDataType'
 import { ConstGameMode } from './constants/ConstGameMode'
+import { InfluenceArea } from './towers/InfluenceArea'
 
 export class Game {
   static #instance: Game | null = null
@@ -44,6 +45,7 @@ export class Game {
   #tilesManager: TilesManager
   #buttonPause: Button
   #gameMode: number
+  #influenceArea: InfluenceArea | null
 
   static getInstance(
     gameMode: number,
@@ -72,6 +74,7 @@ export class Game {
     this.#player = Player.getInstance()
     this.#tilesManager = new TilesManager()
     this.#buttonPause = ButtonPauseCreator.initializePauseButton()
+    this.#influenceArea = InfluenceArea.getInstance()
 
     // assign the singleton instance
     Game.#instance = this
@@ -170,6 +173,7 @@ export class Game {
       this.#magicSystem.magicIceballInstancesManager,
       this.#magicSystem.magicUFOInstancesManager,
       this.#enemySystem.pathStartEnemiesPosition,
+      this.#influenceArea!,
     )
   }
 

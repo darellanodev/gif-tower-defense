@@ -28,6 +28,7 @@ export class Controls {
   #magicIceballInstancesManager: MagicInstancesManager
   #magicUFOInstancesManager: MagicInstancesManager
   #pathStartEnemiesPosition: Position
+  #influenceArea: InfluenceArea
 
   constructor(
     stateManager: StateManager,
@@ -39,6 +40,7 @@ export class Controls {
     magicIceballInstancesManager: MagicInstancesManager,
     magicUFOInstancesManager: MagicInstancesManager,
     pathStartEnemiesPosition: Position,
+    influenceArea: InfluenceArea,
   ) {
     this.#stateManager = stateManager
     this.#hudButtonsMagics = hudButtonsMagics
@@ -49,6 +51,7 @@ export class Controls {
     this.#magicIceballInstancesManager = magicIceballInstancesManager
     this.#magicUFOInstancesManager = magicUFOInstancesManager
     this.#pathStartEnemiesPosition = pathStartEnemiesPosition
+    this.#influenceArea = influenceArea
   }
 
   keyPressed(keyCode: number) {
@@ -171,14 +174,14 @@ export class Controls {
       return
     }
     if (tower.isMaxUpgraded) {
-      InfluenceArea.drawTowerInfluenceArea(tower, false)
+      this.#influenceArea.drawTowerInfluenceArea(tower, false)
       return
     }
     const canUpgrade = this.#wallet.haveMoneyToUpgradeTower(
       tower.type,
       tower.upgradeLevel + 1,
     )
-    InfluenceArea.drawTowerInfluenceArea(tower, canUpgrade)
+    this.#influenceArea.drawTowerInfluenceArea(tower, canUpgrade)
   }
 
   drawInfluenceAreaWhenTowerNotExists(position: Position | undefined) {
@@ -187,7 +190,7 @@ export class Controls {
     }
     const towerSelected = this.#hudButtonsTowers.getSelectedTower()
 
-    InfluenceArea.drawNoTowerInfluenceArea(
+    this.#influenceArea.drawNoTowerInfluenceArea(
       position,
       towerSelected,
       this.#wallet.haveMoneyToBuyNewTower(towerSelected),
