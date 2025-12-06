@@ -78,7 +78,6 @@ _p5 = new p5((p: p5) => {
   p.draw = function () {
     switch (stateManager.state) {
       case StateManager.STATE_PLAY_SURVIVAL_PAUSE:
-        game.updatePause()
         game.draw()
         break
       case StateManager.STATE_PLAY_SURVIVAL:

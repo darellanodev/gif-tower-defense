@@ -29,8 +29,6 @@ export class Controls {
   #magicUFOInstancesManager: MagicInstancesManager
   #pathStartEnemiesPosition: Position
 
-  #pauseBtnTimeReady: number = 0
-
   constructor(
     stateManager: StateManager,
     hudButtonsMagics: HudButtonsMagics,
@@ -71,9 +69,6 @@ export class Controls {
   }
 
   #togglePause() {
-    if (!this.#isPauseAvailable()) {
-      return
-    }
     if (this.#stateManager.isPaused()) {
       this.#stateManager.setPlay()
       this.#buttonPause.uncheck()
@@ -81,17 +76,6 @@ export class Controls {
     }
     this.#buttonPause.check()
     this.#stateManager.setPause()
-    this.#pauseBtnTimeReady = 10
-  }
-
-  decreasePauseTimeIfGreaterThanZero() {
-    if (this.#pauseBtnTimeReady > 0) {
-      this.#pauseBtnTimeReady--
-    }
-  }
-
-  #isPauseAvailable() {
-    return this.#pauseBtnTimeReady === 0
   }
 
   get mouseTileOrangeOver(): TileOrange | null {

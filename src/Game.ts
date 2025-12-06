@@ -250,10 +250,6 @@ export class Game {
     }
   }
 
-  updatePause() {
-    this.#controls!.decreasePauseTimeIfGreaterThanZero()
-  }
-
   update() {
     this.#enemySystem!.update()
     this.#controls!.mouseTileOrangeOver = this.#getMouseTileOrangeOver()
