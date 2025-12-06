@@ -65,16 +65,23 @@ export class InfluenceArea {
     towerSelected: number,
     haveMoneyToBuySelectedTower: boolean,
   ) {
-    if (haveMoneyToBuySelectedTower) {
-      this.#setInfluenceAreaColor(towerSelected)
-    } else {
-      this.#setGrayInfluenceAreaColor()
-    }
+    this.#getInfluenceAreaColor(haveMoneyToBuySelectedTower, towerSelected)
     this.#drawCircle(
       position.x,
       position.y,
       this.#getInfluenceAreaFor(towerSelected),
     )
+  }
+
+  #getInfluenceAreaColor(
+    haveMoneyToBuySelectedTower: boolean,
+    towerSelected: number,
+  ) {
+    if (haveMoneyToBuySelectedTower) {
+      this.#setInfluenceAreaColor(towerSelected)
+    } else {
+      this.#setGrayInfluenceAreaColor()
+    }
   }
 
   drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {
