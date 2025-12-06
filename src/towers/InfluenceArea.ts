@@ -89,12 +89,16 @@ export class InfluenceArea {
       position.x += Const.TOWER_OFFSET
       position.y += Const.TOWER_OFFSET
     }
+    this.#getUpgradeInfluenceAreaColor(tower, canUpgrade)
+    this.#drawCircle(position, tower.influenceArea)
+  }
+
+  #getUpgradeInfluenceAreaColor(tower: any, canUpgrade: boolean) {
     if (canUpgrade) {
       this.#setInfluenceAreaColor(tower.type)
     } else {
       this.#setGrayInfluenceAreaColor()
     }
-    this.#drawCircle(position, tower.influenceArea)
   }
 
   #drawCircle(position: Position, diameter: number) {
