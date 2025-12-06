@@ -79,9 +79,9 @@ export class InfluenceArea {
   ) {
     if (haveMoneyToBuySelectedTower) {
       this.#setInfluenceAreaColor(towerSelected)
-    } else {
-      this.#setGrayInfluenceAreaColor()
+      return
     }
+    this.#setGrayInfluenceAreaColor()
   }
 
   drawTowerInfluenceArea(tower: any, canUpgrade: boolean) {
