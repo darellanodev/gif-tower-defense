@@ -85,12 +85,11 @@ export class Wallet {
     if (tower.upgrading) {
       return
     }
-    const profit = tower.sellProfit
-    this.increaseMoney(profit)
+    this.increaseMoney(tower.sellProfit)
 
     FlyIndicator.instantiateFlyIndicator(
       tower.position,
-      this.#getProfitText(profit),
+      this.#getProfitText(tower.sellProfit),
     )
 
     tower.tileOrange.removeTower()
@@ -113,11 +112,10 @@ export class Wallet {
 
     tower.upgrade()
 
-    const cost = tower.cost
-    this.decreaseMoney(cost)
+    this.decreaseMoney(tower.cost)
     FlyIndicator.instantiateFlyIndicator(
       tower.position,
-      this.#getCostText(cost),
+      this.#getCostText(tower.cost),
     )
   }
 
@@ -137,10 +135,11 @@ export class Wallet {
       return
     }
 
-    const cost = tower.cost
-    this.decreaseMoney(cost)
+    this.decreaseMoney(tower.cost)
 
-    const costText = `-${cost} $`
-    FlyIndicator.instantiateFlyIndicator(tower.position, costText)
+    FlyIndicator.instantiateFlyIndicator(
+      tower.position,
+      this.#getCostText(tower.cost),
+    )
   }
 }
