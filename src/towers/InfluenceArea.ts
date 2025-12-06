@@ -89,10 +89,8 @@ export class InfluenceArea {
     const towerPosition = tower.position
     const position: Position = { x: towerPosition.x, y: towerPosition.y }
 
-    if (tower.type === TowerGreen.ID || tower.type === TowerRed.ID) {
-      position.x += Const.TOWER_OFFSET
-      position.y += Const.TOWER_OFFSET
-    }
+    position.x += Const.TOWER_OFFSET
+    position.y += Const.TOWER_OFFSET
 
     return position
   }
