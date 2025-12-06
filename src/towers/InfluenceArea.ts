@@ -65,11 +65,11 @@ export class InfluenceArea {
     towerSelected: number,
     haveMoneyToBuySelectedTower: boolean,
   ) {
-    this.#getInfluenceAreaColor(haveMoneyToBuySelectedTower, towerSelected)
+    this.#getMoneyInfluenceAreaColor(haveMoneyToBuySelectedTower, towerSelected)
     this.#drawCircle(position, this.#getInfluenceAreaFor(towerSelected))
   }
 
-  #getInfluenceAreaColor(
+  #getMoneyInfluenceAreaColor(
     haveMoneyToBuySelectedTower: boolean,
     towerSelected: number,
   ) {
