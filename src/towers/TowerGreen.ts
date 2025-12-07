@@ -5,6 +5,7 @@ import { Const } from '../constants/Const'
 import { Tower } from './Tower'
 import { P5 } from '../utils/P5'
 import { TileOrange } from '../levels/tiles/TileOrange'
+import { Enemy } from '../enemies/Enemy'
 
 export class TowerGreen extends Tower {
   static ID = 1
@@ -39,17 +40,20 @@ export class TowerGreen extends Tower {
     }
   }
 
+  #getAngle(enemyTarget: Enemy) {
+    const r_dx = enemyTarget.position.x - this.position.x
+    const r_dy = enemyTarget.position.y - this.position.y
+    return Math.atan2(r_dy, r_dx) + 1.55
+  }
+
   #drawWhenEnemyTarget() {
     if (!this.enemyTarget) {
       return
     }
 
-    let r_dx = this.enemyTarget.position.x - this.position.x
-    let r_dy = this.enemyTarget.position.y - this.position.y
-    let angle = Math.atan2(r_dy, r_dx) + 1.55
-
-    let cos_a = P5.p5.cos(angle)
-    let sin_a = P5.p5.sin(angle)
+    const angle = this.#getAngle(this.enemyTarget)
+    const cos_a = P5.p5.cos(angle)
+    const sin_a = P5.p5.sin(angle)
 
     P5.p5.imageMode(P5.p5.CENTER)
     P5.p5.applyMatrix(
