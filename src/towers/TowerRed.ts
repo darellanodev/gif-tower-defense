@@ -68,19 +68,19 @@ export class TowerRed extends Tower {
   #createMissileWhenCharged(enemyTarget: Enemy) {
     if (this.#timeToRecharge < TowerRed.MAXTIME_TO_RECHARGE) {
       this.#timeToRecharge++
-    } else {
-      this.#timeToRecharge = 0
-      Missile.instances.push(
-        new Missile(
-          {
-            x: this.position.x + Const.TILE_SIZE / 2,
-            y: this.position.y + Const.TILE_SIZE / 2,
-          },
-          enemyTarget,
-          TowerRed.DAMAGE_UPGRADE[this.upgradeLevel],
-        ),
-      )
+      return
     }
+    this.#timeToRecharge = 0
+    Missile.instances.push(
+      new Missile(
+        {
+          x: this.position.x + Const.TILE_SIZE / 2,
+          y: this.position.y + Const.TILE_SIZE / 2,
+        },
+        enemyTarget,
+        TowerRed.DAMAGE_UPGRADE[this.upgradeLevel],
+      ),
+    )
   }
 
   #drawWhenNoEnemyTarget() {
