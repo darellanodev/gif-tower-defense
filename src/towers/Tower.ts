@@ -80,34 +80,43 @@ export class Tower extends Obj {
     return null
   }
 
+  #getEnemyDistance(enemy: Enemy) {
+    return PositionUtils.distance(
+      { x: this.position.x, y: this.position.y },
+      {
+        x: enemy.position.x,
+        y: enemy.position.y,
+      },
+    )
+  }
+
   selectTarget(enemies: Enemy[]) {
     let minDistance = 99999
     let enemyTarget = null
 
-    enemies.forEach((enemy) => {
-      if (!enemy.isAbducted) {
-        const distance = PositionUtils.distance(
-          { x: this.position.x, y: this.position.y },
-          {
-            x: enemy.position.x,
-            y: enemy.position.y,
-          },
-        )
-        if (distance < minDistance) {
-          minDistance = distance
-          enemyTarget = enemy
-        }
+    for (const enemy of enemies) {
+      if (enemy.isAbducted) {
+        continue
       }
-    })
+      const distance = this.#getEnemyDistance(enemy)
+      if (distance < minDistance) {
+        minDistance = distance
+        enemyTarget = enemy
+      }
+    }
+    this.#setEnemyTargetDependingInfluenceArea(enemyTarget, minDistance)
+  }
 
+  #setEnemyTargetDependingInfluenceArea(enemyTarget: any, minDistance: number) {
     if (this.isDistanceIntoInfluenceArea(minDistance)) {
       this.enemyTarget = enemyTarget
       this.distanceToEnemyTarget = minDistance
-    } else {
-      this.enemyTarget = null
-      this.distanceToEnemyTarget = 0
+      return
     }
+    this.enemyTarget = null
+    this.distanceToEnemyTarget = 0
   }
+
   get upgradeIncrement() {
     return Tower.UPGRADE_INCREMENT / (this.upgradeLevel + 1)
   }
