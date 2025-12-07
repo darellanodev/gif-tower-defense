@@ -59,9 +59,13 @@ export class Missile extends Obj {
       return
     }
     this.#moveToTarget()
+    this.#addDamageEnemyWhenCollision(this.#enemyTarget)
+  }
+
+  #addDamageEnemyWhenCollision(enemyTarget: Enemy) {
     if (this.#checkCollision()) {
       this.#status = Missile.STATUS_DEAD
-      this.#enemyTarget.addDamage(this.#damage)
+      enemyTarget.addDamage(this.#damage)
     }
   }
 
