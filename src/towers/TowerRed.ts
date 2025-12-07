@@ -98,13 +98,13 @@ export class TowerRed extends Tower {
   draw() {
     if (this.upgrading) {
       this.#drawUpgrading()
-    } else {
-      if (this.enemyTarget) {
-        this.#drawWhenEnemyTarget()
-      } else {
-        this.#drawWhenNoEnemyTarget()
-      }
+      return
     }
+    if (this.enemyTarget) {
+      this.#drawWhenEnemyTarget()
+      return
+    }
+    this.#drawWhenNoEnemyTarget()
   }
 
   get influenceArea() {
