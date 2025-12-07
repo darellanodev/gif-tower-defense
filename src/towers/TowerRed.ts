@@ -71,6 +71,10 @@ export class TowerRed extends Tower {
       return
     }
     this.#timeToRecharge = 0
+    this.#instanceNewMissile(enemyTarget)
+  }
+
+  #instanceNewMissile(enemyTarget: Enemy) {
     Missile.instances.push(
       new Missile(
         {
