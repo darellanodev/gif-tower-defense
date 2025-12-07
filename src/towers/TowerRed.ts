@@ -57,6 +57,15 @@ export class TowerRed extends Tower {
       this.position.y + 30,
     )
 
+    this.#createMissileWhenCharged(this.enemyTarget)
+
+    P5.p5.image(this.#images[this.upgradeLevel], 0, 0)
+
+    P5.p5.resetMatrix()
+    P5.p5.imageMode(P5.p5.CORNER)
+  }
+
+  #createMissileWhenCharged(enemyTarget: Enemy) {
     if (this.#timeToRecharge < TowerRed.MAXTIME_TO_RECHARGE) {
       this.#timeToRecharge++
     } else {
@@ -67,16 +76,11 @@ export class TowerRed extends Tower {
             x: this.position.x + Const.TILE_SIZE / 2,
             y: this.position.y + Const.TILE_SIZE / 2,
           },
-          this.enemyTarget,
+          enemyTarget,
           TowerRed.DAMAGE_UPGRADE[this.upgradeLevel],
         ),
       )
     }
-
-    P5.p5.image(this.#images[this.upgradeLevel], 0, 0)
-
-    P5.p5.resetMatrix()
-    P5.p5.imageMode(P5.p5.CORNER)
   }
 
   #drawWhenNoEnemyTarget() {
