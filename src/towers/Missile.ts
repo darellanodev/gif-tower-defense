@@ -29,16 +29,24 @@ export class Missile extends Obj {
     this.#enemyTarget = enemy
   }
 
-  _moveToTarget() {
+  #moveToTarget() {
     if (!this.#enemyTarget) {
       return
     }
-    if (this.position.x < this.#enemyTarget.position.x + Const.TILE_SIZE / 2) {
+    this.#moveHorizontally(this.#enemyTarget.position)
+    this.#moveVertically(this.#enemyTarget.position)
+  }
+
+  #moveHorizontally(targetPosition: Position) {
+    if (this.position.x < targetPosition.x + Const.TILE_SIZE / 2) {
       this.position.x += Missile.VELOCITY
     } else {
       this.position.x -= Missile.VELOCITY
     }
-    if (this.position.y < this.#enemyTarget.position.y + Const.TILE_SIZE / 2) {
+  }
+
+  #moveVertically(targetPosition: Position) {
+    if (this.position.y < targetPosition.y + Const.TILE_SIZE / 2) {
       this.position.y += Missile.VELOCITY
     } else {
       this.position.y -= Missile.VELOCITY
@@ -47,7 +55,7 @@ export class Missile extends Obj {
 
   update() {
     if (this.#enemyTarget) {
-      this._moveToTarget()
+      this.#moveToTarget()
       if (this.#checkCollision()) {
         this.#status = Missile.STATUS_DEAD
         this.#enemyTarget.addDamage(this.#damage)
