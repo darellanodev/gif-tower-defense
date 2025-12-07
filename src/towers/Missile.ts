@@ -79,25 +79,17 @@ export class Missile extends Obj {
   }
 
   #isInsideX(enemyTarget: Enemy) {
-    let isInsideX = false
-    if (
+    return (
       this.position.x > enemyTarget.position.x &&
       this.position.x < enemyTarget.position.x + Const.TILE_SIZE
-    ) {
-      isInsideX = true
-    }
-    return isInsideX
+    )
   }
 
   #isInsideY(enemyTarget: Enemy) {
-    let isInsideY = false
-    if (
+    return (
       this.position.y > enemyTarget.position.y &&
       this.position.y < enemyTarget.position.y + Const.TILE_SIZE
-    ) {
-      isInsideY = true
-    }
-    return isInsideY
+    )
   }
 
   static updateInstances() {
