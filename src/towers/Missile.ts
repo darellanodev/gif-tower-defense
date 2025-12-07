@@ -40,17 +40,17 @@ export class Missile extends Obj {
   #moveHorizontally(targetPosition: Position) {
     if (this.position.x < targetPosition.x + Const.TILE_SIZE / 2) {
       this.position.x += Missile.VELOCITY
-    } else {
-      this.position.x -= Missile.VELOCITY
+      return
     }
+    this.position.x -= Missile.VELOCITY
   }
 
   #moveVertically(targetPosition: Position) {
     if (this.position.y < targetPosition.y + Const.TILE_SIZE / 2) {
       this.position.y += Missile.VELOCITY
-    } else {
-      this.position.y -= Missile.VELOCITY
+      return
     }
+    this.position.y -= Missile.VELOCITY
   }
 
   update() {
