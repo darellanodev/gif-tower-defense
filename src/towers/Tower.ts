@@ -71,9 +71,8 @@ export class Tower extends Obj {
   get nextLevelUpgradeCost() {
     if (this.isMaxUpgraded) {
       return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1)
-    } else {
-      return this.getCostWhenUpgradeLevelIs(this.upgradeLevel + 1)
     }
+    return this.getCostWhenUpgradeLevelIs(this.upgradeLevel + 1)
   }
 
   isDistanceIntoInfluenceArea(minDistance: number): boolean | null {
