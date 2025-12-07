@@ -127,17 +127,22 @@ export class Tower extends Obj {
   }
 
   update() {
-    if (this.upgrading) {
-      if (Tower.INSTANT_UPGRADING) {
-        this.#reInitUpgrading()
-      } else {
-        if (!this.progressBar.isFullOfProgress()) {
-          this.progressBar.increaseProgress(this.upgradeIncrement)
-        } else {
-          this.#reInitUpgrading()
-        }
-      }
+    if (!this.upgrading) {
+      return
     }
+    if (Tower.INSTANT_UPGRADING) {
+      this.#reInitUpgrading()
+      return
+    }
+    this.#reInitUpgradeProgressBarWhenIsFull()
+  }
+
+  #reInitUpgradeProgressBarWhenIsFull() {
+    if (this.progressBar.isFullOfProgress()) {
+      this.#reInitUpgrading()
+      return
+    }
+    this.progressBar.increaseProgress(this.upgradeIncrement)
   }
 
   get type() {
