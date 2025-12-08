@@ -84,6 +84,10 @@ export class TowerYellow extends Tower {
 
   #drawUpgrading() {
     this._drawUpgradeBackground(ConstColor.YELLOW, 5)
+    this.#drawProgressIfNotFull()
+  }
+
+  #drawProgressIfNotFull() {
     if (!this.progressBar.isFullOfProgress()) {
       this.progressBar.draw()
     }
