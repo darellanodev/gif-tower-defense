@@ -142,26 +142,29 @@ export class TowerYellow extends Tower {
     if (this.upgrading) {
       return
     }
-    ExplosionEnemy.instances.forEach((xp) => {
-      if (xp.particleSystem) {
-        const particles = xp.particleSystem.particles
-
-        particles.forEach((p) => {
-          if (!p.towerYellowTarget) {
-            const distance = PositionUtils.distance(
-              {
-                x: this.position.x + Const.TILE_SIZE / 2,
-                y: this.position.y + Const.TILE_SIZE / 2,
-              },
-              p.position,
-            )
-
-            if (this.isDistanceIntoInfluenceArea(distance)) {
-              p.towerYellowTarget = this
-            }
-          }
-        })
+    for (const explosion of ExplosionEnemy.instances) {
+      if (!explosion.particleSystem) {
+        continue
       }
-    })
+      const particles = explosion.particleSystem.particles
+
+      for (const particle of particles) {
+        if (particle.towerYellowTarget) {
+          continue
+        }
+
+        const distance = PositionUtils.distance(
+          {
+            x: this.position.x + Const.TILE_SIZE / 2,
+            y: this.position.y + Const.TILE_SIZE / 2,
+          },
+          particle.position,
+        )
+
+        if (this.isDistanceIntoInfluenceArea(distance)) {
+          particle.towerYellowTarget = this
+        }
+      }
+    }
   }
 }
