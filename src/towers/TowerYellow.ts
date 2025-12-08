@@ -67,12 +67,15 @@ export class TowerYellow extends Tower {
     this.#player.increaseLives(incrementLives)
     this.#coreProgressBar.reInitProgress()
 
-    const flyIndicatorText = `+ ${incrementLives}`
     FlyIndicator.instantiateFlyIndicator(
       this.position,
-      flyIndicatorText,
+      this.#getIncrementLivesText(incrementLives),
       Images.coreImage,
     )
+  }
+
+  #getIncrementLivesText(lives: number) {
+    return `+ ${lives}`
   }
 
   #drawUpgrading() {
