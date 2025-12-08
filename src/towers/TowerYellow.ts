@@ -12,6 +12,7 @@ import { FlyIndicator } from '../hud/FlyIndicator'
 import { Images } from '../resources/Images'
 import { PositionUtils } from '../utils/PositionUtils'
 import { Size } from '../types/size'
+import { Particle } from '../particles/Particle'
 
 export class TowerYellow extends Tower {
   static ID = 3
@@ -149,22 +150,26 @@ export class TowerYellow extends Tower {
       const particles = explosion.particleSystem.particles
 
       for (const particle of particles) {
-        if (particle.towerYellowTarget) {
-          continue
-        }
-
-        const distance = PositionUtils.distance(
-          {
-            x: this.position.x + Const.TILE_SIZE / 2,
-            y: this.position.y + Const.TILE_SIZE / 2,
-          },
-          particle.position,
-        )
-
-        if (this.isDistanceIntoInfluenceArea(distance)) {
-          particle.towerYellowTarget = this
-        }
+        this.#handleParticleTarget(particle)
       }
+    }
+  }
+
+  #handleParticleTarget(particle: Particle) {
+    if (particle.towerYellowTarget) {
+      return
+    }
+
+    const distance = PositionUtils.distance(
+      {
+        x: this.position.x + Const.TILE_SIZE / 2,
+        y: this.position.y + Const.TILE_SIZE / 2,
+      },
+      particle.position,
+    )
+
+    if (this.isDistanceIntoInfluenceArea(distance)) {
+      particle.towerYellowTarget = this
     }
   }
 }
