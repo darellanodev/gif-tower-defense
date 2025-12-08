@@ -100,15 +100,15 @@ export class TowerYellow extends Tower {
   draw() {
     if (this.upgrading) {
       this.#drawUpgrading()
-    } else {
-      this.#coreProgressBar.draw()
-
-      P5.p5.image(
-        this.#images[this.upgradeLevel],
-        this.position.x + Tower.OFFSET_X,
-        this.position.y + Tower.OFFSET_Y,
-      )
+      return
     }
+    this.#coreProgressBar.draw()
+
+    P5.p5.image(
+      this.#images[this.upgradeLevel],
+      this.position.x + Tower.OFFSET_X,
+      this.position.y + Tower.OFFSET_Y,
+    )
   }
 
   get influenceArea() {
