@@ -56,18 +56,18 @@ export class TowerYellow extends Tower {
   increaseCoreProgress(increment: number) {
     if (!this.#coreProgressBar.isFullOfProgress()) {
       this.#coreProgressBar.increaseProgress(increment)
-    } else {
-      const incrementLives = this.upgradeLevel + 1
-      this.#player.increaseLives(incrementLives)
-      this.#coreProgressBar.reInitProgress()
-
-      const flyIndicatorText = `+ ${incrementLives}`
-      FlyIndicator.instantiateFlyIndicator(
-        this.position,
-        flyIndicatorText,
-        Images.coreImage,
-      )
+      return
     }
+    const incrementLives = this.upgradeLevel + 1
+    this.#player.increaseLives(incrementLives)
+    this.#coreProgressBar.reInitProgress()
+
+    const flyIndicatorText = `+ ${incrementLives}`
+    FlyIndicator.instantiateFlyIndicator(
+      this.position,
+      flyIndicatorText,
+      Images.coreImage,
+    )
   }
 
   #drawUpgrading() {
