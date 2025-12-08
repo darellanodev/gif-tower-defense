@@ -58,6 +58,11 @@ export class TowerYellow extends Tower {
       this.#coreProgressBar.increaseProgress(increment)
       return
     }
+
+    this.#incrementLive()
+  }
+
+  #incrementLive() {
     const incrementLives = this.upgradeLevel + 1
     this.#player.increaseLives(incrementLives)
     this.#coreProgressBar.reInitProgress()
