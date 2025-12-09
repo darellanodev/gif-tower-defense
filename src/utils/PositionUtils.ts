@@ -14,23 +14,31 @@ export class PositionUtils {
     rectanglePosition: Position,
     rectangleSize: Size,
   ): boolean {
-    let insideX = false
-    let insideY = false
-    if (
+    return (
+      PositionUtils.#isInsideX(position, rectanglePosition, rectangleSize) &&
+      PositionUtils.#isInsideY(position, rectanglePosition, rectangleSize)
+    )
+  }
+
+  static #isInsideX(
+    position: Position,
+    rectanglePosition: Position,
+    rectangleSize: Size,
+  ) {
+    return (
       position.x >= rectanglePosition.x &&
       position.x <= rectanglePosition.x + rectangleSize.w
-    ) {
-      insideX = true
-    }
-    if (
+    )
+  }
+
+  static #isInsideY(
+    position: Position,
+    rectanglePosition: Position,
+    rectangleSize: Size,
+  ) {
+    return (
       position.y >= rectanglePosition.y &&
       position.y <= rectanglePosition.y + rectangleSize.h
-    ) {
-      insideY = true
-    }
-    if (insideX && insideY) {
-      return true
-    }
-    return false
+    )
   }
 }
