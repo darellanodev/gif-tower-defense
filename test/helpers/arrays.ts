@@ -2,23 +2,20 @@ export const isIncluded = (
   bigGroupElements: number[],
   smallGroupElements: number[],
 ) => {
-  let result = true
-
   if (
     bigGroupElements.length === 0 ||
     smallGroupElements.length > bigGroupElements.length
   ) {
-    result = false
+    return false
   }
 
   let i = 0
   for (const smallGroupElement of smallGroupElements) {
     if (bigGroupElements[i] !== smallGroupElement) {
-      result = false
-      break
+      return false
     }
     i++
   }
 
-  return result
+  return true
 }
