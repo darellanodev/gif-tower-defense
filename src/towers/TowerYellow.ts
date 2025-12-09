@@ -143,15 +143,19 @@ export class TowerYellow extends Tower {
     if (this.upgrading) {
       return
     }
-    for (const explosion of ExplosionEnemy.instances) {
-      if (!explosion.particleSystem) {
-        continue
-      }
-      const particles = explosion.particleSystem.particles
+    for (const explosionEnemy of ExplosionEnemy.instances) {
+      this.#handleExplosionEnemy(explosionEnemy)
+    }
+  }
 
-      for (const particle of particles) {
-        this.#handleParticleTarget(particle)
-      }
+  #handleExplosionEnemy(explosionEnemy: ExplosionEnemy) {
+    if (!explosionEnemy.particleSystem) {
+      return
+    }
+    const particles = explosionEnemy.particleSystem.particles
+
+    for (const particle of particles) {
+      this.#handleParticleTarget(particle)
     }
   }
 
