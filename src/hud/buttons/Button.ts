@@ -3,7 +3,7 @@ import { Position } from '../../types/position'
 import { Size } from '../../types/size'
 import { P5 } from '../../utils/P5'
 import { Obj } from '../../Obj'
-import { PositionUtils } from '../../utils/PositionUtils'
+import { PositionInsideRectangle } from '../../utils/PositionInsideRectangle'
 
 export class Button extends Obj {
   static INDEX_IMAGE_ON = 0
@@ -22,6 +22,7 @@ export class Button extends Obj {
   on: boolean = true
   #totalItems: number
   #offsetItems: Position
+  #positionInsideRectangle: PositionInsideRectangle
 
   constructor(
     position: Position,
@@ -47,6 +48,8 @@ export class Button extends Obj {
     if (this.#totalItems > 0) {
       this.hasItems = true
     }
+
+    this.#positionInsideRectangle = new PositionInsideRectangle()
   }
 
   removeItem() {
@@ -188,7 +191,7 @@ export class Button extends Obj {
   }
 
   isMouseOver(mousePosition: Position): boolean {
-    return PositionUtils.isInsideRectangle(
+    return this.#positionInsideRectangle.check(
       mousePosition,
       this.position,
       this.size,

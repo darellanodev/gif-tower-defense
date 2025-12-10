@@ -7,7 +7,7 @@ import { TowerYellow } from '../../towers/TowerYellow'
 import { P5 } from '../../utils/P5'
 import { HudPanel } from '../HudPanel'
 import { Wallet } from '../../player/Wallet'
-import { PositionUtils } from '../../utils/PositionUtils'
+import { PositionInsideRectangle } from '../../utils/PositionInsideRectangle'
 import { Button } from './Button'
 import { ButtonGreenTowerCreator } from './ButtonGreenTowerCreator'
 import { ButtonRedTowerCreator } from './ButtonRedTowerCreator'
@@ -34,17 +34,19 @@ export class HudButtonsTowers {
   #upgradeCost: number | null = null
   #sellProfit: number | null = null
   #canUpgrade: boolean
+  #positionInsideRectangle: PositionInsideRectangle
 
   constructor(wallet: Wallet) {
     this.#wallet = wallet
     this.#canUpgrade = false
+    this.#positionInsideRectangle = new PositionInsideRectangle()
   }
 
   #isInsideButtonsBar(position: Position) {
     const ButtonsBarRectanglePosition = { x: 0, y: 28 }
     const ButtonsBarRectangleSize = { w: 800, h: 50 }
 
-    return PositionUtils.isInsideRectangle(
+    return this.#positionInsideRectangle.check(
       position,
       ButtonsBarRectanglePosition,
       ButtonsBarRectangleSize,

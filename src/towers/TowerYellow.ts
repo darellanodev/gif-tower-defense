@@ -10,7 +10,6 @@ import { TileOrange } from '../levels/tiles/TileOrange'
 import { P5 } from '../utils/P5'
 import { FlyIndicator } from '../hud/FlyIndicator'
 import { Images } from '../resources/Images'
-import { PositionUtils } from '../utils/PositionUtils'
 import { Size } from '../types/size'
 import { Particle } from '../particles/Particle'
 

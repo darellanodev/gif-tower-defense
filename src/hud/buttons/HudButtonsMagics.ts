@@ -2,7 +2,7 @@ import { Position } from '../../types/position'
 import { Image } from 'p5'
 import { MagicFireball } from '../../magics/MagicFireball'
 import { MagicIceball } from '../../magics/MagicIceball'
-import { PositionUtils } from '../../utils/PositionUtils'
+import { PositionInsideRectangle } from '../../utils/PositionInsideRectangle'
 import { MagicFireballCreator } from '../../magics/MagicFireballCreator'
 import { MagicIceballCreator } from '../../magics/MagicIceballCreator'
 import { MagicUFOCreator } from '../../magics/MagicUFOCreator'
@@ -16,6 +16,7 @@ export class HudButtonsMagics {
   static magicFireballButton: Button
   static magicIceballButton: Button
   static magicUFOButton: Button
+  #positionInsideRectangle: PositionInsideRectangle
 
   static _initializeMagicButtons() {
     ButtonMagicUFOCreator._initializeMagicUFOButton()
@@ -27,11 +28,15 @@ export class HudButtonsMagics {
     HudButtonsMagics._initializeMagicButtons()
   }
 
+  constructor() {
+    this.#positionInsideRectangle = new PositionInsideRectangle()
+  }
+
   #isInsideButtonsBar(position: Position) {
     const ButtonsBarRectanglePosition = { x: 0, y: 28 }
     const ButtonsBarRectangleSize = { w: 800, h: 50 }
 
-    return PositionUtils.isInsideRectangle(
+    return this.#positionInsideRectangle.check(
       position,
       ButtonsBarRectanglePosition,
       ButtonsBarRectangleSize,

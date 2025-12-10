@@ -1,19 +1,19 @@
 import { Position } from '../types/position'
 import { Size } from '../types/size'
 
-export class PositionUtils {
-  static isInsideRectangle(
+export class PositionInsideRectangle {
+  check(
     position: Position,
     rectanglePosition: Position,
     rectangleSize: Size,
   ): boolean {
     return (
-      PositionUtils.#isInsideX(position, rectanglePosition, rectangleSize) &&
-      PositionUtils.#isInsideY(position, rectanglePosition, rectangleSize)
+      this.#isInsideX(position, rectanglePosition, rectangleSize) &&
+      this.#isInsideY(position, rectanglePosition, rectangleSize)
     )
   }
 
-  static #isInsideX(
+  #isInsideX(
     position: Position,
     rectanglePosition: Position,
     rectangleSize: Size,
@@ -24,7 +24,7 @@ export class PositionUtils {
     )
   }
 
-  static #isInsideY(
+  #isInsideY(
     position: Position,
     rectanglePosition: Position,
     rectangleSize: Size,

@@ -1,19 +1,21 @@
 import { Const } from '../constants/Const'
 import { Enemy } from '../enemies/Enemy'
 import { Position } from '../types/position'
-import { PositionUtils } from '../utils/PositionUtils'
+import { PositionInsideRectangle } from '../utils/PositionInsideRectangle'
 import { MagicUFO } from './MagicUFO'
 
 export class MagicUFOCollisionChecker {
   #startPosition: Position
+  #positionInsideRectangle: PositionInsideRectangle
   constructor(startPosition: Position) {
     this.#startPosition = startPosition
+    this.#positionInsideRectangle = new PositionInsideRectangle()
   }
   isCollidingWithEnemy(ufo: MagicUFO, enemyTarget: Enemy | null) {
     if (!enemyTarget) {
       return false
     }
-    return PositionUtils.isInsideRectangle(
+    return this.#positionInsideRectangle.check(
       {
         x: ufo.position.x + Const.TILE_SIZE / 2,
         y: ufo.position.y + Const.TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
@@ -27,7 +29,7 @@ export class MagicUFOCollisionChecker {
   }
 
   isCollidingWithStartPosition(ufo: MagicUFO) {
-    return PositionUtils.isInsideRectangle(
+    return this.#positionInsideRectangle.check(
       {
         x: ufo.position.x + Const.TILE_SIZE / 2,
         y: ufo.position.y + Const.TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
