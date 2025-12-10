@@ -164,7 +164,7 @@ export class TowerYellow extends Tower {
       return
     }
 
-    const distance = PositionUtils.distance(
+    const distance = this._distance.calculate(
       {
         x: this.position.x + Const.TILE_SIZE / 2,
         y: this.position.y + Const.TILE_SIZE / 2,

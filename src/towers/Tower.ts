@@ -6,8 +6,8 @@ import { Enemy } from '../enemies/Enemy'
 import { P5 } from '../utils/P5'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { Obj } from '../Obj'
-import { PositionUtils } from '../utils/PositionUtils'
 import { Size } from '../types/size'
+import { Distance } from '../utils/Distance'
 
 export class Tower extends Obj {
   static OFFSET_X: number = 3
@@ -24,11 +24,14 @@ export class Tower extends Obj {
 
   enemyTarget: Enemy | null = null
   distanceToEnemyTarget: number = 0
+  _distance: Distance
 
   constructor(position: Position, tileOrange: TileOrange) {
     super(position)
     this.progressBar = this.#createTowerProgressBar()
     this.tileOrange = tileOrange
+
+    this._distance = new Distance()
   }
 
   #createTowerProgressBar() {
@@ -81,7 +84,7 @@ export class Tower extends Obj {
   }
 
   #getEnemyDistance(enemy: Enemy) {
-    return PositionUtils.distance(
+    return this._distance.calculate(
       { x: this.position.x, y: this.position.y },
       {
         x: enemy.position.x,

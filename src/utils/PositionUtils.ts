@@ -2,13 +2,6 @@ import { Position } from '../types/position'
 import { Size } from '../types/size'
 
 export class PositionUtils {
-  static distance(posA: Position, posB: Position) {
-    return Math.sqrt(
-      (posA.x - posB.x) * (posA.x - posB.x) +
-        (posA.y - posB.y) * (posA.y - posB.y),
-    )
-  }
-
   static isInsideRectangle(
     position: Position,
     rectanglePosition: Position,
