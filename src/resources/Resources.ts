@@ -2,6 +2,7 @@ import { Const } from '../constants/Const'
 import { Enemy } from '../enemies/Enemy'
 import { Arrays } from '../utils/Arrays'
 import { P5 } from '../utils/P5'
+import { Images } from './Images'
 
 export class Resources {
   static enemies() {

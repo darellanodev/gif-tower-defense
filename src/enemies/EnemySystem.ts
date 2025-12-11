@@ -35,11 +35,7 @@ export class EnemySystem {
   }
 
   #createEnemyNormalAnimator() {
-    return new EnemyAnimator(
-      Images.enemiesImages.slice(
-        ...Arrays.getTwoNumbersFourTimes(Enemy.waveEnemies),
-      ),
-    )
+    return new EnemyAnimator(Images.getImagesForEnemy(Enemy.waveEnemies))
   }
 
   update() {
@@ -123,11 +119,7 @@ export class EnemySystem {
 
   #createEnemyBossAnimator() {
     return new EnemyAnimator(
-      Images.enemiesImages.slice(
-        ...Arrays.getTwoNumbersFourTimes(
-          EnemyAnimator.INDEX_BOSS_IN_ENEMIES_IMAGES,
-        ),
-      ),
+      Images.getImagesForEnemy(EnemyAnimator.INDEX_BOSS_IN_ENEMIES_IMAGES),
     )
   }
   instantiateEnemyBoss() {
