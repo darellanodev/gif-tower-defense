@@ -34,7 +34,7 @@ export class EnemySystem {
   }
 
   #createEnemyNormalAnimator() {
-    return new EnemyAnimator(Images.getImagesForEnemy(Enemy.waveEnemies))
+    return new EnemyAnimator(Images.getForEnemy(Enemy.waveEnemies))
   }
 
   update() {
@@ -118,7 +118,7 @@ export class EnemySystem {
 
   #createEnemyBossAnimator() {
     return new EnemyAnimator(
-      Images.getImagesForEnemy(EnemyAnimator.INDEX_BOSS_IN_ENEMIES_IMAGES),
+      Images.getForEnemy(EnemyAnimator.INDEX_BOSS_IN_ENEMIES_IMAGES),
     )
   }
   instantiateEnemyBoss() {

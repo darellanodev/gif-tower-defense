@@ -69,7 +69,7 @@ export class Images {
     Images.menuSurvival = Resources.menuSurvival()
   }
 
-  static getImagesForEnemy(id: number) {
+  static getForEnemy(id: number) {
     const ImagesRange = [id * 4, (id + 1) * 4]
     return Images.enemiesImages.slice(...ImagesRange)
   }

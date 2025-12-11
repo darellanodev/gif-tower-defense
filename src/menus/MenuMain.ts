@@ -80,7 +80,7 @@ export class MenuMain {
     const enemiesAnimators: EnemyAnimator[] = []
 
     for (let i = 0; i < Const.MAX_WAVE_ENEMIES; i++) {
-      enemiesAnimators.push(new EnemyAnimator(Images.getImagesForEnemy(i)))
+      enemiesAnimators.push(new EnemyAnimator(Images.getForEnemy(i)))
     }
     this.#todayEnemies = new TodayEnemies(enemiesAnimators)
 
