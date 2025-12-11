@@ -11,7 +11,6 @@ import { Wallet } from '../player/Wallet'
 import { Images } from '../resources/Images'
 import { StateManager } from '../StateManager'
 import { Position } from '../types/position'
-import { Arrays } from '../utils/Arrays'
 
 export class EnemySystem {
   enemyCreator: EnemyCreator

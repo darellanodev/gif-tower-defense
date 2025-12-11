@@ -12,7 +12,6 @@ import { Debug } from '../hud/Debug'
 import { NewsDataProvider } from './news/NewsDataProvider'
 import { Images } from '../resources/Images'
 import { Position } from '../types/position'
-import { Arrays } from '../utils/Arrays'
 import { P5 } from '../utils/P5'
 
 export class MenuMain {
