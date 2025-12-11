@@ -8,6 +8,8 @@ export class HudPlayerIndicators {
   #player: Player
   #levelMapTitle: string
   #levelMapAuthor: string
+  #textProperties: TextProperties
+
   constructor(
     wallet: Wallet,
     player: Player,
@@ -18,10 +20,11 @@ export class HudPlayerIndicators {
     this.#player = player
     this.#levelMapTitle = levelMapTitle
     this.#levelMapAuthor = levelMapAuthor
+    this.#textProperties = new TextProperties()
   }
 
   draw() {
-    TextProperties.setForHudData()
+    this.#textProperties.setForHudData()
     this.#drawMoney()
     this.#drawLives()
     this.#drawScore()

@@ -35,11 +35,13 @@ export class HudButtonsTowers {
   #sellProfit: number | null = null
   #canUpgrade: boolean
   #positionInsideRectangle: PositionInsideRectangle
+  #textProperties: TextProperties
 
   constructor(wallet: Wallet) {
     this.#wallet = wallet
     this.#canUpgrade = false
     this.#positionInsideRectangle = new PositionInsideRectangle()
+    this.#textProperties = new TextProperties()
   }
 
   #isInsideButtonsBar(position: Position) {
@@ -107,7 +109,7 @@ export class HudButtonsTowers {
       this.#drawTowerButtons()
     }
 
-    TextProperties.setForHudData()
+    this.#textProperties.setForHudData()
 
     if (HudPanel.mode != HudPanel.UPGRADING_MAX) {
       this.#drawUpgradeCost()

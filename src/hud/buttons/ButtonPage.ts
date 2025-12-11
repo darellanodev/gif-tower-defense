@@ -8,6 +8,8 @@ import { P5 } from '../../utils/P5'
 export class ButtonPage extends Button {
   #textPosition: Position
   #label: string
+  #textProperties: TextProperties
+
   constructor(
     position: Position,
     images: Image[],
@@ -20,23 +22,24 @@ export class ButtonPage extends Button {
     this.#textPosition.x += size.w / 2 + 1
     this.#textPosition.y += size.h / 2 + 4
     this.#label = label
+    this.#textProperties = new TextProperties()
   }
 
   drawOn() {
     super.drawOn()
-    TextProperties.setForPageButtons()
+    this.#textProperties.setForPageButtons()
     P5.p5.text(this.#label, this.#textPosition.x, this.#textPosition.y)
   }
 
   drawOff() {
     super.drawOff()
-    TextProperties.setForPageButtons()
+    this.#textProperties.setForPageButtons()
     P5.p5.text(this.#label, this.#textPosition.x, this.#textPosition.y)
   }
 
   drawOnHover() {
     super.drawOnHover()
-    TextProperties.setForPageButtons()
+    this.#textProperties.setForPageButtons()
     P5.p5.text(this.#label, this.#textPosition.x, this.#textPosition.y)
   }
 

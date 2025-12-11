@@ -19,6 +19,7 @@ export class MenuSurvival {
   #game: Game
   #levelsDataProvider: LevelsDataProvider
   #paginator: Paginator
+  #debug: Debug
 
   constructor(
     stateManager: StateManager,
@@ -45,6 +46,8 @@ export class MenuSurvival {
       { w: 166, h: 31 },
       Images.buttonMenuMainImages,
     )
+
+    this.#debug = new Debug()
 
     // assign the singleton instance
     MenuSurvival.#instance = this
@@ -82,11 +85,11 @@ export class MenuSurvival {
     if (!this.#game.isGameModeTesting()) {
       return
     }
-    Debug.showMouseCoordinates(
+    this.#debug.showMouseCoordinates(
       { x: P5.p5.mouseX, y: P5.p5.mouseY },
       { x: 355, y: 15 },
     )
-    Debug.showLabelTestingMode({ x: 170, y: 15 })
+    this.#debug.showLabelTestingMode({ x: 170, y: 15 })
   }
   #drawBackground() {
     P5.p5.background('skyblue')

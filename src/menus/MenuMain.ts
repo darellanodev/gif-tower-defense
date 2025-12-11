@@ -26,6 +26,7 @@ export class MenuMain {
   #game: Game
   #todayEnemies: TodayEnemies | null = null
   #actualNewsItem: string
+  #debug: Debug
 
   constructor(
     stateManager: StateManager,
@@ -83,6 +84,8 @@ export class MenuMain {
     }
     this.#todayEnemies = new TodayEnemies(enemiesAnimators)
 
+    this.#debug = new Debug()
+
     // assign the singleton instance
     MenuMain.#instance = this
   }
@@ -107,11 +110,11 @@ export class MenuMain {
     if (!this.#game.isGameModeTesting()) {
       return
     }
-    Debug.showMouseCoordinates(
+    this.#debug.showMouseCoordinates(
       { x: P5.p5.mouseX, y: P5.p5.mouseY },
       { x: 355, y: 15 },
     )
-    Debug.showLabelTestingMode({ x: 170, y: 15 })
+    this.#debug.showLabelTestingMode({ x: 170, y: 15 })
   }
   #drawBackground() {
     P5.p5.background('skyblue')

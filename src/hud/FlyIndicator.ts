@@ -15,11 +15,15 @@ export class FlyIndicator extends Obj {
   #aliveTime: number = 0
   #text: string = ''
   #icon: Image | undefined = undefined
+  #textProperties: TextProperties
+
   constructor(position: Position, text: string, icon?: Image) {
     super(position)
 
     this.#text = text
     this.#icon = icon
+
+    this.#textProperties = new TextProperties()
   }
 
   static instantiateFlyIndicator(
@@ -36,10 +40,10 @@ export class FlyIndicator extends Obj {
 
   #setTextStyle() {
     if (this.#text.charAt(0) == '-') {
-      TextProperties.setForBuyingFlyIndicator()
-    } else {
-      TextProperties.setForSellingFlyIndicator()
+      this.#textProperties.setForBuyingFlyIndicator()
+      return
     }
+    this.#textProperties.setForSellingFlyIndicator()
   }
 
   draw() {

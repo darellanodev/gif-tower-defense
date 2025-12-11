@@ -32,6 +32,8 @@ export class MiniMap {
   #levelId: number
 
   #position: Position
+  #textProperties: TextProperties
+
   constructor(
     levelMap: MapDataType,
     type: number,
@@ -87,6 +89,8 @@ export class MiniMap {
     this.#tilePathCreator = TilePathCreator.getInstance()
     this.#tilePathCreator.setLevelMap(levelMap)
     this.#tilePathCreator.create(this.#tilesManager)
+
+    this.#textProperties = new TextProperties()
   }
 
   get levelId() {
@@ -104,7 +108,7 @@ export class MiniMap {
       this.#position.x,
       this.#position.y,
     )
-    TextProperties.setForHudData()
+    this.#textProperties.setForHudData()
     this.#drawMiniMapWhenTextLeft()
     this.#drawMiniMapWhenTextDown()
   }
