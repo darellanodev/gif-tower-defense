@@ -12,6 +12,7 @@ import { ButtonsMiniMapsCreator } from './hud/buttons/ButtonsMiniMapsCreator'
 import { NewsDataProvider } from './menus/news/NewsDataProvider'
 import { NewsData } from './menus/news/NewsData'
 import { Config } from './Config'
+import { ConstCanvas } from './constants/ConstCanvas'
 
 let _p5: p5
 let game: Game
@@ -46,7 +47,7 @@ _p5 = new p5((p: p5) => {
   }
 
   p.setup = function () {
-    P5.p5.createCanvas(Const.CANVAS_WIDTH, Const.CANVAS_HEIGHT)
+    P5.p5.createCanvas(ConstCanvas.WIDTH, ConstCanvas.HEIGHT)
 
     disableContextualMenu()
 
