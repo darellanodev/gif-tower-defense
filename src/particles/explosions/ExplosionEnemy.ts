@@ -15,8 +15,8 @@ export class ExplosionEnemy extends Explosion {
     super(position)
     this.particleSystem = new ParticleSystem(
       P5.p5.createVector(
-        this.position.x + Const.EXPLOSION_OFFSET,
-        this.position.y + Const.EXPLOSION_OFFSET,
+        this.position.x + Explosion.EXPLOSION_OFFSET,
+        this.position.y + Explosion.EXPLOSION_OFFSET,
       ),
       ExplosionEnemy.SIZE,
       ExplosionEnemy.COLOR,

@@ -4,6 +4,7 @@ import { Position } from '../../types/position'
 
 export class Explosion extends Obj {
   static MAX_EMIT_TIME = 5
+  static EXPLOSION_OFFSET = 25
 
   #emissionTime: number = 0
 
