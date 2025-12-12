@@ -8,7 +8,5 @@ export class Const {
   static WAVE_PROGRESS_DELAY = 35
   static BOSS_PROGRESS_DELAY = Const.WAVE_PROGRESS_DELAY * 6
   static DELAY_UPGRADE_MULTIPLIER = 5
-  static MAGIC_STATUS_ALIVE = 0
-  static MAGIC_STATUS_DEAD = 1
   static SCALE_MINIMAP = 7 // 1 = 100%, 2 = 50%, ...
 }
