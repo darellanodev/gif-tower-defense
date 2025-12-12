@@ -10,6 +10,7 @@ export class Wallet {
   static #instance: Wallet | null = null
 
   static MONEY_IN_TESTING_MODE = 999999
+  static MONEY_FACTOR = 6
 
   #mode = 0
   #money: number = 0
