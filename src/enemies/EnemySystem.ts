@@ -1,4 +1,3 @@
-import { Const } from '../constants/Const'
 import { Enemy } from './Enemy'
 import { EnemyAnimator } from './EnemyAnimator'
 import { EnemyCreator } from './EnemyCreator'

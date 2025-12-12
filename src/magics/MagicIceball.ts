@@ -3,7 +3,6 @@ import { Enemy } from '../enemies/Enemy'
 import { Magic } from './Magic'
 import { P5 } from '../utils/P5'
 import { PathMovement } from '../levels/path/PathMovement'
-import { Const } from '../constants/Const'
 import { MagicIceballCollisionChecker } from './MagicIceballCollisionChecker'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 

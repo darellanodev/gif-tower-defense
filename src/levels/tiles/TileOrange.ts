@@ -2,7 +2,7 @@ import { TowerType } from '../../types/towerType'
 import { Position } from '../../types/position'
 import { Image } from 'p5'
 import { Enemy } from '../../enemies/Enemy'
-import { Const } from '../../constants/Const'
+import { ConstTile } from '../../constants/ConstTile'
 import { TowerGreen } from '../../towers/TowerGreen'
 import { TowerRed } from '../../towers/TowerRed'
 import { TowerYellow } from '../../towers/TowerYellow'
@@ -64,8 +64,8 @@ export class TileOrange extends Obj {
       this.#img,
       this.position.x / scale + startOffsetX,
       this.position.y / scale + startOffsetY,
-      Const.TILE_SIZE / scale,
-      Const.TILE_SIZE / scale,
+      ConstTile.SIZE / scale,
+      ConstTile.SIZE / scale,
     )
   }
 
@@ -104,13 +104,13 @@ export class TileOrange extends Obj {
 
     if (
       this.position.x < mouse_x &&
-      this.position.x + Const.TILE_SIZE > mouse_x
+      this.position.x + ConstTile.SIZE > mouse_x
     ) {
       insideX = true
     }
     if (
       this.position.y < mouse_y &&
-      this.position.y + Const.TILE_SIZE > mouse_y
+      this.position.y + ConstTile.SIZE > mouse_y
     ) {
       insideY = true
     }

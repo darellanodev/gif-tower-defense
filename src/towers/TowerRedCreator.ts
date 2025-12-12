@@ -1,5 +1,4 @@
 import { Position } from '../types/position'
-import { Const } from '../constants/Const'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { Image } from 'p5'
 import { TowerRed } from './TowerRed'

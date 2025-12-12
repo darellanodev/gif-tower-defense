@@ -2,7 +2,7 @@ import { Image } from 'p5'
 import { Position } from '../../types/position'
 import { Obj } from '../../Obj'
 import { P5 } from '../../utils/P5'
-import { Const } from '../../constants/Const'
+import { ConstTile } from '../../constants/ConstTile'
 
 export class TileStart extends Obj {
   #img: Image | null
@@ -20,8 +20,8 @@ export class TileStart extends Obj {
         this.#img,
         this.position.x / scale + startOffsetX,
         this.position.y / scale + startOffsetY,
-        Const.TILE_SIZE / scale,
-        Const.TILE_SIZE / scale,
+        ConstTile.SIZE / scale,
+        ConstTile.SIZE / scale,
       )
     }
   }

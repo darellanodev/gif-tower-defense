@@ -1,4 +1,4 @@
-import { Const } from '../../src/constants/Const'
+import { ConstTile } from '../../src/constants/ConstTile'
 import { MagicFireball } from '../../src/magics/MagicFireball'
 import { MagicFireballCreator } from '../../src/magics/MagicFireballCreator'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
@@ -26,7 +26,7 @@ export const updateToReachTheEndOfTheMap = (
   magicFireballInstancesManager: MagicInstancesManager,
 ) => {
   const maxIterations =
-    (Const.TILE_SIZE / MagicFireball.SPEED) * (orders.length + 1)
+    (ConstTile.SIZE / MagicFireball.SPEED) * (orders.length + 1)
   for (let i = 0; i < maxIterations; i++) {
     magicFireballInstancesManager.updateInstances()
   }

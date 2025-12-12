@@ -1,5 +1,4 @@
 import p5 from 'p5'
-import { Const } from './constants/Const'
 import { Images } from './resources/Images'
 import { P5 } from './utils/P5'
 import { Game } from './Game'

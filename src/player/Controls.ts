@@ -1,7 +1,6 @@
 import { TowerGreen } from '../towers/TowerGreen'
 import { TowerRed } from '../towers/TowerRed'
 import { TowerYellow } from '../towers/TowerYellow'
-import { Const } from '../constants/Const'
 import { Position } from '../types/position'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { P5 } from '../utils/P5'

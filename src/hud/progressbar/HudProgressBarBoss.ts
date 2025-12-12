@@ -1,5 +1,4 @@
 import { ProgressBar } from './ProgressBar'
-import { Const } from '../../constants/Const'
 import { Position } from '../../types/position'
 import { Size } from '../../types/size'
 import { HudProgressBarWave } from './HudProgressBarWave'

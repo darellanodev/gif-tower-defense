@@ -1,4 +1,4 @@
-import { Const } from '../constants/Const'
+import { ConstTile } from '../constants/ConstTile'
 import { ConstColor } from '../constants/ConstColor'
 import { Enemy } from '../enemies/Enemy'
 import { Position } from '../types/position'
@@ -38,7 +38,7 @@ export class Missile extends Obj {
   }
 
   #moveHorizontally(targetPosition: Position) {
-    if (this.position.x < targetPosition.x + Const.TILE_SIZE / 2) {
+    if (this.position.x < targetPosition.x + ConstTile.SIZE / 2) {
       this.position.x += Missile.VELOCITY
       return
     }
@@ -46,7 +46,7 @@ export class Missile extends Obj {
   }
 
   #moveVertically(targetPosition: Position) {
-    if (this.position.y < targetPosition.y + Const.TILE_SIZE / 2) {
+    if (this.position.y < targetPosition.y + ConstTile.SIZE / 2) {
       this.position.y += Missile.VELOCITY
       return
     }
@@ -81,14 +81,14 @@ export class Missile extends Obj {
   #isInsideX(enemyTarget: Enemy) {
     return (
       this.position.x > enemyTarget.position.x &&
-      this.position.x < enemyTarget.position.x + Const.TILE_SIZE
+      this.position.x < enemyTarget.position.x + ConstTile.SIZE
     )
   }
 
   #isInsideY(enemyTarget: Enemy) {
     return (
       this.position.y > enemyTarget.position.y &&
-      this.position.y < enemyTarget.position.y + Const.TILE_SIZE
+      this.position.y < enemyTarget.position.y + ConstTile.SIZE
     )
   }
 

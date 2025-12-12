@@ -3,7 +3,7 @@ import { Magic } from './Magic'
 import { Position } from '../types/position'
 import { P5 } from '../utils/P5'
 import { Enemy } from '../enemies/Enemy'
-import { Const } from '../constants/Const'
+import { ConstTile } from '../constants/ConstTile'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 import { MagicInstancesManager } from './MagicInstancesManager'
 import { MagicUFOCollisionChecker } from './MagicUFOCollisionChecker'
@@ -200,7 +200,7 @@ export class MagicUFO extends Magic {
   }
 
   #searchTarget(enemyInstancesManager: EnemyInstancesManager) {
-    if (this.#timeToSearchEnemy !== Const.TILE_SIZE) {
+    if (this.#timeToSearchEnemy !== ConstTile.SIZE) {
       this.#timeToSearchEnemy++
       return
     }
