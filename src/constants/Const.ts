@@ -4,5 +4,4 @@ export class Const {
   static CANVAS_HEIGHT = 580
   static EXPLOSION_OFFSET = 25
   static DELAY_UPGRADE_MULTIPLIER = 5
-  static SCALE_MINIMAP = 7 // 1 = 100%, 2 = 50%, ...
 }

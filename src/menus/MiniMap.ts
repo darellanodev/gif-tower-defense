@@ -18,6 +18,7 @@ import { TileBlackCreator } from '../levels/tiles/creators/TileBlackCreator'
 export class MiniMap {
   static TYPE_TEXT_DOWN = 1
   static TYPE_TEXT_LEFT = 2
+  static SCALE_MINIMAP = 7
 
   #tilesManager: TilesManager
   #tileBlackCreator: TileBlackCreator
@@ -104,7 +105,7 @@ export class MiniMap {
 
   draw() {
     this.#tilesManager.drawAll(
-      Const.SCALE_MINIMAP,
+      MiniMap.SCALE_MINIMAP,
       this.#position.x,
       this.#position.y,
     )
