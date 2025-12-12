@@ -1,6 +1,5 @@
 export class Const {
   static TILE_SIZE = 50
-  static MAX_WAVE_ENEMIES = 5
   static UPGRADE_MAX_LEVEL = 5
   static CANVAS_WIDTH = 800
   static CANVAS_HEIGHT = 580
@@ -10,7 +9,6 @@ export class Const {
   static GAME_STATUS_GAME_OVER = 1
   static WAVE_PROGRESS_DELAY = 35
   static BOSS_PROGRESS_DELAY = Const.WAVE_PROGRESS_DELAY * 6
-
   static DELAY_UPGRADE_MULTIPLIER = 5
   static MAGIC_STATUS_ALIVE = 0
   static MAGIC_STATUS_DEAD = 1
