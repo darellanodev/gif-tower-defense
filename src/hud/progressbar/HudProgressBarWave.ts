@@ -7,7 +7,8 @@ import { Player } from '../../player/Player'
 export class HudProgressBarWave extends ProgressBar {
   static POSITION: Position = { x: 335, y: -19 }
   static SIZE: Size = { w: 150, h: 16 }
-  #waveProgressDelay: number = Const.WAVE_PROGRESS_DELAY
+  static WAVE_PROGRESS_DELAY = 35
+  #waveProgressDelay: number = HudProgressBarWave.WAVE_PROGRESS_DELAY
   #player: Player
 
   constructor(position: Position, size: Size, player: Player) {
@@ -20,7 +21,7 @@ export class HudProgressBarWave extends ProgressBar {
       this.#waveProgressDelay--
       return
     }
-    this.#waveProgressDelay = Const.WAVE_PROGRESS_DELAY
+    this.#waveProgressDelay = HudProgressBarWave.WAVE_PROGRESS_DELAY
     this.increaseProgress()
   }
 }

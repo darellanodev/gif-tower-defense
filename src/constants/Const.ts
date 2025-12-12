@@ -3,8 +3,6 @@ export class Const {
   static CANVAS_WIDTH = 800
   static CANVAS_HEIGHT = 580
   static EXPLOSION_OFFSET = 25
-  static WAVE_PROGRESS_DELAY = 35
-  static BOSS_PROGRESS_DELAY = Const.WAVE_PROGRESS_DELAY * 6
   static DELAY_UPGRADE_MULTIPLIER = 5
   static SCALE_MINIMAP = 7 // 1 = 100%, 2 = 50%, ...
 }
