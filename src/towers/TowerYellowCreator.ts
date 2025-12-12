@@ -4,6 +4,7 @@ import { TileOrange } from '../levels/tiles/TileOrange'
 import { Image } from 'p5'
 import { TowerYellow } from './TowerYellow'
 import { Player } from '../player/Player'
+import { Tower } from './Tower'
 
 export class TowerYellowCreator {
   static #instance: TowerYellowCreator | null = null
@@ -33,8 +34,8 @@ export class TowerYellowCreator {
   create(position: Position, tileOrange: TileOrange) {
     return new TowerYellow(
       {
-        x: position.x - Const.TOWER_OFFSET,
-        y: position.y - Const.TOWER_OFFSET,
+        x: position.x - Tower.TOWER_OFFSET,
+        y: position.y - Tower.TOWER_OFFSET,
       },
       tileOrange,
       this.#player,

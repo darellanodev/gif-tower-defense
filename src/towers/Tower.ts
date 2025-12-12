@@ -15,6 +15,7 @@ export class Tower extends Obj {
   static UPGRADE_INCREMENT: number = 1
   static INSTANT_UPGRADING: boolean = false // for testing purposes is set to true
   static UPGRADE_MAX_LEVEL = 5
+  static TOWER_OFFSET = 5
 
   upgrading: boolean = false
   upgradeLevel: number = 0
@@ -37,8 +38,8 @@ export class Tower extends Obj {
 
   #createTowerProgressBar() {
     const position: Position = {
-      x: this.position.x + Const.TOWER_OFFSET + 10,
-      y: this.position.y + Const.TOWER_OFFSET + 20,
+      x: this.position.x + Tower.TOWER_OFFSET + 10,
+      y: this.position.y + Tower.TOWER_OFFSET + 20,
     }
     const size: Size = { w: 27, h: 7 }
 

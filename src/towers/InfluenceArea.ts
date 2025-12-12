@@ -5,6 +5,7 @@ import { TowerYellow } from './TowerYellow'
 import { ConstColor } from '../constants/ConstColor'
 import { Const } from '../constants/Const'
 import { P5 } from '../utils/P5'
+import { Tower } from './Tower'
 
 export class InfluenceArea {
   static #instance: InfluenceArea | null = null
@@ -87,8 +88,8 @@ export class InfluenceArea {
 
   #getInfluenceAreaPosition(tower: any) {
     return {
-      x: tower.position.x + Const.TOWER_OFFSET,
-      y: tower.position.y + Const.TOWER_OFFSET,
+      x: tower.position.x + Tower.TOWER_OFFSET,
+      y: tower.position.y + Tower.TOWER_OFFSET,
     }
   }
 
