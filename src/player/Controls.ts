@@ -17,6 +17,11 @@ import { StateManager } from '../StateManager'
 import { Button } from '../hud/buttons/Button'
 
 export class Controls {
+  static KEY_1 = 49
+  static KEY_2 = 50
+  static KEY_3 = 51
+  static KEY_P = 80
+
   #stateManager: StateManager
   #mouseTileOrangeOver: TileOrange | null = null
   #hudButtonsTowers: HudButtonsTowers
@@ -56,16 +61,16 @@ export class Controls {
 
   keyPressed(keyCode: number) {
     switch (keyCode) {
-      case Const.KEY_1:
+      case Controls.KEY_1:
         this.#hudButtonsTowers.selectTower(TowerGreen.ID)
         break
-      case Const.KEY_2:
+      case Controls.KEY_2:
         this.#hudButtonsTowers.selectTower(TowerRed.ID)
         break
-      case Const.KEY_3:
+      case Controls.KEY_3:
         this.#hudButtonsTowers.selectTower(TowerYellow.ID)
         break
-      case Const.KEY_P:
+      case Controls.KEY_P:
         this.#togglePause()
         break
     }
