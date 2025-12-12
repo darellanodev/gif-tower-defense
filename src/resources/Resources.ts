@@ -1,5 +1,6 @@
 import { Const } from '../constants/Const'
 import { Enemy } from '../enemies/Enemy'
+import { Tower } from '../towers/Tower'
 import { ArrayRange } from '../utils/ArrayRange'
 import { P5 } from '../utils/P5'
 
@@ -18,7 +19,7 @@ export class Resources {
 
   static greenTower() {
     const greenTowerImages: any[] = []
-    ArrayRange.get(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
+    ArrayRange.get(0, Tower.UPGRADE_MAX_LEVEL).forEach((v) => {
       greenTowerImages.push(
         P5.p5.loadImage('../img/towers/green_tower_upgrade_' + v + '.png'),
       )
@@ -28,7 +29,7 @@ export class Resources {
 
   static redTower() {
     const redTowerImages: any[] = []
-    ArrayRange.get(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
+    ArrayRange.get(0, Tower.UPGRADE_MAX_LEVEL).forEach((v) => {
       redTowerImages.push(
         P5.p5.loadImage('../img/towers/red_tower_upgrade_' + v + '.png'),
       )
@@ -38,7 +39,7 @@ export class Resources {
 
   static yellowTower() {
     const yellowTowerImages: any[] = []
-    ArrayRange.get(0, Const.UPGRADE_MAX_LEVEL).forEach((v) => {
+    ArrayRange.get(0, Tower.UPGRADE_MAX_LEVEL).forEach((v) => {
       yellowTowerImages.push(
         P5.p5.loadImage('../img/towers/yellow_tower_upgrade_' + v + '.png'),
       )

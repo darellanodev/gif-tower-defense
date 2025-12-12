@@ -98,8 +98,8 @@ export class TowerGreen extends Tower {
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
-    if (selectedUpgradeLevel > Const.UPGRADE_MAX_LEVEL) {
-      return TowerGreen.COST_UPGRADE[Const.UPGRADE_MAX_LEVEL]
+    if (selectedUpgradeLevel > Tower.UPGRADE_MAX_LEVEL) {
+      return TowerGreen.COST_UPGRADE[Tower.UPGRADE_MAX_LEVEL]
     }
     return TowerGreen.COST_UPGRADE[selectedUpgradeLevel]
   }

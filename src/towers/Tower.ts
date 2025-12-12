@@ -14,6 +14,7 @@ export class Tower extends Obj {
   static OFFSET_Y: number = 4
   static UPGRADE_INCREMENT: number = 1
   static INSTANT_UPGRADING: boolean = false // for testing purposes is set to true
+  static UPGRADE_MAX_LEVEL = 5
 
   upgrading: boolean = false
   upgradeLevel: number = 0
@@ -59,7 +60,7 @@ export class Tower extends Obj {
   }
 
   get isMaxUpgraded() {
-    return this.upgradeLevel === Const.UPGRADE_MAX_LEVEL
+    return this.upgradeLevel === Tower.UPGRADE_MAX_LEVEL
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number): number {
@@ -73,7 +74,7 @@ export class Tower extends Obj {
 
   get nextLevelUpgradeCost() {
     if (this.isMaxUpgraded) {
-      return this.getCostWhenUpgradeLevelIs(Const.UPGRADE_MAX_LEVEL - 1)
+      return this.getCostWhenUpgradeLevelIs(Tower.UPGRADE_MAX_LEVEL - 1)
     }
     return this.getCostWhenUpgradeLevelIs(this.upgradeLevel + 1)
   }

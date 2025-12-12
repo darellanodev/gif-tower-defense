@@ -1,6 +1,5 @@
 export class Const {
   static TILE_SIZE = 50
-  static UPGRADE_MAX_LEVEL = 5
   static CANVAS_WIDTH = 800
   static CANVAS_HEIGHT = 580
   static TOWER_OFFSET = 5
