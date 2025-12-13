@@ -158,10 +158,10 @@ export class Enemy extends Obj {
   #updateFreezedEnemy() {
     if (this.#freezedTime < MagicIceball.FREEZE_ENEMY_MAX_TIME) {
       this.#freezedTime++
-    } else {
-      this.#freezed = false
-      this.#freezedTime = 0
+      return
     }
+    this.#freezed = false
+    this.#freezedTime = 0
   }
 
   update() {
