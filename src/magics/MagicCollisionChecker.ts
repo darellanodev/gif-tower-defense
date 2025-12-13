@@ -19,7 +19,7 @@ export class MagicCollisionChecker {
   }
 
   checkCollision(enemy: Enemy, indexOrder: number) {
-    if (enemy.dead || enemy.winner) {
+    if (enemy.isDead || enemy.isWinner) {
       return false
     }
 

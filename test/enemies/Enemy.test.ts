@@ -13,7 +13,7 @@ test('dead, when the instance is recently created, return false', () => {
   const enemyInstancesManager = new EnemyInstancesManager()
   createNormalEnemy(enemyInstancesManager)
 
-  const result = enemyInstancesManager.getAll()[0].dead
+  const result = enemyInstancesManager.getAll()[0].isDead
   expect(result).toBeFalsy()
 })
 test('id, when the instance is recently created, return 1 for the id of the first enemy', () => {
@@ -34,7 +34,7 @@ test('winner, when the instance is recently created, return false', () => {
   const enemyInstancesManager = new EnemyInstancesManager()
   createNormalEnemy(enemyInstancesManager)
 
-  const result = enemyInstancesManager.getAll()[0].winner
+  const result = enemyInstancesManager.getAll()[0].isWinner
   expect(result).toBeFalsy()
 })
 

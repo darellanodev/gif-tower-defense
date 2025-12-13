@@ -77,7 +77,7 @@ export class Enemy extends Obj {
     return this.#id
   }
 
-  get dead() {
+  get isDead() {
     return this.#status == Enemy.STATUS_DEAD
   }
 
@@ -85,7 +85,7 @@ export class Enemy extends Obj {
     return this.#status == Enemy.STATUS_ALIVE
   }
 
-  get winner() {
+  get isWinner() {
     return this.#winned
   }
 

@@ -84,7 +84,7 @@ export class EnemySystem {
   #handleWinners() {
     const winnerEnemies = this.enemyInstancesManager
       .getAll()
-      .filter((enemy) => enemy.winner)
+      .filter((enemy) => enemy.isWinner)
     winnerEnemies.forEach((enemy) => {
       this.#player.decreaseLives()
       if (this.#player.lives <= 0) {
@@ -97,7 +97,7 @@ export class EnemySystem {
   #handleExplosionEnemies() {
     const deadEnemies: Enemy[] = this.enemyInstancesManager
       .getAll()
-      .filter((enemy) => enemy.dead)
+      .filter((enemy) => enemy.isDead)
     deadEnemies.forEach((enemy) => {
       if (this.#wallet === null) {
         throw new Error('wallet is null')
