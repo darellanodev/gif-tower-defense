@@ -33,6 +33,8 @@ export class ExplosionEnemy extends Explosion {
   }
 
   static removeDeadInstances() {
-    ExplosionEnemy.instances = ExplosionEnemy.instances.filter((e) => e.alive)
+    ExplosionEnemy.instances = ExplosionEnemy.instances.filter(
+      (e) => e.particleSystem!.hasAnyAliveParticles,
+    )
   }
 }

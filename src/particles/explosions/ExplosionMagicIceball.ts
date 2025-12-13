@@ -34,7 +34,7 @@ export class ExplosionMagicIceball extends Explosion {
 
   static removeDeadInstances() {
     ExplosionMagicIceball.instances = ExplosionMagicIceball.instances.filter(
-      (e) => e.alive,
+      (e) => e.particleSystem!.hasAnyAliveParticles,
     )
   }
 }

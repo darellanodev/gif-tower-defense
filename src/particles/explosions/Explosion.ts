@@ -14,15 +14,11 @@ export class Explosion extends Obj {
     this.particleSystem = null
   }
 
-  alive() {
-    return this.particleSystem?.anyAlive
-  }
-
   update() {
     if (!this.particleSystem) {
       return
     }
-    if (!this.alive) {
+    if (!this.particleSystem.hasAnyAliveParticles) {
       return
     }
     if (this.#emissionTime < Explosion.MAX_EMIT_TIME) {

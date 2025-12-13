@@ -6,6 +6,7 @@ export class ParticleSystem {
   #origin: Vector
   #particlesSize: number
   #particlesColor: RGBType
+  hasAnyAliveParticles: boolean
 
   #particles: Particle[] = []
 
@@ -13,14 +14,12 @@ export class ParticleSystem {
     this.#origin = origin.copy()
     this.#particlesSize = particlesSize
     this.#particlesColor = particlesColor
+
+    this.hasAnyAliveParticles = true
   }
 
   get particles() {
     return this.#particles
-  }
-
-  get anyAlive() {
-    return this.#particles.length > 0
   }
 
   addParticle() {
@@ -36,6 +35,10 @@ export class ParticleSystem {
       if (p.dead) {
         this.#particles.splice(i, 1)
       }
+    }
+
+    if (this.#particles.length === 0) {
+      this.hasAnyAliveParticles = false
     }
   }
 }
