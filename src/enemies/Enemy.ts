@@ -65,7 +65,7 @@ export class Enemy extends Obj {
     return new ProgressBar(initialPosition, size)
   }
 
-  isBoss() {
+  get isBoss() {
     return this.#isBoss
   }
 

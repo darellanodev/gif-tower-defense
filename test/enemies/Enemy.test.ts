@@ -43,14 +43,14 @@ describe('isBoss', () => {
     const enemyInstancesManager = new EnemyInstancesManager()
     createBossEnemy(enemyInstancesManager)
 
-    const result = enemyInstancesManager.getAll()[0].isBoss()
+    const result = enemyInstancesManager.getAll()[0].isBoss
     expect(result).toBeTruthy()
   })
   test('when the instance is a normal enemy, return false', () => {
     const enemyInstancesManager = new EnemyInstancesManager()
     createNormalEnemy(enemyInstancesManager)
 
-    const result = enemyInstancesManager.getAll()[0].isBoss()
+    const result = enemyInstancesManager.getAll()[0].isBoss
     expect(result).toBeFalsy()
   })
 })
