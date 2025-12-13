@@ -31,8 +31,8 @@ export class Enemy extends Obj {
   #healthBar: ProgressBar
   #status: number
   #won: boolean = false
-  #freezed: boolean = false
-  #freezedTime: number = 0
+  #frozen: boolean = false
+  #frozenTime: number = 0
   #reduction: number = 0
   #width: number = 50
   #height: number = 50
@@ -110,7 +110,7 @@ export class Enemy extends Obj {
   }
 
   freeze() {
-    this.#freezed = true
+    this.#frozen = true
   }
 
   resetWinner() {
@@ -156,12 +156,12 @@ export class Enemy extends Obj {
   }
 
   #updateFreezedEnemy() {
-    if (this.#freezedTime < MagicIceball.FREEZE_ENEMY_MAX_TIME) {
-      this.#freezedTime++
+    if (this.#frozenTime < MagicIceball.FREEZE_ENEMY_MAX_TIME) {
+      this.#frozenTime++
       return
     }
-    this.#freezed = false
-    this.#freezedTime = 0
+    this.#frozen = false
+    this.#frozenTime = 0
   }
 
   update() {
@@ -169,7 +169,7 @@ export class Enemy extends Obj {
       return
     }
 
-    if (this.#freezed) {
+    if (this.#frozen) {
       this.#updateFreezedEnemy()
       return
     }
