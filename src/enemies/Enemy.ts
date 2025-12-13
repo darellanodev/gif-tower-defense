@@ -16,7 +16,7 @@ export class Enemy extends Obj {
   static TOTAL_ENEMIES = 5
   static CREATION_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
   static SIZE = 50
-  static REDUCTION_FACTOR = 0.6
+  static shrinkAmount_FACTOR = 0.6
 
   static waveEnemies: number = 0
   static allowCreateEnemies: boolean = true
@@ -33,7 +33,7 @@ export class Enemy extends Obj {
   #won: boolean = false
   #frozen: boolean = false
   #frozenTime: number = 0
-  #reduction: number = 0
+  #shrinkAmount: number = 0
   #width: number = 50
   #height: number = 50
 
@@ -90,7 +90,7 @@ export class Enemy extends Obj {
   }
 
   get isAbducted() {
-    return this.#reduction >= Enemy.SIZE
+    return this.#shrinkAmount >= Enemy.SIZE
   }
 
   addDamage(shotDamage: number) {
@@ -119,7 +119,7 @@ export class Enemy extends Obj {
 
   #reInitEnemy() {
     this.#enemyAnimator.restart()
-    this.#reduction = 0
+    this.#shrinkAmount = 0
     this.#pathMovement.reInit()
   }
 
@@ -191,18 +191,18 @@ export class Enemy extends Obj {
 
     P5.p5.image(
       this.#enemyAnimator.imageToDraw,
-      this.position.x + this.#reduction / 2,
+      this.position.x + this.#shrinkAmount / 2,
       this.position.y,
-      this.#width - this.#reduction,
-      this.#height - this.#reduction,
+      this.#width - this.#shrinkAmount,
+      this.#height - this.#shrinkAmount,
     )
 
     this.#healthBar.draw()
   }
 
   decrementSize() {
-    if (this.#reduction < Enemy.SIZE) {
-      this.#reduction += Enemy.REDUCTION_FACTOR
+    if (this.#shrinkAmount < Enemy.SIZE) {
+      this.#shrinkAmount += Enemy.shrinkAmount_FACTOR
     }
   }
 }
