@@ -30,7 +30,7 @@ export class Enemy extends Obj {
   #id: number
   #healthBar: ProgressBar
   #status: number
-  #winned: boolean = false
+  #won: boolean = false
   #freezed: boolean = false
   #freezedTime: number = 0
   #reduction: number = 0
@@ -86,7 +86,7 @@ export class Enemy extends Obj {
   }
 
   get isWinner() {
-    return this.#winned
+    return this.#won
   }
 
   get isAbducted() {
@@ -114,7 +114,7 @@ export class Enemy extends Obj {
   }
 
   resetWinner() {
-    this.#winned = false
+    this.#won = false
   }
 
   #reInitEnemy() {
@@ -128,7 +128,7 @@ export class Enemy extends Obj {
   }
 
   #reInitWinnerEnemy() {
-    this.#winned = true
+    this.#won = true
     this.#reInitEnemy()
   }
 
