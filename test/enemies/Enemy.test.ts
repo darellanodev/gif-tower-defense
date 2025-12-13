@@ -6,7 +6,7 @@ test('alive, when the instance is recently created, return true', () => {
   const enemyInstancesManager = new EnemyInstancesManager()
   createNormalEnemy(enemyInstancesManager)
 
-  const result = enemyInstancesManager.getAll()[0].alive
+  const result = enemyInstancesManager.getAll()[0].isAlive
   expect(result).toBeTruthy()
 })
 test('dead, when the instance is recently created, return false', () => {

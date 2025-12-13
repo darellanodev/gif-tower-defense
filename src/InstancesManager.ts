@@ -9,7 +9,7 @@ export class InstancesManager {
   }
 
   removeDeadInstances() {
-    this.instances = this.instances.filter((instance) => instance.alive)
+    this.instances = this.instances.filter((instance) => instance.isAlive)
   }
 
   drawInstances() {

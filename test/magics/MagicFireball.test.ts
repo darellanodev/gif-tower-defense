@@ -39,7 +39,7 @@ test('isAlive, when the magicfireball is recently created, return true', () => {
   )
   createMagicFireball(orders, magicFireballInstancesManager)
 
-  const result = magicFireballInstancesManager.getAll()[0].alive
+  const result = magicFireballInstancesManager.getAll()[0].isAlive
 
   expect(result).toBeTruthy()
 })
@@ -55,7 +55,7 @@ test('reachEnd, when the magicfireball is recently created, return false', () =>
 
   updateToReachTheEndOfTheMap(orders, magicFireballInstancesManager)
 
-  const result = magicFireballInstancesManager.getAll()[0].alive
+  const result = magicFireballInstancesManager.getAll()[0].isAlive
 
   expect(result).toBeFalsy()
 })

@@ -105,10 +105,10 @@ export class Missile extends Obj {
   }
 
   static removeDeadInstances() {
-    Missile.instances = Missile.instances.filter((missile) => missile.alive)
+    Missile.instances = Missile.instances.filter((missile) => missile.isAlive)
   }
 
-  get alive() {
+  get isAlive() {
     return this.#status == Missile.STATUS_ALIVE
   }
 

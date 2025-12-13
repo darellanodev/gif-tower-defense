@@ -81,7 +81,7 @@ export class Enemy extends Obj {
     return this.#status == Enemy.STATUS_DEAD
   }
 
-  get alive() {
+  get isAlive() {
     return this.#status == Enemy.STATUS_ALIVE
   }
 

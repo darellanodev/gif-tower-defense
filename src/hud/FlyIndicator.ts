@@ -34,7 +34,7 @@ export class FlyIndicator extends Obj {
     FlyIndicator.instances.push(new FlyIndicator(position, text, icon))
   }
 
-  get alive() {
+  get isAlive() {
     return this.#alive
   }
 
@@ -88,7 +88,7 @@ export class FlyIndicator extends Obj {
 
   static removeDeadInstances() {
     FlyIndicator.instances = FlyIndicator.instances.filter(
-      (flyIndicator) => flyIndicator.alive,
+      (flyIndicator) => flyIndicator.isAlive,
     )
   }
 

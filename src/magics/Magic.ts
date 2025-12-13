@@ -19,7 +19,7 @@ export class Magic extends Obj {
     this.status = Magic.MAGIC_STATUS_DEAD
   }
 
-  get alive() {
+  get isAlive() {
     return this.status == Magic.MAGIC_STATUS_ALIVE
   }
 }

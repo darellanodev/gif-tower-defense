@@ -222,7 +222,7 @@ export class MagicUFO extends Magic {
   }
 
   update(enemyInstancesManager: EnemyInstancesManager) {
-    if (this.#enemyTarget && this.#enemyTarget.alive) {
+    if (this.#enemyTarget && this.#enemyTarget.isAlive) {
       if (this.#enemyTarget.isAbducted) {
         this.#carryEnemyToStartTile()
         this.#checkCollisionWithStartPosition()

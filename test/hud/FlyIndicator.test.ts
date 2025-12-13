@@ -9,7 +9,7 @@ describe('isActive', () => {
   test('when FlyIndicator is recently created, return true', () => {
     instantiateFlyIndicator()
 
-    const result = FlyIndicator.instances[0].alive
+    const result = FlyIndicator.instances[0].isAlive
 
     expect(result).toBeTruthy()
   })
@@ -17,7 +17,7 @@ describe('isActive', () => {
     instantiateFlyIndicator()
     updateMaxTimesPlusOne()
 
-    const result = FlyIndicator.instances[0].alive
+    const result = FlyIndicator.instances[0].isAlive
 
     expect(result).toBeFalsy()
   })

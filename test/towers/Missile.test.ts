@@ -4,7 +4,7 @@ import { instantiateMissile } from '../helpers/missile'
 
 test('alive, when the missile is recently created, return true', () => {
   instantiateMissile()
-  const result = Missile.instances[0].alive
+  const result = Missile.instances[0].isAlive
   expect(result).toBeTruthy()
 })
 
@@ -13,7 +13,7 @@ test('alive, when updating instances 1000 times the missile collides with the en
   for (let i = 0; i < 1000; i++) {
     Missile.updateInstances()
   }
-  const result = Missile.instances[0].alive
+  const result = Missile.instances[0].isAlive
   expect(result).toBeFalsy()
 })
 
