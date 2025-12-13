@@ -16,6 +16,9 @@ export class Enemy extends Obj {
   static TOTAL_ENEMIES = 5
   static CREATION_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
   static SIZE = 50
+  static HEALTH_BAR_OFFSET_X = 10
+  static HEALTH_BAR_OFFSET_Y = 3
+  static HEALTH_BAR_SIZE = { w: 27, h: 7 }
   static shrinkAmount_FACTOR = 0.6
 
   static waveEnemies: number = 0
@@ -60,7 +63,7 @@ export class Enemy extends Obj {
 
   #createHealthBar() {
     const initialPosition: Position = { x: 0, y: 0 } // doesn't matter because later it will change with the enemy's position
-    const size: Size = { w: 27, h: 7 }
+    const size: Size = Enemy.HEALTH_BAR_SIZE
 
     return new ProgressBar(initialPosition, size)
   }
@@ -134,8 +137,8 @@ export class Enemy extends Obj {
 
   #updateHealthBarPosition() {
     this.#healthBar.position = {
-      x: this.position.x + 10,
-      y: this.position.y + 3,
+      x: this.position.x + Enemy.HEALTH_BAR_OFFSET_X,
+      y: this.position.y + Enemy.HEALTH_BAR_OFFSET_Y,
     }
   }
 
