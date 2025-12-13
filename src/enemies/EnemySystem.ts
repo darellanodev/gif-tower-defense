@@ -105,7 +105,7 @@ export class EnemySystem {
 
       ExplosionEnemy.instantiate(enemy.position)
 
-      const $increasedMoney = enemy.endurance * Wallet.MONEY_FACTOR
+      const $increasedMoney = enemy.maxHealth * Wallet.MONEY_FACTOR
       this.#wallet.increaseMoney($increasedMoney)
       this.#player.increaseScore($increasedMoney * 2)
     })

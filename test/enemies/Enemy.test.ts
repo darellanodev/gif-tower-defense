@@ -55,12 +55,12 @@ describe('isBoss', () => {
   })
 })
 
-describe('endurance', () => {
+describe('maxHealth', () => {
   test('when is a Boss enemy, return wave * 25', () => {
     const enemyInstancesManager = new EnemyInstancesManager()
     createBossEnemy(enemyInstancesManager)
 
-    const result = enemyInstancesManager.getAll()[0].endurance
+    const result = enemyInstancesManager.getAll()[0].maxHealth
 
     const wave = 1
     const expected = wave * 25
@@ -70,7 +70,7 @@ describe('endurance', () => {
     const enemyInstancesManager = new EnemyInstancesManager()
     createNormalEnemy(enemyInstancesManager)
 
-    const result = enemyInstancesManager.getAll()[0].endurance
+    const result = enemyInstancesManager.getAll()[0].maxHealth
 
     const wave = 1 // default value in createNormalEnemy helper function
     const waveEnemies = 3 // default value in createNormalEnemy helper function

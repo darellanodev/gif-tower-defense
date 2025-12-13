@@ -17,7 +17,7 @@ export class EnemyCreator {
     enemyAnimator: EnemyAnimator,
     pathMovement: PathMovement,
   ) {
-    const endurance = wave * 3 + waveEnemies * 2
+    const maxHealth = wave * 3 + waveEnemies * 2
     const isBoss = false
 
     this.#enemyInstancesManager.generateId()
@@ -26,7 +26,7 @@ export class EnemyCreator {
     this.#enemyInstancesManager.add(
       new Enemy(
         initialEnemiesPosition,
-        endurance,
+        maxHealth,
         isBoss,
         id,
         enemyAnimator,
@@ -41,7 +41,7 @@ export class EnemyCreator {
     enemyAnimator: EnemyAnimator,
     pathMovement: PathMovement,
   ) {
-    const endurance = wave * 25
+    const maxHealth = wave * 25
     const isBoss = true
 
     this.#enemyInstancesManager.generateId()
@@ -50,7 +50,7 @@ export class EnemyCreator {
     this.#enemyInstancesManager.add(
       new Enemy(
         initialEnemiesPosition,
-        endurance,
+        maxHealth,
         isBoss,
         id,
         enemyAnimator,

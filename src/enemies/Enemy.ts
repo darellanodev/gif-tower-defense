@@ -22,7 +22,7 @@ export class Enemy extends Obj {
   static allowCreateEnemies: boolean = true
   static createEnemyTime: number = 0
 
-  #endurance: number
+  #maxHealth: number
   #isBoss: boolean
   #enemyAnimator: EnemyAnimator
   #pathMovement: PathMovement
@@ -39,7 +39,7 @@ export class Enemy extends Obj {
 
   constructor(
     position: Position,
-    endurance: number,
+    maxHealth: number,
     isBoss: boolean,
     id: number,
     enemyAnimator: EnemyAnimator,
@@ -47,7 +47,7 @@ export class Enemy extends Obj {
   ) {
     super(position)
 
-    this.#endurance = endurance
+    this.#maxHealth = maxHealth
     this.#isBoss = isBoss
     this.#id = id
     this.#enemyAnimator = enemyAnimator
@@ -69,8 +69,8 @@ export class Enemy extends Obj {
     return this.#isBoss
   }
 
-  get endurance() {
-    return this.#endurance
+  get maxHealth() {
+    return this.#maxHealth
   }
 
   get id() {
@@ -94,7 +94,7 @@ export class Enemy extends Obj {
   }
 
   addDamage(shotDamage: number) {
-    const damageIncrement = shotDamage / this.#endurance
+    const damageIncrement = shotDamage / this.#maxHealth
     this.#healthBar.increaseProgress(damageIncrement)
     this.#killEnemyIfProgressFull()
   }
