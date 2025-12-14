@@ -19,7 +19,7 @@ export class Enemy extends Obj {
   static HEALTH_BAR_OFFSET_X = 10
   static HEALTH_BAR_OFFSET_Y = 3
   static HEALTH_BAR_SIZE = { w: 27, h: 7 }
-  static shrinkAmount_FACTOR = 0.6
+  static SHRINK_AMOUNT_FACTOR = 0.6
 
   static waveEnemies: number = 0
   static allowCreateEnemies: boolean = true
@@ -205,7 +205,7 @@ export class Enemy extends Obj {
 
   decrementSize() {
     if (this.#shrinkAmount < Enemy.SIZE) {
-      this.#shrinkAmount += Enemy.shrinkAmount_FACTOR
+      this.#shrinkAmount += Enemy.SHRINK_AMOUNT_FACTOR
     }
   }
 }
