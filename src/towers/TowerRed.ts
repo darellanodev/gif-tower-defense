@@ -1,6 +1,6 @@
 import { Position } from '../types/position'
 import { Image } from 'p5'
-import { ConstColor } from '../constants/ConstColor'
+import { COLOR } from '../constants/color'
 import { ConstTile } from '../constants/ConstTile'
 import { Tower } from './Tower'
 import { Missile } from './Missile'
@@ -26,7 +26,7 @@ export class TowerRed extends Tower {
   }
 
   #drawUpgrading() {
-    this._drawUpgradeBackground(ConstColor.RED, 4)
+    this._drawUpgradeBackground(COLOR.RED, 4)
     if (!this.progressBar.isFullOfProgress()) {
       this.progressBar.draw()
     }

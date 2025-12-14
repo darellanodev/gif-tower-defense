@@ -2,7 +2,7 @@ import { Position } from '../types/position'
 import { TowerGreen } from './TowerGreen'
 import { TowerRed } from './TowerRed'
 import { TowerYellow } from './TowerYellow'
-import { ConstColor } from '../constants/ConstColor'
+import { COLOR } from '../constants/color'
 import { ConstTile } from '../constants/ConstTile'
 import { P5 } from '../utils/P5'
 import { Tower } from './Tower'
@@ -31,23 +31,23 @@ export class InfluenceArea {
   }
 
   #setGrayInfluenceAreaColor() {
-    P5.p5.stroke(...ConstColor.GRAY, InfluenceArea.ALPHA_STROKE)
-    P5.p5.fill(...ConstColor.GRAY, InfluenceArea.ALPHA_FILL)
+    P5.p5.stroke(...COLOR.GRAY, InfluenceArea.ALPHA_STROKE)
+    P5.p5.fill(...COLOR.GRAY, InfluenceArea.ALPHA_FILL)
   }
 
   #setInfluenceAreaColor(towerId: number) {
     switch (towerId) {
       case TowerGreen.ID:
-        P5.p5.stroke(...ConstColor.GREEN, InfluenceArea.ALPHA_STROKE)
-        P5.p5.fill(...ConstColor.GREEN, InfluenceArea.ALPHA_FILL)
+        P5.p5.stroke(...COLOR.GREEN, InfluenceArea.ALPHA_STROKE)
+        P5.p5.fill(...COLOR.GREEN, InfluenceArea.ALPHA_FILL)
         break
       case TowerRed.ID:
-        P5.p5.stroke(...ConstColor.RED, InfluenceArea.ALPHA_STROKE)
-        P5.p5.fill(...ConstColor.RED, InfluenceArea.ALPHA_FILL)
+        P5.p5.stroke(...COLOR.RED, InfluenceArea.ALPHA_STROKE)
+        P5.p5.fill(...COLOR.RED, InfluenceArea.ALPHA_FILL)
         break
       case TowerYellow.ID:
-        P5.p5.stroke(...ConstColor.YELLOW, InfluenceArea.ALPHA_STROKE)
-        P5.p5.fill(...ConstColor.YELLOW, InfluenceArea.ALPHA_FILL)
+        P5.p5.stroke(...COLOR.YELLOW, InfluenceArea.ALPHA_STROKE)
+        P5.p5.fill(...COLOR.YELLOW, InfluenceArea.ALPHA_FILL)
         break
     }
   }

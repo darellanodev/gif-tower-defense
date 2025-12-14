@@ -1,6 +1,6 @@
 import { Position } from '../types/position'
 import { Image } from 'p5'
-import { ConstColor } from '../constants/ConstColor'
+import { COLOR } from '../constants/color'
 import { ConstTile } from '../constants/ConstTile'
 import { Tower } from './Tower'
 import { ExplosionEnemy } from '../particles/explosions/ExplosionEnemy'
@@ -83,7 +83,7 @@ export class TowerYellow extends Tower {
   }
 
   #drawUpgrading() {
-    this._drawUpgradeBackground(ConstColor.YELLOW, 5)
+    this._drawUpgradeBackground(COLOR.YELLOW, 5)
     this.#drawProgressIfNotFull()
   }
 

@@ -1,6 +1,6 @@
 import { Position } from '../types/position'
 import { Image } from 'p5'
-import { ConstColor } from '../constants/ConstColor'
+import { COLOR } from '../constants/color'
 import { Tower } from './Tower'
 import { P5 } from '../utils/P5'
 import { TileOrange } from '../levels/tiles/TileOrange'
@@ -23,7 +23,7 @@ export class TowerGreen extends Tower {
 
   #drawShotToEnemy() {
     P5.p5.strokeWeight(3)
-    P5.p5.stroke(ConstColor.RED)
+    P5.p5.stroke(COLOR.RED)
     P5.p5.line(
       -1,
       -18,
@@ -33,7 +33,7 @@ export class TowerGreen extends Tower {
   }
 
   #drawUpgrading() {
-    this._drawUpgradeBackground(ConstColor.GREEN, 4)
+    this._drawUpgradeBackground(COLOR.GREEN, 4)
     if (!this.progressBar.isFullOfProgress()) {
       this.progressBar.draw()
     }

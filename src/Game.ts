@@ -22,7 +22,7 @@ import { HudPanel } from './hud/HudPanel'
 import { TileSystem } from './levels/tiles/TileSystem'
 import { MagicSystem } from './magics/MagicSystem'
 import { TowerSystem } from './towers/TowerSystem'
-import { ConstColor } from './constants/ConstColor'
+import { COLOR } from './constants/color'
 import { MapDataType } from './types/mapDataType'
 import { ConstGameMode } from './constants/ConstGameMode'
 import { InfluenceArea } from './towers/InfluenceArea'
@@ -215,7 +215,7 @@ export class Game {
   }
 
   #drawBackground() {
-    P5.p5.background(ConstColor.BACKGROUND)
+    P5.p5.background(COLOR.BACKGROUND)
     P5.p5.rectMode(P5.p5.CORNER)
 
     P5.p5.image(Images.backgroundImage, 0, HudPanel.HEIGHT)

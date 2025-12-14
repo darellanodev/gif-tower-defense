@@ -1,5 +1,5 @@
 import { ConstTile } from '../constants/ConstTile'
-import { ConstColor } from '../constants/ConstColor'
+import { COLOR } from '../constants/color'
 import { Enemy } from '../enemies/Enemy'
 import { Position } from '../types/position'
 import { P5 } from '../utils/P5'
@@ -114,9 +114,9 @@ export class Missile extends Obj {
 
   draw() {
     P5.p5.noStroke()
-    P5.p5.fill(...ConstColor.RED)
+    P5.p5.fill(...COLOR.RED)
     P5.p5.circle(this.position.x, this.position.y, Missile.OUTER_DIAMETER)
-    P5.p5.fill(...ConstColor.YELLOW)
+    P5.p5.fill(...COLOR.YELLOW)
     P5.p5.circle(this.position.x, this.position.y, Missile.INNER_DIAMETER)
   }
 }
