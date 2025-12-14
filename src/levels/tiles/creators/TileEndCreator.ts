@@ -26,7 +26,7 @@ export class TileEndCreator extends TileCreator {
       )
     }
 
-    if (!TestFlags.DISABLE_LOADING_IMAGES) {
+    if (!TestFlags.disableImageLoading) {
       this.#mapImages = mapImages
     }
 

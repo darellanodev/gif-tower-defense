@@ -25,7 +25,7 @@ export class TileBlackCreator extends TileCreator {
       )
     }
 
-    if (!TestFlags.DISABLE_LOADING_IMAGES) {
+    if (!TestFlags.disableImageLoading) {
       this.#blackImage = mapImages[1]
     }
 

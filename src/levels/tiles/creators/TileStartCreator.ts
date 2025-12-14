@@ -25,7 +25,7 @@ export class TileStartCreator extends TileCreator {
         'TileStartCreator is a singleton class, use getInstance to get the instance',
       )
     }
-    if (!TestFlags.DISABLE_LOADING_IMAGES) {
+    if (!TestFlags.disableImageLoading) {
       this.#mapImages = mapImages
     }
 

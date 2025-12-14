@@ -53,7 +53,7 @@ export class TileOrangeCreator extends TileCreator {
     }
 
     this.#player = player
-    if (!TestFlags.DISABLE_LOADING_IMAGES) {
+    if (!TestFlags.disableImageLoading) {
       this.#orangeImage = mapImages[0]
     }
     this.#towerGreenCreator = towerGreenCreator

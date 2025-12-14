@@ -38,7 +38,7 @@ export class MagicFireballCollisionChecker {
   handleCollision(magicFireball: MagicFireball, enemy: Enemy) {
     magicFireball.addDamage(enemy)
     this.#magicCollisionChecker.setToIgnoreList(enemy)
-    if (!TestFlags.DISABLE_EXPLOSION_FOR_UNIT_TESTING) {
+    if (!TestFlags.disableExplosion) {
       ExplosionMagicFireball.instantiate(enemy.position)
     }
   }
