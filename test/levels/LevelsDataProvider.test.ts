@@ -1,8 +1,8 @@
 import { expect } from 'vitest'
 import { DIRECTION } from '../../src/constants/DIRECTION'
-import { ConstTest } from '../../src/constants/ConstTest'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
 import { LevelsDataTesting } from '../../src/levels/LevelsDataTesting'
+import { TESTING_LEVEL } from '../../src/constants/testingLevel'
 
 test('getLevel, when request the id of a testing level, return data of the corresponding level', () => {
   const expected = {
@@ -31,9 +31,7 @@ test('getLevel, when request the id of a testing level, return data of the corre
 
   levelsDataProvider.initLevels(LevelsDataTesting.data)
 
-  const result = levelsDataProvider.getById(
-    ConstTest.ID_LEVEL_VALID_FOR_UNIT_TESTING,
-  )
+  const result = levelsDataProvider.getById(TESTING_LEVEL.ID_VALID)
 
   expect(result).toStrictEqual(expected)
 })

@@ -1,5 +1,5 @@
 import { DIRECTION } from '../../src/constants/DIRECTION'
-import { ConstTest } from '../../src/constants/constTest'
+import { TESTING_LEVEL } from '../../src/constants/testingLevel'
 import { Path } from '../../src/levels/path/Path'
 import { LevelsDataTesting } from '../../src/levels/LevelsDataTesting'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
@@ -77,19 +77,15 @@ export const getPathFromMap = (levelMap: MapDataType) => {
 }
 
 export const getValidLevelMap = () => {
-  return getLevelMap(ConstTest.ID_LEVEL_VALID_FOR_UNIT_TESTING)
+  return getLevelMap(TESTING_LEVEL.ID_VALID)
 }
 
 export const getNoValidLevelMapUnreachableEndTile = () => {
-  return getLevelMap(
-    ConstTest.ID_LEVEL_INVALID_UNREACHABLE_ENDTILE_FOR_UNIT_TESTING,
-  )
+  return getLevelMap(TESTING_LEVEL.ID_INVALID_UNREACHABLE_END)
 }
 
 export const getNoValidLevelMapWithoutRows = () => {
-  return getLevelMap(
-    ConstTest.ID_LEVEL_INVALID_WITHOUT_ROWSMAP_FOR_UNIT_TESTING,
-  )
+  return getLevelMap(TESTING_LEVEL.ID_INVALID_NO_ROWSMAP)
 }
 
 export const getNoExistingLevelMap = () => {
