@@ -1,5 +1,5 @@
 import { expect } from 'vitest'
-import { ConstTile } from '../../src/constants/ConstTile'
+import { TILE_SIZE } from '../../src/constants/TILE'
 import { PathStartEnemiesPosition } from '../../src/levels/path/PathStartEnemiesPosition'
 import { getTileStartForLevel } from '../helpers/levelMap'
 
@@ -8,7 +8,7 @@ const topRightTileX = 750
 
 test('getEnemiesInitialPosition, levelMap 1 (serpent)', () => {
   const expected = {
-    x: topRightTileX + ConstTile.SIZE,
+    x: topRightTileX + TILE_SIZE,
     y: topRightTileY,
   }
 
@@ -23,8 +23,8 @@ test('getEnemiesInitialPosition, levelMap 1 (serpent)', () => {
 
 test('getEnemiesInitialPosition, levelMap 14 (one loop)', () => {
   const expected = {
-    x: topRightTileX + ConstTile.SIZE,
-    y: topRightTileY + ConstTile.SIZE,
+    x: topRightTileX + TILE_SIZE,
+    y: topRightTileY + TILE_SIZE,
   }
 
   const tileStart = getTileStartForLevel(14)
@@ -38,8 +38,8 @@ test('getEnemiesInitialPosition, levelMap 14 (one loop)', () => {
 })
 test('getEnemiesInitialPosition, levelMap 13 (double loop)', () => {
   const expected = {
-    x: topRightTileX - ConstTile.SIZE * 7,
-    y: topRightTileY - ConstTile.SIZE,
+    x: topRightTileX - TILE_SIZE * 7,
+    y: topRightTileY - TILE_SIZE,
   }
 
   const tileStart = getTileStartForLevel(13)
@@ -54,8 +54,8 @@ test('getEnemiesInitialPosition, levelMap 13 (double loop)', () => {
 
 test('getEnemiesInitialPosition, levelMap 15 (psycho)', () => {
   const expected = {
-    x: topRightTileX - ConstTile.SIZE * 7,
-    y: topRightTileY + ConstTile.SIZE * 9 + ConstTile.SIZE,
+    x: topRightTileX - TILE_SIZE * 7,
+    y: topRightTileY + TILE_SIZE * 9 + TILE_SIZE,
   }
 
   const tileStart = getTileStartForLevel(15)

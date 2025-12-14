@@ -1,4 +1,4 @@
-import { ConstTile } from '../../src/constants/ConstTile'
+import { TILE_SIZE } from '../../src/constants/TILE'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { Enemy } from '../../src/enemies/Enemy'
@@ -8,7 +8,7 @@ export const updateInstancesOfEnemiesAndUFOsForATileSize = (
   magicUFOInstancesManager: MagicInstancesManager,
 ) => {
   // The enemy needs to walk a minimum of a one tile size and then the MagicUFO can target it
-  for (let i = 0; i < ConstTile.SIZE + 1; i++) {
+  for (let i = 0; i < TILE_SIZE + 1; i++) {
     enemyInstancesManager.updateInstances()
     magicUFOInstancesManager.updateInstances()
   }

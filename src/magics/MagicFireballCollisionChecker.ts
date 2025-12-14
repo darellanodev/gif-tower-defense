@@ -1,6 +1,6 @@
 import { Enemy } from '../enemies/Enemy'
 import { ExplosionMagicFireball } from '../particles/explosions/ExplosionMagicFireball'
-import { ConstTest } from '../constants/ConstTest'
+import { ConstTest } from '../constants/constTest'
 import { MagicCollisionChecker } from './MagicCollisionChecker'
 import { MagicFireball } from './MagicFireball'
 import { PathMovement } from '../levels/path/PathMovement'

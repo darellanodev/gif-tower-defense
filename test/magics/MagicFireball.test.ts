@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
-import { ConstTile } from '../../src/constants/ConstTile'
-import { ConstTest } from '../../src/constants/ConstTest'
+import { TILE_SIZE } from '../../src/constants/TILE'
+import { ConstTest } from '../../src/constants/constTest'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { createNormalEnemy } from '../helpers/enemyCreator'
@@ -77,7 +77,7 @@ test('damage of enemy, when enemy is enough strong and collides with a fireball,
   createMagicFireball(orders, magicFireballInstancesManager)
 
   // update
-  const timesToUpdate = ConstTile.SIZE * 100
+  const timesToUpdate = TILE_SIZE * 100
   for (let i = 0; i < timesToUpdate; i++) {
     enemyInstancesManager.updateInstances()
     magicFireballInstancesManager.updateInstances()

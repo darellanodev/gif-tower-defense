@@ -1,7 +1,7 @@
 import { TileBlack } from '../TileBlack'
 import { Image } from 'p5'
 import { TilesManager } from '../TilesManager'
-import { ConstTest } from '../../../constants/ConstTest'
+import { ConstTest } from '../../../constants/constTest'
 import { TileCreator } from './TileCreator'
 
 export class TileBlackCreator extends TileCreator {

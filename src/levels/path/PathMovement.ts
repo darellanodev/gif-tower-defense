@@ -1,4 +1,4 @@
-import { ConstTile } from '../../constants/ConstTile'
+import { TILE_SIZE } from '../../constants/tile'
 import { DIRECTION } from '../../constants/direction'
 import { Position } from '../../types/position'
 
@@ -51,7 +51,7 @@ export class PathMovement {
   }
 
   #updateOrders() {
-    if (this.#moveCount !== ConstTile.SIZE) {
+    if (this.#moveCount !== TILE_SIZE) {
       return
     }
     this.#moveCount = 0

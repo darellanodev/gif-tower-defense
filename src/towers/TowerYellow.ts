@@ -1,7 +1,7 @@
 import { Position } from '../types/position'
 import { Image } from 'p5'
 import { COLOR } from '../constants/color'
-import { ConstTile } from '../constants/ConstTile'
+import { TILE_SIZE } from '../constants/tile'
 import { Tower } from './Tower'
 import { ExplosionEnemy } from '../particles/explosions/ExplosionEnemy'
 import { ProgressBar } from '../hud/progressbar/ProgressBar'
@@ -41,7 +41,7 @@ export class TowerYellow extends Tower {
       x: this.position.x + 10,
       y: this.position.y + 13,
     }
-    const size: Size = { w: ConstTile.SIZE - 13, h: ConstTile.SIZE - 10 }
+    const size: Size = { w: TILE_SIZE - 13, h: TILE_SIZE - 10 }
 
     return new ProgressBar(position, size)
   }
@@ -165,8 +165,8 @@ export class TowerYellow extends Tower {
 
     const distance = this._distance.calculate(
       {
-        x: this.position.x + ConstTile.SIZE / 2,
-        y: this.position.y + ConstTile.SIZE / 2,
+        x: this.position.x + TILE_SIZE / 2,
+        y: this.position.y + TILE_SIZE / 2,
       },
       particle.position,
     )

@@ -1,7 +1,7 @@
 import { Vector } from 'p5'
 import { RGBType } from '../types/rgb'
 import { TowerYellow } from '../towers/TowerYellow'
-import { ConstTile } from '../constants/ConstTile'
+import { TILE_SIZE } from '../constants/tile'
 import { Random } from '../utils/Random'
 import { P5 } from '../utils/P5'
 import { Obj } from '../Obj'
@@ -120,18 +120,18 @@ export class Particle extends Obj {
   }
 
   #getAuxX() {
-    if (this.position.x <= this.#getTowerYellowPosX() + ConstTile.SIZE / 2) {
+    if (this.position.x <= this.#getTowerYellowPosX() + TILE_SIZE / 2) {
       return (this.#getTowerYellowPosX() - this.position.x) / 300
     }
     return -(this.position.x - this.#getTowerYellowPosX()) / 300
   }
 
   #getTowerYellowPosX() {
-    return this.#towerYellowTarget!.position.x + ConstTile.SIZE / 2
+    return this.#towerYellowTarget!.position.x + TILE_SIZE / 2
   }
 
   #getTowerYellowPosY() {
-    return this.#towerYellowTarget!.position.y + ConstTile.SIZE / 2
+    return this.#towerYellowTarget!.position.y + TILE_SIZE / 2
   }
 
   display() {

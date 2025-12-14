@@ -3,7 +3,7 @@ import { TowerGreen } from './TowerGreen'
 import { TowerRed } from './TowerRed'
 import { TowerYellow } from './TowerYellow'
 import { COLOR } from '../constants/color'
-import { ConstTile } from '../constants/ConstTile'
+import { TILE_SIZE } from '../constants/tile'
 import { P5 } from '../utils/P5'
 import { Tower } from './Tower'
 
@@ -104,8 +104,8 @@ export class InfluenceArea {
   #drawCircle(position: Position, diameter: number) {
     P5.p5.strokeWeight(2)
     P5.p5.circle(
-      position.x + ConstTile.SIZE / 2,
-      position.y + ConstTile.SIZE / 2,
+      position.x + TILE_SIZE / 2,
+      position.y + TILE_SIZE / 2,
       diameter,
     )
   }

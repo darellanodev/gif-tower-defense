@@ -1,7 +1,7 @@
 import { TileStart } from '../tiles/TileStart'
 import { TileEnd } from '../tiles/TileEnd'
 import { TilePath } from '../tiles/TilePath'
-import { ConstTile } from '../../constants/ConstTile'
+import { TILE_SIZE } from '../../constants/tile'
 import { DIRECTION } from '../../constants/direction'
 import { Position } from '../../types/position'
 import { AnyTile, WalkableTile } from '../../types/tileType'
@@ -64,7 +64,7 @@ export class Path {
   }
 
   #searchLeftTile(currentTile: AnyTile) {
-    const searchPx = currentTile.position.x - ConstTile.SIZE
+    const searchPx = currentTile.position.x - TILE_SIZE
     const searchPy = currentTile.position.y
     const searchPosition = { x: searchPx, y: searchPy }
     return this.#getWalkableTile(searchPosition)
@@ -72,13 +72,13 @@ export class Path {
 
   #searchDownTile(currentTile: AnyTile) {
     const searchPx = currentTile.position.x
-    const searchPy = currentTile.position.y + ConstTile.SIZE
+    const searchPy = currentTile.position.y + TILE_SIZE
     const searchPosition = { x: searchPx, y: searchPy }
     return this.#getWalkableTile(searchPosition)
   }
 
   #searchRightTile(currentTile: AnyTile) {
-    const searchPx = currentTile.position.x + ConstTile.SIZE
+    const searchPx = currentTile.position.x + TILE_SIZE
     const searchPy = currentTile.position.y
     const searchPosition = { x: searchPx, y: searchPy }
     return this.#getWalkableTile(searchPosition)
@@ -86,7 +86,7 @@ export class Path {
 
   #searchUpTile(currentTile: AnyTile) {
     const searchPx = currentTile.position.x
-    const searchPy = currentTile.position.y - ConstTile.SIZE
+    const searchPy = currentTile.position.y - TILE_SIZE
     const searchPosition = { x: searchPx, y: searchPy }
     return this.#getWalkableTile(searchPosition)
   }

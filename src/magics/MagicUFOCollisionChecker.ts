@@ -1,4 +1,4 @@
-import { ConstTile } from '../constants/ConstTile'
+import { TILE_SIZE } from '../constants/tile'
 import { Enemy } from '../enemies/Enemy'
 import { Position } from '../types/position'
 import { PositionInsideRectangle } from '../utils/PositionInsideRectangle'
@@ -17,28 +17,28 @@ export class MagicUFOCollisionChecker {
     }
     return this.#positionInsideRectangle.check(
       {
-        x: ufo.position.x + ConstTile.SIZE / 2,
-        y: ufo.position.y + ConstTile.SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
+        x: ufo.position.x + TILE_SIZE / 2,
+        y: ufo.position.y + TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
       },
       {
         x: enemyTarget.position.x,
         y: enemyTarget.position.y,
       },
-      { w: ConstTile.SIZE, h: ConstTile.SIZE },
+      { w: TILE_SIZE, h: TILE_SIZE },
     )
   }
 
   isCollidingWithStartPosition(ufo: MagicUFO) {
     return this.#positionInsideRectangle.check(
       {
-        x: ufo.position.x + ConstTile.SIZE / 2,
-        y: ufo.position.y + ConstTile.SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
+        x: ufo.position.x + TILE_SIZE / 2,
+        y: ufo.position.y + TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
       },
       {
         x: this.#startPosition.x,
         y: this.#startPosition.y,
       },
-      { w: ConstTile.SIZE, h: ConstTile.SIZE },
+      { w: TILE_SIZE, h: TILE_SIZE },
     )
   }
 }

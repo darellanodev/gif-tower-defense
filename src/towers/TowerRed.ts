@@ -1,7 +1,7 @@
 import { Position } from '../types/position'
 import { Image } from 'p5'
 import { COLOR } from '../constants/color'
-import { ConstTile } from '../constants/ConstTile'
+import { TILE_SIZE } from '../constants/tile'
 import { Tower } from './Tower'
 import { Missile } from './Missile'
 import { P5 } from '../utils/P5'
@@ -78,8 +78,8 @@ export class TowerRed extends Tower {
     Missile.instances.push(
       new Missile(
         {
-          x: this.position.x + ConstTile.SIZE / 2,
-          y: this.position.y + ConstTile.SIZE / 2,
+          x: this.position.x + TILE_SIZE / 2,
+          y: this.position.y + TILE_SIZE / 2,
         },
         enemyTarget,
         TowerRed.DAMAGE_UPGRADE[this.upgradeLevel],

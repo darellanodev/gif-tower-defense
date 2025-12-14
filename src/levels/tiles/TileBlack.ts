@@ -1,6 +1,6 @@
 import { Position } from '../../types/position'
 import { Image } from 'p5'
-import { ConstTile } from '../../constants/ConstTile'
+import { TILE_SIZE } from '../../constants/tile'
 import { P5 } from '../../utils/P5'
 import { Obj } from '../../Obj'
 
@@ -20,8 +20,8 @@ export class TileBlack extends Obj {
       this.#img,
       this.position.x / scale + startOffsetX,
       this.position.y / scale + startOffsetY,
-      ConstTile.SIZE / scale,
-      ConstTile.SIZE / scale,
+      TILE_SIZE / scale,
+      TILE_SIZE / scale,
     )
   }
 
@@ -29,16 +29,10 @@ export class TileBlack extends Obj {
     let insideX = false
     let insideY = false
 
-    if (
-      this.position.x < mouse_x &&
-      this.position.x + ConstTile.SIZE > mouse_x
-    ) {
+    if (this.position.x < mouse_x && this.position.x + TILE_SIZE > mouse_x) {
       insideX = true
     }
-    if (
-      this.position.y < mouse_y &&
-      this.position.y + ConstTile.SIZE > mouse_y
-    ) {
+    if (this.position.y < mouse_y && this.position.y + TILE_SIZE > mouse_y) {
       insideY = true
     }
 

@@ -5,7 +5,7 @@ import { TowerGreenCreator } from '../../../towers/TowerGreenCreator'
 import { TowerRedCreator } from '../../../towers/TowerRedCreator'
 import { TowerYellowCreator } from '../../../towers/TowerYellowCreator'
 import { TilesManager } from '../TilesManager'
-import { ConstTest } from '../../../constants/ConstTest'
+import { ConstTest } from '../../../constants/constTest'
 import { TileCreator } from './TileCreator'
 
 export class TileOrangeCreator extends TileCreator {

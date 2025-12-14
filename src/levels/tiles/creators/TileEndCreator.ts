@@ -2,7 +2,7 @@ import { Image } from 'p5'
 import { TilesManager } from '../TilesManager'
 import { DIRECTION } from '../../../constants/direction'
 import { TileEnd } from '../TileEnd'
-import { ConstTest } from '../../../constants/ConstTest'
+import { ConstTest } from '../../../constants/constTest'
 import { TileCreator } from './TileCreator'
 
 export class TileEndCreator extends TileCreator {

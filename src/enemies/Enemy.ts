@@ -8,7 +8,7 @@ import { PathMovement } from '../levels/path/PathMovement'
 import { Size } from '../types/size'
 
 export class Enemy extends Obj {
-  static VELOCITY = 1 // must be multiple of "ConstTile.SIZE". Set 1 for normal, 5 for a faster game or 25 for a fastest game
+  static VELOCITY = 1 // must be multiple of the tile size (see constants). Set 1 for normal, 5 for a faster game or 25 for a fastest game
   static BOSS_VELOCITY = 0.5
 
   static STATUS_ALIVE = 0

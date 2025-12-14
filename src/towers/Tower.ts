@@ -1,6 +1,6 @@
 import { Position } from '../types/position'
 import { RGBType } from '../types/rgb'
-import { ConstTile } from '../constants/ConstTile'
+import { TILE_SIZE } from '../constants/tile'
 import { ProgressBar } from '../hud/progressbar/ProgressBar'
 import { Enemy } from '../enemies/Enemy'
 import { P5 } from '../utils/P5'
@@ -162,8 +162,8 @@ export class Tower extends Obj {
     P5.p5.rect(
       this.position.x + offset,
       this.position.y + offset,
-      ConstTile.SIZE,
-      ConstTile.SIZE,
+      TILE_SIZE,
+      TILE_SIZE,
     )
   }
 }
