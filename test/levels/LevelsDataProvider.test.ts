@@ -1,5 +1,5 @@
 import { expect } from 'vitest'
-import { ConstDirection } from '../../src/constants/ConstDirection'
+import { DIRECTION } from '../../src/constants/DIRECTION'
 import { ConstTest } from '../../src/constants/ConstTest'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
 import { LevelsDataTesting } from '../../src/levels/LevelsDataTesting'
@@ -22,8 +22,8 @@ test('getLevel, when request the id of a testing level, return data of the corre
       '0000000000000001',
       'y111111111111111',
     ],
-    startDirection: ConstDirection.LEFT,
-    endDirection: ConstDirection.LEFT,
+    startDirection: DIRECTION.LEFT,
+    endDirection: DIRECTION.LEFT,
     money: 150,
   }
 

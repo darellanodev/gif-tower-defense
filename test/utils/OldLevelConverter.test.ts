@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
 import { OldLevelConverter } from '../../src/utils/OldLevelConverter'
-import { ConstDirection } from '../../src/constants/ConstDirection'
+import { DIRECTION } from '../../src/constants/DIRECTION'
 const allLevels = [
   {
     id: 27,
@@ -20,8 +20,8 @@ const allLevels = [
       '2222222211111222',
     ],
     money: 150,
-    startDirection: ConstDirection.UP,
-    endDirection: ConstDirection.LEFT,
+    startDirection: DIRECTION.UP,
+    endDirection: DIRECTION.LEFT,
   },
   {
     id: 7,
@@ -41,8 +41,8 @@ const allLevels = [
       '0000000000x00000',
     ],
     money: 150,
-    startDirection: ConstDirection.DOWN,
-    endDirection: ConstDirection.UP,
+    startDirection: DIRECTION.DOWN,
+    endDirection: DIRECTION.UP,
   },
   {
     id: 8,
@@ -62,8 +62,8 @@ const allLevels = [
       '000000000x000000',
     ],
     money: 150,
-    startDirection: ConstDirection.UP,
-    endDirection: ConstDirection.UP,
+    startDirection: DIRECTION.UP,
+    endDirection: DIRECTION.UP,
   },
 ]
 const oldLevelData =
@@ -152,8 +152,8 @@ test('get the json format', () => {
     
       ],
       money: 150,
-      startDirection: ConstDirection.RIGHT,
-      endDirection: ConstDirection.DOWN,
+      startDirection: DIRECTION.RIGHT,
+      endDirection: DIRECTION.DOWN,
     },
 `
   expect(result).toBe(expected)

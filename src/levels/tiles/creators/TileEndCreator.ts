@@ -1,6 +1,6 @@
 import { Image } from 'p5'
 import { TilesManager } from '../TilesManager'
-import { ConstDirection } from '../../../constants/ConstDirection'
+import { DIRECTION } from '../../../constants/direction'
 import { TileEnd } from '../TileEnd'
 import { ConstTest } from '../../../constants/ConstTest'
 import { TileCreator } from './TileCreator'
@@ -45,10 +45,10 @@ export class TileEndCreator extends TileCreator {
     }
 
     const directionImageMap = {
-      [ConstDirection.DOWN]: 5,
-      [ConstDirection.RIGHT]: 4,
-      [ConstDirection.LEFT]: 3,
-      [ConstDirection.UP]: 2,
+      [DIRECTION.DOWN]: 5,
+      [DIRECTION.RIGHT]: 4,
+      [DIRECTION.LEFT]: 3,
+      [DIRECTION.UP]: 2,
     }
 
     const imageIndex = directionImageMap[this.levelMap!.endDirection] ?? 3

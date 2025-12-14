@@ -1,4 +1,4 @@
-import { ConstDirection } from '../../src/constants/ConstDirection'
+import { DIRECTION } from '../../src/constants/DIRECTION'
 import { ConstTest } from '../../src/constants/ConstTest'
 import { Path } from '../../src/levels/path/Path'
 import { LevelsDataTesting } from '../../src/levels/LevelsDataTesting'
@@ -107,10 +107,10 @@ export const getLevelMap = (idLevelMap: number) => {
 }
 
 export const testTinyOrders = [
-  ConstDirection.LEFT,
-  ConstDirection.DOWN,
-  ConstDirection.RIGHT,
-  ConstDirection.UP,
+  DIRECTION.LEFT,
+  DIRECTION.DOWN,
+  DIRECTION.RIGHT,
+  DIRECTION.UP,
 ]
 
 export const getTileStartForLevel = (levelId: number) => {

@@ -1,5 +1,5 @@
 import { MapDataType } from '../types/mapDataType'
-import { ConstDirection } from '../constants/ConstDirection'
+import { DIRECTION } from '../constants/direction'
 
 export class LevelsDataSortingTesting {
   static data: MapDataType[] = [
@@ -21,8 +21,8 @@ export class LevelsDataSortingTesting {
         '000000000x000000',
       ],
       money: 150,
-      startDirection: ConstDirection.UP,
-      endDirection: ConstDirection.UP,
+      startDirection: DIRECTION.UP,
+      endDirection: DIRECTION.UP,
     },
     {
       id: 1,
@@ -42,8 +42,8 @@ export class LevelsDataSortingTesting {
         'y111111111111111',
       ],
       money: 150,
-      startDirection: ConstDirection.LEFT,
-      endDirection: ConstDirection.LEFT,
+      startDirection: DIRECTION.LEFT,
+      endDirection: DIRECTION.LEFT,
     },
     {
       id: 7,
@@ -63,8 +63,8 @@ export class LevelsDataSortingTesting {
         '0000000000x00000',
       ],
       money: 150,
-      startDirection: ConstDirection.DOWN,
-      endDirection: ConstDirection.UP,
+      startDirection: DIRECTION.DOWN,
+      endDirection: DIRECTION.UP,
     },
   ]
 
@@ -87,8 +87,8 @@ export class LevelsDataSortingTesting {
         'y111111111111111',
       ],
       money: 150,
-      startDirection: ConstDirection.LEFT,
-      endDirection: ConstDirection.LEFT,
+      startDirection: DIRECTION.LEFT,
+      endDirection: DIRECTION.LEFT,
     },
     {
       id: 7,
@@ -108,8 +108,8 @@ export class LevelsDataSortingTesting {
         '0000000000x00000',
       ],
       money: 150,
-      startDirection: ConstDirection.DOWN,
-      endDirection: ConstDirection.UP,
+      startDirection: DIRECTION.DOWN,
+      endDirection: DIRECTION.UP,
     },
     {
       id: 8,
@@ -129,8 +129,8 @@ export class LevelsDataSortingTesting {
         '000000000x000000',
       ],
       money: 150,
-      startDirection: ConstDirection.UP,
-      endDirection: ConstDirection.UP,
+      startDirection: DIRECTION.UP,
+      endDirection: DIRECTION.UP,
     },
   ]
 }

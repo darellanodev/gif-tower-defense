@@ -103,14 +103,13 @@ export class OldLevelConverter {
   }
   #directionToText(direction: number): string {
     const directionMap = {
-      1: 'ConstDirection.RIGHT',
-      2: 'ConstDirection.LEFT',
-      3: 'ConstDirection.DOWN',
-      4: 'ConstDirection.UP',
+      1: 'DIRECTION.RIGHT',
+      2: 'DIRECTION.LEFT',
+      3: 'DIRECTION.DOWN',
+      4: 'DIRECTION.UP',
     }
     return (
-      (directionMap as Record<number, string>)[direction] ||
-      'ConstDirection.LEFT'
+      (directionMap as Record<number, string>)[direction] || 'DIRECTION.LEFT'
     )
   }
   get #startDirectionText() {

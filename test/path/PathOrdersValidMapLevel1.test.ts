@@ -1,5 +1,5 @@
 import { describe, expect } from 'vitest'
-import { ConstDirection } from '../../src/constants/ConstDirection'
+import { DIRECTION } from '../../src/constants/DIRECTION'
 import { isIncluded } from '../helpers/arrays'
 import { getLevelMap, getPathFromMap } from '../helpers/levelMap'
 
@@ -12,7 +12,7 @@ const orders = path.orders
 describe('makeOrders', () => {
   test('first order', () => {
     const expectedOrders: number[] = []
-    expectedOrders.push(...Array(16).fill(ConstDirection.LEFT))
+    expectedOrders.push(...Array(16).fill(DIRECTION.LEFT))
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
@@ -20,16 +20,16 @@ describe('makeOrders', () => {
 
   test('middle orders', () => {
     const expectedOrders: number[] = []
-    expectedOrders.push(...Array(16).fill(ConstDirection.LEFT))
-    expectedOrders.push(...Array(7).fill(ConstDirection.DOWN))
-    expectedOrders.push(...Array(13).fill(ConstDirection.RIGHT))
-    expectedOrders.push(...Array(3).fill(ConstDirection.UP))
-    expectedOrders.push(...Array(6).fill(ConstDirection.LEFT))
-    expectedOrders.push(...Array(1).fill(ConstDirection.DOWN))
-    expectedOrders.push(...Array(5).fill(ConstDirection.LEFT))
-    expectedOrders.push(...Array(3).fill(ConstDirection.UP))
-    expectedOrders.push(...Array(13).fill(ConstDirection.RIGHT))
-    expectedOrders.push(...Array(7).fill(ConstDirection.DOWN))
+    expectedOrders.push(...Array(16).fill(DIRECTION.LEFT))
+    expectedOrders.push(...Array(7).fill(DIRECTION.DOWN))
+    expectedOrders.push(...Array(13).fill(DIRECTION.RIGHT))
+    expectedOrders.push(...Array(3).fill(DIRECTION.UP))
+    expectedOrders.push(...Array(6).fill(DIRECTION.LEFT))
+    expectedOrders.push(...Array(1).fill(DIRECTION.DOWN))
+    expectedOrders.push(...Array(5).fill(DIRECTION.LEFT))
+    expectedOrders.push(...Array(3).fill(DIRECTION.UP))
+    expectedOrders.push(...Array(13).fill(DIRECTION.RIGHT))
+    expectedOrders.push(...Array(7).fill(DIRECTION.DOWN))
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()
@@ -37,17 +37,17 @@ describe('makeOrders', () => {
 
   test('last order', () => {
     const expectedOrders: number[] = []
-    expectedOrders.push(...Array(16).fill(ConstDirection.LEFT))
-    expectedOrders.push(...Array(7).fill(ConstDirection.DOWN))
-    expectedOrders.push(...Array(13).fill(ConstDirection.RIGHT))
-    expectedOrders.push(...Array(3).fill(ConstDirection.UP))
-    expectedOrders.push(...Array(6).fill(ConstDirection.LEFT))
-    expectedOrders.push(...Array(1).fill(ConstDirection.DOWN))
-    expectedOrders.push(...Array(5).fill(ConstDirection.LEFT))
-    expectedOrders.push(...Array(3).fill(ConstDirection.UP))
-    expectedOrders.push(...Array(13).fill(ConstDirection.RIGHT))
-    expectedOrders.push(...Array(7).fill(ConstDirection.DOWN))
-    expectedOrders.push(...Array(16).fill(ConstDirection.LEFT))
+    expectedOrders.push(...Array(16).fill(DIRECTION.LEFT))
+    expectedOrders.push(...Array(7).fill(DIRECTION.DOWN))
+    expectedOrders.push(...Array(13).fill(DIRECTION.RIGHT))
+    expectedOrders.push(...Array(3).fill(DIRECTION.UP))
+    expectedOrders.push(...Array(6).fill(DIRECTION.LEFT))
+    expectedOrders.push(...Array(1).fill(DIRECTION.DOWN))
+    expectedOrders.push(...Array(5).fill(DIRECTION.LEFT))
+    expectedOrders.push(...Array(3).fill(DIRECTION.UP))
+    expectedOrders.push(...Array(13).fill(DIRECTION.RIGHT))
+    expectedOrders.push(...Array(7).fill(DIRECTION.DOWN))
+    expectedOrders.push(...Array(16).fill(DIRECTION.LEFT))
 
     const result = isIncluded(orders, expectedOrders)
     expect(result).toBeTruthy()

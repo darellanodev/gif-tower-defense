@@ -1,5 +1,5 @@
 import { describe, expect } from 'vitest'
-import { ConstDirection } from '../../src/constants/ConstDirection'
+import { DIRECTION } from '../../src/constants/DIRECTION'
 import {
   createBossEnemy,
   createNormalEnemy,
@@ -14,7 +14,7 @@ describe('currentDirection', () => {
     createNormalEnemy(enemyInstancesManager)
 
     const result = enemyInstancesManager.getAll()[0].currentDirection
-    expect(result).toBe(ConstDirection.LEFT)
+    expect(result).toBe(DIRECTION.LEFT)
   })
   test('when updating 55 times a Boss enemy, return direction LEFT because velocity is 0.5 and it needs 100 updates to complete a 50 tile width order', () => {
     const enemyInstancesManager = new EnemyInstancesManager()
@@ -23,7 +23,7 @@ describe('currentDirection', () => {
     updateEnemyInstancesTimes(enemyInstancesManager, 55)
     const result = enemyInstancesManager.getAll()[0].currentDirection
 
-    expect(result).toBe(ConstDirection.LEFT)
+    expect(result).toBe(DIRECTION.LEFT)
   })
   test('when updating 55 times a Normal enemy, return direction DOWN because velocity = 1 it needs 50 (tile width) updates to complete the first LEFT order and the next order is DOWN', () => {
     const enemyInstancesManager = new EnemyInstancesManager()
@@ -32,7 +32,7 @@ describe('currentDirection', () => {
     updateEnemyInstancesTimes(enemyInstancesManager, 55)
     const result = enemyInstancesManager.getAll()[0].currentDirection
 
-    expect(result).toBe(ConstDirection.DOWN)
+    expect(result).toBe(DIRECTION.DOWN)
   })
 })
 

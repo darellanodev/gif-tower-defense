@@ -2,7 +2,7 @@ import { TileStart } from '../tiles/TileStart'
 import { TileEnd } from '../tiles/TileEnd'
 import { TilePath } from '../tiles/TilePath'
 import { ConstTile } from '../../constants/ConstTile'
-import { ConstDirection } from '../../constants/ConstDirection'
+import { DIRECTION } from '../../constants/direction'
 import { Position } from '../../types/position'
 import { AnyTile, WalkableTile } from '../../types/tileType'
 
@@ -101,10 +101,10 @@ export class Path {
     // It is preferred to go first down and if it is not possible to go up
     const searchNextTile = this.#searchDownTile(this.#currentTile)
     if (searchNextTile) {
-      this.#currentDirection = ConstDirection.DOWN
+      this.#currentDirection = DIRECTION.DOWN
       return
     }
-    this.#currentDirection = ConstDirection.UP
+    this.#currentDirection = DIRECTION.UP
   }
 
   #processLeftDirection() {
@@ -117,7 +117,7 @@ export class Path {
     const searchTile = this.#searchLeftTile(this.#currentTile)
 
     if (searchTile !== null) {
-      this.#orders.push(ConstDirection.LEFT)
+      this.#orders.push(DIRECTION.LEFT)
       this.#currentTile = searchTile
       return
     }
@@ -128,10 +128,10 @@ export class Path {
     // It is preferred to go first to the right and if it is not possible to the left
     const searchNextTile = this.#searchRightTile(this.#currentTile)
     if (searchNextTile) {
-      this.#currentDirection = ConstDirection.RIGHT
+      this.#currentDirection = DIRECTION.RIGHT
       return
     }
-    this.#currentDirection = ConstDirection.LEFT
+    this.#currentDirection = DIRECTION.LEFT
   }
 
   #processDownDirection() {
@@ -143,7 +143,7 @@ export class Path {
     const searchTile = this.#searchDownTile(this.#currentTile)
 
     if (searchTile !== null) {
-      this.#orders.push(ConstDirection.DOWN)
+      this.#orders.push(DIRECTION.DOWN)
       this.#currentTile = searchTile
       return
     }
@@ -154,10 +154,10 @@ export class Path {
     // It is preferred to go first up and if it is not possible to go down
     const searchNextTile = this.#searchUpTile(this.#currentTile)
     if (searchNextTile) {
-      this.#currentDirection = ConstDirection.UP
+      this.#currentDirection = DIRECTION.UP
       return
     }
-    this.#currentDirection = ConstDirection.DOWN
+    this.#currentDirection = DIRECTION.DOWN
   }
 
   #processRightDirection() {
@@ -168,7 +168,7 @@ export class Path {
     }
     const searchTile = this.#searchRightTile(this.#currentTile)
     if (searchTile !== null) {
-      this.#orders.push(ConstDirection.RIGHT)
+      this.#orders.push(DIRECTION.RIGHT)
       this.#currentTile = searchTile
       return
     }
@@ -179,10 +179,10 @@ export class Path {
     // It is preferred to go first left and if it is not possible to go right
     const searchNextTile = this.#searchLeftTile(this.#currentTile)
     if (searchNextTile) {
-      this.#currentDirection = ConstDirection.LEFT
+      this.#currentDirection = DIRECTION.LEFT
       return
     }
-    this.#currentDirection = ConstDirection.RIGHT
+    this.#currentDirection = DIRECTION.RIGHT
   }
 
   #processUpDirection() {
@@ -194,7 +194,7 @@ export class Path {
     const searchTile = this.#searchUpTile(this.#currentTile)
 
     if (searchTile !== null) {
-      this.#orders.push(ConstDirection.UP)
+      this.#orders.push(DIRECTION.UP)
       this.#currentTile = searchTile
       return
     }
@@ -202,19 +202,19 @@ export class Path {
   }
 
   #processCurrentDirection() {
-    if (this.#currentDirection === ConstDirection.LEFT) {
+    if (this.#currentDirection === DIRECTION.LEFT) {
       this.#processLeftDirection()
     }
 
-    if (this.#currentDirection === ConstDirection.DOWN) {
+    if (this.#currentDirection === DIRECTION.DOWN) {
       this.#processDownDirection()
     }
 
-    if (this.#currentDirection === ConstDirection.RIGHT) {
+    if (this.#currentDirection === DIRECTION.RIGHT) {
       this.#processRightDirection()
     }
 
-    if (this.#currentDirection === ConstDirection.UP) {
+    if (this.#currentDirection === DIRECTION.UP) {
       this.#processUpDirection()
     }
   }

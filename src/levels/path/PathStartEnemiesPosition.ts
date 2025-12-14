@@ -1,6 +1,6 @@
 import { TileStart } from '../tiles/TileStart'
 import { ConstTile } from '../../constants/ConstTile'
-import { ConstDirection } from '../../constants/ConstDirection'
+import { DIRECTION } from '../../constants/direction'
 
 export class PathStartEnemiesPosition {
   static #instance: PathStartEnemiesPosition | null = null
@@ -35,9 +35,9 @@ export class PathStartEnemiesPosition {
     }
 
     const directionMap: Record<number, { x: number; y: number }> = {
-      [ConstDirection.RIGHT]: { x: -ConstTile.SIZE, y: 0 },
-      [ConstDirection.UP]: { x: 0, y: ConstTile.SIZE },
-      [ConstDirection.DOWN]: { x: 0, y: -ConstTile.SIZE },
+      [DIRECTION.RIGHT]: { x: -ConstTile.SIZE, y: 0 },
+      [DIRECTION.UP]: { x: 0, y: ConstTile.SIZE },
+      [DIRECTION.DOWN]: { x: 0, y: -ConstTile.SIZE },
     }
 
     const finalPosition = this.#tileStart.position

@@ -1,5 +1,5 @@
 import { ConstTile } from '../../constants/ConstTile'
-import { ConstDirection } from '../../constants/ConstDirection'
+import { DIRECTION } from '../../constants/direction'
 import { Position } from '../../types/position'
 
 export class PathMovement {
@@ -28,19 +28,19 @@ export class PathMovement {
 
   #updatePosition() {
     switch (this.#currentDirection) {
-      case ConstDirection.LEFT:
+      case DIRECTION.LEFT:
         this.#position.x = this.#position.x - this.#speed
         break
 
-      case ConstDirection.RIGHT:
+      case DIRECTION.RIGHT:
         this.#position.x = this.#position.x + this.#speed
         break
 
-      case ConstDirection.UP:
+      case DIRECTION.UP:
         this.#position.y = this.#position.y - this.#speed
         break
 
-      case ConstDirection.DOWN:
+      case DIRECTION.DOWN:
         this.#position.y = this.#position.y + this.#speed
         break
     }
