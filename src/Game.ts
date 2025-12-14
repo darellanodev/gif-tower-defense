@@ -24,7 +24,7 @@ import { MagicSystem } from './magics/MagicSystem'
 import { TowerSystem } from './towers/TowerSystem'
 import { COLOR } from './constants/color'
 import { MapDataType } from './types/mapDataType'
-import { ConstGameMode } from './constants/ConstGameMode'
+import { MODE } from './constants/mode'
 import { InfluenceArea } from './towers/InfluenceArea'
 
 export class Game {
@@ -97,13 +97,11 @@ export class Game {
   }
 
   isGameModeTesting(): boolean {
-    return this.#gameMode === ConstGameMode.TESTING
+    return this.#gameMode === MODE.TESTING
   }
 
   #initializeWallet(levelMap: MapDataType) {
-    const gameMode = this.isGameModeTesting()
-      ? ConstGameMode.TESTING
-      : ConstGameMode.NORMAL
+    const gameMode = this.isGameModeTesting() ? MODE.TESTING : MODE.NORMAL
     this.#wallet = Wallet.getInstance(gameMode, levelMap.money)
   }
 
