@@ -42,7 +42,7 @@ export class TileStartCreator extends TileCreator {
     if (this.#mapImages === null) {
       return null
     }
-    const startDirectionMap = {
+    const startDirectionMap: Record<number, number> = {
       [DIRECTION.DOWN]: 6,
       [DIRECTION.RIGHT]: 7,
       [DIRECTION.LEFT]: 8,

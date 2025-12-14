@@ -44,7 +44,7 @@ export class TileEndCreator extends TileCreator {
       return null
     }
 
-    const directionImageMap = {
+    const directionImageMap: Record<number, number> = {
       [DIRECTION.DOWN]: 5,
       [DIRECTION.RIGHT]: 4,
       [DIRECTION.LEFT]: 3,
