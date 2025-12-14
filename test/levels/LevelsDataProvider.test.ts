@@ -2,7 +2,7 @@ import { expect } from 'vitest'
 import { DIRECTION } from '../../src/constants/direction'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
 import { LevelsDataTesting } from '../../src/levels/LevelsDataTesting'
-import { TESTING_LEVEL } from '../../src/constants/testingLevel'
+import { TESTING_LEVEL } from '../../src/constants/testing'
 
 test('getLevel, when request the id of a testing level, return data of the corresponding level', () => {
   const expected = {

@@ -1,5 +1,5 @@
 import { DIRECTION } from '../../src/constants/direction'
-import { TESTING_LEVEL } from '../../src/constants/testingLevel'
+import { TESTING_LEVEL } from '../../src/constants/testing'
 import { Path } from '../../src/levels/path/Path'
 import { LevelsDataTesting } from '../../src/levels/LevelsDataTesting'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
