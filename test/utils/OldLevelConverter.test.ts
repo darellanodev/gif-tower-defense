@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
 import { OldLevelConverter } from '../../src/utils/OldLevelConverter'
-import { DIRECTION } from '../../src/constants/DIRECTION'
+import { DIRECTION } from '../../src/constants/direction'
 const allLevels = [
   {
     id: 27,

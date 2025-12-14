@@ -1,5 +1,5 @@
 import { describe, expect } from 'vitest'
-import { DIRECTION } from '../../src/constants/DIRECTION'
+import { DIRECTION } from '../../src/constants/direction'
 import { isIncluded } from '../helpers/arrays'
 import { getLevelMap, getPathFromMap } from '../helpers/levelMap'
 

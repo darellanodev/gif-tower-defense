@@ -1,5 +1,5 @@
 import { expect } from 'vitest'
-import { DIRECTION } from '../../src/constants/DIRECTION'
+import { DIRECTION } from '../../src/constants/direction'
 import { Path } from '../../src/levels/path/Path'
 import { TilePath } from '../../src/levels/tiles/TilePath'
 import { TileStart } from '../../src/levels/tiles/TileStart'

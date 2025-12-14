@@ -1,4 +1,4 @@
-import { DIRECTION } from '../../src/constants/DIRECTION'
+import { DIRECTION } from '../../src/constants/direction'
 import { TESTING_LEVEL } from '../../src/constants/testingLevel'
 import { Path } from '../../src/levels/path/Path'
 import { LevelsDataTesting } from '../../src/levels/LevelsDataTesting'

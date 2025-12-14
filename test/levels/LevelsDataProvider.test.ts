@@ -1,5 +1,5 @@
 import { expect } from 'vitest'
-import { DIRECTION } from '../../src/constants/DIRECTION'
+import { DIRECTION } from '../../src/constants/direction'
 import { LevelsDataProvider } from '../../src/levels/LevelsDataProvider'
 import { LevelsDataTesting } from '../../src/levels/LevelsDataTesting'
 import { TESTING_LEVEL } from '../../src/constants/testingLevel'

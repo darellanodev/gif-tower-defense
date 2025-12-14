@@ -6,7 +6,7 @@ import * as fs from 'fs'
 function getHeaderCode() {
   return `
   import { MapDataType } from '../../types/mapDataType'
-  import { DIRECTION } from '../../constants/DIRECTION'
+  import { DIRECTION } from '../../constants/direction'
 
   // cSpell:disable
 
