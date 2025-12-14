@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
 import { TILE_SIZE } from '../../src/constants/TILE'
-import { ConstTest } from '../../src/constants/constTest'
+import { TestFlags } from '../../test/flags'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { createNormalEnemy } from '../helpers/enemyCreator'
@@ -62,7 +62,7 @@ test('reachEnd, when the magicfireball is recently created, return false', () =>
 
 test('damage of enemy, when enemy is enough strong and collides with a fireball, damage is not total (it is more than 0 but less than 100)', () => {
   // turn off explosions
-  ConstTest.DISABLE_EXPLOSION_FOR_UNIT_TESTING = true
+  TestFlags.DISABLE_EXPLOSION_FOR_UNIT_TESTING = true
 
   // make an enemy instance
   const wave = 2 // to set an stronger enemy
@@ -84,7 +84,7 @@ test('damage of enemy, when enemy is enough strong and collides with a fireball,
   }
 
   // restore allow explosions
-  ConstTest.DISABLE_EXPLOSION_FOR_UNIT_TESTING = false
+  TestFlags.DISABLE_EXPLOSION_FOR_UNIT_TESTING = false
   const result =
     enemyInstancesManager.getAll()[0].damage > 0 &&
     enemyInstancesManager.getAll()[0].damage < 100

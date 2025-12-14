@@ -1,9 +1,9 @@
 import { expect } from 'vitest'
-import { ConstTest } from '../../src/constants/ConstTest'
 import { MiniMap } from '../../src/menus/MiniMap'
 import { getButtonsMiniMapsCreator } from '../helpers/hud'
+import { TestFlags } from '../flags'
 
-ConstTest.DISABLE_LOADING_IMAGES = true
+TestFlags.DISABLE_LOADING_IMAGES = true
 const levelsIds = [1, 1, 1, 1, 1, 1]
 const initialPosition = { x: 100, y: 200 }
 const buttonsMiniMapsCreator = getButtonsMiniMapsCreator()

@@ -1,8 +1,8 @@
 import { TileBlack } from '../TileBlack'
 import { Image } from 'p5'
 import { TilesManager } from '../TilesManager'
-import { ConstTest } from '../../../constants/constTest'
 import { TileCreator } from './TileCreator'
+import { TestFlags } from '../../../../test/flags'
 
 export class TileBlackCreator extends TileCreator {
   static #instance: TileBlackCreator | null = null
@@ -25,7 +25,7 @@ export class TileBlackCreator extends TileCreator {
       )
     }
 
-    if (!ConstTest.DISABLE_LOADING_IMAGES) {
+    if (!TestFlags.DISABLE_LOADING_IMAGES) {
       this.#blackImage = mapImages[1]
     }
 

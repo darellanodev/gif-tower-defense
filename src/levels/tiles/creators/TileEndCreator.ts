@@ -2,8 +2,8 @@ import { Image } from 'p5'
 import { TilesManager } from '../TilesManager'
 import { DIRECTION } from '../../../constants/direction'
 import { TileEnd } from '../TileEnd'
-import { ConstTest } from '../../../constants/constTest'
 import { TileCreator } from './TileCreator'
+import { TestFlags } from '../../../../test/flags'
 
 export class TileEndCreator extends TileCreator {
   static #instance: TileEndCreator | null = null
@@ -26,7 +26,7 @@ export class TileEndCreator extends TileCreator {
       )
     }
 
-    if (!ConstTest.DISABLE_LOADING_IMAGES) {
+    if (!TestFlags.DISABLE_LOADING_IMAGES) {
       this.#mapImages = mapImages
     }
 

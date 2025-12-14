@@ -2,8 +2,8 @@ import { Image } from 'p5'
 import { TilesManager } from '../TilesManager'
 import { DIRECTION } from '../../../constants/direction'
 import { TileStart } from '../TileStart'
-import { ConstTest } from '../../../constants/constTest'
 import { TileCreator } from './TileCreator'
+import { TestFlags } from '../../../../test/flags'
 
 export class TileStartCreator extends TileCreator {
   static #instance: TileStartCreator | null = null
@@ -25,7 +25,7 @@ export class TileStartCreator extends TileCreator {
         'TileStartCreator is a singleton class, use getInstance to get the instance',
       )
     }
-    if (!ConstTest.DISABLE_LOADING_IMAGES) {
+    if (!TestFlags.DISABLE_LOADING_IMAGES) {
       this.#mapImages = mapImages
     }
 
