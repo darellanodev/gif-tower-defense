@@ -12,7 +12,7 @@ import { StateManager } from '../StateManager'
 import { Position } from '../types/position'
 import {
   ENEMY_CREATION_MAX_TIME,
-  ENEMY_TOTAL_ENEMIES,
+  TOTAL_ENEMIES,
   ENEMY_VELOCITY,
 } from '../constants/enemy'
 
@@ -63,7 +63,7 @@ export class EnemySystem {
       return
     }
 
-    if (Enemy.waveEnemies < ENEMY_TOTAL_ENEMIES) {
+    if (Enemy.waveEnemies < TOTAL_ENEMIES) {
       this.#createNormalEnemyWhenTimeReached()
     } else {
       this.#disableEnemyNormalCreation()

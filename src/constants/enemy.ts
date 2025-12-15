@@ -14,4 +14,4 @@ export const ENEMY_CREATION_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decr
 export const ENEMY_SHRINK_AMOUNT_FACTOR = 0.6
 export const ENEMY_SIZE = 50
 
-export const ENEMY_TOTAL_ENEMIES = 5
+export const TOTAL_ENEMIES = 5
