@@ -12,7 +12,6 @@ import { NewsDataProvider } from './news/NewsDataProvider'
 import { Images } from '../resources/Images'
 import { Position } from '../types/position'
 import { P5 } from '../utils/P5'
-import { Enemy } from '../enemies/Enemy'
 import { TOTAL_ENEMIES } from '../constants/enemy'
 
 export class MenuMain {
