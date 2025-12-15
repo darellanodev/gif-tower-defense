@@ -10,6 +10,6 @@ export const ENEMY_VELOCITY = {
   BOSS: 0.5,
 }
 
+export const ENEMY_CREATION_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
 export const ENEMY_SHRINK_AMOUNT_FACTOR = 0.6
-
 export const ENEMY_SIZE = 50

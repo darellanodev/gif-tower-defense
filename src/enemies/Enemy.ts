@@ -16,7 +16,6 @@ export class Enemy extends Obj {
   static STATUS_ALIVE = 0
   static STATUS_DEAD = 1
   static TOTAL_ENEMIES = 5
-  static CREATION_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
 
   static waveEnemies: number = 0
   static allowCreateEnemies: boolean = true
