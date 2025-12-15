@@ -1,3 +1,4 @@
+import { ENEMY_TOTAL_ENEMIES } from '../constants/enemy'
 import { Enemy } from '../enemies/Enemy'
 import { Tower } from '../towers/Tower'
 import { ArrayRange } from '../utils/ArrayRange'
@@ -6,7 +7,7 @@ import { P5 } from '../utils/P5'
 export class Resources {
   static enemies() {
     const enemiesImages: any[] = []
-    const countEnemiesAndBoss = Enemy.TOTAL_ENEMIES + 1
+    const countEnemiesAndBoss = ENEMY_TOTAL_ENEMIES + 1
     ArrayRange.get(1, countEnemiesAndBoss).forEach((v) => {
       enemiesImages.push(P5.p5.loadImage('../img/enemies/' + v + '_center.png'))
       enemiesImages.push(P5.p5.loadImage('../img/enemies/' + v + '_left.png'))

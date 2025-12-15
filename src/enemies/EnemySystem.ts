@@ -10,7 +10,11 @@ import { Wallet } from '../player/Wallet'
 import { Images } from '../resources/Images'
 import { StateManager } from '../StateManager'
 import { Position } from '../types/position'
-import { ENEMY_CREATION_MAX_TIME, ENEMY_VELOCITY } from '../constants/enemy'
+import {
+  ENEMY_CREATION_MAX_TIME,
+  ENEMY_TOTAL_ENEMIES,
+  ENEMY_VELOCITY,
+} from '../constants/enemy'
 
 export class EnemySystem {
   enemyCreator: EnemyCreator
@@ -59,7 +63,7 @@ export class EnemySystem {
       return
     }
 
-    if (Enemy.waveEnemies < Enemy.TOTAL_ENEMIES) {
+    if (Enemy.waveEnemies < ENEMY_TOTAL_ENEMIES) {
       this.#createNormalEnemyWhenTimeReached()
     } else {
       this.#disableEnemyNormalCreation()

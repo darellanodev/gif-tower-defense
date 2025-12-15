@@ -15,7 +15,6 @@ import {
 export class Enemy extends Obj {
   static STATUS_ALIVE = 0
   static STATUS_DEAD = 1
-  static TOTAL_ENEMIES = 5
 
   static waveEnemies: number = 0
   static allowCreateEnemies: boolean = true

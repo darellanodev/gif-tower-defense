@@ -13,6 +13,7 @@ import { Images } from '../resources/Images'
 import { Position } from '../types/position'
 import { P5 } from '../utils/P5'
 import { Enemy } from '../enemies/Enemy'
+import { ENEMY_TOTAL_ENEMIES } from '../constants/enemy'
 
 export class MenuMain {
   static #instance: MenuMain | null = null
@@ -79,7 +80,7 @@ export class MenuMain {
     // create the todayEnemies zone
     const enemiesAnimators: EnemyAnimator[] = []
 
-    for (let i = 0; i < Enemy.TOTAL_ENEMIES; i++) {
+    for (let i = 0; i < ENEMY_TOTAL_ENEMIES; i++) {
       enemiesAnimators.push(new EnemyAnimator(Images.getForEnemy(i)))
     }
     this.#todayEnemies = new TodayEnemies(enemiesAnimators)
