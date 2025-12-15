@@ -10,12 +10,10 @@ import {
   ENEMY_HEALTH_BAR,
   ENEMY_SHRINK_AMOUNT_FACTOR,
   ENEMY_SIZE,
+  ENEMY_STATUS,
 } from '../constants/enemy'
 
 export class Enemy extends Obj {
-  static STATUS_ALIVE = 0
-  static STATUS_DEAD = 1
-
   static waveEnemies: number = 0
   static allowCreateEnemies: boolean = true
   static createEnemyTime: number = 0
@@ -53,7 +51,7 @@ export class Enemy extends Obj {
 
     this.#healthBar = this.#createHealthBar()
 
-    this.#status = Enemy.STATUS_ALIVE
+    this.#status = ENEMY_STATUS.ALIVE
   }
 
   #createHealthBar() {
@@ -76,11 +74,11 @@ export class Enemy extends Obj {
   }
 
   get isDead() {
-    return this.#status == Enemy.STATUS_DEAD
+    return this.#status == ENEMY_STATUS.DEAD
   }
 
   get isAlive() {
-    return this.#status == Enemy.STATUS_ALIVE
+    return this.#status == ENEMY_STATUS.ALIVE
   }
 
   get isWinner() {
@@ -99,7 +97,7 @@ export class Enemy extends Obj {
 
   #killEnemyIfProgressFull() {
     if (this.#healthBar.isFullOfProgress()) {
-      this.#status = Enemy.STATUS_DEAD
+      this.#status = ENEMY_STATUS.DEAD
     }
   }
 
