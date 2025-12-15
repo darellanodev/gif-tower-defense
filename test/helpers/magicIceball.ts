@@ -1,3 +1,4 @@
+import { ENEMY_VELOCITY } from '../../src/constants/enemy'
 import { Enemy } from '../../src/enemies/Enemy'
 import { MagicIceballCreator } from '../../src/magics/MagicIceballCreator'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
@@ -15,7 +16,7 @@ export const createMagicIceball = (
     img,
     initialEnemiesPosition,
     orders,
-    Enemy.VELOCITY,
+    ENEMY_VELOCITY.NORMAL,
   )
 
   magicIceballCreator.create()

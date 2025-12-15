@@ -4,6 +4,12 @@ export const ENEMY_HEALTH_BAR = {
   SIZE: { w: 27, h: 7 },
 } as const
 
+// Velocity values must be multiple of the tile size (see constants). Set 1 for normal, 5 for a faster game or 25 for a fastest game
+export const ENEMY_VELOCITY = {
+  NORMAL: 1,
+  BOSS: 0.5,
+}
+
 export const ENEMY_SHRINK_AMOUNT_FACTOR = 0.6
 
 export const ENEMY_SIZE = 50

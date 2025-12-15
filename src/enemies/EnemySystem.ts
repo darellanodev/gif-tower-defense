@@ -10,6 +10,7 @@ import { Wallet } from '../player/Wallet'
 import { Images } from '../resources/Images'
 import { StateManager } from '../StateManager'
 import { Position } from '../types/position'
+import { ENEMY_VELOCITY } from '../constants/enemy'
 
 export class EnemySystem {
   enemyCreator: EnemyCreator
@@ -66,7 +67,7 @@ export class EnemySystem {
   }
   #createEnemyNormal() {
     const enemyAnimator = this.#createEnemyNormalAnimator()
-    const pathMovement = this.#createPathMovement(Enemy.VELOCITY)
+    const pathMovement = this.#createPathMovement(ENEMY_VELOCITY.NORMAL)
 
     this.enemyCreator.createNormal(
       Enemy.waveEnemies,
@@ -122,7 +123,7 @@ export class EnemySystem {
   }
   instantiateEnemyBoss() {
     const enemyBossAnimator = this.#createEnemyBossAnimator()
-    const pathMovement = this.#createPathMovement(Enemy.BOSS_VELOCITY)
+    const pathMovement = this.#createPathMovement(ENEMY_VELOCITY.BOSS)
 
     this.enemyCreator.createBoss(
       this.pathStartEnemiesPosition,

@@ -5,6 +5,7 @@ import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { PathMovement } from '../../src/levels/path/PathMovement'
 import { getOrdersFromValidMap } from './orders'
 import { images } from './imagesResources'
+import { ENEMY_VELOCITY } from '../../src/constants/enemy'
 
 export const createNormalEnemy = (
   enemyInstancesManager: EnemyInstancesManager,
@@ -25,7 +26,7 @@ export const createNormalEnemy = (
   const pathMovement = new PathMovement(
     initialEnemiesPosition,
     orders,
-    Enemy.VELOCITY,
+    ENEMY_VELOCITY.NORMAL,
   )
 
   enemyCreator.createNormal(
@@ -52,7 +53,7 @@ export const createBossEnemy = (
   const pathMovement = new PathMovement(
     initialEnemiesPosition,
     orders,
-    Enemy.BOSS_VELOCITY,
+    ENEMY_VELOCITY.BOSS,
   )
 
   enemyCreator.createBoss(

@@ -5,6 +5,7 @@ import { img } from '../helpers/imagesResources'
 import { Enemy } from '../../src/enemies/Enemy'
 import { testTinyOrders } from '../helpers/levelMap'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
+import { ENEMY_VELOCITY } from '../../src/constants/enemy'
 
 test('do not allow call constructor more than one time', () => {
   const enemyInstancesManager = new EnemyInstancesManager()
@@ -21,7 +22,7 @@ test('do not allow call constructor more than one time', () => {
     img,
     initialEnemiesPosition,
     testTinyOrders,
-    Enemy.VELOCITY,
+    ENEMY_VELOCITY.NORMAL,
   )
   expect(
     () =>
@@ -30,7 +31,7 @@ test('do not allow call constructor more than one time', () => {
         img,
         initialEnemiesPosition,
         testTinyOrders,
-        Enemy.VELOCITY,
+        ENEMY_VELOCITY.NORMAL,
       ),
   ).toThrow(
     'MagicFireballCreator is a singleton class, use getInstance to get the instance',
@@ -52,7 +53,7 @@ describe('Magic Fireball Instances length', () => {
       img,
       initialEnemiesPosition,
       testTinyOrders,
-      Enemy.VELOCITY,
+      ENEMY_VELOCITY.NORMAL,
     )
 
     magicFireballCreator.create()
