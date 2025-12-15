@@ -6,7 +6,10 @@ import { Obj } from '../Obj'
 import { EnemyAnimator } from './EnemyAnimator'
 import { PathMovement } from '../levels/path/PathMovement'
 import { Size } from '../types/size'
-import { ENEMY_HEALTH_BAR } from '../constants/enemy'
+import {
+  ENEMY_HEALTH_BAR,
+  ENEMY_SHRINK_AMOUNT_FACTOR,
+} from '../constants/enemy'
 
 export class Enemy extends Obj {
   static VELOCITY = 1 // must be multiple of the tile size (see constants). Set 1 for normal, 5 for a faster game or 25 for a fastest game
@@ -17,8 +20,6 @@ export class Enemy extends Obj {
   static TOTAL_ENEMIES = 5
   static CREATION_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
   static SIZE = 50
-
-  static SHRINK_AMOUNT_FACTOR = 0.6
 
   static waveEnemies: number = 0
   static allowCreateEnemies: boolean = true
@@ -204,7 +205,7 @@ export class Enemy extends Obj {
 
   decrementSize() {
     if (this.#shrinkAmount < Enemy.SIZE) {
-      this.#shrinkAmount += Enemy.SHRINK_AMOUNT_FACTOR
+      this.#shrinkAmount += ENEMY_SHRINK_AMOUNT_FACTOR
     }
   }
 }

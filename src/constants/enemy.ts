@@ -3,3 +3,5 @@ export const ENEMY_HEALTH_BAR = {
   OFFSET_Y: 3,
   SIZE: { w: 27, h: 7 },
 } as const
+
+export const ENEMY_SHRINK_AMOUNT_FACTOR = 0.6
