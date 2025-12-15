@@ -9,6 +9,7 @@ import { Size } from '../types/size'
 import {
   ENEMY_HEALTH_BAR,
   ENEMY_SHRINK_AMOUNT_FACTOR,
+  ENEMY_SIZE,
 } from '../constants/enemy'
 
 export class Enemy extends Obj {
@@ -19,7 +20,6 @@ export class Enemy extends Obj {
   static STATUS_DEAD = 1
   static TOTAL_ENEMIES = 5
   static CREATION_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
-  static SIZE = 50
 
   static waveEnemies: number = 0
   static allowCreateEnemies: boolean = true
@@ -93,7 +93,7 @@ export class Enemy extends Obj {
   }
 
   get isAbducted() {
-    return this.#shrinkAmount >= Enemy.SIZE
+    return this.#shrinkAmount >= ENEMY_SIZE
   }
 
   addDamage(shotDamage: number) {
@@ -204,7 +204,7 @@ export class Enemy extends Obj {
   }
 
   decrementSize() {
-    if (this.#shrinkAmount < Enemy.SIZE) {
+    if (this.#shrinkAmount < ENEMY_SIZE) {
       this.#shrinkAmount += ENEMY_SHRINK_AMOUNT_FACTOR
     }
   }

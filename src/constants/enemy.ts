@@ -5,3 +5,5 @@ export const ENEMY_HEALTH_BAR = {
 } as const
 
 export const ENEMY_SHRINK_AMOUNT_FACTOR = 0.6
+
+export const ENEMY_SIZE = 50
