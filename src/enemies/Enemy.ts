@@ -3,7 +3,7 @@ import { Position } from '../types/position'
 import { MagicIceball } from '../magics/MagicIceball'
 import { P5 } from '../utils/P5'
 import { Obj } from '../Obj'
-import { EnemyAnimator } from './EnemyAnimator'
+import { EnemyAnimator } from './EnemyEyesAnimator'
 import { PathMovement } from '../levels/path/PathMovement'
 import { Size } from '../types/size'
 import {

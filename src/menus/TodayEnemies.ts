@@ -1,4 +1,4 @@
-import { EnemyAnimator } from '../enemies/EnemyAnimator'
+import { EnemyAnimator } from '../enemies/EnemyEyesAnimator'
 import { Position } from '../types/position'
 import { Size } from '../types/size'
 import { P5 } from '../utils/P5'

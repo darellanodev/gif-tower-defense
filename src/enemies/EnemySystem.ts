@@ -1,5 +1,5 @@
 import { Enemy } from './Enemy'
-import { EnemyAnimator } from './EnemyAnimator'
+import { EnemyAnimator } from './EnemyEyesAnimator'
 import { EnemyCreator } from './EnemyCreator'
 import { EnemyInstancesManager } from './EnemyInstancesManager'
 import { ExplosionEnemy } from '../particles/explosions/ExplosionEnemy'

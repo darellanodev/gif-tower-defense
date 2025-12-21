@@ -1,7 +1,7 @@
 import { PathMovement } from '../levels/path/PathMovement'
 import { Position } from '../types/position'
 import { Enemy } from './Enemy'
-import { EnemyAnimator } from './EnemyAnimator'
+import { EnemyAnimator } from './EnemyEyesAnimator'
 import { EnemyInstancesManager } from './EnemyInstancesManager'
 
 export class EnemyCreator {
