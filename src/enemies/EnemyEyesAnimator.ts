@@ -1,17 +1,13 @@
+import {
+  ENEMY_EYES_CHANGE_MAX_TIME,
+  ENEMY_EYES_EXTEND_CLOSED_TIME,
+  ENEMY_EYES_IMAGE,
+  ENEMY_EYES_TIME_TO_CLOSE,
+} from '../constants/enemyEyes'
 import { Random } from '../utils/Random'
 import { Image } from 'p5'
 
 export class EnemyAnimator {
-  static CHANGE_EYES_MAX_TIME = 50
-  static EXTEND_CLOSED_EYES_MAX_TIME = 20
-  static MIN_TIME_TO_CLOSE = 50
-  static MAX_TIME_TO_CLOSE = 200
-  static EYES_CENTER = 0
-  static EYES_LEFT = 1
-  static EYES_RIGHT = 2
-  static EYES_CLOSED = 3
-  static INDEX_BOSS_IN_ENEMIES_IMAGES = 5
-
   #images: Image[]
 
   #imgIndex: number
@@ -27,13 +23,13 @@ export class EnemyAnimator {
     this.#images = images
 
     this.#eyesSequence = [
-      EnemyAnimator.EYES_LEFT,
-      EnemyAnimator.EYES_CENTER,
-      EnemyAnimator.EYES_RIGHT,
-      EnemyAnimator.EYES_CENTER,
+      ENEMY_EYES_IMAGE.LEFT,
+      ENEMY_EYES_IMAGE.CENTER,
+      ENEMY_EYES_IMAGE.RIGHT,
+      ENEMY_EYES_IMAGE.CENTER,
     ]
-    this.#imgIndex = EnemyAnimator.EYES_CENTER
-    this.#imgIndexBeforeEyesClosed = EnemyAnimator.EYES_CENTER
+    this.#imgIndex = ENEMY_EYES_IMAGE.CENTER
+    this.#imgIndexBeforeEyesClosed = ENEMY_EYES_IMAGE.CENTER
   }
 
   update() {
@@ -41,11 +37,11 @@ export class EnemyAnimator {
   }
 
   #hasOpenEyes() {
-    return this.#imgIndex != EnemyAnimator.EYES_CLOSED
+    return this.#imgIndex != ENEMY_EYES_IMAGE.CLOSED
   }
 
   #moveEyesInSequence() {
-    if (this.#changeEyesTime > EnemyAnimator.CHANGE_EYES_MAX_TIME) {
+    if (this.#changeEyesTime > ENEMY_EYES_CHANGE_MAX_TIME) {
       this.#changeEyesTime = 0
       this.#indexEyesSequence++
       this.#resetEyesSequenceWhenTimeReached()
@@ -66,8 +62,8 @@ export class EnemyAnimator {
 
   #setRandomTimeMaxForClosingEyes() {
     this.#randomCloseEyes = Random.integerBetween(
-      EnemyAnimator.MIN_TIME_TO_CLOSE,
-      EnemyAnimator.MAX_TIME_TO_CLOSE,
+      ENEMY_EYES_TIME_TO_CLOSE.MIN,
+      ENEMY_EYES_TIME_TO_CLOSE.MAX,
     )
   }
 
@@ -76,14 +72,12 @@ export class EnemyAnimator {
       this.#closeEyesTime = 0
       this.#setRandomTimeMaxForClosingEyes()
       this.#imgIndexBeforeEyesClosed = this.#imgIndex
-      this.#imgIndex = EnemyAnimator.EYES_CLOSED
+      this.#imgIndex = ENEMY_EYES_IMAGE.CLOSED
     }
   }
 
   #openEyesWhenTimeReached() {
-    if (
-      this.#extendClosedEyesTime > EnemyAnimator.EXTEND_CLOSED_EYES_MAX_TIME
-    ) {
+    if (this.#extendClosedEyesTime > ENEMY_EYES_EXTEND_CLOSED_TIME) {
       this.#extendClosedEyesTime = 0
       this.#imgIndex = this.#imgIndexBeforeEyesClosed
     }

@@ -14,6 +14,7 @@ import {
   ENEMY_CREATION_MAX_TIME,
   TOTAL_ENEMIES,
   ENEMY_VELOCITY,
+  ENEMY_BOSS_INDEX_IMAGE,
 } from '../constants/enemy'
 
 export class EnemySystem {
@@ -121,9 +122,7 @@ export class EnemySystem {
   }
 
   #createEnemyBossAnimator() {
-    return new EnemyAnimator(
-      Images.getForEnemy(EnemyAnimator.INDEX_BOSS_IN_ENEMIES_IMAGES),
-    )
+    return new EnemyAnimator(Images.getForEnemy(ENEMY_BOSS_INDEX_IMAGE))
   }
   instantiateEnemyBoss() {
     const enemyBossAnimator = this.#createEnemyBossAnimator()

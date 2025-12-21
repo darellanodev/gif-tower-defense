@@ -20,3 +20,5 @@ export const ENEMY_SHRINK_AMOUNT_FACTOR = 0.6
 export const ENEMY_SIZE = 50
 
 export const TOTAL_ENEMIES = 5
+
+export const ENEMY_BOSS_INDEX_IMAGE = 5
