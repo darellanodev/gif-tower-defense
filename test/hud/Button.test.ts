@@ -3,6 +3,7 @@ import { Button } from '../../src/hud/buttons/Button'
 import { Position } from '../../src/types/position'
 import { Size } from '../../src/types/size'
 import { images } from '../helpers/imagesResources'
+import { BUTTON_INDEX_IMAGE } from '../../src/constants/button'
 
 const buttonPosition: Position = { x: 100, y: 100 }
 const buttonSize: Size = { w: 50, h: 50 }
@@ -57,14 +58,14 @@ test('getStateDraw, if the mouse position is inside the button and the button ha
   const mousePosition: Position = { x: 120, y: 130 }
 
   const result = buttonFourImages.getStateDraw(mousePosition)
-  expect(result).toBe(Button.INDEX_IMAGE_ON_HOVER)
+  expect(result).toBe(BUTTON_INDEX_IMAGE.ON_HOVER)
 })
 
 test('getStateDraw, if the mouse position is outside the button and the button has 4 images, return INDEX_IMAGE_ON', () => {
   const mousePosition: Position = { x: 160, y: 130 }
 
   const result = buttonFourImages.getStateDraw(mousePosition)
-  expect(result).toBe(Button.INDEX_IMAGE_ON)
+  expect(result).toBe(BUTTON_INDEX_IMAGE.ON)
 })
 
 test('getStateDraw, if the mouse position is inside and the button has 6 images and it is checked, return INDEX_IMAGE_CHECKED_HOVER', () => {
@@ -72,7 +73,7 @@ test('getStateDraw, if the mouse position is inside and the button has 6 images 
   buttonSixImages.check()
 
   const result = buttonSixImages.getStateDraw(mousePosition)
-  expect(result).toBe(Button.INDEX_IMAGE_CHECKED_HOVER)
+  expect(result).toBe(BUTTON_INDEX_IMAGE.CHECKED_HOVER)
 })
 
 test('getStateDraw, if the mouse position is inside and the button has 6 images and it is not checked, return INDEX_IMAGE_ON_HOVER', () => {
@@ -80,7 +81,7 @@ test('getStateDraw, if the mouse position is inside and the button has 6 images 
   buttonSixImages.uncheck()
 
   const result = buttonSixImages.getStateDraw(mousePosition)
-  expect(result).toBe(Button.INDEX_IMAGE_ON_HOVER)
+  expect(result).toBe(BUTTON_INDEX_IMAGE.ON_HOVER)
 })
 
 test('getStateDraw, if the mouse position is outside and the button has 6 images and it is checked, return INDEX_IMAGE_CHECKED', () => {
@@ -88,7 +89,7 @@ test('getStateDraw, if the mouse position is outside and the button has 6 images
   buttonSixImages.check()
 
   const result = buttonSixImages.getStateDraw(mousePosition)
-  expect(result).toBe(Button.INDEX_IMAGE_CHECKED)
+  expect(result).toBe(BUTTON_INDEX_IMAGE.CHECKED)
 })
 
 test('getStateDraw, if the mouse position is outside and button on is false, return INDEX_IMAGE_OFF', () => {
@@ -96,7 +97,7 @@ test('getStateDraw, if the mouse position is outside and button on is false, ret
   button.on = false
   const result = button.getStateDraw(mousePosition)
 
-  expect(result).toBe(Button.INDEX_IMAGE_OFF)
+  expect(result).toBe(BUTTON_INDEX_IMAGE.OFF)
 })
 
 test('getStateDraw, if the mouse position is inside and button is not on, return INDEX_IMAGE_OFF_HOVER', () => {
@@ -104,5 +105,5 @@ test('getStateDraw, if the mouse position is inside and button is not on, return
   button.on = false
   const result = button.getStateDraw(mousePosition)
 
-  expect(result).toBe(Button.INDEX_IMAGE_OFF_HOVER)
+  expect(result).toBe(BUTTON_INDEX_IMAGE.OFF_HOVER)
 })
