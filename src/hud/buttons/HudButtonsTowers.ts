@@ -14,13 +14,6 @@ import { ButtonRedTowerCreator } from './ButtonRedTowerCreator'
 import { ButtonYellowTowerCreator } from './ButtonYellowTowerCreator'
 
 export class HudButtonsTowers {
-  static ICON_GREEN_TOWER_ON = 0
-  static ICON_GREEN_TOWER_OFF = 1
-  static ICON_RED_TOWER_ON = 0
-  static ICON_RED_TOWER_OFF = 1
-  static ICON_YELLOW_TOWER_ON = 0
-  static ICON_YELLOW_TOWER_OFF = 1
-
   static greenTowerButton: Button
   static redTowerButton: Button
   static yellowTowerButton: Button
