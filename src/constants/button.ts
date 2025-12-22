@@ -11,3 +11,10 @@ export const BUTTON_MINIMAP_OFFSET = {
   X: 14,
   Y: -6,
 }
+
+export const BUTTON_MINIMAP_SURVIVAL_MENU_STEP = {
+  X: 150,
+  Y: 120,
+}
+
+export const BUTTON_MINIMAPS_DISPLAYED_IN_ROW = 5

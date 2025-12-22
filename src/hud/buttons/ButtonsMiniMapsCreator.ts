@@ -1,3 +1,7 @@
+import {
+  BUTTON_MINIMAP_SURVIVAL_MENU_STEP,
+  BUTTON_MINIMAPS_DISPLAYED_IN_ROW,
+} from '../../constants/button'
 import { LevelsDataProvider } from '../../levels/LevelsDataProvider'
 import { MiniMap } from '../../menus/MiniMap'
 import { Images } from '../../resources/Images'
@@ -6,10 +10,6 @@ import { Position } from '../../types/position'
 import { ButtonMiniMap } from './ButtonMiniMap'
 
 export class ButtonsMiniMapsCreator {
-  static MINIMAPS_DISPLAYED_ROW = 5
-  static STEP_X = 150
-  static STEP_Y = 120
-
   static #instance: ButtonsMiniMapsCreator | null = null
 
   #levelsDataProvider: LevelsDataProvider
@@ -86,13 +86,13 @@ export class ButtonsMiniMapsCreator {
   }
 
   #shouldChangeNextRow() {
-    return this.#column % ButtonsMiniMapsCreator.MINIMAPS_DISPLAYED_ROW === 0
+    return this.#column % BUTTON_MINIMAPS_DISPLAYED_IN_ROW === 0
   }
 
   getPosition(position: Position, column: number, row: number) {
     return {
-      x: position.x + column * ButtonsMiniMapsCreator.STEP_X,
-      y: position.y + row * ButtonsMiniMapsCreator.STEP_Y,
+      x: position.x + column * BUTTON_MINIMAP_SURVIVAL_MENU_STEP.X,
+      y: position.y + row * BUTTON_MINIMAP_SURVIVAL_MENU_STEP.Y,
     }
   }
 }
