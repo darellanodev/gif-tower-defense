@@ -6,3 +6,8 @@ export const BUTTON_INDEX_IMAGE = {
   CHECKED: 4,
   CHECKED_HOVER: 5,
 }
+
+export const BUTTON_MINIMAP_OFFSET = {
+  X: 14,
+  Y: -6,
+}

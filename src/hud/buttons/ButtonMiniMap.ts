@@ -3,10 +3,9 @@ import { Position } from '../../types/position'
 import { Size } from '../../types/size'
 import { Button } from './Button'
 import { MiniMap } from '../../menus/MiniMap'
+import { BUTTON_MINIMAP_OFFSET } from '../../constants/button'
 
 export class ButtonMiniMap extends Button {
-  static MINIMAP_OFFSET_X = 14
-  static MINIMAP_OFFSET_Y = -6
   #miniMap: MiniMap
   constructor(
     position: Position,
@@ -18,8 +17,8 @@ export class ButtonMiniMap extends Button {
     super(position, size, images, offsetImages)
     this.#miniMap = miniMap
     this.#miniMap.position = {
-      x: position.x + ButtonMiniMap.MINIMAP_OFFSET_X,
-      y: position.y + ButtonMiniMap.MINIMAP_OFFSET_Y,
+      x: position.x + BUTTON_MINIMAP_OFFSET.X,
+      y: position.y + BUTTON_MINIMAP_OFFSET.Y,
     }
   }
 
