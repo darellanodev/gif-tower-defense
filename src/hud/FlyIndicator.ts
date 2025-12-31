@@ -3,12 +3,13 @@ import { P5 } from '../utils/P5'
 import { Position } from '../types/position'
 import { TextProperties } from './TextProperties'
 import { Obj } from '../Obj'
+import {
+  FLY_INDICATOR_ICON_POSITION_OFFSET,
+  FLY_INDICATOR_MAX_TIME_ALIVE,
+  FLY_INDICATOR_MOVE_INCREMENT,
+} from '../constants/flyIndicator'
 
 export class FlyIndicator extends Obj {
-  static MAX_TIME_ALIVE: number = 100
-  static MOVE_INCREMENT: number = 0.5
-  static OFFSET_POS_X_ICON: number = 22
-  static OFFSET_POS_Y_ICON: number = -10
   static instances: FlyIndicator[] = []
 
   #alive: boolean = true
@@ -51,8 +52,8 @@ export class FlyIndicator extends Obj {
     if (this.#icon) {
       P5.p5.image(
         this.#icon,
-        this.position.x + FlyIndicator.OFFSET_POS_X_ICON,
-        this.position.y + FlyIndicator.OFFSET_POS_Y_ICON,
+        this.position.x + FLY_INDICATOR_ICON_POSITION_OFFSET.X,
+        this.position.y + FLY_INDICATOR_ICON_POSITION_OFFSET.Y,
       )
     }
     P5.p5.text(this.#text, this.position.x, this.position.y)
@@ -75,14 +76,14 @@ export class FlyIndicator extends Obj {
   }
 
   #removeFlyIndicatorWhenTimeUp() {
-    if (this.#aliveTime > FlyIndicator.MAX_TIME_ALIVE) {
+    if (this.#aliveTime > FLY_INDICATOR_MAX_TIME_ALIVE) {
       this.#alive = false
       return
     }
   }
 
   #changePosition() {
-    const newY = this.position.y - FlyIndicator.MOVE_INCREMENT
+    const newY = this.position.y - FLY_INDICATOR_MOVE_INCREMENT
     this.position = { x: this.position.x, y: newY }
   }
 
