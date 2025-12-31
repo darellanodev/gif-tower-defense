@@ -72,7 +72,7 @@ export class HudSystem {
     const position: Position = { x: 345, y: 1 }
     const size: Size = { w: 150, h: 16 }
 
-    return new HudProgressBarWave(position, size, this.#player)
+    return new HudProgressBarWave(position, size)
   }
 
   createHuds(wallet: Wallet, levelMap: MapDataType) {
