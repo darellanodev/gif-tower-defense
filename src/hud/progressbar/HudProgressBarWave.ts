@@ -2,12 +2,10 @@ import { Position } from '../../types/position'
 import { Size } from '../../types/size'
 import { ProgressBar } from './ProgressBar'
 import { Player } from '../../player/Player'
+import { PROGRESS_BAR_WAVE_DELAY } from '../../constants/progressBar'
 
 export class HudProgressBarWave extends ProgressBar {
-  static POSITION: Position = { x: 335, y: -19 }
-  static SIZE: Size = { w: 150, h: 16 }
-  static WAVE_PROGRESS_DELAY = 35
-  #waveProgressDelay: number = HudProgressBarWave.WAVE_PROGRESS_DELAY
+  #waveProgressDelay: number = PROGRESS_BAR_WAVE_DELAY
   #player: Player
 
   constructor(position: Position, size: Size, player: Player) {
@@ -20,7 +18,7 @@ export class HudProgressBarWave extends ProgressBar {
       this.#waveProgressDelay--
       return
     }
-    this.#waveProgressDelay = HudProgressBarWave.WAVE_PROGRESS_DELAY
+    this.#waveProgressDelay = PROGRESS_BAR_WAVE_DELAY
     this.increaseProgress()
   }
 }

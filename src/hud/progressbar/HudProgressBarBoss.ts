@@ -1,12 +1,10 @@
 import { ProgressBar } from './ProgressBar'
 import { Position } from '../../types/position'
 import { Size } from '../../types/size'
-import { HudProgressBarWave } from './HudProgressBarWave'
+import { PROGRESS_BAR_BOSS_DELAY } from '../../constants/progressBar'
 
 export class HudProgressBarBoss extends ProgressBar {
-  static BOSS_PROGRESS_DELAY = HudProgressBarWave.WAVE_PROGRESS_DELAY * 6
-
-  #bossProgressDelay: number = HudProgressBarBoss.BOSS_PROGRESS_DELAY
+  #bossProgressDelay: number = PROGRESS_BAR_BOSS_DELAY
 
   constructor(position: Position, size: Size) {
     super(position, size)
@@ -17,7 +15,7 @@ export class HudProgressBarBoss extends ProgressBar {
       this.#bossProgressDelay--
       return
     }
-    this.#bossProgressDelay = HudProgressBarBoss.BOSS_PROGRESS_DELAY
+    this.#bossProgressDelay = PROGRESS_BAR_BOSS_DELAY
     this.increaseProgress()
   }
 }
