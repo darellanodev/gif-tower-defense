@@ -1,8 +1,6 @@
 import { HudPanel } from './HudPanel'
 import { HudButtonsTowers } from './buttons/HudButtonsTowers'
 import { HudButtonsMagics } from './buttons/HudButtonsMagics'
-import { HudProgressBarBoss } from './progressbar/HudProgressBarBoss'
-import { HudProgressBarWave } from './progressbar/HudProgressBarWave'
 import { HudPlayerIndicators } from './HudPlayerIndicators'
 import { HudScreenIndicators } from './HudScreenIndicators'
 import { Images } from '../resources/Images'
@@ -15,13 +13,18 @@ import { Button } from './buttons/Button'
 import { Controls } from '../player/Controls'
 import { StateManager } from '../StateManager'
 import { TileOrange } from '../levels/tiles/TileOrange'
+import { ProgressBarHealthEnemy } from './progressbar/ProgressBarHealthEnemy'
+import {
+  PROGRESS_BAR_BOSS_DELAY,
+  PROGRESS_BAR_WAVE_DELAY,
+} from '../constants/progressBar'
 
 export class HudSystem {
   #hudPanel: HudPanel
   hudButtonsMagics: HudButtonsMagics
   hudButtonsTowers: HudButtonsTowers
-  hudProgressBarBoss: HudProgressBarBoss
-  hudProgressBarWave: HudProgressBarWave
+  hudProgressBarBoss: ProgressBarHealthEnemy
+  hudProgressBarWave: ProgressBarHealthEnemy
   #hudPlayerIndicators: HudPlayerIndicators | null = null
   #hudScreenIndicators: HudScreenIndicators
   #player: Player
@@ -65,14 +68,14 @@ export class HudSystem {
     const position: Position = { x: 345, y: 17 }
     const size: Size = { w: 150, h: 10 }
 
-    return new HudProgressBarBoss(position, size)
+    return new ProgressBarHealthEnemy(position, size, PROGRESS_BAR_BOSS_DELAY)
   }
 
   #createHudProgressBarWave() {
     const position: Position = { x: 345, y: 1 }
     const size: Size = { w: 150, h: 16 }
 
-    return new HudProgressBarWave(position, size)
+    return new ProgressBarHealthEnemy(position, size, PROGRESS_BAR_WAVE_DELAY)
   }
 
   createHuds(wallet: Wallet, levelMap: MapDataType) {

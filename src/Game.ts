@@ -220,7 +220,7 @@ export class Game {
   }
 
   #updateWaveProgressBar() {
-    this.#hudSystem!.hudProgressBarWave.updateWaveProgressBar()
+    this.#hudSystem!.hudProgressBarWave.update()
   }
 
   #updateEnemies() {
@@ -237,7 +237,7 @@ export class Game {
   }
 
   #updateBossProgressBar() {
-    this.#hudSystem!.hudProgressBarBoss.updateBossProgressBar()
+    this.#hudSystem!.hudProgressBarBoss.update()
   }
 
   #updateBoss() {
