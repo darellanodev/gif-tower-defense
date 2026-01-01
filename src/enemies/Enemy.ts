@@ -49,16 +49,12 @@ export class Enemy extends Obj {
     this.#enemyAnimator = enemyAnimator
     this.#pathMovement = pathMovement
 
-    this.#healthBar = this.#createHealthBar()
+    this.#healthBar = new ProgressBar(
+      ENEMY_HEALTH_BAR.INITIAL_POSITION,
+      ENEMY_HEALTH_BAR.SIZE,
+    )
 
     this.#status = ENEMY_STATUS.ALIVE
-  }
-
-  #createHealthBar() {
-    const initialPosition: Position = { x: 0, y: 0 } // doesn't matter because later it will change with the enemy's position
-    const size: Size = ENEMY_HEALTH_BAR.SIZE
-
-    return new ProgressBar(initialPosition, size)
   }
 
   get isBoss() {
