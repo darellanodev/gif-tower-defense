@@ -15,8 +15,12 @@ import { StateManager } from '../StateManager'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { ProgressBarTimer } from './progressbar/ProgressBarTimer'
 import {
-  PROGRESS_BAR_BOSS_DELAY,
-  PROGRESS_BAR_WAVE_DELAY,
+  PROGRESS_BAR_TIMER_BOSS_DELAY,
+  PROGRESS_BAR_TIMER_BOSS_POSITION,
+  PROGRESS_BAR_TIMER_BOSS_SIZE,
+  PROGRESS_BAR_TIMER_WAVE_DELAY,
+  PROGRESS_BAR_TIMER_WAVE_POSITION,
+  PROGRESS_BAR_TIMER_WAVE_SIZE,
 } from '../constants/progressBar'
 
 export class HudSystem {
@@ -65,17 +69,19 @@ export class HudSystem {
   }
 
   #createHudProgressBarBoss() {
-    const position: Position = { x: 345, y: 17 }
-    const size: Size = { w: 150, h: 10 }
-
-    return new ProgressBarTimer(position, size, PROGRESS_BAR_BOSS_DELAY)
+    return new ProgressBarTimer(
+      PROGRESS_BAR_TIMER_BOSS_POSITION,
+      PROGRESS_BAR_TIMER_BOSS_SIZE,
+      PROGRESS_BAR_TIMER_BOSS_DELAY,
+    )
   }
 
   #createHudProgressBarWave() {
-    const position: Position = { x: 345, y: 1 }
-    const size: Size = { w: 150, h: 16 }
-
-    return new ProgressBarTimer(position, size, PROGRESS_BAR_WAVE_DELAY)
+    return new ProgressBarTimer(
+      PROGRESS_BAR_TIMER_WAVE_POSITION,
+      PROGRESS_BAR_TIMER_WAVE_SIZE,
+      PROGRESS_BAR_TIMER_WAVE_DELAY,
+    )
   }
 
   createHuds(wallet: Wallet, levelMap: MapDataType) {
