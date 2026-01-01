@@ -1,8 +1,11 @@
+import { Position } from '../types/position'
+import { Size } from '../types/size'
+
 export const ENEMY_HEALTH_BAR = {
   OFFSET_X: 10,
   OFFSET_Y: 3,
-  SIZE: { w: 27, h: 7 },
-  INITIAL_POSITION: { x: 0, y: 0 }, // doesn't matter because later it will change with the enemy's position
+  SIZE: { w: 27, h: 7 } as Size,
+  INITIAL_POSITION: { x: 0, y: 0 } as Position, // doesn't matter because later it will change with the enemy's position
 } as const
 
 // Velocity values must be multiple of the tile size (see constants). Set 1 for normal, 5 for a faster game or 25 for a fastest game
