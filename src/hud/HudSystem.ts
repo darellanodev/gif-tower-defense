@@ -64,20 +64,13 @@ export class HudSystem {
       isGameModeTesting,
     )
 
-    this.progressBarTimerBoss = this.#createHudProgressBarBoss()
-    this.progressBarTimerWave = this.#createHudProgressBarWave()
-  }
-
-  #createHudProgressBarBoss() {
-    return new ProgressBarTimer(
+    this.progressBarTimerBoss = new ProgressBarTimer(
       PROGRESS_BAR_TIMER_BOSS_POSITION,
       PROGRESS_BAR_TIMER_BOSS_SIZE,
       PROGRESS_BAR_TIMER_BOSS_DELAY,
     )
-  }
 
-  #createHudProgressBarWave() {
-    return new ProgressBarTimer(
+    this.progressBarTimerWave = new ProgressBarTimer(
       PROGRESS_BAR_TIMER_WAVE_POSITION,
       PROGRESS_BAR_TIMER_WAVE_SIZE,
       PROGRESS_BAR_TIMER_WAVE_DELAY,
