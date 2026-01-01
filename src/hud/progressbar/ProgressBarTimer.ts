@@ -2,7 +2,7 @@ import { Position } from '../../types/position'
 import { Size } from '../../types/size'
 import { ProgressBar } from './ProgressBar'
 
-export class ProgressBarHud extends ProgressBar {
+export class ProgressBarTimer extends ProgressBar {
   #waveProgressDelay: number
   #delay: number
 

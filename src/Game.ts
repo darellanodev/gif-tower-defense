@@ -220,13 +220,13 @@ export class Game {
   }
 
   #updateWaveProgressBar() {
-    this.#hudSystem!.hudProgressBarWave.update()
+    this.#hudSystem!.progressBarTimerWave.update()
   }
 
   #updateEnemies() {
     this.#instantiateEnemies = false
-    if (this.#hudSystem!.hudProgressBarWave.isFullOfProgress()) {
-      this.#hudSystem!.hudProgressBarWave.reInitProgress()
+    if (this.#hudSystem!.progressBarTimerWave.isFullOfProgress()) {
+      this.#hudSystem!.progressBarTimerWave.reInitProgress()
       this.#player.increaseWave()
       this.#instantiateEnemies = true
     }
@@ -237,13 +237,13 @@ export class Game {
   }
 
   #updateBossProgressBar() {
-    this.#hudSystem!.hudProgressBarBoss.update()
+    this.#hudSystem!.progressBarTimerBoss.update()
   }
 
   #updateBoss() {
     this.#instantiateBoss = false
-    if (this.#hudSystem!.hudProgressBarBoss.isFullOfProgress()) {
-      this.#hudSystem!.hudProgressBarBoss.reInitProgress()
+    if (this.#hudSystem!.progressBarTimerBoss.isFullOfProgress()) {
+      this.#hudSystem!.progressBarTimerBoss.reInitProgress()
       this.#instantiateBoss = true
     }
 

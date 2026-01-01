@@ -13,7 +13,7 @@ import { Button } from './buttons/Button'
 import { Controls } from '../player/Controls'
 import { StateManager } from '../StateManager'
 import { TileOrange } from '../levels/tiles/TileOrange'
-import { ProgressBarHud } from './progressbar/ProgressBarHud'
+import { ProgressBarTimer } from './progressbar/ProgressBarTimer'
 import {
   PROGRESS_BAR_BOSS_DELAY,
   PROGRESS_BAR_WAVE_DELAY,
@@ -23,8 +23,8 @@ export class HudSystem {
   #hudPanel: HudPanel
   hudButtonsMagics: HudButtonsMagics
   hudButtonsTowers: HudButtonsTowers
-  hudProgressBarBoss: ProgressBarHud
-  hudProgressBarWave: ProgressBarHud
+  progressBarTimerBoss: ProgressBarTimer
+  progressBarTimerWave: ProgressBarTimer
   #hudPlayerIndicators: HudPlayerIndicators | null = null
   #hudScreenIndicators: HudScreenIndicators
   #player: Player
@@ -60,22 +60,22 @@ export class HudSystem {
       isGameModeTesting,
     )
 
-    this.hudProgressBarBoss = this.#createHudProgressBarBoss()
-    this.hudProgressBarWave = this.#createHudProgressBarWave()
+    this.progressBarTimerBoss = this.#createHudProgressBarBoss()
+    this.progressBarTimerWave = this.#createHudProgressBarWave()
   }
 
   #createHudProgressBarBoss() {
     const position: Position = { x: 345, y: 17 }
     const size: Size = { w: 150, h: 10 }
 
-    return new ProgressBarHud(position, size, PROGRESS_BAR_BOSS_DELAY)
+    return new ProgressBarTimer(position, size, PROGRESS_BAR_BOSS_DELAY)
   }
 
   #createHudProgressBarWave() {
     const position: Position = { x: 345, y: 1 }
     const size: Size = { w: 150, h: 16 }
 
-    return new ProgressBarHud(position, size, PROGRESS_BAR_WAVE_DELAY)
+    return new ProgressBarTimer(position, size, PROGRESS_BAR_WAVE_DELAY)
   }
 
   createHuds(wallet: Wallet, levelMap: MapDataType) {
@@ -109,8 +109,8 @@ export class HudSystem {
     this.hudButtonsTowers.draw()
     this.#buttonPause.draw()
     this.hudButtonsMagics.draw()
-    this.hudProgressBarWave.draw()
-    this.hudProgressBarBoss.draw()
+    this.progressBarTimerWave.draw()
+    this.progressBarTimerBoss.draw()
     this.#hudPlayerIndicators.draw()
     this.#hudScreenIndicators.draw()
   }
