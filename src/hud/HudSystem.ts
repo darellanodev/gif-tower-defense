@@ -21,7 +21,7 @@ import {
   PROGRESS_BAR_TIMER_WAVE_DELAY,
   PROGRESS_BAR_TIMER_WAVE_POSITION,
   PROGRESS_BAR_TIMER_WAVE_SIZE,
-} from '../constants/progressBar'
+} from '../constants/progressBarTimer'
 
 export class HudSystem {
   #hudPanel: HudPanel
