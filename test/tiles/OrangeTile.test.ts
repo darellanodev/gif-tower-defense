@@ -10,7 +10,7 @@ import { images } from '../helpers/imagesResources'
 import { TowerGreenCreator } from '../../src/towers/TowerGreenCreator'
 import { TowerRedCreator } from '../../src/towers/TowerRedCreator'
 import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
-import { MODE } from '../../src/constants/MODE'
+import { MODE } from '../../src/constants/mode'
 
 describe('isInside', () => {
   test('If mouse is inside, return true', () => {
