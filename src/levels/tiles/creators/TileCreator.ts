@@ -1,10 +1,8 @@
-import { TILE_SIZE } from '../../../constants/tile'
+import { TILE_CREATION_MARGIN_TOP, TILE_SIZE } from '../../../constants/tile'
 import { MapDataType } from '../../../types/mapDataType'
 import { TilesManager } from '../TilesManager'
 
 export class TileCreator {
-  static MARGIN_TOP = 30
-
   levelMap: MapDataType | null = null
 
   getPosX(column: number) {
@@ -12,7 +10,7 @@ export class TileCreator {
   }
 
   getPosY(row: number) {
-    return TILE_SIZE * row + TileCreator.MARGIN_TOP
+    return TILE_SIZE * row + TILE_CREATION_MARGIN_TOP
   }
 
   setLevelMap(levelMap: MapDataType) {
