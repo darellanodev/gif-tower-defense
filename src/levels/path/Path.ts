@@ -5,9 +5,9 @@ import { TILE_SIZE } from '../../constants/tile'
 import { DIRECTION } from '../../constants/direction'
 import { Position } from '../../types/position'
 import { AnyTile, WalkableTile } from '../../types/tileType'
+import { PATH_MAX_SEARCHES } from '../../constants/orders'
 
 export class Path {
-  static MAX_SEARCHES = 1000 // For testing purposes put a low value. For production put this value at 5000
   static orders: number[] = []
 
   #startTile: TileStart
@@ -224,7 +224,7 @@ export class Path {
     this.#orders.push(this.#currentDirection)
 
     let searchCount = 0
-    while (searchCount < Path.MAX_SEARCHES && !this.#endReached) {
+    while (searchCount < PATH_MAX_SEARCHES && !this.#endReached) {
       searchCount++
       this.#processCurrentDirection()
     }
