@@ -12,12 +12,12 @@ export const ENEMY_HEALTH_BAR = {
 export const ENEMY_VELOCITY = {
   NORMAL: 1,
   BOSS: 0.5,
-}
+} as const
 
 export const ENEMY_STATUS = {
   ALIVE: 0,
   DEAD: 1,
-}
+} as const
 
 export const ENEMY_CREATION_MAX_TIME = 200 // 100 when ENEMY_VELOCITY is 1. Decrement it if you speed up the game.
 export const ENEMY_SHRINK_AMOUNT_FACTOR = 0.6
