@@ -12,6 +12,7 @@ import { Button } from './Button'
 import { ButtonGreenTowerCreator } from './ButtonGreenTowerCreator'
 import { ButtonRedTowerCreator } from './ButtonRedTowerCreator'
 import { ButtonYellowTowerCreator } from './ButtonYellowTowerCreator'
+import { PANEL_STATE } from '../../constants/panel'
 
 export class HudButtonsTowers {
   static greenTowerButton: Button
@@ -97,19 +98,19 @@ export class HudButtonsTowers {
   }
 
   draw() {
-    if (HudPanel.mode === HudPanel.NORMAL) {
+    if (HudPanel.mode === PANEL_STATE.NORMAL) {
       this.#setCanBuy()
       this.#drawTowerButtons()
     }
 
     this.#textProperties.setForHudData()
 
-    if (HudPanel.mode != HudPanel.UPGRADING_MAX) {
+    if (HudPanel.mode != PANEL_STATE.UPGRADING_MAX) {
       this.#drawUpgradeCost()
     }
     this.#drawSellProfit()
 
-    if (HudPanel.mode === HudPanel.NORMAL) {
+    if (HudPanel.mode === PANEL_STATE.NORMAL) {
       this.#drawNewTowerPrices()
     }
   }
@@ -185,7 +186,7 @@ export class HudButtonsTowers {
 
   viewUpgradeCost(tower: TowerType, canUpgrade: boolean) {
     this.#upgradeCost = null
-    if (HudPanel.mode === HudPanel.UPGRADING) {
+    if (HudPanel.mode === PANEL_STATE.UPGRADING) {
       this.#upgradeCost = tower.nextLevelUpgradeCost
     }
     this.#canUpgrade = canUpgrade
@@ -194,8 +195,8 @@ export class HudButtonsTowers {
   viewSellProfit(tower: TowerType) {
     this.#sellProfit = null
     if (
-      HudPanel.mode === HudPanel.UPGRADING ||
-      HudPanel.mode === HudPanel.UPGRADING_MAX
+      HudPanel.mode === PANEL_STATE.UPGRADING ||
+      HudPanel.mode === PANEL_STATE.UPGRADING_MAX
     ) {
       this.#sellProfit = tower.sellProfit
     }

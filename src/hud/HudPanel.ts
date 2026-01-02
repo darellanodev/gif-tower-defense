@@ -1,13 +1,9 @@
 import { TowerType } from '../types/towerType'
 import { Image } from 'p5'
 import { P5 } from '../utils/P5'
+import { PANEL_STATE } from '../constants/panel'
 
 export class HudPanel {
-  static NORMAL = 0
-  static UPGRADING = 1
-  static UPGRADING_MAX = 2
-  static HEIGHT = 84
-
   static mode: number = 0
   #hudImages: Image[]
 
@@ -16,13 +12,7 @@ export class HudPanel {
   }
 
   draw() {
-    const hudImages = {
-      [HudPanel.NORMAL]: this.#hudImages[HudPanel.NORMAL],
-      [HudPanel.UPGRADING]: this.#hudImages[HudPanel.UPGRADING],
-      [HudPanel.UPGRADING_MAX]: this.#hudImages[HudPanel.UPGRADING_MAX],
-    }
-
-    P5.p5.image(hudImages[HudPanel.mode], 0, 0)
+    P5.p5.image(this.#hudImages[HudPanel.mode], 0, 0)
   }
 
   selectHudMode(tower: TowerType | null) {
@@ -31,13 +21,13 @@ export class HudPanel {
     }
 
     if (tower.isMaxUpgraded) {
-      HudPanel.mode = HudPanel.UPGRADING_MAX
+      HudPanel.mode = PANEL_STATE.UPGRADING_MAX
     } else {
-      HudPanel.mode = HudPanel.UPGRADING
+      HudPanel.mode = PANEL_STATE.UPGRADING
     }
   }
 
   drawNormalHud() {
-    HudPanel.mode = HudPanel.NORMAL
+    HudPanel.mode = PANEL_STATE.NORMAL
   }
 }

@@ -26,6 +26,7 @@ import { COLOR } from './constants/color'
 import { MapDataType } from './types/mapDataType'
 import { MODE } from './constants/mode'
 import { InfluenceArea } from './towers/InfluenceArea'
+import { PANEL_HEIGHT } from './constants/panel'
 
 export class Game {
   static #instance: Game | null = null
@@ -216,7 +217,7 @@ export class Game {
     P5.p5.background(COLOR.BACKGROUND)
     P5.p5.rectMode(P5.p5.CORNER)
 
-    P5.p5.image(Images.backgroundImage, 0, HudPanel.HEIGHT)
+    P5.p5.image(Images.backgroundImage, 0, PANEL_HEIGHT)
   }
 
   #updateWaveProgressBar() {
