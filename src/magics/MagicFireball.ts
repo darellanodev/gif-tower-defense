@@ -5,6 +5,7 @@ import { P5 } from '../utils/P5'
 import { PathMovement } from '../levels/path/PathMovement'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 import { MagicFireballCollisionChecker } from './MagicFireballCollisionChecker'
+import { MAGIC_STATUS } from '../constants/magics'
 
 export class MagicFireball extends Magic {
   static DAMAGE = 500
@@ -38,10 +39,10 @@ export class MagicFireball extends Magic {
 
   updateStatus() {
     if (this.#pathMovement.isAlive) {
-      this.status = Magic.MAGIC_STATUS_ALIVE
+      this.status = MAGIC_STATUS.ALIVE
       return
     }
-    this.status = Magic.MAGIC_STATUS_DEAD
+    this.status = MAGIC_STATUS.DEAD
   }
 
   update(enemyInstancesManager: EnemyInstancesManager) {

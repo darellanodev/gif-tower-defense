@@ -5,6 +5,7 @@ import { P5 } from '../utils/P5'
 import { PathMovement } from '../levels/path/PathMovement'
 import { MagicIceballCollisionChecker } from './MagicIceballCollisionChecker'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
+import { MAGIC_STATUS } from '../constants/magics'
 
 export class MagicIceball extends Magic {
   static FREEZE_ENEMY_MAX_TIME = 500
@@ -39,10 +40,10 @@ export class MagicIceball extends Magic {
 
   updateStatus() {
     if (this.#pathMovement.isAlive) {
-      this.status = Magic.MAGIC_STATUS_ALIVE
+      this.status = MAGIC_STATUS.ALIVE
       return
     }
-    this.status = Magic.MAGIC_STATUS_DEAD
+    this.status = MAGIC_STATUS.DEAD
   }
 
   update(enemyInstancesManager: EnemyInstancesManager) {

@@ -1,10 +1,8 @@
+import { MAGIC_STATUS } from '../constants/magics'
 import { Obj } from '../Obj'
 import { Position } from '../types/position'
 
 export class Magic extends Obj {
-  static MAGIC_STATUS_ALIVE = 0
-  static MAGIC_STATUS_DEAD = 1
-
   startPosition: Position
 
   status: number
@@ -12,14 +10,14 @@ export class Magic extends Obj {
   constructor(startPosition: Position) {
     super(startPosition)
     this.startPosition = { ...startPosition }
-    this.status = Magic.MAGIC_STATUS_ALIVE
+    this.status = MAGIC_STATUS.ALIVE
   }
 
   die() {
-    this.status = Magic.MAGIC_STATUS_DEAD
+    this.status = MAGIC_STATUS.DEAD
   }
 
   get isAlive() {
-    return this.status == Magic.MAGIC_STATUS_ALIVE
+    return this.status == MAGIC_STATUS.ALIVE
   }
 }
