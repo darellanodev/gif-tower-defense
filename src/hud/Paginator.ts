@@ -1,10 +1,9 @@
 import { ButtonPage } from './buttons/ButtonPage'
 import { Images } from '../resources/Images'
 import { Position } from '../types/position'
+import { MAX_LEVELS_DISPLAYED } from '../constants/menu'
 
 export class Paginator {
-  static MAX_LEVELS_DISPLAYED: number = 10
-
   #levelsPages: number
   #btnsPages: ButtonPage[] = []
   #currentPagesGroup: number
@@ -75,10 +74,7 @@ export class Paginator {
   }
 
   nextPagesGroup() {
-    if (
-      this.#currentPagesGroup >
-      this.#levelsPages / Paginator.MAX_LEVELS_DISPLAYED
-    ) {
+    if (this.#currentPagesGroup > this.#levelsPages / MAX_LEVELS_DISPLAYED) {
       return
     }
     this.#currentPagesGroup++
@@ -94,11 +90,9 @@ export class Paginator {
 
   #getNumberedLabels(pagesGroup: number): string[] {
     const result = []
-    const offset =
-      Paginator.MAX_LEVELS_DISPLAYED * pagesGroup -
-      Paginator.MAX_LEVELS_DISPLAYED
+    const offset = MAX_LEVELS_DISPLAYED * pagesGroup - MAX_LEVELS_DISPLAYED
 
-    for (let i = 0 + offset; i < Paginator.MAX_LEVELS_DISPLAYED + offset; i++) {
+    for (let i = 0 + offset; i < MAX_LEVELS_DISPLAYED + offset; i++) {
       if (i < this.#levelsPages) {
         result.push(`${i + 1}`)
       }
