@@ -3,11 +3,10 @@ import { Image } from 'p5'
 import { TilesManager } from '../TilesManager'
 import { TileCreator } from './TileCreator'
 import { TestFlags } from '../../../../test/flags'
+import { TILE_SYMBOL } from '../../../constants/tile'
 
 export class TileBlackCreator extends TileCreator {
   static #instance: TileBlackCreator | null = null
-  static SYMBOL = '2'
-
   #blackImage: Image | null = null
 
   static getInstance(mapImages: Image[]) {
@@ -57,6 +56,6 @@ export class TileBlackCreator extends TileCreator {
   }
 
   #isBlackTile(rowSymbols: string, column: number) {
-    return rowSymbols[column] === TileBlackCreator.SYMBOL
+    return rowSymbols[column] === TILE_SYMBOL.BLACK
   }
 }

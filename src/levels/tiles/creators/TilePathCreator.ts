@@ -1,10 +1,10 @@
+import { TILE_SYMBOL } from '../../../constants/tile'
 import { TilePath } from '../TilePath'
 import { TilesManager } from '../TilesManager'
 import { TileCreator } from './TileCreator'
 
 export class TilePathCreator extends TileCreator {
   static #instance: TilePathCreator | null = null
-  static SYMBOL = '1'
 
   static getInstance() {
     if (TilePathCreator.#instance === null) {
@@ -47,6 +47,6 @@ export class TilePathCreator extends TileCreator {
   }
 
   #isPathTile(rowSymbols: string, column: number) {
-    return rowSymbols[column] === TilePathCreator.SYMBOL
+    return rowSymbols[column] === TILE_SYMBOL.PATH
   }
 }

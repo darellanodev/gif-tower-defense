@@ -4,11 +4,10 @@ import { DIRECTION } from '../../../constants/direction'
 import { TileEnd } from '../TileEnd'
 import { TileCreator } from './TileCreator'
 import { TestFlags } from '../../../../test/flags'
+import { TILE_SYMBOL } from '../../../constants/tile'
 
 export class TileEndCreator extends TileCreator {
   static #instance: TileEndCreator | null = null
-  static SYMBOL = 'y'
-
   #mapImages: Image[] | null = null
 
   static getInstance(mapImages: Image[]) {
@@ -77,6 +76,6 @@ export class TileEndCreator extends TileCreator {
   }
 
   #isEndTile(rowSymbols: string, column: number) {
-    return rowSymbols[column] === TileEndCreator.SYMBOL
+    return rowSymbols[column] === TILE_SYMBOL.END
   }
 }

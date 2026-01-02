@@ -7,11 +7,10 @@ import { TowerYellowCreator } from '../../../towers/TowerYellowCreator'
 import { TilesManager } from '../TilesManager'
 import { TileCreator } from './TileCreator'
 import { TestFlags } from '../../../../test/flags'
+import { TILE_SYMBOL } from '../../../constants/tile'
 
 export class TileOrangeCreator extends TileCreator {
   static #instance: TileOrangeCreator | null = null
-  static SYMBOL = '0'
-
   #orangeImage: Image | null = null
   #player: Player
 
@@ -95,6 +94,6 @@ export class TileOrangeCreator extends TileCreator {
   }
 
   #isOrangeTile(rowSymbols: string, column: number) {
-    return rowSymbols[column] === TileOrangeCreator.SYMBOL
+    return rowSymbols[column] === TILE_SYMBOL.ORANGE
   }
 }
