@@ -13,6 +13,7 @@ import { Images } from '../resources/Images'
 import { Position } from '../types/position'
 import { P5 } from '../utils/P5'
 import { TOTAL_ENEMIES } from '../constants/enemy'
+import { MINIMAP_TEXT } from '../constants/button'
 
 export class MenuMain {
   static #instance: MenuMain | null = null
@@ -48,7 +49,7 @@ export class MenuMain {
 
     this.#btnsMiniMapsEditor = buttonsMiniMapsCreator.createOneRow(
       lastEditorLevelsIds,
-      MiniMap.TYPE_TEXT_DOWN,
+      MINIMAP_TEXT.DOWN,
       { x: 637, y: 207 },
     )
 
@@ -57,7 +58,7 @@ export class MenuMain {
 
     this.#btnsMiniMapsLastLevelsPlayed = buttonsMiniMapsCreator.createOneRow(
       lastPlayedLevelsIds,
-      MiniMap.TYPE_TEXT_LEFT,
+      MINIMAP_TEXT.LEFT,
       { x: 336, y: 452 },
     )
     // create the buttons

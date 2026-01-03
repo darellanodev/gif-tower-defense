@@ -18,3 +18,10 @@ export const BUTTON_MINIMAP_SURVIVAL_MENU_STEP = {
 }
 
 export const BUTTON_MINIMAPS_DISPLAYED_IN_ROW = 5
+
+export const MINIMAP_TEXT = {
+  DOWN: 1,
+  LEFT: 2,
+}
+
+export const MINIMAP_SCALE = 7

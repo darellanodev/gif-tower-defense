@@ -13,12 +13,9 @@ import { MapDataType } from '../types/mapDataType'
 import { TextProperties } from '../hud/TextProperties'
 import { P5 } from '../utils/P5'
 import { TileBlackCreator } from '../levels/tiles/creators/TileBlackCreator'
+import { MINIMAP_SCALE, MINIMAP_TEXT } from '../constants/button'
 
 export class MiniMap {
-  static TYPE_TEXT_DOWN = 1
-  static TYPE_TEXT_LEFT = 2
-  static SCALE_MINIMAP = 7
-
   #tilesManager: TilesManager
   #tileBlackCreator: TileBlackCreator
   #tileOrangeCreator: TileOrangeCreator
@@ -104,7 +101,7 @@ export class MiniMap {
 
   draw() {
     this.#tilesManager.drawAll(
-      MiniMap.SCALE_MINIMAP,
+      MINIMAP_SCALE,
       this.#position.x,
       this.#position.y,
     )
@@ -114,13 +111,13 @@ export class MiniMap {
   }
 
   #drawMiniMapWhenTextLeft() {
-    if (this.#type === MiniMap.TYPE_TEXT_LEFT) {
+    if (this.#type === MINIMAP_TEXT.LEFT) {
       this.#drawTitleMapTextLeft()
     }
   }
 
   #drawMiniMapWhenTextDown() {
-    if (this.#type === MiniMap.TYPE_TEXT_DOWN) {
+    if (this.#type === MINIMAP_TEXT.DOWN) {
       this.#drawTitleMapTextDown()
     }
   }

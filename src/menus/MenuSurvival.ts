@@ -9,6 +9,7 @@ import { Paginator } from '../hud/Paginator'
 import { LevelsDataProvider } from '../levels/LevelsDataProvider'
 import { Images } from '../resources/Images'
 import { P5 } from '../utils/P5'
+import { MINIMAP_TEXT } from '../constants/button'
 
 export class MenuSurvival {
   static #instance: MenuSurvival | null = null
@@ -58,7 +59,7 @@ export class MenuSurvival {
 
     this.#btnsMiniMaps = this.#buttonsMiniMapsCreator.createMultiRows(
       levelsIdsRow1,
-      MiniMap.TYPE_TEXT_LEFT,
+      MINIMAP_TEXT.LEFT,
       { x: 28, y: 160 },
     )
 

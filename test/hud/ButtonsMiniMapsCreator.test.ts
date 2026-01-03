@@ -2,6 +2,7 @@ import { expect } from 'vitest'
 import { MiniMap } from '../../src/menus/MiniMap'
 import { getButtonsMiniMapsCreator } from '../helpers/hud'
 import { TestFlags } from '../flags'
+import { MINIMAP_TEXT } from '../../src/constants/button'
 
 TestFlags.disableImageLoading = true
 const levelsIds = [1, 1, 1, 1, 1, 1]
@@ -11,7 +12,7 @@ const buttonsMiniMapsCreator = getButtonsMiniMapsCreator()
 test('createMultiRows, when we pass six levels Ids, then the 6th button minimap is in the second row', () => {
   const buttonsMiniMaps = buttonsMiniMapsCreator.createMultiRows(
     levelsIds,
-    MiniMap.TYPE_TEXT_DOWN,
+    MINIMAP_TEXT.DOWN,
     initialPosition,
   )
   const result = buttonsMiniMaps.at(-1)?.position.y
@@ -22,7 +23,7 @@ test('createMultiRows, when we pass six levels Ids, then the 6th button minimap 
 test('createMultiRows, when we pass six levels Ids, when we look at the y position of the 5th level is the same as the first minimap button', () => {
   const buttonsMiniMaps = buttonsMiniMapsCreator.createMultiRows(
     levelsIds,
-    MiniMap.TYPE_TEXT_DOWN,
+    MINIMAP_TEXT.DOWN,
     initialPosition,
   )
   const result = buttonsMiniMaps[4]?.position.y
@@ -33,7 +34,7 @@ test('createMultiRows, when we pass six levels Ids, when we look at the y positi
 test('createMultiRows, when we pass six levels Ids, the x position of the 6th level is the same as the first minimap button', () => {
   const buttonsMiniMaps = buttonsMiniMapsCreator.createMultiRows(
     levelsIds,
-    MiniMap.TYPE_TEXT_DOWN,
+    MINIMAP_TEXT.DOWN,
     initialPosition,
   )
   const result = buttonsMiniMaps.at(-1)?.position.x
@@ -44,7 +45,7 @@ test('createMultiRows, when we pass six levels Ids, the x position of the 6th le
 test('createOneRow, when we pass six levels Ids, the y position of the 6th level is the same as the y position of the first minimap button', () => {
   const buttonsMiniMaps = buttonsMiniMapsCreator.createOneRow(
     levelsIds,
-    MiniMap.TYPE_TEXT_DOWN,
+    MINIMAP_TEXT.DOWN,
     initialPosition,
   )
   const result = buttonsMiniMaps.at(-1)?.position.y
@@ -55,7 +56,7 @@ test('createOneRow, when we pass six levels Ids, the y position of the 6th level
 test('createOneRow, when we pass six levels Ids, the y position of the 6th level is greater than he y position of the 5th element', () => {
   const buttonsMiniMaps = buttonsMiniMapsCreator.createOneRow(
     levelsIds,
-    MiniMap.TYPE_TEXT_DOWN,
+    MINIMAP_TEXT.DOWN,
     initialPosition,
   )
   const lastElement = buttonsMiniMaps.at(-1)
