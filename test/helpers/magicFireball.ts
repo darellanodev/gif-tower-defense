@@ -1,3 +1,4 @@
+import { MAGIC_SPEED } from '../../src/constants/magics'
 import { TILE_SIZE } from '../../src/constants/TILE'
 import { MagicFireball } from '../../src/magics/MagicFireball'
 import { MagicFireballCreator } from '../../src/magics/MagicFireballCreator'
@@ -16,7 +17,7 @@ export const createMagicFireball = (
     img,
     initialPosition,
     orders,
-    MagicFireball.SPEED,
+    MAGIC_SPEED.FIREBALL,
   )
   magicFireballCreator.create()
 }
@@ -25,7 +26,7 @@ export const updateToReachTheEndOfTheMap = (
   orders: number[],
   magicFireballInstancesManager: MagicInstancesManager,
 ) => {
-  const maxIterations = (TILE_SIZE / MagicFireball.SPEED) * (orders.length + 1)
+  const maxIterations = (TILE_SIZE / MAGIC_SPEED.FIREBALL) * (orders.length + 1)
   for (let i = 0; i < maxIterations; i++) {
     magicFireballInstancesManager.updateInstances()
   }

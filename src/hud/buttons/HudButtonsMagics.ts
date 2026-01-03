@@ -1,7 +1,5 @@
 import { Position } from '../../types/position'
 import { Image } from 'p5'
-import { MagicFireball } from '../../magics/MagicFireball'
-import { MagicIceball } from '../../magics/MagicIceball'
 import { PositionInsideRectangle } from '../../utils/PositionInsideRectangle'
 import { MagicFireballCreator } from '../../magics/MagicFireballCreator'
 import { MagicIceballCreator } from '../../magics/MagicIceballCreator'
@@ -11,6 +9,7 @@ import { Button } from './Button'
 import { ButtonMagicUFOCreator } from './ButtonMagicUFOCreator'
 import { ButtonMagicFireballCreator } from './ButtonMagicFireballCreator'
 import { ButtonMagicIceballCreator } from './ButtonMagicIceballCreator'
+import { MAGIC_SPEED } from '../../constants/magics'
 
 export class HudButtonsMagics {
   static magicFireballButton: Button
@@ -69,7 +68,7 @@ export class HudButtonsMagics {
       magicFireballImage,
       initialEnemiesPosition,
       orders,
-      MagicFireball.SPEED,
+      MAGIC_SPEED.FIREBALL,
     )
     magicFireballCreator.create()
   }
@@ -90,7 +89,7 @@ export class HudButtonsMagics {
       magicIceballImage,
       initialEnemiesPosition,
       orders,
-      MagicIceball.SPEED,
+      MAGIC_SPEED.ICEBALL,
     )
     magicIceballCreator.create()
   }

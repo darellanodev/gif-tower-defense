@@ -9,7 +9,6 @@ import { MAGIC_STATUS } from '../constants/magics'
 
 export class MagicFireball extends Magic {
   static DAMAGE = 500
-  static SPEED = 10
 
   #pathMovement: PathMovement
   #magicFireballCollisionChecker: MagicFireballCollisionChecker

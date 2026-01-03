@@ -7,9 +7,9 @@ import { TILE_SIZE } from '../constants/tile'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 import { MagicInstancesManager } from './MagicInstancesManager'
 import { MagicUFOCollisionChecker } from './MagicUFOCollisionChecker'
+import { MAGIC_SPEED } from '../constants/magics'
 
 export class MagicUFO extends Magic {
-  static SPEED = 2
   static OFFSET_COLLISION_Y = 50
   static OFFSET_Y = 25
   static UFO_IMG_INDEX = 0
@@ -75,25 +75,25 @@ export class MagicUFO extends Magic {
 
   #moveRightIfNeeded(targetPosition: Position) {
     if (this.position.x < targetPosition.x) {
-      this.position.x = this.position.x + MagicUFO.SPEED
+      this.position.x = this.position.x + MAGIC_SPEED.UFO
     }
   }
 
   #moveLeftIfNeeded(targetPosition: Position) {
     if (this.position.x > targetPosition.x) {
-      this.position.x = this.position.x - MagicUFO.SPEED
+      this.position.x = this.position.x - MAGIC_SPEED.UFO
     }
   }
 
   #moveDownIfNeeded(targetPosition: Position) {
     if (this.position.y < targetPosition.y - MagicUFO.OFFSET_Y) {
-      this.position.y = this.position.y + MagicUFO.SPEED
+      this.position.y = this.position.y + MAGIC_SPEED.UFO
     }
   }
 
   #moveUpIfNeeded(targetPosition: Position) {
     if (this.position.y > targetPosition.y - MagicUFO.OFFSET_Y) {
-      this.position.y = this.position.y - MagicUFO.SPEED
+      this.position.y = this.position.y - MAGIC_SPEED.UFO
     }
   }
 
@@ -107,7 +107,7 @@ export class MagicUFO extends Magic {
 
   #updatePositionGoOut() {
     if (this.position.y > MagicUFO.OUT_OF_SCREEN_Y) {
-      this.position.y = this.position.y - MagicUFO.SPEED
+      this.position.y = this.position.y - MAGIC_SPEED.UFO
       return
     }
     this.die()

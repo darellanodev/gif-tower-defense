@@ -9,7 +9,6 @@ import { MAGIC_STATUS } from '../constants/magics'
 
 export class MagicIceball extends Magic {
   static FREEZE_ENEMY_MAX_TIME = 500
-  static SPEED = 10
 
   #pathMovement: PathMovement
   #magicIceballCollisionChecker: MagicIceballCollisionChecker
