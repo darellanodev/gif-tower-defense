@@ -7,17 +7,16 @@ import { TILE_SIZE } from '../constants/tile'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 import { MagicInstancesManager } from './MagicInstancesManager'
 import { MagicUFOCollisionChecker } from './MagicUFOCollisionChecker'
-import { MAGIC_SPEED } from '../constants/magics'
+import {
+  MAGIC_SPEED,
+  MAGIC_UFO_IMG_INDEX,
+  MAGIC_UFO_MAX_TIME_ABDUCT,
+  MAGIC_UFO_OFFSET,
+  MAGIC_UFO_OUT_OF_SCREEN_Y,
+  MAGIC_UFO_RAY_IMG,
+} from '../constants/magics'
 
 export class MagicUFO extends Magic {
-  static OFFSET_COLLISION_Y = 50
-  static OFFSET_Y = 25
-  static UFO_IMG_INDEX = 0
-  static UFO_RAY_IMG_INDEX = 1
-  static UFO_RAY_IMG_OFFSET_X = 2
-  static UFO_RAY_IMG_OFFSET_Y = 30
-  static MAX_TIME_ABDUCT = 20
-  static OUT_OF_SCREEN_Y = -50
   static numberOfUFOs: number = 0 // for generating IDs
 
   #images: Image[]
@@ -48,7 +47,7 @@ export class MagicUFO extends Magic {
 
   #drawUFO() {
     P5.p5.image(
-      this.#images[MagicUFO.UFO_IMG_INDEX],
+      this.#images[MAGIC_UFO_IMG_INDEX],
       this.position.x,
       this.position.y,
     )
@@ -61,9 +60,9 @@ export class MagicUFO extends Magic {
   #drawUFORay() {
     if (this.#showRay) {
       P5.p5.image(
-        this.#images[MagicUFO.UFO_RAY_IMG_INDEX],
-        this.position.x + MagicUFO.UFO_RAY_IMG_OFFSET_X,
-        this.position.y + MagicUFO.UFO_RAY_IMG_OFFSET_Y,
+        this.#images[MAGIC_UFO_RAY_IMG.INDEX],
+        this.position.x + MAGIC_UFO_RAY_IMG.OFFSET_X,
+        this.position.y + MAGIC_UFO_RAY_IMG.OFFSET_Y,
       )
     }
   }
@@ -86,13 +85,13 @@ export class MagicUFO extends Magic {
   }
 
   #moveDownIfNeeded(targetPosition: Position) {
-    if (this.position.y < targetPosition.y - MagicUFO.OFFSET_Y) {
+    if (this.position.y < targetPosition.y - MAGIC_UFO_OFFSET.Y) {
       this.position.y = this.position.y + MAGIC_SPEED.UFO
     }
   }
 
   #moveUpIfNeeded(targetPosition: Position) {
-    if (this.position.y > targetPosition.y - MagicUFO.OFFSET_Y) {
+    if (this.position.y > targetPosition.y - MAGIC_UFO_OFFSET.Y) {
       this.position.y = this.position.y - MAGIC_SPEED.UFO
     }
   }
@@ -106,7 +105,7 @@ export class MagicUFO extends Magic {
   }
 
   #updatePositionGoOut() {
-    if (this.position.y > MagicUFO.OUT_OF_SCREEN_Y) {
+    if (this.position.y > MAGIC_UFO_OUT_OF_SCREEN_Y) {
       this.position.y = this.position.y - MAGIC_SPEED.UFO
       return
     }
@@ -170,7 +169,7 @@ export class MagicUFO extends Magic {
       return
     }
 
-    if (this.#timeToAbduct < MagicUFO.MAX_TIME_ABDUCT) {
+    if (this.#timeToAbduct < MAGIC_UFO_MAX_TIME_ABDUCT) {
       this.#timeToAbduct++
       return
     }

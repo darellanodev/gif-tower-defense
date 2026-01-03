@@ -1,3 +1,4 @@
+import { MAGIC_UFO_OFFSET } from '../constants/magics'
 import { TILE_SIZE } from '../constants/tile'
 import { Enemy } from '../enemies/Enemy'
 import { Position } from '../types/position'
@@ -18,7 +19,7 @@ export class MagicUFOCollisionChecker {
     return this.#positionInsideRectangle.check(
       {
         x: ufo.position.x + TILE_SIZE / 2,
-        y: ufo.position.y + TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
+        y: ufo.position.y + TILE_SIZE / 2 + MAGIC_UFO_OFFSET.COLLISION_Y,
       },
       {
         x: enemyTarget.position.x,
@@ -32,7 +33,7 @@ export class MagicUFOCollisionChecker {
     return this.#positionInsideRectangle.check(
       {
         x: ufo.position.x + TILE_SIZE / 2,
-        y: ufo.position.y + TILE_SIZE / 2 + MagicUFO.OFFSET_COLLISION_Y,
+        y: ufo.position.y + TILE_SIZE / 2 + MAGIC_UFO_OFFSET.COLLISION_Y,
       },
       {
         x: this.#startPosition.x,
