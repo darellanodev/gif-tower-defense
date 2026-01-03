@@ -12,6 +12,7 @@ import {
   ENEMY_SIZE,
   ENEMY_STATUS,
 } from '../constants/enemy'
+import { MAGIC_ICEBALL_FREEZE_ENEMY_MAX_TIME } from '../constants/magics'
 
 export class Enemy extends Obj {
   static waveEnemies: number = 0
@@ -148,7 +149,7 @@ export class Enemy extends Obj {
   }
 
   #updateFreezedEnemy() {
-    if (this.#frozenTime < MagicIceball.FREEZE_ENEMY_MAX_TIME) {
+    if (this.#frozenTime < MAGIC_ICEBALL_FREEZE_ENEMY_MAX_TIME) {
       this.#frozenTime++
       return
     }

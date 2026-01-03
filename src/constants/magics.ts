@@ -10,3 +10,4 @@ export const MAGIC_SPEED = {
 } as const
 
 export const MAGIC_FIREBALL_DAMAGE = 500
+export const MAGIC_ICEBALL_FREEZE_ENEMY_MAX_TIME = 500
