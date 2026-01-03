@@ -5,11 +5,9 @@ import { P5 } from '../utils/P5'
 import { PathMovement } from '../levels/path/PathMovement'
 import { EnemyInstancesManager } from '../enemies/EnemyInstancesManager'
 import { MagicFireballCollisionChecker } from './MagicFireballCollisionChecker'
-import { MAGIC_STATUS } from '../constants/magics'
+import { MAGIC_FIREBALL_DAMAGE, MAGIC_STATUS } from '../constants/magics'
 
 export class MagicFireball extends Magic {
-  static DAMAGE = 500
-
   #pathMovement: PathMovement
   #magicFireballCollisionChecker: MagicFireballCollisionChecker
   #img: Image
@@ -25,7 +23,7 @@ export class MagicFireball extends Magic {
   }
 
   addDamage(enemy: Enemy) {
-    enemy.addDamage(MagicFireball.DAMAGE)
+    enemy.addDamage(MAGIC_FIREBALL_DAMAGE)
   }
 
   draw() {

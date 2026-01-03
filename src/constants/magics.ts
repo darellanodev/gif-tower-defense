@@ -8,3 +8,5 @@ export const MAGIC_SPEED = {
   ICEBALL: 10,
   UFO: 2,
 } as const
+
+export const MAGIC_FIREBALL_DAMAGE = 500
