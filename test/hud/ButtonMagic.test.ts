@@ -2,7 +2,7 @@ import { expect } from 'vitest'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { HudButtonsMagics } from '../../src/hud/buttons/HudButtonsMagics'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
-import { MagicUFOCreator } from '../../src/magics/MagicUFOCreator'
+import { MagicUFOCreator } from '../../src/magics/creators/MagicUFOCreator'
 import { Position } from '../../src/types/position'
 import {
   clickMagicUFO,

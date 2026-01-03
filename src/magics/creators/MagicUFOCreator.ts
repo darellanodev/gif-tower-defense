@@ -1,8 +1,8 @@
 import { Image } from 'p5'
-import { MagicInstancesManager } from './MagicInstancesManager'
-import { MagicUFO } from './MagicUFO'
-import { Position } from '../types/position'
-import { MagicUFOCollisionChecker } from './MagicUFOCollisionChecker'
+import { MagicInstancesManager } from '../MagicInstancesManager'
+import { MagicUFO } from '../MagicUFO'
+import { Position } from '../../types/position'
+import { MagicUFOCollisionChecker } from '../MagicUFOCollisionChecker'
 
 export class MagicUFOCreator {
   static #instance: MagicUFOCreator | null = null

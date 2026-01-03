@@ -1,6 +1,6 @@
 import { describe, expect } from 'vitest'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
-import { MagicFireballCreator } from '../../src/magics/MagicFireballCreator'
+import { MagicFireballCreator } from '../../src/magics/creators/MagicFireballCreator'
 import { img } from '../helpers/imagesResources'
 import { Enemy } from '../../src/enemies/Enemy'
 import { testTinyOrders } from '../helpers/levelMap'

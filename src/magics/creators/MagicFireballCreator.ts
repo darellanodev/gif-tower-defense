@@ -1,10 +1,10 @@
 import { Image } from 'p5'
-import { PathMovement } from '../levels/path/PathMovement'
-import { MagicInstancesManager } from './MagicInstancesManager'
-import { MagicFireball } from './MagicFireball'
-import { MagicFireballCollisionChecker } from './MagicFireballCollisionChecker'
-import { MagicCollisionChecker } from './MagicCollisionChecker'
-import { Position } from '../types/position'
+import { PathMovement } from '../../levels/path/PathMovement'
+import { MagicInstancesManager } from '../MagicInstancesManager'
+import { MagicFireball } from '../MagicFireball'
+import { MagicFireballCollisionChecker } from '../MagicFireballCollisionChecker'
+import { MagicCollisionChecker } from '../MagicCollisionChecker'
+import { Position } from '../../types/position'
 
 export class MagicFireballCreator {
   static #instance: MagicFireballCreator | null = null

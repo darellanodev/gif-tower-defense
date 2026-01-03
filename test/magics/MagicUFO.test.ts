@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
-import { MagicUFOCreator } from '../../src/magics/MagicUFOCreator'
+import { MagicUFOCreator } from '../../src/magics/creators/MagicUFOCreator'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { createNormalEnemy } from '../helpers/enemyCreator'
 import { images } from '../helpers/imagesResources'

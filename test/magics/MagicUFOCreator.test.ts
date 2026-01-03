@@ -2,7 +2,7 @@ import { describe, expect } from 'vitest'
 import { images } from '../helpers/imagesResources'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
-import { MagicUFOCreator } from '../../src/magics/MagicUFOCreator'
+import { MagicUFOCreator } from '../../src/magics/creators/MagicUFOCreator'
 
 describe('Magic UFO Instances length', () => {
   test('when there are not magicUFO, return 1', () => {
