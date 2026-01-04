@@ -1,14 +1,14 @@
 import { ParticleSystem } from '../ParticleSystem'
 import { Position } from '../../types/position'
-import { RGBType } from '../../types/rgb'
 import { Explosion } from './Explosion'
 import { P5 } from '../../utils/P5'
-import { EXPLOSION_OFFSET } from '../../constants/explosion'
+import {
+  EXPLOSION_COLOR,
+  EXPLOSION_OFFSET,
+  EXPLOSION_SIZE,
+} from '../../constants/explosion'
 
 export class ExplosionMagicIceball extends Explosion {
-  static SIZE = 6
-  static COLOR = [0, 65, 255] as RGBType
-
   static instances: ExplosionMagicIceball[] = []
 
   constructor(position: Position) {
@@ -18,8 +18,8 @@ export class ExplosionMagicIceball extends Explosion {
         this.position.x + EXPLOSION_OFFSET,
         this.position.y + EXPLOSION_OFFSET,
       ),
-      ExplosionMagicIceball.SIZE,
-      ExplosionMagicIceball.COLOR,
+      EXPLOSION_SIZE.MAGIC_ICEBALL,
+      EXPLOSION_COLOR.MAGIC_ICEBALL,
     )
   }
 
