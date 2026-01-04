@@ -1,11 +1,9 @@
 import { Obj } from '../../Obj'
 import { ParticleSystem } from '../ParticleSystem'
 import { Position } from '../../types/position'
+import { EXPLOSION_MAX_EMIT_TIME } from '../../constants/explosion'
 
 export class Explosion extends Obj {
-  static MAX_EMIT_TIME = 5
-  static EXPLOSION_OFFSET = 25
-
   #emissionTime: number = 0
 
   particleSystem: ParticleSystem | null
@@ -21,7 +19,7 @@ export class Explosion extends Obj {
     if (!this.particleSystem.hasAnyAliveParticles) {
       return
     }
-    if (this.#emissionTime < Explosion.MAX_EMIT_TIME) {
+    if (this.#emissionTime < EXPLOSION_MAX_EMIT_TIME) {
       this.#emissionTime++
       this.particleSystem.addParticle()
     }

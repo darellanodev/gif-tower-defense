@@ -3,6 +3,7 @@ import { Position } from '../../types/position'
 import { RGBType } from '../../types/rgb'
 import { Explosion } from './Explosion'
 import { P5 } from '../../utils/P5'
+import { EXPLOSION_OFFSET } from '../../constants/explosion'
 
 export class ExplosionEnemy extends Explosion {
   static SIZE = 12
@@ -14,8 +15,8 @@ export class ExplosionEnemy extends Explosion {
     super(position)
     this.particleSystem = new ParticleSystem(
       P5.p5.createVector(
-        this.position.x + Explosion.EXPLOSION_OFFSET,
-        this.position.y + Explosion.EXPLOSION_OFFSET,
+        this.position.x + EXPLOSION_OFFSET,
+        this.position.y + EXPLOSION_OFFSET,
       ),
       ExplosionEnemy.SIZE,
       ExplosionEnemy.COLOR,
