@@ -5,12 +5,10 @@ import { TowerYellow } from '../towers/TowerYellow'
 import { FlyIndicator } from '../hud/FlyIndicator'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { MODE } from '../constants/mode'
+import { MONEY_IN_TESTING_MODE } from '../constants/player'
 
 export class Wallet {
   static #instance: Wallet | null = null
-
-  static MONEY_IN_TESTING_MODE = 999999
-  static MONEY_FACTOR = 6
 
   #mode = 0
   #money: number = 0
@@ -45,7 +43,7 @@ export class Wallet {
     }
     this.#money = money
     if (this.#mode === MODE.TESTING) {
-      this.#money = Wallet.MONEY_IN_TESTING_MODE
+      this.#money = MONEY_IN_TESTING_MODE
     }
   }
 

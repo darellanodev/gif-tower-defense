@@ -16,6 +16,7 @@ import {
   ENEMY_VELOCITY,
   ENEMY_BOSS_INDEX_IMAGE,
 } from '../constants/enemy'
+import { MONEY_FACTOR } from '../constants/player'
 
 export class EnemySystem {
   enemyCreator: EnemyCreator
@@ -111,7 +112,7 @@ export class EnemySystem {
 
       ExplosionEnemy.instantiate(enemy.position)
 
-      const $increasedMoney = enemy.maxHealth * Wallet.MONEY_FACTOR
+      const $increasedMoney = enemy.maxHealth * MONEY_FACTOR
       this.#wallet.increaseMoney($increasedMoney)
       this.#player.increaseScore($increasedMoney * 2)
     })

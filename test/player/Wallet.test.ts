@@ -2,6 +2,7 @@ import { describe, expect } from 'vitest'
 import { Wallet } from '../../src/player/Wallet'
 import { TowerGreen } from '../../src/towers/TowerGreen'
 import { MODE } from '../../src/constants/MODE'
+import { MONEY_IN_TESTING_MODE } from '../../src/constants/player'
 
 test('can not call constructor two times', () => {
   const money = 150
@@ -55,6 +56,6 @@ describe('set initialMoney', () => {
     const wallet = Wallet.getInstance(MODE.TESTING, money)
     const result = wallet.money
 
-    expect(result).toBe(Wallet.MONEY_IN_TESTING_MODE)
+    expect(result).toBe(MONEY_IN_TESTING_MODE)
   })
 })
