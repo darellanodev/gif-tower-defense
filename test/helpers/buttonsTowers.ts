@@ -1,6 +1,6 @@
 import { HudButtonsTowers } from '../../src/hud/buttons/HudButtonsTowers'
 import { Wallet } from '../../src/player/Wallet'
-import { MODE } from '../../src/constants/MODE'
+import { MODE } from '../../src/constants/mode'
 
 export const initializeButtonTower = () => {
   HudButtonsTowers.initializeButtons()

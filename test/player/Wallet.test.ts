@@ -1,7 +1,7 @@
 import { describe, expect } from 'vitest'
 import { Wallet } from '../../src/player/Wallet'
 import { TowerGreen } from '../../src/towers/TowerGreen'
-import { MODE } from '../../src/constants/MODE'
+import { MODE } from '../../src/constants/mode'
 import { MONEY_IN_TESTING_MODE } from '../../src/constants/player'
 
 test('can not call constructor two times', () => {
