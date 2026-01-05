@@ -6,13 +6,12 @@ import { Random } from '../utils/Random'
 import { P5 } from '../utils/P5'
 import { Obj } from '../Obj'
 import { TowerType } from '../types/towerType'
+import {
+  PARTICLE_CAPTURED,
+  PARTICLE_INCREMENT_YELLOW_TOWER_PROGRESS,
+} from '../constants/particle'
 
 export class Particle extends Obj {
-  static COLOR_CAPTURED: RGBType = [12, 222, 42]
-  static CAPTURED_MAX_TIME: number = 300
-  static CAPTURED_REDUCE_FACTOR: number = 0.25
-  static INCREMENT_YELLOW_TOWER_PROGRESS = 10
-
   #vec: Vector
   #size: number
   #color: RGBType
@@ -85,7 +84,7 @@ export class Particle extends Obj {
   }
 
   #handleCapturedParticleTime() {
-    if (this.#capturedTime < Particle.CAPTURED_MAX_TIME) {
+    if (this.#capturedTime < PARTICLE_CAPTURED.MAX_TIME) {
       this.#capturedTime++
       return
     }
@@ -94,11 +93,11 @@ export class Particle extends Obj {
 
   #handleResizeParticle() {
     if (this.#size > 0) {
-      this.#size -= Particle.CAPTURED_REDUCE_FACTOR
+      this.#size -= PARTICLE_CAPTURED.REDUCE_FACTOR
       return
     }
     this.#towerYellowTarget!.increaseCoreProgress(
-      Particle.INCREMENT_YELLOW_TOWER_PROGRESS,
+      PARTICLE_INCREMENT_YELLOW_TOWER_PROGRESS,
     )
     this.#lifespan = 0
   }
@@ -147,7 +146,7 @@ export class Particle extends Obj {
 
   set towerYellowTarget(towerYellow: TowerYellow) {
     this.#towerYellowTarget = towerYellow
-    this.#color = Particle.COLOR_CAPTURED
+    this.#color = PARTICLE_CAPTURED.COLOR
     this.#captured = true
     this.#lifespan = 255
   }
