@@ -7,3 +7,8 @@ export const COLOR = {
   RED: [185, 35, 35] as RGBType,
   BACKGROUND: 'skyblue',
 } as const
+
+export const INFLUENCE_AREA_ALPHA = {
+  FILL: 50,
+  STROKE: 120,
+} as const
