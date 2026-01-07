@@ -5,4 +5,4 @@ export const MISSILE_VELOCITY = 1.5
 export const MISSILE_STATUS = {
   ALIVE: 0,
   DEAD: 1,
-}
+} as const
