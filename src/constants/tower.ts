@@ -7,7 +7,7 @@ export const MISSILE_STATUS = {
   DEAD: 1,
 } as const
 
-export const TOWER_OFFSET = {
+export const TOWER_IMAGE_OFFSET = {
   X: 3,
   Y: 4,
 } as const

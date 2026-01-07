@@ -5,7 +5,7 @@ import { Tower } from './Tower'
 import { P5 } from '../utils/P5'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { Enemy } from '../enemies/Enemy'
-import { TOWER_OFFSET } from '../constants/tower'
+import { TOWER_IMAGE_OFFSET } from '../constants/tower'
 
 export class TowerGreen extends Tower {
   static ID = 1
@@ -76,8 +76,8 @@ export class TowerGreen extends Tower {
   #drawWhenNoEnemyTarget() {
     P5.p5.image(
       this.#images[this.upgradeLevel],
-      this.position.x + TOWER_OFFSET.X,
-      this.position.y + TOWER_OFFSET.Y,
+      this.position.x + TOWER_IMAGE_OFFSET.X,
+      this.position.y + TOWER_IMAGE_OFFSET.Y,
     )
   }
 
