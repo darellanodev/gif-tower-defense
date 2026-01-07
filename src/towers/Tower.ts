@@ -10,8 +10,6 @@ import { Size } from '../types/size'
 import { Distance } from '../utils/Distance'
 
 export class Tower extends Obj {
-  static OFFSET_X: number = 3
-  static OFFSET_Y: number = 4
   static UPGRADE_INCREMENT: number = 1
   static INSTANT_UPGRADING: boolean = false // for testing purposes is set to true
   static UPGRADE_MAX_LEVEL = 5

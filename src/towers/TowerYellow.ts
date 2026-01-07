@@ -12,6 +12,7 @@ import { FlyIndicator } from '../hud/FlyIndicator'
 import { Images } from '../resources/Images'
 import { Size } from '../types/size'
 import { Particle } from '../particles/Particle'
+import { TOWER_OFFSET } from '../constants/tower'
 
 export class TowerYellow extends Tower {
   static ID = 3
@@ -106,8 +107,8 @@ export class TowerYellow extends Tower {
 
     P5.p5.image(
       this.#images[this.upgradeLevel],
-      this.position.x + Tower.OFFSET_X,
-      this.position.y + Tower.OFFSET_Y,
+      this.position.x + TOWER_OFFSET.X,
+      this.position.y + TOWER_OFFSET.Y,
     )
   }
 
