@@ -4,14 +4,14 @@ import { Enemy } from '../enemies/Enemy'
 import { Position } from '../types/position'
 import { P5 } from '../utils/P5'
 import { Obj } from '../Obj'
+import {
+  MISSILE_INNER_DIAMETER,
+  MISSILE_OUTER_DIAMETER,
+  MISSILE_STATUS,
+  MISSILE_VELOCITY,
+} from '../constants/missile'
 
 export class Missile extends Obj {
-  static OUTER_DIAMETER = 11
-  static INNER_DIAMETER = 6
-  static VELOCITY = 1.5
-  static STATUS_ALIVE = 0
-  static STATUS_DEAD = 1
-
   static instances: Missile[] = []
 
   #enemyTarget: Enemy | null = null
@@ -39,23 +39,23 @@ export class Missile extends Obj {
 
   #moveHorizontally(targetPosition: Position) {
     if (this.position.x < targetPosition.x + TILE_SIZE / 2) {
-      this.position.x += Missile.VELOCITY
+      this.position.x += MISSILE_VELOCITY
       return
     }
-    this.position.x -= Missile.VELOCITY
+    this.position.x -= MISSILE_VELOCITY
   }
 
   #moveVertically(targetPosition: Position) {
     if (this.position.y < targetPosition.y + TILE_SIZE / 2) {
-      this.position.y += Missile.VELOCITY
+      this.position.y += MISSILE_VELOCITY
       return
     }
-    this.position.y -= Missile.VELOCITY
+    this.position.y -= MISSILE_VELOCITY
   }
 
   update() {
     if (!this.#enemyTarget) {
-      this.#status = Missile.STATUS_DEAD
+      this.#status = MISSILE_STATUS.DEAD
       return
     }
     this.#moveToTarget()
@@ -64,7 +64,7 @@ export class Missile extends Obj {
 
   #addDamageEnemyWhenCollision(enemyTarget: Enemy) {
     if (this.#checkCollision()) {
-      this.#status = Missile.STATUS_DEAD
+      this.#status = MISSILE_STATUS.DEAD
       enemyTarget.addDamage(this.#damage)
     }
   }
@@ -109,14 +109,14 @@ export class Missile extends Obj {
   }
 
   get isAlive() {
-    return this.#status == Missile.STATUS_ALIVE
+    return this.#status == MISSILE_STATUS.ALIVE
   }
 
   draw() {
     P5.p5.noStroke()
     P5.p5.fill(...COLOR.RED)
-    P5.p5.circle(this.position.x, this.position.y, Missile.OUTER_DIAMETER)
+    P5.p5.circle(this.position.x, this.position.y, MISSILE_OUTER_DIAMETER)
     P5.p5.fill(...COLOR.YELLOW)
-    P5.p5.circle(this.position.x, this.position.y, Missile.INNER_DIAMETER)
+    P5.p5.circle(this.position.x, this.position.y, MISSILE_INNER_DIAMETER)
   }
 }
