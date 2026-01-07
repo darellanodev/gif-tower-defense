@@ -12,7 +12,7 @@ import { FlyIndicator } from '../hud/FlyIndicator'
 import { Images } from '../resources/Images'
 import { Size } from '../types/size'
 import { Particle } from '../particles/Particle'
-import { TOWER_IMAGE_OFFSET } from '../constants/tower'
+import { TOWER_IMAGE_OFFSET, TOWER_UPGRADE } from '../constants/tower'
 
 export class TowerYellow extends Tower {
   static ID = 3
@@ -117,8 +117,8 @@ export class TowerYellow extends Tower {
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
-    if (selectedUpgradeLevel > Tower.UPGRADE_MAX_LEVEL) {
-      return TowerYellow.COST_UPGRADE[Tower.UPGRADE_MAX_LEVEL]
+    if (selectedUpgradeLevel > TOWER_UPGRADE.MAX_LEVEL) {
+      return TowerYellow.COST_UPGRADE[TOWER_UPGRADE.MAX_LEVEL]
     }
     return TowerYellow.COST_UPGRADE[selectedUpgradeLevel]
   }

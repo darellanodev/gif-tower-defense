@@ -1,11 +1,12 @@
 import { expect } from 'vitest'
 import { Tower } from '../../src/towers/Tower'
 import { instantiateGreenTower, upgradeTowerNTimes } from '../helpers/towers'
+import { TOWER_UPGRADE } from '../../src/constants/tower'
 
 test('get upgradeIncrement, when the instance is recently created, return the expected value', () => {
   const towerGreen = instantiateGreenTower()
   const result = towerGreen.upgradeIncrement
-  const expected = Tower.UPGRADE_INCREMENT / (towerGreen.upgradeLevel + 1)
+  const expected = TOWER_UPGRADE.INCREMENT / (towerGreen.upgradeLevel + 1)
   expect(result).toBe(expected)
 })
 

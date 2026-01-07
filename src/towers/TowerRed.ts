@@ -7,7 +7,7 @@ import { Missile } from './Missile'
 import { P5 } from '../utils/P5'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { Enemy } from '../enemies/Enemy'
-import { TOWER_IMAGE_OFFSET } from '../constants/tower'
+import { TOWER_IMAGE_OFFSET, TOWER_UPGRADE } from '../constants/tower'
 
 export class TowerRed extends Tower {
   static ID = 2
@@ -113,8 +113,8 @@ export class TowerRed extends Tower {
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
-    if (selectedUpgradeLevel > Tower.UPGRADE_MAX_LEVEL) {
-      return TowerRed.COST_UPGRADE[Tower.UPGRADE_MAX_LEVEL]
+    if (selectedUpgradeLevel > TOWER_UPGRADE.MAX_LEVEL) {
+      return TowerRed.COST_UPGRADE[TOWER_UPGRADE.MAX_LEVEL]
     }
     return TowerRed.COST_UPGRADE[selectedUpgradeLevel]
   }

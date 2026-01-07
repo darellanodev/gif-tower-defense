@@ -8,12 +8,10 @@ import { TileOrange } from '../levels/tiles/TileOrange'
 import { Obj } from '../Obj'
 import { Size } from '../types/size'
 import { Distance } from '../utils/Distance'
-import { TOWER_PROGRESS_BAR_OFFSET } from '../constants/tower'
+import { TOWER_PROGRESS_BAR_OFFSET, TOWER_UPGRADE } from '../constants/tower'
 
 export class Tower extends Obj {
-  static UPGRADE_INCREMENT: number = 1
   static INSTANT_UPGRADING: boolean = false // for testing purposes is set to true
-  static UPGRADE_MAX_LEVEL = 5
 
   upgrading: boolean = false
   upgradeLevel: number = 0
@@ -59,7 +57,7 @@ export class Tower extends Obj {
   }
 
   get isMaxUpgraded() {
-    return this.upgradeLevel === Tower.UPGRADE_MAX_LEVEL
+    return this.upgradeLevel === TOWER_UPGRADE.MAX_LEVEL
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number): number {
@@ -73,7 +71,7 @@ export class Tower extends Obj {
 
   get nextLevelUpgradeCost() {
     if (this.isMaxUpgraded) {
-      return this.getCostWhenUpgradeLevelIs(Tower.UPGRADE_MAX_LEVEL - 1)
+      return this.getCostWhenUpgradeLevelIs(TOWER_UPGRADE.MAX_LEVEL - 1)
     }
     return this.getCostWhenUpgradeLevelIs(this.upgradeLevel + 1)
   }
@@ -121,7 +119,7 @@ export class Tower extends Obj {
   }
 
   get upgradeIncrement() {
-    return Tower.UPGRADE_INCREMENT / (this.upgradeLevel + 1)
+    return TOWER_UPGRADE.INCREMENT / (this.upgradeLevel + 1)
   }
 
   #reInitUpgrading() {

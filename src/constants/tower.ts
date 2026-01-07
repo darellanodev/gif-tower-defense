@@ -21,3 +21,8 @@ export const TOWER_PROGRESS_BAR_OFFSET = {
   X: 15,
   Y: 25,
 } as const
+
+export const TOWER_UPGRADE = {
+  INCREMENT: 1,
+  MAX_LEVEL: 5,
+} as const
