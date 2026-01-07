@@ -14,7 +14,6 @@ export class Tower extends Obj {
   static UPGRADE_INCREMENT: number = 1
   static INSTANT_UPGRADING: boolean = false // for testing purposes is set to true
   static UPGRADE_MAX_LEVEL = 5
-  static TOWER_OFFSET = 5
 
   upgrading: boolean = false
   upgradeLevel: number = 0

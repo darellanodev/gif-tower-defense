@@ -12,6 +12,11 @@ export const TOWER_IMAGE_OFFSET = {
   Y: 4,
 } as const
 
+export const TOWER_CREATION_OFFSET = {
+  X: 5,
+  Y: 5,
+} as const
+
 export const TOWER_PROGRESS_BAR_OFFSET = {
   X: 15,
   Y: 25,

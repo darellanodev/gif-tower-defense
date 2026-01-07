@@ -6,6 +6,7 @@ import { COLOR, INFLUENCE_AREA_ALPHA } from '../constants/color'
 import { TILE_SIZE } from '../constants/tile'
 import { P5 } from '../utils/P5'
 import { Tower } from './Tower'
+import { TOWER_CREATION_OFFSET } from '../constants/tower'
 
 export class InfluenceArea {
   static #instance: InfluenceArea | null = null
@@ -86,8 +87,8 @@ export class InfluenceArea {
 
   #getInfluenceAreaPosition(tower: any) {
     return {
-      x: tower.position.x + Tower.TOWER_OFFSET,
-      y: tower.position.y + Tower.TOWER_OFFSET,
+      x: tower.position.x + TOWER_CREATION_OFFSET.X,
+      y: tower.position.y + TOWER_CREATION_OFFSET.Y,
     }
   }
 

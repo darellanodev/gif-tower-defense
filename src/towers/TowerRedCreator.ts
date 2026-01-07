@@ -3,6 +3,7 @@ import { TileOrange } from '../levels/tiles/TileOrange'
 import { Image } from 'p5'
 import { TowerRed } from './TowerRed'
 import { Tower } from './Tower'
+import { TOWER_CREATION_OFFSET } from '../constants/tower'
 
 export class TowerRedCreator {
   static #instance: TowerRedCreator | null = null
@@ -28,8 +29,8 @@ export class TowerRedCreator {
   create(position: Position, tileOrange: TileOrange) {
     return new TowerRed(
       {
-        x: position.x - Tower.TOWER_OFFSET,
-        y: position.y - Tower.TOWER_OFFSET,
+        x: position.x - TOWER_CREATION_OFFSET.X,
+        y: position.y - TOWER_CREATION_OFFSET.Y,
       },
       tileOrange,
       this.#images,
