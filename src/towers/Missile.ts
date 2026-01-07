@@ -9,7 +9,7 @@ import {
   MISSILE_OUTER_DIAMETER,
   MISSILE_STATUS,
   MISSILE_VELOCITY,
-} from '../constants/missile'
+} from '../constants/tower'
 
 export class Missile extends Obj {
   static instances: Missile[] = []
