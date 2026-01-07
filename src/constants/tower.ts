@@ -11,3 +11,8 @@ export const TOWER_OFFSET = {
   X: 3,
   Y: 4,
 } as const
+
+export const TOWER_PROGRESS_BAR_OFFSET = {
+  X: 15,
+  Y: 25,
+} as const

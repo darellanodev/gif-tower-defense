@@ -8,6 +8,7 @@ import { TileOrange } from '../levels/tiles/TileOrange'
 import { Obj } from '../Obj'
 import { Size } from '../types/size'
 import { Distance } from '../utils/Distance'
+import { TOWER_PROGRESS_BAR_OFFSET } from '../constants/tower'
 
 export class Tower extends Obj {
   static UPGRADE_INCREMENT: number = 1
@@ -36,8 +37,8 @@ export class Tower extends Obj {
 
   #createTowerProgressBar() {
     const position: Position = {
-      x: this.position.x + Tower.TOWER_OFFSET + 10,
-      y: this.position.y + Tower.TOWER_OFFSET + 20,
+      x: this.position.x + TOWER_PROGRESS_BAR_OFFSET.X,
+      y: this.position.y + TOWER_PROGRESS_BAR_OFFSET.Y,
     }
     const size: Size = { w: 27, h: 7 }
 
