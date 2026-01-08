@@ -6,7 +6,11 @@ import { COLOR, INFLUENCE_AREA_ALPHA } from '../constants/color'
 import { TILE_SIZE } from '../constants/tile'
 import { P5 } from '../utils/P5'
 import { Tower } from './Tower'
-import { TOWER_CREATION_OFFSET, TOWER_GREEN_UPGRADE } from '../constants/tower'
+import {
+  TOWER_CREATION_OFFSET,
+  TOWER_GREEN_UPGRADE,
+  TOWER_RED_UPGRADE,
+} from '../constants/tower'
 
 export class InfluenceArea {
   static #instance: InfluenceArea | null = null
@@ -54,7 +58,7 @@ export class InfluenceArea {
   #getInfluenceAreaFor(towerSelected: number) {
     const influenceMap = {
       [TowerGreen.ID]: TOWER_GREEN_UPGRADE.INFLUENCE_AREA[0],
-      [TowerRed.ID]: TowerRed.UPGRADE_INFLUENCE_AREA[0],
+      [TowerRed.ID]: TOWER_RED_UPGRADE.INFLUENCE_AREA[0],
       [TowerYellow.ID]: TowerYellow.UPGRADE_INFLUENCE_AREA[0],
     }
     return influenceMap[towerSelected]

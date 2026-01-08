@@ -1,3 +1,4 @@
+import { TOWER_RED_UPGRADE } from '../../src/constants/tower'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { Missile } from '../../src/towers/Missile'
 import { TowerRed } from '../../src/towers/TowerRed'
@@ -13,7 +14,7 @@ export const instantiateMissile = () => {
     new Missile(
       position,
       enemyInstancesManager.getAll()[0],
-      TowerRed.DAMAGE_UPGRADE[0],
+      TOWER_RED_UPGRADE.DAMAGE[0],
     ),
   )
 }

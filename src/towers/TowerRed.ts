@@ -7,14 +7,14 @@ import { Missile } from './Missile'
 import { P5 } from '../utils/P5'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { Enemy } from '../enemies/Enemy'
-import { TOWER_IMAGE_OFFSET, TOWER_UPGRADE } from '../constants/tower'
+import {
+  TOWER_IMAGE_OFFSET,
+  TOWER_RED_UPGRADE,
+  TOWER_UPGRADE,
+} from '../constants/tower'
 
 export class TowerRed extends Tower {
   static ID = 2
-  static PROFIT_SELL_UPGRADE = [80, 110, 190, 420, 1200, 2880]
-  static DAMAGE_UPGRADE = [100, 140, 190, 250, 320, 450]
-  static COST_UPGRADE = [100, 150, 250, 500, 1300, 3000]
-  static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
   static INFLUENCE_AREA_FACTOR = 1.65
   static MAXTIME_TO_RECHARGE = 50
   #images: Image[]
@@ -83,7 +83,7 @@ export class TowerRed extends Tower {
           y: this.position.y + TILE_SIZE / 2,
         },
         enemyTarget,
-        TowerRed.DAMAGE_UPGRADE[this.upgradeLevel],
+        TOWER_RED_UPGRADE.DAMAGE[this.upgradeLevel],
       ),
     )
   }
@@ -109,18 +109,18 @@ export class TowerRed extends Tower {
   }
 
   get influenceArea() {
-    return TowerRed.UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
+    return TOWER_RED_UPGRADE.INFLUENCE_AREA[this.upgradeLevel]
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
     if (selectedUpgradeLevel > TOWER_UPGRADE.MAX_LEVEL) {
-      return TowerRed.COST_UPGRADE[TOWER_UPGRADE.MAX_LEVEL]
+      return TOWER_RED_UPGRADE.COST[TOWER_UPGRADE.MAX_LEVEL]
     }
-    return TowerRed.COST_UPGRADE[selectedUpgradeLevel]
+    return TOWER_RED_UPGRADE.COST[selectedUpgradeLevel]
   }
 
   get sellProfit() {
-    return TowerRed.PROFIT_SELL_UPGRADE[this.upgradeLevel]
+    return TOWER_RED_UPGRADE.PROFIT_SELL[this.upgradeLevel]
   }
 
   get type() {
@@ -130,7 +130,7 @@ export class TowerRed extends Tower {
   isDistanceIntoInfluenceArea(distance: number) {
     return (
       distance <=
-      TowerRed.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] /
+      TOWER_RED_UPGRADE.INFLUENCE_AREA[this.upgradeLevel] /
         TowerRed.INFLUENCE_AREA_FACTOR
     )
   }

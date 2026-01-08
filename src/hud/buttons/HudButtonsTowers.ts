@@ -13,7 +13,7 @@ import { ButtonGreenTowerCreator } from './ButtonGreenTowerCreator'
 import { ButtonRedTowerCreator } from './ButtonRedTowerCreator'
 import { ButtonYellowTowerCreator } from './ButtonYellowTowerCreator'
 import { PANEL_STATE } from '../../constants/panel'
-import { TOWER_GREEN_UPGRADE } from '../../constants/tower'
+import { TOWER_GREEN_UPGRADE, TOWER_RED_UPGRADE } from '../../constants/tower'
 
 export class HudButtonsTowers {
   static greenTowerButton: Button
@@ -155,7 +155,7 @@ export class HudButtonsTowers {
     if (!this.#canBuyTowerRed) {
       P5.p5.fill('gray')
     }
-    P5.p5.text(TowerRed.COST_UPGRADE[0], 118, 72)
+    P5.p5.text(TOWER_RED_UPGRADE.COST[0], 118, 72)
     this.#restoreFill()
   }
 
