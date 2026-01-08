@@ -12,13 +12,14 @@ import { FlyIndicator } from '../hud/FlyIndicator'
 import { Images } from '../resources/Images'
 import { Size } from '../types/size'
 import { Particle } from '../particles/Particle'
-import { TOWER_IMAGE_OFFSET, TOWER_UPGRADE } from '../constants/tower'
+import {
+  TOWER_IMAGE_OFFSET,
+  TOWER_UPGRADE,
+  TOWER_YELLOW_UPGRADE,
+} from '../constants/tower'
 
 export class TowerYellow extends Tower {
   static ID = 3
-  static PROFIT_SELL_UPGRADE = [680, 2460, 7440, 21920, 66900, 199880]
-  static COST_UPGRADE = [700, 2500, 7500, 22000, 67000, 200000]
-  static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
   static INFLUENCE_AREA_FACTOR = 2
 
   #images: Image[]
@@ -113,18 +114,18 @@ export class TowerYellow extends Tower {
   }
 
   get influenceArea() {
-    return TowerYellow.UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
+    return TOWER_YELLOW_UPGRADE.INFLUENCE_AREA[this.upgradeLevel]
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
     if (selectedUpgradeLevel > TOWER_UPGRADE.MAX_LEVEL) {
-      return TowerYellow.COST_UPGRADE[TOWER_UPGRADE.MAX_LEVEL]
+      return TOWER_YELLOW_UPGRADE.COST[TOWER_UPGRADE.MAX_LEVEL]
     }
-    return TowerYellow.COST_UPGRADE[selectedUpgradeLevel]
+    return TOWER_YELLOW_UPGRADE.COST[selectedUpgradeLevel]
   }
 
   get sellProfit() {
-    return TowerYellow.PROFIT_SELL_UPGRADE[this.upgradeLevel]
+    return TOWER_YELLOW_UPGRADE.PROFIT_SELL[this.upgradeLevel]
   }
 
   get type() {
@@ -134,7 +135,7 @@ export class TowerYellow extends Tower {
   isDistanceIntoInfluenceArea(distance: number) {
     return (
       distance <=
-      TowerYellow.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] /
+      TOWER_YELLOW_UPGRADE.INFLUENCE_AREA[this.upgradeLevel] /
         TowerYellow.INFLUENCE_AREA_FACTOR
     )
   }

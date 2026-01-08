@@ -10,6 +10,7 @@ import {
   TOWER_CREATION_OFFSET,
   TOWER_GREEN_UPGRADE,
   TOWER_RED_UPGRADE,
+  TOWER_YELLOW_UPGRADE,
 } from '../constants/tower'
 
 export class InfluenceArea {
@@ -59,7 +60,7 @@ export class InfluenceArea {
     const influenceMap = {
       [TowerGreen.ID]: TOWER_GREEN_UPGRADE.INFLUENCE_AREA[0],
       [TowerRed.ID]: TOWER_RED_UPGRADE.INFLUENCE_AREA[0],
-      [TowerYellow.ID]: TowerYellow.UPGRADE_INFLUENCE_AREA[0],
+      [TowerYellow.ID]: TOWER_YELLOW_UPGRADE.INFLUENCE_AREA[0],
     }
     return influenceMap[towerSelected]
   }
