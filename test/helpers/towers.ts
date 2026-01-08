@@ -7,6 +7,7 @@ import { TowerGreenCreator } from '../../src/towers/TowerGreenCreator'
 import { TowerRedCreator } from '../../src/towers/TowerRedCreator'
 import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
 import { images } from './imagesResources'
+import { TestFlags } from '../flags'
 
 export const instantiateGreenTower = () => {
   const orangeTile = instantiateOrangeTile()
@@ -28,10 +29,10 @@ export const instantiateYellowTower = () => {
   return towerYellowCreator.create(towerYellowPosition, orangeTile)
 }
 export const upgradeTowerNTimes = (tower: TowerType, nTimes: number) => {
-  Tower.INSTANT_UPGRADING = true
+  TestFlags.instant_upgrading = true
   for (let index = 0; index < nTimes; index++) {
     tower.upgrade()
     tower.update()
   }
-  Tower.INSTANT_UPGRADING = false
+  TestFlags.instant_upgrading = false
 }

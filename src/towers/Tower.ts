@@ -9,10 +9,9 @@ import { Obj } from '../Obj'
 import { Size } from '../types/size'
 import { Distance } from '../utils/Distance'
 import { TOWER_PROGRESS_BAR_OFFSET, TOWER_UPGRADE } from '../constants/tower'
+import { TestFlags } from '../../test/flags'
 
 export class Tower extends Obj {
-  static INSTANT_UPGRADING: boolean = false // for testing purposes is set to true
-
   upgrading: boolean = false
   upgradeLevel: number = 0
   progressBar: ProgressBar
@@ -131,7 +130,7 @@ export class Tower extends Obj {
     if (!this.upgrading) {
       return
     }
-    if (Tower.INSTANT_UPGRADING) {
+    if (TestFlags.instant_upgrading) {
       this.#reInitUpgrading()
       return
     }
