@@ -9,9 +9,9 @@ import { TowerYellow } from '../../towers/TowerYellow'
 import { P5 } from '../../utils/P5'
 import { Obj } from '../../Obj'
 import { Player } from '../../player/Player'
-import { TowerGreenCreator } from '../../towers/TowerGreenCreator'
-import { TowerRedCreator } from '../../towers/TowerRedCreator'
-import { TowerYellowCreator } from '../../towers/TowerYellowCreator'
+import { TowerGreenCreator } from '../../towers/creators/TowerGreenCreator'
+import { TowerRedCreator } from '../../towers/creators/TowerRedCreator'
+import { TowerYellowCreator } from '../../towers/creators/TowerYellowCreator'
 
 export class TileOrange extends Obj {
   #img: Image | null

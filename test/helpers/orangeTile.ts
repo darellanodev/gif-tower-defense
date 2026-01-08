@@ -3,9 +3,9 @@ import { TileOrange } from '../../src/levels/tiles/TileOrange'
 import { Position } from '../../src/types/position'
 import { img } from './imagesResources'
 import { images } from './imagesResources'
-import { TowerGreenCreator } from '../../src/towers/TowerGreenCreator'
-import { TowerRedCreator } from '../../src/towers/TowerRedCreator'
-import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
+import { TowerGreenCreator } from '../../src/towers/creators/TowerGreenCreator'
+import { TowerRedCreator } from '../../src/towers/creators/TowerRedCreator'
+import { TowerYellowCreator } from '../../src/towers/creators/TowerYellowCreator'
 export const instantiateOrangeTile = () => {
   const OrangeTilePosition: Position = { x: 100, y: 200 }
   const player = Player.getInstance()

@@ -7,9 +7,9 @@ import { instantiateOrangeTile } from '../helpers/orangeTile'
 import { buyGreenTower } from '../helpers/wallet'
 import { img } from '../helpers/imagesResources'
 import { images } from '../helpers/imagesResources'
-import { TowerGreenCreator } from '../../src/towers/TowerGreenCreator'
-import { TowerRedCreator } from '../../src/towers/TowerRedCreator'
-import { TowerYellowCreator } from '../../src/towers/TowerYellowCreator'
+import { TowerGreenCreator } from '../../src/towers/creators/TowerGreenCreator'
+import { TowerRedCreator } from '../../src/towers/creators/TowerRedCreator'
+import { TowerYellowCreator } from '../../src/towers/creators/TowerYellowCreator'
 import { MODE } from '../../src/constants/mode'
 
 describe('isInside', () => {
