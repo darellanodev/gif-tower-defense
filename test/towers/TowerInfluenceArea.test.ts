@@ -1,13 +1,14 @@
 import { describe, expect } from 'vitest'
 import { TowerGreen } from '../../src/towers/TowerGreen'
 import { instantiateGreenTower } from '../helpers/towers'
+import { TOWER_GREEN_UPGRADE } from '../../src/constants/tower'
 
 test('get influenceArea, when the instance is recently created, return the first upgrading influence area', () => {
   const towerGreen = instantiateGreenTower()
 
   const result = towerGreen.influenceArea
 
-  const expected = TowerGreen.UPGRADE_INFLUENCE_AREA[0]
+  const expected = TOWER_GREEN_UPGRADE.INFLUENCE_AREA[0]
   expect(result).toBe(expected)
 })
 

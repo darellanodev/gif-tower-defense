@@ -26,3 +26,10 @@ export const TOWER_UPGRADE = {
   INCREMENT: 1,
   MAX_LEVEL: 5,
 } as const
+
+export const TOWER_GREEN_UPGRADE = {
+  PROFIT_SELL: [30, 35, 65, 220, 900, 1880],
+  DAMAGE: [1, 2, 4, 6, 12, 24],
+  COST: [50, 75, 125, 300, 1000, 2000],
+  INFLUENCE_AREA: [150, 180, 220, 300, 400, 550],
+} as const

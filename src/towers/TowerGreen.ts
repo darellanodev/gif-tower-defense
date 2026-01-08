@@ -5,14 +5,14 @@ import { Tower } from './Tower'
 import { P5 } from '../utils/P5'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { Enemy } from '../enemies/Enemy'
-import { TOWER_IMAGE_OFFSET, TOWER_UPGRADE } from '../constants/tower'
+import {
+  TOWER_GREEN_UPGRADE,
+  TOWER_IMAGE_OFFSET,
+  TOWER_UPGRADE,
+} from '../constants/tower'
 
 export class TowerGreen extends Tower {
   static ID = 1
-  static PROFIT_SELL_UPGRADE = [30, 35, 65, 220, 900, 1880]
-  static DAMAGE_UPGRADE = [1, 2, 4, 6, 12, 24]
-  static COST_UPGRADE = [50, 75, 125, 300, 1000, 2000]
-  static UPGRADE_INFLUENCE_AREA = [150, 180, 220, 300, 400, 550]
   static INFLUENCE_AREA_FACTOR = 1.65
 
   #images: Image[]
@@ -66,7 +66,7 @@ export class TowerGreen extends Tower {
     )
 
     this.#drawShotToEnemy()
-    this.enemyTarget.addDamage(TowerGreen.DAMAGE_UPGRADE[this.upgradeLevel])
+    this.enemyTarget.addDamage(TOWER_GREEN_UPGRADE.DAMAGE[this.upgradeLevel])
     P5.p5.image(this.#images[this.upgradeLevel], 0, 0)
 
     P5.p5.resetMatrix()
@@ -94,18 +94,18 @@ export class TowerGreen extends Tower {
   }
 
   get influenceArea() {
-    return TowerGreen.UPGRADE_INFLUENCE_AREA[this.upgradeLevel]
+    return TOWER_GREEN_UPGRADE.INFLUENCE_AREA[this.upgradeLevel]
   }
 
   getCostWhenUpgradeLevelIs(selectedUpgradeLevel: number) {
     if (selectedUpgradeLevel > TOWER_UPGRADE.MAX_LEVEL) {
-      return TowerGreen.COST_UPGRADE[TOWER_UPGRADE.MAX_LEVEL]
+      return TOWER_GREEN_UPGRADE.COST[TOWER_UPGRADE.MAX_LEVEL]
     }
-    return TowerGreen.COST_UPGRADE[selectedUpgradeLevel]
+    return TOWER_GREEN_UPGRADE.COST[selectedUpgradeLevel]
   }
 
   get sellProfit() {
-    return TowerGreen.PROFIT_SELL_UPGRADE[this.upgradeLevel]
+    return TOWER_GREEN_UPGRADE.PROFIT_SELL[this.upgradeLevel]
   }
 
   get type() {
@@ -115,7 +115,7 @@ export class TowerGreen extends Tower {
   isDistanceIntoInfluenceArea(distance: number) {
     return (
       distance <=
-      TowerGreen.UPGRADE_INFLUENCE_AREA[this.upgradeLevel] /
+      TOWER_GREEN_UPGRADE.INFLUENCE_AREA[this.upgradeLevel] /
         TowerGreen.INFLUENCE_AREA_FACTOR
     )
   }
