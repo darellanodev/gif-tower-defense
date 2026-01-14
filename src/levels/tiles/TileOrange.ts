@@ -47,7 +47,7 @@ export class TileOrange extends Obj {
       case TOWER_ID.GREEN:
         this.#tower = this.#towerGreenCreator.create(this.position, this)
         break
-      case TowerRed.ID:
+      case TOWER_ID.RED:
         this.#tower = this.#towerRedCreator.create(this.position, this)
         break
       case TowerYellow.ID:

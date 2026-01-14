@@ -67,7 +67,7 @@ export class Wallet {
   haveMoneyToUpgradeTower(towerId: number, upgradeLevel: number): boolean {
     const towerCosts = {
       [TOWER_ID.GREEN]: TOWER_GREEN_UPGRADE.COST,
-      [TowerRed.ID]: TOWER_RED_UPGRADE.COST,
+      [TOWER_ID.RED]: TOWER_RED_UPGRADE.COST,
       [TowerYellow.ID]: TOWER_YELLOW_UPGRADE.COST,
     }
 

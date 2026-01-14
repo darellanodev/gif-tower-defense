@@ -8,13 +8,13 @@ import { P5 } from '../utils/P5'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { Enemy } from '../enemies/Enemy'
 import {
+  TOWER_ID,
   TOWER_IMAGE_OFFSET,
   TOWER_RED_UPGRADE,
   TOWER_UPGRADE,
 } from '../constants/tower'
 
 export class TowerRed extends Tower {
-  static ID = 2
   static INFLUENCE_AREA_FACTOR = 1.65
   static MAXTIME_TO_RECHARGE = 50
   #images: Image[]
@@ -124,7 +124,7 @@ export class TowerRed extends Tower {
   }
 
   get type() {
-    return TowerRed.ID
+    return TOWER_ID.RED
   }
 
   isDistanceIntoInfluenceArea(distance: number) {

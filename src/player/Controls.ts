@@ -60,7 +60,7 @@ export class Controls {
         this.#hudButtonsTowers.selectTower(TOWER_ID.GREEN)
         break
       case KEY_2:
-        this.#hudButtonsTowers.selectTower(TowerRed.ID)
+        this.#hudButtonsTowers.selectTower(TOWER_ID.RED)
         break
       case KEY_3:
         this.#hudButtonsTowers.selectTower(TowerYellow.ID)

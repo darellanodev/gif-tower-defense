@@ -44,7 +44,7 @@ export class InfluenceArea {
         P5.p5.stroke(...COLOR.GREEN, INFLUENCE_AREA_ALPHA.STROKE)
         P5.p5.fill(...COLOR.GREEN, INFLUENCE_AREA_ALPHA.FILL)
         break
-      case TowerRed.ID:
+      case TOWER_ID.RED:
         P5.p5.stroke(...COLOR.RED, INFLUENCE_AREA_ALPHA.STROKE)
         P5.p5.fill(...COLOR.RED, INFLUENCE_AREA_ALPHA.FILL)
         break
@@ -58,7 +58,7 @@ export class InfluenceArea {
   #getInfluenceAreaFor(towerSelected: number) {
     const influenceMap = {
       [TOWER_ID.GREEN]: TOWER_GREEN_UPGRADE.INFLUENCE_AREA[0],
-      [TowerRed.ID]: TOWER_RED_UPGRADE.INFLUENCE_AREA[0],
+      [TOWER_ID.RED]: TOWER_RED_UPGRADE.INFLUENCE_AREA[0],
       [TowerYellow.ID]: TOWER_YELLOW_UPGRADE.INFLUENCE_AREA[0],
     }
     return influenceMap[towerSelected]

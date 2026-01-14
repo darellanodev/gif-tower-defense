@@ -1,5 +1,4 @@
 import { describe, expect } from 'vitest'
-import { TowerRed } from '../../src/towers/TowerRed'
 import { TowerYellow } from '../../src/towers/TowerYellow'
 import {
   instantiateGreenTower,
@@ -15,10 +14,10 @@ describe('get type', () => {
     expect(result).toBe(TOWER_ID.GREEN)
   })
 
-  test('when is a red tower, returns TowerRed.ID', () => {
+  test('when is a red tower, returns TOWER_ID.RED', () => {
     const towerRed = instantiateRedTower()
     const result = towerRed.type
-    expect(result).toBe(TowerRed.ID)
+    expect(result).toBe(TOWER_ID.RED)
   })
 
   test('when is a yellow tower, returns TowerYellow.ID', () => {

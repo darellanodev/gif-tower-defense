@@ -49,4 +49,5 @@ export const TOWER_YELLOW_UPGRADE = {
 
 export const TOWER_ID = {
   GREEN: 1,
+  RED: 2,
 }
