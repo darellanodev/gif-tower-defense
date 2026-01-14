@@ -3,8 +3,6 @@ import { Position } from '../../types/position'
 import { Image } from 'p5'
 import { Enemy } from '../../enemies/Enemy'
 import { TILE_SIZE } from '../../constants/tile'
-import { TowerRed } from '../../towers/TowerRed'
-import { TowerYellow } from '../../towers/TowerYellow'
 import { P5 } from '../../utils/P5'
 import { Obj } from '../../Obj'
 import { Player } from '../../player/Player'
@@ -50,7 +48,7 @@ export class TileOrange extends Obj {
       case TOWER_ID.RED:
         this.#tower = this.#towerRedCreator.create(this.position, this)
         break
-      case TowerYellow.ID:
+      case TOWER_ID.YELLOW:
         this.#tower = this.#towerYellowCreator.create(this.position, this)
         break
     }
@@ -91,7 +89,7 @@ export class TileOrange extends Obj {
     if (!this.#tower) {
       return
     }
-    if (this.#tower.type === TowerYellow.ID) {
+    if (this.#tower.type === TOWER_ID.YELLOW) {
       this.#selectAllExplosionsTarget()
       return
     }

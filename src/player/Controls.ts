@@ -1,5 +1,3 @@
-import { TowerRed } from '../towers/TowerRed'
-import { TowerYellow } from '../towers/TowerYellow'
 import { Position } from '../types/position'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { P5 } from '../utils/P5'
@@ -63,7 +61,7 @@ export class Controls {
         this.#hudButtonsTowers.selectTower(TOWER_ID.RED)
         break
       case KEY_3:
-        this.#hudButtonsTowers.selectTower(TowerYellow.ID)
+        this.#hudButtonsTowers.selectTower(TOWER_ID.YELLOW)
         break
       case KEY_P:
         this.#togglePause()

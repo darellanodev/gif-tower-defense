@@ -1,6 +1,4 @@
 import { Tower } from '../towers/Tower'
-import { TowerRed } from '../towers/TowerRed'
-import { TowerYellow } from '../towers/TowerYellow'
 import { FlyIndicator } from '../hud/FlyIndicator'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { MODE } from '../constants/mode'
@@ -68,7 +66,7 @@ export class Wallet {
     const towerCosts = {
       [TOWER_ID.GREEN]: TOWER_GREEN_UPGRADE.COST,
       [TOWER_ID.RED]: TOWER_RED_UPGRADE.COST,
-      [TowerYellow.ID]: TOWER_YELLOW_UPGRADE.COST,
+      [TOWER_ID.YELLOW]: TOWER_YELLOW_UPGRADE.COST,
     }
 
     const cost = towerCosts[towerId]?.[upgradeLevel]

@@ -13,13 +13,13 @@ import { Images } from '../resources/Images'
 import { Size } from '../types/size'
 import { Particle } from '../particles/Particle'
 import {
+  TOWER_ID,
   TOWER_IMAGE_OFFSET,
   TOWER_UPGRADE,
   TOWER_YELLOW_UPGRADE,
 } from '../constants/tower'
 
 export class TowerYellow extends Tower {
-  static ID = 3
   static INFLUENCE_AREA_FACTOR = 2
 
   #images: Image[]
@@ -129,7 +129,7 @@ export class TowerYellow extends Tower {
   }
 
   get type() {
-    return TowerYellow.ID
+    return TOWER_ID.YELLOW
   }
 
   isDistanceIntoInfluenceArea(distance: number) {

@@ -1,7 +1,6 @@
 import { Position } from '../../types/position'
 import { TowerType } from '../../types/towerType'
 import { TextProperties } from '../TextProperties'
-import { TowerYellow } from '../../towers/TowerYellow'
 import { P5 } from '../../utils/P5'
 import { HudPanel } from '../HudPanel'
 import { Wallet } from '../../player/Wallet'
@@ -85,7 +84,7 @@ export class HudButtonsTowers {
         HudButtonsTowers.redTowerButton.check()
         break
 
-      case TowerYellow.ID:
+      case TOWER_ID.YELLOW:
         HudButtonsTowers.yellowTowerButton.check()
         break
     }
@@ -98,7 +97,7 @@ export class HudButtonsTowers {
     if (HudButtonsTowers.redTowerButton.checked) {
       return TOWER_ID.RED
     }
-    return TowerYellow.ID
+    return TOWER_ID.YELLOW
   }
 
   draw() {
@@ -184,7 +183,7 @@ export class HudButtonsTowers {
     this.#canBuyTowerGreen = this.#wallet.haveMoneyToBuyNewTower(TOWER_ID.GREEN)
     this.#canBuyTowerRed = this.#wallet.haveMoneyToBuyNewTower(TOWER_ID.RED)
     this.#canBuyTowerYellow = this.#wallet.haveMoneyToBuyNewTower(
-      TowerYellow.ID,
+      TOWER_ID.YELLOW,
     )
   }
 
@@ -222,7 +221,7 @@ export class HudButtonsTowers {
       this.selectTower(TOWER_ID.RED)
     }
     if (HudButtonsTowers.yellowTowerButton.isMouseOver(mousePosition)) {
-      this.selectTower(TowerYellow.ID)
+      this.selectTower(TOWER_ID.YELLOW)
     }
   }
 }
