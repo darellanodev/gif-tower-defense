@@ -7,12 +7,12 @@ import { TileOrange } from '../levels/tiles/TileOrange'
 import { Enemy } from '../enemies/Enemy'
 import {
   TOWER_GREEN_UPGRADE,
+  TOWER_ID,
   TOWER_IMAGE_OFFSET,
   TOWER_UPGRADE,
 } from '../constants/tower'
 
 export class TowerGreen extends Tower {
-  static ID = 1
   static INFLUENCE_AREA_FACTOR = 1.65
 
   #images: Image[]
@@ -109,7 +109,7 @@ export class TowerGreen extends Tower {
   }
 
   get type() {
-    return TowerGreen.ID
+    return TOWER_ID.GREEN
   }
 
   isDistanceIntoInfluenceArea(distance: number) {

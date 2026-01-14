@@ -46,3 +46,7 @@ export const TOWER_YELLOW_UPGRADE = {
   COST: [700, 2500, 7500, 22000, 67000, 200000],
   INFLUENCE_AREA: [150, 180, 220, 300, 400, 550],
 }
+
+export const TOWER_ID = {
+  GREEN: 1,
+}

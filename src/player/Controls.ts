@@ -1,4 +1,3 @@
-import { TowerGreen } from '../towers/TowerGreen'
 import { TowerRed } from '../towers/TowerRed'
 import { TowerYellow } from '../towers/TowerYellow'
 import { Position } from '../types/position'
@@ -15,6 +14,7 @@ import { Path } from '../levels/path/Path'
 import { StateManager } from '../StateManager'
 import { Button } from '../hud/buttons/Button'
 import { KEY_1, KEY_2, KEY_3, KEY_P } from '../constants/keyboard'
+import { TOWER_ID } from '../constants/tower'
 
 export class Controls {
   #stateManager: StateManager
@@ -57,7 +57,7 @@ export class Controls {
   keyPressed(keyCode: number) {
     switch (keyCode) {
       case KEY_1:
-        this.#hudButtonsTowers.selectTower(TowerGreen.ID)
+        this.#hudButtonsTowers.selectTower(TOWER_ID.GREEN)
         break
       case KEY_2:
         this.#hudButtonsTowers.selectTower(TowerRed.ID)

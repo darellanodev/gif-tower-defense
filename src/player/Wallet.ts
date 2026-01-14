@@ -1,5 +1,4 @@
 import { Tower } from '../towers/Tower'
-import { TowerGreen } from '../towers/TowerGreen'
 import { TowerRed } from '../towers/TowerRed'
 import { TowerYellow } from '../towers/TowerYellow'
 import { FlyIndicator } from '../hud/FlyIndicator'
@@ -8,6 +7,7 @@ import { MODE } from '../constants/mode'
 import { MONEY_IN_TESTING_MODE } from '../constants/player'
 import {
   TOWER_GREEN_UPGRADE,
+  TOWER_ID,
   TOWER_RED_UPGRADE,
   TOWER_YELLOW_UPGRADE,
 } from '../constants/tower'
@@ -66,7 +66,7 @@ export class Wallet {
 
   haveMoneyToUpgradeTower(towerId: number, upgradeLevel: number): boolean {
     const towerCosts = {
-      [TowerGreen.ID]: TOWER_GREEN_UPGRADE.COST,
+      [TOWER_ID.GREEN]: TOWER_GREEN_UPGRADE.COST,
       [TowerRed.ID]: TOWER_RED_UPGRADE.COST,
       [TowerYellow.ID]: TOWER_YELLOW_UPGRADE.COST,
     }

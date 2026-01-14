@@ -3,7 +3,6 @@ import { Position } from '../../types/position'
 import { Image } from 'p5'
 import { Enemy } from '../../enemies/Enemy'
 import { TILE_SIZE } from '../../constants/tile'
-import { TowerGreen } from '../../towers/TowerGreen'
 import { TowerRed } from '../../towers/TowerRed'
 import { TowerYellow } from '../../towers/TowerYellow'
 import { P5 } from '../../utils/P5'
@@ -12,6 +11,7 @@ import { Player } from '../../player/Player'
 import { TowerGreenCreator } from '../../towers/creators/TowerGreenCreator'
 import { TowerRedCreator } from '../../towers/creators/TowerRedCreator'
 import { TowerYellowCreator } from '../../towers/creators/TowerYellowCreator'
+import { TOWER_ID } from '../../constants/tower'
 
 export class TileOrange extends Obj {
   #img: Image | null
@@ -44,7 +44,7 @@ export class TileOrange extends Obj {
 
   instantiateNewTower(towerId: number) {
     switch (towerId) {
-      case TowerGreen.ID:
+      case TOWER_ID.GREEN:
         this.#tower = this.#towerGreenCreator.create(this.position, this)
         break
       case TowerRed.ID:

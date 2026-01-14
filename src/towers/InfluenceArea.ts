@@ -1,14 +1,13 @@
 import { Position } from '../types/position'
-import { TowerGreen } from './TowerGreen'
 import { TowerRed } from './TowerRed'
 import { TowerYellow } from './TowerYellow'
 import { COLOR, INFLUENCE_AREA_ALPHA } from '../constants/color'
 import { TILE_SIZE } from '../constants/tile'
 import { P5 } from '../utils/P5'
-import { Tower } from './Tower'
 import {
   TOWER_CREATION_OFFSET,
   TOWER_GREEN_UPGRADE,
+  TOWER_ID,
   TOWER_RED_UPGRADE,
   TOWER_YELLOW_UPGRADE,
 } from '../constants/tower'
@@ -41,7 +40,7 @@ export class InfluenceArea {
 
   #setInfluenceAreaColor(towerId: number) {
     switch (towerId) {
-      case TowerGreen.ID:
+      case TOWER_ID.GREEN:
         P5.p5.stroke(...COLOR.GREEN, INFLUENCE_AREA_ALPHA.STROKE)
         P5.p5.fill(...COLOR.GREEN, INFLUENCE_AREA_ALPHA.FILL)
         break
@@ -58,7 +57,7 @@ export class InfluenceArea {
 
   #getInfluenceAreaFor(towerSelected: number) {
     const influenceMap = {
-      [TowerGreen.ID]: TOWER_GREEN_UPGRADE.INFLUENCE_AREA[0],
+      [TOWER_ID.GREEN]: TOWER_GREEN_UPGRADE.INFLUENCE_AREA[0],
       [TowerRed.ID]: TOWER_RED_UPGRADE.INFLUENCE_AREA[0],
       [TowerYellow.ID]: TOWER_YELLOW_UPGRADE.INFLUENCE_AREA[0],
     }

@@ -1,7 +1,6 @@
 import { Position } from '../../types/position'
 import { TowerType } from '../../types/towerType'
 import { TextProperties } from '../TextProperties'
-import { TowerGreen } from '../../towers/TowerGreen'
 import { TowerRed } from '../../towers/TowerRed'
 import { TowerYellow } from '../../towers/TowerYellow'
 import { P5 } from '../../utils/P5'
@@ -15,6 +14,7 @@ import { ButtonYellowTowerCreator } from './ButtonYellowTowerCreator'
 import { PANEL_STATE } from '../../constants/panel'
 import {
   TOWER_GREEN_UPGRADE,
+  TOWER_ID,
   TOWER_RED_UPGRADE,
   TOWER_YELLOW_UPGRADE,
 } from '../../constants/tower'
@@ -78,7 +78,7 @@ export class HudButtonsTowers {
   selectTower(towerId: number) {
     this.uncheckAllTowerButtons()
     switch (towerId) {
-      case TowerGreen.ID:
+      case TOWER_ID.GREEN:
         HudButtonsTowers.greenTowerButton.check()
         break
 
@@ -94,7 +94,7 @@ export class HudButtonsTowers {
 
   getSelectedTower() {
     if (HudButtonsTowers.greenTowerButton.checked) {
-      return TowerGreen.ID
+      return TOWER_ID.GREEN
     }
     if (HudButtonsTowers.redTowerButton.checked) {
       return TowerRed.ID
@@ -182,7 +182,7 @@ export class HudButtonsTowers {
   }
 
   #setCanBuy() {
-    this.#canBuyTowerGreen = this.#wallet.haveMoneyToBuyNewTower(TowerGreen.ID)
+    this.#canBuyTowerGreen = this.#wallet.haveMoneyToBuyNewTower(TOWER_ID.GREEN)
     this.#canBuyTowerRed = this.#wallet.haveMoneyToBuyNewTower(TowerRed.ID)
     this.#canBuyTowerYellow = this.#wallet.haveMoneyToBuyNewTower(
       TowerYellow.ID,
@@ -217,7 +217,7 @@ export class HudButtonsTowers {
 
   handleTowerButtons(mousePosition: Position) {
     if (HudButtonsTowers.greenTowerButton.isMouseOver(mousePosition)) {
-      this.selectTower(TowerGreen.ID)
+      this.selectTower(TOWER_ID.GREEN)
     }
     if (HudButtonsTowers.redTowerButton.isMouseOver(mousePosition)) {
       this.selectTower(TowerRed.ID)

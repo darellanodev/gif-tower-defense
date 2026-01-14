@@ -1,8 +1,8 @@
 import { describe, expect } from 'vitest'
 import { Wallet } from '../../src/player/Wallet'
-import { TowerGreen } from '../../src/towers/TowerGreen'
 import { MODE } from '../../src/constants/mode'
 import { MONEY_IN_TESTING_MODE } from '../../src/constants/player'
+import { TOWER_ID } from '../../src/constants/tower'
 
 test('can not call constructor two times', () => {
   const money = 150
@@ -18,7 +18,7 @@ describe('haveMoneyToBuy', () => {
     const money = 150
     const wallet = Wallet.getInstance(MODE.NORMAL, money)
 
-    const result = wallet.haveMoneyToBuyNewTower(TowerGreen.ID)
+    const result = wallet.haveMoneyToBuyNewTower(TOWER_ID.GREEN)
 
     expect(result).toBeTruthy()
   })
@@ -27,7 +27,7 @@ describe('haveMoneyToBuy', () => {
     const money = 30
     const wallet = Wallet.getInstance(MODE.NORMAL, money)
 
-    const result = wallet.haveMoneyToBuyNewTower(TowerGreen.ID)
+    const result = wallet.haveMoneyToBuyNewTower(TOWER_ID.GREEN)
 
     expect(result).toBeFalsy()
   })
@@ -36,7 +36,7 @@ describe('haveMoneyToBuy', () => {
     const money = 150
     const wallet = Wallet.getInstance(MODE.NORMAL, money)
 
-    const result = wallet.haveMoneyToUpgradeTower(TowerGreen.ID, 1)
+    const result = wallet.haveMoneyToUpgradeTower(TOWER_ID.GREEN, 1)
 
     expect(result).toBeTruthy()
   })
