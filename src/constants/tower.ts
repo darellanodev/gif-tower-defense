@@ -45,10 +45,10 @@ export const TOWER_YELLOW_UPGRADE = {
   PROFIT_SELL: [680, 2460, 7440, 21920, 66900, 199880],
   COST: [700, 2500, 7500, 22000, 67000, 200000],
   INFLUENCE_AREA: [150, 180, 220, 300, 400, 550],
-}
+} as const
 
 export const TOWER_ID = {
   GREEN: 1,
   RED: 2,
   YELLOW: 3,
-}
+} as const

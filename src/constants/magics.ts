@@ -21,7 +21,7 @@ export const MAGIC_UFO_RAY_IMG = {
   INDEX: 1,
   OFFSET_X: 2,
   OFFSET_Y: 30,
-}
+} as const
 
 export const MAGIC_UFO_IMG_INDEX = 0
 export const MAGIC_UFO_MAX_TIME_ABDUCT = 20
