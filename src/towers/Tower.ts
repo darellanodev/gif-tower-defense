@@ -8,8 +8,13 @@ import { TileOrange } from '../levels/tiles/TileOrange'
 import { Obj } from '../Obj'
 import { Size } from '../types/size'
 import { Distance } from '../utils/Distance'
-import { TOWER_PROGRESS_BAR_OFFSET, TOWER_UPGRADE } from '../constants/tower'
+import {
+  TOWER_ID,
+  TOWER_PROGRESS_BAR_OFFSET,
+  TOWER_UPGRADE,
+} from '../constants/tower'
 import { TestFlags } from '../../test/flags'
+import { TowerId } from '../types/towerType'
 
 export class Tower extends Obj {
   upgrading: boolean = false
@@ -145,9 +150,9 @@ export class Tower extends Obj {
     this.progressBar.increaseProgress(this.upgradeIncrement)
   }
 
-  get type() {
+  get type(): TowerId {
     // this method is overridden by child classes
-    return 0
+    return TOWER_ID.GREEN
   }
 
   _drawUpgradeBackground(color: RGBType, offset: number) {
