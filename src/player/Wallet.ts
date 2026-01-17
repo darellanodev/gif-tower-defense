@@ -3,6 +3,7 @@ import { FlyIndicator } from '../hud/FlyIndicator'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { MODE } from '../constants/mode'
 import { MONEY_IN_TESTING_MODE } from '../constants/player'
+import { TowerId } from '../types/towerType'
 import {
   TOWER_GREEN_UPGRADE,
   TOWER_ID,
@@ -62,7 +63,7 @@ export class Wallet {
     this.#money += value
   }
 
-  haveMoneyToUpgradeTower(towerId: number, upgradeLevel: number): boolean {
+  haveMoneyToUpgradeTower(towerId: TowerId, upgradeLevel: number): boolean {
     const towerCosts = {
       [TOWER_ID.GREEN]: TOWER_GREEN_UPGRADE.COST,
       [TOWER_ID.RED]: TOWER_RED_UPGRADE.COST,
@@ -78,7 +79,7 @@ export class Wallet {
     return this.money >= cost
   }
 
-  haveMoneyToBuyNewTower(towerId: number) {
+  haveMoneyToBuyNewTower(towerId: TowerId) {
     const upgradeLevel = 0
     return this.haveMoneyToUpgradeTower(towerId, upgradeLevel)
   }
@@ -125,7 +126,7 @@ export class Wallet {
     return `-${cost} $`
   }
 
-  buyTower(mouseTileOrangeOver: TileOrange, selectedTower: number) {
+  buyTower(mouseTileOrangeOver: TileOrange, selectedTower: TowerId) {
     if (!this.haveMoneyToBuyNewTower(selectedTower)) {
       return
     }

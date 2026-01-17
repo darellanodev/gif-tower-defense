@@ -1,5 +1,5 @@
 import { Position } from '../../types/position'
-import { TowerType } from '../../types/towerType'
+import { TowerType, TowerId } from '../../types/towerType'
 import { TextProperties } from '../TextProperties'
 import { P5 } from '../../utils/P5'
 import { HudPanel } from '../HudPanel'
@@ -73,7 +73,7 @@ export class HudButtonsTowers {
     HudButtonsTowers.yellowTowerButton.uncheck()
   }
 
-  selectTower(towerId: number) {
+  selectTower(towerId: TowerId) {
     this.uncheckAllTowerButtons()
     switch (towerId) {
       case TOWER_ID.GREEN:
@@ -90,7 +90,7 @@ export class HudButtonsTowers {
     }
   }
 
-  getSelectedTower() {
+  getSelectedTower(): TowerId {
     if (HudButtonsTowers.greenTowerButton.checked) {
       return TOWER_ID.GREEN
     }

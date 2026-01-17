@@ -1,4 +1,4 @@
-import { TowerType } from '../../types/towerType'
+import { TowerType, TowerId } from '../../types/towerType'
 import { Position } from '../../types/position'
 import { Image } from 'p5'
 import { Enemy } from '../../enemies/Enemy'
@@ -40,7 +40,7 @@ export class TileOrange extends Obj {
     this.#tower = null
   }
 
-  instantiateNewTower(towerId: number) {
+  instantiateNewTower(towerId: TowerId) {
     switch (towerId) {
       case TOWER_ID.GREEN:
         this.#tower = this.#towerGreenCreator.create(this.position, this)

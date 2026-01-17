@@ -37,7 +37,7 @@ export class InfluenceArea {
     P5.p5.fill(...COLOR.GRAY, INFLUENCE_AREA_ALPHA.FILL)
   }
 
-  #setInfluenceAreaColor(towerId: number) {
+  #setInfluenceAreaColor(towerId: TowerId) {
     switch (towerId) {
       case TOWER_ID.GREEN:
         P5.p5.stroke(...COLOR.GREEN, INFLUENCE_AREA_ALPHA.STROKE)
