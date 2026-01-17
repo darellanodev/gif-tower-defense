@@ -58,3 +58,5 @@ export const TOWER_INFLUENCE_AREA_FACTOR = {
   RED: 1.65,
   YELLOW: 2,
 } as const
+
+export const TOWER_RED_MAX_TIME_RECHARGE = 50

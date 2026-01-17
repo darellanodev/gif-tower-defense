@@ -11,12 +11,12 @@ import {
   TOWER_ID,
   TOWER_IMAGE_OFFSET,
   TOWER_INFLUENCE_AREA_FACTOR,
+  TOWER_RED_MAX_TIME_RECHARGE,
   TOWER_RED_UPGRADE,
   TOWER_UPGRADE,
 } from '../constants/tower'
 
 export class TowerRed extends Tower {
-  static MAXTIME_TO_RECHARGE = 50
   #images: Image[]
 
   #timeToRecharge = 0
@@ -67,7 +67,7 @@ export class TowerRed extends Tower {
   }
 
   #createMissileWhenCharged(enemyTarget: Enemy) {
-    if (this.#timeToRecharge < TowerRed.MAXTIME_TO_RECHARGE) {
+    if (this.#timeToRecharge < TOWER_RED_MAX_TIME_RECHARGE) {
       this.#timeToRecharge++
       return
     }
