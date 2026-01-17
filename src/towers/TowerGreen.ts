@@ -9,12 +9,11 @@ import {
   TOWER_GREEN_UPGRADE,
   TOWER_ID,
   TOWER_IMAGE_OFFSET,
+  TOWER_INFLUENCE_AREA_FACTOR,
   TOWER_UPGRADE,
 } from '../constants/tower'
 
 export class TowerGreen extends Tower {
-  static INFLUENCE_AREA_FACTOR = 1.65
-
   #images: Image[]
 
   constructor(position: Position, tileOrange: TileOrange, images: Image[]) {
@@ -116,7 +115,7 @@ export class TowerGreen extends Tower {
     return (
       distance <=
       TOWER_GREEN_UPGRADE.INFLUENCE_AREA[this.upgradeLevel] /
-        TowerGreen.INFLUENCE_AREA_FACTOR
+        TOWER_INFLUENCE_AREA_FACTOR.GREEN
     )
   }
 }

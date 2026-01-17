@@ -52,3 +52,9 @@ export const TOWER_ID = {
   RED: 2,
   YELLOW: 3,
 } as const
+
+export const TOWER_INFLUENCE_AREA_FACTOR = {
+  GREEN: 1.65,
+  RED: 1.65,
+  YELLOW: 2,
+} as const

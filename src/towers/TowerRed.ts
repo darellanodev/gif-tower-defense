@@ -10,12 +10,12 @@ import { Enemy } from '../enemies/Enemy'
 import {
   TOWER_ID,
   TOWER_IMAGE_OFFSET,
+  TOWER_INFLUENCE_AREA_FACTOR,
   TOWER_RED_UPGRADE,
   TOWER_UPGRADE,
 } from '../constants/tower'
 
 export class TowerRed extends Tower {
-  static INFLUENCE_AREA_FACTOR = 1.65
   static MAXTIME_TO_RECHARGE = 50
   #images: Image[]
 
@@ -131,7 +131,7 @@ export class TowerRed extends Tower {
     return (
       distance <=
       TOWER_RED_UPGRADE.INFLUENCE_AREA[this.upgradeLevel] /
-        TowerRed.INFLUENCE_AREA_FACTOR
+        TOWER_INFLUENCE_AREA_FACTOR.RED
     )
   }
 }

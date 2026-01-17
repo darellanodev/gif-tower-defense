@@ -15,13 +15,12 @@ import { Particle } from '../particles/Particle'
 import {
   TOWER_ID,
   TOWER_IMAGE_OFFSET,
+  TOWER_INFLUENCE_AREA_FACTOR,
   TOWER_UPGRADE,
   TOWER_YELLOW_UPGRADE,
 } from '../constants/tower'
 
 export class TowerYellow extends Tower {
-  static INFLUENCE_AREA_FACTOR = 2
-
   #images: Image[]
 
   #coreProgressBar: ProgressBar
@@ -136,7 +135,7 @@ export class TowerYellow extends Tower {
     return (
       distance <=
       TOWER_YELLOW_UPGRADE.INFLUENCE_AREA[this.upgradeLevel] /
-        TowerYellow.INFLUENCE_AREA_FACTOR
+        TOWER_INFLUENCE_AREA_FACTOR.YELLOW
     )
   }
 
