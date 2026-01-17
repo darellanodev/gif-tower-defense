@@ -2,6 +2,7 @@ import { Position } from '../types/position'
 import { COLOR, INFLUENCE_AREA_ALPHA } from '../constants/color'
 import { TILE_SIZE } from '../constants/tile'
 import { P5 } from '../utils/P5'
+import { TowerId } from '../types/towerType'
 import {
   TOWER_CREATION_OFFSET,
   TOWER_GREEN_UPGRADE,
@@ -53,8 +54,8 @@ export class InfluenceArea {
     }
   }
 
-  #getInfluenceAreaFor(towerSelected: number) {
-    const influenceMap = {
+  #getInfluenceAreaFor(towerSelected: TowerId) {
+    const influenceMap: Record<TowerId, number> = {
       [TOWER_ID.GREEN]: TOWER_GREEN_UPGRADE.INFLUENCE_AREA[0],
       [TOWER_ID.RED]: TOWER_RED_UPGRADE.INFLUENCE_AREA[0],
       [TOWER_ID.YELLOW]: TOWER_YELLOW_UPGRADE.INFLUENCE_AREA[0],
@@ -64,7 +65,7 @@ export class InfluenceArea {
 
   drawNoTowerInfluenceArea(
     position: Position,
-    towerSelected: number,
+    towerSelected: TowerId,
     haveMoneyToBuySelectedTower: boolean,
   ) {
     this.#getMoneyInfluenceAreaColor(haveMoneyToBuySelectedTower, towerSelected)
@@ -73,7 +74,7 @@ export class InfluenceArea {
 
   #getMoneyInfluenceAreaColor(
     haveMoneyToBuySelectedTower: boolean,
-    towerSelected: number,
+    towerSelected: TowerId,
   ) {
     if (haveMoneyToBuySelectedTower) {
       this.#setInfluenceAreaColor(towerSelected)
