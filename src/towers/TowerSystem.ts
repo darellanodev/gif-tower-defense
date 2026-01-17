@@ -1,5 +1,4 @@
 import { EnemySystem } from '../enemies/EnemySystem'
-import { TileOrange } from '../levels/tiles/TileOrange'
 import { TilesManager } from '../levels/tiles/TilesManager'
 
 export class TowerSystem {
