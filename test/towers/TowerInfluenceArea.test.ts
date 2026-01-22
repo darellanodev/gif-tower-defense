@@ -1,5 +1,4 @@
 import { describe, expect } from 'vitest'
-import { TowerGreen } from '../../src/towers/TowerGreen'
 import { instantiateGreenTower } from '../helpers/towers'
 import { TOWER_GREEN_UPGRADE } from '../../src/constants/tower'
 

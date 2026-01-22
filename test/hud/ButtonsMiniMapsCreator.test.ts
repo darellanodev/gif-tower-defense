@@ -1,5 +1,4 @@
 import { expect } from 'vitest'
-import { MiniMap } from '../../src/menus/MiniMap'
 import { getButtonsMiniMapsCreator } from '../helpers/hud'
 import { TestFlags } from '../flags'
 import { MINIMAP_TEXT } from '../../src/constants/button'

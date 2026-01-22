@@ -1,6 +1,5 @@
 import { MAGIC_SPEED } from '../../src/constants/magics'
-import { TILE_SIZE } from '../../src/constants/TILE'
-import { MagicFireball } from '../../src/magics/MagicFireball'
+import { TILE_SIZE } from '../../src/constants/tile'
 import { MagicFireballCreator } from '../../src/magics/creators/MagicFireballCreator'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { img } from './imagesResources'

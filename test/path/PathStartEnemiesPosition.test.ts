@@ -1,5 +1,5 @@
 import { expect } from 'vitest'
-import { TILE_SIZE } from '../../src/constants/TILE'
+import { TILE_SIZE } from '../../src/constants/tile'
 import { PathStartEnemiesPosition } from '../../src/levels/path/PathStartEnemiesPosition'
 import { getTileStartForLevel } from '../helpers/levelMap'
 

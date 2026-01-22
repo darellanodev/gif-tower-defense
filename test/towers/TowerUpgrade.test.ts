@@ -1,5 +1,4 @@
 import { expect } from 'vitest'
-import { Tower } from '../../src/towers/Tower'
 import { instantiateGreenTower, upgradeTowerNTimes } from '../helpers/towers'
 import { TOWER_UPGRADE } from '../../src/constants/tower'
 

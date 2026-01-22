@@ -1,7 +1,6 @@
 import { TOWER_RED_UPGRADE } from '../../src/constants/tower'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { Missile } from '../../src/towers/Missile'
-import { TowerRed } from '../../src/towers/TowerRed'
 import { createNormalEnemy } from './enemyCreator'
 
 export const instantiateMissile = () => {

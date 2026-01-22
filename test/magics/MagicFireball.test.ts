@@ -1,5 +1,5 @@
 import { expect } from 'vitest'
-import { TILE_SIZE } from '../../src/constants/TILE'
+import { TILE_SIZE } from '../../src/constants/tile'
 import { TestFlags } from '../../test/flags'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'

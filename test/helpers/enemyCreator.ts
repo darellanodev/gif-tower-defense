@@ -1,4 +1,3 @@
-import { Enemy } from '../../src/enemies/Enemy'
 import { EnemyAnimator } from '../../src/enemies/EnemyEyesAnimator'
 import { EnemyCreator } from '../../src/enemies/EnemyCreator'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'

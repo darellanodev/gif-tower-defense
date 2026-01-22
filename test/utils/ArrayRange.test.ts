@@ -1,4 +1,4 @@
-import { describe, expect } from 'vitest'
+import { expect } from 'vitest'
 import { ArrayRange } from '../../src/utils/ArrayRange'
 
 test('when arguments are 1 and 5, return [1, 2, 3, 4, 5]', () => {

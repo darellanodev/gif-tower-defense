@@ -1,5 +1,4 @@
 import { Player } from '../../src/player/Player'
-import { Tower } from '../../src/towers/Tower'
 import { Position } from '../../src/types/position'
 import { TowerType } from '../../src/types/towerType'
 import { instantiateOrangeTile } from './orangeTile'

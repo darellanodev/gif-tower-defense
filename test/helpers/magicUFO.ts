@@ -1,4 +1,4 @@
-import { TILE_SIZE } from '../../src/constants/TILE'
+import { TILE_SIZE } from '../../src/constants/tile'
 import { EnemyInstancesManager } from '../../src/enemies/EnemyInstancesManager'
 import { MagicInstancesManager } from '../../src/magics/MagicInstancesManager'
 import { Enemy } from '../../src/enemies/Enemy'
