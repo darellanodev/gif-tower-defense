@@ -36,7 +36,7 @@ export class EnemyAnimator {
     this.#changeEyes()
   }
 
-  #hasOpenEyes() {
+  #hasEyesOpen() {
     return this.#imgIndex != ENEMY_EYES_IMAGE.CLOSED
   }
 
@@ -84,7 +84,7 @@ export class EnemyAnimator {
   }
 
   #changeEyes() {
-    if (this.#hasOpenEyes()) {
+    if (this.#hasEyesOpen()) {
       this.#closeEyesTime++
       this.#closeEyesWhenTimeReached()
       this.#moveEyesInSequence()
