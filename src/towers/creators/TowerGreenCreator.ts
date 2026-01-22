@@ -2,7 +2,6 @@ import { Position } from '../../types/position'
 import { TileOrange } from '../../levels/tiles/TileOrange'
 import { Image } from 'p5'
 import { TowerGreen } from '../TowerGreen'
-import { Tower } from '../Tower'
 import { TOWER_CREATION_OFFSET } from '../../constants/tower'
 
 export class TowerGreenCreator {

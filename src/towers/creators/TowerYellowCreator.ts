@@ -3,7 +3,6 @@ import { TileOrange } from '../../levels/tiles/TileOrange'
 import { Image } from 'p5'
 import { TowerYellow } from '../TowerYellow'
 import { Player } from '../../player/Player'
-import { Tower } from '../Tower'
 import { TOWER_CREATION_OFFSET } from '../../constants/tower'
 
 export class TowerYellowCreator {
