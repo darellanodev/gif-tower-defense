@@ -52,12 +52,13 @@ export class EnemySystem {
   }
 
   #createNormalEnemyWhenTimeReached() {
-    Enemy.createEnemyTime++
     if (Enemy.createEnemyTime === ENEMY_CREATION_MAX_TIME) {
       this.#createEnemyNormal()
       Enemy.createEnemyTime = 0
       Enemy.waveEnemies++
+      return
     }
+    Enemy.createEnemyTime++
   }
 
   #handleEnemyNormalCreation() {
