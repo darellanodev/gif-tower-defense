@@ -88,10 +88,10 @@ export class EnemyAnimator {
       this.#closeEyesTime++
       this.#closeEyesWhenTimeReached()
       this.#moveEyesInSequence()
-    } else {
-      this.#extendClosedEyesTime++
-      this.#openEyesWhenTimeReached()
+      return
     }
+    this.#extendClosedEyesTime++
+    this.#openEyesWhenTimeReached()
   }
 
   get imageToDraw() {
