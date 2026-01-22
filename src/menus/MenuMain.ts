@@ -1,5 +1,4 @@
 import { Game } from '../Game'
-import { MiniMap } from './MiniMap'
 import { StateManager } from '../StateManager'
 import { TodayEnemies } from './TodayEnemies'
 import { EnemyAnimator } from '../enemies/EnemyEyesAnimator'

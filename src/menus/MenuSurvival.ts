@@ -1,5 +1,4 @@
 import { Game } from '../Game'
-import { MiniMap } from './MiniMap'
 import { StateManager } from '../StateManager'
 import { Button } from '../hud/buttons/Button'
 import { ButtonMiniMap } from '../hud/buttons/ButtonMiniMap'

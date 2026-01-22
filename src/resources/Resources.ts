@@ -1,6 +1,5 @@
 import { TOTAL_ENEMIES } from '../constants/enemy'
 import { TOWER_UPGRADE } from '../constants/tower'
-import { Tower } from '../towers/Tower'
 import { ArrayRange } from '../utils/ArrayRange'
 import { P5 } from '../utils/P5'
 
