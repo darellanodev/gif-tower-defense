@@ -91,10 +91,10 @@ export class HudButtonsTowers {
   }
 
   getSelectedTower(): TowerId {
-    if (HudButtonsTowers.greenTowerButton.checked) {
+    if (HudButtonsTowers.greenTowerButton.isChecked) {
       return TOWER_ID.GREEN
     }
-    if (HudButtonsTowers.redTowerButton.checked) {
+    if (HudButtonsTowers.redTowerButton.isChecked) {
       return TOWER_ID.RED
     }
     return TOWER_ID.YELLOW

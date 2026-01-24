@@ -10,7 +10,7 @@ test('isChecked, if clicked and the last status was unchecked, return true', () 
   const buttonTower = new Button(buttonPosition, buttonSize, images)
   buttonTower.check()
 
-  const result = buttonTower.checked
+  const result = buttonTower.isChecked
 
   expect(result).toBeTruthy()
 })
@@ -21,7 +21,7 @@ test('isChecked, if clicked and the last status was unchecked and then uncheck t
   buttonTower.check()
   buttonTower.uncheck()
 
-  const result = buttonTower.checked
+  const result = buttonTower.isChecked
 
   expect(result).toBeFalsy()
 })

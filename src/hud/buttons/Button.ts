@@ -7,7 +7,7 @@ import { PositionInsideRectangle } from '../../utils/PositionInsideRectangle'
 import { BUTTON_INDEX_IMAGE } from '../../constants/button'
 
 export class Button extends Obj {
-  checked: boolean = false
+  isChecked: boolean = false
   size: Size
   images: (Image | null)[]
   offsetImages: Position
@@ -55,11 +55,11 @@ export class Button extends Obj {
   }
 
   check() {
-    this.checked = true
+    this.isChecked = true
   }
 
   uncheck() {
-    this.checked = false
+    this.isChecked = false
   }
 
   #drawButtonImage() {
@@ -107,7 +107,7 @@ export class Button extends Obj {
       if (!this.on) {
         return BUTTON_INDEX_IMAGE.OFF_HOVER
       }
-      if (this.checked) {
+      if (this.isChecked) {
         return BUTTON_INDEX_IMAGE.CHECKED_HOVER
       }
       return BUTTON_INDEX_IMAGE.ON_HOVER
@@ -116,7 +116,7 @@ export class Button extends Obj {
     if (!this.on) {
       return BUTTON_INDEX_IMAGE.OFF
     }
-    if (this.checked) {
+    if (this.isChecked) {
       return BUTTON_INDEX_IMAGE.CHECKED
     }
     return BUTTON_INDEX_IMAGE.ON
