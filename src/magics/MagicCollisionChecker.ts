@@ -18,7 +18,7 @@ export class MagicCollisionChecker {
     return indexOrder >= enemy.orderPosition && distanceBetween < 1
   }
 
-  checkCollision(enemy: Enemy, indexOrder: number) {
+  shouldCollide(enemy: Enemy, indexOrder: number) {
     if (enemy.isDead || enemy.isWinner) {
       return false
     }

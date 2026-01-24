@@ -25,7 +25,7 @@ export class TileBlack extends Obj {
     )
   }
 
-  isInside(mouse_x: number, mouse_y: number) {
+  isPositionInside(mouse_x: number, mouse_y: number) {
     let insideX = false
     let insideY = false
 

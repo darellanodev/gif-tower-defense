@@ -17,7 +17,7 @@ export class MagicIceballCollisionChecker {
 
   #checkCollision(magicIceball: MagicIceball, enemy: Enemy) {
     if (
-      this.#magicCollisionChecker.checkCollision(
+      this.#magicCollisionChecker.shouldCollide(
         enemy,
         this.#pathMovement.indexOrder,
       )

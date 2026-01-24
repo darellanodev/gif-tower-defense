@@ -96,7 +96,7 @@ export class TileOrange extends Obj {
     this.#tower.selectTarget(enemies)
   }
 
-  isInside(mouse_x: number, mouse_y: number) {
+  isPositionInside(mouse_x: number, mouse_y: number) {
     let insideX = false
     let insideY = false
 

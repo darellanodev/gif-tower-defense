@@ -63,7 +63,7 @@ export class Wallet {
     this.#money += value
   }
 
-  haveMoneyToUpgradeTower(towerId: TowerId, upgradeLevel: number): boolean {
+  hasMoneyToUpgradeTower(towerId: TowerId, upgradeLevel: number): boolean {
     const towerCosts = {
       [TOWER_ID.GREEN]: TOWER_GREEN_UPGRADE.COST,
       [TOWER_ID.RED]: TOWER_RED_UPGRADE.COST,
@@ -81,7 +81,7 @@ export class Wallet {
 
   haveMoneyToBuyNewTower(towerId: TowerId) {
     const upgradeLevel = 0
-    return this.haveMoneyToUpgradeTower(towerId, upgradeLevel)
+    return this.hasMoneyToUpgradeTower(towerId, upgradeLevel)
   }
 
   sellTower(tower: Tower) {
@@ -106,7 +106,7 @@ export class Wallet {
     if (tower.isMaxUpgraded) {
       return
     }
-    if (!this.haveMoneyToUpgradeTower(tower.type, tower.upgradeLevel + 1)) {
+    if (!this.hasMoneyToUpgradeTower(tower.type, tower.upgradeLevel + 1)) {
       return
     }
     if (tower.isUpgrading) {

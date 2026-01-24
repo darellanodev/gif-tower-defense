@@ -175,7 +175,7 @@ export class Controls {
       this.#influenceArea.drawTowerInfluenceArea(tower, false)
       return
     }
-    const canUpgrade = this.#wallet.haveMoneyToUpgradeTower(
+    const canUpgrade = this.#wallet.hasMoneyToUpgradeTower(
       tower.type,
       tower.upgradeLevel + 1,
     )
@@ -206,7 +206,7 @@ export class Controls {
       return
     }
 
-    const canUpgrade = this.#wallet.haveMoneyToUpgradeTower(
+    const canUpgrade = this.#wallet.hasMoneyToUpgradeTower(
       tower.type,
       tower.upgradeLevel + 1,
     )

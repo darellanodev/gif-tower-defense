@@ -18,7 +18,7 @@ export class MagicFireballCollisionChecker {
 
   #checkCollision(magicFireball: MagicFireball, enemy: Enemy) {
     if (
-      this.#magicCollisionChecker.checkCollision(
+      this.#magicCollisionChecker.shouldCollide(
         enemy,
         this.#pathMovement.indexOrder,
       )

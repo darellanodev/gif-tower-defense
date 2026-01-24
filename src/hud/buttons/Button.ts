@@ -185,7 +185,7 @@ export class Button extends Obj {
   }
 
   isMouseOver(mousePosition: Position): boolean {
-    return this.#positionInsideRectangle.check(
+    return this.#positionInsideRectangle.isPositionInsideRectangle(
       mousePosition,
       this.position,
       this.size,

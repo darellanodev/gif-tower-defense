@@ -270,7 +270,7 @@ export class Game {
 
   #getMouseTileOrangeOver() {
     const result = this.#tilesManager.getAllOrangeTiles.find((orangeTile) =>
-      orangeTile.isInside(P5.p5.mouseX, P5.p5.mouseY),
+      orangeTile.isPositionInside(P5.p5.mouseX, P5.p5.mouseY),
     )
 
     return result ? result : null

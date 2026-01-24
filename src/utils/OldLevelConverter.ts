@@ -144,7 +144,7 @@ export class OldLevelConverter {
     return true
   }
 
-  canConvert(availableTiles: string[]): boolean {
+  canBeConverted(availableTiles: string[]): boolean {
     const rowsMap = this.#extractRowsmap()
     for (const row of rowsMap) {
       const chars = row.split('')
@@ -163,7 +163,7 @@ export class OldLevelConverter {
   }
   shouldSkipLevel(limit: number, totalProcessed: number) {
     return (
-      !this.canConvert(Config.availableTiles) ||
+      !this.canBeConverted(Config.availableTiles) ||
       this.existsLevelId(AllLevels.data, this.#oldLevelData) ||
       (limit != 0 && totalProcessed >= limit)
     )

@@ -161,13 +161,13 @@ test('get the json format', () => {
 
 test('can convert the level', () => {
   const availableTiles = ['0', '1', '2', 'x', 'y']
-  const result = oldLevelConverter.canConvert(availableTiles)
+  const result = oldLevelConverter.canBeConverted(availableTiles)
   expect(result).toBeTruthy()
 })
 
 test('can not convert the level', () => {
   const availableTiles = ['0', '1', 'x', 'y']
-  const result = oldLevelConverter.canConvert(availableTiles)
+  const result = oldLevelConverter.canBeConverted(availableTiles)
   expect(result).toBeFalsy()
 })
 

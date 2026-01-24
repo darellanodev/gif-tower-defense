@@ -35,7 +35,7 @@ export class HudButtonsMagics {
     const ButtonsBarRectanglePosition = { x: 0, y: 28 }
     const ButtonsBarRectangleSize = { w: 800, h: 50 }
 
-    return this.#positionInsideRectangle.check(
+    return this.#positionInsideRectangle.isPositionInsideRectangle(
       position,
       ButtonsBarRectanglePosition,
       ButtonsBarRectangleSize,

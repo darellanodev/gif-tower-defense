@@ -36,7 +36,7 @@ describe('haveMoneyToBuy', () => {
     const money = 150
     const wallet = Wallet.getInstance(MODE.NORMAL, money)
 
-    const result = wallet.haveMoneyToUpgradeTower(TOWER_ID.GREEN, 1)
+    const result = wallet.hasMoneyToUpgradeTower(TOWER_ID.GREEN, 1)
 
     expect(result).toBeTruthy()
   })

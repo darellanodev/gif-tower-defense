@@ -16,7 +16,7 @@ export class MagicUFOCollisionChecker {
     if (!enemyTarget) {
       return false
     }
-    return this.#positionInsideRectangle.check(
+    return this.#positionInsideRectangle.isPositionInsideRectangle(
       {
         x: ufo.position.x + TILE_SIZE / 2,
         y: ufo.position.y + TILE_SIZE / 2 + MAGIC_UFO_OFFSET.COLLISION_Y,
@@ -30,7 +30,7 @@ export class MagicUFOCollisionChecker {
   }
 
   isCollidingWithStartPosition(ufo: MagicUFO) {
-    return this.#positionInsideRectangle.check(
+    return this.#positionInsideRectangle.isPositionInsideRectangle(
       {
         x: ufo.position.x + TILE_SIZE / 2,
         y: ufo.position.y + TILE_SIZE / 2 + MAGIC_UFO_OFFSET.COLLISION_Y,

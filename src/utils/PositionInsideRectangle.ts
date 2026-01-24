@@ -2,7 +2,7 @@ import { Position } from '../types/position'
 import { Size } from '../types/size'
 
 export class PositionInsideRectangle {
-  check(
+  isPositionInsideRectangle(
     position: Position,
     rectanglePosition: Position,
     rectangleSize: Size,

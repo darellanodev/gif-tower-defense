@@ -10,7 +10,7 @@ test('isPositionInsideRectangle, when position is inside a rectangle, return tru
 
   const positionInsideRectangle = new PositionInsideRectangle()
 
-  const result = positionInsideRectangle.check(
+  const result = positionInsideRectangle.isPositionInsideRectangle(
     position,
     rectanglePosition,
     rectangleSize,
