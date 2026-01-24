@@ -23,8 +23,8 @@ export class MagicUFO extends Magic {
   #enemyTarget: Enemy | null = null
   #timeToSearchEnemy: number = 0
   #timeToAbduct: number = 0
-  #showRay: boolean = false
-  #goOut: boolean = false
+  #isShowingRay: boolean = false
+  #isGoingOut: boolean = false
   #id: number = 0
   #instancesManager: MagicInstancesManager // the UFO needs to see the other UFOs
   #magicUFOCollisionChecker: MagicUFOCollisionChecker
@@ -58,7 +58,7 @@ export class MagicUFO extends Magic {
   }
 
   #drawUFORay() {
-    if (this.#showRay) {
+    if (this.#isShowingRay) {
       P5.p5.image(
         this.#images[MAGIC_UFO_RAY_IMG.INDEX],
         this.position.x + MAGIC_UFO_RAY_IMG.OFFSET_X,
@@ -123,10 +123,10 @@ export class MagicUFO extends Magic {
         this.#enemyTarget,
       )
     ) {
-      this.#showRay = true
+      this.#isShowingRay = true
       this.#abduct()
     } else {
-      this.#showRay = false
+      this.#isShowingRay = false
       this.#dropEnemyIfEnemyEscaped()
     }
   }
@@ -153,11 +153,11 @@ export class MagicUFO extends Magic {
 
     this.#enemyTarget.dropFromUFO()
     this.#dropEnemy()
-    this.#goOut = true
+    this.#isGoingOut = true
   }
 
   #isAbducting() {
-    return this.#showRay && this.#enemyTarget
+    return this.#isShowingRay && this.#enemyTarget
   }
 
   #abduct() {
@@ -179,7 +179,7 @@ export class MagicUFO extends Magic {
 
   #turnOffRayWhenEnemyIsAbducted() {
     if (this.#enemyTarget!.isAbducted) {
-      this.#showRay = false
+      this.#isShowingRay = false
     }
   }
 
@@ -231,7 +231,7 @@ export class MagicUFO extends Magic {
         this.#reSearchEnemyEveryTile(enemyInstancesManager)
       }
     } else {
-      if (this.#goOut) {
+      if (this.#isGoingOut) {
         this.#updatePositionGoOut()
       } else {
         this.#searchTarget(enemyInstancesManager)

@@ -25,8 +25,8 @@ export class Enemy extends Obj {
   #id: number
   #healthBar: ProgressBar
   #status: number
-  #won: boolean = false
-  #frozen: boolean = false
+  #hasWon: boolean = false
+  #isFrozen: boolean = false
   #frozenTime: number = 0
   #shrinkAmount: number = 0
   #width: number = 50
@@ -77,7 +77,7 @@ export class Enemy extends Obj {
   }
 
   get isWinner() {
-    return this.#won
+    return this.#hasWon
   }
 
   get isAbducted() {
@@ -101,11 +101,11 @@ export class Enemy extends Obj {
   }
 
   freeze() {
-    this.#frozen = true
+    this.#isFrozen = true
   }
 
   resetWinner() {
-    this.#won = false
+    this.#hasWon = false
   }
 
   #reInitEnemy() {
@@ -119,7 +119,7 @@ export class Enemy extends Obj {
   }
 
   #reInitWinnerEnemy() {
-    this.#won = true
+    this.#hasWon = true
     this.#reInitEnemy()
   }
 
@@ -151,7 +151,7 @@ export class Enemy extends Obj {
       this.#frozenTime++
       return
     }
-    this.#frozen = false
+    this.#isFrozen = false
     this.#frozenTime = 0
   }
 
@@ -160,7 +160,7 @@ export class Enemy extends Obj {
       return
     }
 
-    if (this.#frozen) {
+    if (this.#isFrozen) {
       this.#updateFreezedEnemy()
       return
     }

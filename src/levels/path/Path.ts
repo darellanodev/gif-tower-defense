@@ -16,7 +16,7 @@ export class Path {
   #orders: number[] = []
   #currentTile: TilePath
   #currentDirection: number
-  #endReached: boolean = false
+  #hasReachedEnd: boolean = false
 
   constructor(startTile: TileStart, endTile: TileEnd, pathTiles: TilePath[]) {
     this.#startTile = startTile
@@ -33,7 +33,7 @@ export class Path {
     this.#currentDirection = this.#startTile.getStartDirection()
   }
   get endReached(): boolean {
-    return this.#endReached
+    return this.#hasReachedEnd
   }
 
   getTilePath(tx: number, ty: number): TilePath | null {
@@ -93,7 +93,7 @@ export class Path {
 
   #checkEndTile() {
     if (this.#currentTile.position === this.#endTile.position) {
-      this.#endReached = true
+      this.#hasReachedEnd = true
     }
   }
 
@@ -110,7 +110,7 @@ export class Path {
   #processLeftDirection() {
     this.#checkEndTile()
 
-    if (this.#endReached) {
+    if (this.#hasReachedEnd) {
       this.#orders.push(this.#currentDirection)
       return
     }
@@ -137,7 +137,7 @@ export class Path {
   #processDownDirection() {
     this.#checkEndTile()
 
-    if (this.#endReached) {
+    if (this.#hasReachedEnd) {
       this.#orders.push(this.#currentDirection)
     }
     const searchTile = this.#searchDownTile(this.#currentTile)
@@ -163,7 +163,7 @@ export class Path {
   #processRightDirection() {
     this.#checkEndTile()
 
-    if (this.#endReached) {
+    if (this.#hasReachedEnd) {
       this.#orders.push(this.#currentDirection)
     }
     const searchTile = this.#searchRightTile(this.#currentTile)
@@ -188,7 +188,7 @@ export class Path {
   #processUpDirection() {
     this.#checkEndTile()
 
-    if (this.#endReached) {
+    if (this.#hasReachedEnd) {
       this.#orders.push(this.#currentDirection)
     }
     const searchTile = this.#searchUpTile(this.#currentTile)
@@ -224,13 +224,13 @@ export class Path {
     this.#orders.push(this.#currentDirection)
 
     let searchCount = 0
-    while (searchCount < PATH_MAX_SEARCHES && !this.#endReached) {
+    while (searchCount < PATH_MAX_SEARCHES && !this.#hasReachedEnd) {
       searchCount++
       this.#processCurrentDirection()
     }
 
     // finally we add the same direction one more time, from reached endtile to outside
-    if (this.#endReached) {
+    if (this.#hasReachedEnd) {
       this.#orders.push(this.#currentDirection)
     }
   }

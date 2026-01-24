@@ -85,7 +85,7 @@ export class Wallet {
   }
 
   sellTower(tower: Tower) {
-    if (tower.upgrading) {
+    if (tower.isUpgrading) {
       return
     }
     this.increaseMoney(tower.sellProfit)
@@ -109,7 +109,7 @@ export class Wallet {
     if (!this.haveMoneyToUpgradeTower(tower.type, tower.upgradeLevel + 1)) {
       return
     }
-    if (tower.upgrading) {
+    if (tower.isUpgrading) {
       return
     }
 

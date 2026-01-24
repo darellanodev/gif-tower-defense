@@ -81,7 +81,7 @@ export class TowerGreen extends Tower {
   }
 
   draw() {
-    if (this.upgrading) {
+    if (this.isUpgrading) {
       this.#drawUpgrading()
       return
     }

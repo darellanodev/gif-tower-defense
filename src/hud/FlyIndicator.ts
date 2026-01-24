@@ -12,7 +12,7 @@ import {
 export class FlyIndicator extends Obj {
   static instances: FlyIndicator[] = []
 
-  #alive: boolean = true
+  #isAlive: boolean = true
   #aliveTime: number = 0
   #text: string = ''
   #icon: Image | undefined = undefined
@@ -36,7 +36,7 @@ export class FlyIndicator extends Obj {
   }
 
   get isAlive() {
-    return this.#alive
+    return this.#isAlive
   }
 
   #setTextStyle() {
@@ -77,7 +77,7 @@ export class FlyIndicator extends Obj {
 
   #removeFlyIndicatorWhenTimeUp() {
     if (this.#aliveTime > FLY_INDICATOR_MAX_TIME_ALIVE) {
-      this.#alive = false
+      this.#isAlive = false
       return
     }
   }

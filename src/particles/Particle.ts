@@ -19,7 +19,7 @@ export class Particle extends Obj {
 
   #velocity: Vector
   #lifespan: number = 255
-  #captured: boolean = false
+  #isCaptured: boolean = false
   #towerYellowTarget: TowerYellow | null = null
   #capturedTime: number = 0
 
@@ -44,20 +44,20 @@ export class Particle extends Obj {
   }
 
   #free() {
-    this.#captured = false
+    this.#isCaptured = false
     this.#color = this.#initialColor
     this.#towerYellowTarget = null
   }
 
   #freeParticleWhenSellOrUpgradeTower(tower: TowerType | null) {
-    if (!tower || tower.upgrading) {
+    if (!tower || tower.isUpgrading) {
       this.#free()
     }
   }
 
   update() {
     this.position = { x: this.#vec.x, y: this.#vec.y }
-    if (!this.#captured) {
+    if (!this.#isCaptured) {
       this.#vec.add(this.#velocity)
       this.#lifespan -= 2
       return
@@ -75,7 +75,7 @@ export class Particle extends Obj {
     }
 
     this.#freeParticleWhenSellOrUpgradeTower(this.#getTowerYellowTarget())
-    if (!this.#captured) {
+    if (!this.#isCaptured) {
       return
     }
 
@@ -147,7 +147,7 @@ export class Particle extends Obj {
   set towerYellowTarget(towerYellow: TowerYellow) {
     this.#towerYellowTarget = towerYellow
     this.#color = PARTICLE_CAPTURED.COLOR
-    this.#captured = true
+    this.#isCaptured = true
     this.#lifespan = 255
   }
 

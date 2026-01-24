@@ -17,7 +17,7 @@ import { TestFlags } from '../../test/flags'
 import { TowerId } from '../types/towerType'
 
 export class Tower extends Obj {
-  upgrading: boolean = false
+  isUpgrading: boolean = false
   upgradeLevel: number = 0
   progressBar: ProgressBar
   upgradeProgress: number = 0
@@ -47,12 +47,12 @@ export class Tower extends Obj {
   }
 
   upgrade() {
-    this.upgrading = true
+    this.isUpgrading = true
     this.upgradeLevel++
   }
 
   get notUpgrading() {
-    return !this.upgrading
+    return !this.isUpgrading
   }
 
   get sellProfit() {
@@ -127,12 +127,12 @@ export class Tower extends Obj {
   }
 
   #reInitUpgrading() {
-    this.upgrading = false
+    this.isUpgrading = false
     this.progressBar.reInitProgress()
   }
 
   update() {
-    if (!this.upgrading) {
+    if (!this.isUpgrading) {
       return
     }
     if (TestFlags.instant_upgrading) {

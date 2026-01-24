@@ -47,8 +47,8 @@ export class TowerYellow extends Tower {
     return new ProgressBar(position, size)
   }
   upgrade() {
-    if (!this.upgrading) {
-      this.upgrading = true
+    if (!this.isUpgrading) {
+      this.isUpgrading = true
       this.upgradeLevel++
       this.#coreProgressBar.reInitProgress()
     }
@@ -99,7 +99,7 @@ export class TowerYellow extends Tower {
   }
 
   draw() {
-    if (this.upgrading) {
+    if (this.isUpgrading) {
       this.#drawUpgrading()
       return
     }
@@ -140,7 +140,7 @@ export class TowerYellow extends Tower {
   }
 
   selectAllExplosionsTargets() {
-    if (this.upgrading) {
+    if (this.isUpgrading) {
       return
     }
     for (const explosionEnemy of ExplosionEnemy.instances) {

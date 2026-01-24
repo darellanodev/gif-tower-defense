@@ -39,8 +39,8 @@ export class Game {
   #wallet: Wallet | null = null
   #controls: Controls | null = null
   #levelsDataProvider: LevelsDataProvider
-  #instantiateBoss: boolean = false
-  #instantiateEnemies: boolean = false
+  #shouldInstantiateBoss: boolean = false
+  #shouldInstantiateEnemies: boolean = false
   #stateManager: StateManager
   #tilesManager: TilesManager
   #buttonPause: Button
@@ -224,14 +224,14 @@ export class Game {
   }
 
   #updateEnemies() {
-    this.#instantiateEnemies = false
+    this.#shouldInstantiateEnemies = false
     if (this.#hudSystem!.progressBarTimerWave.isFullOfProgress()) {
       this.#hudSystem!.progressBarTimerWave.reInitProgress()
       this.#player.increaseWave()
-      this.#instantiateEnemies = true
+      this.#shouldInstantiateEnemies = true
     }
 
-    if (this.#instantiateEnemies) {
+    if (this.#shouldInstantiateEnemies) {
       Enemy.allowCreateEnemies = true
     }
   }
@@ -241,13 +241,13 @@ export class Game {
   }
 
   #updateBoss() {
-    this.#instantiateBoss = false
+    this.#shouldInstantiateBoss = false
     if (this.#hudSystem!.progressBarTimerBoss.isFullOfProgress()) {
       this.#hudSystem!.progressBarTimerBoss.reInitProgress()
-      this.#instantiateBoss = true
+      this.#shouldInstantiateBoss = true
     }
 
-    if (this.#instantiateBoss) {
+    if (this.#shouldInstantiateBoss) {
       this.#enemySystem!.instantiateEnemyBoss()
     }
   }
