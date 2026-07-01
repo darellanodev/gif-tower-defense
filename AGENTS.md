@@ -2,25 +2,25 @@
 
 ## Project Overview
 
-Tower defense game built with **TypeScript + p5.js**. Rewrite of an original 2012 Processing.js version.
+Tower defense game built with **TypeScript + p5.js**.
 
 - **Stack**: TypeScript (strict), p5.js (rendering), Vite (build), Vitest (tests), pnpm (packages)
-- **Game**: Place towers on orange tiles to defend against enemy waves. 3 tower types + 3 magic spells. ~80 levels.
+- **Game**: Place towers on orange tiles to defend against enemy waves. 3 tower types + 3 magic spells. Many levels.
 - **Architecture**: Singleton controllers, state machine, systems pattern (EnemySystem, TowerSystem, MagicSystem, HudSystem)
 
 ---
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
-| `pnpm run dev` | Start dev server (Vite HMR) |
-| `pnpm run build` | Type-check + production build |
-| `pnpm run test` | Run all tests once |
-| `pnpm run test:watch` | Run tests in watch mode |
-| `pnpm run test:coverage` | Run tests with V8 coverage |
-| `pnpm run sortlevels` | Sort AllLevels.ts by ID |
-| `pnpm run oldlevelsconverter` | Convert old level format |
+| Command                       | Description                   |
+| ----------------------------- | ----------------------------- |
+| `pnpm run dev`                | Start dev server (Vite HMR)   |
+| `pnpm run build`              | Type-check + production build |
+| `pnpm run test`               | Run all tests once            |
+| `pnpm run test:watch`         | Run tests in watch mode       |
+| `pnpm run test:coverage`      | Run tests with V8 coverage    |
+| `pnpm run sortlevels`         | Sort AllLevels.ts by ID       |
+| `pnpm run oldlevelsconverter` | Convert old level format      |
 
 ---
 
@@ -73,10 +73,12 @@ export const FOO = {
 ## Architecture
 
 ### Game Loop (src/index.ts)
+
 - Fixed update-then-draw: `game.update()` → `game.draw()`
 - State machine dispatches per state: MENU_MAIN, MENU_SURVIVAL, PLAY_SURVIVAL, PAUSE, GAME_OVER
 
 ### Systems (orchestrated by Game)
+
 - `EnemySystem` — spawn, path movement, dying/winning
 - `TowerSystem` — targeting, drawing
 - `MagicSystem` — spell updates
@@ -84,9 +86,11 @@ export const FOO = {
 - `TileSystem` — create tiles from level map data
 
 ### Factory Pattern
+
 Creators follow: `TowerGreenCreator`, `MagicFireballCreator`, `TileOrangeCreator`, `EnemyCreator`, etc. Each has `create()` and/or static methods.
 
 ### Level Data Format (10×16 grid)
+
 ```typescript
 {
   id: number
@@ -99,6 +103,7 @@ Creators follow: `TowerGreenCreator`, `MagicFireballCreator`, `TileOrangeCreator
   endDirection: string
 }
 ```
+
 Symbols: `x`=start, `y`=end, `0`=buildable (orange), `1`=path, `2`=blocked (black)
 
 ---
@@ -117,9 +122,12 @@ Symbols: `x`=start, `y`=end, `0`=buildable (orange), `1`=path, `2`=blocked (blac
 ## Conventions
 
 - Write everything in English
-- Imperative present tense for commit messages
+- Imperative present tense for commit messages, following Conventional Commits.
 - TDD encouraged: write failing test → implement → refactor
 - Use `tsx` for running TS scripts directly (utility scripts)
 - Comments are sparse; prefer self-documenting code
 - File structure mirrors domain: `src/enemies/`, `src/towers/`, `src/magics/`, etc.
-- Keep AGENTS.md in sync: after adding dependencies, changing patterns, or introducing new conventions, update this file to reflect the current state
+
+## Maintenance
+
+Whenever making changes to the project, review this file and update it to stay coherent with the current state of the codebase.
