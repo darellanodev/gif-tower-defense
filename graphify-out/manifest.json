@@ -1,0 +1,1964 @@
+{
+  ".opencode/opencode.json": {
+    "mtime": 1791545648.0675972,
+    "seen": 1791546428.0128136,
+    "ast_hash": "1efe24ecf938911d4f23e4b1c6ec91f7",
+    "semantic_hash": "1efe24ecf938911d4f23e4b1c6ec91f7"
+  },
+  ".prettierrc.json": {
+    "mtime": 1791545489.9236507,
+    "seen": 1791546428.0128174,
+    "ast_hash": "448663e753df697e66e0214314cf5111",
+    "semantic_hash": "448663e753df697e66e0214314cf5111"
+  },
+  "global.d.ts": {
+    "mtime": 1791545489.9442792,
+    "seen": 1791546428.0128193,
+    "ast_hash": "c9f52f9a4f884f1315cd700e1098b15d",
+    "semantic_hash": "c9f52f9a4f884f1315cd700e1098b15d"
+  },
+  "jest.config.js": {
+    "mtime": 1791545489.9829974,
+    "seen": 1791546428.0128198,
+    "ast_hash": "2b6b6ad30ad094e5c394f9c5013a49aa",
+    "semantic_hash": "2b6b6ad30ad094e5c394f9c5013a49aa"
+  },
+  "package.json": {
+    "mtime": 1791545489.9839978,
+    "seen": 1791546428.0128205,
+    "ast_hash": "6d5ab254d09715080ab1ce96f6921f54",
+    "semantic_hash": "6d5ab254d09715080ab1ce96f6921f54"
+  },
+  "run.sh": {
+    "mtime": 1791545489.9855018,
+    "seen": 1791546428.012821,
+    "ast_hash": "5caae50683476ea9f67cd849addeaeef",
+    "semantic_hash": "5caae50683476ea9f67cd849addeaeef"
+  },
+  "run_build.sh": {
+    "mtime": 1791545489.9865067,
+    "seen": 1791546428.0128217,
+    "ast_hash": "dadc7d2a27ed862defc730e03a6162c1",
+    "semantic_hash": "dadc7d2a27ed862defc730e03a6162c1"
+  },
+  "run_old_levels_converter.sh": {
+    "mtime": 1791545489.9865067,
+    "seen": 1791546428.0128224,
+    "ast_hash": "01ad474cd10e16fa7d32347d24bd4620",
+    "semantic_hash": "01ad474cd10e16fa7d32347d24bd4620"
+  },
+  "run_sorter_levels.sh": {
+    "mtime": 1791545489.9865067,
+    "seen": 1791546428.0128229,
+    "ast_hash": "ee7c6462454500f44be98fe745740780",
+    "semantic_hash": "ee7c6462454500f44be98fe745740780"
+  },
+  "run_tests.sh": {
+    "mtime": 1791545489.9875057,
+    "seen": 1791546428.0128233,
+    "ast_hash": "c74342c497071760d23be7266fa331ea",
+    "semantic_hash": "c74342c497071760d23be7266fa331ea"
+  },
+  "run_tests_coverage.sh": {
+    "mtime": 1791545489.9875057,
+    "seen": 1791546428.0128238,
+    "ast_hash": "8a0419de9e97281d3dd0324952a8b8a8",
+    "semantic_hash": "8a0419de9e97281d3dd0324952a8b8a8"
+  },
+  "src/Config.ts": {
+    "mtime": 1791545489.9875057,
+    "seen": 1791546428.0128248,
+    "ast_hash": "17e83687fecf4162e694854dde62c756",
+    "semantic_hash": "17e83687fecf4162e694854dde62c756"
+  },
+  "src/Game.ts": {
+    "mtime": 1791545489.9875057,
+    "seen": 1791546428.0128253,
+    "ast_hash": "802749d31a09c400d5aa2bb2cf3aca27",
+    "semantic_hash": "802749d31a09c400d5aa2bb2cf3aca27"
+  },
+  "src/InstancesManager.ts": {
+    "mtime": 1791545489.9875057,
+    "seen": 1791546428.012826,
+    "ast_hash": "27e2496e0f8393231e43cd54f3105557",
+    "semantic_hash": "27e2496e0f8393231e43cd54f3105557"
+  },
+  "src/Obj.ts": {
+    "mtime": 1791545489.9890099,
+    "seen": 1791546428.0128264,
+    "ast_hash": "2f457acdb85f91361c35dfc54a11d3cc",
+    "semantic_hash": "2f457acdb85f91361c35dfc54a11d3cc"
+  },
+  "src/StateManager.ts": {
+    "mtime": 1791545489.9890099,
+    "seen": 1791546428.012827,
+    "ast_hash": "3961364c8b965cf8d6a0337d0e595950",
+    "semantic_hash": "3961364c8b965cf8d6a0337d0e595950"
+  },
+  "src/constants/button.ts": {
+    "mtime": 1791545489.9900148,
+    "seen": 1791546428.0128274,
+    "ast_hash": "a32ee2044ca1666794377b73fe1ffa88",
+    "semantic_hash": "a32ee2044ca1666794377b73fe1ffa88"
+  },
+  "src/constants/canvas.ts": {
+    "mtime": 1791545489.9900148,
+    "seen": 1791546428.0128279,
+    "ast_hash": "6a181265f4a119941dd07cff9c0b2fd1",
+    "semantic_hash": "6a181265f4a119941dd07cff9c0b2fd1"
+  },
+  "src/constants/color.ts": {
+    "mtime": 1791545489.9900148,
+    "seen": 1791546428.0128284,
+    "ast_hash": "3cb1964c5822261398fe9227f38b29a7",
+    "semantic_hash": "3cb1964c5822261398fe9227f38b29a7"
+  },
+  "src/constants/direction.ts": {
+    "mtime": 1791545489.9910152,
+    "seen": 1791546428.0128288,
+    "ast_hash": "08bbffa947d02efe8efdf9415ea8bccb",
+    "semantic_hash": "08bbffa947d02efe8efdf9415ea8bccb"
+  },
+  "src/constants/enemy.ts": {
+    "mtime": 1791545489.9910152,
+    "seen": 1791546428.0128295,
+    "ast_hash": "7333ff442ede607f0e2d86ad0bb59b1f",
+    "semantic_hash": "7333ff442ede607f0e2d86ad0bb59b1f"
+  },
+  "src/constants/enemyEyes.ts": {
+    "mtime": 1791545489.9920163,
+    "seen": 1791546428.0128303,
+    "ast_hash": "273d5b45dfc95be00370cb62b8ba63a5",
+    "semantic_hash": "273d5b45dfc95be00370cb62b8ba63a5"
+  },
+  "src/constants/explosion.ts": {
+    "mtime": 1791545489.9920163,
+    "seen": 1791546428.012831,
+    "ast_hash": "b8cecdc1d6256db2205a8511cac9eb18",
+    "semantic_hash": "b8cecdc1d6256db2205a8511cac9eb18"
+  },
+  "src/constants/flyIndicator.ts": {
+    "mtime": 1791545489.9920163,
+    "seen": 1791546428.0128314,
+    "ast_hash": "745eb6e7d815d4c873fa55112a530221",
+    "semantic_hash": "745eb6e7d815d4c873fa55112a530221"
+  },
+  "src/constants/keyboard.ts": {
+    "mtime": 1791545489.9930146,
+    "seen": 1791546428.012832,
+    "ast_hash": "6eb74c0ba733e9343ee908b879acdf91",
+    "semantic_hash": "6eb74c0ba733e9343ee908b879acdf91"
+  },
+  "src/constants/magics.ts": {
+    "mtime": 1791545489.9930146,
+    "seen": 1791546428.0128324,
+    "ast_hash": "4a8e23c05df941d9c4111baeb1a3a1fa",
+    "semantic_hash": "4a8e23c05df941d9c4111baeb1a3a1fa"
+  },
+  "src/constants/menu.ts": {
+    "mtime": 1791545489.9930146,
+    "seen": 1791546428.0128334,
+    "ast_hash": "6b6d42b413a0193e5768a978927027f9",
+    "semantic_hash": "6b6d42b413a0193e5768a978927027f9"
+  },
+  "src/constants/mode.ts": {
+    "mtime": 1791545489.994015,
+    "seen": 1791546428.0128338,
+    "ast_hash": "b58bd2e64a59604fb09cee9bb95ba8d4",
+    "semantic_hash": "b58bd2e64a59604fb09cee9bb95ba8d4"
+  },
+  "src/constants/orders.ts": {
+    "mtime": 1791545489.994015,
+    "seen": 1791546428.0128343,
+    "ast_hash": "5f30a40edac53de1a2c0cfa46c380804",
+    "semantic_hash": "5f30a40edac53de1a2c0cfa46c380804"
+  },
+  "src/constants/panel.ts": {
+    "mtime": 1791545489.994015,
+    "seen": 1791546428.0128345,
+    "ast_hash": "a20c90181c229c7bd7f1ea3e8c8eddd8",
+    "semantic_hash": "a20c90181c229c7bd7f1ea3e8c8eddd8"
+  },
+  "src/constants/particle.ts": {
+    "mtime": 1791545489.995015,
+    "seen": 1791546428.012835,
+    "ast_hash": "64144369d8cd1092a16ac8fbc8f9dcfc",
+    "semantic_hash": "64144369d8cd1092a16ac8fbc8f9dcfc"
+  },
+  "src/constants/player.ts": {
+    "mtime": 1791545489.995015,
+    "seen": 1791546428.0128355,
+    "ast_hash": "23b49a78ef8f24386b5461c1f16c3917",
+    "semantic_hash": "23b49a78ef8f24386b5461c1f16c3917"
+  },
+  "src/constants/progressBarTimer.ts": {
+    "mtime": 1791545489.995015,
+    "seen": 1791546428.012836,
+    "ast_hash": "bd9ca0da9ec507d6a18b76b1860ad302",
+    "semantic_hash": "bd9ca0da9ec507d6a18b76b1860ad302"
+  },
+  "src/constants/testing.ts": {
+    "mtime": 1791545489.9960148,
+    "seen": 1791546428.0128367,
+    "ast_hash": "a62a0114a7b1a7c5f266786ab7aafabd",
+    "semantic_hash": "a62a0114a7b1a7c5f266786ab7aafabd"
+  },
+  "src/constants/tile.ts": {
+    "mtime": 1791545489.9960148,
+    "seen": 1791546428.0128372,
+    "ast_hash": "36f3db5fdbae5f43a9c477880eedd1bd",
+    "semantic_hash": "36f3db5fdbae5f43a9c477880eedd1bd"
+  },
+  "src/constants/tower.ts": {
+    "mtime": 1791545489.9960148,
+    "seen": 1791546428.0128374,
+    "ast_hash": "af50041deb77b731b751a1a5f66aa5ca",
+    "semantic_hash": "af50041deb77b731b751a1a5f66aa5ca"
+  },
+  "src/enemies/Enemy.ts": {
+    "mtime": 1791545489.998211,
+    "seen": 1791546428.0128381,
+    "ast_hash": "6a69aba760de54828458bde292a6e421",
+    "semantic_hash": "6a69aba760de54828458bde292a6e421"
+  },
+  "src/enemies/EnemyCreator.ts": {
+    "mtime": 1791545489.998211,
+    "seen": 1791546428.0128386,
+    "ast_hash": "c5c35ecf921f82e78874748b4c37649b",
+    "semantic_hash": "c5c35ecf921f82e78874748b4c37649b"
+  },
+  "src/enemies/EnemyEyesAnimator.ts": {
+    "mtime": 1791545489.998211,
+    "seen": 1791546428.012839,
+    "ast_hash": "26ec9add5687479941e6f90789c66e3c",
+    "semantic_hash": "26ec9add5687479941e6f90789c66e3c"
+  },
+  "src/enemies/EnemyInstancesManager.ts": {
+    "mtime": 1791545489.9992146,
+    "seen": 1791546428.0128398,
+    "ast_hash": "4cc6612bf4733f4b6f42e5def0f31c0c",
+    "semantic_hash": "4cc6612bf4733f4b6f42e5def0f31c0c"
+  },
+  "src/enemies/EnemySystem.ts": {
+    "mtime": 1791545489.9992146,
+    "seen": 1791546428.01284,
+    "ast_hash": "410fd3f7e41a1e309ba932609a3a866a",
+    "semantic_hash": "410fd3f7e41a1e309ba932609a3a866a"
+  },
+  "src/hud/Debug.ts": {
+    "mtime": 1791545490.0002153,
+    "seen": 1791546428.0128405,
+    "ast_hash": "f95c8f73432899a88bb3bfda0a85a893",
+    "semantic_hash": "f95c8f73432899a88bb3bfda0a85a893"
+  },
+  "src/hud/FlyIndicator.ts": {
+    "mtime": 1791545490.0002153,
+    "seen": 1791546428.012841,
+    "ast_hash": "1ba8ae9a8f8ce524e4a9cf3cb82c60b2",
+    "semantic_hash": "1ba8ae9a8f8ce524e4a9cf3cb82c60b2"
+  },
+  "src/hud/HudPanel.ts": {
+    "mtime": 1791545490.0012147,
+    "seen": 1791546428.0128422,
+    "ast_hash": "4717a4783968fbcd3f39e1c895593b6c",
+    "semantic_hash": "4717a4783968fbcd3f39e1c895593b6c"
+  },
+  "src/hud/HudPlayerIndicators.ts": {
+    "mtime": 1791545490.0012147,
+    "seen": 1791546428.0128427,
+    "ast_hash": "d4c8a08e44c1bc09938148e41c2c6800",
+    "semantic_hash": "d4c8a08e44c1bc09938148e41c2c6800"
+  },
+  "src/hud/HudScreenIndicators.ts": {
+    "mtime": 1791545490.0012147,
+    "seen": 1791546428.0128434,
+    "ast_hash": "8e02b89fdbc07ddb961f62c035515e6d",
+    "semantic_hash": "8e02b89fdbc07ddb961f62c035515e6d"
+  },
+  "src/hud/HudSystem.ts": {
+    "mtime": 1791545490.002215,
+    "seen": 1791546428.0128438,
+    "ast_hash": "1bd47da4ec148070f83d44d386a29107",
+    "semantic_hash": "1bd47da4ec148070f83d44d386a29107"
+  },
+  "src/hud/Paginator.ts": {
+    "mtime": 1791545490.002215,
+    "seen": 1791546428.0128443,
+    "ast_hash": "aed173a9ed95bb5af19a5a1f78667ac3",
+    "semantic_hash": "aed173a9ed95bb5af19a5a1f78667ac3"
+  },
+  "src/hud/TextProperties.ts": {
+    "mtime": 1791545490.0032156,
+    "seen": 1791546428.0128448,
+    "ast_hash": "3e28b62a999c3afa0129ab1267f46cf7",
+    "semantic_hash": "3e28b62a999c3afa0129ab1267f46cf7"
+  },
+  "src/hud/buttons/Button.ts": {
+    "mtime": 1791545490.0032156,
+    "seen": 1791546428.0128453,
+    "ast_hash": "85cd043f4acd2eea58f57934bb7efef4",
+    "semantic_hash": "85cd043f4acd2eea58f57934bb7efef4"
+  },
+  "src/hud/buttons/ButtonDisabled.ts": {
+    "mtime": 1791545490.0042152,
+    "seen": 1791546428.0128458,
+    "ast_hash": "69c5e399bb876727eaaa260b2c28e088",
+    "semantic_hash": "69c5e399bb876727eaaa260b2c28e088"
+  },
+  "src/hud/buttons/ButtonGreenTowerCreator.ts": {
+    "mtime": 1791545490.0042152,
+    "seen": 1791546428.0128462,
+    "ast_hash": "c1e16294008c757401777ddba0ffe5b8",
+    "semantic_hash": "c1e16294008c757401777ddba0ffe5b8"
+  },
+  "src/hud/buttons/ButtonMagicFireballCreator.ts": {
+    "mtime": 1791545490.0042152,
+    "seen": 1791546428.012847,
+    "ast_hash": "dded7db559ecf4ed66d1f1f40cb8c48d",
+    "semantic_hash": "dded7db559ecf4ed66d1f1f40cb8c48d"
+  },
+  "src/hud/buttons/ButtonMagicIceballCreator.ts": {
+    "mtime": 1791545490.0052152,
+    "seen": 1791546428.0128474,
+    "ast_hash": "27c22bb0fc21809cd9c27b5a312e8398",
+    "semantic_hash": "27c22bb0fc21809cd9c27b5a312e8398"
+  },
+  "src/hud/buttons/ButtonMagicUFOCreator.ts": {
+    "mtime": 1791545490.0052152,
+    "seen": 1791546428.0128481,
+    "ast_hash": "0f8a4a81881fbad2646b0176708273b1",
+    "semantic_hash": "0f8a4a81881fbad2646b0176708273b1"
+  },
+  "src/hud/buttons/ButtonMiniMap.ts": {
+    "mtime": 1791545490.0052152,
+    "seen": 1791546428.0128486,
+    "ast_hash": "80ac329157da6e1f3845f50f80e30a3b",
+    "semantic_hash": "80ac329157da6e1f3845f50f80e30a3b"
+  },
+  "src/hud/buttons/ButtonPage.ts": {
+    "mtime": 1791545490.0062146,
+    "seen": 1791546428.012849,
+    "ast_hash": "38912786356c3a605d00bc7596e17763",
+    "semantic_hash": "38912786356c3a605d00bc7596e17763"
+  },
+  "src/hud/buttons/ButtonPauseCreator.ts": {
+    "mtime": 1791545490.0062146,
+    "seen": 1791546428.0128498,
+    "ast_hash": "4480c1ab250f80f33dd509bec02bb888",
+    "semantic_hash": "4480c1ab250f80f33dd509bec02bb888"
+  },
+  "src/hud/buttons/ButtonRedTowerCreator.ts": {
+    "mtime": 1791545490.0072145,
+    "seen": 1791546428.0128503,
+    "ast_hash": "547bd7afc081726463e36e8500690716",
+    "semantic_hash": "547bd7afc081726463e36e8500690716"
+  },
+  "src/hud/buttons/ButtonYellowTowerCreator.ts": {
+    "mtime": 1791545490.0072145,
+    "seen": 1791546428.012851,
+    "ast_hash": "e711b750efa21b2c351b6c3686dd96dc",
+    "semantic_hash": "e711b750efa21b2c351b6c3686dd96dc"
+  },
+  "src/hud/buttons/ButtonsMiniMapsCreator.ts": {
+    "mtime": 1791545490.0072145,
+    "seen": 1791546428.0128515,
+    "ast_hash": "7109d904eec4e1877ffc5d863508e8d1",
+    "semantic_hash": "7109d904eec4e1877ffc5d863508e8d1"
+  },
+  "src/hud/buttons/HudButtonsMagics.ts": {
+    "mtime": 1791545490.0082147,
+    "seen": 1791546428.0128517,
+    "ast_hash": "84fb81c2fc177a3543b934e0ac89cd75",
+    "semantic_hash": "84fb81c2fc177a3543b934e0ac89cd75"
+  },
+  "src/hud/buttons/HudButtonsTowers.ts": {
+    "mtime": 1791545490.0082147,
+    "seen": 1791546428.0128522,
+    "ast_hash": "e5325a9586a659f14dbecfa7106b598f",
+    "semantic_hash": "e5325a9586a659f14dbecfa7106b598f"
+  },
+  "src/hud/progressbar/ProgressBar.ts": {
+    "mtime": 1791545490.0092163,
+    "seen": 1791546428.012853,
+    "ast_hash": "a5136388dbe9d65802aa7b002a1a79ea",
+    "semantic_hash": "a5136388dbe9d65802aa7b002a1a79ea"
+  },
+  "src/hud/progressbar/ProgressBarTimer.ts": {
+    "mtime": 1791545490.0092163,
+    "seen": 1791546428.0128536,
+    "ast_hash": "eaa7984bf9d0e9d84c0035c8a5842b56",
+    "semantic_hash": "eaa7984bf9d0e9d84c0035c8a5842b56"
+  },
+  "src/index.ts": {
+    "mtime": 1791545490.0092163,
+    "seen": 1791546428.012854,
+    "ast_hash": "78ebfa3f4201dd786db7a3724caff0cf",
+    "semantic_hash": "78ebfa3f4201dd786db7a3724caff0cf"
+  },
+  "src/levels/LevelsDataProvider.ts": {
+    "mtime": 1791545490.0102162,
+    "seen": 1791546428.0128546,
+    "ast_hash": "b503b18905e201462ca6593ebf5aeee6",
+    "semantic_hash": "b503b18905e201462ca6593ebf5aeee6"
+  },
+  "src/levels/LevelsDataSortingTesting.ts": {
+    "mtime": 1791545490.0112147,
+    "seen": 1791546428.012855,
+    "ast_hash": "298d9c6369b506d346d79d249e8f5eea",
+    "semantic_hash": "298d9c6369b506d346d79d249e8f5eea"
+  },
+  "src/levels/LevelsDataTesting.ts": {
+    "mtime": 1791545490.0112147,
+    "seen": 1791546428.0128555,
+    "ast_hash": "83cbdd3b25423748c4b44747bb162843",
+    "semantic_hash": "83cbdd3b25423748c4b44747bb162843"
+  },
+  "src/levels/levelsData/AllLevels.ts": {
+    "mtime": 1791545490.012215,
+    "seen": 1791546428.0128562,
+    "ast_hash": "5b3ff52f7b6410d490e5445ab7f6ed0e",
+    "semantic_hash": "5b3ff52f7b6410d490e5445ab7f6ed0e"
+  },
+  "src/levels/path/Path.ts": {
+    "mtime": 1791545490.0157223,
+    "seen": 1791546428.0128565,
+    "ast_hash": "c36484147376c0939ec524c813c358d9",
+    "semantic_hash": "c36484147376c0939ec524c813c358d9"
+  },
+  "src/levels/path/PathMovement.ts": {
+    "mtime": 1791545490.016724,
+    "seen": 1791546428.0128572,
+    "ast_hash": "02ca11472b1bcc8a9d05d051bb1710ff",
+    "semantic_hash": "02ca11472b1bcc8a9d05d051bb1710ff"
+  },
+  "src/levels/path/PathStartEnemiesPosition.ts": {
+    "mtime": 1791545490.016724,
+    "seen": 1791546428.0128577,
+    "ast_hash": "8be887bc8346b166d004363a72fcce60",
+    "semantic_hash": "8be887bc8346b166d004363a72fcce60"
+  },
+  "src/levels/tiles/TileBlack.ts": {
+    "mtime": 1791545490.016724,
+    "seen": 1791546428.0128582,
+    "ast_hash": "373b1ea1b8b26aa09d07f57b6e33ac95",
+    "semantic_hash": "373b1ea1b8b26aa09d07f57b6e33ac95"
+  },
+  "src/levels/tiles/TileEnd.ts": {
+    "mtime": 1791545490.0177238,
+    "seen": 1791546428.0128586,
+    "ast_hash": "01b26956d16f74202d18a3b592791d24",
+    "semantic_hash": "01b26956d16f74202d18a3b592791d24"
+  },
+  "src/levels/tiles/TileOrange.ts": {
+    "mtime": 1791545490.0177238,
+    "seen": 1791546428.012859,
+    "ast_hash": "ae8a7fee99c1413de052de47151074ba",
+    "semantic_hash": "ae8a7fee99c1413de052de47151074ba"
+  },
+  "src/levels/tiles/TilePath.ts": {
+    "mtime": 1791545490.018723,
+    "seen": 1791546428.0128596,
+    "ast_hash": "6139967c7e6f804b389f585cbe39ea30",
+    "semantic_hash": "6139967c7e6f804b389f585cbe39ea30"
+  },
+  "src/levels/tiles/TileStart.ts": {
+    "mtime": 1791545490.018723,
+    "seen": 1791546428.01286,
+    "ast_hash": "8bb1154121c3253d6bf3b24424325cba",
+    "semantic_hash": "8bb1154121c3253d6bf3b24424325cba"
+  },
+  "src/levels/tiles/TileSystem.ts": {
+    "mtime": 1791545490.0197227,
+    "seen": 1791546428.012861,
+    "ast_hash": "9b794c7c37bb9ef76a2cd9ef0f536011",
+    "semantic_hash": "9b794c7c37bb9ef76a2cd9ef0f536011"
+  },
+  "src/levels/tiles/TilesManager.ts": {
+    "mtime": 1791545490.0197227,
+    "seen": 1791546428.0128615,
+    "ast_hash": "e69c5cb1cddc89e5c18576f30c25aa29",
+    "semantic_hash": "e69c5cb1cddc89e5c18576f30c25aa29"
+  },
+  "src/levels/tiles/creators/TileBlackCreator.ts": {
+    "mtime": 1791545490.0197227,
+    "seen": 1791546428.012862,
+    "ast_hash": "6bc3150e5195efc694a557ef0fbbfb39",
+    "semantic_hash": "6bc3150e5195efc694a557ef0fbbfb39"
+  },
+  "src/levels/tiles/creators/TileCreator.ts": {
+    "mtime": 1791545490.0207636,
+    "seen": 1791546428.0128624,
+    "ast_hash": "168089a411a250c6bda81cc332e4b72f",
+    "semantic_hash": "168089a411a250c6bda81cc332e4b72f"
+  },
+  "src/levels/tiles/creators/TileEndCreator.ts": {
+    "mtime": 1791545490.0207636,
+    "seen": 1791546428.012863,
+    "ast_hash": "dc9749974473a94b0d48ddb3ec19b699",
+    "semantic_hash": "dc9749974473a94b0d48ddb3ec19b699"
+  },
+  "src/levels/tiles/creators/TileOrangeCreator.ts": {
+    "mtime": 1791545490.021764,
+    "seen": 1791546428.0128634,
+    "ast_hash": "242bfdaa1dcc209d6c406623f5849a6e",
+    "semantic_hash": "242bfdaa1dcc209d6c406623f5849a6e"
+  },
+  "src/levels/tiles/creators/TilePathCreator.ts": {
+    "mtime": 1791545490.021764,
+    "seen": 1791546428.012864,
+    "ast_hash": "de30b42d288fd46c8c5b1f49a83e099d",
+    "semantic_hash": "de30b42d288fd46c8c5b1f49a83e099d"
+  },
+  "src/levels/tiles/creators/TileStartCreator.ts": {
+    "mtime": 1791545490.021764,
+    "seen": 1791546428.0128646,
+    "ast_hash": "83fcdb509d6a6ece602a114c21f6af58",
+    "semantic_hash": "83fcdb509d6a6ece602a114c21f6af58"
+  },
+  "src/magics/Magic.ts": {
+    "mtime": 1791545490.0277784,
+    "seen": 1791546428.0128658,
+    "ast_hash": "cdc1de1a68b970387cb10e3a82b3ec55",
+    "semantic_hash": "cdc1de1a68b970387cb10e3a82b3ec55"
+  },
+  "src/magics/MagicCollisionChecker.ts": {
+    "mtime": 1791545490.0287797,
+    "seen": 1791546428.0128665,
+    "ast_hash": "52ea2f9e159a24eb16ed36dcdf6cbb6d",
+    "semantic_hash": "52ea2f9e159a24eb16ed36dcdf6cbb6d"
+  },
+  "src/magics/MagicFireball.ts": {
+    "mtime": 1791545490.0287797,
+    "seen": 1791546428.012867,
+    "ast_hash": "2674961358bae7625e2cd795135082c6",
+    "semantic_hash": "2674961358bae7625e2cd795135082c6"
+  },
+  "src/magics/MagicFireballCollisionChecker.ts": {
+    "mtime": 1791545490.0297794,
+    "seen": 1791546428.0128677,
+    "ast_hash": "74faa00afe964f9ae4ff9f06ed9ad817",
+    "semantic_hash": "74faa00afe964f9ae4ff9f06ed9ad817"
+  },
+  "src/magics/MagicIceball.ts": {
+    "mtime": 1791545490.0297794,
+    "seen": 1791546428.0128682,
+    "ast_hash": "7ca8464ce8976c82df2251ae15fb1956",
+    "semantic_hash": "7ca8464ce8976c82df2251ae15fb1956"
+  },
+  "src/magics/MagicIceballCollisionChecker.ts": {
+    "mtime": 1791545490.0307794,
+    "seen": 1791546428.0128686,
+    "ast_hash": "27f0d58a1dd3b3c223db2ea90dd1ec65",
+    "semantic_hash": "27f0d58a1dd3b3c223db2ea90dd1ec65"
+  },
+  "src/magics/MagicInstancesManager.ts": {
+    "mtime": 1791545490.0307794,
+    "seen": 1791546428.0128691,
+    "ast_hash": "9adc56c1869cac1162ad60ef000c8936",
+    "semantic_hash": "9adc56c1869cac1162ad60ef000c8936"
+  },
+  "src/magics/MagicSystem.ts": {
+    "mtime": 1791545490.0307794,
+    "seen": 1791546428.0128696,
+    "ast_hash": "ccb85af6c2d5d3f542f2b7b9d200635f",
+    "semantic_hash": "ccb85af6c2d5d3f542f2b7b9d200635f"
+  },
+  "src/magics/MagicUFO.ts": {
+    "mtime": 1791545490.0317795,
+    "seen": 1791546428.01287,
+    "ast_hash": "d97248ce345dd6a85ea74ecfe62b6452",
+    "semantic_hash": "d97248ce345dd6a85ea74ecfe62b6452"
+  },
+  "src/magics/MagicUFOCollisionChecker.ts": {
+    "mtime": 1791545490.0317795,
+    "seen": 1791546428.0128706,
+    "ast_hash": "da2119ce374cd0d0ee5aabe19aed0567",
+    "semantic_hash": "da2119ce374cd0d0ee5aabe19aed0567"
+  },
+  "src/magics/creators/MagicFireballCreator.ts": {
+    "mtime": 1791545490.0317795,
+    "seen": 1791546428.0128713,
+    "ast_hash": "c4c8f58bb1a614e433dba96fccd0c320",
+    "semantic_hash": "c4c8f58bb1a614e433dba96fccd0c320"
+  },
+  "src/magics/creators/MagicIceballCreator.ts": {
+    "mtime": 1791545490.032781,
+    "seen": 1791546428.0128717,
+    "ast_hash": "25f09f5b7583ca8fc3a2ce21fcde6c27",
+    "semantic_hash": "25f09f5b7583ca8fc3a2ce21fcde6c27"
+  },
+  "src/magics/creators/MagicUFOCreator.ts": {
+    "mtime": 1791545490.032781,
+    "seen": 1791546428.0128722,
+    "ast_hash": "230ef190680b9d76ef6509aeb5dadd4e",
+    "semantic_hash": "230ef190680b9d76ef6509aeb5dadd4e"
+  },
+  "src/menus/MenuMain.ts": {
+    "mtime": 1791545490.0337849,
+    "seen": 1791546428.0128727,
+    "ast_hash": "b232012c37df644fb57cc46aad98dc6a",
+    "semantic_hash": "b232012c37df644fb57cc46aad98dc6a"
+  },
+  "src/menus/MenuSurvival.ts": {
+    "mtime": 1791545490.0337849,
+    "seen": 1791546428.0128734,
+    "ast_hash": "eb6b61686ef9942250bb01743d88d404",
+    "semantic_hash": "eb6b61686ef9942250bb01743d88d404"
+  },
+  "src/menus/MiniMap.ts": {
+    "mtime": 1791545490.0337849,
+    "seen": 1791546428.012874,
+    "ast_hash": "54cef315ab458d97306c1f2c907128fe",
+    "semantic_hash": "54cef315ab458d97306c1f2c907128fe"
+  },
+  "src/menus/TodayEnemies.ts": {
+    "mtime": 1791545490.0337849,
+    "seen": 1791546428.0128746,
+    "ast_hash": "90c394660fa5ee9703f7e603187bb51d",
+    "semantic_hash": "90c394660fa5ee9703f7e603187bb51d"
+  },
+  "src/menus/news/NewsData.ts": {
+    "mtime": 1791545490.0347846,
+    "seen": 1791546428.012875,
+    "ast_hash": "32ccdfa0447751ad5d1e864dbdf7afb0",
+    "semantic_hash": "32ccdfa0447751ad5d1e864dbdf7afb0"
+  },
+  "src/menus/news/NewsDataProvider.ts": {
+    "mtime": 1791545490.035785,
+    "seen": 1791546428.0128756,
+    "ast_hash": "2ac16ded7a49deea87f747ff11236de9",
+    "semantic_hash": "2ac16ded7a49deea87f747ff11236de9"
+  },
+  "src/menus/news/NewsDataTesting.ts": {
+    "mtime": 1791545490.035785,
+    "seen": 1791546428.012876,
+    "ast_hash": "155dcad6676e96b4fb41d5449549038c",
+    "semantic_hash": "155dcad6676e96b4fb41d5449549038c"
+  },
+  "src/oldLevelsConverter.ts": {
+    "mtime": 1791545490.035785,
+    "seen": 1791546428.0128765,
+    "ast_hash": "f04ab3fe4fac133e0011feb0b7ba0c37",
+    "semantic_hash": "f04ab3fe4fac133e0011feb0b7ba0c37"
+  },
+  "src/particles/Particle.ts": {
+    "mtime": 1791545490.0367844,
+    "seen": 1791546428.0128772,
+    "ast_hash": "bcd077f667b64c04f1e64e80533b6aed",
+    "semantic_hash": "bcd077f667b64c04f1e64e80533b6aed"
+  },
+  "src/particles/ParticleSystem.ts": {
+    "mtime": 1791545490.0367844,
+    "seen": 1791546428.0128784,
+    "ast_hash": "e2d095079689f78e3d2326f308f6b746",
+    "semantic_hash": "e2d095079689f78e3d2326f308f6b746"
+  },
+  "src/particles/explosions/Explosion.ts": {
+    "mtime": 1791545490.0377858,
+    "seen": 1791546428.0128791,
+    "ast_hash": "a2a27412e404d8b0a54eecf87ad315da",
+    "semantic_hash": "a2a27412e404d8b0a54eecf87ad315da"
+  },
+  "src/particles/explosions/ExplosionEnemy.ts": {
+    "mtime": 1791545490.0377858,
+    "seen": 1791546428.0128798,
+    "ast_hash": "766dfae4f8d544d02389592f6f2c279f",
+    "semantic_hash": "766dfae4f8d544d02389592f6f2c279f"
+  },
+  "src/particles/explosions/ExplosionMagicFireball.ts": {
+    "mtime": 1791545490.0377858,
+    "seen": 1791546428.0128808,
+    "ast_hash": "038c259957fd2ac5d3e82632f98bc3d4",
+    "semantic_hash": "038c259957fd2ac5d3e82632f98bc3d4"
+  },
+  "src/particles/explosions/ExplosionMagicIceball.ts": {
+    "mtime": 1791545490.0387845,
+    "seen": 1791546428.0128818,
+    "ast_hash": "1d980584a7d3f6fdd1c15832549ecba6",
+    "semantic_hash": "1d980584a7d3f6fdd1c15832549ecba6"
+  },
+  "src/player/Controls.ts": {
+    "mtime": 1791545490.0387845,
+    "seen": 1791546428.0128825,
+    "ast_hash": "2818c28e874447209144b23f25866ebb",
+    "semantic_hash": "2818c28e874447209144b23f25866ebb"
+  },
+  "src/player/Player.ts": {
+    "mtime": 1791545490.0387845,
+    "seen": 1791546428.0128853,
+    "ast_hash": "339aff26803c06d7e3fbf2b2ca8a882f",
+    "semantic_hash": "339aff26803c06d7e3fbf2b2ca8a882f"
+  },
+  "src/player/Wallet.ts": {
+    "mtime": 1791545490.0397854,
+    "seen": 1791546428.0128863,
+    "ast_hash": "62422c4a541afe75850ecd88990c5b99",
+    "semantic_hash": "62422c4a541afe75850ecd88990c5b99"
+  },
+  "src/resources/Images.ts": {
+    "mtime": 1791545490.0397854,
+    "seen": 1791546428.0128872,
+    "ast_hash": "1ef4bab206a8a959db12edabaa0e5013",
+    "semantic_hash": "1ef4bab206a8a959db12edabaa0e5013"
+  },
+  "src/resources/Resources.ts": {
+    "mtime": 1791545490.040785,
+    "seen": 1791546428.0128884,
+    "ast_hash": "21ce34392070e7f0364afdce585336c6",
+    "semantic_hash": "21ce34392070e7f0364afdce585336c6"
+  },
+  "src/sortLevels.ts": {
+    "mtime": 1791545490.040785,
+    "seen": 1791546428.012889,
+    "ast_hash": "82d8a70e0dbd80e3affbfa204c44f845",
+    "semantic_hash": "82d8a70e0dbd80e3affbfa204c44f845"
+  },
+  "src/towers/InfluenceArea.ts": {
+    "mtime": 1791545490.040785,
+    "seen": 1791546428.0128894,
+    "ast_hash": "c7b1c9ecadeca099152d3f69a477b54b",
+    "semantic_hash": "c7b1c9ecadeca099152d3f69a477b54b"
+  },
+  "src/towers/Missile.ts": {
+    "mtime": 1791545490.0417845,
+    "seen": 1791546428.0128899,
+    "ast_hash": "c127a850fd42b27a0e12910e61bb1aac",
+    "semantic_hash": "c127a850fd42b27a0e12910e61bb1aac"
+  },
+  "src/towers/Tower.ts": {
+    "mtime": 1791545490.0417845,
+    "seen": 1791546428.0128903,
+    "ast_hash": "c65402bc2e71a3a76dbac3e1bfe0688e",
+    "semantic_hash": "c65402bc2e71a3a76dbac3e1bfe0688e"
+  },
+  "src/towers/TowerGreen.ts": {
+    "mtime": 1791545490.0417845,
+    "seen": 1791546428.0128908,
+    "ast_hash": "26c1125d4b341e70b7d23ef6587e945a",
+    "semantic_hash": "26c1125d4b341e70b7d23ef6587e945a"
+  },
+  "src/towers/TowerRed.ts": {
+    "mtime": 1791545490.0427854,
+    "seen": 1791546428.0128913,
+    "ast_hash": "c032bcebdc891dffd719e9590e195c14",
+    "semantic_hash": "c032bcebdc891dffd719e9590e195c14"
+  },
+  "src/towers/TowerSystem.ts": {
+    "mtime": 1791545490.0427854,
+    "seen": 1791546428.0128925,
+    "ast_hash": "75da6113b1ba564591fc0f5ac5308435",
+    "semantic_hash": "75da6113b1ba564591fc0f5ac5308435"
+  },
+  "src/towers/TowerYellow.ts": {
+    "mtime": 1791545490.0427854,
+    "seen": 1791546428.0128934,
+    "ast_hash": "38a3f2a94fbcbb4c5cae44805e8f2848",
+    "semantic_hash": "38a3f2a94fbcbb4c5cae44805e8f2848"
+  },
+  "src/towers/creators/TowerGreenCreator.ts": {
+    "mtime": 1791545490.0437849,
+    "seen": 1791546428.0128944,
+    "ast_hash": "326d3876a97eb737b5a8d858e0140406",
+    "semantic_hash": "326d3876a97eb737b5a8d858e0140406"
+  },
+  "src/towers/creators/TowerRedCreator.ts": {
+    "mtime": 1791545490.0437849,
+    "seen": 1791546428.0128956,
+    "ast_hash": "de58004bd502c960566ad03f208a7832",
+    "semantic_hash": "de58004bd502c960566ad03f208a7832"
+  },
+  "src/towers/creators/TowerYellowCreator.ts": {
+    "mtime": 1791545490.0437849,
+    "seen": 1791546428.0128963,
+    "ast_hash": "bb4796ef85f398d5fe364c2c7cbe07c7",
+    "semantic_hash": "bb4796ef85f398d5fe364c2c7cbe07c7"
+  },
+  "src/types/magicsType.ts": {
+    "mtime": 1791545490.044785,
+    "seen": 1791546428.0128973,
+    "ast_hash": "5dbdbc6f04789a70a36a795d6fe53ac6",
+    "semantic_hash": "5dbdbc6f04789a70a36a795d6fe53ac6"
+  },
+  "src/types/mapDataType.ts": {
+    "mtime": 1791545490.044785,
+    "seen": 1791546428.0128977,
+    "ast_hash": "94172e95dafdc38c68147caa45c7d693",
+    "semantic_hash": "94172e95dafdc38c68147caa45c7d693"
+  },
+  "src/types/newsDataType.ts": {
+    "mtime": 1791545490.044785,
+    "seen": 1791546428.0128982,
+    "ast_hash": "474be6808a7e743c109e2850fb94e524",
+    "semantic_hash": "474be6808a7e743c109e2850fb94e524"
+  },
+  "src/types/position.ts": {
+    "mtime": 1791545490.045785,
+    "seen": 1791546428.012899,
+    "ast_hash": "bcef3da84f82de747adbdcddbae520f6",
+    "semantic_hash": "bcef3da84f82de747adbdcddbae520f6"
+  },
+  "src/types/rgb.ts": {
+    "mtime": 1791545490.045785,
+    "seen": 1791546428.0128994,
+    "ast_hash": "b606a3774bc1a1ca176938d1dd3a038c",
+    "semantic_hash": "b606a3774bc1a1ca176938d1dd3a038c"
+  },
+  "src/types/size.ts": {
+    "mtime": 1791545490.045785,
+    "seen": 1791546428.0129,
+    "ast_hash": "b6d02ddd9141fcfc921a7f8f570ce91f",
+    "semantic_hash": "b6d02ddd9141fcfc921a7f8f570ce91f"
+  },
+  "src/types/tileType.ts": {
+    "mtime": 1791545490.0467846,
+    "seen": 1791546428.0129006,
+    "ast_hash": "2b5174808d6e87a0f9dc1a0f8fa15014",
+    "semantic_hash": "2b5174808d6e87a0f9dc1a0f8fa15014"
+  },
+  "src/types/towerType.ts": {
+    "mtime": 1791545490.0467846,
+    "seen": 1791546428.012901,
+    "ast_hash": "e56a620035d0129fccd82c51b440b7fe",
+    "semantic_hash": "e56a620035d0129fccd82c51b440b7fe"
+  },
+  "src/utils/ArrayRange.ts": {
+    "mtime": 1791545490.0467846,
+    "seen": 1791546428.0129015,
+    "ast_hash": "8b7923151b15dd78036dea78993bcaa3",
+    "semantic_hash": "8b7923151b15dd78036dea78993bcaa3"
+  },
+  "src/utils/Distance.ts": {
+    "mtime": 1791545490.047786,
+    "seen": 1791546428.0129025,
+    "ast_hash": "1e1ff60636532ec555fb1ff2945ab9d2",
+    "semantic_hash": "1e1ff60636532ec555fb1ff2945ab9d2"
+  },
+  "src/utils/OldLevelConverter.ts": {
+    "mtime": 1791545490.047786,
+    "seen": 1791546428.0129027,
+    "ast_hash": "81079a526f3049d2d9c1e2029c2618a2",
+    "semantic_hash": "81079a526f3049d2d9c1e2029c2618a2"
+  },
+  "src/utils/OldLevelConverterFiles.ts": {
+    "mtime": 1791545490.047786,
+    "seen": 1791546428.0129032,
+    "ast_hash": "e617adecd27683caa05ab19d0abadb5b",
+    "semantic_hash": "e617adecd27683caa05ab19d0abadb5b"
+  },
+  "src/utils/P5.ts": {
+    "mtime": 1791545490.047786,
+    "seen": 1791546428.0129037,
+    "ast_hash": "a5ae7636175aeb52284ae2fcb101d0a2",
+    "semantic_hash": "a5ae7636175aeb52284ae2fcb101d0a2"
+  },
+  "src/utils/PositionInsideRectangle.ts": {
+    "mtime": 1791545490.0493226,
+    "seen": 1791546428.0129042,
+    "ast_hash": "aac525f158458c25f72876974f642ba6",
+    "semantic_hash": "aac525f158458c25f72876974f642ba6"
+  },
+  "src/utils/Random.ts": {
+    "mtime": 1791545490.0493226,
+    "seen": 1791546428.0129046,
+    "ast_hash": "d3ad064b7755c1d12243420c4e187313",
+    "semantic_hash": "d3ad064b7755c1d12243420c4e187313"
+  },
+  "src/utils/SorterLevels.ts": {
+    "mtime": 1791545490.0493226,
+    "seen": 1791546428.0129051,
+    "ast_hash": "6b91d7121ce3814ba2677540299d0cb4",
+    "semantic_hash": "6b91d7121ce3814ba2677540299d0cb4"
+  },
+  "test/enemies/Enemy.test.ts": {
+    "mtime": 1791545490.050834,
+    "seen": 1791546428.0129058,
+    "ast_hash": "ee39edeedbf999bbd4f7afcef6c9b4f6",
+    "semantic_hash": "ee39edeedbf999bbd4f7afcef6c9b4f6"
+  },
+  "test/enemies/EnemyCreator.test.ts": {
+    "mtime": 1791545490.050834,
+    "seen": 1791546428.0129066,
+    "ast_hash": "49bc9656154041a06faa9a8a4ff583aa",
+    "semantic_hash": "49bc9656154041a06faa9a8a4ff583aa"
+  },
+  "test/enemies/EnemyOrders.test.ts": {
+    "mtime": 1791545490.050834,
+    "seen": 1791546428.012907,
+    "ast_hash": "2cefa0bae0cc2952692312f861852d47",
+    "semantic_hash": "2cefa0bae0cc2952692312f861852d47"
+  },
+  "test/flags.ts": {
+    "mtime": 1791545490.0518384,
+    "seen": 1791546428.0129075,
+    "ast_hash": "cf83916dafd54b658ec7886e240cb137",
+    "semantic_hash": "cf83916dafd54b658ec7886e240cb137"
+  },
+  "test/helpers/arrays.ts": {
+    "mtime": 1791545490.0518384,
+    "seen": 1791546428.0129077,
+    "ast_hash": "da0987989155b058a5f53af2b1706e6f",
+    "semantic_hash": "da0987989155b058a5f53af2b1706e6f"
+  },
+  "test/helpers/buttonsMagics.ts": {
+    "mtime": 1791545490.0518384,
+    "seen": 1791546428.0129082,
+    "ast_hash": "6d8871dd47eb6a74477db5bb49856c51",
+    "semantic_hash": "6d8871dd47eb6a74477db5bb49856c51"
+  },
+  "test/helpers/buttonsTowers.ts": {
+    "mtime": 1791545490.0518384,
+    "seen": 1791546428.0129092,
+    "ast_hash": "eb204bf6d4a0b9fd2cb4357c0dcb447a",
+    "semantic_hash": "eb204bf6d4a0b9fd2cb4357c0dcb447a"
+  },
+  "test/helpers/enemyCreator.ts": {
+    "mtime": 1791545490.053342,
+    "seen": 1791546428.0129097,
+    "ast_hash": "c4119f1e5aa46bde6eec2a24f5c6a399",
+    "semantic_hash": "c4119f1e5aa46bde6eec2a24f5c6a399"
+  },
+  "test/helpers/flyIndicator.ts": {
+    "mtime": 1791545490.053342,
+    "seen": 1791546428.0129101,
+    "ast_hash": "26a968934f6156120fba96bcbd7aa193",
+    "semantic_hash": "26a968934f6156120fba96bcbd7aa193"
+  },
+  "test/helpers/hud.ts": {
+    "mtime": 1791545490.0543475,
+    "seen": 1791546428.0129106,
+    "ast_hash": "7294d9152e262751b89f22274cef6b74",
+    "semantic_hash": "7294d9152e262751b89f22274cef6b74"
+  },
+  "test/helpers/imagesResources.ts": {
+    "mtime": 1791545490.0543475,
+    "seen": 1791546428.012911,
+    "ast_hash": "011c714307097105ae8ebdd607c69f86",
+    "semantic_hash": "011c714307097105ae8ebdd607c69f86"
+  },
+  "test/helpers/levelMap.ts": {
+    "mtime": 1791545490.0543475,
+    "seen": 1791546428.0129116,
+    "ast_hash": "c27807076428b7c551e457f6454e80b9",
+    "semantic_hash": "c27807076428b7c551e457f6454e80b9"
+  },
+  "test/helpers/magicButtons.ts": {
+    "mtime": 1791545490.0543475,
+    "seen": 1791546428.012912,
+    "ast_hash": "9ff06d2b4afd4110041e746fb4630bc7",
+    "semantic_hash": "9ff06d2b4afd4110041e746fb4630bc7"
+  },
+  "test/helpers/magicFireball.ts": {
+    "mtime": 1791545490.0543475,
+    "seen": 1791546428.0129128,
+    "ast_hash": "b2c4455a456d2c2230c006e4bf21b66e",
+    "semantic_hash": "b2c4455a456d2c2230c006e4bf21b66e"
+  },
+  "test/helpers/magicIceball.ts": {
+    "mtime": 1791545490.0543475,
+    "seen": 1791546428.0129132,
+    "ast_hash": "ac5b5e8fe2c5a601e436f0b854dc7a94",
+    "semantic_hash": "ac5b5e8fe2c5a601e436f0b854dc7a94"
+  },
+  "test/helpers/magicUFO.ts": {
+    "mtime": 1791545490.055851,
+    "seen": 1791546428.012914,
+    "ast_hash": "5ac01f618847e7ecf4d5ec69ddb64322",
+    "semantic_hash": "5ac01f618847e7ecf4d5ec69ddb64322"
+  },
+  "test/helpers/missile.ts": {
+    "mtime": 1791545490.055851,
+    "seen": 1791546428.0129142,
+    "ast_hash": "d11321762c88028b5e1e9dcb1e356e64",
+    "semantic_hash": "d11321762c88028b5e1e9dcb1e356e64"
+  },
+  "test/helpers/orangeTile.ts": {
+    "mtime": 1791545490.055851,
+    "seen": 1791546428.012915,
+    "ast_hash": "5d132c18de998acea85be48e758ee550",
+    "semantic_hash": "5d132c18de998acea85be48e758ee550"
+  },
+  "test/helpers/orders.ts": {
+    "mtime": 1791545490.0568569,
+    "seen": 1791546428.0129154,
+    "ast_hash": "f3a8565c9ef761f73a4a76750347b975",
+    "semantic_hash": "f3a8565c9ef761f73a4a76750347b975"
+  },
+  "test/helpers/progressBar.ts": {
+    "mtime": 1791545490.0568569,
+    "seen": 1791546428.0129158,
+    "ast_hash": "5881b4d6d667ee4b3c0fbb3e9f1e1fdc",
+    "semantic_hash": "5881b4d6d667ee4b3c0fbb3e9f1e1fdc"
+  },
+  "test/helpers/towers.ts": {
+    "mtime": 1791545490.0568569,
+    "seen": 1791546428.0129166,
+    "ast_hash": "64cd55a4fe034bae50c0bc01904b684d",
+    "semantic_hash": "64cd55a4fe034bae50c0bc01904b684d"
+  },
+  "test/helpers/wallet.ts": {
+    "mtime": 1791545490.0578558,
+    "seen": 1791546428.012917,
+    "ast_hash": "21414963d9db9e6a4d968ee29e29ad19",
+    "semantic_hash": "21414963d9db9e6a4d968ee29e29ad19"
+  },
+  "test/hud/Button.test.ts": {
+    "mtime": 1791545490.0578558,
+    "seen": 1791546428.0129175,
+    "ast_hash": "64215f92ac2093876240cd35b4953f39",
+    "semantic_hash": "64215f92ac2093876240cd35b4953f39"
+  },
+  "test/hud/ButtonMagic.test.ts": {
+    "mtime": 1791545490.058856,
+    "seen": 1791546428.0129185,
+    "ast_hash": "86379104f93815349597e2d2f86e2aad",
+    "semantic_hash": "86379104f93815349597e2d2f86e2aad"
+  },
+  "test/hud/ButtonTower.test.ts": {
+    "mtime": 1791545490.058856,
+    "seen": 1791546428.012919,
+    "ast_hash": "023a9656e0e4b17da54b246e35c02875",
+    "semantic_hash": "023a9656e0e4b17da54b246e35c02875"
+  },
+  "test/hud/ButtonsMiniMapsCreator.test.ts": {
+    "mtime": 1791545490.0601585,
+    "seen": 1791546428.0129197,
+    "ast_hash": "b972e6dfa8d3cba2ca1ebc007b797555",
+    "semantic_hash": "b972e6dfa8d3cba2ca1ebc007b797555"
+  },
+  "test/hud/FlyIndicator.test.ts": {
+    "mtime": 1791545490.0601585,
+    "seen": 1791546428.0129216,
+    "ast_hash": "caf808a823290511ac49acdb29f6b482",
+    "semantic_hash": "caf808a823290511ac49acdb29f6b482"
+  },
+  "test/hud/HudButtonsMagic.test.ts": {
+    "mtime": 1791545490.0601585,
+    "seen": 1791546428.012922,
+    "ast_hash": "ed542b4eda085751ad43fda6eff8e7b4",
+    "semantic_hash": "ed542b4eda085751ad43fda6eff8e7b4"
+  },
+  "test/hud/HudButtonsTowers.test.ts": {
+    "mtime": 1791545490.0601585,
+    "seen": 1791546428.0129225,
+    "ast_hash": "266cb9575afee96caed7a92f891aa6eb",
+    "semantic_hash": "266cb9575afee96caed7a92f891aa6eb"
+  },
+  "test/hud/ProgresBar.test.ts": {
+    "mtime": 1791545490.0601585,
+    "seen": 1791546428.0129232,
+    "ast_hash": "0101011c4a996d4e3a32673a08c1c6b5",
+    "semantic_hash": "0101011c4a996d4e3a32673a08c1c6b5"
+  },
+  "test/levels/LevelsDataProvider.test.ts": {
+    "mtime": 1791545490.0616622,
+    "seen": 1791546428.0129235,
+    "ast_hash": "c2d33679e29eba78496c083aa048ec4b",
+    "semantic_hash": "c2d33679e29eba78496c083aa048ec4b"
+  },
+  "test/levels/Paginator.test.ts": {
+    "mtime": 1791545490.0616622,
+    "seen": 1791546428.012924,
+    "ast_hash": "3322c1df2e39227068f0431a92380f1d",
+    "semantic_hash": "3322c1df2e39227068f0431a92380f1d"
+  },
+  "test/magics/MagicFireball.test.ts": {
+    "mtime": 1791545490.0626676,
+    "seen": 1791546428.0129247,
+    "ast_hash": "de15e8a4ce7bb56a8a00eb046e8bfa82",
+    "semantic_hash": "de15e8a4ce7bb56a8a00eb046e8bfa82"
+  },
+  "test/magics/MagicFireballCreator.test.ts": {
+    "mtime": 1791545490.0626676,
+    "seen": 1791546428.0129251,
+    "ast_hash": "9d5f6ba358bf846c5616b0b6464cf8a8",
+    "semantic_hash": "9d5f6ba358bf846c5616b0b6464cf8a8"
+  },
+  "test/magics/MagicIceballCreator.test.ts": {
+    "mtime": 1791545490.0636673,
+    "seen": 1791546428.0129256,
+    "ast_hash": "1f44b6d3856828a6c07b84a847fff090",
+    "semantic_hash": "1f44b6d3856828a6c07b84a847fff090"
+  },
+  "test/magics/MagicUFO.test.ts": {
+    "mtime": 1791545490.0646682,
+    "seen": 1791546428.012926,
+    "ast_hash": "cb08ab00842c244197f527ba44dfe414",
+    "semantic_hash": "cb08ab00842c244197f527ba44dfe414"
+  },
+  "test/magics/MagicUFOCreator.test.ts": {
+    "mtime": 1791545490.0656667,
+    "seen": 1791546428.0129268,
+    "ast_hash": "49e992c38a43f9bd936a6433c5908ec8",
+    "semantic_hash": "49e992c38a43f9bd936a6433c5908ec8"
+  },
+  "test/news/NewsDataProvider.test.ts": {
+    "mtime": 1791545490.0656667,
+    "seen": 1791546428.0129273,
+    "ast_hash": "b2a85896d4c5345f849b774b1ad81f9e",
+    "semantic_hash": "b2a85896d4c5345f849b774b1ad81f9e"
+  },
+  "test/path/Path.test.ts": {
+    "mtime": 1791545490.0666676,
+    "seen": 1791546428.0129278,
+    "ast_hash": "42a7bcaaf43552c4838c7b912d5b16f9",
+    "semantic_hash": "42a7bcaaf43552c4838c7b912d5b16f9"
+  },
+  "test/path/PathOrdersNoValidMap.test.ts": {
+    "mtime": 1791545490.0666676,
+    "seen": 1791546428.0129285,
+    "ast_hash": "9151caaf930d57473c16ddf096b3880e",
+    "semantic_hash": "9151caaf930d57473c16ddf096b3880e"
+  },
+  "test/path/PathOrdersValidMapLevel1.test.ts": {
+    "mtime": 1791545490.067672,
+    "seen": 1791546428.012929,
+    "ast_hash": "33c1b7c196311571b05dddae83d98c69",
+    "semantic_hash": "33c1b7c196311571b05dddae83d98c69"
+  },
+  "test/path/PathOrdersValidMapLevel14.test.ts": {
+    "mtime": 1791545490.067672,
+    "seen": 1791546428.0129294,
+    "ast_hash": "8e6b9868251f9afc37816b317cec970d",
+    "semantic_hash": "8e6b9868251f9afc37816b317cec970d"
+  },
+  "test/path/PathOrdersValidMapLevel15.test.ts": {
+    "mtime": 1791545490.0686712,
+    "seen": 1791546428.0129302,
+    "ast_hash": "9df8d62f27048d1e8781190e5f488f80",
+    "semantic_hash": "9df8d62f27048d1e8781190e5f488f80"
+  },
+  "test/path/PathStartEnemiesPosition.test.ts": {
+    "mtime": 1791545490.0686712,
+    "seen": 1791546428.0129306,
+    "ast_hash": "138f0858db1c164fa54bbd7bc3b35e5b",
+    "semantic_hash": "138f0858db1c164fa54bbd7bc3b35e5b"
+  },
+  "test/player/Player.test.ts": {
+    "mtime": 1791545490.069672,
+    "seen": 1791546428.012931,
+    "ast_hash": "ae2288ee4246c1732fd7a7177b786e7c",
+    "semantic_hash": "ae2288ee4246c1732fd7a7177b786e7c"
+  },
+  "test/player/Wallet.test.ts": {
+    "mtime": 1791545490.069672,
+    "seen": 1791546428.0129316,
+    "ast_hash": "3a44b2a9eb5f06b5f82b129b33249f19",
+    "semantic_hash": "3a44b2a9eb5f06b5f82b129b33249f19"
+  },
+  "test/tiles/OrangeTile.test.ts": {
+    "mtime": 1791545490.0706718,
+    "seen": 1791546428.012932,
+    "ast_hash": "dc245923102e7da142cfa1b3f400a132",
+    "semantic_hash": "dc245923102e7da142cfa1b3f400a132"
+  },
+  "test/tiles/TileCreator.test.ts": {
+    "mtime": 1791545490.0706718,
+    "seen": 1791546428.0129325,
+    "ast_hash": "fc763207a35592e02aa439505186ee15",
+    "semantic_hash": "fc763207a35592e02aa439505186ee15"
+  },
+  "test/towers/Missile.test.ts": {
+    "mtime": 1791545490.0706718,
+    "seen": 1791546428.012933,
+    "ast_hash": "a6be67cb56bf30aeb70a9cd512e854da",
+    "semantic_hash": "a6be67cb56bf30aeb70a9cd512e854da"
+  },
+  "test/towers/TowerInfluenceArea.test.ts": {
+    "mtime": 1791545490.0706718,
+    "seen": 1791546428.0129337,
+    "ast_hash": "78671d1a0ec8b3bd7d92dced4069ce59",
+    "semantic_hash": "78671d1a0ec8b3bd7d92dced4069ce59"
+  },
+  "test/towers/TowerType.test.ts": {
+    "mtime": 1791545490.0716722,
+    "seen": 1791546428.0129342,
+    "ast_hash": "01a2750d321356edd4e932bcbfc83ac3",
+    "semantic_hash": "01a2750d321356edd4e932bcbfc83ac3"
+  },
+  "test/towers/TowerUpgrade.test.ts": {
+    "mtime": 1791545490.0716722,
+    "seen": 1791546428.0129347,
+    "ast_hash": "43fc8640f71097b1107892ba8fb22d58",
+    "semantic_hash": "43fc8640f71097b1107892ba8fb22d58"
+  },
+  "test/towers/TowerYellow.test.ts": {
+    "mtime": 1791545490.0716722,
+    "seen": 1791546428.0129352,
+    "ast_hash": "b1350c92e426bf5bda22409e4e3cc8c5",
+    "semantic_hash": "b1350c92e426bf5bda22409e4e3cc8c5"
+  },
+  "test/utils/ArrayRange.test.ts": {
+    "mtime": 1791545490.0726724,
+    "seen": 1791546428.0129356,
+    "ast_hash": "780547c3b87d7a65f828f98cffea1d33",
+    "semantic_hash": "780547c3b87d7a65f828f98cffea1d33"
+  },
+  "test/utils/Distance.test.ts": {
+    "mtime": 1791545490.0726724,
+    "seen": 1791546428.012936,
+    "ast_hash": "5bbb638a747ba6824e980b5e81c4cedb",
+    "semantic_hash": "5bbb638a747ba6824e980b5e81c4cedb"
+  },
+  "test/utils/OldLevelConverter.test.ts": {
+    "mtime": 1791545490.0736718,
+    "seen": 1791546428.0129366,
+    "ast_hash": "2ba26ff3436dc05caf88e24ce9b9d554",
+    "semantic_hash": "2ba26ff3436dc05caf88e24ce9b9d554"
+  },
+  "test/utils/PositionInsideRectangle.test.ts": {
+    "mtime": 1791545490.0736718,
+    "seen": 1791546428.0129375,
+    "ast_hash": "076318998fc9bfa309b18493e9e51c34",
+    "semantic_hash": "076318998fc9bfa309b18493e9e51c34"
+  },
+  "test/utils/Random.test.ts": {
+    "mtime": 1791545490.0736718,
+    "seen": 1791546428.0129378,
+    "ast_hash": "93e6caab65b555f6eb1b748c3571cdce",
+    "semantic_hash": "93e6caab65b555f6eb1b748c3571cdce"
+  },
+  "test/utils/SorterLevels.test.ts": {
+    "mtime": 1791545490.0736718,
+    "seen": 1791546428.0129385,
+    "ast_hash": "401596af86f9591cf67131604612cea6",
+    "semantic_hash": "401596af86f9591cf67131604612cea6"
+  },
+  "tests.sh": {
+    "mtime": 1791545490.074672,
+    "seen": 1791546428.012939,
+    "ast_hash": "85c740bfd76c6f601cbbae102c38c680",
+    "semantic_hash": "85c740bfd76c6f601cbbae102c38c680"
+  },
+  "tsconfig.json": {
+    "mtime": 1791545490.074672,
+    "seen": 1791546428.0129395,
+    "ast_hash": "2345c4db2a3b9586ac2302ec1b99bdf1",
+    "semantic_hash": "2345c4db2a3b9586ac2302ec1b99bdf1"
+  },
+  "vite.config.ts": {
+    "mtime": 1791545490.074672,
+    "seen": 1791546428.0129397,
+    "ast_hash": "cdfa82c807de9b2fa1e856bb92d26f44",
+    "semantic_hash": "cdfa82c807de9b2fa1e856bb92d26f44"
+  },
+  "AGENTS.md": {
+    "mtime": 1791545489.924651,
+    "seen": 1791546428.0129406,
+    "ast_hash": "920a3c90a7924790f5c51766da7c65a1",
+    "semantic_hash": "920a3c90a7924790f5c51766da7c65a1"
+  },
+  "CONTRIBUTING.md": {
+    "mtime": 1791545489.924651,
+    "seen": 1791546428.0129411,
+    "ast_hash": "7943d817c4d078e74c94581065dfcf4e",
+    "semantic_hash": "7943d817c4d078e74c94581065dfcf4e"
+  },
+  "README.md": {
+    "mtime": 1791545489.925651,
+    "seen": 1791546428.0129416,
+    "ast_hash": "937f2f3645edbcf75ad917ffe4738acd",
+    "semantic_hash": "937f2f3645edbcf75ad917ffe4738acd"
+  },
+  "index.html": {
+    "mtime": 1791545489.9829974,
+    "seen": 1791546428.012942,
+    "ast_hash": "bb7929e6296054d528b2df046e5b6aa5",
+    "semantic_hash": "bb7929e6296054d528b2df046e5b6aa5"
+  },
+  "src/levels/levelsData/oldLevels.txt": {
+    "mtime": 1791545490.014718,
+    "seen": 1791546428.0129426,
+    "ast_hash": "21a7f53ebd5a8f2f41dd5f801195be13",
+    "semantic_hash": "21a7f53ebd5a8f2f41dd5f801195be13"
+  },
+  "src/levels/levelsData/oldLevelsProcessed.txt": {
+    "mtime": 1791545490.0157223,
+    "seen": 1791546428.012943,
+    "ast_hash": "45f44caba78866790b0679bd6c003285",
+    "semantic_hash": "45f44caba78866790b0679bd6c003285"
+  },
+  "_designs/enemies/bosses.svg": {
+    "mtime": 1791545489.9266517,
+    "seen": 1791546428.0129435,
+    "ast_hash": "4e6ad8286804a29913f2035020fc1525",
+    "semantic_hash": "4e6ad8286804a29913f2035020fc1525"
+  },
+  "_designs/enemies/enemies.svg": {
+    "mtime": 1791545489.9266517,
+    "seen": 1791546428.012944,
+    "ast_hash": "f4adc9bb3914b038a146cfea9b57db70",
+    "semantic_hash": "f4adc9bb3914b038a146cfea9b57db70"
+  },
+  "_designs/enemies/enemies_tmp_export.svg": {
+    "mtime": 1791545489.9276507,
+    "seen": 1791546428.0129447,
+    "ast_hash": "7fc3697e8c93cb24e5e0c2aab2c7deab",
+    "semantic_hash": "7fc3697e8c93cb24e5e0c2aab2c7deab"
+  },
+  "_designs/github_readme/banner.svg": {
+    "mtime": 1791545489.9286513,
+    "seen": 1791546428.0129452,
+    "ast_hash": "92df3b910843e1bef55c5cfbae1f7541",
+    "semantic_hash": "92df3b910843e1bef55c5cfbae1f7541"
+  },
+  "_designs/github_readme/screenshots.svg": {
+    "mtime": 1791545489.9306502,
+    "seen": 1791546428.012946,
+    "ast_hash": "a5758ec94859c3446c2884064575a83d",
+    "semantic_hash": "a5758ec94859c3446c2884064575a83d"
+  },
+  "_designs/hud/core.svg": {
+    "mtime": 1791545489.9316514,
+    "seen": 1791546428.0129464,
+    "ast_hash": "622de5f2af4e36958bca5fe95307c0a4",
+    "semantic_hash": "622de5f2af4e36958bca5fe95307c0a4"
+  },
+  "_designs/hud/hud.svg": {
+    "mtime": 1791545489.9326513,
+    "seen": 1791546428.0129468,
+    "ast_hash": "c5d4dfb4bbee201ad786a1c0fbfe71d9",
+    "semantic_hash": "c5d4dfb4bbee201ad786a1c0fbfe71d9"
+  },
+  "_designs/icon/icon.svg": {
+    "mtime": 1791545489.9326513,
+    "seen": 1791546428.0129476,
+    "ast_hash": "58cbfc5a2a69c519a421b81fc52b2a46",
+    "semantic_hash": "58cbfc5a2a69c519a421b81fc52b2a46"
+  },
+  "_designs/logo/logo.svg": {
+    "mtime": 1791545489.933651,
+    "seen": 1791546428.012948,
+    "ast_hash": "cec0def7696bf6269ff01237258103d2",
+    "semantic_hash": "cec0def7696bf6269ff01237258103d2"
+  },
+  "_designs/magics/magics.svg": {
+    "mtime": 1791545489.933651,
+    "seen": 1791546428.0129485,
+    "ast_hash": "4c8157a5ad6d7f2c2f1698d65a645bb6",
+    "semantic_hash": "4c8157a5ad6d7f2c2f1698d65a645bb6"
+  },
+  "_designs/menu/button_minimap.svg": {
+    "mtime": 1791545489.934651,
+    "seen": 1791546428.012949,
+    "ast_hash": "e14276d4df36a5dd1c3432d6d6c65abf",
+    "semantic_hash": "e14276d4df36a5dd1c3432d6d6c65abf"
+  },
+  "_designs/menu/button_page.svg": {
+    "mtime": 1791545489.934651,
+    "seen": 1791546428.0129495,
+    "ast_hash": "20e2e877ac1a8a9320253e4e97d0cf84",
+    "semantic_hash": "20e2e877ac1a8a9320253e4e97d0cf84"
+  },
+  "_designs/menu/buttons.svg": {
+    "mtime": 1791545489.9357715,
+    "seen": 1791546428.0129502,
+    "ast_hash": "2bce4a80b36635153b0876f536f85aba",
+    "semantic_hash": "2bce4a80b36635153b0876f536f85aba"
+  },
+  "_designs/menu/menu.svg": {
+    "mtime": 1791545489.936772,
+    "seen": 1791546428.012951,
+    "ast_hash": "4dce304e06587cf976078493db300a07",
+    "semantic_hash": "4dce304e06587cf976078493db300a07"
+  },
+  "_designs/menu/menu_survival.svg": {
+    "mtime": 1791545489.9377708,
+    "seen": 1791546428.0129514,
+    "ast_hash": "c56d0a5aa3239a71db3eb8c1d36e21bb",
+    "semantic_hash": "c56d0a5aa3239a71db3eb8c1d36e21bb"
+  },
+  "_designs/tiles/crystal_and_jumper.svg": {
+    "mtime": 1791545489.9377708,
+    "seen": 1791546428.0129519,
+    "ast_hash": "e8aa3acc1045a0e886ef5fce33eccedd",
+    "semantic_hash": "e8aa3acc1045a0e886ef5fce33eccedd"
+  },
+  "_designs/towers/towers.svg": {
+    "mtime": 1791545489.94077,
+    "seen": 1791546428.0129523,
+    "ast_hash": "be6c7526657be7b52dbcc14a09a9c661",
+    "semantic_hash": "be6c7526657be7b52dbcc14a09a9c661"
+  },
+  "android-chrome-192x192.png": {
+    "mtime": 1791545489.94077,
+    "seen": 1791546428.0129528,
+    "ast_hash": "05060c71eaed0211f3916a97195c26c7",
+    "semantic_hash": "05060c71eaed0211f3916a97195c26c7"
+  },
+  "android-chrome-512x512.png": {
+    "mtime": 1791545489.9422739,
+    "seen": 1791546428.0129535,
+    "ast_hash": "d4a0a415e331c4c6cda85c6952d99003",
+    "semantic_hash": "d4a0a415e331c4c6cda85c6952d99003"
+  },
+  "apple-touch-icon.png": {
+    "mtime": 1791545489.9422739,
+    "seen": 1791546428.012954,
+    "ast_hash": "7058fffff064835a75abb046f3d68aac",
+    "semantic_hash": "7058fffff064835a75abb046f3d68aac"
+  },
+  "favicon-16x16.png": {
+    "mtime": 1791545489.94328,
+    "seen": 1791546428.0129547,
+    "ast_hash": "27b7cb19cba2d29b19f67d4f949ea85f",
+    "semantic_hash": "27b7cb19cba2d29b19f67d4f949ea85f"
+  },
+  "favicon-32x32.png": {
+    "mtime": 1791545489.94328,
+    "seen": 1791546428.0129552,
+    "ast_hash": "7426635f272145a3670e135444a8e38e",
+    "semantic_hash": "7426635f272145a3670e135444a8e38e"
+  },
+  "img/backgrounds/ground.jpg": {
+    "mtime": 1791545489.9442792,
+    "seen": 1791546428.0129557,
+    "ast_hash": "f5ee1c780d50bf358aee24ea20fc7ffa",
+    "semantic_hash": "f5ee1c780d50bf358aee24ea20fc7ffa"
+  },
+  "img/enemies/1_center.png": {
+    "mtime": 1791545489.9457834,
+    "seen": 1791546428.0129561,
+    "ast_hash": "43d27147624b604a34aaceac7497d64c",
+    "semantic_hash": "43d27147624b604a34aaceac7497d64c"
+  },
+  "img/enemies/1_closed.png": {
+    "mtime": 1791545489.9457834,
+    "seen": 1791546428.0129566,
+    "ast_hash": "dbf625aec04ff48f5d6c027aa8eca31e",
+    "semantic_hash": "dbf625aec04ff48f5d6c027aa8eca31e"
+  },
+  "img/enemies/1_left.png": {
+    "mtime": 1791545489.9467883,
+    "seen": 1791546428.012957,
+    "ast_hash": "27675a536be69e211dfd4dcb6f61ca96",
+    "semantic_hash": "27675a536be69e211dfd4dcb6f61ca96"
+  },
+  "img/enemies/1_right.png": {
+    "mtime": 1791545489.9467883,
+    "seen": 1791546428.0129578,
+    "ast_hash": "ed19db79224873f15479a345ef8546c5",
+    "semantic_hash": "ed19db79224873f15479a345ef8546c5"
+  },
+  "img/enemies/2_center.png": {
+    "mtime": 1791545489.9467883,
+    "seen": 1791546428.0129583,
+    "ast_hash": "f22ce8d77ce8e577c98959e61ba6294a",
+    "semantic_hash": "f22ce8d77ce8e577c98959e61ba6294a"
+  },
+  "img/enemies/2_closed.png": {
+    "mtime": 1791545489.9467883,
+    "seen": 1791546428.0129588,
+    "ast_hash": "03110c3eb58f809835ea795c61a4a7b8",
+    "semantic_hash": "03110c3eb58f809835ea795c61a4a7b8"
+  },
+  "img/enemies/2_left.png": {
+    "mtime": 1791545489.9477885,
+    "seen": 1791546428.0129604,
+    "ast_hash": "2c2281eaf0d69ed8719bbaa48c51a44f",
+    "semantic_hash": "2c2281eaf0d69ed8719bbaa48c51a44f"
+  },
+  "img/enemies/2_right.png": {
+    "mtime": 1791545489.9477885,
+    "seen": 1791546428.012961,
+    "ast_hash": "cdff6d4d20e5362f74e449d2b1f119d5",
+    "semantic_hash": "cdff6d4d20e5362f74e449d2b1f119d5"
+  },
+  "img/enemies/3_center.png": {
+    "mtime": 1791545489.9477885,
+    "seen": 1791546428.0129616,
+    "ast_hash": "33dbc25f21e2ccebe4819a047ab5c91a",
+    "semantic_hash": "33dbc25f21e2ccebe4819a047ab5c91a"
+  },
+  "img/enemies/3_closed.png": {
+    "mtime": 1791545489.9477885,
+    "seen": 1791546428.012962,
+    "ast_hash": "b6231b90bfd947d4725f11de4cf7fe4d",
+    "semantic_hash": "b6231b90bfd947d4725f11de4cf7fe4d"
+  },
+  "img/enemies/3_left.png": {
+    "mtime": 1791545489.9477885,
+    "seen": 1791546428.0129626,
+    "ast_hash": "4d57e98b1bcb7007b8f1b3f8a4f0ba5d",
+    "semantic_hash": "4d57e98b1bcb7007b8f1b3f8a4f0ba5d"
+  },
+  "img/enemies/3_right.png": {
+    "mtime": 1791545489.9477885,
+    "seen": 1791546428.012963,
+    "ast_hash": "1dcaec717d5206ca0a7a13e425e5d590",
+    "semantic_hash": "1dcaec717d5206ca0a7a13e425e5d590"
+  },
+  "img/enemies/4_center.png": {
+    "mtime": 1791545489.9492924,
+    "seen": 1791546428.0129635,
+    "ast_hash": "84833e2718de9f2690f739ac86a0ddd1",
+    "semantic_hash": "84833e2718de9f2690f739ac86a0ddd1"
+  },
+  "img/enemies/4_closed.png": {
+    "mtime": 1791545489.9492924,
+    "seen": 1791546428.012964,
+    "ast_hash": "95ed91f3c50df3f6e1369feba05c2cfb",
+    "semantic_hash": "95ed91f3c50df3f6e1369feba05c2cfb"
+  },
+  "img/enemies/4_left.png": {
+    "mtime": 1791545489.949807,
+    "seen": 1791546428.0129647,
+    "ast_hash": "a04298c383ead0644c491a74bea4d5f4",
+    "semantic_hash": "a04298c383ead0644c491a74bea4d5f4"
+  },
+  "img/enemies/4_right.png": {
+    "mtime": 1791545489.949807,
+    "seen": 1791546428.0129652,
+    "ast_hash": "c2994f85536e14a35046207abe6041cf",
+    "semantic_hash": "c2994f85536e14a35046207abe6041cf"
+  },
+  "img/enemies/5_center.png": {
+    "mtime": 1791545489.949807,
+    "seen": 1791546428.0129657,
+    "ast_hash": "ecaa094fed9dcea04dc1c8b3d9ad71e3",
+    "semantic_hash": "ecaa094fed9dcea04dc1c8b3d9ad71e3"
+  },
+  "img/enemies/5_closed.png": {
+    "mtime": 1791545489.949807,
+    "seen": 1791546428.0129664,
+    "ast_hash": "079a0f9c5d344154e9299855df747f26",
+    "semantic_hash": "079a0f9c5d344154e9299855df747f26"
+  },
+  "img/enemies/5_left.png": {
+    "mtime": 1791545489.949807,
+    "seen": 1791546428.0129669,
+    "ast_hash": "18e1c981d26fe606d69d646981776f0f",
+    "semantic_hash": "18e1c981d26fe606d69d646981776f0f"
+  },
+  "img/enemies/5_right.png": {
+    "mtime": 1791545489.9513202,
+    "seen": 1791546428.0129673,
+    "ast_hash": "7fa4778be192abda734a8fc6cf9afa9c",
+    "semantic_hash": "7fa4778be192abda734a8fc6cf9afa9c"
+  },
+  "img/enemies/6_center.png": {
+    "mtime": 1791545489.9513202,
+    "seen": 1791546428.0129678,
+    "ast_hash": "e35fb5d2326128f0765338a587ae0590",
+    "semantic_hash": "e35fb5d2326128f0765338a587ae0590"
+  },
+  "img/enemies/6_closed.png": {
+    "mtime": 1791545489.952325,
+    "seen": 1791546428.0129685,
+    "ast_hash": "b1ac190b03201780dad23b4ccfb54549",
+    "semantic_hash": "b1ac190b03201780dad23b4ccfb54549"
+  },
+  "img/enemies/6_left.png": {
+    "mtime": 1791545489.952325,
+    "seen": 1791546428.012969,
+    "ast_hash": "5d2ab3ccf031050229bb12cc02c342e1",
+    "semantic_hash": "5d2ab3ccf031050229bb12cc02c342e1"
+  },
+  "img/enemies/6_right.png": {
+    "mtime": 1791545489.952325,
+    "seen": 1791546428.0129695,
+    "ast_hash": "0f534bac880b009f3db80ee3d832c38a",
+    "semantic_hash": "0f534bac880b009f3db80ee3d832c38a"
+  },
+  "img/hud/btn_magic_fireball_off.png": {
+    "mtime": 1791545489.952325,
+    "seen": 1791546428.01297,
+    "ast_hash": "833bf740ae1fd86f8f01e2195f23c7e9",
+    "semantic_hash": "833bf740ae1fd86f8f01e2195f23c7e9"
+  },
+  "img/hud/btn_magic_fireball_on.png": {
+    "mtime": 1791545489.9538293,
+    "seen": 1791546428.0129707,
+    "ast_hash": "9400909d80671365e0e033a23398cf8b",
+    "semantic_hash": "9400909d80671365e0e033a23398cf8b"
+  },
+  "img/hud/btn_magic_fireball_on_hover.png": {
+    "mtime": 1791545489.9538293,
+    "seen": 1791546428.0129712,
+    "ast_hash": "906a5af0628ddb35a7867c7ce3ee7f70",
+    "semantic_hash": "906a5af0628ddb35a7867c7ce3ee7f70"
+  },
+  "img/hud/btn_magic_iceball_off.png": {
+    "mtime": 1791545489.9538293,
+    "seen": 1791546428.0129719,
+    "ast_hash": "1c6dc88c8d4d005b642d35bdd842ad80",
+    "semantic_hash": "1c6dc88c8d4d005b642d35bdd842ad80"
+  },
+  "img/hud/btn_magic_iceball_on.png": {
+    "mtime": 1791545489.9548345,
+    "seen": 1791546428.0129724,
+    "ast_hash": "1bc1bfdcd34ff09f5f8b271d060d50bb",
+    "semantic_hash": "1bc1bfdcd34ff09f5f8b271d060d50bb"
+  },
+  "img/hud/btn_magic_iceball_on_hover.png": {
+    "mtime": 1791545489.9548345,
+    "seen": 1791546428.0129728,
+    "ast_hash": "0418fa2d22bd95668281b08085c3eff5",
+    "semantic_hash": "0418fa2d22bd95668281b08085c3eff5"
+  },
+  "img/hud/btn_magic_ufo_off.png": {
+    "mtime": 1791545489.9548345,
+    "seen": 1791546428.0129735,
+    "ast_hash": "3fa448d05bf0e1d806b74a35482fa141",
+    "semantic_hash": "3fa448d05bf0e1d806b74a35482fa141"
+  },
+  "img/hud/btn_magic_ufo_on.png": {
+    "mtime": 1791545489.9548345,
+    "seen": 1791546428.012974,
+    "ast_hash": "60339f1f62e947b1c6654e945dd677a6",
+    "semantic_hash": "60339f1f62e947b1c6654e945dd677a6"
+  },
+  "img/hud/btn_magic_ufo_on_hover.png": {
+    "mtime": 1791545489.9558344,
+    "seen": 1791546428.0129745,
+    "ast_hash": "3a638d01100d601eec170736f8278969",
+    "semantic_hash": "3a638d01100d601eec170736f8278969"
+  },
+  "img/hud/btn_pause_checked.png": {
+    "mtime": 1791545489.9558344,
+    "seen": 1791546428.0129752,
+    "ast_hash": "8559b009ab4bf57c4f9796b045a0db01",
+    "semantic_hash": "8559b009ab4bf57c4f9796b045a0db01"
+  },
+  "img/hud/btn_pause_checked_hover.png": {
+    "mtime": 1791545489.9558344,
+    "seen": 1791546428.0129757,
+    "ast_hash": "2c4c0e8a6a274ccd85c067f44559a04d",
+    "semantic_hash": "2c4c0e8a6a274ccd85c067f44559a04d"
+  },
+  "img/hud/btn_pause_on.png": {
+    "mtime": 1791545489.9558344,
+    "seen": 1791546428.0129762,
+    "ast_hash": "2493e82379754439a16c864e5dd07e01",
+    "semantic_hash": "2493e82379754439a16c864e5dd07e01"
+  },
+  "img/hud/btn_pause_on_hover.png": {
+    "mtime": 1791545489.9568343,
+    "seen": 1791546428.0129766,
+    "ast_hash": "b2092342d7e65913be12753630843488",
+    "semantic_hash": "b2092342d7e65913be12753630843488"
+  },
+  "img/hud/btn_tower_green_off.png": {
+    "mtime": 1791545489.9568343,
+    "seen": 1791546428.0129771,
+    "ast_hash": "c5dd1783b8a3b7d5019f8bff0e741d64",
+    "semantic_hash": "c5dd1783b8a3b7d5019f8bff0e741d64"
+  },
+  "img/hud/btn_tower_green_off_hover.png": {
+    "mtime": 1791545489.9568343,
+    "seen": 1791546428.0129776,
+    "ast_hash": "76a6472572d5d13d4f0da59d4233ba2a",
+    "semantic_hash": "76a6472572d5d13d4f0da59d4233ba2a"
+  },
+  "img/hud/btn_tower_green_on.png": {
+    "mtime": 1791545489.9568343,
+    "seen": 1791546428.012978,
+    "ast_hash": "3f011697dfdf7ca1a8dc74a9bf90ff5a",
+    "semantic_hash": "3f011697dfdf7ca1a8dc74a9bf90ff5a"
+  },
+  "img/hud/btn_tower_green_on_hover.png": {
+    "mtime": 1791545489.9578345,
+    "seen": 1791546428.012979,
+    "ast_hash": "af5c38b3a442f7a03aef3ad27b182a31",
+    "semantic_hash": "af5c38b3a442f7a03aef3ad27b182a31"
+  },
+  "img/hud/btn_tower_red_off.png": {
+    "mtime": 1791545489.9578345,
+    "seen": 1791546428.0129795,
+    "ast_hash": "ac1c8b80404089b924360a02f604b681",
+    "semantic_hash": "ac1c8b80404089b924360a02f604b681"
+  },
+  "img/hud/btn_tower_red_off_hover.png": {
+    "mtime": 1791545489.9578345,
+    "seen": 1791546428.01298,
+    "ast_hash": "1b5f03abc26c981114cfcdb21cc87a44",
+    "semantic_hash": "1b5f03abc26c981114cfcdb21cc87a44"
+  },
+  "img/hud/btn_tower_red_on.png": {
+    "mtime": 1791545489.9588351,
+    "seen": 1791546428.0129805,
+    "ast_hash": "8185c5425d032531cd6a6090d352bdf1",
+    "semantic_hash": "8185c5425d032531cd6a6090d352bdf1"
+  },
+  "img/hud/btn_tower_red_on_hover.png": {
+    "mtime": 1791545489.9588351,
+    "seen": 1791546428.012981,
+    "ast_hash": "70ffd35062c89f763ad453864327e25c",
+    "semantic_hash": "70ffd35062c89f763ad453864327e25c"
+  },
+  "img/hud/btn_tower_yellow_off.png": {
+    "mtime": 1791545489.9588351,
+    "seen": 1791546428.0129814,
+    "ast_hash": "8fcaa9959a92807ac50d0d23e7d6ba6e",
+    "semantic_hash": "8fcaa9959a92807ac50d0d23e7d6ba6e"
+  },
+  "img/hud/btn_tower_yellow_off_hover.png": {
+    "mtime": 1791545489.9588351,
+    "seen": 1791546428.0129821,
+    "ast_hash": "1f7e4e0e8efe1f2753d0fda8a3148c90",
+    "semantic_hash": "1f7e4e0e8efe1f2753d0fda8a3148c90"
+  },
+  "img/hud/btn_tower_yellow_on.png": {
+    "mtime": 1791545489.9598339,
+    "seen": 1791546428.0129826,
+    "ast_hash": "d8b8725ae8556242f8f2d038f7df9116",
+    "semantic_hash": "d8b8725ae8556242f8f2d038f7df9116"
+  },
+  "img/hud/btn_tower_yellow_on_hover.png": {
+    "mtime": 1791545489.9598339,
+    "seen": 1791546428.012983,
+    "ast_hash": "965c44951b461833455f6bdae05ff8f3",
+    "semantic_hash": "965c44951b461833455f6bdae05ff8f3"
+  },
+  "img/hud/core.png": {
+    "mtime": 1791545489.9598339,
+    "seen": 1791546428.0129836,
+    "ast_hash": "34d8374a91033e7eea2986a3ba244d19",
+    "semantic_hash": "34d8374a91033e7eea2986a3ba244d19"
+  },
+  "img/hud/normal.png": {
+    "mtime": 1791545489.9608338,
+    "seen": 1791546428.0129843,
+    "ast_hash": "543721c9edec310a1260b087149cee7b",
+    "semantic_hash": "543721c9edec310a1260b087149cee7b"
+  },
+  "img/hud/upgrading.png": {
+    "mtime": 1791545489.9608338,
+    "seen": 1791546428.0129845,
+    "ast_hash": "931261e8108ec4e364e8cb6783d5a81d",
+    "semantic_hash": "931261e8108ec4e364e8cb6783d5a81d"
+  },
+  "img/hud/upgrading_max.png": {
+    "mtime": 1791545489.9618342,
+    "seen": 1791546428.0129852,
+    "ast_hash": "6d6ce1bdfbd592fc591342b8587393b3",
+    "semantic_hash": "6d6ce1bdfbd592fc591342b8587393b3"
+  },
+  "img/magics/fireball.png": {
+    "mtime": 1791545489.9618342,
+    "seen": 1791546428.012986,
+    "ast_hash": "0c2dbf52fb02b846888531e28eee110d",
+    "semantic_hash": "0c2dbf52fb02b846888531e28eee110d"
+  },
+  "img/magics/iceball.png": {
+    "mtime": 1791545489.9618342,
+    "seen": 1791546428.0129867,
+    "ast_hash": "51e06d5bfa076d21ac091fcbe4e2be33",
+    "semantic_hash": "51e06d5bfa076d21ac091fcbe4e2be33"
+  },
+  "img/magics/ufo.png": {
+    "mtime": 1791545489.9618342,
+    "seen": 1791546428.0129871,
+    "ast_hash": "7d3669d603065154980fe6abcd395c20",
+    "semantic_hash": "7d3669d603065154980fe6abcd395c20"
+  },
+  "img/magics/ufo_ray.png": {
+    "mtime": 1791545489.9628344,
+    "seen": 1791546428.0129876,
+    "ast_hash": "4b7c7248bb2b48e095d66345f34ecc02",
+    "semantic_hash": "4b7c7248bb2b48e095d66345f34ecc02"
+  },
+  "img/tiles/black.png": {
+    "mtime": 1791545489.970343,
+    "seen": 1791546428.012988,
+    "ast_hash": "9040edd22b733c9fca4846b1308835c9",
+    "semantic_hash": "9040edd22b733c9fca4846b1308835c9"
+  },
+  "img/tiles/crystal.png": {
+    "mtime": 1791545489.971343,
+    "seen": 1791546428.0129886,
+    "ast_hash": "bb0ba6908221e02c96859432b6743c85",
+    "semantic_hash": "bb0ba6908221e02c96859432b6743c85"
+  },
+  "img/tiles/end_down.png": {
+    "mtime": 1791545489.971343,
+    "seen": 1791546428.0129893,
+    "ast_hash": "0b86cfc5c193626e8643930b266dacc4",
+    "semantic_hash": "0b86cfc5c193626e8643930b266dacc4"
+  },
+  "img/tiles/end_left.png": {
+    "mtime": 1791545489.971343,
+    "seen": 1791546428.0129898,
+    "ast_hash": "973c3a0d871a941f56bc68c6dfaf587a",
+    "semantic_hash": "973c3a0d871a941f56bc68c6dfaf587a"
+  },
+  "img/tiles/end_right.png": {
+    "mtime": 1791545489.971343,
+    "seen": 1791546428.0129902,
+    "ast_hash": "68744a1b3ea64046ff6432ba65ab404b",
+    "semantic_hash": "68744a1b3ea64046ff6432ba65ab404b"
+  },
+  "img/tiles/end_up.png": {
+    "mtime": 1791545489.9723434,
+    "seen": 1791546428.0129907,
+    "ast_hash": "e48f65e7416a71ea105d736a0fff8704",
+    "semantic_hash": "e48f65e7416a71ea105d736a0fff8704"
+  },
+  "img/tiles/jumper1.png": {
+    "mtime": 1791545489.973343,
+    "seen": 1791546428.0129914,
+    "ast_hash": "4044c50cc337d91f6adbfc830948de0d",
+    "semantic_hash": "4044c50cc337d91f6adbfc830948de0d"
+  },
+  "img/tiles/jumper2.png": {
+    "mtime": 1791545489.973343,
+    "seen": 1791546428.012992,
+    "ast_hash": "ffcd0dcca3e3e91eabdf289eab1169a1",
+    "semantic_hash": "ffcd0dcca3e3e91eabdf289eab1169a1"
+  },
+  "img/tiles/jumper3.png": {
+    "mtime": 1791545489.973343,
+    "seen": 1791546428.0129926,
+    "ast_hash": "153aaa7d8c57295488dbbc400b008863",
+    "semantic_hash": "153aaa7d8c57295488dbbc400b008863"
+  },
+  "img/tiles/orange.png": {
+    "mtime": 1791545489.973343,
+    "seen": 1791546428.012993,
+    "ast_hash": "995a5aa3ec6462228e718c98725be4a7",
+    "semantic_hash": "995a5aa3ec6462228e718c98725be4a7"
+  },
+  "img/tiles/start_down.png": {
+    "mtime": 1791545489.9743426,
+    "seen": 1791546428.0129936,
+    "ast_hash": "ae179f46e50dac679b68cea444b8f7f9",
+    "semantic_hash": "ae179f46e50dac679b68cea444b8f7f9"
+  },
+  "img/tiles/start_left.png": {
+    "mtime": 1791545489.9743426,
+    "seen": 1791546428.0129943,
+    "ast_hash": "56df7a9cac85b25205472ded1ec40816",
+    "semantic_hash": "56df7a9cac85b25205472ded1ec40816"
+  },
+  "img/tiles/start_right.png": {
+    "mtime": 1791545489.9743426,
+    "seen": 1791546428.0129948,
+    "ast_hash": "e572915698783d8c2662d88714741845",
+    "semantic_hash": "e572915698783d8c2662d88714741845"
+  },
+  "img/tiles/start_up.png": {
+    "mtime": 1791545489.9743426,
+    "seen": 1791546428.0129952,
+    "ast_hash": "e63c303991f003cfafe2c80ae0c5e4e9",
+    "semantic_hash": "e63c303991f003cfafe2c80ae0c5e4e9"
+  },
+  "img/towers/green_tower_upgrade_0.png": {
+    "mtime": 1791545489.9758463,
+    "seen": 1791546428.012996,
+    "ast_hash": "cda8b3888216ce37b665f725f321dc69",
+    "semantic_hash": "cda8b3888216ce37b665f725f321dc69"
+  },
+  "img/towers/green_tower_upgrade_1.png": {
+    "mtime": 1791545489.9758463,
+    "seen": 1791546428.0129964,
+    "ast_hash": "2806debd080b965978a4e69c6bb1db7e",
+    "semantic_hash": "2806debd080b965978a4e69c6bb1db7e"
+  },
+  "img/towers/green_tower_upgrade_2.png": {
+    "mtime": 1791545489.9758463,
+    "seen": 1791546428.012997,
+    "ast_hash": "3a57f66ae26910bd241c187823db8f73",
+    "semantic_hash": "3a57f66ae26910bd241c187823db8f73"
+  },
+  "img/towers/green_tower_upgrade_3.png": {
+    "mtime": 1791545489.9758463,
+    "seen": 1791546428.0129974,
+    "ast_hash": "9989e8b2a7524fc12d6632cabe530220",
+    "semantic_hash": "9989e8b2a7524fc12d6632cabe530220"
+  },
+  "img/towers/green_tower_upgrade_4.png": {
+    "mtime": 1791545489.9768527,
+    "seen": 1791546428.0129979,
+    "ast_hash": "a3f784700445aabe6706cf257a579027",
+    "semantic_hash": "a3f784700445aabe6706cf257a579027"
+  },
+  "img/towers/green_tower_upgrade_5.png": {
+    "mtime": 1791545489.9768527,
+    "seen": 1791546428.0129983,
+    "ast_hash": "405fa10134db650ca9402b43c0ae12b9",
+    "semantic_hash": "405fa10134db650ca9402b43c0ae12b9"
+  },
+  "img/towers/red_tower_upgrade_0.png": {
+    "mtime": 1791545489.9768527,
+    "seen": 1791546428.0129988,
+    "ast_hash": "071bc4501925355c96dbc8a53edcadb1",
+    "semantic_hash": "071bc4501925355c96dbc8a53edcadb1"
+  },
+  "img/towers/red_tower_upgrade_1.png": {
+    "mtime": 1791545489.9768527,
+    "seen": 1791546428.0129998,
+    "ast_hash": "5f732acbc3f9944b30a4360b4a6a0a95",
+    "semantic_hash": "5f732acbc3f9944b30a4360b4a6a0a95"
+  },
+  "img/towers/red_tower_upgrade_2.png": {
+    "mtime": 1791545489.9778514,
+    "seen": 1791546428.0130002,
+    "ast_hash": "2a4bd9cf8173c66dba0f867d6a456049",
+    "semantic_hash": "2a4bd9cf8173c66dba0f867d6a456049"
+  },
+  "img/towers/red_tower_upgrade_3.png": {
+    "mtime": 1791545489.9778514,
+    "seen": 1791546428.013001,
+    "ast_hash": "560ff347b1e7304893ce667b204d5b5c",
+    "semantic_hash": "560ff347b1e7304893ce667b204d5b5c"
+  },
+  "img/towers/red_tower_upgrade_4.png": {
+    "mtime": 1791545489.9778514,
+    "seen": 1791546428.0130017,
+    "ast_hash": "58fa98acd545c1563e123420a410df41",
+    "semantic_hash": "58fa98acd545c1563e123420a410df41"
+  },
+  "img/towers/red_tower_upgrade_5.png": {
+    "mtime": 1791545489.9778514,
+    "seen": 1791546428.013002,
+    "ast_hash": "4497b30a8fda2d7a29e0859c96f0179c",
+    "semantic_hash": "4497b30a8fda2d7a29e0859c96f0179c"
+  },
+  "img/towers/yellow_tower_upgrade_0.png": {
+    "mtime": 1791545489.9788516,
+    "seen": 1791546428.0130038,
+    "ast_hash": "5d3f2b4c1d90f4898c730ef2dd82dc8b",
+    "semantic_hash": "5d3f2b4c1d90f4898c730ef2dd82dc8b"
+  },
+  "img/towers/yellow_tower_upgrade_1.png": {
+    "mtime": 1791545489.9788516,
+    "seen": 1791546428.0130043,
+    "ast_hash": "9e12919dd110fed83912f85ef848ed48",
+    "semantic_hash": "9e12919dd110fed83912f85ef848ed48"
+  },
+  "img/towers/yellow_tower_upgrade_2.png": {
+    "mtime": 1791545489.9788516,
+    "seen": 1791546428.0130048,
+    "ast_hash": "adfc0978c1bafe773fa6a52ca9e38928",
+    "semantic_hash": "adfc0978c1bafe773fa6a52ca9e38928"
+  },
+  "img/towers/yellow_tower_upgrade_3.png": {
+    "mtime": 1791545489.9788516,
+    "seen": 1791546428.0130055,
+    "ast_hash": "f9a5ae3191ed7d1918e955f17a8ecef5",
+    "semantic_hash": "f9a5ae3191ed7d1918e955f17a8ecef5"
+  },
+  "img/towers/yellow_tower_upgrade_4.png": {
+    "mtime": 1791545489.9799998,
+    "seen": 1791546428.013006,
+    "ast_hash": "84e1d039ff24491ceea83e146e77a38a",
+    "semantic_hash": "84e1d039ff24491ceea83e146e77a38a"
+  },
+  "img/towers/yellow_tower_upgrade_5.png": {
+    "mtime": 1791545489.9799998,
+    "seen": 1791546428.0130067,
+    "ast_hash": "c8d2e47cedc259e66c77e7c674e863de",
+    "semantic_hash": "c8d2e47cedc259e66c77e7c674e863de"
+  },
+  "img_github_readme/banner.png": {
+    "mtime": 1791545489.9809985,
+    "seen": 1791546428.0130072,
+    "ast_hash": "dd12d6eaab0b4c3de05deba14a0e6b1c",
+    "semantic_hash": "dd12d6eaab0b4c3de05deba14a0e6b1c"
+  },
+  "img_github_readme/screenshots.png": {
+    "mtime": 1791545489.9829974,
+    "seen": 1791546428.0130076,
+    "ast_hash": "db5d5626c80ccfa7385eec61b94047c3",
+    "semantic_hash": "db5d5626c80ccfa7385eec61b94047c3"
+  }
+}
