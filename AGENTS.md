@@ -128,6 +128,23 @@ Symbols: `x`=start, `y`=end, `0`=buildable (orange), `1`=path, `2`=blocked (blac
 - Comments are sparse; prefer self-documenting code
 - File structure mirrors domain: `src/enemies/`, `src/towers/`, `src/magics/`, etc.
 
+## Roadmap and Iteration Workflow
+
+The plan to port the legacy game (processing.js, 2012) lives in [`ROADMAP.md`](./ROADMAP.md). Read it before starting a feature: it has the legacy reference values, the iteration order and open decisions.
+
+- One feature per iteration. Each iteration is delivered as `gif-tower-defense-vN.zip` and `package.json` `version` is `N.0.0` (current: see `package.json`).
+- Before delivering: `pnpm run test` and `pnpm run build` must pass. Do not include `node_modules/` or `dist/` in the zip.
+- Update `ROADMAP.md` (tick the iteration, adjust the plan) and this file when the architecture changes.
+- Source files use CRLF line endings (`.ts`, `package.json`, `README.md`); `AGENTS.md` and `ROADMAP.md` use LF. Keep each file's existing style.
+
+### Known gaps (details and plan in ROADMAP.md)
+
+- `STATE_PLAY_SURVIVAL_GAME_OVER` is set but never drawn (`src/index.ts` has no case for it).
+- `Wallet`, `Player` and several static counters are not reset by `Game.loadLevel`.
+- Supported tile symbols are only `0 1 2 x y` (`Config.availableTiles`); legacy levels need `s c 5 6 7 p q`.
+- `Config.gameMode` is committed as `MODE.TESTING`.
+- No sound, no editor (the *Editor* and *Today's* menu buttons are disabled).
+
 ## Maintenance
 
 Whenever making changes to the project, review this file and update it to stay coherent with the current state of the codebase.

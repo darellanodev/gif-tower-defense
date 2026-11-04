@@ -58,6 +58,10 @@ Run the command `pnpm install`
 
 This will generate a `AllLevelsSorted.ts` file. After that, you can delete the `AllLevels.ts` file and rename `AllLevelsSorted.ts` to `AllLevels.ts`.
 
+## Roadmap
+
+The plan to port the remaining features of the original game (level editor, special tiles, sound, ...) is in [ROADMAP.md](./ROADMAP.md).
+
 ## How to contribute
 
 Thank you for considering contributing! Before you get started, please take a moment to star this repository 🌟. Your support helps us grow and reach more developers. To do this, simply visit the repository's main page and click the **Star** button located in the top right corner.
