@@ -1,4 +1,5 @@
 import { TILE_SYMBOL } from '../../../constants/tile'
+import { TileIce } from '../TileIce'
 import { TilePath } from '../TilePath'
 import { TilesManager } from '../TilesManager'
 import { TileCreator } from './TileCreator'
@@ -34,16 +35,26 @@ export class TilePathCreator extends TileCreator {
     tilesManager.addPathTile(new TilePath({ x: posX, y: posY }))
   }
 
+  #instanceIceTile(tilesManager: TilesManager, posX: number, posY: number) {
+    tilesManager.addIceTile(new TileIce({ x: posX, y: posY }))
+  }
+
   processRow(tilesManager: TilesManager, rowSymbols: string, row: number) {
     for (let column = 0; column < rowSymbols.length; column++) {
+      const posX = this.getPosX(column)
+      const posY = this.getPosY(row)
+
       if (this.#isPathTile(rowSymbols, column)) {
-        this.#instancePathTile(
-          tilesManager,
-          this.getPosX(column),
-          this.getPosY(row),
-        )
+        this.#instancePathTile(tilesManager, posX, posY)
+      }
+      if (this.#isIceTile(rowSymbols, column)) {
+        this.#instanceIceTile(tilesManager, posX, posY)
       }
     }
+  }
+
+  #isIceTile(rowSymbols: string, column: number) {
+    return rowSymbols[column] === TILE_SYMBOL.ICE
   }
 
   #isPathTile(rowSymbols: string, column: number) {

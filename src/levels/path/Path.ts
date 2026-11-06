@@ -1,19 +1,23 @@
 import { TileStart } from '../tiles/TileStart'
 import { TileEnd } from '../tiles/TileEnd'
 import { TilePath } from '../tiles/TilePath'
+import { TileIce } from '../tiles/TileIce'
 import { TILE_SIZE } from '../../constants/tile'
 import { DIRECTION } from '../../constants/direction'
 import { Position } from '../../types/position'
 import { AnyTile, WalkableTile } from '../../types/tileType'
 import { PATH_MAX_SEARCHES } from '../../constants/orders'
+import { ENEMY_ICE_SPEED_FACTOR } from '../../constants/enemy'
 
 export class Path {
   static orders: number[] = []
+  static speedFactors: number[] = []
 
   #startTile: TileStart
   #endTile: TileEnd
   #pathTiles: TilePath[]
   #orders: number[] = []
+  #speedFactors: number[] = []
   #currentTile: TilePath
   #currentDirection: number
   #hasReachedEnd: boolean = false
@@ -32,6 +36,16 @@ export class Path {
 
     this.#currentDirection = this.#startTile.getStartDirection()
   }
+  // every order has a speed factor: the one of the tile the enemy is leaving
+  #addOrder(direction: number) {
+    this.#orders.push(direction)
+    this.#speedFactors.push(this.#getSpeedFactor(this.#currentTile))
+  }
+
+  #getSpeedFactor(tile: AnyTile) {
+    return tile instanceof TileIce ? ENEMY_ICE_SPEED_FACTOR : 1
+  }
+
   get endReached(): boolean {
     return this.#hasReachedEnd
   }
@@ -111,13 +125,13 @@ export class Path {
     this.#checkEndTile()
 
     if (this.#hasReachedEnd) {
-      this.#orders.push(this.#currentDirection)
+      this.#addOrder(this.#currentDirection)
       return
     }
     const searchTile = this.#searchLeftTile(this.#currentTile)
 
     if (searchTile !== null) {
-      this.#orders.push(DIRECTION.LEFT)
+      this.#addOrder(DIRECTION.LEFT)
       this.#currentTile = searchTile
       return
     }
@@ -138,12 +152,12 @@ export class Path {
     this.#checkEndTile()
 
     if (this.#hasReachedEnd) {
-      this.#orders.push(this.#currentDirection)
+      this.#addOrder(this.#currentDirection)
     }
     const searchTile = this.#searchDownTile(this.#currentTile)
 
     if (searchTile !== null) {
-      this.#orders.push(DIRECTION.DOWN)
+      this.#addOrder(DIRECTION.DOWN)
       this.#currentTile = searchTile
       return
     }
@@ -164,11 +178,11 @@ export class Path {
     this.#checkEndTile()
 
     if (this.#hasReachedEnd) {
-      this.#orders.push(this.#currentDirection)
+      this.#addOrder(this.#currentDirection)
     }
     const searchTile = this.#searchRightTile(this.#currentTile)
     if (searchTile !== null) {
-      this.#orders.push(DIRECTION.RIGHT)
+      this.#addOrder(DIRECTION.RIGHT)
       this.#currentTile = searchTile
       return
     }
@@ -189,12 +203,12 @@ export class Path {
     this.#checkEndTile()
 
     if (this.#hasReachedEnd) {
-      this.#orders.push(this.#currentDirection)
+      this.#addOrder(this.#currentDirection)
     }
     const searchTile = this.#searchUpTile(this.#currentTile)
 
     if (searchTile !== null) {
-      this.#orders.push(DIRECTION.UP)
+      this.#addOrder(DIRECTION.UP)
       this.#currentTile = searchTile
       return
     }
@@ -221,7 +235,7 @@ export class Path {
 
   makeOrders() {
     // the first time it goes in the same direction than this.#currentDirection one tile only, from out of the startTile to the startTile.
-    this.#orders.push(this.#currentDirection)
+    this.#addOrder(this.#currentDirection)
 
     let searchCount = 0
     while (searchCount < PATH_MAX_SEARCHES && !this.#hasReachedEnd) {
@@ -231,11 +245,15 @@ export class Path {
 
     // finally we add the same direction one more time, from reached endtile to outside
     if (this.#hasReachedEnd) {
-      this.#orders.push(this.#currentDirection)
+      this.#addOrder(this.#currentDirection)
     }
   }
 
   get orders(): number[] {
     return this.#orders
+  }
+
+  get speedFactors(): number[] {
+    return this.#speedFactors
   }
 }

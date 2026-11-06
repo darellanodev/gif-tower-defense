@@ -120,7 +120,12 @@ export class EnemySystem {
   }
 
   #createPathMovement(speed: number) {
-    return new PathMovement(this.pathStartEnemiesPosition, Path.orders, speed)
+    return new PathMovement(
+      this.pathStartEnemiesPosition,
+      Path.orders,
+      speed,
+      Path.speedFactors,
+    )
   }
 
   #createEnemyBossAnimator() {

@@ -6,4 +6,7 @@ export const TILE_SYMBOL = {
   ORANGE: '0',
   PATH: '1',
   BLACK: '2',
+  ICE: 's',
 } as const
+
+export const ICE_TILE_COLOR = [0, 158, 158, 120] as const // r, g, b, alpha

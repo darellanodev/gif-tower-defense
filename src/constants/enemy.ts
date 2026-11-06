@@ -14,6 +14,9 @@ export const ENEMY_VELOCITY = {
   BOSS: 0.5,
 } as const
 
+// Multiplies the enemy velocity while it leaves an ice tile. Normal and boss velocities times this factor must still divide the tile size
+export const ENEMY_ICE_SPEED_FACTOR = 2
+
 export const ENEMY_STATUS = {
   ALIVE: 0,
   DEAD: 1,

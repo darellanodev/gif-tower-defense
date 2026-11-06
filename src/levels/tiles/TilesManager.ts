@@ -1,5 +1,6 @@
 import { TileBlack } from './TileBlack'
 import { TileEnd } from './TileEnd'
+import { TileIce } from './TileIce'
 import { TileOrange } from './TileOrange'
 import { TilePath } from './TilePath'
 import { TileStart } from './TileStart'
@@ -8,6 +9,7 @@ export class TilesManager {
   #tilesBlack: TileBlack[] = []
   #tilesOrange: TileOrange[] = []
   #tilesPath: TilePath[] = []
+  #tilesIce: TileIce[] = []
   #tileStart: TileStart | null = null
   #tileEnd: TileEnd | null = null
 
@@ -19,6 +21,10 @@ export class TilesManager {
   }
   get getAllPathTiles() {
     return this.#tilesPath
+  }
+
+  get getAllIceTiles() {
+    return this.#tilesIce
   }
 
   get tileStart(): TileStart | null {
@@ -38,6 +44,12 @@ export class TilesManager {
     this.#tilesPath.push(instance)
   }
 
+  // ice tiles are also path tiles: enemies walk over them
+  addIceTile(instance: TileIce) {
+    this.#tilesIce.push(instance)
+    this.#tilesPath.push(instance)
+  }
+
   set tileStart(tileStart: TileStart) {
     this.#tileStart = tileStart
   }
@@ -53,6 +65,9 @@ export class TilesManager {
 
     this.#tileStart.draw(scale, startOffsetX, startOffsetY)
     this.#tileEnd.draw(scale, startOffsetX, startOffsetY)
+    this.#tilesIce.forEach((tileIce) => {
+      tileIce.drawTile(scale, startOffsetX, startOffsetY)
+    })
     this.#tilesOrange.forEach((tileOrange) => {
       tileOrange.drawTile(scale, startOffsetX, startOffsetY)
     })

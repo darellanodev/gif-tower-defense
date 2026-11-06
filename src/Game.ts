@@ -143,6 +143,7 @@ export class Game {
     )
     path.makeOrders()
     Path.orders = path.orders
+    Path.speedFactors = path.speedFactors
   }
   #initializeEnemiesStartPosition() {
     const pathStartEnemiesPosition = PathStartEnemiesPosition.getInstance()
