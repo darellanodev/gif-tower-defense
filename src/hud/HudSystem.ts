@@ -10,6 +10,7 @@ import { MapDataType } from '../types/mapDataType'
 import { Button } from './buttons/Button'
 import { Controls } from '../player/Controls'
 import { StateManager } from '../StateManager'
+import { GameSpeed } from '../GameSpeed'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { ProgressBarTimer } from './progressbar/ProgressBarTimer'
 import {
@@ -42,6 +43,7 @@ export class HudSystem {
     wallet: Wallet,
     stateManager: StateManager,
     isGameModeTesting: boolean,
+    gameSpeed: GameSpeed,
   ) {
     this.#player = player
     this.#buttonPause = buttonPause
@@ -60,6 +62,7 @@ export class HudSystem {
     this.#hudScreenIndicators = new HudScreenIndicators(
       this.#stateManager,
       isGameModeTesting,
+      gameSpeed,
     )
 
     this.progressBarTimerBoss = new ProgressBarTimer(

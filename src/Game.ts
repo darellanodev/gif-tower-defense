@@ -26,6 +26,7 @@ import { MapDataType } from './types/mapDataType'
 import { MODE } from './constants/mode'
 import { InfluenceArea } from './towers/InfluenceArea'
 import { PANEL_HEIGHT } from './constants/panel'
+import { GameSpeed } from './GameSpeed'
 
 export class Game {
   static #instance: Game | null = null
@@ -46,6 +47,7 @@ export class Game {
   #buttonPause: Button
   #gameMode: number
   #influenceArea: InfluenceArea | null
+  #gameSpeed: GameSpeed = new GameSpeed()
 
   static getInstance(
     gameMode: number,
@@ -124,6 +126,7 @@ export class Game {
       this.#wallet!,
       this.#stateManager,
       this.isGameModeTesting(),
+      this.#gameSpeed,
     )
   }
 
@@ -173,6 +176,7 @@ export class Game {
       this.#magicSystem.magicUFOInstancesManager,
       this.#enemySystem.pathStartEnemiesPosition,
       this.#influenceArea!,
+      this.#gameSpeed,
     )
   }
 
@@ -183,6 +187,7 @@ export class Game {
 
   loadLevel(levelId: number) {
     const levelMap = this.#levelsDataProvider.getById(levelId)
+    this.#gameSpeed.reset()
     // the order is important
     this.#initializeWallet(levelMap)
     this.#initializeAllSystems()
@@ -267,6 +272,15 @@ export class Game {
     Missile.updateInstances()
 
     this.#towerSystem!.updateTowersEnemyTarget()
+    this.#towerSystem!.update()
+  }
+
+  // one frame of the game: the updates depend on the game speed (S key)
+  updateFrame() {
+    this.#gameSpeed.runUpdates(
+      () => this.update(),
+      () => this.#stateManager.isPlaying(),
+    )
   }
 
   #getMouseTileOrangeOver() {

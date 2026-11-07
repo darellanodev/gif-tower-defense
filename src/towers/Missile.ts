@@ -92,10 +92,13 @@ export class Missile extends Obj {
     )
   }
 
+  // dead missiles are skipped: several updates can run before they are removed, and a missile must hit only once
   static updateInstances() {
-    Missile.instances.forEach((m) => {
-      m.update()
-    })
+    Missile.instances
+      .filter((m) => m.isAlive)
+      .forEach((m) => {
+        m.update()
+      })
   }
 
   static drawInstances() {

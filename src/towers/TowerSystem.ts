@@ -18,9 +18,14 @@ export class TowerSystem {
     })
   }
 
-  draw() {
+  update() {
     this.#tilesManager.getAllOrangeTiles.forEach((orangeTile) => {
       orangeTile.updateTower()
+    })
+  }
+
+  draw() {
+    this.#tilesManager.getAllOrangeTiles.forEach((orangeTile) => {
       orangeTile.drawTower()
     })
   }

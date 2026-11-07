@@ -11,8 +11,9 @@ import { Images } from '../resources/Images'
 import { Path } from '../levels/path/Path'
 import { StateManager } from '../StateManager'
 import { Button } from '../hud/buttons/Button'
-import { KEY_1, KEY_2, KEY_3, KEY_P } from '../constants/keyboard'
+import { KEY_1, KEY_2, KEY_3, KEY_P, KEY_S } from '../constants/keyboard'
 import { TOWER_ID } from '../constants/tower'
+import { GameSpeed } from '../GameSpeed'
 
 export class Controls {
   #stateManager: StateManager
@@ -27,6 +28,7 @@ export class Controls {
   #magicUFOInstancesManager: MagicInstancesManager
   #pathStartEnemiesPosition: Position
   #influenceArea: InfluenceArea
+  #gameSpeed: GameSpeed
 
   constructor(
     stateManager: StateManager,
@@ -39,6 +41,7 @@ export class Controls {
     magicUFOInstancesManager: MagicInstancesManager,
     pathStartEnemiesPosition: Position,
     influenceArea: InfluenceArea,
+    gameSpeed: GameSpeed,
   ) {
     this.#stateManager = stateManager
     this.#hudButtonsMagics = hudButtonsMagics
@@ -50,6 +53,7 @@ export class Controls {
     this.#magicUFOInstancesManager = magicUFOInstancesManager
     this.#pathStartEnemiesPosition = pathStartEnemiesPosition
     this.#influenceArea = influenceArea
+    this.#gameSpeed = gameSpeed
   }
 
   keyPressed(keyCode: number) {
@@ -65,6 +69,9 @@ export class Controls {
         break
       case KEY_P:
         this.#togglePause()
+        break
+      case KEY_S:
+        this.#gameSpeed.next()
         break
     }
   }

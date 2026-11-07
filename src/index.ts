@@ -80,7 +80,7 @@ _p5 = new p5((p: p5) => {
         game.draw()
         break
       case StateManager.STATE_PLAY_SURVIVAL:
-        game.update()
+        game.updateFrame()
         game.draw()
         break
       case StateManager.STATE_MENU_MAIN:

@@ -74,7 +74,9 @@ export const FOO = {
 
 ### Game Loop (src/index.ts)
 
-- Fixed update-then-draw: `game.update()` → `game.draw()`
+- Fixed update-then-draw: `game.updateFrame()` → `game.draw()`. `updateFrame()` runs `game.update()` as many times as the game speed says (`GameSpeed`, key `S`: ×1, ×2, ×4, see `constants/gameSpeed.ts`), stopping if the game is no longer playing.
+- **Anything that depends on time must live in `update()`, never in `draw()`**, otherwise it will not follow the game speed (and would keep running while paused). Explosions, fly indicators and enemy eye animations are the only cosmetic exceptions.
+- Dead instances must not be updated again before being removed (see `Missile.updateInstances`), because several updates can run before the next `draw()`.
 - State machine dispatches per state: MENU_MAIN, MENU_SURVIVAL, PLAY_SURVIVAL, PAUSE, GAME_OVER
 
 ### Systems (orchestrated by Game)
