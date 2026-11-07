@@ -8,6 +8,7 @@ import { Position } from '../../types/position'
 import { AnyTile, WalkableTile } from '../../types/tileType'
 import { PATH_MAX_SEARCHES } from '../../constants/orders'
 import { ENEMY_ICE_SPEED_FACTOR } from '../../constants/enemy'
+import { getNextDirection, WalkableNeighbours } from './PathDirection'
 
 export class Path {
   static orders: number[] = []
@@ -18,8 +19,9 @@ export class Path {
   #pathTiles: TilePath[]
   #orders: number[] = []
   #speedFactors: number[] = []
-  #currentTile: TilePath
-  #currentDirection: number
+  #currentTile: WalkableTile
+  // direction of the last order (the one used to arrive to the current tile)
+  #lastDirection: number
   #hasReachedEnd: boolean = false
 
   constructor(startTile: TileStart, endTile: TileEnd, pathTiles: TilePath[]) {
@@ -27,15 +29,10 @@ export class Path {
     this.#endTile = endTile
     this.#pathTiles = pathTiles
 
-    const startTilePosition = this.#startTile.position
-
-    this.#currentTile = new TilePath({
-      x: startTilePosition.x,
-      y: startTilePosition.y,
-    })
-
-    this.#currentDirection = this.#startTile.getStartDirection()
+    this.#currentTile = this.#startTile
+    this.#lastDirection = this.#startTile.getStartDirection()
   }
+
   // every order has a speed factor: the one of the tile the enemy is leaving
   #addOrder(direction: number) {
     this.#orders.push(direction)
@@ -62,6 +59,12 @@ export class Path {
     return this.#endTile.position.x === tx && this.#endTile.position.y === ty
   }
 
+  #isTileStart(tx: number, ty: number): boolean {
+    return (
+      this.#startTile.position.x === tx && this.#startTile.position.y === ty
+    )
+  }
+
   getTileEnd(tx: number, ty: number): TileEnd | null {
     if (this.#isTileEnd(tx, ty)) {
       return this.#endTile
@@ -69,183 +72,85 @@ export class Path {
     return null
   }
 
+  // the start and the end tiles are also walkable, like in the legacy game
   #getWalkableTile(pos: Position): WalkableTile | null {
     const tilePath = this.getTilePath(pos.x, pos.y)
-    if (tilePath === null) {
-      return this.getTileEnd(pos.x, pos.y)
+    if (tilePath !== null) {
+      return tilePath
     }
-    return tilePath
+    if (this.#isTileEnd(pos.x, pos.y)) {
+      return this.#endTile
+    }
+    if (this.#isTileStart(pos.x, pos.y)) {
+      return this.#startTile
+    }
+    return null
   }
 
-  #searchLeftTile(currentTile: AnyTile) {
-    const searchPx = currentTile.position.x - TILE_SIZE
-    const searchPy = currentTile.position.y
-    const searchPosition = { x: searchPx, y: searchPy }
-    return this.#getWalkableTile(searchPosition)
+  #getNeighbourPosition(tile: WalkableTile, direction: number): Position {
+    const offsets: Record<number, Position> = {
+      [DIRECTION.LEFT]: { x: -TILE_SIZE, y: 0 },
+      [DIRECTION.RIGHT]: { x: TILE_SIZE, y: 0 },
+      [DIRECTION.UP]: { x: 0, y: -TILE_SIZE },
+      [DIRECTION.DOWN]: { x: 0, y: TILE_SIZE },
+    }
+    const offset = offsets[direction]
+    return { x: tile.position.x + offset.x, y: tile.position.y + offset.y }
   }
 
-  #searchDownTile(currentTile: AnyTile) {
-    const searchPx = currentTile.position.x
-    const searchPy = currentTile.position.y + TILE_SIZE
-    const searchPosition = { x: searchPx, y: searchPy }
-    return this.#getWalkableTile(searchPosition)
+  #getNeighbour(tile: WalkableTile, direction: number): WalkableTile | null {
+    return this.#getWalkableTile(this.#getNeighbourPosition(tile, direction))
   }
 
-  #searchRightTile(currentTile: AnyTile) {
-    const searchPx = currentTile.position.x + TILE_SIZE
-    const searchPy = currentTile.position.y
-    const searchPosition = { x: searchPx, y: searchPy }
-    return this.#getWalkableTile(searchPosition)
-  }
-
-  #searchUpTile(currentTile: AnyTile) {
-    const searchPx = currentTile.position.x
-    const searchPy = currentTile.position.y - TILE_SIZE
-    const searchPosition = { x: searchPx, y: searchPy }
-    return this.#getWalkableTile(searchPosition)
-  }
-
-  #checkEndTile() {
-    if (this.#currentTile.position === this.#endTile.position) {
-      this.#hasReachedEnd = true
+  #getWalkableNeighbours(tile: WalkableTile): WalkableNeighbours {
+    return {
+      left: this.#getNeighbour(tile, DIRECTION.LEFT) !== null,
+      right: this.#getNeighbour(tile, DIRECTION.RIGHT) !== null,
+      up: this.#getNeighbour(tile, DIRECTION.UP) !== null,
+      down: this.#getNeighbour(tile, DIRECTION.DOWN) !== null,
     }
   }
 
-  #updateDirectionWhenLeftIsBlocked() {
-    // It is preferred to go first down and if it is not possible to go up
-    const searchNextTile = this.#searchDownTile(this.#currentTile)
-    if (searchNextTile) {
-      this.#currentDirection = DIRECTION.DOWN
-      return
+  #moveTo(direction: number) {
+    const neighbour = this.#getNeighbour(this.#currentTile, direction)
+    if (neighbour === null) {
+      throw new Error('the neighbour tile should be walkable')
     }
-    this.#currentDirection = DIRECTION.UP
-  }
-
-  #processLeftDirection() {
-    this.#checkEndTile()
-
-    if (this.#hasReachedEnd) {
-      this.#addOrder(this.#currentDirection)
-      return
-    }
-    const searchTile = this.#searchLeftTile(this.#currentTile)
-
-    if (searchTile !== null) {
-      this.#addOrder(DIRECTION.LEFT)
-      this.#currentTile = searchTile
-      return
-    }
-    this.#updateDirectionWhenLeftIsBlocked()
-  }
-
-  #updateDirectionWhenDownIsBlocked() {
-    // It is preferred to go first to the right and if it is not possible to the left
-    const searchNextTile = this.#searchRightTile(this.#currentTile)
-    if (searchNextTile) {
-      this.#currentDirection = DIRECTION.RIGHT
-      return
-    }
-    this.#currentDirection = DIRECTION.LEFT
-  }
-
-  #processDownDirection() {
-    this.#checkEndTile()
-
-    if (this.#hasReachedEnd) {
-      this.#addOrder(this.#currentDirection)
-    }
-    const searchTile = this.#searchDownTile(this.#currentTile)
-
-    if (searchTile !== null) {
-      this.#addOrder(DIRECTION.DOWN)
-      this.#currentTile = searchTile
-      return
-    }
-    this.#updateDirectionWhenDownIsBlocked()
-  }
-
-  #updateDirectionWhenRightIsBlocked() {
-    // It is preferred to go first up and if it is not possible to go down
-    const searchNextTile = this.#searchUpTile(this.#currentTile)
-    if (searchNextTile) {
-      this.#currentDirection = DIRECTION.UP
-      return
-    }
-    this.#currentDirection = DIRECTION.DOWN
-  }
-
-  #processRightDirection() {
-    this.#checkEndTile()
-
-    if (this.#hasReachedEnd) {
-      this.#addOrder(this.#currentDirection)
-    }
-    const searchTile = this.#searchRightTile(this.#currentTile)
-    if (searchTile !== null) {
-      this.#addOrder(DIRECTION.RIGHT)
-      this.#currentTile = searchTile
-      return
-    }
-    this.#updateDirectionWhenRightIsBlocked()
-  }
-
-  #updateDirectionWhenUpIsBlocked() {
-    // It is preferred to go first left and if it is not possible to go right
-    const searchNextTile = this.#searchLeftTile(this.#currentTile)
-    if (searchNextTile) {
-      this.#currentDirection = DIRECTION.LEFT
-      return
-    }
-    this.#currentDirection = DIRECTION.RIGHT
-  }
-
-  #processUpDirection() {
-    this.#checkEndTile()
-
-    if (this.#hasReachedEnd) {
-      this.#addOrder(this.#currentDirection)
-    }
-    const searchTile = this.#searchUpTile(this.#currentTile)
-
-    if (searchTile !== null) {
-      this.#addOrder(DIRECTION.UP)
-      this.#currentTile = searchTile
-      return
-    }
-    this.#updateDirectionWhenUpIsBlocked()
-  }
-
-  #processCurrentDirection() {
-    if (this.#currentDirection === DIRECTION.LEFT) {
-      this.#processLeftDirection()
-    }
-
-    if (this.#currentDirection === DIRECTION.DOWN) {
-      this.#processDownDirection()
-    }
-
-    if (this.#currentDirection === DIRECTION.RIGHT) {
-      this.#processRightDirection()
-    }
-
-    if (this.#currentDirection === DIRECTION.UP) {
-      this.#processUpDirection()
-    }
+    this.#addOrder(direction)
+    this.#currentTile = neighbour
+    this.#lastDirection = direction
   }
 
   makeOrders() {
-    // the first time it goes in the same direction than this.#currentDirection one tile only, from out of the startTile to the startTile.
-    this.#addOrder(this.#currentDirection)
+    // the first time it goes in the start direction one tile only, from out of the startTile to the startTile.
+    this.#addOrder(this.#lastDirection)
 
+    let direction: number | null = this.#lastDirection
     let searchCount = 0
     while (searchCount < PATH_MAX_SEARCHES && !this.#hasReachedEnd) {
       searchCount++
-      this.#processCurrentDirection()
+      this.#hasReachedEnd = this.#isTileEnd(
+        this.#currentTile.position.x,
+        this.#currentTile.position.y,
+      )
+      if (this.#hasReachedEnd) {
+        break
+      }
+
+      direction = getNextDirection(
+        direction,
+        this.#getWalkableNeighbours(this.#currentTile),
+      )
+      // when there is no direction (dead end) the enemy waits, and the next time it can go back
+      if (direction !== null) {
+        this.#moveTo(direction)
+      }
     }
 
-    // finally we add the same direction one more time, from reached endtile to outside
+    // finally we add the same direction two more times, from reached endtile to outside
     if (this.#hasReachedEnd) {
-      this.#addOrder(this.#currentDirection)
+      this.#addOrder(this.#lastDirection)
+      this.#addOrder(this.#lastDirection)
     }
   }
 

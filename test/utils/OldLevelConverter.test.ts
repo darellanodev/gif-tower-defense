@@ -98,7 +98,7 @@ test('extract rowsmap', () => {
   const result = oldLevelConverter.rowsmap
   const expected = [
     '0000000000000000',
-    'x111111111111110',
+    'y111111111111110',
     '0000002222220010',
     '0111020000002010',
     '0101000022220010',
@@ -106,7 +106,7 @@ test('extract rowsmap', () => {
     '0101000000000010',
     '0101000020000010',
     '0101111111111110',
-    '0y00000000000000',
+    '0x00000000000000',
   ]
   expect(result).toStrictEqual(expected)
 })
@@ -117,15 +117,15 @@ test('extract money', () => {
   expect(result).toBe(expected)
 })
 
-test('extract startDirection', () => {
+test('extract startDirection (the legacy gateway direction)', () => {
   const result = oldLevelConverter.startDirection
-  const expected = 1
+  const expected = 3
   expect(result).toBe(expected)
 })
 
-test('extract endDirection', () => {
+test('extract endDirection (the legacy goal direction)', () => {
   const result = oldLevelConverter.endDirection
-  const expected = 3
+  const expected = 1
   expect(result).toBe(expected)
 })
 
@@ -140,7 +140,7 @@ test('get the json format', () => {
       rowsMap: [
         
         '0000000000000000',
-        'x111111111111110',
+        'y111111111111110',
         '0000002222220010',
         '0111020000002010',
         '0101000022220010',
@@ -148,12 +148,12 @@ test('get the json format', () => {
         '0101000000000010',
         '0101000020000010',
         '0101111111111110',
-        '0y00000000000000',
+        '0x00000000000000',
     
       ],
       money: 150,
-      startDirection: DIRECTION.RIGHT,
-      endDirection: DIRECTION.DOWN,
+      startDirection: DIRECTION.UP,
+      endDirection: DIRECTION.LEFT,
     },
 `
   expect(result).toBe(expected)

@@ -17,6 +17,7 @@ Status legend: `[x]` done · `[ ]` pending.
 - [x] **v2** — This roadmap (shipped as `2.0.0`).
 - [x] **0.3.0** — Ice path tile `s` (+ 8 imported levels, path speed factors, level import safety net).
 - [x] **0.4.0** — Game speed toggle (key `S`: ×1 → ×2 → ×4).
+- [x] **0.5.0** — Path rule parity with the legacy game + original travel direction (levels migrated, converter updated, levels 46 and 47 imported).
 
 ---
 
@@ -28,7 +29,7 @@ Status legend: `[x]` done · `[ ]` pending.
 | 3 magics (UFO, fireball, iceball) with limited uses | Ported (buttons with item counters) | — |
 | Waves, bosses, lives, money, score, pause | Ported | — |
 | Survival menu with paginated mini-maps | Ported | — |
-| Path algorithm: **82 of 325 imported levels cannot reach the end** (loops at branches) | **Bug / gap** (found in 0.3.0) | Path algorithm |
+| Path turning rule and travel direction (enemies start at the legacy `y`) | **Done** (0.5.0) | — |
 | Game over screen + retry | **Missing** (the `Game over` text exists in `HudScreenIndicators`, but `index.ts` never draws in that state: frozen frame) | Level lifecycle |
 | Reset of per-level state (lives, wallet, wave, statics) | **Missing** (singletons survive `loadLevel`) | Level lifecycle |
 | Exit to menu from a running level | **Missing** | Level lifecycle |
@@ -61,7 +62,7 @@ Status legend: `[x]` done · `[ ]` pending.
 
 So: ice is the cheapest warm-up, crystals the biggest single unlock, and teleports are needed to reach 100 %.
 
-Numbers above were computed before 0.3.0. Imported so far from the ice group: 28, 40–45, 48 (8 levels). Levels 46 and 47 are still pending because their path does not reach the end (see Path algorithm).
+Numbers above were computed before 0.3.0. Imported so far from the ice group: 28 and 40–48 (10 levels).
 
 ---
 
@@ -69,12 +70,19 @@ Numbers above were computed before 0.3.0. Imported so far from the ice group: 28
 
 ### Phase 1 — Close the game loop
 
-#### [ ] Path algorithm: levels whose end is unreachable (M; investigate first)
-- **Finding (0.3.0):** with the current `Path.makeOrders`, **82 of the 325 levels imported before ice (25 %)** never reach the end tile: the walker oscillates at branches or dead ends (e.g. `U7 D7 U7 D7…`) until `PATH_MAX_SEARCHES`. Examples: levels 22, 23, 25, 34, 36, 38… and the pending ice levels 46 and 47. They are listed in `test/levels/AllLevelsPaths.test.ts` (a ratchet: the test fails when one of them starts working, so the id gets removed from the list).
-- **Legacy:** `compruebadireccion` seems to keep going straight while the next tile is walkable and otherwise turn to the first walkable neighbour in a fixed order (left, right, up, down) without reversing. A quick emulation of that rule over the converted maps was inconclusive (it did not solve every level), so some detail (tile offsets, moment of the check, travel direction — see §6.1) is still unclear.
-- **Options:** (a) reproduce the legacy rule exactly once the details are known; (b) compute a real route with a pure BFS/DFS over the grid and derive the orders from it (deterministic, easy to test, but enemies would take the route the algorithm chooses at a branch).
-- **Done when:** the ratchet list is empty (or only contains genuinely invalid maps) and 46/47 can be imported.
-- **Depends on:** decision 6.1 and 6.6.
+#### [x] 0.5.0 — Path rule parity and original travel direction
+- **Problem (found in 0.3.0):** 82 of the 325 levels imported at that time never reached the end tile. The cause was twofold: the converted maps were walked in the **opposite direction** to the legacy game (it spawned enemies at `y` and the goal was `x`), and `Path` used different turning rules than the legacy `compruebadireccion`.
+- **Legacy rule (same in the editor and in the survival build):** keep going while the tile ahead is walkable; otherwise turn to the first walkable neighbour in the order **left, right, up, down**, never going back; in a **dead end** there is no direction: the enemy stops for a moment and, having no direction, can then go back. The start and end tiles are walkable.
+- **Done:**
+  - `PathDirection.getNextDirection(current, walkableNeighbours)`: pure function with the rule (`null` = dead end).
+  - `Path.makeOrders` rewritten on top of it (same public API; start tile is now walkable; the two extra orders after reaching the end are kept).
+  - **Travel direction:** the enemies start in the map symbol `x` and finish in `y`, as before, but the 333 levels that `AllLevels.ts` had were migrated: `x`↔`y` swapped in every map and `startDirection`/`endDirection` recomputed, so the route is the legacy one (`y` → `x`). `OldLevelConverter` now produces this format directly (symbols swapped, directions not flipped). Converter output on the original data and the migrated `AllLevels.ts` were cross-checked: 312 levels, 0 differences.
+  - Levels 46 and 47 imported.
+- **Result:** 303 of 335 levels reach the end tile (before: 251 of 333). The TypeScript engine and an independent Python port of the legacy rule agree on all 333 levels checked. The 32 levels that do not reach the end behave the same in the legacy game: 12 have no walkable route (e.g. 76 *ziggi*) and 20 loop, many on purpose (*noend*, *endless*, *funloop*, *Can't lose*). They are listed in the ratchet in `test/levels/AllLevelsPaths.test.ts`.
+- **Tests (no mocks):** `PathDirection` (22, the rule as a table), `PathLegacyRules` (junction priority, dead-end turn back, loops, walkable start tile, on small hand-made maps), `AllLevelsPaths`, and `AllLevelsStartEnd` (the start tile is on an edge and enemies enter the map, the end tile is on an edge and they leave it; 7 early hand-made levels are excluded: 7, 18, 20, 21, 23, 24, 25). Mutating the priority order, the walkable start tile or the dead-end turn makes dozens of tests fail.
+- **Known differences with the legacy game (left out on purpose):**
+  - In a dead end the legacy enemy waits one tile worth of time before turning back; here it turns back at once.
+  - On the 32 unreachable levels the legacy enemies circulated forever; here they follow `PATH_MAX_SEARCHES` (1000) orders and then count as having reached the goal.
 
 #### [ ] Level lifecycle: game over, retry, exit to menu (M)
 - **Why first:** today `STATE_PLAY_SURVIVAL_GAME_OVER` is set but `index.ts` has no case for it, so the screen freezes. Also `Game.loadLevel` calls `Wallet.getInstance(...)`, which returns the existing wallet and ignores the new level's money, and `Player` (lives, wave, score) and several statics (`Enemy.allowCreateEnemies/waveEnemies/createEnemyTime`, `Missile`, `Explosion*`, `FlyIndicator`, `Path.orders`) are never reset. Retry and "back to menu" are impossible until this is fixed.
@@ -94,13 +102,13 @@ Numbers above were computed before 0.3.0. Imported so far from the ice group: 28
 
 Each iteration in this phase follows the same recipe: new symbol in `constants/tile.ts` and `Config.availableTiles` → tile class + creator → `Path`/`PathMovement` support → converter (`OldLevelConverter`) accepts it → import the newly unlocked levels in a batch → tests with a fixture level → editor tool is added later in the editor's special-tile tools step.
 
-> **Step 0 for the first directional tile, jumpers (decision, see §6.1):** the legacy game spawned enemies at `y` and they ended at `x`; the current game spawns at `x` and the converter flips the direction codes but keeps the symbols. Jumpers, teleports and ice are directional/order-dependent, so decide this before importing anything and add a test that the converted path order matches the legacy one.
+> Directional tiles (jumpers, teleports) now rely on the legacy travel direction fixed in 0.5.0: enemies walk like in the legacy game.
 
-#### [x] 0.3.0 — Ice path `s` (S) — unlocks 221 levels (8 imported so far)
+#### [x] 0.3.0 — Ice path `s` (S) — unlocks 221 levels (10 imported so far)
 - **Legacy:** tile painted as a translucent teal square (`rgba(0,158,158,120)`, no sprite). Enemy speed ×2 on ice (boss too). Magics keep a fixed speed.
 - **Done:** `TileIce` (extends `TilePath`, so it is walkable and drawn by `TilesManager`), created by `TilePathCreator` for symbol `s`; `Path` records one speed factor per order (the factor of the tile being left) in `Path.speedFactors`; `PathMovement` takes optional `speedFactors` and exposes `currentSpeed`; `EnemySystem` passes `Path.speedFactors` (magics do not, so they ignore ice); `s` added to `Config.availableTiles`; `ENEMY_ICE_SPEED_FACTOR = 2`.
 - **Tests (no mocks):** `PathMovementSpeedFactors`, `PathSpeedFactors`, `TileIce`, `OldLevelConverterIce`, and `AllLevelsPaths` (unique ids, sorted, reachable end with a known-issues ratchet).
-- **Imported levels:** 28, 40, 41, 42, 43, 44, 45, 48. Levels 46 and 47 wait for the path algorithm iteration. The remaining ice-only levels can be imported with the existing converter once the path algorithm is fixed.
+- **Imported levels:** 28 and 40–48. The remaining ice-only levels can be imported with the existing converter with the existing converter.
 
 #### [ ] Crystals `c` (M) — +370 levels (591 total)
 - **Legacy:** a crystal is a static target with 500 HP placed on a tile. Only **laser (green) towers** target it; the missile-tower targeting loop excludes crystals. Destroying it pays `floor(500/5) − 25 = 75` money (and the same score), plays a break sound + crystal particles, and the tile becomes `0` (buildable). Until then it is neither path nor buildable. Enemies stepping on a blocked tile are flagged as `errorbloqueado`.
@@ -176,13 +184,13 @@ Mobile/touch controls (right-click sell has no touch equivalent) · tower target
 
 ## 6. Decisions needed
 
-1. **Travel direction of converted levels.** Legacy: enemies spawn at `y`, goal is `x`. Current: enemies spawn at `x`, and `OldLevelConverter` swaps `1↔2` and `3↔4` but keeps the symbols, so converted levels appear to run reversed. Fine for symmetric maps, wrong for jumpers/teleports. Options: swap `x`/`y` in the converter, or keep the maps and reverse the tile semantics. *(Please confirm what you intended.)*
+1. ~~Travel direction of converted levels~~ — **resolved in 0.5.0**: enemies walk from the legacy `y` to the legacy `x`.
 2. **Balance.** Costs and sell values match the legacy game; damage, range and rewards do not (Appendix B). Keep the new values or restore the old ones?
 3. **Backend.** The legacy game loaded levels, scores and "award money" from a PHP server. Static-only with `localStorage` (proposed) or a service later?
 4. **Assets.** Missing sprites/sounds must come from your old project (Appendix C). Until then I can draw placeholders with p5 primitives, as the legacy ice tile did.
 5. **Editor look.** Recreate the legacy two-panel bar (`panel_editorv2_p1/p2`) or build a new one with the current HUD button style?
 
-6. **Route at branches.** Reproduce the legacy turning rule exactly or compute a real route (see Path algorithm)? The second option is simpler to test but may change how enemies move on levels with several possible ways.
+6. ~~Route at branches~~ — **resolved in 0.5.0**: the legacy turning rule is reproduced exactly.
 
 ---
 

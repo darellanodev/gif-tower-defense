@@ -16,7 +16,7 @@ export class OldLevelConverter {
       id: this.#extractId(),
       title: this.#extractTitle(),
       comments: '',
-      rowsmap: this.#extractRowsmap(),
+      rowsmap: this.#swapStartAndEndSymbols(this.#extractRowsmap()),
       money: this.#extractMoney(),
       startDirection: this.#extractStartDirection(),
       endDirection: this.#extractEndDirection(),
@@ -44,7 +44,7 @@ export class OldLevelConverter {
     return levelmap.split(',')
   }
   get #rowsmapText() {
-    const rows = this.#extractRowsmap()
+    const rows = this.rowsmap
     return `
         '${rows[0]}',
         '${rows[1]}',
@@ -58,6 +58,16 @@ export class OldLevelConverter {
         '${rows[9]}',
     `
   }
+  // In the legacy game the enemies started in the 'y' tile and finished in the 'x' tile. In this game they start
+  // in the 'x' tile and finish in the 'y' tile, so the symbols are swapped to keep the same route
+  #swapStartAndEndSymbols(rows: string[]) {
+    return rows.map((row) =>
+      row
+        .split('')
+        .map((char) => (char === 'x' ? 'y' : char === 'y' ? 'x' : char))
+        .join(''),
+    )
+  }
   #getMapData() {
     const datamap = this.#getMapParts()[1].trim()
     return datamap.split(',')
@@ -66,14 +76,16 @@ export class OldLevelConverter {
     const datamapParts = this.#getMapData()
     return Number.parseInt(datamapParts[4])
   }
+  // the new start tile is the legacy gateway ('y'), the second number of the legacy data
   #extractStartDirection() {
     const datamapParts = this.#getMapData()
-    return Number.parseInt(datamapParts[0])
+    return Number.parseInt(datamapParts[1])
   }
 
+  // the new end tile is the legacy goal ('x'), the first number of the legacy data
   #extractEndDirection() {
     const datamapParts = this.#getMapData()
-    return Number.parseInt(datamapParts[1])
+    return Number.parseInt(datamapParts[0])
   }
 
   get author() {
@@ -103,10 +115,10 @@ export class OldLevelConverter {
   }
   #directionToText(direction: number): string {
     const directionMap = {
-      1: 'DIRECTION.RIGHT',
-      2: 'DIRECTION.LEFT',
-      3: 'DIRECTION.DOWN',
-      4: 'DIRECTION.UP',
+      1: 'DIRECTION.LEFT',
+      2: 'DIRECTION.RIGHT',
+      3: 'DIRECTION.UP',
+      4: 'DIRECTION.DOWN',
     }
     return (
       (directionMap as Record<number, string>)[direction] || 'DIRECTION.LEFT'

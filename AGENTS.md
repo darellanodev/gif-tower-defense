@@ -108,6 +108,10 @@ Creators follow: `TowerGreenCreator`, `MagicFireballCreator`, `TileOrangeCreator
 
 Symbols: `x`=start, `y`=end, `0`=buildable (orange), `1`=path, `2`=blocked (black), `s`=ice path (walkable, enemies move at ×2 speed leaving it)
 
+`x` is where the enemies enter and `y` where they leave. The legacy game was the other way round (it spawned enemies at `y`), so `OldLevelConverter` swaps both symbols and uses the legacy directions as they are: `startDirection` is the direction in which the enemies enter the map through `x`, `endDirection` the one in which they leave through `y`.
+
+Enemies follow the legacy turning rule (`src/levels/path/PathDirection.ts`): straight while possible, otherwise the first walkable neighbour in the order left, right, up, down without going back; in a dead end they turn back.
+
 ---
 
 ## Testing (Vitest)
@@ -144,7 +148,7 @@ The plan to port the legacy game (processing.js, 2012) lives in [`ROADMAP.md`](.
 - `STATE_PLAY_SURVIVAL_GAME_OVER` is set but never drawn (`src/index.ts` has no case for it).
 - `Wallet`, `Player` and several static counters are not reset by `Game.loadLevel`.
 - Supported tile symbols are `0 1 2 x y s` (`Config.availableTiles`); the remaining legacy levels need `c 5 6 7 p q`.
-- `Path.makeOrders` does not reach the end tile in 82 of the imported levels (loops at branches). They are listed in `test/levels/AllLevelsPaths.test.ts`; never import a level that is not reachable.
+- 32 imported levels never reach the end tile, exactly as in the legacy game (no route, or intentional loops). They are listed in `test/levels/AllLevelsPaths.test.ts`; do not import a new level that does not reach the end unless it is a known case.
 - `Config.gameMode` is committed as `MODE.TESTING`.
 - No sound, no editor (the *Editor* and *Today's* menu buttons are disabled).
 
