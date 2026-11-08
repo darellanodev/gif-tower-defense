@@ -13,11 +13,13 @@ import { MapDataType } from '../types/mapDataType'
 import { TextProperties } from '../hud/TextProperties'
 import { P5 } from '../utils/P5'
 import { TileBlackCreator } from '../levels/tiles/creators/TileBlackCreator'
+import { TileCrystalCreator } from '../levels/tiles/creators/TileCrystalCreator'
 import { MINIMAP_SCALE, MINIMAP_TEXT } from '../constants/button'
 
 export class MiniMap {
   #tilesManager: TilesManager
   #tileBlackCreator: TileBlackCreator
+  #tileCrystalCreator: TileCrystalCreator
   #tileOrangeCreator: TileOrangeCreator
   #tileStartCreator: TileStartCreator
   #tileEndCreator: TileEndCreator
@@ -86,6 +88,11 @@ export class MiniMap {
     this.#tilePathCreator = TilePathCreator.getInstance()
     this.#tilePathCreator.setLevelMap(levelMap)
     this.#tilePathCreator.create(this.#tilesManager)
+
+    // create crystals
+    this.#tileCrystalCreator = TileCrystalCreator.getInstance(Images.tileImages)
+    this.#tileCrystalCreator.setLevelMap(levelMap)
+    this.#tileCrystalCreator.create(this.#tilesManager)
 
     this.#textProperties = new TextProperties()
   }

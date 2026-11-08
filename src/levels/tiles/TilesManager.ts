@@ -1,4 +1,5 @@
 import { TileBlack } from './TileBlack'
+import { TileCrystal } from './TileCrystal'
 import { TileEnd } from './TileEnd'
 import { TileIce } from './TileIce'
 import { TileOrange } from './TileOrange'
@@ -10,6 +11,7 @@ export class TilesManager {
   #tilesOrange: TileOrange[] = []
   #tilesPath: TilePath[] = []
   #tilesIce: TileIce[] = []
+  #crystals: TileCrystal[] = []
   #tileStart: TileStart | null = null
   #tileEnd: TileEnd | null = null
 
@@ -25,6 +27,10 @@ export class TilesManager {
 
   get getAllIceTiles() {
     return this.#tilesIce
+  }
+
+  get getAllCrystals() {
+    return this.#crystals
   }
 
   get tileStart(): TileStart | null {
@@ -50,6 +56,14 @@ export class TilesManager {
     this.#tilesPath.push(instance)
   }
 
+  addCrystal(instance: TileCrystal) {
+    this.#crystals.push(instance)
+  }
+
+  removeCrystal(instance: TileCrystal) {
+    this.#crystals = this.#crystals.filter((crystal) => crystal !== instance)
+  }
+
   set tileStart(tileStart: TileStart) {
     this.#tileStart = tileStart
   }
@@ -73,6 +87,9 @@ export class TilesManager {
     })
     this.#tilesBlack.forEach((tileBlack) => {
       tileBlack.drawTile(scale, startOffsetX, startOffsetY)
+    })
+    this.#crystals.forEach((crystal) => {
+      crystal.drawTile(scale, startOffsetX, startOffsetY)
     })
   }
 }

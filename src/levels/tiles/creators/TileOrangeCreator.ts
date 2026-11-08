@@ -8,6 +8,7 @@ import { TilesManager } from '../TilesManager'
 import { TileCreator } from './TileCreator'
 import { TestFlags } from '../../../../test/flags'
 import { TILE_SYMBOL } from '../../../constants/tile'
+import { Position } from '../../../types/position'
 
 export class TileOrangeCreator extends TileCreator {
   static #instance: TileOrangeCreator | null = null
@@ -79,6 +80,11 @@ export class TileOrangeCreator extends TileCreator {
         this.#towerYellowCreator,
       ),
     )
+  }
+
+  // creates an orange tile out of the map reading, for example when a crystal is destroyed
+  createAt(tilesManager: TilesManager, position: Position) {
+    this.#instanceOrangeTile(tilesManager, position.x, position.y)
   }
 
   processRow(tilesManager: TilesManager, rowSymbols: string, row: number) {

@@ -18,6 +18,7 @@ Status legend: `[x]` done · `[ ]` pending.
 - [x] **0.3.0** — Ice path tile `s` (+ 8 imported levels, path speed factors, level import safety net).
 - [x] **0.4.0** — Game speed toggle (key `S`: ×1 → ×2 → ×4).
 - [x] **0.5.0** — Path rule parity with the legacy game + original travel direction (levels migrated, converter updated, levels 46 and 47 imported).
+- [x] **0.6.0** — Crystals `c` (+ tower damage and missile recharge moved from `draw()` to `update()`, 10 crystal levels imported).
 
 ---
 
@@ -35,7 +36,7 @@ Status legend: `[x]` done · `[ ]` pending.
 | Exit to menu from a running level | **Missing** | Level lifecycle |
 | Speed toggle (key `S`) | **Done** (0.4.0; keyboard only, HUD button needs `speed.png`) | HUD button |
 | Ice path tile `s` | **Done** (0.3.0) | — |
-| Crystal tile `c` | Missing (assets `img/tiles/crystal.png` already present) | Crystals |
+| Crystal tile `c` | **Done** (0.6.0; no particles or sound yet) | — |
 | Jumper tiles `5` `6` `7` | Missing (assets `jumper1-3.png` already present) | Jumpers |
 | Teleport tiles `p` `q` | Missing (assets needed) | Teleports |
 | ~1560 old levels | Blocked by the four tiles above | Ice (done), crystals, jumpers, teleports, bulk import |
@@ -62,7 +63,7 @@ Status legend: `[x]` done · `[ ]` pending.
 
 So: ice is the cheapest warm-up, crystals the biggest single unlock, and teleports are needed to reach 100 %.
 
-Numbers above were computed before 0.3.0. Imported so far from the ice group: 28 and 40–48 (10 levels).
+Numbers above were computed before 0.3.0. Imported so far: 10 ice levels (28 and 40–48) and 10 crystal levels (478, 491, 630, 647, 651, 741, 761, 762, 831, 904).
 
 ---
 
@@ -96,6 +97,7 @@ Numbers above were computed before 0.3.0. Imported so far from the ice group: 28
 - **Done:** `GameSpeed` (pure class: speeds list `GAME_SPEEDS = [1, 2, 4]`, `next()`, `reset()`, `runUpdates()`); `Game.updateFrame()` runs N `update()` per `draw()` and stops as soon as the game is not playing; key `S` in `Controls`; label `speed x2 (S)` under the pause button (`GAME_SPEED_INDICATOR_POSITION`, placed blind: adjust if it overlaps the HUD art); the speed is reset to ×1 when a level loads.
 - **Fixes needed to make speed safe:** tower logic (`updateTower`) lived in `TowerSystem.draw()` and now runs in `TowerSystem.update()` (side effect: towers no longer keep upgrading/shooting while paused); `Missile.updateInstances` skips dead missiles (before, a missile that had already hit could hit again if two updates ran before it was removed: triple damage in the regression test).
 - **Left out:** HUD button (needs `speed.png`), a ×10 speed like the legacy one (add it to `GAME_SPEEDS`). Explosions, fly indicators and enemy eye animations are cosmetic and keep their normal pace.
+- **Gap found and fixed in 0.6.0:** the damage of the green tower (`addDamage` in `draw()`) and the missile recharge of the red tower (also in `draw()`) were still tied to the frames drawn, so at ×2/×4 the towers did not speed up with the rest of the game. Both now run in `update()`.
 - **Rule for future code:** anything that depends on time must live in `update()`, never in `draw()`, or it will not follow the game speed.
 
 ### Phase 2 — Special tiles (unlock the legacy levels)
@@ -110,10 +112,18 @@ Each iteration in this phase follows the same recipe: new symbol in `constants/t
 - **Tests (no mocks):** `PathMovementSpeedFactors`, `PathSpeedFactors`, `TileIce`, `OldLevelConverterIce`, and `AllLevelsPaths` (unique ids, sorted, reachable end with a known-issues ratchet).
 - **Imported levels:** 28 and 40–48. The remaining ice-only levels can be imported with the existing converter with the existing converter.
 
-#### [ ] Crystals `c` (M) — +370 levels (591 total)
-- **Legacy:** a crystal is a static target with 500 HP placed on a tile. Only **laser (green) towers** target it; the missile-tower targeting loop excludes crystals. Destroying it pays `floor(500/5) − 25 = 75` money (and the same score), plays a break sound + crystal particles, and the tile becomes `0` (buildable). Until then it is neither path nor buildable. Enemies stepping on a blocked tile are flagged as `errorbloqueado`.
-- **Tasks:** introduce a common *target* abstraction (enemy | crystal) for `TowerGreen`; `TileCrystal` → `Crystal` entity with health bar; replace tile with orange on death; particles.
-- **Assets:** `img/tiles/crystal.png` (present), `particlecrystal.png` (optional).
+#### [x] 0.6.0 — Crystals `c` — +359 reachable levels convertible (10 imported)
+- **Legacy:** a crystal is a fixed target with 500 HP on a tile. Only **laser (green) towers** shoot it, and only when there is **no enemy** in range (enemies have priority); missile towers ignore it. While it exists the tile is neither path nor buildable. Destroying it pays `floor(500/5) − 25 = 75` money and the same score, and the tile becomes `0` (buildable).
+- **Done:**
+  - `TileCrystal` (position, health bar shown when damaged, `addDamage`, `isDead`, `reward`/`score`) and `TileCrystalCreator` for symbol `c` (image index 10 of `Resources.tileImages`); `TilesManager` keeps the crystals and draws them (also in the mini-maps).
+  - `TowerGreen.selectTarget(enemies, crystals)`: enemy first, nearest crystal otherwise (`crystalTarget`); the other towers ignore the crystals. `TowerSystem` passes `TilesManager.getAllCrystals`.
+  - `CrystalSystem.update()` (called by `Game.update`): pays the reward, removes the crystal and creates an orange tile in its place (`TileOrangeCreator.createAt`).
+  - `c` added to `Config.availableTiles`. Crystals block the path automatically (they are not path tiles).
+  - **Time in `update()`:** `TowerGreen.update` applies the damage and `TowerRed.update` creates the missiles (before they were in `draw()`).
+- **Health units:** `CRYSTAL.MAX_HEALTH = 500` is in damage units (a level-1 green tower needs 500 updates). Enemy health works differently (`progress += damage / maxHealth`, from 0 to 100), see the balance item.
+- **Tests (no mocks):** `TileCrystal`, `TileCrystalCreator` (+ crystals and the path), `CrystalSystem`, `TowerGreenCrystals`, `TowerRedUpdate`, and `TowerSystemCrystals` (a whole flow with real objects: green tower → crystal destroyed → reward → buildable tile). Mutating the enemy priority, the upgrading check, the reward, the orange tile or the `TowerSystem` wiring makes tests fail.
+- **Imported levels:** 478, 491, 630, 647, 651, 741, 761, 762, 831, 904 (the converter only takes "the first N", so these were selected from a full dry run among the ones that reach the end).
+- **Left out:** particles and sound when it breaks (assets `particlecrystal.png`, sound id 12), a fly indicator with the reward, forcing a target (see Controls parity).
 
 #### [ ] Jumpers `5` `6` `7` (M) — +350 levels (941 total)
 - **Legacy:** stepping on `5/6/7` makes the enemy jump straight over **2/3/4 tiles** at speed 5 (magic projectiles 25). While jumping it is skipped by **laser** towers (the legacy missile-tower code has no such check) and is drawn above towers (`redibujado`). Sound id 5.
@@ -170,6 +180,7 @@ Legacy editor (`juego_editor2_min.pde`): 16×10 grid, two tool panels (toggle wi
 - Soul particles (`alma_capturada` rises when an enemy dies, `alma_libre` when it reaches the goal), loading screen with progress bar, final "happy" banner if a win condition is ever defined.
 
 ### Housekeeping (can piggy-back on any iteration)
+- `OldLevelConverter` does not validate the map: in a full dry run, 12 convertible old levels have no `x` or no `y`, or do not have 10 rows (ids 69, 70, 71, 239, 503, 533, 665, 816, 1224, 1544 and 2 more); they would break the game when loaded. Make `canBeConverted` reject them, and reject unreachable maps unless they are intentional.
 - `Config.gameMode` is committed as `MODE.TESTING` (debug labels + testing money). Drive it from `import.meta.env.DEV` so production builds use `NORMAL`.
 - `README.md` still says Jest and Parcel; the project uses Vitest and Vite. `package.json` has an empty `description`.
 - `sortlevels` (`src/sortLevels.ts`) writes `startDirection`/`endDirection` as numbers instead of `DIRECTION.X` and reformats the whole file, so its output cannot replace `AllLevels.ts` without a huge diff. In 0.3.0 the new levels were inserted in id order by hand. Make it emit `DIRECTION.X` and the same formatting.

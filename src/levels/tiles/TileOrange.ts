@@ -2,6 +2,7 @@ import { TowerType, TowerId } from '../../types/towerType'
 import { Position } from '../../types/position'
 import { Image } from 'p5'
 import { Enemy } from '../../enemies/Enemy'
+import { TileCrystal } from './TileCrystal'
 import { TILE_SIZE } from '../../constants/tile'
 import { P5 } from '../../utils/P5'
 import { Obj } from '../../Obj'
@@ -85,7 +86,7 @@ export class TileOrange extends Obj {
     }
   }
 
-  selectTarget(enemies: Enemy[]) {
+  selectTarget(enemies: Enemy[], crystals: TileCrystal[] = []) {
     if (!this.#tower) {
       return
     }
@@ -93,7 +94,7 @@ export class TileOrange extends Obj {
       this.#selectAllExplosionsTarget()
       return
     }
-    this.#tower.selectTarget(enemies)
+    this.#tower.selectTarget(enemies, crystals)
   }
 
   isPositionInside(mouse_x: number, mouse_y: number) {

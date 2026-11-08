@@ -19,6 +19,7 @@ import { HudSystem } from './hud/HudSystem'
 import { ExplosionEnemy } from './particles/explosions/ExplosionEnemy'
 import { Enemy } from './enemies/Enemy'
 import { TileSystem } from './levels/tiles/TileSystem'
+import { CrystalSystem } from './levels/tiles/CrystalSystem'
 import { MagicSystem } from './magics/MagicSystem'
 import { TowerSystem } from './towers/TowerSystem'
 import { COLOR } from './constants/color'
@@ -34,6 +35,7 @@ export class Game {
   #enemySystem!: EnemySystem
   #hudSystem!: HudSystem
   #tileSystem!: TileSystem
+  #crystalSystem!: CrystalSystem
   #magicSystem!: MagicSystem
   #towerSystem!: TowerSystem
   #player: Player
@@ -87,6 +89,7 @@ export class Game {
       !this.#enemySystem ||
       !this.#hudSystem ||
       !this.#tileSystem ||
+      !this.#crystalSystem ||
       !this.#magicSystem ||
       !this.#towerSystem
     )
@@ -134,6 +137,15 @@ export class Game {
     this.#tileSystem = new TileSystem(this.#player, this.#tilesManager)
   }
 
+  #initializeCrystalSystem() {
+    this.#crystalSystem = new CrystalSystem(
+      this.#tilesManager,
+      this.#tileSystem.tileOrangeCreator,
+      this.#wallet!,
+      this.#player,
+    )
+  }
+
   #initializeTowerSystem() {
     this.#towerSystem = new TowerSystem(this.#tilesManager, this.#enemySystem)
   }
@@ -161,6 +173,7 @@ export class Game {
     this.#initializeMagicSystem()
     this.#initializeHudSystem()
     this.#initializeTileSystem()
+    this.#initializeCrystalSystem()
     this.#initializeTowerSystem()
   }
 
@@ -273,6 +286,7 @@ export class Game {
 
     this.#towerSystem!.updateTowersEnemyTarget()
     this.#towerSystem!.update()
+    this.#crystalSystem!.update()
   }
 
   // one frame of the game: the updates depend on the game speed (S key)

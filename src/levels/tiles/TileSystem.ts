@@ -3,6 +3,7 @@ import { TileStartCreator } from './creators/TileStartCreator'
 import { TileEndCreator } from './creators/TileEndCreator'
 import { TilePathCreator } from './creators/TilePathCreator'
 import { TileBlackCreator } from './creators/TileBlackCreator'
+import { TileCrystalCreator } from './creators/TileCrystalCreator'
 import { Images } from '../../resources/Images'
 import { Player } from '../../player/Player'
 import { TowerGreenCreator } from '../../towers/creators/TowerGreenCreator'
@@ -14,6 +15,7 @@ import { MapDataType } from '../../types/mapDataType'
 export class TileSystem {
   #tileBlackCreator: TileBlackCreator
   #tileOrangeCreator: TileOrangeCreator
+  #tileCrystalCreator: TileCrystalCreator
   #tilePathCreator: TilePathCreator | null = null
   #tileStartCreator: TileStartCreator | null = null
   #tileEndCreator: TileEndCreator | null = null
@@ -42,7 +44,15 @@ export class TileSystem {
       towerRedCreator,
       towerYellowCreator,
     )
+
+    // create crystals
+    this.#tileCrystalCreator = TileCrystalCreator.getInstance(Images.tileImages)
   }
+
+  get tileOrangeCreator() {
+    return this.#tileOrangeCreator
+  }
+
   createTiles(levelMap: MapDataType) {
     //create start tile
     this.#tileStartCreator = TileStartCreator.getInstance(Images.tileImages)
@@ -66,5 +76,8 @@ export class TileSystem {
 
     this.#tileOrangeCreator.setLevelMap(levelMap)
     this.#tileOrangeCreator.create(this.#tilesManager)
+
+    this.#tileCrystalCreator.setLevelMap(levelMap)
+    this.#tileCrystalCreator.create(this.#tilesManager)
   }
 }

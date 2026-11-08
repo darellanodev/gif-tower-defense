@@ -58,8 +58,6 @@ export class TowerRed extends Tower {
       this.position.y + 30,
     )
 
-    this.#createMissileWhenCharged(this.enemyTarget)
-
     P5.p5.image(this.#images[this.upgradeLevel], 0, 0)
 
     P5.p5.resetMatrix()
@@ -106,6 +104,15 @@ export class TowerRed extends Tower {
       return
     }
     this.#drawWhenNoEnemyTarget()
+  }
+
+  // the missiles are created on every update (not on every draw), so the recharge follows the game speed
+  update() {
+    super.update()
+    if (this.isUpgrading || !this.enemyTarget) {
+      return
+    }
+    this.#createMissileWhenCharged(this.enemyTarget)
   }
 
   get influenceArea() {

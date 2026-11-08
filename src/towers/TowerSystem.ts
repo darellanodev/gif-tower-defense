@@ -14,7 +14,10 @@ export class TowerSystem {
       if (this.#enemySystem === null) {
         throw new Error('enemySystem is null')
       }
-      orangeTile.selectTarget(this.#enemySystem.enemyInstancesManager.getAll())
+      orangeTile.selectTarget(
+        this.#enemySystem.enemyInstancesManager.getAll(),
+        this.#tilesManager.getAllCrystals,
+      )
     })
   }
 

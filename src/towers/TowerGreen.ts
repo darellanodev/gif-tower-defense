@@ -5,6 +5,7 @@ import { Tower } from './Tower'
 import { P5 } from '../utils/P5'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { Enemy } from '../enemies/Enemy'
+import { TileCrystal } from '../levels/tiles/TileCrystal'
 import {
   TOWER_GREEN_UPGRADE,
   TOWER_ID,
@@ -15,6 +16,8 @@ import {
 
 export class TowerGreen extends Tower {
   #images: Image[]
+  // the crystals are only shot when there is no enemy in the influence area
+  crystalTarget: TileCrystal | null = null
 
   constructor(position: Position, tileOrange: TileOrange, images: Image[]) {
     super(position, tileOrange)
@@ -39,18 +42,23 @@ export class TowerGreen extends Tower {
     }
   }
 
-  #getAngle(enemyTarget: Enemy) {
-    const r_dx = enemyTarget.position.x - this.position.x
-    const r_dy = enemyTarget.position.y - this.position.y
+  get #target(): Enemy | TileCrystal | null {
+    return this.enemyTarget ?? this.crystalTarget
+  }
+
+  #getAngle(target: Enemy | TileCrystal) {
+    const r_dx = target.position.x - this.position.x
+    const r_dy = target.position.y - this.position.y
     return Math.atan2(r_dy, r_dx) + 1.55
   }
 
-  #drawWhenEnemyTarget() {
-    if (!this.enemyTarget) {
+  #drawWhenTarget() {
+    const target = this.#target
+    if (!target) {
       return
     }
 
-    const angle = this.#getAngle(this.enemyTarget)
+    const angle = this.#getAngle(target)
     const cos_a = P5.p5.cos(angle)
     const sin_a = P5.p5.sin(angle)
 
@@ -65,7 +73,6 @@ export class TowerGreen extends Tower {
     )
 
     this.#drawShotToEnemy()
-    this.enemyTarget.addDamage(TOWER_GREEN_UPGRADE.DAMAGE[this.upgradeLevel])
     P5.p5.image(this.#images[this.upgradeLevel], 0, 0)
 
     P5.p5.resetMatrix()
@@ -85,11 +92,52 @@ export class TowerGreen extends Tower {
       this.#drawUpgrading()
       return
     }
-    if (this.enemyTarget) {
-      this.#drawWhenEnemyTarget()
+    if (this.#target) {
+      this.#drawWhenTarget()
       return
     }
     this.#drawWhenNoEnemyTarget()
+  }
+
+  // the damage is applied on every update (not on every draw), so it follows the game speed
+  update() {
+    super.update()
+    if (this.isUpgrading) {
+      return
+    }
+    this.#target?.addDamage(TOWER_GREEN_UPGRADE.DAMAGE[this.upgradeLevel])
+  }
+
+  selectTarget(enemies: Enemy[], crystals: TileCrystal[] = []) {
+    super.selectTarget(enemies)
+    if (this.enemyTarget) {
+      this.crystalTarget = null
+      return
+    }
+    this.#selectCrystalTarget(crystals)
+  }
+
+  #selectCrystalTarget(crystals: TileCrystal[]) {
+    let minDistance = 99999
+    let crystalTarget: TileCrystal | null = null
+
+    for (const crystal of crystals) {
+      if (crystal.isDead) {
+        continue
+      }
+      const distance = this._distance.calculate(this.position, crystal.position)
+      if (distance < minDistance) {
+        minDistance = distance
+        crystalTarget = crystal
+      }
+    }
+
+    if (crystalTarget && this.isDistanceIntoInfluenceArea(minDistance)) {
+      this.crystalTarget = crystalTarget
+      this.distanceToEnemyTarget = minDistance
+      return
+    }
+    this.crystalTarget = null
   }
 
   get influenceArea() {

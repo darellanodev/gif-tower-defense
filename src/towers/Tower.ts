@@ -3,6 +3,7 @@ import { RGBType } from '../types/rgb'
 import { TILE_SIZE } from '../constants/tile'
 import { ProgressBar } from '../hud/progressbar/ProgressBar'
 import { Enemy } from '../enemies/Enemy'
+import { TileCrystal } from '../levels/tiles/TileCrystal'
 import { P5 } from '../utils/P5'
 import { TileOrange } from '../levels/tiles/TileOrange'
 import { Obj } from '../Obj'
@@ -95,7 +96,8 @@ export class Tower extends Obj {
     )
   }
 
-  selectTarget(enemies: Enemy[]) {
+  // the crystals are ignored by default: only the green towers shoot them
+  selectTarget(enemies: Enemy[], _crystals: TileCrystal[] = []) {
     let minDistance = 99999
     let enemyTarget = null
 
