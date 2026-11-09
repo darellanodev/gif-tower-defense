@@ -1,5 +1,6 @@
 import { TileBlack } from './TileBlack'
 import { TileCrystal } from './TileCrystal'
+import { TileJumper } from './TileJumper'
 import { TileEnd } from './TileEnd'
 import { TileIce } from './TileIce'
 import { TileOrange } from './TileOrange'
@@ -12,6 +13,7 @@ export class TilesManager {
   #tilesPath: TilePath[] = []
   #tilesIce: TileIce[] = []
   #crystals: TileCrystal[] = []
+  #tilesJumper: TileJumper[] = []
   #tileStart: TileStart | null = null
   #tileEnd: TileEnd | null = null
 
@@ -27,6 +29,10 @@ export class TilesManager {
 
   get getAllIceTiles() {
     return this.#tilesIce
+  }
+
+  get getAllJumperTiles() {
+    return this.#tilesJumper
   }
 
   get getAllCrystals() {
@@ -53,6 +59,12 @@ export class TilesManager {
   // ice tiles are also path tiles: enemies walk over them
   addIceTile(instance: TileIce) {
     this.#tilesIce.push(instance)
+    this.#tilesPath.push(instance)
+  }
+
+  // jumper tiles are also path tiles: enemies walk over them
+  addJumperTile(instance: TileJumper) {
+    this.#tilesJumper.push(instance)
     this.#tilesPath.push(instance)
   }
 
@@ -90,6 +102,9 @@ export class TilesManager {
     })
     this.#crystals.forEach((crystal) => {
       crystal.drawTile(scale, startOffsetX, startOffsetY)
+    })
+    this.#tilesJumper.forEach((tileJumper) => {
+      tileJumper.drawTile(scale, startOffsetX, startOffsetY)
     })
   }
 }

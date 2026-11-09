@@ -4,6 +4,7 @@ import { TileEndCreator } from './creators/TileEndCreator'
 import { TilePathCreator } from './creators/TilePathCreator'
 import { TileBlackCreator } from './creators/TileBlackCreator'
 import { TileCrystalCreator } from './creators/TileCrystalCreator'
+import { TileJumperCreator } from './creators/TileJumperCreator'
 import { Images } from '../../resources/Images'
 import { Player } from '../../player/Player'
 import { TowerGreenCreator } from '../../towers/creators/TowerGreenCreator'
@@ -16,6 +17,7 @@ export class TileSystem {
   #tileBlackCreator: TileBlackCreator
   #tileOrangeCreator: TileOrangeCreator
   #tileCrystalCreator: TileCrystalCreator
+  #tileJumperCreator: TileJumperCreator
   #tilePathCreator: TilePathCreator | null = null
   #tileStartCreator: TileStartCreator | null = null
   #tileEndCreator: TileEndCreator | null = null
@@ -47,6 +49,9 @@ export class TileSystem {
 
     // create crystals
     this.#tileCrystalCreator = TileCrystalCreator.getInstance(Images.tileImages)
+
+    // create jumpers
+    this.#tileJumperCreator = TileJumperCreator.getInstance(Images.tileImages)
   }
 
   get tileOrangeCreator() {
@@ -79,5 +84,8 @@ export class TileSystem {
 
     this.#tileCrystalCreator.setLevelMap(levelMap)
     this.#tileCrystalCreator.create(this.#tilesManager)
+
+    this.#tileJumperCreator.setLevelMap(levelMap)
+    this.#tileJumperCreator.create(this.#tilesManager)
   }
 }

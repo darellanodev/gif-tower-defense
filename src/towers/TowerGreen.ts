@@ -109,7 +109,8 @@ export class TowerGreen extends Tower {
   }
 
   selectTarget(enemies: Enemy[], crystals: TileCrystal[] = []) {
-    super.selectTarget(enemies)
+    // the laser can not shoot the enemies that are in the air (the missiles can)
+    super.selectTarget(enemies.filter((enemy) => !enemy.isJumping))
     if (this.enemyTarget) {
       this.crystalTarget = null
       return

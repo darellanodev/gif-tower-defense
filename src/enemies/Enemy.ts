@@ -1,6 +1,7 @@
 import { ProgressBar } from '../hud/progressbar/ProgressBar'
 import { Position } from '../types/position'
 import { P5 } from '../utils/P5'
+import { getJumpGrowth } from './JumpGrowth'
 import { Obj } from '../Obj'
 import { EnemyAnimator } from './EnemyEyesAnimator'
 import { PathMovement } from '../levels/path/PathMovement'
@@ -78,6 +79,19 @@ export class Enemy extends Obj {
 
   get isWinner() {
     return this.#hasWon
+  }
+
+  get isJumping() {
+    return this.#pathMovement.isJumping
+  }
+
+  // pixels added to the size of the enemy while it is in the air
+  get jumpGrowth() {
+    const progress = this.#pathMovement.jumpProgress
+    if (progress === null) {
+      return 0
+    }
+    return getJumpGrowth(progress, this.#pathMovement.jumpDistance)
   }
 
   get isAbducted() {
@@ -180,12 +194,13 @@ export class Enemy extends Obj {
       return
     }
 
+    const growth = this.jumpGrowth
     P5.p5.image(
       this.#enemyAnimator.imageToDraw,
-      this.position.x + this.#shrinkAmount / 2,
-      this.position.y,
-      this.#width - this.#shrinkAmount,
-      this.#height - this.#shrinkAmount,
+      this.position.x + this.#shrinkAmount / 2 - growth / 2,
+      this.position.y - growth / 2,
+      this.#width - this.#shrinkAmount + growth,
+      this.#height - this.#shrinkAmount + growth,
     )
 
     this.#healthBar.draw()

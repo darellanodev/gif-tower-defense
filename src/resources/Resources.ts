@@ -59,6 +59,9 @@ export class Resources {
       P5.p5.loadImage('../img/tiles/start_left.png'),
       P5.p5.loadImage('../img/tiles/start_up.png'),
       P5.p5.loadImage('../img/tiles/crystal.png'),
+      P5.p5.loadImage('../img/tiles/jumper1.png'),
+      P5.p5.loadImage('../img/tiles/jumper2.png'),
+      P5.p5.loadImage('../img/tiles/jumper3.png'),
     ]
   }
 

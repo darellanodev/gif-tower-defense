@@ -14,6 +14,7 @@ import { TileOrangeCreator } from '../../src/levels/tiles/creators/TileOrangeCre
 import { TileStartCreator } from '../../src/levels/tiles/creators/TileStartCreator'
 import { TileEndCreator } from '../../src/levels/tiles/creators/TileEndCreator'
 import { TilePathCreator } from '../../src/levels/tiles/creators/TilePathCreator'
+import { TileJumperCreator } from '../../src/levels/tiles/creators/TileJumperCreator'
 
 export const getTileOrangeCreator = () => {
   TileOrangeCreator.clearInstance()
@@ -46,6 +47,11 @@ export const getTilePathCreator = () => {
   return TilePathCreator.getInstance()
 }
 
+export const getTileJumperCreator = () => {
+  TileJumperCreator.clearInstance()
+  return TileJumperCreator.getInstance(images)
+}
+
 export const getPathFromMap = (levelMap: MapDataType) => {
   const tilesManager = new TilesManager()
 
@@ -53,6 +59,7 @@ export const getPathFromMap = (levelMap: MapDataType) => {
   const tileStartCreator = getTileStartCreator()
   const tileEndCreator = getTileEndCreator()
   const tilePathCreator = getTilePathCreator()
+  const tileJumperCreator = getTileJumperCreator()
 
   tileOrangeCreator.setLevelMap(levelMap)
   tileOrangeCreator.create(tilesManager)
@@ -62,6 +69,8 @@ export const getPathFromMap = (levelMap: MapDataType) => {
   tileEndCreator.create(tilesManager)
   tilePathCreator.setLevelMap(levelMap)
   tilePathCreator.create(tilesManager)
+  tileJumperCreator.setLevelMap(levelMap)
+  tileJumperCreator.create(tilesManager)
 
   const pathTiles = tilesManager.getAllPathTiles
   const startTile = tilesManager.tileStart

@@ -25,6 +25,6 @@ test('an old level with teleport tiles can not be converted yet', () => {
   expect(canBeConverted(oldLevelWithTeleports)).toBeFalsy()
 })
 
-test('an old level with jumper tiles can not be converted yet', () => {
-  expect(canBeConverted(oldLevelWithJumpers)).toBeFalsy()
+test('an old level with jumper tiles can be converted with the configured available tiles', () => {
+  expect(canBeConverted(oldLevelWithJumpers)).toBeTruthy()
 })

@@ -14,12 +14,14 @@ import { TextProperties } from '../hud/TextProperties'
 import { P5 } from '../utils/P5'
 import { TileBlackCreator } from '../levels/tiles/creators/TileBlackCreator'
 import { TileCrystalCreator } from '../levels/tiles/creators/TileCrystalCreator'
+import { TileJumperCreator } from '../levels/tiles/creators/TileJumperCreator'
 import { MINIMAP_SCALE, MINIMAP_TEXT } from '../constants/button'
 
 export class MiniMap {
   #tilesManager: TilesManager
   #tileBlackCreator: TileBlackCreator
   #tileCrystalCreator: TileCrystalCreator
+  #tileJumperCreator: TileJumperCreator
   #tileOrangeCreator: TileOrangeCreator
   #tileStartCreator: TileStartCreator
   #tileEndCreator: TileEndCreator
@@ -93,6 +95,11 @@ export class MiniMap {
     this.#tileCrystalCreator = TileCrystalCreator.getInstance(Images.tileImages)
     this.#tileCrystalCreator.setLevelMap(levelMap)
     this.#tileCrystalCreator.create(this.#tilesManager)
+
+    // create jumpers
+    this.#tileJumperCreator = TileJumperCreator.getInstance(Images.tileImages)
+    this.#tileJumperCreator.setLevelMap(levelMap)
+    this.#tileJumperCreator.create(this.#tilesManager)
 
     this.#textProperties = new TextProperties()
   }

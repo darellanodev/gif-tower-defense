@@ -17,6 +17,10 @@ export const ENEMY_VELOCITY = {
 // Multiplies the enemy velocity while it leaves an ice tile. Normal and boss velocities times this factor must still divide the tile size
 export const ENEMY_ICE_SPEED_FACTOR = 2
 
+// Absolute speed of every enemy while it jumps (the legacy game used 5, the double of a normal enemy, also for bosses).
+// It must divide the tile size
+export const ENEMY_JUMP_SPEED = 2
+
 export const ENEMY_STATUS = {
   ALIVE: 0,
   DEAD: 1,

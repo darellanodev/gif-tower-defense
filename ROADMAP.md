@@ -19,6 +19,7 @@ Status legend: `[x]` done · `[ ]` pending.
 - [x] **0.4.0** — Game speed toggle (key `S`: ×1 → ×2 → ×4).
 - [x] **0.5.0** — Path rule parity with the legacy game + original travel direction (levels migrated, converter updated, levels 46 and 47 imported).
 - [x] **0.6.0** — Crystals `c` (+ tower damage and missile recharge moved from `draw()` to `update()`, 10 crystal levels imported).
+- [x] **0.7.0** — Jumpers `5` `6` `7` (+ `Path.createMovement`, 10 jumper levels imported).
 
 ---
 
@@ -37,7 +38,7 @@ Status legend: `[x]` done · `[ ]` pending.
 | Speed toggle (key `S`) | **Done** (0.4.0; keyboard only, HUD button needs `speed.png`) | HUD button |
 | Ice path tile `s` | **Done** (0.3.0) | — |
 | Crystal tile `c` | **Done** (0.6.0; no particles or sound yet) | — |
-| Jumper tiles `5` `6` `7` | Missing (assets `jumper1-3.png` already present) | Jumpers |
+| Jumper tiles `5` `6` `7` | **Done** (0.7.0; no jump sound) | — |
 | Teleport tiles `p` `q` | Missing (assets needed) | Teleports |
 | ~1560 old levels | Blocked by the four tiles above | Ice (done), crystals, jumpers, teleports, bulk import |
 | **Level editor** | Missing (button exists, disabled) | Editor (4 steps) |
@@ -63,7 +64,7 @@ Status legend: `[x]` done · `[ ]` pending.
 
 So: ice is the cheapest warm-up, crystals the biggest single unlock, and teleports are needed to reach 100 %.
 
-Numbers above were computed before 0.3.0. Imported so far: 10 ice levels (28 and 40–48) and 10 crystal levels (478, 491, 630, 647, 651, 741, 761, 762, 831, 904).
+Numbers above were computed before 0.3.0. Imported so far: 10 ice levels (28 and 40–48) and 10 crystal levels (478, 491, 630, 647, 651, 741, 761, 762, 831, 904) and 10 jumper levels (382, 394, 400, 408, 419, 421, 423, 424, 426, 435). In a full dry run 921 old levels were convertible and 295 of the 350 with jumpers reach the end tile with the current engine.
 
 ---
 
@@ -125,10 +126,18 @@ Each iteration in this phase follows the same recipe: new symbol in `constants/t
 - **Imported levels:** 478, 491, 630, 647, 651, 741, 761, 762, 831, 904 (the converter only takes "the first N", so these were selected from a full dry run among the ones that reach the end).
 - **Left out:** particles and sound when it breaks (assets `particlecrystal.png`, sound id 12), a fly indicator with the reward, forcing a target (see Controls parity).
 
-#### [ ] Jumpers `5` `6` `7` (M) — +350 levels (941 total)
-- **Legacy:** stepping on `5/6/7` makes the enemy jump straight over **2/3/4 tiles** at speed 5 (magic projectiles 25). While jumping it is skipped by **laser** towers (the legacy missile-tower code has no such check) and is drawn above towers (`redibujado`). Sound id 5.
-- **Tasks:** extend `Path.makeOrders` to emit jump segments; `PathMovement` handles airborne state; laser targeting skips jumping enemies; draw order.
-- **Assets:** `img/tiles/jumper1-3.png` (present).
+#### [x] 0.7.0 — Jumpers `5` `6` `7` — +350 levels convertible (10 imported)
+- **Legacy:** when an enemy arrives at the centre of a jumper it jumps **straight, in the direction it arrived**, over 2 (`5`), 3 (`6`) or 4 (`7`) tiles, at speed 5 (twice a normal enemy, also for bosses). It lands exactly that many tiles away and there the turning rule applies again; if the landing tile is not walkable it stays blocked. While it is in the air the **laser towers can not shoot it** (the missile code has no such check) and it is drawn bigger: +6, +25 and +65 px at the top of the jump for 2, 3 and 4 tiles. Images: `5` → `jumper1.png`, `6` → `jumper2.png`, `7` → `jumper3.png`.
+- **Done:**
+  - `TileJumper` (extends `TilePath`, so it is walkable) and `TileJumperCreator`; `TilesManager.addJumperTile`; the three images were added to `Resources.tileImages` (indexes 11–13); mini-maps draw them too. `5 6 7` added to `Config.availableTiles`.
+  - `Path.makeOrders`: when the enemy arrives at a jumper it adds one order per tile of the jump, in the arrival direction, marked as *in the air* (`Path.jumps`: `{ step, length }` per order, `null` when walking), and continues from the landing tile. If the landing tile is not walkable (or is outside the map) no jump is made and the end is not reached.
+  - `PathMovement` takes the jumps: `isJumping`, `jumpDistance`, `jumpProgress` (0–1) and a fixed `ENEMY_JUMP_SPEED = 2` while jumping (the legacy 5, in this game's units).
+  - `Enemy.isJumping` / `jumpGrowth` (`getJumpGrowth`, a parabola with the legacy peaks), used when drawing. Enemies were already drawn above the towers, so no change of draw order was needed.
+  - `TowerGreen.selectTarget` ignores the enemies in the air; `TowerRed` still shoots them.
+  - `Path.createMovement(position, speed)` builds the movement of an enemy from the level data (`Path.orders`, `speedFactors`, `jumps`); `EnemySystem` uses it. Before, that wiring (also the ice one) was not covered by any test.
+- **Tests (no mocks):** `PathMovementJump`, `PathJumpers` (distances, what is jumped over, landing, chained jumpers, a jump followed by a turn), `PathCreateMovement`, `TileJumperCreator`, `JumpGrowth`, `EnemyJump`, `TowerGreenJumping`; plus `AllLevelsPaths`/`AllLevelsStartEnd` for the new levels. Mutating the jump marks, the jump speed, the laser filter, the distances and the `createMovement` wiring makes tests fail.
+- **Imported levels:** 382, 394, 400, 408, 419, 421, 423, 424, 426, 435.
+- **Left out:** the jump sound (id 5), and the legacy behaviour of bouncing back when a jump reaches the edge of the map (here it just invalidates the path). Magic projectiles follow the same orders but keep their own speed and are not affected by jumps.
 
 #### [ ] Teleports `p` / `q` (M) — +621 levels (1562 total)
 - **Legacy:** exactly **one pair** (editor removes duplicates). Enemy reaching `p` shrinks for ~100 ticks (scale → 1), reappears on `q` keeping its direction and regrows for ~50 ticks. Magic projectiles do not hit an enemy while it teleports; the legacy tower code has no teleport check.

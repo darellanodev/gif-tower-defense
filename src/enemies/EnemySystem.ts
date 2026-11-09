@@ -4,7 +4,6 @@ import { EnemyCreator } from './EnemyCreator'
 import { EnemyInstancesManager } from './EnemyInstancesManager'
 import { ExplosionEnemy } from '../particles/explosions/ExplosionEnemy'
 import { Path } from '../levels/path/Path'
-import { PathMovement } from '../levels/path/PathMovement'
 import { Player } from '../player/Player'
 import { Wallet } from '../player/Wallet'
 import { Images } from '../resources/Images'
@@ -120,12 +119,7 @@ export class EnemySystem {
   }
 
   #createPathMovement(speed: number) {
-    return new PathMovement(
-      this.pathStartEnemiesPosition,
-      Path.orders,
-      speed,
-      Path.speedFactors,
-    )
+    return Path.createMovement(this.pathStartEnemiesPosition, speed)
   }
 
   #createEnemyBossAnimator() {

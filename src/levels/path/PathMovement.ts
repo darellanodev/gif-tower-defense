@@ -1,6 +1,8 @@
 import { TILE_SIZE } from '../../constants/tile'
 import { DIRECTION } from '../../constants/direction'
 import { Position } from '../../types/position'
+import { JumpStep } from '../../types/jumpStep'
+import { ENEMY_JUMP_SPEED } from '../../constants/enemy'
 
 export class PathMovement {
   #position: Position
@@ -9,6 +11,7 @@ export class PathMovement {
   #indexOrder: number = 0
   #baseSpeed: number
   #speedFactors: number[]
+  #jumps: (JumpStep | null)[]
   #moveCount: number = 0
   #isAlive: boolean
   #startPosition: Position
@@ -18,6 +21,7 @@ export class PathMovement {
     orders: number[],
     speed: number,
     speedFactors: number[] = [],
+    jumps: (JumpStep | null)[] = [],
   ) {
     this.#startPosition = { ...position }
     this.#position = { ...position }
@@ -26,6 +30,7 @@ export class PathMovement {
     this.#currentDirection = this.#orders[this.#indexOrder]
     this.#baseSpeed = speed
     this.#speedFactors = speedFactors
+    this.#jumps = jumps
     this.#isAlive = true
   }
 
@@ -33,8 +38,34 @@ export class PathMovement {
     return this.#position
   }
 
-  // the speed factor of the current order multiplies the base speed (1 when there is no factor)
+  get #currentJump(): JumpStep | null {
+    return this.#jumps[this.#indexOrder] ?? null
+  }
+
+  get isJumping() {
+    return this.#currentJump !== null
+  }
+
+  // number of tiles of the jump in progress (0 when it is not jumping)
+  get jumpDistance() {
+    return this.#currentJump?.length ?? 0
+  }
+
+  // how much of the jump is done, from 0 to 1 (null when it is not jumping)
+  get jumpProgress(): number | null {
+    const jump = this.#currentJump
+    if (jump === null) {
+      return null
+    }
+    return (jump.step + this.#moveCount / TILE_SIZE) / jump.length
+  }
+
+  // While it jumps the speed is fixed. Otherwise the speed factor of the current order multiplies the base
+  // speed (1 when there is no factor)
   get currentSpeed() {
+    if (this.isJumping) {
+      return ENEMY_JUMP_SPEED
+    }
     return this.#baseSpeed * (this.#speedFactors[this.#indexOrder] ?? 1)
   }
 

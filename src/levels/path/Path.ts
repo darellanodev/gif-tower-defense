@@ -2,6 +2,8 @@ import { TileStart } from '../tiles/TileStart'
 import { TileEnd } from '../tiles/TileEnd'
 import { TilePath } from '../tiles/TilePath'
 import { TileIce } from '../tiles/TileIce'
+import { TileJumper } from '../tiles/TileJumper'
+import { JumpStep } from '../../types/jumpStep'
 import { TILE_SIZE } from '../../constants/tile'
 import { DIRECTION } from '../../constants/direction'
 import { Position } from '../../types/position'
@@ -9,16 +11,30 @@ import { AnyTile, WalkableTile } from '../../types/tileType'
 import { PATH_MAX_SEARCHES } from '../../constants/orders'
 import { ENEMY_ICE_SPEED_FACTOR } from '../../constants/enemy'
 import { getNextDirection, WalkableNeighbours } from './PathDirection'
+import { PathMovement } from './PathMovement'
 
 export class Path {
   static orders: number[] = []
   static speedFactors: number[] = []
+  static jumps: (JumpStep | null)[] = []
+
+  // the movement of an enemy that follows the orders, the speed factors (ice) and the jumps of the level
+  static createMovement(startPosition: Position, speed: number) {
+    return new PathMovement(
+      startPosition,
+      Path.orders,
+      speed,
+      Path.speedFactors,
+      Path.jumps,
+    )
+  }
 
   #startTile: TileStart
   #endTile: TileEnd
   #pathTiles: TilePath[]
   #orders: number[] = []
   #speedFactors: number[] = []
+  #jumps: (JumpStep | null)[] = []
   #currentTile: WalkableTile
   // direction of the last order (the one used to arrive to the current tile)
   #lastDirection: number
@@ -34,9 +50,13 @@ export class Path {
   }
 
   // every order has a speed factor: the one of the tile the enemy is leaving
-  #addOrder(direction: number) {
+  // the orders of a jump are in the air: they have a jump step and the speed factor does not apply
+  #addOrder(direction: number, jumpStep: JumpStep | null = null) {
     this.#orders.push(direction)
-    this.#speedFactors.push(this.#getSpeedFactor(this.#currentTile))
+    this.#jumps.push(jumpStep)
+    this.#speedFactors.push(
+      jumpStep === null ? this.#getSpeedFactor(this.#currentTile) : 1,
+    )
   }
 
   #getSpeedFactor(tile: AnyTile) {
@@ -87,7 +107,7 @@ export class Path {
     return null
   }
 
-  #getNeighbourPosition(tile: WalkableTile, direction: number): Position {
+  #getNextPosition(position: Position, direction: number): Position {
     const offsets: Record<number, Position> = {
       [DIRECTION.LEFT]: { x: -TILE_SIZE, y: 0 },
       [DIRECTION.RIGHT]: { x: TILE_SIZE, y: 0 },
@@ -95,11 +115,33 @@ export class Path {
       [DIRECTION.DOWN]: { x: 0, y: TILE_SIZE },
     }
     const offset = offsets[direction]
-    return { x: tile.position.x + offset.x, y: tile.position.y + offset.y }
+    return { x: position.x + offset.x, y: position.y + offset.y }
   }
 
   #getNeighbour(tile: WalkableTile, direction: number): WalkableTile | null {
-    return this.#getWalkableTile(this.#getNeighbourPosition(tile, direction))
+    return this.#getWalkableTile(
+      this.#getNextPosition(tile.position, direction),
+    )
+  }
+
+  // The enemy jumps straight, in the direction it arrived, over the jump distance. It lands on a walkable tile,
+  // otherwise it would be blocked (the legacy game), so no jump is made and false is returned.
+  #jump(jumpDistance: number): boolean {
+    const direction = this.#lastDirection
+    let landingPosition = this.#currentTile.position
+    for (let step = 0; step < jumpDistance; step++) {
+      landingPosition = this.#getNextPosition(landingPosition, direction)
+    }
+    const landingTile = this.#getWalkableTile(landingPosition)
+    if (landingTile === null) {
+      return false
+    }
+
+    for (let step = 0; step < jumpDistance; step++) {
+      this.#addOrder(direction, { step, length: jumpDistance })
+    }
+    this.#currentTile = landingTile
+    return true
   }
 
   #getWalkableNeighbours(tile: WalkableTile): WalkableNeighbours {
@@ -137,6 +179,13 @@ export class Path {
         break
       }
 
+      if (this.#currentTile instanceof TileJumper) {
+        if (!this.#jump(this.#currentTile.jumpDistance)) {
+          break
+        }
+        continue
+      }
+
       direction = getNextDirection(
         direction,
         this.#getWalkableNeighbours(this.#currentTile),
@@ -160,5 +209,9 @@ export class Path {
 
   get speedFactors(): number[] {
     return this.#speedFactors
+  }
+
+  get jumps(): (JumpStep | null)[] {
+    return this.#jumps
   }
 }
