@@ -8,6 +8,8 @@ export const TILE_SYMBOL = {
   BLACK: '2',
   ICE: 's',
   CRYSTAL: 'c',
+  TELEPORT_IN: 'p',
+  TELEPORT_OUT: 'q',
 } as const
 
 export const ICE_TILE_COLOR = [0, 158, 158, 120] as const // r, g, b, alpha

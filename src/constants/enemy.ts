@@ -21,6 +21,17 @@ export const ENEMY_ICE_SPEED_FACTOR = 2
 // It must divide the tile size
 export const ENEMY_JUMP_SPEED = 2
 
+// Teleport tiles (legacy game: 100 ticks shrinking and 50 ticks growing at 30 fps, doubled for 60 fps).
+// The enemy shrinks during the first part of the time, it is out of the map while it is tiny and it grows again
+export const ENEMY_TELEPORT = {
+  DURATION: { OUT: 200, IN: 100 },
+  // the magics are moved to the teleport out tile at once
+  INSTANT_DURATION: { OUT: 0, IN: 0 },
+  MIN_SCALE: 0.02,
+  SHRINK_FRACTION: 0.45,
+  GROW_FRACTION: 0.92,
+} as const
+
 export const ENEMY_STATUS = {
   ALIVE: 0,
   DEAD: 1,

@@ -19,7 +19,7 @@ export class MagicCollisionChecker {
   }
 
   shouldCollide(enemy: Enemy, indexOrder: number) {
-    if (enemy.isDead || enemy.isWinner) {
+    if (enemy.isDead || enemy.isWinner || enemy.isTeleporting) {
       return false
     }
 

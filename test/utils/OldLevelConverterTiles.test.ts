@@ -21,10 +21,73 @@ test('an old level with crystal tiles can be converted with the configured avail
   expect(canBeConverted(oldLevelWithCrystals)).toBeTruthy()
 })
 
-test('an old level with teleport tiles can not be converted yet', () => {
-  expect(canBeConverted(oldLevelWithTeleports)).toBeFalsy()
+test('an old level with teleport tiles can be converted with the configured available tiles', () => {
+  expect(canBeConverted(oldLevelWithTeleports)).toBeTruthy()
 })
 
 test('an old level with jumper tiles can be converted with the configured available tiles', () => {
   expect(canBeConverted(oldLevelWithJumpers)).toBeTruthy()
+})
+
+const levelWith = (rows: string[], dataMap = '2,2,0,50,150') =>
+  `(99,'valid','test','${rows.join(',')}@${dataMap}',1297020181,'127.0.0.1',0,10,3),`
+
+const emptyRow = '0000000000000000'
+const validRows = [emptyRow, 'y11111111111111x', ...Array(8).fill(emptyRow)]
+const withRow = (index: number, row: string) =>
+  validRows.map((current, i) => (i === index ? row : current))
+
+describe('hasValidMap', () => {
+  const hasValidMap = (rows: string[]) =>
+    new OldLevelConverter(levelWith(rows)).hasValidMap()
+
+  test('a map with one x, one y and 10 rows of 16 symbols is valid', () => {
+    expect(hasValidMap(validRows)).toBeTruthy()
+  })
+
+  test('a map without the tile x is not valid', () => {
+    expect(hasValidMap(withRow(1, 'y11111111111111s'))).toBeFalsy()
+  })
+
+  test('a map without the tile y is not valid', () => {
+    expect(hasValidMap(withRow(1, '111111111111111x'))).toBeFalsy()
+  })
+
+  test('a map with two tiles x is not valid', () => {
+    expect(hasValidMap(withRow(2, 'x000000000000000'))).toBeFalsy()
+  })
+
+  test('a map with less than 10 rows is not valid', () => {
+    expect(hasValidMap(validRows.slice(0, 9))).toBeFalsy()
+  })
+
+  test('a map with a row of less than 16 symbols is not valid', () => {
+    expect(hasValidMap(withRow(3, '000000000000000'))).toBeFalsy()
+  })
+
+  test('a map with a teleport in and a teleport out is valid', () => {
+    expect(hasValidMap(withRow(2, '0000p0000000q000'))).toBeTruthy()
+  })
+
+  test('a map with a teleport in but without teleport out is not valid', () => {
+    expect(hasValidMap(withRow(2, '0000p00000000000'))).toBeFalsy()
+  })
+
+  test('a map with a teleport out but without teleport in is not valid', () => {
+    expect(hasValidMap(withRow(2, '0000q00000000000'))).toBeFalsy()
+  })
+
+  test('a map with two pairs of teleports is not valid', () => {
+    expect(hasValidMap(withRow(2, '00p0q0000000p0q0'))).toBeFalsy()
+  })
+})
+
+describe('shouldSkipLevel with invalid maps', () => {
+  test('a level with an invalid map is skipped', () => {
+    const level = new OldLevelConverter(
+      levelWith(withRow(1, '111111111111111x')),
+    )
+
+    expect(level.shouldSkipLevel(0, 0)).toBeTruthy()
+  })
 })

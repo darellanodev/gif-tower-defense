@@ -107,7 +107,7 @@ Creators follow: `TowerGreenCreator`, `MagicFireballCreator`, `TileOrangeCreator
 }
 ```
 
-Symbols: `x`=start, `y`=end, `0`=buildable (orange), `1`=path, `2`=blocked (black), `s`=ice path (walkable, enemies move at ×2 speed leaving it), `c`=crystal (fixed target of the green towers: 500 health, 75 money and score when destroyed; the tile becomes orange afterwards), `5` `6` `7`=jumpers (walkable; the enemies jump straight over 2, 3 or 4 tiles when they arrive, they can not be shot by the green towers in the air)
+Symbols: `x`=start, `y`=end, `0`=buildable (orange), `1`=path, `2`=blocked (black), `s`=ice path (walkable, enemies move at ×2 speed leaving it), `c`=crystal (fixed target of the green towers: 500 health, 75 money and score when destroyed; the tile becomes orange afterwards), `5` `6` `7`=jumpers (walkable; the enemies jump straight over 2, 3 or 4 tiles when they arrive, they can not be shot by the green towers in the air), `p` `q`=teleport in / out (walkable; an enemy that arrives at `p` waits 300 updates and appears at `q`, the magics are moved at once; a `p` without `q` is a normal tile; one pair per level)
 
 `x` is where the enemies enter and `y` where they leave. The legacy game was the other way round (it spawned enemies at `y`), so `OldLevelConverter` swaps both symbols and uses the legacy directions as they are: `startDirection` is the direction in which the enemies enter the map through `x`, `endDirection` the one in which they leave through `y`.
 
@@ -148,7 +148,7 @@ The plan to port the legacy game (processing.js, 2012) lives in [`ROADMAP.md`](.
 
 - `STATE_PLAY_SURVIVAL_GAME_OVER` is set but never drawn (`src/index.ts` has no case for it).
 - `Wallet`, `Player` and several static counters are not reset by `Game.loadLevel`.
-- Supported tile symbols are `0 1 2 x y s c 5 6 7` (`Config.availableTiles`); the remaining legacy levels need the teleports `p q`.
+- All the tile symbols of the legacy game are supported (`Config.availableTiles`: `0 1 2 x y s c 5 6 7 p q`). The teleports are drawn with circles until `teleportin.png` / `teleportout.png` exist.
 - 32 imported levels never reach the end tile, exactly as in the legacy game (no route, or intentional loops). They are listed in `test/levels/AllLevelsPaths.test.ts`; do not import a new level that does not reach the end unless it is a known case.
 - `Config.gameMode` is committed as `MODE.TESTING`.
 - No sound, no editor (the *Editor* and *Today's* menu buttons are disabled).

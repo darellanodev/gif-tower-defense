@@ -1,6 +1,8 @@
 import { TileBlack } from './TileBlack'
 import { TileCrystal } from './TileCrystal'
 import { TileJumper } from './TileJumper'
+import { TileTeleportIn } from './TileTeleportIn'
+import { TileTeleportOut } from './TileTeleportOut'
 import { TileEnd } from './TileEnd'
 import { TileIce } from './TileIce'
 import { TileOrange } from './TileOrange'
@@ -14,6 +16,8 @@ export class TilesManager {
   #tilesIce: TileIce[] = []
   #crystals: TileCrystal[] = []
   #tilesJumper: TileJumper[] = []
+  #tilesTeleportIn: TileTeleportIn[] = []
+  #tilesTeleportOut: TileTeleportOut[] = []
   #tileStart: TileStart | null = null
   #tileEnd: TileEnd | null = null
 
@@ -33,6 +37,14 @@ export class TilesManager {
 
   get getAllJumperTiles() {
     return this.#tilesJumper
+  }
+
+  get getAllTeleportInTiles() {
+    return this.#tilesTeleportIn
+  }
+
+  get getAllTeleportOutTiles() {
+    return this.#tilesTeleportOut
   }
 
   get getAllCrystals() {
@@ -65,6 +77,17 @@ export class TilesManager {
   // jumper tiles are also path tiles: enemies walk over them
   addJumperTile(instance: TileJumper) {
     this.#tilesJumper.push(instance)
+    this.#tilesPath.push(instance)
+  }
+
+  // teleport tiles are also path tiles: enemies walk over them
+  addTeleportInTile(instance: TileTeleportIn) {
+    this.#tilesTeleportIn.push(instance)
+    this.#tilesPath.push(instance)
+  }
+
+  addTeleportOutTile(instance: TileTeleportOut) {
+    this.#tilesTeleportOut.push(instance)
     this.#tilesPath.push(instance)
   }
 
@@ -105,6 +128,12 @@ export class TilesManager {
     })
     this.#tilesJumper.forEach((tileJumper) => {
       tileJumper.drawTile(scale, startOffsetX, startOffsetY)
+    })
+    this.#tilesTeleportIn.forEach((tile) => {
+      tile.drawTile(scale, startOffsetX, startOffsetY)
+    })
+    this.#tilesTeleportOut.forEach((tile) => {
+      tile.drawTile(scale, startOffsetX, startOffsetY)
     })
   }
 }

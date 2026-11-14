@@ -2,7 +2,14 @@ import { TILE_SIZE } from '../../constants/tile'
 import { DIRECTION } from '../../constants/direction'
 import { Position } from '../../types/position'
 import { JumpStep } from '../../types/jumpStep'
-import { ENEMY_JUMP_SPEED } from '../../constants/enemy'
+import { ENEMY_JUMP_SPEED, ENEMY_TELEPORT } from '../../constants/enemy'
+import { TeleportStep } from '../../types/teleportStep'
+import {
+  getTeleportScale,
+  TELEPORT_PHASE,
+  TeleportDuration,
+  TeleportPhase,
+} from './Teleport'
 
 export class PathMovement {
   #position: Position
@@ -12,6 +19,11 @@ export class PathMovement {
   #baseSpeed: number
   #speedFactors: number[]
   #jumps: (JumpStep | null)[]
+  #teleports: (TeleportStep | null)[]
+  #teleportDuration: TeleportDuration
+  #teleportPhase: TeleportPhase | null = null
+  #teleportTime: number = 0
+  #teleportTarget: TeleportStep | null = null
   #moveCount: number = 0
   #isAlive: boolean
   #startPosition: Position
@@ -22,6 +34,8 @@ export class PathMovement {
     speed: number,
     speedFactors: number[] = [],
     jumps: (JumpStep | null)[] = [],
+    teleports: (TeleportStep | null)[] = [],
+    teleportDuration: TeleportDuration = ENEMY_TELEPORT.DURATION,
   ) {
     this.#startPosition = { ...position }
     this.#position = { ...position }
@@ -31,11 +45,30 @@ export class PathMovement {
     this.#baseSpeed = speed
     this.#speedFactors = speedFactors
     this.#jumps = jumps
+    this.#teleports = teleports
+    this.#teleportDuration = teleportDuration
     this.#isAlive = true
   }
 
   get position() {
     return this.#position
+  }
+
+  get isTeleporting() {
+    return this.#teleportPhase !== null
+  }
+
+  get teleportPhase() {
+    return this.#teleportPhase
+  }
+
+  // size of the enemy, from 0 to 1, while it teleports (1 when it is not teleporting)
+  get teleportScale() {
+    return getTeleportScale(
+      this.#teleportPhase,
+      this.#teleportTime,
+      this.#teleportDuration,
+    )
   }
 
   get #currentJump(): JumpStep | null {
@@ -104,9 +137,63 @@ export class PathMovement {
     }
     this.#indexOrder++
     this.#currentDirection = this.nextOrderDirection
+    this.#startTeleportIfNeeded()
+  }
+
+  // the teleport is made when the enemy arrives at the teleport in tile, before the next order
+  #startTeleportIfNeeded() {
+    const teleport = this.#teleports[this.#indexOrder] ?? null
+    if (teleport === null) {
+      return
+    }
+    this.#teleportTarget = teleport
+    this.#teleportPhase = TELEPORT_PHASE.OUT
+    this.#teleportTime = 0
+    if (this.#teleportDuration.OUT <= 0) {
+      this.#finishTeleportOut()
+    }
+  }
+
+  #finishTeleportOut() {
+    if (this.#teleportTarget !== null) {
+      this.#position.x = this.#teleportTarget.to.x
+      this.#position.y = this.#teleportTarget.to.y
+    }
+    this.#teleportPhase = TELEPORT_PHASE.IN
+    this.#teleportTime = 0
+    if (this.#teleportDuration.IN <= 0) {
+      this.#finishTeleport()
+    }
+  }
+
+  #finishTeleport() {
+    this.#teleportPhase = null
+    this.#teleportTime = 0
+    this.#teleportTarget = null
+  }
+
+  #updateTeleport() {
+    this.#teleportTime++
+    if (
+      this.#teleportPhase === TELEPORT_PHASE.OUT &&
+      this.#teleportTime >= this.#teleportDuration.OUT
+    ) {
+      this.#finishTeleportOut()
+      return
+    }
+    if (
+      this.#teleportPhase === TELEPORT_PHASE.IN &&
+      this.#teleportTime >= this.#teleportDuration.IN
+    ) {
+      this.#finishTeleport()
+    }
   }
 
   update() {
+    if (this.isTeleporting) {
+      this.#updateTeleport()
+      return
+    }
     this.#updatePosition()
     this.#updateMoveCount()
     this.#updateOrders()
@@ -151,5 +238,6 @@ export class PathMovement {
     this.#currentDirection = this.#orders[this.#indexOrder]
     this.#position = { ...this.#startPosition }
     this.#isAlive = true
+    this.#finishTeleport()
   }
 }

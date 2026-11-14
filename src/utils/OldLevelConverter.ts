@@ -168,6 +168,23 @@ export class OldLevelConverter {
     }
     return true
   }
+  // A valid map has 10 rows of 16 symbols, one start (x) and one end (y) tile, and a teleport out (q) for the
+  // teleport in (p): there is at most one pair
+  hasValidMap(): boolean {
+    const rowsMap = this.#extractRowsmap()
+    const symbols = rowsMap.join('')
+    const count = (symbol: string) => symbols.split(symbol).length - 1
+
+    return (
+      rowsMap.length === 10 &&
+      rowsMap.every((row) => row.length === 16) &&
+      count('x') === 1 &&
+      count('y') === 1 &&
+      count('p') === count('q') &&
+      count('p') <= 1
+    )
+  }
+
   existsLevelId(allLevels: MapDataType[], processedLevel: string) {
     return allLevels.some((level) =>
       new RegExp(`\\(${level.id},`).test(processedLevel),
@@ -176,6 +193,7 @@ export class OldLevelConverter {
   shouldSkipLevel(limit: number, totalProcessed: number) {
     return (
       !this.canBeConverted(Config.availableTiles) ||
+      !this.hasValidMap() ||
       this.existsLevelId(AllLevels.data, this.#oldLevelData) ||
       (limit != 0 && totalProcessed >= limit)
     )

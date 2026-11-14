@@ -15,6 +15,7 @@ import { P5 } from '../utils/P5'
 import { TileBlackCreator } from '../levels/tiles/creators/TileBlackCreator'
 import { TileCrystalCreator } from '../levels/tiles/creators/TileCrystalCreator'
 import { TileJumperCreator } from '../levels/tiles/creators/TileJumperCreator'
+import { TileTeleportCreator } from '../levels/tiles/creators/TileTeleportCreator'
 import { MINIMAP_SCALE, MINIMAP_TEXT } from '../constants/button'
 
 export class MiniMap {
@@ -22,6 +23,7 @@ export class MiniMap {
   #tileBlackCreator: TileBlackCreator
   #tileCrystalCreator: TileCrystalCreator
   #tileJumperCreator: TileJumperCreator
+  #tileTeleportCreator: TileTeleportCreator
   #tileOrangeCreator: TileOrangeCreator
   #tileStartCreator: TileStartCreator
   #tileEndCreator: TileEndCreator
@@ -100,6 +102,11 @@ export class MiniMap {
     this.#tileJumperCreator = TileJumperCreator.getInstance(Images.tileImages)
     this.#tileJumperCreator.setLevelMap(levelMap)
     this.#tileJumperCreator.create(this.#tilesManager)
+
+    // create teleports
+    this.#tileTeleportCreator = TileTeleportCreator.getInstance()
+    this.#tileTeleportCreator.setLevelMap(levelMap)
+    this.#tileTeleportCreator.create(this.#tilesManager)
 
     this.#textProperties = new TextProperties()
   }

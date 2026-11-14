@@ -94,6 +94,10 @@ export class Enemy extends Obj {
     return getJumpGrowth(progress, this.#pathMovement.jumpDistance)
   }
 
+  get isTeleporting() {
+    return this.#pathMovement.isTeleporting
+  }
+
   get isAbducted() {
     return this.#shrinkAmount >= ENEMY_SIZE
   }
@@ -195,12 +199,21 @@ export class Enemy extends Obj {
     }
 
     const growth = this.jumpGrowth
+    const fullWidth = this.#width - this.#shrinkAmount + growth
+    const fullHeight = this.#height - this.#shrinkAmount + growth
+    // while it teleports the enemy is smaller, around its centre
+    const teleportScale = this.#pathMovement.teleportScale
+    const width = fullWidth * teleportScale
+    const height = fullHeight * teleportScale
     P5.p5.image(
       this.#enemyAnimator.imageToDraw,
-      this.position.x + this.#shrinkAmount / 2 - growth / 2,
-      this.position.y - growth / 2,
-      this.#width - this.#shrinkAmount + growth,
-      this.#height - this.#shrinkAmount + growth,
+      this.position.x +
+        this.#shrinkAmount / 2 -
+        growth / 2 +
+        (fullWidth - width) / 2,
+      this.position.y - growth / 2 + (fullHeight - height) / 2,
+      width,
+      height,
     )
 
     this.#healthBar.draw()

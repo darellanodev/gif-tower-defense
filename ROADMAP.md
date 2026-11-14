@@ -20,6 +20,7 @@ Status legend: `[x]` done · `[ ]` pending.
 - [x] **0.5.0** — Path rule parity with the legacy game + original travel direction (levels migrated, converter updated, levels 46 and 47 imported).
 - [x] **0.6.0** — Crystals `c` (+ tower damage and missile recharge moved from `draw()` to `update()`, 10 crystal levels imported).
 - [x] **0.7.0** — Jumpers `5` `6` `7` (+ `Path.createMovement`, 10 jumper levels imported).
+- [x] **0.8.0** — Teleports `p` `q` (+ converter map validation, 10 teleport levels imported). All the tile types of the legacy game are supported now.
 
 ---
 
@@ -39,8 +40,8 @@ Status legend: `[x]` done · `[ ]` pending.
 | Ice path tile `s` | **Done** (0.3.0) | — |
 | Crystal tile `c` | **Done** (0.6.0; no particles or sound yet) | — |
 | Jumper tiles `5` `6` `7` | **Done** (0.7.0; no jump sound) | — |
-| Teleport tiles `p` `q` | Missing (assets needed) | Teleports |
-| ~1560 old levels | Blocked by the four tiles above | Ice (done), crystals, jumpers, teleports, bulk import |
+| Teleport tiles `p` `q` | **Done** (0.8.0; drawn with circles: `teleportin.png`/`teleportout.png` are still missing) | Teleport sprites |
+| ~1500 old levels | **No longer blocked by tiles** (1495 convertible, 1240 reach the end); only 40 imported so far | Bulk import |
 | **Level editor** | Missing (button exists, disabled) | Editor (4 steps) |
 | Sound effects | Missing | Sound effects |
 | Heatmap (key `H`) | Missing | Heatmap |
@@ -64,7 +65,7 @@ Status legend: `[x]` done · `[ ]` pending.
 
 So: ice is the cheapest warm-up, crystals the biggest single unlock, and teleports are needed to reach 100 %.
 
-Numbers above were computed before 0.3.0. Imported so far: 10 ice levels (28 and 40–48) and 10 crystal levels (478, 491, 630, 647, 651, 741, 761, 762, 831, 904) and 10 jumper levels (382, 394, 400, 408, 419, 421, 423, 424, 426, 435). In a full dry run 921 old levels were convertible and 295 of the 350 with jumpers reach the end tile with the current engine.
+Numbers above were computed before 0.3.0. Imported so far: 10 ice levels (28 and 40–48) and 10 crystal levels (478, 491, 630, 647, 651, 741, 761, 762, 831, 904) and 10 jumper levels (382, 394, 400, 408, 419, 421, 423, 424, 426, 435). In a full dry run 921 old levels were convertible and 295 of the 350 with jumpers reach the end tile with the current engine. and 10 teleport levels (466, 467, 468, 469, 471, 545, 603, 608, 704, 717). In a dry run with 0.8.0 the converter accepted 1495 of the 1532 pending levels (the other 37 have an invalid map), 1240 of them reach the end tile, and 406 of the 602 with teleports use the teleport on their route.
 
 ---
 
@@ -139,14 +140,22 @@ Each iteration in this phase follows the same recipe: new symbol in `constants/t
 - **Imported levels:** 382, 394, 400, 408, 419, 421, 423, 424, 426, 435.
 - **Left out:** the jump sound (id 5), and the legacy behaviour of bouncing back when a jump reaches the edge of the map (here it just invalidates the path). Magic projectiles follow the same orders but keep their own speed and are not affected by jumps.
 
-#### [ ] Teleports `p` / `q` (M) — +621 levels (1562 total)
-- **Legacy:** exactly **one pair** (editor removes duplicates). Enemy reaching `p` shrinks for ~100 ticks (scale → 1), reappears on `q` keeping its direction and regrows for ~50 ticks. Magic projectiles do not hit an enemy while it teleports; the legacy tower code has no teleport check.
-- **Tasks:** `TileTeleportIn/Out`; path orders jump from `p` to `q`; shrink/grow animation.
-- **Assets needed:** `teleportin.png`, `teleportout.png` (`teleport.png` optional).
+#### [x] 0.8.0 — Teleports `p` / `q` — the last tile of the legacy game
+- **Legacy:** exactly **one pair** per level. An enemy that arrives at the centre of `p` stops, shrinks (100 ticks at 30 fps), appears at `q` keeping its direction and grows again (50 ticks), then the turning rule is applied from `q`. Magic projectiles do not hit an enemy while it teleports; the tower code has no such check. `q` is a normal path tile for everybody else.
+- **Done:**
+  - `TileTeleportIn` / `TileTeleportOut` (both extend `TilePath`, so they are walkable), `TileTeleportCreator`, `TilesManager` lists, mini-maps. They are **drawn with circles** (purple in, orange out, `teleportDrawing.ts`) because the sprites are missing. `p` `q` added to `Config.availableTiles`.
+  - `Path.makeOrders`: when the enemy arrives at `p` and there is a `q`, the next order carries a teleport (`Path.teleports`: `{ to }` or `null` per order) and the path continues from `q` in the same direction. A `p` without `q` (or the other way round) is a normal path tile.
+  - `PathMovement`: teleport state machine (`isTeleporting`, `teleportPhase`, `teleportScale`). Durations are the legacy ones doubled for 60 fps: **200 ticks out + 100 ticks in** (`ENEMY_TELEPORT.DURATION`); `getTeleportScale` is a pure function with the legacy shape (shrinks during the first 45 % of the first phase, grows during the first 92 % of the second one).
+  - `Enemy` draws smaller around its centre while teleporting; `MagicCollisionChecker` ignores the enemies that are teleporting.
+  - **Magics:** they follow the same orders, so they must also follow the teleports or they would walk the orders after `q` from `p`. `Path.createMagicMovement` moves them to `q` **at once** (no waiting): magic collisions are computed by order index, so waiting would desynchronise them. The ice and jumps are still ignored for magics.
+  - **Converter:** `OldLevelConverter.hasValidMap()` rejects maps without exactly one `x` and one `y`, without 10 rows of 16 symbols, or with unpaired/duplicated teleports; `shouldSkipLevel` uses it.
+- **Tests (no mocks):** `TeleportScale`, `PathMovementTeleport`, `PathTeleports` (route over blocked tiles, direction after the teleport, unpaired tiles, `createMovement`/`createMagicMovement` wiring), `TileTeleportCreator`, `EnemyTeleport` (including the magic collision rule), converter `hasValidMap`. Seven mutations (no teleport recorded, path not continuing from `q`, position not moved, no waiting, magics hitting teleporting enemies, magics waiting, no growing) make tests fail.
+- **Imported levels:** 466, 467, 468, 469, 471, 545, 603, 608, 704, 717.
+- **Left out:** the sprites (`teleportin.png`, `teleportout.png`; when they exist `TileTeleportIn/Out.drawTile` can draw them like `TileJumper`), a sound, and the legacy case of two pairs (the editor never allowed it; the converter rejects it).
 
 #### [ ] Bulk level import and scalable level menu (M)
 - **Why:** `AllLevels.ts` would grow from ~325 to ~1900 levels (~27 k lines) and the survival menu pages at 15 mini-maps per page (`LevelsDataProvider`, ~127 pages).
-- **Tasks:** run the converter for all unlocked levels (skip those with unsupported symbols, de-duplicate identical maps — 1555 unique of 1562); move level data to JSON loaded lazily (keep a small fixture set in tests); paginator jump (first/last/“go to page”), optional search by title/author; keep `sortlevels` working.
+- **Tasks:** run the converter for all unlocked levels (the converter now rejects invalid maps; de-duplicate identical maps; only 1240 of the 1495 convertible levels reach the end tile, import only those and keep unreachable ones for the known-cases list only if they are intentional); move level data to JSON loaded lazily (keep a small fixture set in tests); paginator jump (first/last/“go to page”), optional search by title/author; keep `sortlevels` working.
 
 ### Phase 3 — Level editor
 
@@ -189,7 +198,7 @@ Legacy editor (`juego_editor2_min.pde`): 16×10 grid, two tool panels (toggle wi
 - Soul particles (`alma_capturada` rises when an enemy dies, `alma_libre` when it reaches the goal), loading screen with progress bar, final "happy" banner if a win condition is ever defined.
 
 ### Housekeeping (can piggy-back on any iteration)
-- `OldLevelConverter` does not validate the map: in a full dry run, 12 convertible old levels have no `x` or no `y`, or do not have 10 rows (ids 69, 70, 71, 239, 503, 533, 665, 816, 1224, 1544 and 2 more); they would break the game when loaded. Make `canBeConverted` reject them, and reject unreachable maps unless they are intentional.
+- `oldLevelsConverter.ts` only processes "the first N" convertible levels. Selecting levels (by reachability, by tile) needs a dry run on copies of the data files, as done in 0.6.0–0.8.0; a `--only ids` option or a reachability check in the converter would make it simpler.
 - `Config.gameMode` is committed as `MODE.TESTING` (debug labels + testing money). Drive it from `import.meta.env.DEV` so production builds use `NORMAL`.
 - `README.md` still says Jest and Parcel; the project uses Vitest and Vite. `package.json` has an empty `description`.
 - `sortlevels` (`src/sortLevels.ts`) writes `startDirection`/`endDirection` as numbers instead of `DIRECTION.X` and reformats the whole file, so its output cannot replace `AllLevels.ts` without a huge diff. In 0.3.0 the new levels were inserted in id order by hand. Make it emit `DIRECTION.X` and the same formatting.
@@ -264,4 +273,4 @@ Mobile/touch controls (right-click sell has no touch equivalent) · tower target
 
 Already in `img/`: `ground.jpg`, `tiles/crystal.png`, `tiles/jumper1-3.png`, towers, enemies, magics, HUD and menu buttons.
 
-Missing: `teleport.png`, `teleportin.png`, `teleportout.png`, `final_triste.png`, `final_feliz.png`, `boton_reintentar.png`, `boton_continuar.png`, `alma_libre.png`, `alma_capturada.png`, `heart.png`, `speed.png`, `targetenemigo.png`, `particlecrystal.png`, `particlemagic2.png`, `particlemagic3.png`, `panel_editorv2_p1.png`, `panel_editorv2_p2_v2.png`, and the sound files (ids 0–13).
+Missing: `teleportin.png`, `teleportout.png` (the teleports are drawn with circles meanwhile), `final_triste.png`, `final_feliz.png`, `boton_reintentar.png`, `boton_continuar.png`, `alma_libre.png`, `alma_capturada.png`, `heart.png`, `speed.png`, `targetenemigo.png`, `particlecrystal.png`, `particlemagic2.png`, `particlemagic3.png`, `panel_editorv2_p1.png`, `panel_editorv2_p2_v2.png`, and the sound files (ids 0–13).

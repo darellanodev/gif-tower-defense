@@ -1,5 +1,5 @@
 import { Image } from 'p5'
-import { PathMovement } from '../../levels/path/PathMovement'
+import { Path } from '../../levels/path/Path'
 import { MagicInstancesManager } from '../MagicInstancesManager'
 import { MagicFireball } from '../MagicFireball'
 import { MagicFireballCollisionChecker } from '../MagicFireballCollisionChecker'
@@ -59,7 +59,7 @@ export class MagicFireballCreator {
     MagicFireballCreator.#instance = null
   }
   create() {
-    const pathMovement = new PathMovement(
+    const pathMovement = Path.createMagicMovement(
       this.#initialEnemiesPosition,
       this.#orders,
       this.#speed,

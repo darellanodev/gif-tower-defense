@@ -3,7 +3,7 @@ import { MagicInstancesManager } from '../MagicInstancesManager'
 import { MagicIceball } from '../MagicIceball'
 import { MagicIceballCollisionChecker } from '../MagicIceballCollisionChecker'
 import { Position } from '../../types/position'
-import { PathMovement } from '../../levels/path/PathMovement'
+import { Path } from '../../levels/path/Path'
 import { MagicCollisionChecker } from '../MagicCollisionChecker'
 
 export class MagicIceballCreator {
@@ -60,7 +60,7 @@ export class MagicIceballCreator {
   }
 
   create() {
-    const pathMovement = new PathMovement(
+    const pathMovement = Path.createMagicMovement(
       this.#initialEnemiesPosition,
       this.#orders,
       this.#speed,

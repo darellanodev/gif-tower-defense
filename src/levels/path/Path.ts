@@ -3,6 +3,10 @@ import { TileEnd } from '../tiles/TileEnd'
 import { TilePath } from '../tiles/TilePath'
 import { TileIce } from '../tiles/TileIce'
 import { TileJumper } from '../tiles/TileJumper'
+import { TileTeleportIn } from '../tiles/TileTeleportIn'
+import { TileTeleportOut } from '../tiles/TileTeleportOut'
+import { TeleportStep } from '../../types/teleportStep'
+import { ENEMY_TELEPORT } from '../../constants/enemy'
 import { JumpStep } from '../../types/jumpStep'
 import { TILE_SIZE } from '../../constants/tile'
 import { DIRECTION } from '../../constants/direction'
@@ -17,6 +21,7 @@ export class Path {
   static orders: number[] = []
   static speedFactors: number[] = []
   static jumps: (JumpStep | null)[] = []
+  static teleports: (TeleportStep | null)[] = []
 
   // the movement of an enemy that follows the orders, the speed factors (ice) and the jumps of the level
   static createMovement(startPosition: Position, speed: number) {
@@ -26,6 +31,24 @@ export class Path {
       speed,
       Path.speedFactors,
       Path.jumps,
+      Path.teleports,
+    )
+  }
+
+  // the movement of a magic: it ignores the ice and the jumps, and it is moved to the teleport out tile at once
+  static createMagicMovement(
+    startPosition: Position,
+    orders: number[],
+    speed: number,
+  ) {
+    return new PathMovement(
+      startPosition,
+      orders,
+      speed,
+      [],
+      [],
+      Path.teleports,
+      ENEMY_TELEPORT.INSTANT_DURATION,
     )
   }
 
@@ -35,6 +58,9 @@ export class Path {
   #orders: number[] = []
   #speedFactors: number[] = []
   #jumps: (JumpStep | null)[] = []
+  #teleports: (TeleportStep | null)[] = []
+  // the teleport is made before the next order: the following orders continue from the teleport out tile
+  #pendingTeleport: TeleportStep | null = null
   #currentTile: WalkableTile
   // direction of the last order (the one used to arrive to the current tile)
   #lastDirection: number
@@ -54,6 +80,8 @@ export class Path {
   #addOrder(direction: number, jumpStep: JumpStep | null = null) {
     this.#orders.push(direction)
     this.#jumps.push(jumpStep)
+    this.#teleports.push(this.#pendingTeleport)
+    this.#pendingTeleport = null
     this.#speedFactors.push(
       jumpStep === null ? this.#getSpeedFactor(this.#currentTile) : 1,
     )
@@ -153,6 +181,25 @@ export class Path {
     }
   }
 
+  #findTeleportOut(): TileTeleportOut | null {
+    const teleportOut = this.#pathTiles.find(
+      (tile) => tile instanceof TileTeleportOut,
+    )
+    return teleportOut ? teleportOut : null
+  }
+
+  // The enemy is moved to the teleport out tile, keeping its direction, and the next orders start there.
+  // When there is no teleport out tile the teleport in tile is a normal path tile.
+  #teleport(): boolean {
+    const teleportOut = this.#findTeleportOut()
+    if (teleportOut === null) {
+      return false
+    }
+    this.#pendingTeleport = { to: { ...teleportOut.position } }
+    this.#currentTile = teleportOut
+    return true
+  }
+
   #moveTo(direction: number) {
     const neighbour = this.#getNeighbour(this.#currentTile, direction)
     if (neighbour === null) {
@@ -186,6 +233,10 @@ export class Path {
         continue
       }
 
+      if (this.#currentTile instanceof TileTeleportIn && this.#teleport()) {
+        continue
+      }
+
       direction = getNextDirection(
         direction,
         this.#getWalkableNeighbours(this.#currentTile),
@@ -213,5 +264,9 @@ export class Path {
 
   get jumps(): (JumpStep | null)[] {
     return this.#jumps
+  }
+
+  get teleports(): (TeleportStep | null)[] {
+    return this.#teleports
   }
 }
